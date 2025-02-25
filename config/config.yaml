@@ -1,3 +1,21 @@
 defaults:
   - override hydra/job_logging: custom
   - _self_
+
+
+# Number of puzzles to generate
+N_puzzles: 10
+
+#Objects e.g. houses
+N_objects: 2
+
+#Attributes e.g. pets
+N_attributes: 2
+
+#Theme
+theme: houses
+language: Dansk
+
+#Rules
+# NOTE: This could be extended by adding non-unique attributes, superattributes (e.g. "large animal"), ordinal attributes, objects on a grid etc.
+rules_included: all
