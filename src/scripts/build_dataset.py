@@ -16,23 +16,22 @@ def main(config: DictConfig) -> None:
 
     Generates a dataset of zebra puzzles.
 
-    Args: 
-        config:
-            Config file.
+    Args:
+        config: Config file.
     """
-    N_puzzles = config.N_puzzles
-    theme = config.theme
-    language = config.language
-    rules_included = config.rules_included
-    N_objects = config.N_objects
-    N_attributes = config.N_attributes
+    n_puzzles = config.n_puzzles
+    attributes = config.attributes
+    prompt_template = config.prompt_template
+    clues_included = config.clues_included
+    n_objects = config.n_objects
+    n_attributes = config.n_attributes
 
     build_dataset(
-        theme=theme, 
-        language=language, 
-        rules_included=rules_included, 
-        n_objects=n_objects, 
-        n_attributes=n_attributes, 
+        attributes=attributes,
+        prompt_template=prompt_template,
+        clues_included=clues_included,
+        n_objects=n_objects,
+        n_attributes=n_attributes,
         n_puzzles=n_puzzles,
     )
 

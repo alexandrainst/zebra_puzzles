@@ -1,3 +1,0 @@
-Her følger en opgave. Der er {N_objects} huse på en række. I hvert hus bor en person med en bestemte egenskaber, som er forskellige fra de andre.
-                             Disse egenskaber er i kategorierne {chosen_categories} og inkluderer {chosen_attributes}. Her følger en række hints:1. This is an example.
- 2. This is the second part of the example.Hvem har hvilke egenskaber og bor i hvilket hus?
