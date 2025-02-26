@@ -1,7 +1,7 @@
 """Main script.
 
 Usage:
-    uv run src/scripts/main.py <config_key>=<config_value> ...
+    uv run src/scripts/build_dataset.py <config_key>=<config_value> ...
 """
 
 import hydra
@@ -16,8 +16,9 @@ def main(config: DictConfig) -> None:
 
     Generates a dataset of zebra puzzles.
 
-    Args: Config file.
-
+    Args: 
+        config:
+            Config file.
     """
     N_puzzles = config.N_puzzles
     theme = config.theme
@@ -26,7 +27,14 @@ def main(config: DictConfig) -> None:
     N_objects = config.N_objects
     N_attributes = config.N_attributes
 
-    build_dataset(theme, language, rules_included, N_objects, N_attributes, N_puzzles)
+    build_dataset(
+        theme=theme, 
+        language=language, 
+        rules_included=rules_included, 
+        n_objects=n_objects, 
+        n_attributes=n_attributes, 
+        n_puzzles=n_puzzles,
+    )
 
 
 if __name__ == "__main__":
