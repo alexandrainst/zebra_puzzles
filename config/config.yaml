@@ -48,4 +48,12 @@ attributes:
 #Prompt
 # TODO: Improve the prompt incl. by adding a description of the desired format of the response.
 
-prompt_template: Her følger en opgave.\nDer er {n_objects} huse på en række. I hvert hus bor en person med en bestemte egenskaber, som er forskellige fra de andre.\nDisse egenskaber er i kategorierne {chosen_categories} og inkluderer {chosen_attributes}. Her følger en række hints:\n{chosen_clues}\nHvem har hvilke egenskaber og bor i hvilket hus?
+prompt_template: |
+  Her følger en opgave.
+
+  Der er {n_objects} huse på en række. I hvert hus bor en person med en bestemte egenskaber, som er forskellige fra de andre.
+
+  Disse egenskaber er i kategorierne {chosen_categories} og inkluderer {chosen_attributes}. Her følger en række hints:
+  {chosen_clues}
+
+  Hvem har hvilke egenskaber og bor i hvilket hus?

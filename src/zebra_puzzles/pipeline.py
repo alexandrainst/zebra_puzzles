@@ -2,7 +2,7 @@
 
 from typing import Dict, Tuple
 
-from zebra_puzzles.zebra_utils import define_clues, generate_clues, generate_solution
+from zebra_puzzles.zebra_utils import choose_clues, define_clues, generate_solution
 
 
 def run_pipeline(
@@ -35,7 +35,7 @@ def run_pipeline(
     solution, chosen_categories, chosen_attributes = generate_solution(
         attributes=attributes, n_objects=n_objects, n_attributes=n_attributes
     )
-    chosen_clues = generate_clues(
+    chosen_clues = choose_clues(
         solution=solution,
         clues=clues,
         chosen_categories=chosen_categories,

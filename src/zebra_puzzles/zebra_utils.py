@@ -66,7 +66,7 @@ def generate_solution(
     return solution, chosen_categories, chosen_attributes
 
 
-def generate_clues(
+def choose_clues(
     solution: List[List],
     clues: List,
     chosen_categories: List,
