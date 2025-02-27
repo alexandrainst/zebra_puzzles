@@ -116,3 +116,36 @@ def save_dataset(data: str, filename: str, folder: str = "data") -> None:
     """
     with open(folder + "/" + filename, "w") as file:
         file.write(data)
+
+
+def complete_prompt(
+    chosen_clues: List[str],
+    n_objects: int,
+    chosen_categories: List[str],
+    chosen_attributes: List[List],
+    prompt_template: str,
+) -> str:
+    """Complete the prompt with the chosen clues.
+
+    Args:
+        chosen_clues: Chosen clues for the zebra puzzle as a list of strings.
+        n_objects: Number of objects in the puzzle.
+        chosen_categories: Categories chosen for the solution.
+        chosen_attributes: Attribute values chosen for the solution.
+        prompt_template: Template for the prompt.
+
+    Returns:
+        prompt: The full prompt for the zebra puzzle as a string.
+    """
+    chosen_clues = [f"{i + 1}. {clue}" for i, clue in enumerate(chosen_clues)]
+
+    if len(chosen_clues) > 1:
+        chosen_clues_str = "\n".join(chosen_clues)
+
+    prompt = prompt_template.format(
+        n_objects=n_objects,
+        chosen_categories=chosen_categories,
+        chosen_attributes=chosen_attributes,
+        chosen_clues_str=chosen_clues_str,
+    )
+    return prompt

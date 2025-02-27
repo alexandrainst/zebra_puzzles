@@ -3,7 +3,12 @@
 from typing import Dict, Tuple
 
 from zebra_puzzles.clue_selection import choose_clues
-from zebra_puzzles.zebra_utils import define_clues, generate_solution, save_dataset
+from zebra_puzzles.zebra_utils import (
+    complete_prompt,
+    define_clues,
+    generate_solution,
+    save_dataset,
+)
 
 
 def run_pipeline(
@@ -47,20 +52,13 @@ def run_pipeline(
         attributes=attributes,
     )
 
-    # Format the clues
-    chosen_clues = [f"{i + 1}. {clue}" for i, clue in enumerate(chosen_clues)]
-
-    if len(chosen_clues) > 1:
-        chosen_clues_str = "\n".join(chosen_clues)
-
-    prompt = prompt_template.format(
+    prompt = complete_prompt(
+        chosen_clues=chosen_clues,
         n_objects=n_objects,
         chosen_categories=chosen_categories,
         chosen_attributes=chosen_attributes,
-        chosen_clues_str=chosen_clues_str,
+        prompt_template=prompt_template,
     )
-
-    print("solution", solution)
 
     solution_str = "\n".join([" ".join(row) for row in solution])
 
