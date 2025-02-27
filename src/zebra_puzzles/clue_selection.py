@@ -21,7 +21,7 @@ def choose_clues(
 
     Args:
         solution: Solution to the zebra puzzle as a list of lists representing the solution matrix of object indices and chosen attribute values. This matrix is n_objects x n_attributes.
-        clues: Possible clues to include in the clues as a list of tuples. Each tuple contains the clue name and function. TODO: Edit this description when the clues are implemented.
+        clues: Possible clue types to include as a list of strings.
         chosen_categories: Categories chosen for the solution.
         chosen_attributes: Attribute values chosen for the solution.
         n_objects: Number of objects in the puzzle.
@@ -30,7 +30,7 @@ def choose_clues(
     Returns:
         chosen_clues: Clues for the zebra puzzle as a string.
 
-    TODO: Implement the generation of the clues.
+    TODO: Implement the generation of more than a single clue.
     """
     solution_attempt: List[List] = []
     solved = False
@@ -77,9 +77,6 @@ def choose_clues(
 
         # TODO: Remove this after testing
         solved = True
-
-    # TODO: Delete the following example when clues are chosen above
-    chosen_clues = ["This is an example.", "This is the second part of the example."]
 
     return chosen_clues
 

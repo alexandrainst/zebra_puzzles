@@ -18,7 +18,7 @@ def solver(chosen_clues: List[str]) -> Tuple[List[List], float]:
     """
     # Solve the puzzle
 
-    solution_attempt: List[List] = []
+    solution_attempt: List[List] = [["0", "", ""], ["1", "", ""]]
 
     # Measure completeness of the solution
     completeness = 0

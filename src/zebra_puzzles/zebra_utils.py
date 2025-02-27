@@ -187,6 +187,8 @@ def complete_prompt(
 
     if len(chosen_clues) > 1:
         chosen_clues_str = "\n".join(chosen_clues)
+    else:
+        chosen_clues_str = chosen_clues[0]
 
     prompt = prompt_template.format(
         n_objects=n_objects,
