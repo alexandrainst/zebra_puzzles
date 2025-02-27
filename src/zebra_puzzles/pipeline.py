@@ -2,7 +2,8 @@
 
 from typing import Dict, Tuple
 
-from zebra_puzzles.zebra_utils import choose_clues, define_clues, generate_solution
+from zebra_puzzles.clue_selection import choose_clues
+from zebra_puzzles.zebra_utils import define_clues, generate_solution, save_dataset
 
 
 def run_pipeline(
@@ -71,20 +72,6 @@ def run_pipeline(
         pass
 
     return prompt, solution_str
-
-
-def save_dataset(data: str, filename: str, folder: str = "data") -> None:
-    """Save a zebra puzzle dataset.
-
-    Args:
-        data: Data to save.
-        filename: Name of the file.
-        folder: Folder to save the file in.
-
-    TODO: Consider preferred format.
-    """
-    with open(folder + "/" + filename, "w") as file:
-        file.write(data)
 
 
 def build_dataset(
