@@ -54,6 +54,6 @@ prompt_template: |
   Der er {n_objects} huse på en række. I hvert hus bor en person med en bestemte egenskaber, som er forskellige fra de andre.
 
   Disse egenskaber er i kategorierne {chosen_categories} og inkluderer {chosen_attributes}. Her følger en række hints:
-  {chosen_clues}
+  {chosen_clues_str}
 
   Hvem har hvilke egenskaber og bor i hvilket hus?

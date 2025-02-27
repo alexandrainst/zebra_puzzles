@@ -29,6 +29,8 @@ def run_pipeline(
         A tuple (prompt, solution_str) with the prompt and the solution as a string.
 
     TODO: Implement evaluation.
+    TODO: Consider if enumeration should be removed when we only have one clue.
+    TODO: Make a prompt function.
     """
     clues = define_clues(clues_included=clues_included)
 
@@ -40,12 +42,21 @@ def run_pipeline(
         clues=clues,
         chosen_categories=chosen_categories,
         chosen_attributes=chosen_attributes,
+        n_objects=n_objects,
+        attributes=attributes,
     )
+
+    # Format the clues
+    chosen_clues = [f"{i + 1}. {clue}" for i, clue in enumerate(chosen_clues)]
+
+    if len(chosen_clues) > 1:
+        chosen_clues_str = "\n".join(chosen_clues)
+
     prompt = prompt_template.format(
         n_objects=n_objects,
         chosen_categories=chosen_categories,
         chosen_attributes=chosen_attributes,
-        chosen_clues=chosen_clues,
+        chosen_clues_str=chosen_clues_str,
     )
 
     print("solution", solution)
