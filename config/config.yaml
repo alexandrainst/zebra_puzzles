@@ -1,3 +1,59 @@
+# Config file for generating zebra puzzles in Danish with the classic "houses" theme.
+
 defaults:
   - override hydra/job_logging: custom
   - _self_
+
+
+# Number of puzzles to generate
+n_puzzles: 10
+
+# Objects e.g. houses
+n_objects: 2
+
+# Attributes e.g. pets
+n_attributes: 2
+
+# Clues
+# NOTE: This could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
+clues_included: all
+
+
+# Attributes
+# The attributes are defined as a dictionary of dictionaries.
+# The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
+# In Danish, the attribute description completes the phrase "Personen der...".
+# TODO: Add support for multiple languages and themes by adding more config files.
+
+attributes:
+    Land:
+        Danmark: er fra Danmark
+        Sverige: er fra Sverige
+        Letland: er fra Letland
+        Frankrig: er fra Frankrig
+
+    Hobby:
+        Klatring: klatrer
+        Maling: maler
+        Brætspil: spiller brætspil
+        Tennis: spiller tennis
+
+    Kæledyr:
+        Kat: har en kat
+        Hund: har en hund
+        Kanin: har en kanin
+        Zebra: har en zebra
+
+
+#Prompt
+# TODO: Improve the prompt incl. by adding a description of the desired format of the response.
+
+prompt_template: |
+  Her følger en opgave.
+
+  Der er {n_objects} huse på en række. I hvert hus bor en person med en bestemte egenskaber, som er forskellige fra de andre.
+
+  Disse egenskaber er i kategorierne {chosen_categories} og inkluderer {chosen_attributes}. Her følger en række hints:
+  {chosen_clues}
+
+  Hvem har hvilke egenskaber og bor i hvilket hus?
