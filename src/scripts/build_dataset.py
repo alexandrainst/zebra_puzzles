@@ -22,14 +22,14 @@ def main(config: DictConfig) -> None:
     n_puzzles = config.n_puzzles
     attributes = config.attributes
     prompt_template = config.prompt_template
-    clues_included = config.clues_included
     n_objects = config.n_objects
     n_attributes = config.n_attributes
+    clues_dict = config.clues_dict
 
     build_dataset(
         attributes=attributes,
+        clues_dict=clues_dict,
         prompt_template=prompt_template,
-        clues_included=clues_included,
         n_objects=n_objects,
         n_attributes=n_attributes,
         n_puzzles=n_puzzles,

@@ -9,11 +9,11 @@ from zebra_puzzles.zebra_utils import complete_clue
 
 def choose_clues(
     solution: List[List],
-    clues: List,
     chosen_categories: List[str],
     chosen_attributes: List[List],
     n_objects: int,
     attributes: Dict[str, Dict[str, str]],
+    clues_dict: Dict[str, str],
 ) -> List[str]:
     """Generate a zebra puzzle.
 
@@ -21,7 +21,7 @@ def choose_clues(
 
     Args:
         solution: Solution to the zebra puzzle as a list of lists representing the solution matrix of object indices and chosen attribute values. This matrix is n_objects x n_attributes.
-        clues: Possible clue types to include as a list of strings.
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
         chosen_categories: Categories chosen for the solution.
         chosen_attributes: Attribute values chosen for the solution.
         n_objects: Number of objects in the puzzle.
@@ -36,14 +36,15 @@ def choose_clues(
     solved = False
     chosen_clues: List[str] = []
     while not solved:
-        # Add a random clue
-
-        new_clue = choose_random_clue(
-            clues=clues,
+        # Generate a random clue
+        new_clue = sample(sorted(clues_dict), 1)[0]
+        new_clue = complete_clue(
+            clue=new_clue,
             n_objects=n_objects,
             attributes=attributes,
             chosen_attributes=chosen_attributes,
             chosen_categories=chosen_categories,
+            clues_dict=clues_dict,
         )
 
         # Try to solve the puzzle
@@ -79,37 +80,3 @@ def choose_clues(
         solved = True
 
     return chosen_clues
-
-
-def choose_random_clue(
-    clues: List,
-    n_objects: int,
-    attributes: Dict[str, Dict[str, str]],
-    chosen_attributes: List[List],
-    chosen_categories: List[str],
-) -> str:
-    """Choose a random clue from the list of possible clues.
-
-    Args:
-        clues: List of possible clues as strings.
-        n_objects: Number of objects in the puzzle as an int.
-        attributes: Possible attributes as a dictionary of dictionaries.
-        chosen_attributes: Attribute values chosen for the solution as a list of lists.
-        chosen_categories: Categories chosen for the solution
-
-    Returns:
-        full_clue: Full clue as a string.
-
-    #TODO: Change the output of complete_clue to reflect the needed input of the zebra solver.
-    """
-    clue = sample(clues, 1)[0]
-
-    full_clue = complete_clue(
-        clue=clue,
-        n_objects=n_objects,
-        attributes=attributes,
-        chosen_attributes=chosen_attributes,
-        chosen_categories=chosen_categories,
-    )
-
-    return full_clue

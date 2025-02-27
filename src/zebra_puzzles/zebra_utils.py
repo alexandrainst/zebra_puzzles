@@ -37,38 +37,18 @@ def generate_solution(
     return solution, chosen_categories, chosen_attributes
 
 
-def define_clues(clues_included: str) -> List:
-    """Define clue types for the puzzle.
-
-    Args:
-        clues_included: A string descriping which clue types to include.
-
-    Returns:
-        clues: List of included clue types.
-
-    NOTE: In the future, we can support more clues and selection of clues in the config file.
-    TODO: Implement clue functions.
-    TODO: Include more clue types. For example not_at, next_to, not_next_to, left_of, right_of, not_left_of, not_right_of, same_house, not_same_house, between, not_between
-    """
-    if clues_included == "all":
-        clues = ["found_at", "not_at"]
-    else:
-        raise ValueError("Unsupported clues '{clues_included}'")
-
-    return clues
-
-
 def complete_clue(
     clue: str,
     n_objects: int,
     attributes: Dict[str, Dict[str, str]],
     chosen_attributes: List[List],
     chosen_categories: List[str],
+    clues_dict: Dict[str, str],
 ) -> str:
     """Complete the chosen clue type with random parts of the solution to create a full clue.
 
-    TODO: Consider how the clues will be evaluted. We should probably save more than a string.
-    TODO: Move the clue descriptions to the config file.
+    TODO: Consider how the clues will be evaluted. We should probably include more information in the dict such as a lambda function.
+    TODO: Include more clue types. For example not_at, next_to, not_next_to, left_of, right_of, not_left_of, not_right_of, same_house, not_same_house, between, not_between
     NOTE: The current implementation does not allow objects to have non-unique attributes
 
     Args:
@@ -77,10 +57,13 @@ def complete_clue(
         attributes: Possible attributes as a dictionary of dictionaries.
         chosen_attributes: Attribute values chosen for the solution as a list of lists.
         chosen_categories: Categories chosen for the solution.
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
 
     Returns:
         full_clue: Full clue as a string.
     """
+    clue_description = clues_dict[clue]
+
     if clue == "found_at":
         # Choose a random object
         i_object = sample(list(range(n_objects)), 1)[0]
@@ -94,7 +77,7 @@ def complete_clue(
         )
 
         # Create the full clue
-        full_clue = "Personen der {attribute_desc} bor i hus nummer {i_object}.".format(
+        full_clue = clue_description.format(
             attribute_desc=attribute_desc, i_object=i_object
         )
     elif clue == "not_at":
@@ -110,7 +93,7 @@ def complete_clue(
         )
 
         # Create the full clue
-        full_clue = "Personen der {attribute_desc} bor ikke i hus nummer {i_other_object}.".format(
+        full_clue = clue_description.format(
             attribute_desc=attribute_desc, i_other_object=i_other_object
         )
     else:

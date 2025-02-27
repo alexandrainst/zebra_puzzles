@@ -14,11 +14,6 @@ n_objects: 2
 # Attributes e.g. pets
 n_attributes: 2
 
-# Clues
-# NOTE: This could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
-clues_included: all
-
-
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
@@ -43,6 +38,15 @@ attributes:
         Hund: har en hund
         Kanin: har en kanin
         Zebra: har en zebra
+
+
+# Clues
+# Clue names and text for the prompt depending on the clue type.
+# Clue names should not be edited, but they can be a subset of the full list of implemented clues: found_at, not_at
+# NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
+clues_dict:
+    found_at: Personen der {attribute_desc} bor i hus nummer {i_object}.
+    not_at: Personen der {attribute_desc} bor ikke i hus nummer {i_other_object}.
 
 
 #Prompt

@@ -3,19 +3,14 @@
 from typing import Dict, Tuple
 
 from zebra_puzzles.clue_selection import choose_clues
-from zebra_puzzles.zebra_utils import (
-    complete_prompt,
-    define_clues,
-    generate_solution,
-    save_dataset,
-)
+from zebra_puzzles.zebra_utils import complete_prompt, generate_solution, save_dataset
 
 
 def run_pipeline(
-    clues_included: str,
     n_objects: int,
     n_attributes: int,
     attributes: Dict[str, Dict[str, str]],
+    clues_dict: Dict[str, str],
     prompt_template: str,
     verbose=False,
     eval=False,
@@ -23,7 +18,7 @@ def run_pipeline(
     """Run the pipeline to generate one zebra puzzle.
 
     Args:
-        clues_included: Clue types to include in the puzzle.
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
         n_objects: Number of objects in the puzzle.
         n_attributes: Number of attributes of each object.
         attributes: Possible attributes as a dictionary of dictionaries.
@@ -36,20 +31,20 @@ def run_pipeline(
 
     TODO: Implement evaluation.
     TODO: Consider if enumeration should be removed when we only have one clue.
-    TODO: Make a prompt function.
+    TODO: Consider using the clue descriptions in complete_prompt() only.
     """
-    clues = define_clues(clues_included=clues_included)
+    # clues = define_clues(clues_included=clues_included)
 
     solution, chosen_categories, chosen_attributes = generate_solution(
         attributes=attributes, n_objects=n_objects, n_attributes=n_attributes
     )
     chosen_clues = choose_clues(
         solution=solution,
-        clues=clues,
         chosen_categories=chosen_categories,
         chosen_attributes=chosen_attributes,
         n_objects=n_objects,
         attributes=attributes,
+        clues_dict=clues_dict,
     )
 
     prompt = complete_prompt(
@@ -73,10 +68,10 @@ def run_pipeline(
 
 
 def build_dataset(
-    clues_included: str,
     n_objects: int,
     n_attributes: int,
     attributes: Dict[str, Dict[str, str]],
+    clues_dict: Dict[str, str],
     prompt_template: str,
     n_puzzles: int,
 ) -> None:
@@ -85,7 +80,7 @@ def build_dataset(
     Saves prompts and solutions in separate files in the data folder.
 
     Args:
-        clues_included: Clue types to include in the puzzle.
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
         n_objects: Number of objects in the puzzle.
         n_attributes: Number of attributes of each object.
         attributes: Possible attributes as a dictionary of dictionaries.
@@ -96,10 +91,10 @@ def build_dataset(
     """
     for i in range(n_puzzles):
         prompt, solution_str = run_pipeline(
-            clues_included=clues_included,
             n_objects=n_objects,
             n_attributes=n_attributes,
             attributes=attributes,
+            clues_dict=clues_dict,
             prompt_template=prompt_template,
             verbose=False,
             eval=False,
