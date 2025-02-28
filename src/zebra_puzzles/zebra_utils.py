@@ -156,6 +156,8 @@ def complete_prompt(
 ) -> str:
     """Complete the prompt with the chosen clues.
 
+    Assumes commas are used similarly across the supported languages.
+
     Args:
         chosen_clues: Chosen clues for the zebra puzzle as a list of strings.
         n_objects: Number of objects in the puzzle.
@@ -165,6 +167,10 @@ def complete_prompt(
 
     Returns:
         prompt: The full prompt for the zebra puzzle as a string.
+
+
+    TODO: Improve the prompt here and in the config file.
+    TODO: Add support for puzzles with a single category and/or object
     """
     chosen_clues = [f"{i + 1}. {clue}" for i, clue in enumerate(chosen_clues)]
 
@@ -173,10 +179,25 @@ def complete_prompt(
     else:
         chosen_clues_str = chosen_clues[0]
 
+    chosen_categories_part1 = ", ".join(chosen_categories[:-1])
+    chosen_categories_part2 = chosen_categories[-1]
+
+    # Transpose chosen_attributes
+    chosen_attributes = list(map(list, zip(*chosen_attributes)))
+
+    # Flatten chosen_attributes
+    chosen_attributes_flat = [y for x in chosen_attributes for y in x]
+
+    # Format chosen_attributes as a comma separated list
+    chosen_attributes_part1 = ", ".join(chosen_attributes_flat[:-1])
+    chosen_attributes_part2 = chosen_attributes_flat[-1]
+
     prompt = prompt_template.format(
         n_objects=n_objects,
-        chosen_categories=chosen_categories,
-        chosen_attributes=chosen_attributes,
+        chosen_categories_part1=chosen_categories_part1,
+        chosen_categories_part2=chosen_categories_part2,
+        chosen_attributes_part1=chosen_attributes_part1,
+        chosen_attributes_part2=chosen_attributes_part2,
         chosen_clues_str=chosen_clues_str,
     )
     return prompt
