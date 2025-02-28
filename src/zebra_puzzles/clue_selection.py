@@ -4,7 +4,6 @@ from random import sample
 from typing import Dict, List
 
 from zebra_puzzles.zebra_solver import solver
-from zebra_puzzles.zebra_utils import complete_clue
 
 
 def choose_clues(
@@ -80,3 +79,99 @@ def choose_clues(
         solved = True
 
     return chosen_clues
+
+
+def complete_clue(
+    clue: str,
+    n_objects: int,
+    attributes: Dict[str, Dict[str, str]],
+    chosen_attributes: List[List],
+    chosen_categories: List[str],
+    clues_dict: Dict[str, str],
+) -> str:
+    """Complete the chosen clue type with random parts of the solution to create a full clue.
+
+    TODO: Consider how the clues will be evaluted. We should probably include more information in the dict such as a lambda function.
+    TODO: Include more clue types. For example not_at, next_to, not_next_to, left_of, right_of, not_left_of, not_right_of, same_object, not_same_object, between, not_between
+    NOTE: The current implementation does not allow objects to have non-unique attributes
+
+    Args:
+        clue: Chosen clue type as a string.
+        n_objects: Number of objects in the puzzle as an int.
+        attributes: Possible attributes as a dictionary of dictionaries.
+        chosen_attributes: Attribute values chosen for the solution as a list of lists.
+        chosen_categories: Categories chosen for the solution.
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
+
+    Returns:
+        full_clue: Full clue as a string.
+    """
+    clue_description = clues_dict[clue]
+
+    if clue == "found_at":
+        # Choose a random object
+        i_object = sample(list(range(n_objects)), 1)[0]
+
+        # Choose an attribute
+        attribute_desc = describe_random_attribute(
+            attributes=attributes,
+            chosen_attributes=chosen_attributes,
+            chosen_categories=chosen_categories,
+            i_object=i_object,
+        )
+
+        # Create the full clue
+        full_clue = clue_description.format(
+            attribute_desc=attribute_desc, i_object=i_object + 1
+        )
+    elif clue == "not_at":
+        # Choose two random objects - one for the attribute and one not connected to this attribute
+        i_object, i_other_object = sample(list(range(n_objects)), 2)
+
+        # Choose an attribute of the first object
+        attribute_desc = describe_random_attribute(
+            attributes=attributes,
+            chosen_attributes=chosen_attributes,
+            chosen_categories=chosen_categories,
+            i_object=i_object,
+        )
+
+        # Create the full clue
+        full_clue = clue_description.format(
+            attribute_desc=attribute_desc, i_other_object=i_other_object + 1
+        )
+    else:
+        raise ValueError("Unsupported clue '{clue}'")
+
+    return full_clue
+
+
+def describe_random_attribute(
+    attributes: Dict[str, Dict[str, str]],
+    chosen_attributes: List[List],
+    chosen_categories: List[str],
+    i_object: int,
+) -> str:
+    """Choose a random attribute.
+
+    Consider replacing this function by an array of chosen attribute descriptions or making chosen_attributes a dict.
+
+    Args:
+        attributes: Attributes as a dictionary of dictionaries.
+        chosen_attributes: Attribute values chosen for the solution as a list of lists.
+        chosen_categories: Categories chosen for the solution.
+        i_object: The index of the object to select an attribute from.
+
+    Returns:
+        attribute_desc: A string using the attribute to describe an object.
+
+    """
+    # Choose a random attribute and the corresponding category
+    i_attribute, attribute = sample(list(enumerate(chosen_attributes[i_object])), 1)[0]
+
+    chosen_category = chosen_categories[i_attribute]
+
+    # Get the attribute description
+    attribute_desc = attributes[chosen_category][attribute]
+
+    return attribute_desc
