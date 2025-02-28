@@ -89,6 +89,9 @@ def complete_prompt(
     # Transpose chosen_attributes
     chosen_attributes = list(map(list, zip(*chosen_attributes)))
 
+    # Sort the attributes
+    chosen_attributes = [sorted(x) for x in chosen_attributes]
+
     # Flatten chosen_attributes
     chosen_attributes_flat = [y for x in chosen_attributes for y in x]
 

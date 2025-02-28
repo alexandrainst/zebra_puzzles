@@ -31,6 +31,10 @@ def choose_clues(
 
     TODO: Implement the generation of more than a single clue.
     """
+    # Transpose and sort the attributes
+    chosen_attributes_sorted = list(map(list, zip(*chosen_attributes)))
+    chosen_attributes_sorted = [sorted(x) for x in chosen_attributes]
+
     solution_attempt: List[List] = []
     solved = False
     chosen_clues: List[str] = []
@@ -49,7 +53,9 @@ def choose_clues(
         # Try to solve the puzzle
 
         current_clues = chosen_clues + [new_clue]
-        new_solution_attempt, completeness = solver(chosen_clues=current_clues)
+        new_solution_attempt, completeness = solver(
+            chosen_clues=current_clues, chosen_attributes=chosen_attributes_sorted
+        )
 
         # Check if solution attempt has changed and if it has, save the clue
         if new_solution_attempt != solution_attempt:
@@ -70,7 +76,8 @@ def choose_clues(
             # Try removing each clue and see if the solution is still found
             for i, clue in enumerate(chosen_clues):
                 new_solution_attempt, completeness = solver(
-                    chosen_clues=chosen_clues[:i] + chosen_clues[i + 1 :]
+                    chosen_clues=chosen_clues[:i] + chosen_clues[i + 1 :],
+                    chosen_attributes=chosen_attributes_sorted,
                 )
                 if new_solution_attempt == solution:
                     chosen_clues.pop(i)
