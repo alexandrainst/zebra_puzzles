@@ -21,7 +21,9 @@ n_attributes: 2
 # TODO: Add support for multiple languages and themes by adding more config files.
 
 attributes:
+
     land:
+
         Danmark: er fra Danmark
         Sverige: er fra Sverige
         Letland: er fra Letland
@@ -47,7 +49,6 @@ attributes:
 clues_dict:
     found_at: Personen der {attribute_desc} bor i hus nummer {i_object}.
     not_at: Personen der {attribute_desc} bor ikke i hus nummer {i_other_object}.
-
 
 #Prompt
 # TODO: Improve the prompt incl. by adding a description of the desired format of the response.
