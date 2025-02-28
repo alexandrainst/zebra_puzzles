@@ -32,7 +32,7 @@ def generate_solution(
         [row[i] for row in chosen_attributes] for i in range(n_attributes)
     ]
 
-    solution = [[str(i)] + row for i, row in enumerate(chosen_attributes)]
+    solution = [[str(i + 1)] + row for i, row in enumerate(chosen_attributes)]
 
     return solution, chosen_categories, chosen_attributes
 
@@ -48,7 +48,7 @@ def complete_clue(
     """Complete the chosen clue type with random parts of the solution to create a full clue.
 
     TODO: Consider how the clues will be evaluted. We should probably include more information in the dict such as a lambda function.
-    TODO: Include more clue types. For example not_at, next_to, not_next_to, left_of, right_of, not_left_of, not_right_of, same_house, not_same_house, between, not_between
+    TODO: Include more clue types. For example not_at, next_to, not_next_to, left_of, right_of, not_left_of, not_right_of, same_object, not_same_object, between, not_between
     NOTE: The current implementation does not allow objects to have non-unique attributes
 
     Args:
@@ -78,7 +78,7 @@ def complete_clue(
 
         # Create the full clue
         full_clue = clue_description.format(
-            attribute_desc=attribute_desc, i_object=i_object
+            attribute_desc=attribute_desc, i_object=i_object + 1
         )
     elif clue == "not_at":
         # Choose two random objects - one for the attribute and one not connected to this attribute
@@ -94,7 +94,7 @@ def complete_clue(
 
         # Create the full clue
         full_clue = clue_description.format(
-            attribute_desc=attribute_desc, i_other_object=i_other_object
+            attribute_desc=attribute_desc, i_other_object=i_other_object + 1
         )
     else:
         raise ValueError("Unsupported clue '{clue}'")
