@@ -19,6 +19,7 @@ n_attributes: 2
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
 # In Danish, the attribute description completes the phrase "Personen der...".
 # TODO: Add support for multiple languages and themes by adding more config files.
+# TODO: Make the phrasing sound more natural
 
 attributes:
     land:
@@ -26,18 +27,45 @@ attributes:
         Sverige: er fra Sverige
         Letland: er fra Letland
         Frankrig: er fra Frankrig
+        Spanien: er fra Spanien
+        Kina: er fra Kina
+        Chile: er fra Chile
 
     hobby:
         klatring: klatrer
         maling: maler
         brætspil: spiller brætspil
         tennis: spiller tennis
+        hækling: hækler
+        fodbold: spiller fodbold
 
     kæledyr:
         kat: har en kat
         hund: har en hund
         kanin: har en kanin
         zebra: har en zebra
+        undulat: har en undulat
+        snegl: har en snegl
+        vandrende pind: har en vandrende pind
+
+    job:
+        bager: er bager
+        minister: er minister
+        politibetjent: er politibetjent
+        sygeplejer: er sygeplejer
+        lærer: er lærer
+        software developer: er software developer
+
+    drik:
+        juice: drikker juice
+        kaffe: drikker kaffe
+        mælk: drikker mælk
+        smoothie: drikker smoothie
+        kakao: drikker kakao
+        te: drikker te
+
+
+
 
 
 # Clues
