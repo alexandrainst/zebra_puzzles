@@ -3,14 +3,14 @@
 Inspired by https://stackoverflow.com/questions/318888/solving-who-owns-the-zebra-programmatically
 """
 
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 
 from constraint import AllDifferentConstraint, Problem
 
 
 def solver(
     constraints: List[Tuple], chosen_attributes: List[List], n_objects: int
-) -> Tuple[List[List], float]:
+) -> Tuple[List[Dict[str, int]], float]:
     """Solve a zebra puzzle.
 
     Args:
@@ -25,26 +25,51 @@ def solver(
     # TODO: Implement the solver
     # NOTE: We could remove the uniqueness constraint
     """
-    # Define the puzzle
+    # ---- Define the puzzle ----#
     problem = Problem()
 
-    # Flatten attributes
+    # Define attributes
     chosen_attributes_flat = [y for x in chosen_attributes for y in x]
-
-    problem.addVariables(chosen_attributes_flat, range(1, n_objects))
+    problem.addVariables(chosen_attributes_flat, list(range(1, n_objects + 1)))
 
     # All properties must be unique
-    for vars_ in chosen_attributes:
-        problem.addConstraint(AllDifferentConstraint(), vars_)
+    for attributes_in_category in chosen_attributes:
+        problem.addConstraint(AllDifferentConstraint(), attributes_in_category)
 
-    # Add clues
+    # Add cluesSolve
     for constraint, constraint_var in constraints:
         problem.addConstraint(constraint, constraint_var)
 
-    # Solve the puzzle
-    solution_attempt: List[List] = [["0", "", ""], ["1", "", ""]]
+    # ---- Solve the puzzle ----#
+    solutions = problem.getSolutions()
 
-    # Measure completeness of the solution
-    completeness = 0
+    # Measure completeness of the solution.
+    # NOTE: This can be improved by measuring the overlap between all found solutions
 
-    return solution_attempt, completeness
+    if len(solutions) > 0:
+        completeness = 1.0 / float(len(solutions))
+    else:
+        print("solutions:", solutions)
+        print("constraints:", constraints)
+        raise ValueError("This puzzle has no solution")
+
+    return solutions, completeness
+
+
+def format_solution(solution_dict: Dict[str, int], n_objects: int) -> List[List]:
+    """Change solution format from dict to list.
+
+    Args:
+        solution_dict: Solution as a dict of attributues and which object they are connected to.
+        n_objects: Number of objects in the puzzle.
+
+    Return:
+        solution_list: Solution as a list of lists.
+    """
+    solution_list = []
+    for i_object in range(1, n_objects + 1):
+        solution_list.append(
+            [str(i_object)] + [k for k, v in solution_dict.items() if v == i_object]
+        )
+
+    return solution_list

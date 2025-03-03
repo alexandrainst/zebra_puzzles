@@ -5,7 +5,7 @@ from typing import Dict, List, Tuple
 
 from constraint import InSetConstraint, NotInSetConstraint
 
-from zebra_puzzles.zebra_solver import solver
+from zebra_puzzles.zebra_solver import format_solution, solver
 
 
 def choose_clues(
@@ -37,10 +37,13 @@ def choose_clues(
     chosen_attributes_sorted = list(map(list, zip(*chosen_attributes)))
     chosen_attributes_sorted = [sorted(x) for x in chosen_attributes_sorted]
 
-    solution_attempt: List[List] = []
-    solved = False
+    solutions: List[Dict[str, int]] = []
+    solved: bool = False
     chosen_clues: List[str] = []
     constraints: List[Tuple] = []
+
+    max_iter = 100
+    i_iter = 0
     while not solved:
         # Generate a random clue
         new_clue = sample(sorted(clues_dict), 1)[0]
@@ -56,15 +59,15 @@ def choose_clues(
         current_constraints = constraints + [constraint]
 
         # Try to solve the puzzle
-        new_solution_attempt, completeness = solver(
+        new_solutions, completeness = solver(
             constraints=current_constraints,
             chosen_attributes=chosen_attributes_sorted,
             n_objects=n_objects,
         )
 
         # Check if solution attempt has changed and if it has, save the clue
-        if new_solution_attempt != solution_attempt:
-            solution_attempt = new_solution_attempt
+        if new_solutions != solutions:
+            solutions = new_solutions
             chosen_clues.append(new_clue)
             constraints.append(constraint)
 
@@ -72,11 +75,17 @@ def choose_clues(
 
         if completeness == 1:
             solved = True
-            if solution_attempt != solution:
+            solution_attempt = format_solution(
+                solution_dict=solutions[0], n_objects=n_objects
+            )
+
+            if [sorted(x) for x in solution_attempt] != [sorted(x) for x in solution]:
                 # Change the solution to the solution attempt and raise a warning
                 solution = solution_attempt
                 raise Warning(
-                    "The solver has found a solution that is not the expected one: \nFound \n{solution_attempt} \nExpected \n{solution}"
+                    "The solver has found a solution that is not the expected one: \nFound \n{solution_attempt} \nExpected \n{solution}".format(
+                        solution_attempt=solution_attempt, solution=solution
+                    )
                 )
 
             # Try removing each clue and see if the solution is still found
@@ -91,7 +100,11 @@ def choose_clues(
                     constraints.pop(i)
 
         # TODO: Remove this after testing
-        solved = True
+        i_iter += 1
+        if i_iter >= max_iter:
+            solved = True
+            print(current_constraints)
+            raise StopIteration("Used too many attempts to solve the puzzle.")
 
     return chosen_clues
 
@@ -143,7 +156,7 @@ def complete_clue(
             attribute_desc=attribute_desc, i_object=i_object + 1
         )
 
-        constraint = (InSetConstraint([i_object]), [attribute])
+        constraint = (InSetConstraint([i_object + 1]), [attribute])
 
     elif clue == "not_at":
         # E.g. the person who paints does not live in house no. 5.
@@ -164,7 +177,7 @@ def complete_clue(
             attribute_desc=attribute_desc, i_other_object=i_other_object + 1
         )
 
-        constraint = (NotInSetConstraint([i_other_object]), [attribute])
+        constraint = (NotInSetConstraint([i_other_object + 1]), [attribute])
 
     else:
         raise ValueError("Unsupported clue '{clue}'")
