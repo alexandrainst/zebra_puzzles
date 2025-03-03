@@ -1,7 +1,4 @@
-"""Module for solving a zebra puzzle.
-
-Inspired by https://stackoverflow.com/questions/318888/solving-who-owns-the-zebra-programmatically
-"""
+"""Module for solving a zebra puzzle."""
 
 from typing import Dict, List, Tuple
 
