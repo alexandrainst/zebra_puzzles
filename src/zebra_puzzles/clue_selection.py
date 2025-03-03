@@ -1,7 +1,9 @@
 """Module for selecting clues for a zebra puzzle."""
 
 from random import sample
-from typing import Dict, List
+from typing import Dict, List, Tuple
+
+from constraint import InSetConstraint, NotInSetConstraint
 
 from zebra_puzzles.zebra_solver import solver
 
@@ -33,15 +35,16 @@ def choose_clues(
     """
     # Transpose and sort the attributes
     chosen_attributes_sorted = list(map(list, zip(*chosen_attributes)))
-    chosen_attributes_sorted = [sorted(x) for x in chosen_attributes]
+    chosen_attributes_sorted = [sorted(x) for x in chosen_attributes_sorted]
 
     solution_attempt: List[List] = []
     solved = False
     chosen_clues: List[str] = []
+    constraints: List[Tuple] = []
     while not solved:
         # Generate a random clue
         new_clue = sample(sorted(clues_dict), 1)[0]
-        new_clue = complete_clue(
+        new_clue, constraint = complete_clue(
             clue=new_clue,
             n_objects=n_objects,
             attributes=attributes,
@@ -50,17 +53,20 @@ def choose_clues(
             clues_dict=clues_dict,
         )
 
-        # Try to solve the puzzle
+        current_constraints = constraints + [constraint]
 
-        current_clues = chosen_clues + [new_clue]
+        # Try to solve the puzzle
         new_solution_attempt, completeness = solver(
-            chosen_clues=current_clues, chosen_attributes=chosen_attributes_sorted
+            constraints=current_constraints,
+            chosen_attributes=chosen_attributes_sorted,
+            n_objects=n_objects,
         )
 
         # Check if solution attempt has changed and if it has, save the clue
         if new_solution_attempt != solution_attempt:
             solution_attempt = new_solution_attempt
             chosen_clues.append(new_clue)
+            constraints.append(constraint)
 
         # Check if the solution is complete. If it is, check if the solution attempt is the same as the solution
 
@@ -74,13 +80,15 @@ def choose_clues(
                 )
 
             # Try removing each clue and see if the solution is still found
-            for i, clue in enumerate(chosen_clues):
+            for i, constraint in enumerate(constraints):
                 new_solution_attempt, completeness = solver(
-                    chosen_clues=chosen_clues[:i] + chosen_clues[i + 1 :],
+                    constraints=constraints[:i] + constraints[i + 1 :],
                     chosen_attributes=chosen_attributes_sorted,
+                    n_objects=n_objects,
                 )
                 if new_solution_attempt == solution:
                     chosen_clues.pop(i)
+                    constraints.pop(i)
 
         # TODO: Remove this after testing
         solved = True
@@ -95,7 +103,7 @@ def complete_clue(
     chosen_attributes: List[List],
     chosen_categories: List[str],
     clues_dict: Dict[str, str],
-) -> str:
+) -> Tuple[str, Tuple]:
     """Complete the chosen clue type with random parts of the solution to create a full clue.
 
     TODO: Consider how the clues will be evaluted. We should probably include more information in the dict such as a lambda function.
@@ -112,15 +120,18 @@ def complete_clue(
 
     Returns:
         full_clue: Full clue as a string.
+        constraint: Tuple consisting of a constraint function and a list of variables directly affected by the constraint.
     """
     clue_description = clues_dict[clue]
 
     if clue == "found_at":
+        # E.g. the person who paints lives in house no. 5.
+
         # Choose a random object
         i_object = sample(list(range(n_objects)), 1)[0]
 
         # Choose an attribute
-        attribute_desc = describe_random_attribute(
+        attribute, attribute_desc = describe_random_attribute(
             attributes=attributes,
             chosen_attributes=chosen_attributes,
             chosen_categories=chosen_categories,
@@ -131,12 +142,17 @@ def complete_clue(
         full_clue = clue_description.format(
             attribute_desc=attribute_desc, i_object=i_object + 1
         )
+
+        constraint = (InSetConstraint([i_object]), [attribute])
+
     elif clue == "not_at":
+        # E.g. the person who paints does not live in house no. 5.
+
         # Choose two random objects - one for the attribute and one not connected to this attribute
         i_object, i_other_object = sample(list(range(n_objects)), 2)
 
         # Choose an attribute of the first object
-        attribute_desc = describe_random_attribute(
+        attribute, attribute_desc = describe_random_attribute(
             attributes=attributes,
             chosen_attributes=chosen_attributes,
             chosen_categories=chosen_categories,
@@ -147,10 +163,13 @@ def complete_clue(
         full_clue = clue_description.format(
             attribute_desc=attribute_desc, i_other_object=i_other_object + 1
         )
+
+        constraint = (NotInSetConstraint([i_other_object]), [attribute])
+
     else:
         raise ValueError("Unsupported clue '{clue}'")
 
-    return full_clue
+    return full_clue, constraint
 
 
 def describe_random_attribute(
@@ -158,7 +177,7 @@ def describe_random_attribute(
     chosen_attributes: List[List],
     chosen_categories: List[str],
     i_object: int,
-) -> str:
+) -> Tuple[str, str]:
     """Choose a random attribute.
 
     Consider replacing this function by an array of chosen attribute descriptions or making chosen_attributes a dict.
@@ -181,4 +200,4 @@ def describe_random_attribute(
     # Get the attribute description
     attribute_desc = attributes[chosen_category][attribute]
 
-    return attribute_desc
+    return attribute, attribute_desc
