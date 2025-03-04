@@ -1,6 +1,6 @@
 """Module for selecting clues for a zebra puzzle."""
 
-from random import sample
+from random import sample, shuffle
 from typing import Dict, List, Tuple
 
 from constraint import InSetConstraint, NotInSetConstraint
@@ -154,7 +154,7 @@ def complete_clue(
 ) -> Tuple[str, Tuple]:
     """Complete the chosen clue type with random parts of the solution to create a full clue.
 
-    TODO: Include more clue types. For example not_at, next_to, not_next_to, left_of, right_of, not_left_of, not_right_of, same_object, not_same_object, between, not_between
+    TODO: Include more clue types. For example not_next_to, left_of, right_of, not_left_of, not_right_of, same_object, not_same_object, between, not_between
     NOTE: The current implementation does not allow objects to have non-unique attributes
 
     Args:
@@ -212,6 +212,36 @@ def complete_clue(
         )
 
         constraint = (NotInSetConstraint([i_other_object + 1]), [attribute])
+
+    elif clue == "next_to":
+        # Choose a random object to the left of another
+        i_object = sample(list(range(n_objects - 1)), 1)[0]
+
+        # Choose the object on the right and shuffle the order
+        i_objects = [i_object, i_object + 1]
+        shuffle(i_objects)
+
+        # Choose two random attributes
+        attribute_1, attribute_desc_1 = describe_random_attribute(
+            attributes=attributes,
+            chosen_attributes=chosen_attributes,
+            chosen_categories=chosen_categories,
+            i_object=i_objects[0],
+        )
+
+        attribute_2, attribute_desc_2 = describe_random_attribute(
+            attributes=attributes,
+            chosen_attributes=chosen_attributes,
+            chosen_categories=chosen_categories,
+            i_object=i_objects[1],
+        )
+
+        # Create the full clue
+        full_clue = clue_description.format(
+            attribute_desc_1=attribute_desc_1, attribute_desc_2=attribute_desc_2
+        )
+
+        constraint = (lambda a, b: abs(a - b) == 1, [attribute_1, attribute_2])
 
     else:
         raise ValueError("Unsupported clue '{clue}'")
