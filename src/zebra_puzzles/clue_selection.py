@@ -226,13 +226,16 @@ def complete_clue(
 
         constraint = (NotInSetConstraint([i_other_object + 1]), [attribute])
 
-    elif clue == "next_to":
+    elif clue in ("next_to", "just_left_of", "just_right_of"):
         # Choose a random object to the left of another
         i_object = sample(list(range(n_objects - 1)), 1)[0]
 
         # Choose the object on the right and shuffle the order
         i_objects = [i_object, i_object + 1]
-        shuffle(i_objects)
+        if clue == "next_to":
+            shuffle(i_objects)
+        elif clue == "just_right_of":
+            i_objects = i_objects[::-1]
 
         # Choose two random attributes
         attribute_1, attribute_desc_1 = describe_random_attribute(
@@ -254,7 +257,12 @@ def complete_clue(
             attribute_desc_1=attribute_desc_1, attribute_desc_2=attribute_desc_2
         )
 
-        constraint = (lambda a, b: abs(a - b) == 1, [attribute_1, attribute_2])
+        if clue == "next_to":
+            constraint = (lambda a, b: abs(a - b) == 1, [attribute_1, attribute_2])
+        elif clue == "just_left_of":
+            constraint = (lambda a, b: b - a == 1, [attribute_1, attribute_2])
+        else:
+            constraint = (lambda a, b: a - b == 1, [attribute_1, attribute_2])
 
     elif clue == "not_next_to":
         # Choose two objects that are not next to each other

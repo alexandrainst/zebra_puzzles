@@ -19,11 +19,11 @@ n_puzzles: 10
 
 # Objects e.g. houses
 # Currently, 2 - 7 are supported
-n_objects: 3
+n_objects: 4
 
 # Attributes e.g. pets
 # Currently, 2 - 7 are supported
-n_attributes: 2
+n_attributes: 3
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
@@ -107,6 +107,8 @@ clues_dict:
     not_at: "{attribute_desc} bor ikke i hus nummer {i_other_object}."
     next_to: "{attribute_desc_1} bor ved siden af {attribute_desc_2}."
     not_next_to: "{attribute_desc_1} bor ikke ved siden af {attribute_desc_2}."
+    just_left_of: "{attribute_desc_1} bor lige til venstre for {attribute_desc_2}."
+    just_right_of: "{attribute_desc_1} bor lige til højre for {attribute_desc_2}."
 
 
 #Prompt
@@ -114,13 +116,13 @@ clues_dict:
 # TODO: Support the grammar of puzzles with a single category and/or object
 
 prompt_template: |
-  En række huse er nummereret fra 1 til {n_objects}. I hvert hus bor en person med en bestemte egenskaber, som er forskellige fra de andre.
+  En række huse er nummereret fra 1 til {n_objects} fra venstre mod højre. I hvert hus bor en person med en bestemte egenskaber, som er forskellige fra de andre.
 
   Du skal gætte egenskaber fra kategorierne {chosen_categories_part1} og {chosen_categories_part2} for hver person. De mulige egenskaber er {chosen_attributes_part1} og {chosen_attributes_part2}. Her følger et eller flere hints:
 
   {chosen_clues_str}
 
-  Hvem har hvilke egenskaber og bor i hvilket hus? Angiv dit svar på følgende format, hvor det første tal i hver række repræsenterer husnummeret:
+  Hvem har hvilke egenskaber og bor i hvilket hus? Angiv dit svar i følgende format, hvor det første tal i hver række repræsenterer husnummeret:
 
   1: egenskab 1, egenskab 2, egenskab 3, ...
   2: egenskab 1, egenskab 2, egenskab 3, ...
