@@ -8,7 +8,7 @@ defaults:
 
 
 # Number of puzzles to generate
-n_puzzles: 2
+n_puzzles: 1
 
 # Objects e.g. houses
 # Currently, 2 - 6 are supported

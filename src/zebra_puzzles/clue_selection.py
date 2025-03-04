@@ -81,23 +81,25 @@ def choose_clues(
 
             if [sorted(x) for x in solution_attempt] != [sorted(x) for x in solution]:
                 # Change the solution to the solution attempt and raise a warning
+                solution_old = solution
+                solution = solution_attempt
                 raise Warning(
                     "The solver has found a solution that is not the expected one: \nFound \n{solution_attempt} \nExpected \n{solution}".format(
-                        solution_attempt=solution_attempt, solution=solution
+                        solution_attempt=solution_attempt, solution=solution_old
                     )
                 )
-                solution = solution_attempt
 
-            # Try removing each clue and see if the solution is still found
-            for i, constraint in enumerate(constraints):
+            # Try removing each clue and see if the solution is still found.
+            # Start from the end of the list for easier iteration through a list we are removing elements from
+            for i in range(len(constraints) - 1, -1, -1):
                 _, completeness = solver(
                     constraints=constraints[:i] + constraints[i + 1 :],
                     chosen_attributes=chosen_attributes_sorted,
                     n_objects=n_objects,
                 )
                 if completeness == 1:
-                    chosen_clues.pop(i)
-                    constraints.pop(i)
+                    del chosen_clues[i]
+                    del constraints[i]
 
         # TODO: Remove this after testing
         i_iter += 1
