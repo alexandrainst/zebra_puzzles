@@ -32,6 +32,19 @@ def choose_clues(
         chosen_clues: Clues for the zebra puzzle as a list of strings.
 
     """
+    # Exclude clues that cannot be used for this puzzle
+    if n_objects <= 2:
+        if "not_next_to" in clues_dict:
+            raise ValueError(
+                "Too few objects for 'not_next_to' clues. Please adjust the config file."
+            )
+
+    if n_objects == 1:
+        if "next_to" in clues_dict:
+            raise ValueError(
+                "Too few objects for 'next_to' clues. Please adjust the config file."
+            )
+
     # Transpose and sort the attributes
     chosen_attributes_sorted = [list(i) for i in zip(*chosen_attributes)]
     chosen_attributes_sorted = [sorted(x) for x in chosen_attributes_sorted]
@@ -242,6 +255,34 @@ def complete_clue(
         )
 
         constraint = (lambda a, b: abs(a - b) == 1, [attribute_1, attribute_2])
+
+    elif clue == "not_next_to":
+        # Choose two objects that are not next to each other
+        i_objects = [0, 0]
+        while abs(i_objects[0] - i_objects[1]) <= 1:
+            i_objects = sample(list(range(n_objects)), 2)
+
+        # Choose two random attributes
+        attribute_1, attribute_desc_1 = describe_random_attribute(
+            attributes=attributes,
+            chosen_attributes=chosen_attributes,
+            chosen_categories=chosen_categories,
+            i_object=i_objects[0],
+        )
+
+        attribute_2, attribute_desc_2 = describe_random_attribute(
+            attributes=attributes,
+            chosen_attributes=chosen_attributes,
+            chosen_categories=chosen_categories,
+            i_object=i_objects[1],
+        )
+
+        # Create the full clue
+        full_clue = clue_description.format(
+            attribute_desc_1=attribute_desc_1, attribute_desc_2=attribute_desc_2
+        )
+
+        constraint = (lambda a, b: abs(a - b) != 1, [attribute_1, attribute_2])
 
     else:
         raise ValueError("Unsupported clue '{clue}'")

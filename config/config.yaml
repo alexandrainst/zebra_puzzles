@@ -19,7 +19,7 @@ n_puzzles: 10
 
 # Objects e.g. houses
 # Currently, 2 - 7 are supported
-n_objects: 2
+n_objects: 3
 
 # Attributes e.g. pets
 # Currently, 2 - 7 are supported
@@ -106,6 +106,7 @@ clues_dict:
     found_at: "{attribute_desc} bor i hus nummer {i_object}."
     not_at: "{attribute_desc} bor ikke i hus nummer {i_other_object}."
     next_to: "{attribute_desc_1} bor ved siden af {attribute_desc_2}."
+    not_next_to: "{attribute_desc_1} bor ikke ved siden af {attribute_desc_2}."
 
 
 #Prompt
