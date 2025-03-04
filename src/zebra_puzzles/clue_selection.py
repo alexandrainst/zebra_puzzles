@@ -226,6 +226,33 @@ def complete_clue(
 
         constraint = (NotInSetConstraint([i_other_object + 1]), attribute)
 
+    elif clue == "same_object":
+        # Choose a random object
+        i_object = sample(list(range(n_objects)), 1)[0]
+
+        # Choose two unique attributes
+        attribute_1, attribute_2 = [""], [""]
+        while attribute_1 == attribute_2:
+            attribute_1, attribute_desc_1 = describe_random_attributes(
+                attributes=attributes,
+                chosen_attributes=chosen_attributes,
+                chosen_categories=chosen_categories,
+                i_objects=[i_object],
+            )
+            attribute_2, attribute_desc_2 = describe_random_attributes(
+                attributes=attributes,
+                chosen_attributes=chosen_attributes,
+                chosen_categories=chosen_categories,
+                i_objects=[i_object],
+            )
+
+        # Create the full clue
+        full_clue = clue_description.format(
+            attribute_desc_1=attribute_desc_1[0], attribute_desc_2=attribute_desc_2[0]
+        )
+
+        constraint = (lambda a, b: b == a, attribute_1 + attribute_2)
+
     elif clue in ("next_to", "just_left_of", "just_right_of"):
         # Choose a random object to the left of another
         i_object = sample(list(range(n_objects - 1)), 1)[0]

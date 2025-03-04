@@ -111,6 +111,7 @@ clues_dict:
     just_right_of: "{attribute_desc_1} bor lige til højre for {attribute_desc_2}."
     left_of: "{attribute_desc_1} bor til venstre for {attribute_desc_2}."
     right_of: "{attribute_desc_1} bor til højre for {attribute_desc_2}."
+    same_object: "{attribute_desc_1} er {attribute_desc_2}."
 
 
 #Prompt
