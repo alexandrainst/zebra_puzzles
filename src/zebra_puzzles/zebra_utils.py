@@ -26,11 +26,8 @@ def generate_solution(
     chosen_attributes = [
         sample(list(attributes[cat].keys()), k=n_objects) for cat in chosen_categories
     ]
-
     # Transpose the attribute matrix
-    chosen_attributes = [
-        [row[i] for row in chosen_attributes] for i in range(n_attributes)
-    ]
+    chosen_attributes = [list(i) for i in zip(*chosen_attributes)]
 
     solution = [[str(i + 1)] + row for i, row in enumerate(chosen_attributes)]
 
@@ -87,7 +84,7 @@ def complete_prompt(
     chosen_categories_part2 = chosen_categories[-1]
 
     # Transpose chosen_attributes
-    chosen_attributes = list(map(list, zip(*chosen_attributes)))
+    chosen_attributes = [list(i) for i in zip(*chosen_attributes)]
 
     # Sort the attributes
     chosen_attributes = [sorted(x) for x in chosen_attributes]

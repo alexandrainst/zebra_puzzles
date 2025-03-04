@@ -34,7 +34,7 @@ def choose_clues(
     TODO: Implement the generation of more than a single clue.
     """
     # Transpose and sort the attributes
-    chosen_attributes_sorted = list(map(list, zip(*chosen_attributes)))
+    chosen_attributes_sorted = [list(i) for i in zip(*chosen_attributes)]
     chosen_attributes_sorted = [sorted(x) for x in chosen_attributes_sorted]
 
     solutions: List[Dict[str, int]] = []
@@ -81,21 +81,21 @@ def choose_clues(
 
             if [sorted(x) for x in solution_attempt] != [sorted(x) for x in solution]:
                 # Change the solution to the solution attempt and raise a warning
-                solution = solution_attempt
                 raise Warning(
                     "The solver has found a solution that is not the expected one: \nFound \n{solution_attempt} \nExpected \n{solution}".format(
                         solution_attempt=solution_attempt, solution=solution
                     )
                 )
+                solution = solution_attempt
 
             # Try removing each clue and see if the solution is still found
             for i, constraint in enumerate(constraints):
-                new_solution_attempt, completeness = solver(
+                _, completeness = solver(
                     constraints=constraints[:i] + constraints[i + 1 :],
                     chosen_attributes=chosen_attributes_sorted,
                     n_objects=n_objects,
                 )
-                if new_solution_attempt == solution:
+                if completeness == 1:
                     chosen_clues.pop(i)
                     constraints.pop(i)
 
