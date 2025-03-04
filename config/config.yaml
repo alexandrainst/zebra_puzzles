@@ -2,6 +2,8 @@
 
 #Time estimates per puzzle:
 # 3x5: 0.1 s
+# 3x6: 0.5 s
+# 3x7: 2.6 s
 # 4x4: 3.5 s
 # 5x3: 12 s
 # 4x5: 2 min
@@ -13,15 +15,15 @@ defaults:
 
 
 # Number of puzzles to generate
-n_puzzles: 2
+n_puzzles: 10
 
 # Objects e.g. houses
-# Currently, 2 - 6 are supported
+# Currently, 2 - 7 are supported
 n_objects: 4
 
 # Attributes e.g. pets
-# Currently, 2 - 5 are supported
-n_attributes: 5
+# Currently, 2 - 7 are supported
+n_attributes: 3
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
@@ -47,6 +49,7 @@ attributes:
         tennis: spiller tennis
         hækling: hækler
         fodbold: spiller fodbold
+        håndbold: spiller håndbold
 
     kæledyr:
         kat: har en kat
@@ -64,6 +67,7 @@ attributes:
         sygeplejer: er sygeplejer
         lærer: er lærer
         software developer: er software developer
+        butiksassistent: er butiksassistent
 
     drik:
         juice: drikker juice
@@ -72,8 +76,25 @@ attributes:
         smoothie: drikker smoothie
         kakao: drikker kakao
         te: drikker te
+        sodavand: drikker sodavand
 
+    yndlingsfrugt:
+        æble: foretrækker æble
+        pære: foretrækker pære
+        appelsin: foretrækker appelsin
+        banan: foretrækker banan
+        jordbær: foretrækker jordbær
+        solbær: foretrækker solbær
+        skovjordbær: foretrækker skovjordbær
 
+    yndlingsgenre:
+        faglitteratur: læser faglitteratur
+        krimi: læser krimier
+        fantasy: læser fantasy
+        science fiction: læser science fiction
+        gyser: læser gysere
+        poesi: læser poesi
+        kærlighedsromaner: læser kærlighedsromaner
 
 
 

@@ -154,7 +154,6 @@ def complete_clue(
 ) -> Tuple[str, Tuple]:
     """Complete the chosen clue type with random parts of the solution to create a full clue.
 
-    TODO: Consider how the clues will be evaluted. We should probably include more information in the dict such as a lambda function.
     TODO: Include more clue types. For example not_at, next_to, not_next_to, left_of, right_of, not_left_of, not_right_of, same_object, not_same_object, between, not_between
     NOTE: The current implementation does not allow objects to have non-unique attributes
 
