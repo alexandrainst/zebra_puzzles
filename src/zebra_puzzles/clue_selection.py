@@ -292,6 +292,37 @@ def complete_clue(
 
         constraint = (lambda a, b: abs(a - b) != 1, [attribute_1, attribute_2])
 
+    elif clue in ("left_of", "right_of"):
+        # Choose two random objects
+        i_objects = sample(list(range(n_objects)), 2)
+        i_objects = sorted(i_objects)
+        if clue == "right_of":
+            i_objects = i_objects[::-1]
+
+        # Choose two random attributes
+        attribute_1, attribute_desc_1 = describe_random_attribute(
+            attributes=attributes,
+            chosen_attributes=chosen_attributes,
+            chosen_categories=chosen_categories,
+            i_object=i_objects[0],
+        )
+
+        attribute_2, attribute_desc_2 = describe_random_attribute(
+            attributes=attributes,
+            chosen_attributes=chosen_attributes,
+            chosen_categories=chosen_categories,
+            i_object=i_objects[1],
+        )
+
+        # Create the full clue
+        full_clue = clue_description.format(
+            attribute_desc_1=attribute_desc_1, attribute_desc_2=attribute_desc_2
+        )
+        if clue == "left_of":
+            constraint = (lambda a, b: b - a > 0, [attribute_1, attribute_2])
+        else:
+            constraint = (lambda a, b: a - b > 0, [attribute_1, attribute_2])
+
     else:
         raise ValueError("Unsupported clue '{clue}'")
 
