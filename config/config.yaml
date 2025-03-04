@@ -19,7 +19,7 @@ n_puzzles: 10
 
 # Objects e.g. houses
 # Currently, 2 - 7 are supported
-n_objects: 4
+n_objects: 2
 
 # Attributes e.g. pets
 # Currently, 2 - 7 are supported
@@ -34,67 +34,67 @@ n_attributes: 2
 
 attributes:
     land:
-        Danmark: er fra Danmark
-        Sverige: er fra Sverige
-        Letland: er fra Letland
-        Frankrig: er fra Frankrig
-        Spanien: er fra Spanien
-        Kina: er fra Kina
-        Chile: er fra Chile
+        Danmark: danskeren
+        Sverige: svenskeren
+        Letland: letteren
+        Frankrig: franskmanden
+        Spanien: spanieren
+        Kina: kineseren
+        Chile: chileneren
 
     hobby:
-        klatring: klatrer
-        maling: maler
-        brætspil: spiller brætspil
-        tennis: spiller tennis
-        hækling: hækler
-        fodbold: spiller fodbold
-        håndbold: spiller håndbold
+        klatring: personen der klatrer
+        maling: personen der maler
+        brætspil: personen der spiller brætspil
+        tennis: personen der spiller tennis
+        hækling: personen der hækler
+        fodbold: personen der spiller fodbold
+        håndbold: personen der spiller håndbold
 
     kæledyr:
-        kat: har en kat
-        hund: har en hund
-        kanin: har en kanin
-        zebra: har en zebra
-        undulat: har en undulat
-        snegl: har en snegl
-        vandrende pind: har en vandrende pind
+        kat: katteejeren
+        hund: hundeejeren
+        kanin: kaninejeren
+        zebra: zebraejeren
+        undulat: undulatejeren
+        snegl: snegleejeren
+        vandrende pind: ejeren af en vandrende pind
 
     job:
-        bager: er bager
-        minister: er minister
-        politibetjent: er politibetjent
-        sygeplejer: er sygeplejer
-        lærer: er lærer
-        software developer: er software developer
-        butiksassistent: er butiksassistent
+        bager: bageren
+        minister: ministeren
+        politibetjent: politibetjenten
+        sygeplejer: sygeplejeren
+        lærer: læreren
+        software developer: software developeren
+        butiksassistent: butiksassistenten
 
     drik:
-        juice: drikker juice
-        kaffe: drikker kaffe
-        mælk: drikker mælk
-        smoothie: drikker smoothie
-        kakao: drikker kakao
-        te: drikker te
-        sodavand: drikker sodavand
+        juice: personen der drikker juice
+        kaffe: personen der drikker kaffe
+        mælk: personen der drikker mælk
+        smoothie: personen der drikker smoothie
+        kakao: personen der drikker kakao
+        te: personen der drikker te
+        sodavand: personen der drikker sodavand
 
     yndlingsfrugt:
-        æble: foretrækker æble
-        pære: foretrækker pære
-        appelsin: foretrækker appelsin
-        banan: foretrækker banan
-        jordbær: foretrækker jordbær
-        solbær: foretrækker solbær
-        skovjordbær: foretrækker skovjordbær
+        æble: personen der foretrækker æble
+        pære: personen der foretrækker pære
+        appelsin: personen der foretrækker appelsin
+        banan: personen der foretrækker banan
+        jordbær: personen der foretrækker jordbær
+        solbær: personen der foretrækker solbær
+        skovjordbær: personen der foretrækker skovjordbær
 
     yndlingsgenre:
-        faglitteratur: læser faglitteratur
-        krimi: læser krimier
-        fantasy: læser fantasy
-        science fiction: læser science fiction
-        gyser: læser gysere
-        poesi: læser poesi
-        kærlighedsromaner: læser kærlighedsromaner
+        faglitteratur: personen der læser faglitteratur
+        krimi: personen der læser krimier
+        fantasy: personen der læser fantasy
+        science fiction: personen der læser science fiction
+        gyser: personen der læser gysere
+        poesi: personen der læser poesi
+        kærlighedsromaner: personen der læser kærlighedsromaner
 
 
 
@@ -103,9 +103,9 @@ attributes:
 # Clue names should not be edited, but they can be a subset of the full list of implemented clues: found_at, not_at
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 clues_dict:
-    found_at: Personen der {attribute_desc} bor i hus nummer {i_object}.
-    not_at: Personen der {attribute_desc} bor ikke i hus nummer {i_other_object}.
-    next_to: Personen der {attribute_desc_1} bor ved siden af personen der {attribute_desc_2}.
+    found_at: "{attribute_desc} bor i hus nummer {i_object}."
+    not_at: "{attribute_desc} bor ikke i hus nummer {i_other_object}."
+    next_to: "{attribute_desc_1} bor ved siden af {attribute_desc_2}."
 
 
 #Prompt
@@ -113,12 +113,14 @@ clues_dict:
 # TODO: Support the grammar of puzzles with a single category and/or object
 
 prompt_template: |
-  Her følger en opgave.
-
-  Der er {n_objects} huse på en række. I hvert hus bor en person med en bestemte egenskaber, som er forskellige fra de andre.
+  En række huse er nummereret fra 1 til {n_objects}. I hvert hus bor en person med en bestemte egenskaber, som er forskellige fra de andre.
 
   Du skal gætte egenskaber fra kategorierne {chosen_categories_part1} og {chosen_categories_part2} for hver person. De mulige egenskaber er {chosen_attributes_part1} og {chosen_attributes_part2}. Her følger et eller flere hints:
 
   {chosen_clues_str}
 
-  Hvem har hvilke egenskaber og bor i hvilket hus?
+  Hvem har hvilke egenskaber og bor i hvilket hus? Angiv dit svar på følgende format, hvor det første tal i hver række repræsenterer husnummeret:
+
+  1: egenskab 1, egenskab 2, egenskab 3, ...
+  2: egenskab 1, egenskab 2, egenskab 3, ...
+  ...

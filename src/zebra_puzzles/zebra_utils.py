@@ -58,6 +58,7 @@ def complete_prompt(
     """Complete the prompt with the chosen clues.
 
     Assumes commas are used similarly across the supported languages.
+    Assumes each hint should start with a capital letter.
 
     Args:
         chosen_clues: Chosen clues for the zebra puzzle as a list of strings.
@@ -73,7 +74,9 @@ def complete_prompt(
     TODO: Improve the prompt here and in the config file.
     TODO: Add support for puzzles with a single category and/or object
     """
-    chosen_clues = [f"{i + 1}. {clue}" for i, clue in enumerate(chosen_clues)]
+    chosen_clues = [
+        f"{i + 1}. {clue[0].upper()}{clue[1:]}" for i, clue in enumerate(chosen_clues)
+    ]
 
     if len(chosen_clues) > 1:
         chosen_clues_str = "\n".join(chosen_clues)
