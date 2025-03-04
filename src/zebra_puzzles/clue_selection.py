@@ -29,9 +29,8 @@ def choose_clues(
         attributes: Possible attributes as a dictionary of dictionaries.
 
     Returns:
-        chosen_clues: Clues for the zebra puzzle as a string.
+        chosen_clues: Clues for the zebra puzzle as a list of strings.
 
-    TODO: Implement the generation of more than a single clue.
     """
     # Transpose and sort the attributes
     chosen_attributes_sorted = [list(i) for i in zip(*chosen_attributes)]
@@ -71,10 +70,12 @@ def choose_clues(
             chosen_clues.append(new_clue)
             constraints.append(constraint)
 
-        # Check if the solution is complete. If it is, check if the solution attempt is the same as the solution
+        # Check if the solution is complete and the clues are non-redundant
 
         if completeness == 1:
             solved = True
+
+            # Check if the solver found an unexpected solution. This should not be possible.
             solution_attempt = format_solution(
                 solution_dict=solutions[0], n_objects=n_objects
             )
@@ -89,26 +90,58 @@ def choose_clues(
                     )
                 )
 
-            # Try removing each clue and see if the solution is still found.
-            # Start from the end of the list for easier iteration through a list we are removing elements from
-            for i in range(len(constraints) - 1, -1, -1):
-                _, completeness = solver(
-                    constraints=constraints[:i] + constraints[i + 1 :],
-                    chosen_attributes=chosen_attributes_sorted,
-                    n_objects=n_objects,
-                )
-                if completeness == 1:
-                    del chosen_clues[i]
-                    del constraints[i]
+            # Remove redundant clues
+            chosen_clues, constraints = remove_redundant_clues(
+                constraints=constraints,
+                chosen_clues=chosen_clues,
+                chosen_attributes_sorted=chosen_attributes_sorted,
+                n_objects=n_objects,
+            )
 
-        # TODO: Remove this after testing
         i_iter += 1
         if i_iter >= max_iter:
             solved = True
-            print(current_constraints)
+            print("solution:", solution)
+            print("chosen clues so far:", chosen_clues)
+            print("current_constraints:", current_constraints)
             raise StopIteration("Used too many attempts to solve the puzzle.")
 
     return chosen_clues
+
+
+def remove_redundant_clues(
+    constraints: List,
+    chosen_clues: List[str],
+    chosen_attributes_sorted: List[List],
+    n_objects: int,
+) -> Tuple[List[str], List]:
+    """Remove redundant clues and constraints.
+
+    Tries removing each clue and see if the solution is still found.
+    Starts from the end of the list for easier iteration through a list we are removing elements from.
+
+    Args:
+        constraints: List of constraints for the puzzle solver.
+        chosen_clues: Clues for the zebra puzzle as a list of strings.
+        chosen_attributes_sorted: List of lists of attribute values chosen for the solution after sorting each category to avoid spoiling the solution.
+        n_objects: Number of objects in the puzzle.
+
+    Returns:
+        chosen_clues: Non-redundant clues for the zebra puzzle as a list of strings.
+        constraints: Non-redundant constraints for the puzzle solver.
+
+    """
+    for i in range(len(constraints) - 1, -1, -1):
+        _, completeness = solver(
+            constraints=constraints[:i] + constraints[i + 1 :],
+            chosen_attributes=chosen_attributes_sorted,
+            n_objects=n_objects,
+        )
+        if completeness == 1:
+            del chosen_clues[i]
+            del constraints[i]
+
+    return chosen_clues, constraints
 
 
 def complete_clue(

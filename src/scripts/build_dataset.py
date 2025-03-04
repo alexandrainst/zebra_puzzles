@@ -4,6 +4,8 @@ Usage:
     uv run src/scripts/build_dataset.py <config_key>=<config_value> ...
 """
 
+from time import time
+
 import hydra
 from omegaconf import DictConfig
 
@@ -36,5 +38,8 @@ def main(config: DictConfig) -> None:
     )
 
 
+time_0 = time()
 if __name__ == "__main__":
     main()
+
+print("Time elapsed: " + str(round(time() - time_0, 1)) + " s")
