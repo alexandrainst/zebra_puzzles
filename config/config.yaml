@@ -39,8 +39,12 @@ attributes:
         Letland: letteren
         Frankrig: franskmanden
         Spanien: spanieren
-        Kina: kineseren
-        Chile: chileneren
+        Italien: italieneren
+        Norge: nordmanden
+        Fæøerne: færingen
+        Nederlandene: nederlænderen
+        Island: islænderen
+        Storbritannien: briten
 
     hobby:
         klatring: personen der klatrer

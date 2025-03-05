@@ -448,7 +448,7 @@ def describe_random_attributes(
 ) -> Tuple[List[str], List[str]]:
     """Choose random attributes.
 
-    Choose a random attribute for each object with indices given by i_objects.
+    Choose a random attribute for each object with indices given by i_objects. Looks up attributes from chosen_attributes in the attributes dict.
 
     NOTE: Consider replacing this function by an array of chosen attribute descriptions or making chosen_attributes a dict.
 

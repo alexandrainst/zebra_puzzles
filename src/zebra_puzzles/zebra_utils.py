@@ -26,6 +26,7 @@ def generate_solution(
     chosen_attributes = [
         sample(list(attributes[cat].keys()), k=n_objects) for cat in chosen_categories
     ]
+
     # Transpose the attribute matrix
     chosen_attributes = [list(i) for i in zip(*chosen_attributes)]
 
