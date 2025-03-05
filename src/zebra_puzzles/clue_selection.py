@@ -342,7 +342,7 @@ def complete_clue(
             attribute_desc_2=clue_attributes_desc[1],
         )
 
-        constraint = (lambda a, b: abs(a - b) != 1, clue_attributes)
+        constraint = (lambda a, b: abs(a - b) > 1, clue_attributes)
 
     elif clue in ("left_of", "right_of"):
         # Choose two random objects
@@ -369,7 +369,7 @@ def complete_clue(
         else:
             constraint = (lambda a, b: a - b > 0, clue_attributes)
 
-    elif clue in ("between"):
+    elif clue in ("between", "not_between"):
         # Choose three random objects
         i_objects = sample(list(range(n_objects)), 3)
         i_objects = sorted(i_objects)
@@ -377,6 +377,12 @@ def complete_clue(
         # Randomly choose the order in which to mention the first and last object
         if randint(0, 1):
             i_objects = i_objects[::-1]
+
+        if clue == "not_between":
+            # Randomly choose the order in which to mention the center object and another object
+            i_objects_last2 = i_objects[-2:]
+            shuffle(i_objects_last2)
+            i_objects[-2:] = i_objects_last2
 
         # Choose three random attributes
         clue_attributes, clue_attributes_desc = describe_random_attributes(
@@ -393,7 +399,16 @@ def complete_clue(
             attribute_desc_3=clue_attributes_desc[2],
         )
 
-        constraint = (lambda a, b, c: a < b < c or a > b > c, clue_attributes)
+        if clue == "between":
+            constraint = (lambda a, b, c: a < b < c or a > b > c, clue_attributes)
+        else:
+            constraint = (
+                lambda a, b, c: not (b < a < c or b > a > c)
+                and a != b
+                and a != c
+                and b != c,
+                clue_attributes,
+            )
 
     else:
         raise ValueError("Unsupported clue '{clue}'")
