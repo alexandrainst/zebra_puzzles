@@ -1,6 +1,6 @@
 """Module for selecting clues for a zebra puzzle."""
 
-from random import sample, shuffle
+from random import randint, sample, shuffle
 from typing import Dict, List, Tuple
 
 from constraint import InSetConstraint, NotInSetConstraint
@@ -369,10 +369,14 @@ def complete_clue(
         else:
             constraint = (lambda a, b: a - b > 0, clue_attributes)
 
-    elif clue == "between":
+    elif clue in ("between"):
         # Choose three random objects
         i_objects = sample(list(range(n_objects)), 3)
         i_objects = sorted(i_objects)
+
+        # Randomly choose the order in which to mention the first and last object
+        if randint(0, 1):
+            i_objects = i_objects[::-1]
 
         # Choose three random attributes
         clue_attributes, clue_attributes_desc = describe_random_attributes(
@@ -389,7 +393,7 @@ def complete_clue(
             attribute_desc_3=clue_attributes_desc[2],
         )
 
-        constraint = (lambda a, b, c: a < b < c, clue_attributes)
+        constraint = (lambda a, b, c: a < b < c or a > b > c, clue_attributes)
 
     else:
         raise ValueError("Unsupported clue '{clue}'")
