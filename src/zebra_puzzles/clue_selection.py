@@ -270,7 +270,7 @@ def complete_clue(
 
         # Get the attribute descriptions which must belong to different categories
         clue_attribute_descs = [
-            chosen_attributes_descs[i_obj][i_attr]
+            chosen_attributes_descs[i_attr][i_obj]
             for i_obj, i_attr in zip(i_objects, i_attributes)
         ]
 
@@ -453,7 +453,7 @@ def describe_random_attributes(
         i_attribute, attribute = sample(list(enumerate(chosen_attributes[i])), 1)[0]
 
         # Get the attribute description
-        attribute_desc = chosen_attributes_descs[i][i_attribute]
+        attribute_desc = chosen_attributes_descs[i_attribute][i]
 
         random_attributes.append(attribute)
         random_attributes_desc.append(attribute_desc)
