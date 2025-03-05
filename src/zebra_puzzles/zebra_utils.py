@@ -6,8 +6,10 @@ from typing import Dict, List, Tuple
 
 def generate_solution(
     attributes: Dict[str, Dict[str, str]], n_objects: int, n_attributes: int
-) -> Tuple[List[List], List, List[List]]:
+) -> Tuple[List[List], List[str], List[List[str]], List[List[str]]]:
     """Generate the solution to a zebra puzzle.
+
+    Chooses categories and assigns attribute values to each object in the solution. Uses 1-based object indices.
 
     Args:
         attributes: Attributes as a dictionary of dictionaries.
@@ -15,9 +17,10 @@ def generate_solution(
         n_attributes: Number of attributes of each object.
 
     Returns:
-        solution: A solution to a zebra puzzle as a list of lists representing the matrix of object indices and chosen attributes. This matrix is n_objects x n_attributes.
+        solution: A solution to a zebra puzzle as a list of lists representing the matrix of object indices and chosen attributes. The dimenstions are n_objects x (1 + n_attributes).
         chosen_categories: Categories chosen for the solution as a list.
-        chosen_attributes: Attribute values chosen for the solution as a list of lists.
+        chosen_attributes: Attribute values chosen for the solution as a list of lists. The dimenstions are n_objects x n_attributes.
+        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a list of lists. The dimenstions are n_objects x n_attributes.
     """
     # Choose a category for each attribute
     chosen_categories = sample(list(attributes.keys()), k=n_attributes)
@@ -27,12 +30,19 @@ def generate_solution(
         sample(list(attributes[cat].keys()), k=n_objects) for cat in chosen_categories
     ]
 
+    # Find the attribute descriptions for each attribute in each category
+    chosen_attributes_descs = [
+        [attributes[cat][key] for key in chosen_attributes[i]]
+        for i, cat in enumerate(chosen_categories)
+    ]
+
     # Transpose the attribute matrix
     chosen_attributes = [list(i) for i in zip(*chosen_attributes)]
 
+    # Add 1-based object indices to the solution
     solution = [[str(i + 1)] + row for i, row in enumerate(chosen_attributes)]
 
-    return solution, chosen_categories, chosen_attributes
+    return solution, chosen_categories, chosen_attributes, chosen_attributes_descs
 
 
 def save_dataset(data: str, filename: str, folder: str = "data") -> None:
@@ -57,6 +67,8 @@ def complete_prompt(
     prompt_template: str,
 ) -> str:
     """Complete the prompt with the chosen clues.
+
+    Formats the clues as a numbered list with each hint starting with a capital letter. This is combined with the prompt template from the config file to create the full prompt.
 
     Assumes commas are used similarly across the supported languages.
     Assumes each hint should start with a capital letter.

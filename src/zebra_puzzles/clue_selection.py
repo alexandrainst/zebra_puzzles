@@ -10,11 +10,10 @@ from zebra_puzzles.zebra_solver import format_solution, solver
 
 def choose_clues(
     solution: List[List],
-    chosen_categories: List[str],
     chosen_attributes: List[List],
+    chosen_attributes_descs: List[List[str]],
     n_objects: int,
     n_attributes: int,
-    attributes: Dict[str, Dict[str, str]],
     clues_dict: Dict[str, str],
 ) -> List[str]:
     """Generate a zebra puzzle.
@@ -24,11 +23,10 @@ def choose_clues(
     Args:
         solution: Solution to the zebra puzzle as a list of lists representing the solution matrix of object indices and chosen attribute values. This matrix is n_objects x n_attributes.
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
-        chosen_categories: Categories chosen for the solution as a list of strings.
         chosen_attributes: Attribute values chosen for the solution as a list of lists.
+        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a list of lists.
         n_objects: Number of objects in the puzzle as an integer.
         n_attributes: Number of attributes per object as an integer.
-        attributes: Possible attributes as a dictionary of dictionaries.
 
     Returns:
         chosen_clues: Clues for the zebra puzzle as a list of strings.
@@ -69,9 +67,8 @@ def choose_clues(
             clue=new_clue,
             n_objects=n_objects,
             n_attributes=n_attributes,
-            attributes=attributes,
             chosen_attributes=chosen_attributes,
-            chosen_categories=chosen_categories,
+            chosen_attributes_descs=chosen_attributes_descs,
             clues_dict=clues_dict,
         )
 
@@ -168,9 +165,8 @@ def complete_clue(
     clue: str,
     n_objects: int,
     n_attributes: int,
-    attributes: Dict[str, Dict[str, str]],
     chosen_attributes: List[List],
-    chosen_categories: List[str],
+    chosen_attributes_descs: List[List[str]],
     clues_dict: Dict[str, str],
 ) -> Tuple[str, Tuple]:
     """Complete the chosen clue type with random parts of the solution to create a full clue.
@@ -184,6 +180,7 @@ def complete_clue(
         n_attributes: Number of attributes per object as an integer.
         attributes: Possible attributes as a dictionary of dictionaries.
         chosen_attributes: Attribute values chosen for the solution as a list of lists.
+        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a list of lists.
         chosen_categories: Categories chosen for the solution.
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
 
@@ -201,9 +198,8 @@ def complete_clue(
 
         # Choose an attribute
         attribute, attribute_desc = describe_random_attributes(
-            attributes=attributes,
             chosen_attributes=chosen_attributes,
-            chosen_categories=chosen_categories,
+            chosen_attributes_descs=chosen_attributes_descs,
             i_objects=[i_object],
         )
 
@@ -222,9 +218,8 @@ def complete_clue(
 
         # Choose an attribute of the first object
         attribute, attribute_desc = describe_random_attributes(
-            attributes=attributes,
             chosen_attributes=chosen_attributes,
-            chosen_categories=chosen_categories,
+            chosen_attributes_descs=chosen_attributes_descs,
             i_objects=[i_object],
         )
 
@@ -243,15 +238,13 @@ def complete_clue(
         attribute_1, attribute_2 = [""], [""]
         while attribute_1 == attribute_2:
             attribute_1, attribute_desc_1 = describe_random_attributes(
-                attributes=attributes,
                 chosen_attributes=chosen_attributes,
-                chosen_categories=chosen_categories,
+                chosen_attributes_descs=chosen_attributes_descs,
                 i_objects=[i_object],
             )
             attribute_2, attribute_desc_2 = describe_random_attributes(
-                attributes=attributes,
                 chosen_attributes=chosen_attributes,
-                chosen_categories=chosen_categories,
+                chosen_attributes_descs=chosen_attributes_descs,
                 i_objects=[i_object],
             )
 
@@ -275,11 +268,10 @@ def complete_clue(
             for i_obj, i_attr in zip(i_objects, i_attributes)
         ]
 
-        # Get the attribute descriptions
-        chosen_categories = [chosen_categories[i] for i in i_attributes]
+        # Get the attribute descriptions which must belong to different categories
         clue_attribute_descs = [
-            attributes[cat][attr]
-            for cat, attr in zip(chosen_categories, clue_attributes)
+            chosen_attributes_descs[i_obj][i_attr]
+            for i_obj, i_attr in zip(i_objects, i_attributes)
         ]
 
         # Create the full clue
@@ -303,9 +295,8 @@ def complete_clue(
 
         # Choose two random attributes
         clue_attributes, clue_attributes_desc = describe_random_attributes(
-            attributes=attributes,
             chosen_attributes=chosen_attributes,
-            chosen_categories=chosen_categories,
+            chosen_attributes_descs=chosen_attributes_descs,
             i_objects=i_objects,
         )
 
@@ -330,9 +321,8 @@ def complete_clue(
 
         # Choose two random attributes
         clue_attributes, clue_attributes_desc = describe_random_attributes(
-            attributes=attributes,
             chosen_attributes=chosen_attributes,
-            chosen_categories=chosen_categories,
+            chosen_attributes_descs=chosen_attributes_descs,
             i_objects=i_objects,
         )
 
@@ -353,9 +343,8 @@ def complete_clue(
 
         # Choose two random attributes
         clue_attributes, clue_attributes_desc = describe_random_attributes(
-            attributes=attributes,
             chosen_attributes=chosen_attributes,
-            chosen_categories=chosen_categories,
+            chosen_attributes_descs=chosen_attributes_descs,
             i_objects=i_objects,
         )
 
@@ -386,9 +375,8 @@ def complete_clue(
 
         # Choose three random attributes
         clue_attributes, clue_attributes_desc = describe_random_attributes(
-            attributes=attributes,
             chosen_attributes=chosen_attributes,
-            chosen_categories=chosen_categories,
+            chosen_attributes_descs=chosen_attributes_descs,
             i_objects=i_objects,
         )
 
@@ -419,9 +407,8 @@ def complete_clue(
 
         # Choose two random attributes
         clue_attributes, clue_attributes_desc = describe_random_attributes(
-            attributes=attributes,
             chosen_attributes=chosen_attributes,
-            chosen_categories=chosen_categories,
+            chosen_attributes_descs=chosen_attributes_descs,
             i_objects=i_objects,
         )
 
@@ -441,21 +428,17 @@ def complete_clue(
 
 
 def describe_random_attributes(
-    attributes: Dict[str, Dict[str, str]],
     chosen_attributes: List[List],
-    chosen_categories: List[str],
+    chosen_attributes_descs: List[List[str]],
     i_objects: List[int],
 ) -> Tuple[List[str], List[str]]:
     """Choose random attributes.
 
     Choose a random attribute for each object with indices given by i_objects. Looks up attributes from chosen_attributes in the attributes dict.
 
-    NOTE: Consider replacing this function by an array of chosen attribute descriptions or making chosen_attributes a dict.
-
     Args:
-        attributes: Attributes as a dictionary of dictionaries.
         chosen_attributes: Attribute values chosen for the solution as a list of lists.
-        chosen_categories: Categories chosen for the solution.
+        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a list of lists.
         i_objects: The index of the object to select an attribute from.
 
     Returns:
@@ -469,10 +452,8 @@ def describe_random_attributes(
         # Choose a random attribute and the corresponding category
         i_attribute, attribute = sample(list(enumerate(chosen_attributes[i])), 1)[0]
 
-        chosen_category = chosen_categories[i_attribute]
-
         # Get the attribute description
-        attribute_desc = attributes[chosen_category][attribute]
+        attribute_desc = chosen_attributes_descs[i][i_attribute]
 
         random_attributes.append(attribute)
         random_attributes_desc.append(attribute_desc)

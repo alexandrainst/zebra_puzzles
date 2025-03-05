@@ -34,16 +34,17 @@ def run_pipeline(
     """
     # clues = define_clues(clues_included=clues_included)
 
-    solution, chosen_categories, chosen_attributes = generate_solution(
-        attributes=attributes, n_objects=n_objects, n_attributes=n_attributes
+    solution, chosen_categories, chosen_attributes, chosen_attributes_descs = (
+        generate_solution(
+            attributes=attributes, n_objects=n_objects, n_attributes=n_attributes
+        )
     )
     chosen_clues = choose_clues(
         solution=solution,
-        chosen_categories=chosen_categories,
         chosen_attributes=chosen_attributes,
+        chosen_attributes_descs=chosen_attributes_descs,
         n_objects=n_objects,
         n_attributes=n_attributes,
-        attributes=attributes,
         clues_dict=clues_dict,
     )
 

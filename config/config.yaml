@@ -19,7 +19,7 @@ n_puzzles: 10
 
 # Objects e.g. houses
 # Currently, 2 - 7 are supported
-n_objects: 4
+n_objects: 3
 
 # Attributes e.g. pets
 # Currently, 2 - 7 are supported.
@@ -128,12 +128,14 @@ clues_dict:
 prompt_template: |
   En række huse er nummereret fra 1 til {n_objects} fra venstre mod højre. I hvert hus bor en person med en bestemte egenskaber, som er forskellige fra de andre.
 
-  Du skal gætte egenskaber fra kategorierne {chosen_categories_part1} og {chosen_categories_part2} for hver person. De mulige egenskaber er {chosen_attributes_part1} og {chosen_attributes_part2}. Her følger et eller flere hints:
+  Du skal gætte egenskaber fra kategorierne {chosen_categories_part1} og {chosen_categories_part2} for hver person. De mulige egenskaber er {chosen_attributes_part1} og {chosen_attributes_part2}.
+
+  Her følger et eller flere hints:
 
   {chosen_clues_str}
 
   Hvem har hvilke egenskaber og bor i hvilket hus? Angiv dit svar i følgende format, hvor det første tal i hver række repræsenterer husnummeret:
 
-  1 egenskab_1 egenskab_2 egenskab_3 ...
-  2 egenskab_1 egenskab_2 egenskab_3 ...
+  1, egenskab_1, egenskab_2, egenskab_3 ...
+  2, egenskab_1, egenskab_2, egenskab_3 ...
   ...
