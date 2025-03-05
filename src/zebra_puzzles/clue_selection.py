@@ -175,7 +175,7 @@ def complete_clue(
 ) -> Tuple[str, Tuple]:
     """Complete the chosen clue type with random parts of the solution to create a full clue.
 
-    TODO: Include more clue types. For example not_just_left_of, not_just_right_of, same_object, not_same_object, between, not_between
+    NOTE: More clue types can be included. For example: odd_pos, even_pos, maybe_same
     NOTE: The current implementation does not allow objects to have non-unique attributes
 
     Args:
@@ -409,6 +409,30 @@ def complete_clue(
                 and b != c,
                 clue_attributes,
             )
+
+    elif clue == "n_between":
+        # Choose two random objects with a distance of at least 2
+        n_between = 0
+        while n_between < 2:
+            i_objects = sample(list(range(n_objects)), 2)
+            n_between = abs(i_objects[0] - i_objects[1])
+
+        # Choose two random attributes
+        clue_attributes, clue_attributes_desc = describe_random_attributes(
+            attributes=attributes,
+            chosen_attributes=chosen_attributes,
+            chosen_categories=chosen_categories,
+            i_objects=i_objects,
+        )
+
+        # Create the full clue
+        full_clue = clue_description.format(
+            attribute_desc_1=clue_attributes_desc[0],
+            attribute_desc_2=clue_attributes_desc[1],
+            n_between=n_between,
+        )
+
+        constraint = (lambda a, b: abs(b - a) == n_between, clue_attributes)
 
     else:
         raise ValueError("Unsupported clue '{clue}'")

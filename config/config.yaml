@@ -23,7 +23,7 @@ n_objects: 4
 
 # Attributes e.g. pets
 # Currently, 2 - 7 are supported.
-n_attributes: 4
+n_attributes: 3
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
@@ -115,6 +115,7 @@ clues_dict:
     not_same_object: "{attribute_desc_1} er ikke {attribute_desc_2}."                           # Requires n_attributes > 1, otherwise it cannot be used
     between: "{attribute_desc_2} bor mellem {attribute_desc_1} og {attribute_desc_3}."          # Requires n_objects > 2, otherwise it cannot be used
     not_between: "{attribute_desc_1} bor ikke mellem {attribute_desc_2} og {attribute_desc_3}." # Requires n_objects > 2, otherwise it cannot be used
+    n_between: "{attribute_desc_1} og {attribute_desc_2} bor med {n_between} huse mellem sig."   # Requires n_objects > 2, otherwise it cannot be used
 
 
 # Prompt
@@ -129,6 +130,6 @@ prompt_template: |
 
   Hvem har hvilke egenskaber og bor i hvilket hus? Angiv dit svar i følgende format, hvor det første tal i hver række repræsenterer husnummeret:
 
-  1: egenskab 1, egenskab 2, egenskab 3, ...
-  2: egenskab 1, egenskab 2, egenskab 3, ...
+  1 egenskab_1 egenskab_2 egenskab_3 ...
+  2 egenskab_1 egenskab_2 egenskab_3 ...
   ...
