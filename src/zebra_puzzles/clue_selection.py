@@ -37,10 +37,13 @@ def choose_clues(
     # Exclude clues that cannot be used for this puzzle. We assume all puzzles are have at least 2 houses.
     if n_objects <= 2:
         if any(
-            [i in clues_dict for i in ["not_next_to", "next_to", "left_of", "right_of"]]
+            [
+                i in clues_dict
+                for i in ["not_next_to", "next_to", "left_of", "right_of", "between"]
+            ]
         ):
             raise ValueError(
-                "Too few objects for 'not_next_to' clues. Please adjust the config file."
+                "Too few objects for the chosen clues. Please adjust the config file."
             )
     if n_attributes == 1:
         if any([i in clues_dict for i in ["not_same_object", "same_object"]]):
@@ -365,6 +368,28 @@ def complete_clue(
             constraint = (lambda a, b: b - a > 0, clue_attributes)
         else:
             constraint = (lambda a, b: a - b > 0, clue_attributes)
+
+    elif clue == "between":
+        # Choose three random objects
+        i_objects = sample(list(range(n_objects)), 3)
+        i_objects = sorted(i_objects)
+
+        # Choose three random attributes
+        clue_attributes, clue_attributes_desc = describe_random_attributes(
+            attributes=attributes,
+            chosen_attributes=chosen_attributes,
+            chosen_categories=chosen_categories,
+            i_objects=i_objects,
+        )
+
+        # Create the full clue
+        full_clue = clue_description.format(
+            attribute_desc_1=clue_attributes_desc[0],
+            attribute_desc_2=clue_attributes_desc[1],
+            attribute_desc_3=clue_attributes_desc[2],
+        )
+
+        constraint = (lambda a, b, c: a < b < c, clue_attributes)
 
     else:
         raise ValueError("Unsupported clue '{clue}'")
