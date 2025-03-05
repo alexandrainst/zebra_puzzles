@@ -19,19 +19,18 @@ def run_pipeline(
 
     Args:
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
-        n_objects: Number of objects in the puzzle.
-        n_attributes: Number of attributes of each object.
+        n_objects: Number of objects in the puzzle as an integer.
+        n_attributes: Number of attributes of each object as an integer.
         attributes: Possible attributes as a dictionary of dictionaries.
-        prompt_template: Template for the prompt.
-        verbose: Print the prompt and solution.
-        eval: Evaluate the prompt.
+        prompt_template: Template for the prompt as a string.
+        verbose: Option to print the prompt and solution as a boolean.
+        eval: Option to evaluate the prompt as a boolean.
 
     Returns:
         A tuple (prompt, solution_str) with the prompt and the solution as a string.
 
     TODO: Implement evaluation.
     TODO: Consider if enumeration should be removed when we only have one clue.
-    TODO: Consider using the clue descriptions in complete_prompt() only.
     """
     # clues = define_clues(clues_included=clues_included)
 
@@ -43,6 +42,7 @@ def run_pipeline(
         chosen_categories=chosen_categories,
         chosen_attributes=chosen_attributes,
         n_objects=n_objects,
+        n_attributes=n_attributes,
         attributes=attributes,
         clues_dict=clues_dict,
     )

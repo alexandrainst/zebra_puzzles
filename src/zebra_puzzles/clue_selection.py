@@ -13,6 +13,7 @@ def choose_clues(
     chosen_categories: List[str],
     chosen_attributes: List[List],
     n_objects: int,
+    n_attributes: int,
     attributes: Dict[str, Dict[str, str]],
     clues_dict: Dict[str, str],
 ) -> List[str]:
@@ -23,26 +24,28 @@ def choose_clues(
     Args:
         solution: Solution to the zebra puzzle as a list of lists representing the solution matrix of object indices and chosen attribute values. This matrix is n_objects x n_attributes.
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
-        chosen_categories: Categories chosen for the solution.
-        chosen_attributes: Attribute values chosen for the solution.
-        n_objects: Number of objects in the puzzle.
+        chosen_categories: Categories chosen for the solution as a list of strings.
+        chosen_attributes: Attribute values chosen for the solution as a list of lists.
+        n_objects: Number of objects in the puzzle as an integer.
+        n_attributes: Number of attributes per object as an integer.
         attributes: Possible attributes as a dictionary of dictionaries.
 
     Returns:
         chosen_clues: Clues for the zebra puzzle as a list of strings.
 
     """
-    # Exclude clues that cannot be used for this puzzle
+    # Exclude clues that cannot be used for this puzzle. We assume all puzzles are have at least 2 houses.
     if n_objects <= 2:
-        if "not_next_to" in clues_dict:
+        if any(
+            [i in clues_dict for i in ["not_next_to", "next_to", "left_of", "right_of"]]
+        ):
             raise ValueError(
                 "Too few objects for 'not_next_to' clues. Please adjust the config file."
             )
-
-    if n_objects == 1:
-        if "next_to" in clues_dict:
+    if n_attributes == 1:
+        if any([i in clues_dict for i in ["not_same_object", "same_object"]]):
             raise ValueError(
-                "Too few objects for 'next_to' clues. Please adjust the config file."
+                "Too few attributes for the chosen clues. Please adjust the config file."
             )
 
     # Transpose and sort the attributes
@@ -62,6 +65,7 @@ def choose_clues(
         new_clue, constraint = complete_clue(
             clue=new_clue,
             n_objects=n_objects,
+            n_attributes=n_attributes,
             attributes=attributes,
             chosen_attributes=chosen_attributes,
             chosen_categories=chosen_categories,
@@ -160,6 +164,7 @@ def remove_redundant_clues(
 def complete_clue(
     clue: str,
     n_objects: int,
+    n_attributes: int,
     attributes: Dict[str, Dict[str, str]],
     chosen_attributes: List[List],
     chosen_categories: List[str],
@@ -172,7 +177,8 @@ def complete_clue(
 
     Args:
         clue: Chosen clue type as a string.
-        n_objects: Number of objects in the puzzle as an int.
+        n_objects: Number of objects in the puzzle as an integer.
+        n_attributes: Number of attributes per object as an integer.
         attributes: Possible attributes as a dictionary of dictionaries.
         chosen_attributes: Attribute values chosen for the solution as a list of lists.
         chosen_categories: Categories chosen for the solution.
@@ -251,7 +257,35 @@ def complete_clue(
             attribute_desc_1=attribute_desc_1[0], attribute_desc_2=attribute_desc_2[0]
         )
 
-        constraint = (lambda a, b: b == a, attribute_1 + attribute_2)
+        constraint = (lambda a, b: a == b, attribute_1 + attribute_2)
+
+    elif clue == "not_same_object":
+        # Choose two random objects
+        i_objects = sample(list(range(n_objects)), 2)
+
+        # Choose two different categories
+        i_attributes = sample(list(range(n_attributes)), 2)
+
+        # Get the attributes
+        clue_attributes = [
+            chosen_attributes[i_obj][i_attr]
+            for i_obj, i_attr in zip(i_objects, i_attributes)
+        ]
+
+        # Get the attribute descriptions
+        chosen_categories = [chosen_categories[i] for i in i_attributes]
+        clue_attribute_descs = [
+            attributes[cat][attr]
+            for cat, attr in zip(chosen_categories, clue_attributes)
+        ]
+
+        # Create the full clue
+        full_clue = clue_description.format(
+            attribute_desc_1=clue_attribute_descs[0],
+            attribute_desc_2=clue_attribute_descs[1],
+        )
+
+        constraint = (lambda a, b: a != b, clue_attributes)
 
     elif clue in ("next_to", "just_left_of", "just_right_of"):
         # Choose a random object to the left of another
