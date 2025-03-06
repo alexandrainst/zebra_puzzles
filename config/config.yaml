@@ -26,11 +26,11 @@ n_puzzles: 10
 
 # Objects e.g. houses
 # Currently, 2 - 7 are supported
-n_objects: 3
+n_objects: 4
 
 # Attributes e.g. pets
 # Currently, 2 - 7 are supported.
-n_attributes: 2
+n_attributes: 4
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
@@ -115,7 +115,7 @@ attributes:
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 clues_dict:
     found_at: "{attribute_desc} bor i hus nummer {i_object}."
-    not_at: "{attribute_desc} bor ikke i hus nummer {i_other_object}."
+    not_at: "{attribute_desc} bor ikke i hus nummer {i_object}."
     next_to: "{attribute_desc_1} bor ved siden af {attribute_desc_2}."                          # Requires n_objects > 2, otherwise use not_same_object
     not_next_to: "{attribute_desc_1} bor ikke ved siden af {attribute_desc_2}."                 # Requires n_objects > 2, otherwise it cannot be used
     just_left_of: "{attribute_desc_1} bor lige til venstre for {attribute_desc_2}."

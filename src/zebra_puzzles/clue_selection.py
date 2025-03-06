@@ -57,20 +57,33 @@ def choose_clues(
     solved: bool = False
     chosen_clues: List[str] = []
     constraints: List[Tuple] = []
+    clue_pars: List = []
+    clue_types: List[str] = []
 
     max_iter = 100
     i_iter = 0
     while not solved:
         # Generate a random clue
-        new_clue = sample(sorted(clues_dict), 1)[0]
-        new_clue, constraint = complete_clue(
-            clue=new_clue,
+        clue_type = sample(sorted(clues_dict), 1)[0]
+        new_clue, constraint, clue_par = complete_clue(
+            clue=clue_type,
             n_objects=n_objects,
             n_attributes=n_attributes,
             chosen_attributes=chosen_attributes,
             chosen_attributes_descs=chosen_attributes_descs,
             clues_dict=clues_dict,
         )
+
+        # Check if the clue is obviously redundant before using the solver
+        if remove_redundant_clues_part1(
+            new_clue=new_clue,
+            chosen_clues=chosen_clues,
+            clue_par=clue_par,
+            clue_pars=clue_pars,
+            clue_type=clue_type,
+            clue_types=clue_types,
+        ):
+            continue
 
         current_constraints = constraints + [constraint]
 
@@ -86,6 +99,8 @@ def choose_clues(
             solutions = new_solutions
             chosen_clues.append(new_clue)
             constraints.append(constraint)
+            clue_pars.append(clue_par)
+            clue_types.append(clue_type)
 
         # Check if the solution is complete and the clues are non-redundant
 
@@ -108,7 +123,7 @@ def choose_clues(
                 )
 
             # Remove redundant clues
-            chosen_clues, constraints = remove_redundant_clues(
+            chosen_clues, constraints = remove_redundant_clues_part2(
                 constraints=constraints,
                 chosen_clues=chosen_clues,
                 chosen_attributes_sorted=chosen_attributes_sorted,
@@ -126,7 +141,55 @@ def choose_clues(
     return chosen_clues
 
 
-def remove_redundant_clues(
+def remove_redundant_clues_part1(
+    new_clue: str,
+    chosen_clues: List[str],
+    clue_par: Tuple[str, List[int], List[str]],
+    clue_pars: List,
+    clue_type: str,
+    clue_types: List[str],
+) -> bool:
+    """Use simple rules to check if a suggested clue is redundant.
+
+    This is to avoid using the solver for every clue suggestion.
+
+    Args:
+        new_clue: The clue to check as a string.
+        chosen_clues: Chosen clues for the zebra puzzle as a list of strings.
+        clue_par: Clue parameters for the new clue.
+        clue_pars: List of clue parameters for the puzzle solver.
+        clue_type: Clue type for the new clue.
+        clue_types: List of clue types.
+
+    Returns:
+        redundant: Boolean indicating if the clue is redundant
+
+    """
+    # Check if the clue has already been chosen (same clue parameters)
+    if new_clue in chosen_clues:
+        return True
+
+    # Check if a clue of the same meaning has already been chosen
+    if clue_type in clue_types:
+        if clue_type in ("same_object", "not_same_object"):
+            for clue_type_j, i_objects_j, attributes_j in clue_pars:
+                if clue_type == clue_type_j:
+                    if sorted(i_objects_j) == sorted(clue_par[1]) and sorted(
+                        attributes_j
+                    ) == sorted(clue_par[2]):
+                        return True
+
+    # Check if not_at is used after found_at with the same attribute
+    if clue_type == "not_at" and "found_at" in clue_types:
+        for clue_type_j, i_objects_j, attributes_j in clue_pars:
+            if clue_type_j == "found_at":
+                if attributes_j == clue_par[2]:
+                    return True
+
+    return False
+
+
+def remove_redundant_clues_part2(
     constraints: List,
     chosen_clues: List[str],
     chosen_attributes_sorted: List[List],
@@ -168,7 +231,7 @@ def complete_clue(
     chosen_attributes: List[List],
     chosen_attributes_descs: List[List[str]],
     clues_dict: Dict[str, str],
-) -> Tuple[str, Tuple]:
+) -> Tuple[str, Tuple, Tuple[str, List[int], List[str]]]:
     """Complete the chosen clue type with random parts of the solution to create a full clue.
 
     NOTE: More clue types can be included. For example: odd_pos, even_pos, either
@@ -187,6 +250,7 @@ def complete_clue(
     Returns:
         full_clue: Full clue as a string.
         constraint: Tuple consisting of a constraint function and a list of variables directly affected by the constraint.
+        clue_par: List containing the clue type, the object indices described in the clue and the attribute names.
     """
     clue_description = clues_dict[clue]
 
@@ -200,12 +264,15 @@ def complete_clue(
             i_object, i_clue_object = sample(list(range(n_objects)), 2)
 
         # Choose an attribute
-        attribute, attribute_desc = describe_random_attributes(
+        clue_attributes, attribute_desc = describe_random_attributes(
             chosen_attributes=chosen_attributes,
             chosen_attributes_descs=chosen_attributes_descs,
             i_objects=[i_object],
             n_attributes=n_attributes,
         )
+
+        # Save the clue object index for the clue_par list
+        i_objects = [i_clue_object]
 
         # Create the full clue
         full_clue = clue_description.format(
@@ -213,9 +280,9 @@ def complete_clue(
         )
 
         if clue == "found_at":
-            constraint = (InSetConstraint([i_clue_object + 1]), attribute)
+            constraint = (InSetConstraint([i_clue_object + 1]), clue_attributes)
         elif clue == "not_at":
-            constraint = (NotInSetConstraint([i_clue_object + 1]), attribute)
+            constraint = (NotInSetConstraint([i_clue_object + 1]), clue_attributes)
 
     elif clue in ("same_object", "not_same_object"):
         if clue == "same_object":
@@ -371,7 +438,10 @@ def complete_clue(
     else:
         raise ValueError("Unsupported clue '{clue}'")
 
-    return full_clue, constraint
+    # Save the clue parameters
+    clue_par = (clue, i_objects, clue_attributes)
+
+    return full_clue, constraint, clue_par
 
 
 def describe_random_attributes(
