@@ -14,6 +14,7 @@
 # 3x7: 1.6 s
 # 4x4: 1.6 s
 # 4x5: 1.4 min
+# 5x3: 9.2 s
 
 defaults:
   - override hydra/job_logging: custom
@@ -25,11 +26,11 @@ n_puzzles: 10
 
 # Objects e.g. houses
 # Currently, 2 - 7 are supported
-n_objects: 4
+n_objects: 3
 
 # Attributes e.g. pets
 # Currently, 2 - 7 are supported.
-n_attributes: 3
+n_attributes: 2
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.

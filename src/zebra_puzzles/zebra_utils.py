@@ -36,8 +36,9 @@ def generate_solution(
         for i, cat in enumerate(chosen_categories)
     ]
 
-    # Transpose the attribute matrix
+    # Transpose the attribute matrices
     chosen_attributes = [list(i) for i in zip(*chosen_attributes)]
+    chosen_attributes_descs = [list(i) for i in zip(*chosen_attributes_descs)]
 
     # Add 1-based object indices to the solution
     solution = [[str(i + 1)] + row for i, row in enumerate(chosen_attributes)]
@@ -85,7 +86,6 @@ def complete_prompt(
 
 
     TODO: Improve the prompt here and in the config file.
-    TODO: Add support for puzzles with a single category and/or object
     """
     chosen_clues = [
         f"{i + 1}. {clue[0].upper()}{clue[1:]}" for i, clue in enumerate(chosen_clues)

@@ -1,6 +1,6 @@
 """Module for selecting clues for a zebra puzzle."""
 
-from random import randint, sample, shuffle
+from random import choices, randint, sample, shuffle
 from typing import Dict, List, Tuple
 
 from constraint import InSetConstraint, NotInSetConstraint
@@ -171,7 +171,7 @@ def complete_clue(
 ) -> Tuple[str, Tuple]:
     """Complete the chosen clue type with random parts of the solution to create a full clue.
 
-    NOTE: More clue types can be included. For example: odd_pos, even_pos, maybe_same
+    NOTE: More clue types can be included. For example: odd_pos, even_pos, either
     NOTE: The current implementation does not allow objects to have non-unique attributes
 
     Args:
@@ -190,89 +190,50 @@ def complete_clue(
     """
     clue_description = clues_dict[clue]
 
-    if clue == "found_at":
-        # E.g. the person who paints lives in house no. 5.
-
-        # Choose a random object
-        i_object = sample(list(range(n_objects)), 1)[0]
+    if clue in ("found_at", "not_at"):
+        if clue == "found_at":
+            # Choose a random object
+            i_object = sample(list(range(n_objects)), 1)[0]
+            i_clue_object = i_object
+        elif clue == "not_at":
+            # Choose two random objects - one for the attribute and one not connected to this attribute
+            i_object, i_clue_object = sample(list(range(n_objects)), 2)
 
         # Choose an attribute
         attribute, attribute_desc = describe_random_attributes(
             chosen_attributes=chosen_attributes,
             chosen_attributes_descs=chosen_attributes_descs,
             i_objects=[i_object],
+            n_attributes=n_attributes,
         )
 
         # Create the full clue
         full_clue = clue_description.format(
-            attribute_desc=attribute_desc[0], i_object=i_object + 1
+            attribute_desc=attribute_desc[0], i_object=i_clue_object + 1
         )
 
-        constraint = (InSetConstraint([i_object + 1]), attribute)
+        if clue == "found_at":
+            constraint = (InSetConstraint([i_clue_object + 1]), attribute)
+        elif clue == "not_at":
+            constraint = (NotInSetConstraint([i_clue_object + 1]), attribute)
 
-    elif clue == "not_at":
-        # E.g. the person who paints does not live in house no. 5.
-
-        # Choose two random objects - one for the attribute and one not connected to this attribute
-        i_object, i_other_object = sample(list(range(n_objects)), 2)
-
-        # Choose an attribute of the first object
-        attribute, attribute_desc = describe_random_attributes(
-            chosen_attributes=chosen_attributes,
-            chosen_attributes_descs=chosen_attributes_descs,
-            i_objects=[i_object],
-        )
-
-        # Create the full clue
-        full_clue = clue_description.format(
-            attribute_desc=attribute_desc[0], i_other_object=i_other_object + 1
-        )
-
-        constraint = (NotInSetConstraint([i_other_object + 1]), attribute)
-
-    elif clue == "same_object":
-        # Choose a random object
-        i_object = sample(list(range(n_objects)), 1)[0]
+    elif clue in ("same_object", "not_same_object"):
+        if clue == "same_object":
+            # Choose a random object
+            i_object = sample(list(range(n_objects)), 1)[0]
+            i_objects = [i_object, i_object]
+        elif clue == "not_same_object":
+            # Choose two random objects
+            i_objects = sample(list(range(n_objects)), 2)
 
         # Choose two unique attributes
-        attribute_1, attribute_2 = [""], [""]
-        while attribute_1 == attribute_2:
-            attribute_1, attribute_desc_1 = describe_random_attributes(
-                chosen_attributes=chosen_attributes,
-                chosen_attributes_descs=chosen_attributes_descs,
-                i_objects=[i_object],
-            )
-            attribute_2, attribute_desc_2 = describe_random_attributes(
-                chosen_attributes=chosen_attributes,
-                chosen_attributes_descs=chosen_attributes_descs,
-                i_objects=[i_object],
-            )
-
-        # Create the full clue
-        full_clue = clue_description.format(
-            attribute_desc_1=attribute_desc_1[0], attribute_desc_2=attribute_desc_2[0]
+        clue_attributes, clue_attribute_descs = describe_random_attributes(
+            chosen_attributes=chosen_attributes,
+            chosen_attributes_descs=chosen_attributes_descs,
+            i_objects=i_objects,
+            n_attributes=n_attributes,
+            diff_cat=True,
         )
-
-        constraint = (lambda a, b: a == b, attribute_1 + attribute_2)
-
-    elif clue == "not_same_object":
-        # Choose two random objects
-        i_objects = sample(list(range(n_objects)), 2)
-
-        # Choose two different categories
-        i_attributes = sample(list(range(n_attributes)), 2)
-
-        # Get the attributes
-        clue_attributes = [
-            chosen_attributes[i_obj][i_attr]
-            for i_obj, i_attr in zip(i_objects, i_attributes)
-        ]
-
-        # Get the attribute descriptions which must belong to different categories
-        clue_attribute_descs = [
-            chosen_attributes_descs[i_attr][i_obj]
-            for i_obj, i_attr in zip(i_objects, i_attributes)
-        ]
 
         # Create the full clue
         full_clue = clue_description.format(
@@ -280,7 +241,10 @@ def complete_clue(
             attribute_desc_2=clue_attribute_descs[1],
         )
 
-        constraint = (lambda a, b: a != b, clue_attributes)
+        if clue == "same_object":
+            constraint = (lambda a, b: a == b, clue_attributes)
+        elif clue == "not_same_object":
+            constraint = (lambda a, b: a != b, clue_attributes)
 
     elif clue in (
         "next_to",
@@ -317,6 +281,7 @@ def complete_clue(
             chosen_attributes=chosen_attributes,
             chosen_attributes_descs=chosen_attributes_descs,
             i_objects=i_objects,
+            n_attributes=n_attributes,
         )
 
         # Create the full clue
@@ -358,6 +323,7 @@ def complete_clue(
             chosen_attributes=chosen_attributes,
             chosen_attributes_descs=chosen_attributes_descs,
             i_objects=i_objects,
+            n_attributes=n_attributes,
         )
 
         # Create the full clue
@@ -390,6 +356,7 @@ def complete_clue(
             chosen_attributes=chosen_attributes,
             chosen_attributes_descs=chosen_attributes_descs,
             i_objects=i_objects,
+            n_attributes=n_attributes,
         )
 
         # Create the full clue
@@ -411,6 +378,8 @@ def describe_random_attributes(
     chosen_attributes: List[List],
     chosen_attributes_descs: List[List[str]],
     i_objects: List[int],
+    n_attributes: int,
+    diff_cat: bool = False,
 ) -> Tuple[List[str], List[str]]:
     """Choose random attributes.
 
@@ -420,22 +389,21 @@ def describe_random_attributes(
         chosen_attributes: Attribute values chosen for the solution as a list of lists.
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a list of lists.
         i_objects: The index of the object to select an attribute from.
+        n_attributes: Number of attributes per object.
+        diff_cat: If True, the output attributes must belong to different categories.
 
     Returns:
-        random_attributes: A list contraining one random attribute per object.
+        random_attributes: A list of strings contraining one random attribute per object.
         random_attributes_desc: A list of strings using the attributes to describe the objects.
-
     """
-    random_attributes = []
-    random_attributes_desc = []
-    for i in i_objects:
-        # Choose a random attribute and the corresponding category
-        i_attribute, attribute = sample(list(enumerate(chosen_attributes[i])), 1)[0]
+    if diff_cat:
+        i_attributes = sample(list(range(n_attributes)), k=len(i_objects))
+    else:
+        i_attributes = choices(list(range(n_attributes)), k=len(i_objects))
 
-        # Get the attribute description
-        attribute_desc = chosen_attributes_descs[i_attribute][i]
-
-        random_attributes.append(attribute)
-        random_attributes_desc.append(attribute_desc)
+    random_attributes, random_attributes_desc = [], []
+    for i_obj, i_attr in zip(i_objects, i_attributes):
+        random_attributes.append(chosen_attributes[i_obj][i_attr])
+        random_attributes_desc.append(chosen_attributes_descs[i_obj][i_attr])
 
     return random_attributes, random_attributes_desc
