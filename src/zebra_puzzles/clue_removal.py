@@ -15,7 +15,12 @@ def remove_redundant_clues_part1(
 ) -> bool:
     """Use simple rules to check if a suggested clue is redundant.
 
-    This is to avoid using the solver for every clue suggestion.
+    This is to avoid using the solver for every clue suggestion and thereby speed up the clue selection process.
+
+    NOTE: More checks could be added e.g. "same_object" and "not_same_object" with 1 identical attribute and secondary attributes of the same category.
+    NOTE: Consider adapting for non-unique attributes
+    TODO: Consider deleting an already chosen clue if the new one is more specific.
+    TODO: Alternatively, if the new clue is more specific, we could remove it to avoid a bias towards more specific clues.
 
     Args:
         new_clue: The clue to check as a string.
@@ -29,27 +34,75 @@ def remove_redundant_clues_part1(
         redundant: Boolean indicating if the clue is redundant
 
     """
-    # Check if the clue has already been chosen (same clue parameters)
+    # ---- Check if the clue has already been chosen ----#
     if new_clue in chosen_clues:
         return True
 
-    # Check if a clue of the same meaning has already been chosen
-    if clue_type in clue_types:
-        if clue_type in ("same_object", "not_same_object"):
-            for clue_type_j, i_objects_j, attributes_j in clue_pars:
-                if clue_type == clue_type_j:
-                    if sorted(i_objects_j) == sorted(clue_par[1]) and sorted(
-                        attributes_j
-                    ) == sorted(clue_par[2]):
-                        return True
-
-    # Check if not_at is used after found_at with the same attribute
+    # ---- Check if not_at is used after found_at with the same attribute (but not the same objects) ----#
     if clue_type == "not_at" and "found_at" in clue_types:
+        for clue_type_j, _, attributes_j in clue_pars:
+            if clue_type_j == "found_at" and attributes_j == clue_par[2]:
+                return True
+
+    # ---- Check if between clues exclude not_same_object ----#
+    if clue_type == "not_same_object":
+        # Go through the list of chosen clues
         for clue_type_j, i_objects_j, attributes_j in clue_pars:
-            if clue_type_j == "found_at":
-                if attributes_j == clue_par[2]:
+            # Check if the new clue type and an existing clue type are a pair in redundant_clues
+            if clue_type_j in {"between", "not_between"}:
+                # Combine pairwise
+                combined_obj_attributes = {
+                    f"{x}{y}" for x, y in zip(i_objects_j, attributes_j)
+                }
+                combined_obj_attributes_new = {
+                    f"{x}{y}" for x, y in zip(clue_par[1], clue_par[2])
+                }
+
+                # Check if the combination of objects and attributes are the included in the existing clue
+                if combined_obj_attributes_new.issubset(combined_obj_attributes):
                     return True
 
+    # ---- Check if clues containing the same objects and attributes are redundant ----#
+
+    # List the clues where if the first clue is already chosen, the second clue is redundant if they contain the same objects and attributes
+    redundant_clues = {
+        ("same_object", "same_object"),
+        ("not_same_object", "not_same_object"),
+        ("left_of", "right_of"),
+        ("left_of", "not_same_object"),
+        ("right_of", "left_of"),
+        ("right_of", "not_same_object"),
+        ("just_left_of", "just_right_of"),
+        ("just_left_of", "right_of"),
+        ("just_left_of", "left_of"),
+        ("just_left_of", "next_to"),
+        ("just_left_of", "not_same_object"),
+        ("just_right_of", "just_left_of"),
+        ("just_right_of", "left_of"),
+        ("just_right_of", "right_of"),
+        ("just_right_of", "next_to"),
+        ("just_right_of", "not_same_object"),
+        ("next_to", "not_same_object"),
+        ("n_between", "not_same_object"),
+        ("between", "not_between"),
+    }
+
+    if clue_type in {clue_pair[0] for clue_pair in redundant_clues}:
+        sorted_new_objects = sorted(clue_par[1])
+        sorted_new_attributes = sorted(clue_par[2])
+
+        # Go through the list of chosen clues
+        for clue_type_j, i_objects_j, attributes_j in clue_pars:
+            # Check of the new clue type and an existing clue type are a pair in redundant_clues
+            if (clue_type, clue_type_j) in redundant_clues:
+                # Check if the objects and attributes are the same
+                if (
+                    sorted(i_objects_j) == sorted_new_objects
+                    and sorted(attributes_j) == sorted_new_attributes
+                ):
+                    return True
+
+    # Otherwise, the clue might not be redundant
     return False
 
 

@@ -78,7 +78,7 @@ def choose_clues(
             clues_dict=clues_dict,
         )
 
-        # Check if the clue is obviously redundant before using the solver
+        # Check if the clue is obviously redundant before using the solver to save runtime
         if remove_redundant_clues_part1(
             new_clue=new_clue,
             chosen_clues=chosen_clues,
