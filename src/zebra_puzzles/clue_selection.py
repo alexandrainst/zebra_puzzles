@@ -79,15 +79,26 @@ def choose_clues(
         )
 
         # Check if the clue is obviously redundant before using the solver to save runtime
-        if remove_redundant_clues_part1(
+        redundant, clues_to_remove = remove_redundant_clues_part1(
             new_clue=new_clue,
             chosen_clues=chosen_clues,
             clue_par=clue_par,
             clue_pars=clue_pars,
             clue_type=clue_type,
             clue_types=clue_types,
-        ):
+            prioritise_old_clues=True,
+        )
+        if redundant:
             continue
+        elif clues_to_remove != []:
+            # Sort the list of clues to remove from last to first and only include unique ones
+            clues_to_remove = sorted(list(set(clues_to_remove)), reverse=True)
+
+            for i in clues_to_remove:
+                del chosen_clues[i]
+                del constraints[i]
+                del clue_pars[i]
+                del clue_types[i]
 
         current_constraints = constraints + [constraint]
 

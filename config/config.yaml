@@ -1,20 +1,12 @@
 # Config file for generating zebra puzzles in Danish with the classic "houses" theme.
 
-# Time estimates per puzzle with found_at and not_at:
-# 3x5: 0.1 s
-# 3x6: 0.5 s
-# 3x7: 2.6 s
-# 4x4: 3.5 s
-# 5x3: 12 s
-# 4x5: 2 min
-# 6x3: >10 min
-
 # Time estimates per puzzle with all clues:
-# 3x6: 0.3 s
-# 3x7: 1.6 s
-# 4x4: 1.6 s
-# 4x5: 1.4 min
-# 5x3: 9.2 s
+# 3x7: 0.7 s
+# 4x4: 0.6 s
+# 4x5: 16 s
+# 4x6:
+# 5x3: 3.8 s
+# 6x3: >10 min
 
 defaults:
   - override hydra/job_logging: custom
@@ -22,15 +14,15 @@ defaults:
 
 
 # Number of puzzles to generate
-n_puzzles: 100
+n_puzzles: 50
 
 # Objects e.g. houses
 # Currently, 2 - 7 are supported
-n_objects: 4
+n_objects: 3
 
 # Attributes e.g. pets
 # Currently, 2 - 7 are supported.
-n_attributes: 4
+n_attributes: 7
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
