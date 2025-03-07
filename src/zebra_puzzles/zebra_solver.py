@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Tuple
 
-from constraint import AllDifferentConstraint, Problem
+from constraint import AllDifferentConstraint, OptimizedBacktrackingSolver, Problem
 
 
 def solver(
@@ -23,7 +23,8 @@ def solver(
     # NOTE: We could remove the uniqueness constraint
     """
     # ---- Define the puzzle ----#
-    problem = Problem()
+    solver = OptimizedBacktrackingSolver()
+    problem = Problem(solver)
 
     # Define attributes
     chosen_attributes_flat = [y for x in chosen_attributes for y in x]
