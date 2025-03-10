@@ -38,7 +38,7 @@ def choose_clues(
     while not solved:
         # Generate a random clue
         new_clue = sample(sorted(clues_dict), 1)[0]
-        new_clue = complete_clue(
+        new_clue = create_clue(
             clue=new_clue,
             n_objects=n_objects,
             attributes=attributes,
@@ -48,7 +48,6 @@ def choose_clues(
         )
 
         # Try to solve the puzzle
-
         current_clues = chosen_clues + [new_clue]
         new_solution_attempt, completeness = solver(chosen_clues=current_clues)
 
@@ -58,7 +57,6 @@ def choose_clues(
             chosen_clues.append(new_clue)
 
         # Check if the solution is complete. If it is, check if the solution attempt is the same as the solution
-
         if completeness == 1:
             solved = True
             if not np.array_equal(solution_attempt, solution):
@@ -82,7 +80,7 @@ def choose_clues(
     return chosen_clues
 
 
-def complete_clue(
+def create_clue(
     clue: str,
     n_objects: int,
     attributes: dict[str, dict[str, str]],
@@ -90,7 +88,7 @@ def complete_clue(
     chosen_categories: np.ndarray,
     clues_dict: dict[str, str],
 ) -> str:
-    """Complete the chosen clue type with random parts of the solution to create a full clue.
+    """Create a clue of a chosen type using random parts of the solution.
 
     TODO: Consider how the clues will be evaluted. We should probably include more information in the dict such as a lambda function.
     TODO: Include more clue types. For example not_at, next_to, not_next_to, left_of, right_of, not_left_of, not_right_of, same_object, not_same_object, between, not_between
@@ -153,7 +151,7 @@ def describe_random_attribute(
     chosen_categories: np.ndarray,
     i_object: int,
 ) -> str:
-    """Choose a random attribute.
+    """Get a random attribute description for an object.
 
     Consider replacing this function by an array of chosen attribute descriptions or making chosen_attributes a dict.
 
