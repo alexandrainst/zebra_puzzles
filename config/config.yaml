@@ -14,7 +14,7 @@ defaults:
 
 
 # Number of puzzles to generate
-n_puzzles: 50
+n_puzzles: 10
 
 # Objects e.g. houses
 # Currently, 2 - 7 are supported
@@ -109,7 +109,7 @@ clues_dict:
     found_at: "{attribute_desc} bor i hus nummer {i_object}."
     not_at: "{attribute_desc} bor ikke i hus nummer {i_object}."
     next_to: "{attribute_desc_1} bor ved siden af {attribute_desc_2}."                          # Requires n_objects > 2, otherwise use not_same_object
-    not_next_to: "{attribute_desc_1} bor ikke ved siden af {attribute_desc_2}."                 # Requires n_objects > 2, otherwise it cannot be used
+    not_next_to: "{attribute_desc_1} bor ikke ved siden af {attribute_desc_2}, og de er ikke den samme person."                 # Requires n_objects > 2, otherwise it cannot be used
     just_left_of: "{attribute_desc_1} bor lige til venstre for {attribute_desc_2}."
     just_right_of: "{attribute_desc_1} bor lige til højre for {attribute_desc_2}."
     left_of: "{attribute_desc_1} bor til venstre for {attribute_desc_2}."                       # Requires n_objects > 2, otherwise use just_left_of
@@ -117,7 +117,7 @@ clues_dict:
     same_object: "{attribute_desc_1} er {attribute_desc_2}."                                    # Requires n_attributes > 1, otherwise it cannot be used
     not_same_object: "{attribute_desc_1} er ikke {attribute_desc_2}."                           # Requires n_attributes > 1, otherwise it cannot be used
     between: "{attribute_desc_2} bor mellem {attribute_desc_1} og {attribute_desc_3}."          # Requires n_objects > 2, otherwise it cannot be used
-    not_between: "{attribute_desc_1} bor ikke mellem {attribute_desc_2} og {attribute_desc_3}." # Requires n_objects > 2, otherwise it cannot be used
+    not_between: "{attribute_desc_1} bor ikke mellem {attribute_desc_2} og {attribute_desc_3}, og de er tre forskellige personer." # Requires n_objects > 2, otherwise it cannot be used
     n_between: "{attribute_desc_1} og {attribute_desc_2} bor med {n_between} huse mellem sig."   # Requires n_objects > 2, otherwise it cannot be used
 
 
