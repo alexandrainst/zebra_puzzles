@@ -66,6 +66,7 @@ def complete_prompt(
     chosen_categories: List[str],
     chosen_attributes: List[List],
     prompt_template: str,
+    prompt_and: str,
 ) -> str:
     """Complete the prompt with the chosen clues.
 
@@ -80,6 +81,7 @@ def complete_prompt(
         chosen_categories: Categories chosen for the solution.
         chosen_attributes: Attribute values chosen for the solution.
         prompt_template: Template for the prompt.
+        prompt_and: String to use for separating the last two elements in a list, e.g. "and".
 
     Returns:
         prompt: The full prompt for the zebra puzzle as a string.
@@ -96,8 +98,10 @@ def complete_prompt(
     else:
         chosen_clues_str = chosen_clues[0]
 
-    chosen_categories_part1 = ", ".join(chosen_categories[:-1])
-    chosen_categories_part2 = chosen_categories[-1]
+    # Format chosen_categories as a comma separated list
+    chosen_categories_str = format_list_in_prompt(
+        chosen_categories, prompt_and, oxford_comma=False
+    )
 
     # Transpose chosen_attributes
     chosen_attributes = [list(i) for i in zip(*chosen_attributes)]
@@ -105,19 +109,47 @@ def complete_prompt(
     # Sort the attributes
     chosen_attributes = [sorted(x) for x in chosen_attributes]
 
-    # Flatten chosen_attributes
-    chosen_attributes_flat = [y for x in chosen_attributes for y in x]
+    # Comma seprate the attributes in each category and combine with the category title
+    chosen_attributes_strs = [
+        f"{cat}: {format_list_in_prompt(chosen_attributes[i], prompt_and, oxford_comma=False)}"
+        for i, cat in enumerate(chosen_categories)
+    ]
 
-    # Format chosen_attributes as a comma separated list
-    chosen_attributes_part1 = ", ".join(chosen_attributes_flat[:-1])
-    chosen_attributes_part2 = chosen_attributes_flat[-1]
+    # Use uppercase for the first letter of each attribute string
+    chosen_attributes_strs = [f"{x[0].upper()}{x[1:]}." for x in chosen_attributes_strs]
 
+    # Combine the attribute strings
+    chosen_attributes_str = "\n".join(chosen_attributes_strs)
+
+    # Combine the prompt template with puzzle information
     prompt = prompt_template.format(
         n_objects=n_objects,
-        chosen_categories_part1=chosen_categories_part1,
-        chosen_categories_part2=chosen_categories_part2,
-        chosen_attributes_part1=chosen_attributes_part1,
-        chosen_attributes_part2=chosen_attributes_part2,
+        chosen_categories_str=chosen_categories_str,
+        chosen_attributes_str=chosen_attributes_str,
         chosen_clues_str=chosen_clues_str,
     )
     return prompt
+
+
+def format_list_in_prompt(list: List, prompt_and: str, oxford_comma: bool = False):
+    """Format a list for a prompt.
+
+    Args:
+        list: List to format.
+        prompt_and: String to use for separating the last two elements, e.g. "and".
+        oxford_comma: Option to include an Oxford comma.
+
+    Returns:
+        formatted_list: Formatted list as a string.
+    """
+    if len(list) == 1:
+        formatted_list = list[0]
+    elif len(list) == 2:
+        formatted_list = f"{list[0]} {prompt_and} {list[1]}"
+    else:
+        formatted_list = f"{', '.join(list[:-1])}"
+        if oxford_comma:
+            formatted_list += ", "
+        formatted_list += f" {prompt_and} {list[-1]}"
+
+    return formatted_list
