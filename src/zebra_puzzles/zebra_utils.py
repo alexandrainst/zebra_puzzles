@@ -1,12 +1,11 @@
 """Utility module for generating zebra puzzles."""
 
 from random import sample
-from typing import Dict, List, Tuple
 
 
 def generate_solution(
-    attributes: Dict[str, Dict[str, str]], n_objects: int, n_attributes: int
-) -> Tuple[List[List], List, List[List]]:
+    attributes: dict[str, dict[str, str]], n_objects: int, n_attributes: int
+) -> tuple[list[list], list, list[list]]:
     """Generate the solution to a zebra puzzle.
 
     Args:
@@ -52,10 +51,10 @@ def save_dataset(data: str, filename: str, folder: str = "data") -> None:
 
 
 def complete_prompt(
-    chosen_clues: List[str],
+    chosen_clues: list[str],
     n_objects: int,
-    chosen_categories: List[str],
-    chosen_attributes: List[List],
+    chosen_categories: list[str],
+    chosen_attributes: list[list],
     prompt_template: str,
 ) -> str:
     """Complete the prompt with the chosen clues.

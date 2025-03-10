@@ -1,9 +1,7 @@
 """Module for solving a zebra puzzle."""
 
-from typing import List, Tuple
 
-
-def solver(chosen_clues: List[str]) -> Tuple[List[List], float]:
+def solver(chosen_clues: list[str]) -> tuple[list[list], float]:
     """Solve a zebra puzzle.
 
     Args:
@@ -18,7 +16,7 @@ def solver(chosen_clues: List[str]) -> Tuple[List[List], float]:
     """
     # Solve the puzzle
 
-    solution_attempt: List[List] = [["0", "", ""], ["1", "", ""]]
+    solution_attempt: list[list] = [["0", "", ""], ["1", "", ""]]
 
     # Measure completeness of the solution
     completeness = 0

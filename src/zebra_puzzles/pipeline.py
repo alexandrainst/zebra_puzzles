@@ -1,7 +1,5 @@
 """Pipeline module for generating and saving zebra puzzles."""
 
-from typing import Dict, Tuple
-
 from zebra_puzzles.clue_selection import choose_clues
 from zebra_puzzles.zebra_utils import complete_prompt, generate_solution, save_dataset
 
@@ -9,12 +7,12 @@ from zebra_puzzles.zebra_utils import complete_prompt, generate_solution, save_d
 def run_pipeline(
     n_objects: int,
     n_attributes: int,
-    attributes: Dict[str, Dict[str, str]],
-    clues_dict: Dict[str, str],
+    attributes: dict[str, dict[str, str]],
+    clues_dict: dict[str, str],
     prompt_template: str,
     verbose=False,
     eval=False,
-) -> Tuple[str, str]:
+) -> tuple[str, str]:
     """Run the pipeline to generate one zebra puzzle.
 
     Args:
@@ -33,11 +31,10 @@ def run_pipeline(
     TODO: Consider if enumeration should be removed when we only have one clue.
     TODO: Consider using the clue descriptions in complete_prompt() only.
     """
-    # clues = define_clues(clues_included=clues_included)
-
     solution, chosen_categories, chosen_attributes = generate_solution(
         attributes=attributes, n_objects=n_objects, n_attributes=n_attributes
     )
+
     chosen_clues = choose_clues(
         solution=solution,
         chosen_categories=chosen_categories,
@@ -70,8 +67,8 @@ def run_pipeline(
 def build_dataset(
     n_objects: int,
     n_attributes: int,
-    attributes: Dict[str, Dict[str, str]],
-    clues_dict: Dict[str, str],
+    attributes: dict[str, dict[str, str]],
+    clues_dict: dict[str, str],
     prompt_template: str,
     n_puzzles: int,
 ) -> None:

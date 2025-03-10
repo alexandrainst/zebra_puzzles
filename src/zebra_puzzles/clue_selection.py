@@ -1,19 +1,18 @@
 """Module for selecting clues for a zebra puzzle."""
 
 from random import sample
-from typing import Dict, List
 
 from zebra_puzzles.zebra_solver import solver
 
 
 def choose_clues(
-    solution: List[List],
-    chosen_categories: List[str],
-    chosen_attributes: List[List],
+    solution: list[list],
+    chosen_categories: list[str],
+    chosen_attributes: list[list],
     n_objects: int,
-    attributes: Dict[str, Dict[str, str]],
-    clues_dict: Dict[str, str],
-) -> List[str]:
+    attributes: dict[str, dict[str, str]],
+    clues_dict: dict[str, str],
+) -> list[str]:
     """Generate a zebra puzzle.
 
     If the solver identifies a different solution than the expected one, it will raise a warning and change the solution to the one found by the solver.
@@ -27,13 +26,13 @@ def choose_clues(
         attributes: Possible attributes as a dictionary of dictionaries.
 
     Returns:
-        chosen_clues: Clues for the zebra puzzle as a string.
+        Clues for the zebra puzzle as a string.
 
     TODO: Implement the generation of more than a single clue.
     """
-    solution_attempt: List[List] = []
+    solution_attempt: list[list] = []
     solved = False
-    chosen_clues: List[str] = []
+    chosen_clues: list[str] = []
     while not solved:
         # Generate a random clue
         new_clue = sample(sorted(clues_dict), 1)[0]
@@ -84,10 +83,10 @@ def choose_clues(
 def complete_clue(
     clue: str,
     n_objects: int,
-    attributes: Dict[str, Dict[str, str]],
-    chosen_attributes: List[List],
-    chosen_categories: List[str],
-    clues_dict: Dict[str, str],
+    attributes: dict[str, dict[str, str]],
+    chosen_attributes: list[list],
+    chosen_categories: list[str],
+    clues_dict: dict[str, str],
 ) -> str:
     """Complete the chosen clue type with random parts of the solution to create a full clue.
 
@@ -147,9 +146,9 @@ def complete_clue(
 
 
 def describe_random_attribute(
-    attributes: Dict[str, Dict[str, str]],
-    chosen_attributes: List[List],
-    chosen_categories: List[str],
+    attributes: dict[str, dict[str, str]],
+    chosen_attributes: list[list],
+    chosen_categories: list[str],
     i_object: int,
 ) -> str:
     """Choose a random attribute.
