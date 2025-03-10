@@ -2,10 +2,12 @@
 
 from random import sample
 
+import numpy as np
+
 
 def generate_solution(
     attributes: dict[str, dict[str, str]], n_objects: int, n_attributes: int
-) -> tuple[list[list], list, list[list]]:
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Generate the solution to a zebra puzzle.
 
     Args:
@@ -14,24 +16,22 @@ def generate_solution(
         n_attributes: Number of attributes of each object.
 
     Returns:
-        solution: A solution to a zebra puzzle as a list of lists representing the matrix of object indices and chosen attributes. This matrix is n_objects x n_attributes.
-        chosen_categories: Categories chosen for the solution as a list.
-        chosen_attributes: Attribute values chosen for the solution as a list of lists.
+        solution: A solution to a zebra puzzle as a matrix of object indices and chosen attributes. This matrix is n_objects x n_attributes.
+        chosen_categories: Categories chosen for the solution as a ndarray of strings of length n_attributes.
+        chosen_attributes: Attribute values chosen for the solution as a matrix of strings.
     """
     # Choose a category for each attribute
-    chosen_categories = sample(list(attributes.keys()), k=n_attributes)
+    chosen_categories = np.array(sample(list(attributes.keys()), k=n_attributes))
 
     # Choose attribute values for each category
-    chosen_attributes = [
-        sample(list(attributes[cat].keys()), k=n_objects) for cat in chosen_categories
-    ]
+    chosen_attributes = np.array(
+        [sample(list(attributes[cat].keys()), k=n_objects) for cat in chosen_categories]
+    )
 
     # Transpose the attribute matrix
-    chosen_attributes = [
-        [row[i] for row in chosen_attributes] for i in range(n_attributes)
-    ]
+    chosen_attributes = chosen_attributes.T
 
-    solution = [[str(i + 1)] + row for i, row in enumerate(chosen_attributes)]
+    solution = np.array([[str(i + 1)] + row for i, row in enumerate(chosen_attributes)])
 
     return solution, chosen_categories, chosen_attributes
 
@@ -53,8 +53,8 @@ def save_dataset(data: str, filename: str, folder: str = "data") -> None:
 def complete_prompt(
     chosen_clues: list[str],
     n_objects: int,
-    chosen_categories: list[str],
-    chosen_attributes: list[list],
+    chosen_categories: np.ndarray,
+    chosen_attributes: np.ndarray,
     prompt_template: str,
 ) -> str:
     """Complete the prompt with the chosen clues.
@@ -86,10 +86,10 @@ def complete_prompt(
     chosen_categories_part2 = chosen_categories[-1]
 
     # Transpose chosen_attributes
-    chosen_attributes = list(map(list, zip(*chosen_attributes)))
+    chosen_attributes = chosen_attributes.T
 
     # Flatten chosen_attributes
-    chosen_attributes_flat = [y for x in chosen_attributes for y in x]
+    chosen_attributes_flat = chosen_attributes.flatten()
 
     # Format chosen_attributes as a comma separated list
     chosen_attributes_part1 = ", ".join(chosen_attributes_flat[:-1])

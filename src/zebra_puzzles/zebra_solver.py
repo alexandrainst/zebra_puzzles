@@ -1,7 +1,9 @@
 """Module for solving a zebra puzzle."""
 
+import numpy as np
 
-def solver(chosen_clues: list[str]) -> tuple[list[list], float]:
+
+def solver(chosen_clues: list[str]) -> tuple[np.ndarray, float]:
     """Solve a zebra puzzle.
 
     Args:
@@ -16,7 +18,7 @@ def solver(chosen_clues: list[str]) -> tuple[list[list], float]:
     """
     # Solve the puzzle
 
-    solution_attempt: list[list] = [["0", "", ""], ["1", "", ""]]
+    solution_attempt: np.ndarray = np.array([["0", "", ""], ["1", "", ""]])
 
     # Measure completeness of the solution
     completeness = 0

@@ -2,13 +2,15 @@
 
 from random import sample
 
+import numpy as np
+
 from zebra_puzzles.zebra_solver import solver
 
 
 def choose_clues(
-    solution: list[list],
-    chosen_categories: list[str],
-    chosen_attributes: list[list],
+    solution: np.ndarray,
+    chosen_categories: np.ndarray,
+    chosen_attributes: np.ndarray,
     n_objects: int,
     attributes: dict[str, dict[str, str]],
     clues_dict: dict[str, str],
@@ -18,19 +20,19 @@ def choose_clues(
     If the solver identifies a different solution than the expected one, it will raise a warning and change the solution to the one found by the solver.
 
     Args:
-        solution: Solution to the zebra puzzle as a list of lists representing the solution matrix of object indices and chosen attribute values. This matrix is n_objects x n_attributes.
+        solution: Solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x n_attributes.
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
         chosen_categories: Categories chosen for the solution.
-        chosen_attributes: Attribute values chosen for the solution.
+        chosen_attributes: Attribute values chosen for the solution as a matrix.
         n_objects: Number of objects in the puzzle.
         attributes: Possible attributes as a dictionary of dictionaries.
 
     Returns:
-        Clues for the zebra puzzle as a string.
+        chosen_clues: Clues for the zebra puzzle as a string.
 
     TODO: Implement the generation of more than a single clue.
     """
-    solution_attempt: list[list] = []
+    solution_attempt: np.ndarray = np.array([])
     solved = False
     chosen_clues: list[str] = []
     while not solved:
@@ -51,7 +53,7 @@ def choose_clues(
         new_solution_attempt, completeness = solver(chosen_clues=current_clues)
 
         # Check if solution attempt has changed and if it has, save the clue
-        if new_solution_attempt != solution_attempt:
+        if not np.array_equal(new_solution_attempt, solution_attempt):
             solution_attempt = new_solution_attempt
             chosen_clues.append(new_clue)
 
@@ -59,7 +61,7 @@ def choose_clues(
 
         if completeness == 1:
             solved = True
-            if solution_attempt != solution:
+            if not np.array_equal(solution_attempt, solution):
                 # Change the solution to the solution attempt and raise a warning
                 solution = solution_attempt
                 raise Warning(
@@ -84,8 +86,8 @@ def complete_clue(
     clue: str,
     n_objects: int,
     attributes: dict[str, dict[str, str]],
-    chosen_attributes: list[list],
-    chosen_categories: list[str],
+    chosen_attributes: np.ndarray,
+    chosen_categories: np.ndarray,
     clues_dict: dict[str, str],
 ) -> str:
     """Complete the chosen clue type with random parts of the solution to create a full clue.
@@ -98,7 +100,7 @@ def complete_clue(
         clue: Chosen clue type as a string.
         n_objects: Number of objects in the puzzle as an int.
         attributes: Possible attributes as a dictionary of dictionaries.
-        chosen_attributes: Attribute values chosen for the solution as a list of lists.
+        chosen_attributes: Attribute values chosen for the solution as a matrix.
         chosen_categories: Categories chosen for the solution.
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
 
@@ -147,8 +149,8 @@ def complete_clue(
 
 def describe_random_attribute(
     attributes: dict[str, dict[str, str]],
-    chosen_attributes: list[list],
-    chosen_categories: list[str],
+    chosen_attributes: np.ndarray,
+    chosen_categories: np.ndarray,
     i_object: int,
 ) -> str:
     """Choose a random attribute.
@@ -157,7 +159,7 @@ def describe_random_attribute(
 
     Args:
         attributes: Attributes as a dictionary of dictionaries.
-        chosen_attributes: Attribute values chosen for the solution as a list of lists.
+        chosen_attributes: Attribute values chosen for the solution as a matrix.
         chosen_categories: Categories chosen for the solution.
         i_object: The index of the object to select an attribute from.
 
