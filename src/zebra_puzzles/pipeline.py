@@ -1,7 +1,5 @@
 """Pipeline module for generating and saving zebra puzzles."""
 
-from typing import Dict, Tuple
-
 from zebra_puzzles.clue_selection import choose_clues
 from zebra_puzzles.zebra_utils import complete_prompt, generate_solution, save_dataset
 
@@ -9,13 +7,13 @@ from zebra_puzzles.zebra_utils import complete_prompt, generate_solution, save_d
 def run_pipeline(
     n_objects: int,
     n_attributes: int,
-    attributes: Dict[str, Dict[str, str]],
-    clues_dict: Dict[str, str],
+    attributes: dict[str, dict[str, str]],
+    clues_dict: dict[str, str],
     prompt_template: str,
     prompt_and: str,
     verbose=False,
     eval=False,
-) -> Tuple[str, str]:
+) -> tuple[str, str]:
     """Run the pipeline to generate one zebra puzzle.
 
     Args:
@@ -74,8 +72,8 @@ def run_pipeline(
 def build_dataset(
     n_objects: int,
     n_attributes: int,
-    attributes: Dict[str, Dict[str, str]],
-    clues_dict: Dict[str, str],
+    attributes: dict[str, dict[str, str]],
+    clues_dict: dict[str, str],
     prompt_template: str,
     prompt_and: str,
     n_puzzles: int,

@@ -1,12 +1,11 @@
 """Utility module for generating zebra puzzles."""
 
 from random import sample
-from typing import Dict, List, Tuple
 
 
 def generate_solution(
-    attributes: Dict[str, Dict[str, str]], n_objects: int, n_attributes: int
-) -> Tuple[List[List], List[str], List[List[str]], List[List[str]]]:
+    attributes: dict[str, dict[str, str]], n_objects: int, n_attributes: int
+) -> tuple[list[list], list[str], list[list[str]], list[list[str]]]:
     """Generate the solution to a zebra puzzle.
 
     Chooses categories and assigns attribute values to each object in the solution. Uses 1-based object indices.
@@ -61,10 +60,10 @@ def save_dataset(data: str, filename: str, folder: str = "data") -> None:
 
 
 def complete_prompt(
-    chosen_clues: List[str],
+    chosen_clues: list[str],
     n_objects: int,
-    chosen_categories: List[str],
-    chosen_attributes: List[List],
+    chosen_categories: list[str],
+    chosen_attributes: list[list],
     prompt_template: str,
     prompt_and: str,
 ) -> str:
@@ -131,7 +130,7 @@ def complete_prompt(
     return prompt
 
 
-def format_list_in_prompt(list: List, prompt_and: str, oxford_comma: bool = False):
+def format_list_in_prompt(list: list, prompt_and: str, oxford_comma: bool = False):
     """Format a list for a prompt.
 
     Args:

@@ -1,13 +1,11 @@
 """Module for solving a zebra puzzle."""
 
-from typing import Dict, List, Tuple
-
 from constraint import AllDifferentConstraint, OptimizedBacktrackingSolver, Problem
 
 
 def solver(
-    constraints: List[Tuple], chosen_attributes: List[List], n_objects: int
-) -> Tuple[List[Dict[str, int]], float]:
+    constraints: list[tuple], chosen_attributes: list[list], n_objects: int
+) -> tuple[list[dict[str, int]], float]:
     """Solve a zebra puzzle.
 
     Args:
@@ -53,7 +51,7 @@ def solver(
     return solutions, completeness
 
 
-def format_solution(solution_dict: Dict[str, int], n_objects: int) -> List[List]:
+def format_solution(solution_dict: dict[str, int], n_objects: int) -> list[list]:
     """Change solution format from dict to list.
 
     Args:

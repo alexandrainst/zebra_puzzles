@@ -1,19 +1,17 @@
 """Module for removing redundant clues."""
 
-from typing import List, Tuple
-
 from zebra_puzzles.zebra_solver import solver
 
 
 def remove_redundant_clues_part1(
     new_clue: str,
-    chosen_clues: List[str],
-    clue_par: Tuple[str, List[int], List[str]],
-    clue_pars: List,
+    chosen_clues: list[str],
+    clue_par: tuple[str, list[int], list[str]],
+    clue_pars: list,
     clue_type: str,
-    clue_types: List[str],
+    clue_types: list[str],
     prioritise_old_clues: bool = False,
-) -> Tuple[bool, List[int]]:
+) -> tuple[bool, list[int]]:
     """Use simple rules to check if a suggested clue is redundant.
 
     This is to avoid using the solver for every clue suggestion and thereby speed up the clue selection process.
@@ -152,11 +150,11 @@ def remove_redundant_clues_part1(
 
 
 def remove_redundant_clues_part2(
-    constraints: List,
-    chosen_clues: List[str],
-    chosen_attributes_sorted: List[List],
+    constraints: list,
+    chosen_clues: list[str],
+    chosen_attributes_sorted: list[list],
     n_objects: int,
-) -> Tuple[List[str], List]:
+) -> tuple[list[str], list]:
     """Remove redundant clues and constraints.
 
     Tries removing each clue and see if the solution is still found.

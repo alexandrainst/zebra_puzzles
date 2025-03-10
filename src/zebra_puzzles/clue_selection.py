@@ -1,7 +1,6 @@
 """Module for selecting clues for a zebra puzzle."""
 
 from random import choices, randint, sample, shuffle
-from typing import Dict, List, Tuple
 
 from constraint import InSetConstraint, NotInSetConstraint
 
@@ -13,13 +12,13 @@ from zebra_puzzles.zebra_solver import format_solution, solver
 
 
 def choose_clues(
-    solution: List[List],
-    chosen_attributes: List[List],
-    chosen_attributes_descs: List[List[str]],
+    solution: list[list],
+    chosen_attributes: list[list],
+    chosen_attributes_descs: list[list[str]],
     n_objects: int,
     n_attributes: int,
-    clues_dict: Dict[str, str],
-) -> List[str]:
+    clues_dict: dict[str, str],
+) -> list[str]:
     """Generate a zebra puzzle.
 
     If the solver identifies a different solution than the expected one, it will raise a warning and change the solution to the one found by the solver.
@@ -57,12 +56,12 @@ def choose_clues(
     chosen_attributes_sorted = [list(i) for i in zip(*chosen_attributes)]
     chosen_attributes_sorted = [sorted(x) for x in chosen_attributes_sorted]
 
-    solutions: List[Dict[str, int]] = []
+    solutions: list[dict[str, int]] = []
     solved: bool = False
-    chosen_clues: List[str] = []
-    constraints: List[Tuple] = []
-    clue_pars: List = []
-    clue_types: List[str] = []
+    chosen_clues: list[str] = []
+    constraints: list[tuple] = []
+    clue_pars: list = []
+    clue_types: list[str] = []
 
     max_iter = 100
     i_iter = 0
@@ -160,10 +159,10 @@ def complete_clue(
     clue: str,
     n_objects: int,
     n_attributes: int,
-    chosen_attributes: List[List],
-    chosen_attributes_descs: List[List[str]],
-    clues_dict: Dict[str, str],
-) -> Tuple[str, Tuple, Tuple[str, List[int], List[str]]]:
+    chosen_attributes: list[list],
+    chosen_attributes_descs: list[list[str]],
+    clues_dict: dict[str, str],
+) -> tuple[str, tuple, tuple[str, list[int], list[str]]]:
     """Complete the chosen clue type with random parts of the solution to create a full clue.
 
     NOTE: More clue types can be included. For example: odd_pos, even_pos, either
@@ -377,12 +376,12 @@ def complete_clue(
 
 
 def describe_random_attributes(
-    chosen_attributes: List[List],
-    chosen_attributes_descs: List[List[str]],
-    i_objects: List[int],
+    chosen_attributes: list[list],
+    chosen_attributes_descs: list[list[str]],
+    i_objects: list[int],
     n_attributes: int,
     diff_cat: bool = False,
-) -> Tuple[List[str], List[str]]:
+) -> tuple[list[str], list[str]]:
     """Choose random attributes.
 
     Choose a random attribute for each object with indices given by i_objects. Looks up attributes from chosen_attributes in the attributes dict.
