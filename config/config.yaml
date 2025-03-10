@@ -133,7 +133,7 @@ prompt_template: |
 
   {chosen_attributes_str}
 
-  Her følger et eller flere hints:
+  Derudover ved vi følgende:
 
   {chosen_clues_str}
 
