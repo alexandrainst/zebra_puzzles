@@ -69,7 +69,7 @@ def complete_prompt(
         prompt_template: Template for the prompt.
 
     Returns:
-        prompt: The full prompt for the zebra puzzle as a string.
+        The full prompt for the zebra puzzle as a string.
 
 
     TODO: Improve the prompt here and in the config file.

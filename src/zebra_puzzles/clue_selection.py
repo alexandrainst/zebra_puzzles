@@ -28,7 +28,7 @@ def choose_clues(
         attributes: Possible attributes as a dictionary of dictionaries.
 
     Returns:
-        chosen_clues: Clues for the zebra puzzle as a string.
+        Clues for the zebra puzzle as a string.
 
     TODO: Implement the generation of more than a single clue.
     """
@@ -105,7 +105,7 @@ def complete_clue(
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
 
     Returns:
-        full_clue: Full clue as a string.
+        Full clue as a string.
     """
     clue_description = clues_dict[clue]
 
@@ -164,7 +164,7 @@ def describe_random_attribute(
         i_object: The index of the object to select an attribute from.
 
     Returns:
-        attribute_desc: A string using the attribute to describe an object.
+        A string using the attribute to describe an object.
 
     """
     # Choose a random attribute and the corresponding category
