@@ -11,6 +11,7 @@ def run_pipeline(
     clues_dict: dict[str, str],
     prompt_template: str,
     prompt_and: str,
+    prompt_not: str,
     verbose=False,
     eval=False,
 ) -> tuple[str, str]:
@@ -23,6 +24,7 @@ def run_pipeline(
         attributes: Possible attributes as a dictionary of dictionaries.
         prompt_template: Template for the prompt as a string.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
+        prompt_not: String to use for negating a statement.
         verbose: Option to print the prompt and solution as a boolean.
         eval: Option to evaluate the prompt as a boolean.
 
@@ -45,6 +47,7 @@ def run_pipeline(
         n_objects=n_objects,
         n_attributes=n_attributes,
         clues_dict=clues_dict,
+        prompt_not=prompt_not,
     )
 
     prompt = complete_prompt(
@@ -75,6 +78,7 @@ def build_dataset(
     clues_dict: dict[str, str],
     prompt_template: str,
     prompt_and: str,
+    prompt_not: str,
     n_puzzles: int,
 ) -> None:
     """Build a dataset of zebra puzzles.
@@ -88,6 +92,7 @@ def build_dataset(
         attributes: Possible attributes as a dictionary of dictionaries.
         prompt_template: Template for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
+        prompt_not: String to use for negating a statement.
         n_puzzles: Number of puzzles to generate.
 
     NOTE: Consider only saving the puzzle and solution instead of the whole prompt.
@@ -100,6 +105,7 @@ def build_dataset(
             clues_dict=clues_dict,
             prompt_template=prompt_template,
             prompt_and=prompt_and,
+            prompt_not=prompt_not,
             verbose=False,
             eval=False,
         )
