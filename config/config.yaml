@@ -27,7 +27,6 @@ n_attributes: 7
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
-# In Danish, the attribute description completes the phrase "Personen der...".
 # TODO: Add support for multiple languages and themes by adding more config files.
 # TODO: Make the phrasing sound more natural
 
