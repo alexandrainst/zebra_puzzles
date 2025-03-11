@@ -402,6 +402,8 @@ def describe_random_attributes(
 
     Choose a random attribute for each object with indices given by i_objects. Looks up attributes from chosen_attributes in the attributes dict.
 
+    The attributes are sorted by category to be presented in the preferred order.
+
     Assumes the maximum string length is 100 characters.
 
     Assumes the "not" word can be inserted after the first word in the alternative description.
@@ -427,6 +429,9 @@ def describe_random_attributes(
         i_attributes = sample(list(range(n_attributes)), k=n_clue_objects)
     else:
         i_attributes = choices(list(range(n_attributes)), k=n_clue_objects)
+
+    # Keep the order of the categories
+    i_attributes.sort()
 
     # Initialize the random attributes as type 'object' to avoid setting a maximum string length
     random_attributes = np.empty((n_clue_objects), dtype="U100")

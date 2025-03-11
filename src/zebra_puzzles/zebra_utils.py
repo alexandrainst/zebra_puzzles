@@ -23,8 +23,14 @@ def generate_solution(
         chosen_attributes: Attribute values chosen for the solution as a matrix of strings. The dimensions are n_objects x n_attributes.
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix of strings. 2 versions are provided per description for different sentence structures. The dimensions are 2 x n_objects x n_attributes.
     """
-    # Choose a category for each attribute
-    chosen_categories = np.array(sample(list(attributes.keys()), k=n_attributes))
+    # Get the possible categories
+    all_categories = np.array(list(attributes.keys()))
+
+    # Choose a category for each attribute while maintaining the order of the categories
+    chosen_cat_indices = sorted(
+        np.array(sample(range(len(all_categories)), k=n_attributes))
+    )
+    chosen_categories = all_categories[chosen_cat_indices]
 
     # Choose attribute values for each category
     chosen_attributes = np.array(

@@ -27,6 +27,7 @@ n_attributes: 7
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
+# The attributes below should be in the preferred order of categories in the clues.
 # TODO: Add support for multiple languages and themes by adding more config files.
 # TODO: Make the phrasing sound more natural
 
@@ -45,14 +46,14 @@ attributes:
         Island: ['islænderen', 'er islandsk']
         Storbritannien: ['briten', 'er britisk']
 
-    hobby:
-        klatring: ['personen der klatrer', 'klatrer']
-        maleri: ['personen der maler', 'maler']
-        brætspil: ['personen der spiller brætspil', 'spiller brætspil']
-        tennis: ['personen der spiller tennis', 'spiller tennis']
-        hækling: ['personen der hækler', 'hækler']
-        fodbold: ['personen der spiller fodbold', 'spiller fodbold']
-        håndbold: ['personen der spiller håndbold', 'spiller håndbold']
+    job:
+        bager: ['bageren', 'er bager']
+        minister: ['ministeren', 'er minister']
+        politibetjent: ['politibetjenten', 'er politibetjent']
+        sygeplejerske: ['sygeplejersken', 'er sygeplejerske']
+        lærer: ['læreren', 'er lærer']
+        software developer: ['software developeren', 'er software developer']
+        butiksassistent: ['butiksassistenten', 'er butiksassistent']
 
     kæledyr:
         kat: ['katteejeren','har en kat']
@@ -63,23 +64,32 @@ attributes:
         snegl: ['snegleejeren','har en snegl']
         vandrende pind: ['ejeren af en vandrende pind','har en vandrende pind']
 
-    job:
-        bager: ['bageren', 'er bager']
-        minister: ['ministeren', 'er minister']
-        politibetjent: ['politibetjenten', 'er politibetjent']
-        sygeplejer: ['sygeplejeren', 'er sygeplejerske']
-        lærer: ['læreren', 'er lærer']
-        software developer: ['software developeren', 'er software developer']
-        butiksassistent: ['butiksassistenten', 'er butiksassistent']
-
     drik:
-        juice: ['personen der drikker juice', 'drikker juice']
-        kaffe: ['personen der drikker kaffe', 'drikker kaffe']
-        mælk: ['personen der drikker mælk', 'drikker mælk']
-        smoothie: ['personen der drikker smoothie', 'drikker smoothie']
-        kakao: ['personen der drikker kakao', 'drikker kakao']
-        te: ['personen der drikker te', 'drikker te']
-        sodavand: ['personen der drikker sodavand', 'drikker sodavand']
+        juice: ['juicedrikkeren', 'drikker juice']
+        kaffe: ['kaffedrikkeren', 'drikker kaffe']
+        mælk: ['mælkedrikkeren', 'drikker mælk']
+        smoothie: ['smoothiedrikkeren', 'drikker smoothie']
+        kakao: ['kakaodrikkeren', 'drikker kakao']
+        te: ['tedrikkeren', 'drikker te']
+        sodavand: ['sodavandsdrikkeren', 'drikker sodavand']
+
+    yndlingsboggenre:
+        faglitteratur: ['personen der læser faglitteratur', 'læser faglitteratur']
+        krimi: ['krimilæseren', 'læser krimier']
+        fantasy: ['fantasylæseren', 'læser fantasy']
+        science fiction: ['personen der læser science fiction', 'læser science fiction']
+        gyser: ['gyserlæseren', 'læser gysere']
+        poesi: ['poesilæseren', 'læser poesi']
+        kærlighedsromaner: ['personen der læser kærlighedsromaner', 'læser kærlighedsromaner']
+
+    hobby:
+        klatring: ['personen der klatrer', 'klatrer']
+        maleri: ['personen der maler', 'maler']
+        brætspil: ['personen der spiller brætspil', 'spiller brætspil']
+        tennis: ['personen der spiller tennis', 'spiller tennis']
+        hækling: ['personen der hækler', 'hækler']
+        fodbold: ['personen der spiller fodbold', 'spiller fodbold']
+        håndbold: ['personen der spiller håndbold', 'spiller håndbold']
 
     yndlingsfrugt:
         æble: ['personen der elsker æbler', 'elsker æbler']
@@ -89,15 +99,6 @@ attributes:
         jordbær: ['personen der elsker jordbær', 'elsker jordbær']
         solbær: ['personen der elsker solbær', 'elsker solbær']
         skovjordbær: ['personen der elsker skovjordbær', 'elsker skovjordbær']
-
-    yndlingsboggenre:
-        faglitteratur: ['personen der læser faglitteratur', 'læser faglitteratur']
-        krimi: ['personen der læser krimier', 'læser krimier']
-        fantasy: ['personen der læser fantasy', 'læser fantasy']
-        science fiction: ['personen der læser science fiction', 'læser science fiction']
-        gyser: ['personen der læser gysere', 'læser gysere']
-        poesi: ['personen der læser poesi', 'læser poesi']
-        kærlighedsromaner: ['personen der læser kærlighedsromaner', 'læser kærlighedsromaner']
 
 
 
