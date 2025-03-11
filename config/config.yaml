@@ -14,11 +14,6 @@ n_objects: 2
 # Attributes e.g. pets
 n_attributes: 2
 
-# Clues
-# NOTE: This could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
-clues_included: all
-
-
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
@@ -26,34 +21,46 @@ clues_included: all
 # TODO: Add support for multiple languages and themes by adding more config files.
 
 attributes:
-    Land:
+
+    land:
+
         Danmark: er fra Danmark
         Sverige: er fra Sverige
         Letland: er fra Letland
         Frankrig: er fra Frankrig
 
-    Hobby:
-        Klatring: klatrer
-        Maling: maler
-        Brætspil: spiller brætspil
-        Tennis: spiller tennis
+    hobby:
+        klatring: klatrer
+        maling: maler
+        brætspil: spiller brætspil
+        tennis: spiller tennis
 
-    Kæledyr:
-        Kat: har en kat
-        Hund: har en hund
-        Kanin: har en kanin
-        Zebra: har en zebra
+    kæledyr:
+        kat: har en kat
+        hund: har en hund
+        kanin: har en kanin
+        zebra: har en zebra
 
+
+# Clues
+# Clue names and text for the prompt depending on the clue type.
+# Clue names should not be edited, but they can be a subset of the full list of implemented clues: found_at, not_at
+# NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
+clues_dict:
+    found_at: Personen der {attribute_desc} bor i hus nummer {i_object}.
+    not_at: Personen der {attribute_desc} bor ikke i hus nummer {i_other_object}.
 
 #Prompt
 # TODO: Improve the prompt incl. by adding a description of the desired format of the response.
+# TODO: Support the grammar of puzzles with a single category and/or object
 
 prompt_template: |
   Her følger en opgave.
 
   Der er {n_objects} huse på en række. I hvert hus bor en person med en bestemte egenskaber, som er forskellige fra de andre.
 
-  Disse egenskaber er i kategorierne {chosen_categories} og inkluderer {chosen_attributes}. Her følger en række hints:
-  {chosen_clues}
+  Du skal gætte egenskaber fra kategorierne {chosen_categories_part1} og {chosen_categories_part2} for hver person. De mulige egenskaber er {chosen_attributes_part1} og {chosen_attributes_part2}. Her følger et eller flere hints:
+
+  {chosen_clues_str}
 
   Hvem har hvilke egenskaber og bor i hvilket hus?
