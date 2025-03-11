@@ -1,13 +1,5 @@
 # Config file for generating zebra puzzles in Danish with the classic "houses" theme.
 
-# Time estimates per puzzle with all clues:
-# 3x7: 0.7 s
-# 4x4: 0.6 s
-# 4x5: 16 s
-# 4x6:
-# 5x3: 3.8 s
-# 6x3: >10 min
-
 defaults:
   - override hydra/job_logging: custom
   - _self_
