@@ -2,10 +2,12 @@
 
 from random import sample
 
+import numpy as np
+
 
 def generate_solution(
     attributes: dict[str, dict[str, str]], n_objects: int, n_attributes: int
-) -> tuple[list[list], list[str], list[list[str]], list[list[str]]]:
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """Generate the solution to a zebra puzzle.
 
     Chooses categories and assigns attribute values to each object in the solution. Uses 1-based object indices.
@@ -16,31 +18,35 @@ def generate_solution(
         n_attributes: Number of attributes of each object.
 
     Returns:
-        solution: A solution to a zebra puzzle as a list of lists representing the matrix of object indices and chosen attributes. The dimenstions are n_objects x (1 + n_attributes).
-        chosen_categories: Categories chosen for the solution as a list.
-        chosen_attributes: Attribute values chosen for the solution as a list of lists. The dimenstions are n_objects x n_attributes.
-        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a list of lists. The dimenstions are n_objects x n_attributes.
+        solution: A solution to a zebra puzzle as a matrix of object indices and chosen attributes. The dimensions are n_objects x (1 + n_attributes).
+        chosen_categories: Categories chosen for the solution as a ndarray of strings of length n_attributes.
+        chosen_attributes: Attribute values chosen for the solution as a matrix of strings. The dimenstions are n_objects x n_attributes.
+        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix of strings. The dimenstions are n_objects x n_attributes.
     """
     # Choose a category for each attribute
-    chosen_categories = sample(list(attributes.keys()), k=n_attributes)
+    chosen_categories = np.array(sample(list(attributes.keys()), k=n_attributes))
 
     # Choose attribute values for each category
-    chosen_attributes = [
-        sample(list(attributes[cat].keys()), k=n_objects) for cat in chosen_categories
-    ]
+    chosen_attributes = np.array(
+        [sample(list(attributes[cat].keys()), k=n_objects) for cat in chosen_categories]
+    )
 
     # Find the attribute descriptions for each attribute in each category
-    chosen_attributes_descs = [
-        [attributes[cat][key] for key in chosen_attributes[i]]
-        for i, cat in enumerate(chosen_categories)
-    ]
+    chosen_attributes_descs = np.array(
+        [
+            [attributes[cat][key] for key in chosen_attributes[i]]
+            for i, cat in enumerate(chosen_categories)
+        ]
+    )
 
     # Transpose the attribute matrices
-    chosen_attributes = [list(i) for i in zip(*chosen_attributes)]
-    chosen_attributes_descs = [list(i) for i in zip(*chosen_attributes_descs)]
+    chosen_attributes = chosen_attributes.T
+    chosen_attributes_descs = chosen_attributes_descs.T
 
-    # Add 1-based object indices to the solution
-    solution = [[str(i + 1)] + row for i, row in enumerate(chosen_attributes)]
+    # Add a column of 1-based object indices to the solution
+    solution = np.hstack(
+        (np.array([list(range(1, n_objects + 1))]).T, chosen_attributes)
+    )
 
     return solution, chosen_categories, chosen_attributes, chosen_attributes_descs
 
@@ -62,8 +68,8 @@ def save_dataset(data: str, filename: str, folder: str = "data") -> None:
 def complete_prompt(
     chosen_clues: list[str],
     n_objects: int,
-    chosen_categories: list[str],
-    chosen_attributes: list[list],
+    chosen_categories: np.ndarray,
+    chosen_attributes: np.ndarray,
     prompt_template: str,
     prompt_and: str,
 ) -> str:
@@ -83,7 +89,7 @@ def complete_prompt(
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
 
     Returns:
-        prompt: The full prompt for the zebra puzzle as a string.
+        The full prompt for the zebra puzzle as a string.
 
 
     TODO: Improve the prompt here and in the config file.
@@ -99,18 +105,18 @@ def complete_prompt(
 
     # Format chosen_categories as a comma separated list
     chosen_categories_str = format_list_in_prompt(
-        chosen_categories, prompt_and, oxford_comma=False
+        list_of_strings=chosen_categories, prompt_and=prompt_and, oxford_comma=False
     )
 
     # Transpose chosen_attributes
-    chosen_attributes = [list(i) for i in zip(*chosen_attributes)]
+    chosen_attributes = chosen_attributes.T
 
     # Sort the attributes
-    chosen_attributes = [sorted(x) for x in chosen_attributes]
+    chosen_attributes = np.array([sorted(x) for x in chosen_attributes])
 
     # Comma seprate the attributes in each category and combine with the category title
     chosen_attributes_strs = [
-        f"{cat}: {format_list_in_prompt(chosen_attributes[i], prompt_and, oxford_comma=False)}"
+        f"{cat}: {format_list_in_prompt(list_of_strings=chosen_attributes[i], prompt_and=prompt_and, oxford_comma=False)}"
         for i, cat in enumerate(chosen_categories)
     ]
 
@@ -130,25 +136,27 @@ def complete_prompt(
     return prompt
 
 
-def format_list_in_prompt(list: list, prompt_and: str, oxford_comma: bool = False):
+def format_list_in_prompt(
+    list_of_strings: np.ndarray, prompt_and: str, oxford_comma: bool = False
+):
     """Format a list for a prompt.
 
     Args:
-        list: List to format.
+        list_of_strings: Array of strings to format.
         prompt_and: String to use for separating the last two elements, e.g. "and".
         oxford_comma: Option to include an Oxford comma.
 
     Returns:
-        formatted_list: Formatted list as a string.
+        Formatted list as a string.
     """
-    if len(list) == 1:
-        formatted_list = list[0]
-    elif len(list) == 2:
-        formatted_list = f"{list[0]} {prompt_and} {list[1]}"
+    if len(list_of_strings) == 1:
+        formatted_list = list_of_strings[0]
+    elif len(list_of_strings) == 2:
+        formatted_list = f"{list_of_strings[0]} {prompt_and} {list_of_strings[1]}"
     else:
-        formatted_list = f"{', '.join(list[:-1])}"
+        formatted_list = f"{', '.join(list_of_strings[:-1])}"
         if oxford_comma:
             formatted_list += ", "
-        formatted_list += f" {prompt_and} {list[-1]}"
+        formatted_list += f" {prompt_and} {list_of_strings[-1]}"
 
     return formatted_list

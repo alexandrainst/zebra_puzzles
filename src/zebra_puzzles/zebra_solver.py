@@ -1,10 +1,11 @@
 """Module for solving a zebra puzzle."""
 
+import numpy as np
 from constraint import AllDifferentConstraint, OptimizedBacktrackingSolver, Problem
 
 
 def solver(
-    constraints: list[tuple], chosen_attributes: list[list], n_objects: int
+    constraints: list[tuple], chosen_attributes: np.ndarray, n_objects: int
 ) -> tuple[list[dict[str, int]], float]:
     """Solve a zebra puzzle.
 
@@ -24,16 +25,16 @@ def solver(
     problem = Problem(solver)
 
     # Define attributes
-    chosen_attributes_flat = [y for x in chosen_attributes for y in x]
+    chosen_attributes_flat = chosen_attributes.flatten().tolist()
     problem.addVariables(chosen_attributes_flat, list(range(1, n_objects + 1)))
 
     # All properties must be unique
-    for attributes_in_category in chosen_attributes:
+    for attributes_in_category in chosen_attributes.tolist():
         problem.addConstraint(AllDifferentConstraint(), attributes_in_category)
 
     # Add cluesSolve
     for constraint, constraint_var in constraints:
-        problem.addConstraint(constraint, constraint_var)
+        problem.addConstraint(constraint, constraint_var.tolist())
 
     # ---- Solve the puzzle ----#
     solutions = problem.getSolutions()
@@ -51,20 +52,25 @@ def solver(
     return solutions, completeness
 
 
-def format_solution(solution_dict: dict[str, int], n_objects: int) -> list[list]:
+def format_solution(
+    solution_dict: dict[str, int], n_objects: int, n_attributes: int
+) -> np.ndarray:
     """Change solution format from dict to list.
 
+    Assumes the maximum string length is 100 characters.
+
     Args:
-        solution_dict: Solution as a dict of attributues and which object they are connected to.
+        solution_dict: Solution as a dict of attributes and which object they are connected to.
         n_objects: Number of objects in the puzzle.
+        n_attributes: Number of attributes of each object.
 
     Return:
-        solution_list: Solution as a list of lists.
+        Solution as a matrix in a numpy array.
     """
-    solution_list = []
+    solution_list = np.empty((n_objects, n_attributes + 1), dtype="U100")
     for i_object in range(1, n_objects + 1):
-        solution_list.append(
-            [str(i_object)] + [k for k, v in solution_dict.items() if v == i_object]
-        )
+        solution_list[i_object - 1, :] = [str(i_object)] + [
+            k for k, v in solution_dict.items() if v == i_object
+        ]
 
     return solution_list

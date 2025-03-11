@@ -2,6 +2,7 @@
 
 from random import choices, randint, sample, shuffle
 
+import numpy as np
 from constraint import InSetConstraint, NotInSetConstraint
 
 from zebra_puzzles.clue_removal import (
@@ -12,9 +13,9 @@ from zebra_puzzles.zebra_solver import format_solution, solver
 
 
 def choose_clues(
-    solution: list[list],
-    chosen_attributes: list[list],
-    chosen_attributes_descs: list[list[str]],
+    solution: np.ndarray,
+    chosen_attributes: np.ndarray,
+    chosen_attributes_descs: np.ndarray,
     n_objects: int,
     n_attributes: int,
     clues_dict: dict[str, str],
@@ -24,15 +25,15 @@ def choose_clues(
     If the solver identifies a different solution than the expected one, it will raise a warning and change the solution to the one found by the solver.
 
     Args:
-        solution: Solution to the zebra puzzle as a list of lists representing the solution matrix of object indices and chosen attribute values. This matrix is n_objects x n_attributes.
+        solution: Solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x n_attributes.
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
-        chosen_attributes: Attribute values chosen for the solution as a list of lists.
-        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a list of lists.
+        chosen_attributes: Attribute values chosen for the solution as a matrix.
+        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
         n_objects: Number of objects in the puzzle as an integer.
         n_attributes: Number of attributes per object as an integer.
 
     Returns:
-        chosen_clues: Clues for the zebra puzzle as a list of strings.
+        Clues for the zebra puzzle as a list of strings.
 
     """
     # Exclude clues that cannot be used for this puzzle. We assume all puzzles are have at least 2 houses.
@@ -53,8 +54,8 @@ def choose_clues(
             )
 
     # Transpose and sort the attributes
-    chosen_attributes_sorted = [list(i) for i in zip(*chosen_attributes)]
-    chosen_attributes_sorted = [sorted(x) for x in chosen_attributes_sorted]
+    chosen_attributes_sorted = chosen_attributes.T
+    chosen_attributes_sorted = np.array([sorted(x) for x in chosen_attributes_sorted])
 
     solutions: list[dict[str, int]] = []
     solved: bool = False
@@ -68,7 +69,7 @@ def choose_clues(
     while not solved:
         # Generate a random clue
         clue_type = sample(sorted(clues_dict), 1)[0]
-        new_clue, constraint, clue_par = complete_clue(
+        new_clue, constraint, clue_par = create_clue(
             clue=clue_type,
             n_objects=n_objects,
             n_attributes=n_attributes,
@@ -123,7 +124,9 @@ def choose_clues(
 
             # Check if the solver found an unexpected solution. This should not be possible.
             solution_attempt = format_solution(
-                solution_dict=solutions[0], n_objects=n_objects
+                solution_dict=solutions[0],
+                n_objects=n_objects,
+                n_attributes=n_attributes,
             )
 
             if [sorted(x) for x in solution_attempt] != [sorted(x) for x in solution]:
@@ -155,15 +158,15 @@ def choose_clues(
     return chosen_clues
 
 
-def complete_clue(
+def create_clue(
     clue: str,
     n_objects: int,
     n_attributes: int,
-    chosen_attributes: list[list],
-    chosen_attributes_descs: list[list[str]],
+    chosen_attributes: np.ndarray,
+    chosen_attributes_descs: np.ndarray,
     clues_dict: dict[str, str],
-) -> tuple[str, tuple, tuple[str, list[int], list[str]]]:
-    """Complete the chosen clue type with random parts of the solution to create a full clue.
+) -> tuple[str, tuple, tuple[str, list[int], np.ndarray]]:
+    """Create a clue of a chosen type using random parts of the solution.
 
     NOTE: More clue types can be included. For example: odd_pos, even_pos, either
     NOTE: The current implementation does not allow objects to have non-unique attributes
@@ -173,8 +176,8 @@ def complete_clue(
         n_objects: Number of objects in the puzzle as an integer.
         n_attributes: Number of attributes per object as an integer.
         attributes: Possible attributes as a dictionary of dictionaries.
-        chosen_attributes: Attribute values chosen for the solution as a list of lists.
-        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a list of lists.
+        chosen_attributes: Attribute values chosen for the solution as a matrix.
+        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
         chosen_categories: Categories chosen for the solution.
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
 
@@ -376,19 +379,21 @@ def complete_clue(
 
 
 def describe_random_attributes(
-    chosen_attributes: list[list],
-    chosen_attributes_descs: list[list[str]],
+    chosen_attributes: np.ndarray,
+    chosen_attributes_descs: np.ndarray,
     i_objects: list[int],
     n_attributes: int,
     diff_cat: bool = False,
-) -> tuple[list[str], list[str]]:
-    """Choose random attributes.
+) -> tuple[np.ndarray, np.ndarray]:
+    """Get a random attribute description for an object.
 
     Choose a random attribute for each object with indices given by i_objects. Looks up attributes from chosen_attributes in the attributes dict.
 
+    Assumes the maximum string length is 100 characters.
+
     Args:
-        chosen_attributes: Attribute values chosen for the solution as a list of lists.
-        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a list of lists.
+        chosen_attributes: Attribute values chosen for the solution as a matrix.
+        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
         i_objects: The index of the object to select an attribute from.
         n_attributes: Number of attributes per object.
         diff_cat: If True, the output attributes must belong to different categories.
@@ -402,9 +407,12 @@ def describe_random_attributes(
     else:
         i_attributes = choices(list(range(n_attributes)), k=len(i_objects))
 
-    random_attributes, random_attributes_desc = [], []
-    for i_obj, i_attr in zip(i_objects, i_attributes):
-        random_attributes.append(chosen_attributes[i_obj][i_attr])
-        random_attributes_desc.append(chosen_attributes_descs[i_obj][i_attr])
+    # Initialize the random attributes as type 'object' to avoid setting a maximum string length
+    random_attributes = np.empty((len(i_objects)), dtype="U100")
+    random_attributes_desc = np.empty((len(i_objects)), dtype="U100")
+
+    for i, (i_obj, i_attr) in enumerate(zip(i_objects, i_attributes)):
+        random_attributes[i] = chosen_attributes[i_obj][i_attr]
+        random_attributes_desc[i] = chosen_attributes_descs[i_obj][i_attr]
 
     return random_attributes, random_attributes_desc

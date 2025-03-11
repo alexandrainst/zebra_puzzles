@@ -32,13 +32,12 @@ def run_pipeline(
     TODO: Implement evaluation.
     TODO: Consider if enumeration should be removed when we only have one clue.
     """
-    # clues = define_clues(clues_included=clues_included)
-
     solution, chosen_categories, chosen_attributes, chosen_attributes_descs = (
         generate_solution(
             attributes=attributes, n_objects=n_objects, n_attributes=n_attributes
         )
     )
+
     chosen_clues = choose_clues(
         solution=solution,
         chosen_attributes=chosen_attributes,

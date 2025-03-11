@@ -1,12 +1,14 @@
 """Module for removing redundant clues."""
 
+import numpy as np
+
 from zebra_puzzles.zebra_solver import solver
 
 
 def remove_redundant_clues_part1(
     new_clue: str,
     chosen_clues: list[str],
-    clue_par: tuple[str, list[int], list[str]],
+    clue_par: tuple[str, list[int], np.ndarray],
     clue_pars: list,
     clue_type: str,
     clue_types: list[str],
@@ -152,7 +154,7 @@ def remove_redundant_clues_part1(
 def remove_redundant_clues_part2(
     constraints: list,
     chosen_clues: list[str],
-    chosen_attributes_sorted: list[list],
+    chosen_attributes_sorted: np.ndarray,
     n_objects: int,
 ) -> tuple[list[str], list]:
     """Remove redundant clues and constraints.
@@ -163,7 +165,7 @@ def remove_redundant_clues_part2(
     Args:
         constraints: List of constraints for the puzzle solver.
         chosen_clues: Clues for the zebra puzzle as a list of strings.
-        chosen_attributes_sorted: List of lists of attribute values chosen for the solution after sorting each category to avoid spoiling the solution.
+        chosen_attributes_sorted: Matrix of attribute values chosen for the solution after sorting each category to avoid spoiling the solution.
         n_objects: Number of objects in the puzzle.
 
     Returns:
