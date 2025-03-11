@@ -32,7 +32,7 @@ def solver(
     for attributes_in_category in chosen_attributes.tolist():
         problem.addConstraint(AllDifferentConstraint(), attributes_in_category)
 
-    # Add cluesSolve
+    # Add clues
     for constraint, constraint_var in constraints:
         problem.addConstraint(constraint, constraint_var.tolist())
 
