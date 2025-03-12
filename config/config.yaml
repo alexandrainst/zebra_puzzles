@@ -96,7 +96,7 @@ attributes:
 
 # Clues
 # Clue names and text for the prompt depending on the clue type.
-# Clue names should not be edited, but they can be a subset of the full list of implemented clues: found_at, not_at
+# Clue names should not be edited, but they can be a subset of the full list of implemented clues.
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 clues_dict:
     found_at: "{attribute_desc} bor i hus nummer {i_object}."
@@ -116,7 +116,6 @@ clues_dict:
 
 
 # Prompt
-
 prompt_and: og
 
 prompt_templates:
