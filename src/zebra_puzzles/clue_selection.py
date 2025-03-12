@@ -185,7 +185,10 @@ def create_clue(
         A tuple (full_clue, constraint, clue_par), where:
             full_clue: Full clue as a string.
             constraint: Tuple consisting of a constraint function and a list of variables (clue attributes) directly affected by the constraint.
-            clue_par: List containing the clue type, the object indices described in the clue and the attribute names.
+            clue_par: A tuple (clue_type, i_clue_objects, clue_attributes), where:
+                clue_type: The type of clue as a string.
+                i_clue_objects: The object indices described in the clue as a list of integers.
+                clue_attributes: The attribute names as an array of strings.
     """
     clue_description = clues_dict[clue]
 

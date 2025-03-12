@@ -26,9 +26,9 @@ def remove_redundant_clues_part1(
         new_clue: The suggested clue to check as a string.
         old_clues: Chosen clues for the zebra puzzle as a list of strings.
         new_clue_parameters: A tuple (clue_type, i_clue_objects, clue_attributes) containing clue parameters for the suggested clue, where:
-            clue_type: Type of the clue.
-            i_clue_objects: List of object indices in the clue.
-            clue_attributes: Matrix of attribute values for the clue.
+            clue_type: Type of the clue as a string.
+            i_clue_objects: List of object indices in the clue as integers.
+            clue_attributes: Array of attribute values as strings for the clue.
         old_clue_parameters: List of all previously chosen clue parameters as described above for new_clue_parameters.
         new_clue_type: Clue type for the suggested clue.
         old_clue_types: List of all previously chosen clue types.
