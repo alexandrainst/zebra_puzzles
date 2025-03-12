@@ -81,11 +81,11 @@ def choose_clues(
         # Check if the clue is obviously redundant before using the solver to save runtime
         redundant, clues_to_remove = remove_redundant_clues_part1(
             new_clue=new_clue,
-            chosen_clues=chosen_clues,
-            clue_par=clue_par,
-            clue_pars=clue_pars,
-            clue_type=clue_type,
-            clue_types=clue_types,
+            old_clues=chosen_clues,
+            new_clue_parameters=clue_par,
+            old_clue_parameters=clue_pars,
+            new_clue_type=clue_type,
+            old_clue_types=clue_types,
             prioritise_old_clues=True,
         )
         if redundant:

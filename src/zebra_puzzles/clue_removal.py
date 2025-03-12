@@ -7,11 +7,11 @@ from zebra_puzzles.zebra_solver import solver
 
 def remove_redundant_clues_part1(
     new_clue: str,
-    chosen_clues: list[str],
-    clue_par: tuple[str, list[int], np.ndarray],
-    clue_pars: list,
-    clue_type: str,
-    clue_types: list[str],
+    old_clues: list[str],
+    new_clue_parameters: tuple[str, list[int], np.ndarray],
+    old_clue_parameters: list[tuple[str, list[int], np.ndarray]],
+    new_clue_type: str,
+    old_clue_types: list[str],
     prioritise_old_clues: bool = False,
 ) -> tuple[bool, list[int]]:
     """Use simple rules to check if a suggested clue is redundant.
@@ -23,13 +23,16 @@ def remove_redundant_clues_part1(
     TODO: Combine checks for fewer loops
 
     Args:
-        new_clue: The clue to check as a string.
-        chosen_clues: Chosen clues for the zebra puzzle as a list of strings.
-        clue_par: Clue parameters for the new clue.
-        clue_pars: List of clue parameters for the puzzle solver.
-        clue_type: Clue type for the new clue.
-        clue_types: List of clue types.
-        prioritise_old_clues: Boolean indicating if the new clue should be rejected if it includes all information of an existing clue. This will reduce a bias towards more specific clues and result in more clues per puzzle. Otherwise, the old less specific clue will be added in clues_to_remove.
+        new_clue: The suggested clue to check as a string.
+        old_clues: Chosen clues for the zebra puzzle as a list of strings.
+        new_clue_parameters: A tuple (clue_type, i_clue_objects, clue_attributes) containing clue parameters for the suggested clue, where:
+            clue_type: Type of the clue.
+            i_clue_objects: List of object indices in the clue.
+            clue_attributes: Matrix of attribute values for the clue.
+        old_clue_parameters: List of all previously chosen clue parameters as described above for new_clue_parameters.
+        new_clue_type: Clue type for the suggested clue.
+        old_clue_types: List of all previously chosen clue types.
+        prioritise_old_clues: Boolean indicating if the new clue should be rejected if it includes all information of an old clue. This will reduce a bias towards more specific clues and result in more clues per puzzle. Otherwise, the old less specific clue will be added in clues_to_remove.
 
     Returns:
         A tuple (redundant, clues_to_remove), where:
@@ -40,18 +43,18 @@ def remove_redundant_clues_part1(
     clues_to_remove = []
 
     # ---- Check if the clue has already been chosen ----#
-    if new_clue in chosen_clues:
+    if new_clue in old_clues:
         return True, []
 
     # ---- Check if not_at is used after found_at with the same attribute (but not the same objects) ----#
-    if clue_type == "not_at" and "found_at" in clue_types:
-        for clue_type_j, _, attributes_j in clue_pars:
-            if clue_type_j == "found_at" and attributes_j == clue_par[2]:
+    if new_clue_type == "not_at" and "found_at" in old_clue_types:
+        for clue_type_j, _, attributes_j in old_clue_parameters:
+            if clue_type_j == "found_at" and attributes_j == new_clue_parameters[2]:
                 return True, []
 
-    elif clue_type == "found_at" and "not_at" in clue_types:
-        for i, (clue_type_j, _, attributes_j) in enumerate(clue_pars):
-            if clue_type_j == "not_at" and attributes_j == clue_par[2]:
+    elif new_clue_type == "found_at" and "not_at" in old_clue_types:
+        for i, (clue_type_j, _, attributes_j) in enumerate(old_clue_parameters):
+            if clue_type_j == "not_at" and attributes_j == new_clue_parameters[2]:
                 if prioritise_old_clues:
                     return True, []
                 else:
@@ -60,9 +63,9 @@ def remove_redundant_clues_part1(
                     return False, clues_to_remove
 
     # ---- Check if between clues exclude not_same_object ----#
-    elif clue_type == "not_same_object":
+    elif new_clue_type == "not_same_object":
         # Go through the list of chosen clues
-        for clue_type_j, i_objects_j, attributes_j in clue_pars:
+        for clue_type_j, i_objects_j, attributes_j in old_clue_parameters:
             # Check if the new clue type and an existing clue type are a pair in redundant_clues
             if clue_type_j in {"between", "not_between"}:
                 # Combine pairwise
@@ -70,16 +73,19 @@ def remove_redundant_clues_part1(
                     f"{x}{y}" for x, y in zip(i_objects_j, attributes_j)
                 }
                 combined_obj_attributes_new = {
-                    f"{x}{y}" for x, y in zip(clue_par[1], clue_par[2])
+                    f"{x}{y}"
+                    for x, y in zip(new_clue_parameters[1], new_clue_parameters[2])
                 }
 
                 # Check if the combination of objects and attributes are the included in the existing clue
                 if combined_obj_attributes_new.issubset(combined_obj_attributes):
                     return True, []
 
-    elif clue_type in {"between", "not_between"}:
+    elif new_clue_type in {"between", "not_between"}:
         # Go through the list of chosen clues
-        for i, (clue_type_j, i_objects_j, attributes_j) in enumerate(clue_pars):
+        for i, (clue_type_j, i_objects_j, attributes_j) in enumerate(
+            old_clue_parameters
+        ):
             # Check if the new clue type and an existing clue type are a pair in redundant_clues
             if clue_type_j == "not_same_object":
                 # Combine pairwise
@@ -87,7 +93,8 @@ def remove_redundant_clues_part1(
                     f"{x}{y}" for x, y in zip(i_objects_j, attributes_j)
                 }
                 combined_obj_attributes_new = {
-                    f"{x}{y}" for x, y in zip(clue_par[1], clue_par[2])
+                    f"{x}{y}"
+                    for x, y in zip(new_clue_parameters[1], new_clue_parameters[2])
                 }
 
                 # Check if the combination of objects and attributes are the included in the existing clue
@@ -123,13 +130,13 @@ def remove_redundant_clues_part1(
     }
 
     # Sort the new objects and attributes outside the following loop as they could be compared several times
-    sorted_new_objects = sorted(clue_par[1])
-    sorted_new_attributes = sorted(clue_par[2])
+    sorted_new_objects = sorted(new_clue_parameters[1])
+    sorted_new_attributes = sorted(new_clue_parameters[2])
 
     # Go through the list of chosen clues
-    for i, (clue_type_j, i_objects_j, attributes_j) in enumerate(clue_pars):
+    for i, (clue_type_j, i_objects_j, attributes_j) in enumerate(old_clue_parameters):
         # Check if the new clue adds no new information
-        if (clue_type_j, clue_type) in redundant_clues:
+        if (clue_type_j, new_clue_type) in redundant_clues:
             # Check if the objects and attributes are the same
             if (
                 sorted(i_objects_j) == sorted_new_objects
@@ -138,7 +145,7 @@ def remove_redundant_clues_part1(
                 return True, []
 
         # Check if an existing clue adds is less specific than the new clue
-        if (clue_type_j, clue_type) in redundant_clues:
+        if (clue_type_j, new_clue_type) in redundant_clues:
             if (
                 sorted(i_objects_j) == sorted_new_objects
                 and sorted(attributes_j) == sorted_new_attributes
