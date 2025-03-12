@@ -14,7 +14,7 @@ n_objects: 4
 
 # Attributes e.g. pets
 # Currently, 2 - 7 are supported.
-n_attributes: 4
+n_attributes: 1
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
@@ -25,7 +25,7 @@ n_attributes: 4
 
 attributes:
 
-    land:
+    nationaliteter:
         Danmark: ['danskeren', 'er dansk', 'er ikke dansk']
         Sverige: ['svenskeren', 'er svensk', 'er ikke svensk']
         Letland: ['letteren', 'er lettisk', 'er ikke lettisk']
@@ -38,7 +38,7 @@ attributes:
         Island: ['islænderen', 'er islandsk', 'er ikke islandsk']
         Storbritannien: ['briten', 'er britisk', 'er ikke britisk']
 
-    job:
+    jobs:
         bager: ['bageren', 'er bager', 'er ikke bager']
         minister: ['ministeren', 'er minister', 'er ikke minister']
         politibetjent: ['politibetjenten', 'er politibetjent', 'er ikke politibetjent']
@@ -56,7 +56,7 @@ attributes:
         snegl: ['snegleejeren','har en snegl','har ikke en snegl']
         vandrende pind: ['ejeren af en vandrende pind','har en vandrende pind','har ikke en vandrende pind']
 
-    drik:
+    drikke:
         juice: ['juicedrikkeren', 'drikker juice','drikker ikke juice']
         kaffe: ['kaffedrikkeren', 'drikker kaffe','drikker ikke kaffe']
         mælk: ['mælkedrikkeren', 'drikker mælk','drikker ikke mælk']
@@ -65,7 +65,7 @@ attributes:
         te: ['tedrikkeren', 'drikker te','drikker ikke te']
         sodavand: ['sodavandsdrikkeren', 'drikker sodavand','drikker ikke sodavand']
 
-    yndlingsboggenre:
+    yndlingsboggenrer:
         faglitteratur: ['personen der læser faglitteratur', 'læser faglitteratur', 'læser ikke faglitteratur']
         krimi: ['krimilæseren', 'læser krimier', 'læser ikke krimier']
         fantasy: ['fantasylæseren', 'læser fantasy', 'læser ikke fantasy']
@@ -74,7 +74,7 @@ attributes:
         poesi: ['poesilæseren', 'læser poesi', 'læser ikke poesi']
         kærlighedsromaner: ['personen der læser kærlighedsromaner', 'læser kærlighedsromaner', 'læser ikke kærlighedsromaner']
 
-    hobby:
+    hobbyer:
         klatring: ['personen der klatrer', 'klatrer', 'klatrer ikke']
         maleri: ['personen der maler', 'maler', 'maler ikke']
         brætspil: ['personen der spiller brætspil', 'spiller brætspil', 'spiller ikke brætspil']
@@ -83,7 +83,7 @@ attributes:
         fodbold: ['personen der spiller fodbold', 'spiller fodbold', 'spiller ikke fodbold']
         håndbold: ['personen der spiller håndbold', 'spiller håndbold', 'spiller ikke håndbold']
 
-    yndlingsfrugt:
+    yndlingsfrugter:
         æble: ['personen der elsker æbler', 'elsker æbler', 'kan ikke lide æbler']
         pære: ['personen der elsker pærer', 'elsker pærer', 'kan ikke lide pærer']
         appelsin: ['personen der elsker appelsiner', 'elsker appelsiner', 'kan ikke lide appelsiner']
@@ -107,8 +107,8 @@ clues_dict:
     just_right_of: "{attribute_desc_1} bor lige til højre for {attribute_desc_2}."
     left_of: "{attribute_desc_1} bor til venstre for {attribute_desc_2}."                                                          # Requires n_objects > 2, otherwise use just_left_of
     right_of: "{attribute_desc_1} bor til højre for {attribute_desc_2}."                                                           # Requires n_objects > 2, otherwise use just_right_of
-    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                          # Requires n_attributes > 1, otherwise it cannot be used
-    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                      # Requires n_attributes > 1, otherwise it cannot be used
+    #same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                          # Requires n_attributes > 1, otherwise it cannot be used
+    #not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                      # Requires n_attributes > 1, otherwise it cannot be used
     between: "{attribute_desc_2} bor mellem {attribute_desc_1} og {attribute_desc_3}."                                             # Requires n_objects > 2, otherwise it cannot be used
     not_between: "{attribute_desc_1} bor ikke mellem {attribute_desc_2} og {attribute_desc_3}, og de er tre forskellige personer." # Requires n_objects > 2, otherwise it cannot be used
     multiple_between: "{attribute_desc_1} og {attribute_desc_2} bor med {n_between} huse mellem sig."                              # Requires n_objects > 3, otherwise it cannot be used
@@ -116,23 +116,37 @@ clues_dict:
 
 
 # Prompt
-# TODO: Support the grammar of puzzles with a single category
 
 prompt_and: og
 
-prompt_template: |
-  En række huse er nummereret fra 1 til {n_objects} fra venstre mod højre.
+prompt_templates:
+    - |
+        En række huse er nummereret fra 1 til {n_objects} fra venstre mod højre.
 
-  I hvert hus bor en person med unikke egenskaber i hver af de følgende kategorier:
+        I hvert hus bor en person med unikke egenskaber i hver af de følgende kategorier:
 
-  {chosen_attributes_str}
+        {chosen_attributes_str}
 
-  Derudover ved vi følgende:
+        Derudover ved vi følgende:
 
-  {chosen_clues_str}
+        {chosen_clues_str}
 
-  Hvem har hvilke egenskaber og bor i hvilket hus? Angiv dit svar i følgende format, hvor det første tal i hver række repræsenterer husnummeret:
+        Hvem har hvilke egenskaber og bor i hvilket hus? Angiv dit svar i følgende format, hvor det første tal i hver række repræsenterer husnummeret:
 
-  1, egenskab_1, egenskab_2, egenskab_3 ...
-  2, egenskab_1, egenskab_2, egenskab_3 ...
-  ...
+        1, egenskab_1, egenskab_2, egenskab_3 ...
+        2, egenskab_4, egenskab_5, egenskab_6 ...
+        ...
+    - |
+        En række huse er nummereret fra 1 til {n_objects} fra venstre mod højre.
+
+        I hvert hus bor en person med en unik egenskab i kategorien {chosen_attributes_str}.
+
+        Derudover ved vi følgende:
+
+        {chosen_clues_str}
+
+        Hvem har hvilke egenskaber og bor i hvilket hus? Angiv dit svar i følgende format, hvor det første tal i hver række repræsenterer husnummeret:
+
+        1, egenskab_1
+        2, egenskab_2
+        ...

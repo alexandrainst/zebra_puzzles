@@ -9,12 +9,12 @@ defaults:
 n_puzzles: 10
 
 # Objects e.g. houses
-# Currently, 2 - 8 are supported
-n_objects: 4
+# Currently, 2 - 7 are supported
+n_objects: 3
 
 # Attributes e.g. pets
 # Currently, 2 - 6 are supported.
-n_attributes: 4
+n_attributes: 2
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
@@ -51,7 +51,6 @@ attributes:
         kartoffel: ['stykket med kartoffel', 'er med kartoffel', 'er ikke med kartoffel']
         sild: ['stykket med sild', 'er med sild', 'er ikke med sild']
         avocado: ['stykket med avocado', 'er med avocado', 'er ikke med avocado']
-        rejer: ['stykket med rejer', 'er med rejer', 'er ikke med rejer']
         fiskefilet: ['stykket med fiskefilet', 'er med fiskefilet', 'er ikke med fiskefilet']
 
     sekundært pålæg:
@@ -65,6 +64,8 @@ attributes:
         stegte svampe: ['stykket med stegte svampe', 'er med stegte svampe','er ikke med stegte svampe']
         sky: ['stykket med sky', 'er med sky', 'er ikke med sky']
         rødbede: ['stykket med rødbede', 'er med rødbede', 'er ikke med rødbede']
+        remoulade: ['stykket med remoulade', 'er med remoulade','er ikke med remoulade']
+        rejer: ['stykket med rejer', 'er med rejer', 'er ikke med rejer']
 
     pynt:
         radise: ['stykket med radise', 'er pyntet med radise','er ikke pyntet med radise']
@@ -74,7 +75,6 @@ attributes:
         purløg: ['stykket med purløg', 'er pyntet med purløg','er ikke pyntet med purløg']
         peberrod: ['stykket med peberrod', 'er pyntet med peberrod','er ikke pyntet med peberrod']
         citronskiver: ['stykket med citronskiver', 'er pyntet med citronskiver','er ikke pyntet med citronskiver']
-        remoulade: ['stykket med remoulade', 'er pyntet med remoulade','er ikke pyntet med remoulade']
         dild: ['stykket med dild', 'er pyntet med dild','er ikke pyntet med dild']
         kaviar: ['stykket med kaviar', 'er pyntet med kaviar','er ikke pyntet med kaviar']
 
@@ -84,9 +84,9 @@ attributes:
         sesamfrø: ['stykket med sesamfrø', 'er drysset med sesamfrø','er ikke drysset med sesamfrø']
         ristede løg: ['stykket med ristede løg', 'er drysset med ristede løg', 'er ikke drysset med ristede løg']
         chiliflager: ['stykket med chiliflager', 'er drysset med chiliflager', 'er ikke drysset med chiliflager']
-        spidskommen: ['stykket med spidskommen', 'er drysset med spidskommen', 'er ikke drysset med spidskommen']
         ristede mandler: ['stykket med ristede mandler', 'er drysset med ristede mandler', 'er ikke drysse med ristede mandler']
         ingen drys: ['stykket uden drys', 'er uden drys', 'er drysset med noget']
+
 
 
 # Clues
@@ -102,32 +102,46 @@ clues_dict:
     just_right_of: "{attribute_desc_1} ligger lige til højre for {attribute_desc_2}."
     left_of: "{attribute_desc_1} ligger til venstre for {attribute_desc_2}."                                                                    # Requires n_objects > 2, otherwise use just_left_of
     right_of: "{attribute_desc_1} ligger til højre for {attribute_desc_2}."                                                                     # Requires n_objects > 2, otherwise use just_right_of
-    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                       # Requires n_attributes > 1, otherwise it cannot be used
-    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                   # Requires n_attributes > 1, otherwise it cannot be used
+    #same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                       # Requires n_attributes > 1, otherwise it cannot be used
+    #not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                   # Requires n_attributes > 1, otherwise it cannot be used
     between: "{attribute_desc_2} ligger mellem {attribute_desc_1} og {attribute_desc_3}."                                                       # Requires n_objects > 2, otherwise it cannot be used
     not_between: "{attribute_desc_1} ligger ikke mellem {attribute_desc_2} og {attribute_desc_3}, og de er tre forskellige stykker smørrebrød." # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: "{attribute_desc_1} og {attribute_desc_2} ligger med {n_between} stykker smørrebrød mellem sig."                          # Requires n_objects > 3, otherwise it cannot be used
+    #multiple_between: "{attribute_desc_1} og {attribute_desc_2} ligger med {n_between} stykker smørrebrød mellem sig."                          # Requires n_objects > 3, otherwise it cannot be used
     one_between: "Der er ét stykke smørrebrød mellem {attribute_desc_1} og {attribute_desc_2}."                                                 # Requires n_objects > 2, otherwise it cannot be used
 
 
 # Prompt
-# TODO: Support the grammar of puzzles with a single category
 
 prompt_and: og
 
-prompt_template: |
-  {n_objects} kokke præsenterer hvert deres stykke smørrebrød. Stykkerne ligger på række og er nummereret fra 1 til {n_objects} fra venstre mod højre.
+prompt_templates:
+    - |
+        {n_objects} kokke præsenterer hvert deres stykke smørrebrød. Stykkerne ligger på række og er nummereret fra 1 til {n_objects} fra venstre mod højre.
 
-  Hvert stykke har unikke egenskaber i hver af de følgende kategorier:
+        Hvert stykke har unikke ingredienser i hver af de følgende kategorier:
 
-  {chosen_attributes_str}
+        {chosen_attributes_str}
 
-  Derudover ved vi følgende:
+        Derudover ved vi følgende:
 
-  {chosen_clues_str}
+        {chosen_clues_str}
 
-  Hvilke ingredienser indgår i hvilke smørrebrød? Angiv dit svar i følgende format, hvor det første tal i hver række angiver smørrebrødets nummer:
+        Hvilke ingredienser indgår i hvilke smørrebrød? Angiv dit svar i følgende format, hvor det første tal i hver række angiver smørrebrødets nummer:
 
-  1, egenskab_1, egenskab_2, egenskab_3 ...
-  2, egenskab_1, egenskab_2, egenskab_3 ...
-  ...
+        1, ingrediens_1, ingrediens_2, ingrediens_3 ...
+        2, ingrediens_4, ingrediens_5, ingrediens_5 ...
+        ...
+    - |
+        {n_objects} kokke præsenterer hvert deres stykke smørrebrød. Stykkerne ligger på række og er nummereret fra 1 til {n_objects} fra venstre mod højre.
+
+        Hvert stykke har en unik ingrediens i kategorien {chosen_attributes_str}.
+
+        Derudover ved vi følgende:
+
+        {chosen_clues_str}
+
+        Hvilken ingrediens indgår i hvilke smørrebrød? Angiv dit svar i følgende format, hvor det første tal i hver række angiver smørrebrødets nummer:
+
+        1, ingrediens_1
+        2, ingrediens_2
+        ...

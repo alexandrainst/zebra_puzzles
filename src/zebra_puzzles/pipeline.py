@@ -9,7 +9,7 @@ def run_pipeline(
     n_attributes: int,
     attributes: dict[str, dict[str, str]],
     clues_dict: dict[str, str],
-    prompt_template: str,
+    prompt_templates: list[str],
     prompt_and: str,
     verbose=False,
     eval=False,
@@ -21,7 +21,7 @@ def run_pipeline(
         n_objects: Number of objects in the puzzle as an integer.
         n_attributes: Number of attributes of each object as an integer.
         attributes: Possible attributes as a dictionary of dictionaries.
-        prompt_template: Template for the prompt as a string.
+        prompt_templates: List of templates for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
         verbose: Option to print the prompt and solution as a boolean.
         eval: Option to evaluate the prompt as a boolean.
@@ -50,9 +50,10 @@ def run_pipeline(
     prompt = complete_prompt(
         chosen_clues=chosen_clues,
         n_objects=n_objects,
+        n_attributes=n_attributes,
         chosen_categories=chosen_categories,
         chosen_attributes=chosen_attributes,
-        prompt_template=prompt_template,
+        prompt_templates=prompt_templates,
         prompt_and=prompt_and,
     )
 
@@ -73,7 +74,7 @@ def build_dataset(
     n_attributes: int,
     attributes: dict[str, dict[str, str]],
     clues_dict: dict[str, str],
-    prompt_template: str,
+    prompt_templates: list[str],
     prompt_and: str,
     n_puzzles: int,
 ) -> None:
@@ -86,7 +87,7 @@ def build_dataset(
         n_objects: Number of objects in the puzzle.
         n_attributes: Number of attributes of each object.
         attributes: Possible attributes as a dictionary of dictionaries.
-        prompt_template: Template for the prompt.
+        prompt_templates: List of templates for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
         n_puzzles: Number of puzzles to generate.
 
@@ -98,7 +99,7 @@ def build_dataset(
             n_attributes=n_attributes,
             attributes=attributes,
             clues_dict=clues_dict,
-            prompt_template=prompt_template,
+            prompt_templates=prompt_templates,
             prompt_and=prompt_and,
             verbose=False,
             eval=False,

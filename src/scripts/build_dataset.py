@@ -13,7 +13,7 @@ from zebra_puzzles.pipeline import build_dataset
 
 
 @hydra.main(
-    config_path="../../config", config_name="config_houses_eng", version_base=None
+    config_path="../../config", config_name="config_smoerrebroed", version_base=None
 )
 def main(config: DictConfig) -> None:
     """Main script.
@@ -25,7 +25,7 @@ def main(config: DictConfig) -> None:
     """
     n_puzzles = config.n_puzzles
     attributes = config.attributes
-    prompt_template = config.prompt_template
+    prompt_templates = config.prompt_templates
     prompt_and = config.prompt_and
     n_objects = config.n_objects
     n_attributes = config.n_attributes
@@ -34,7 +34,7 @@ def main(config: DictConfig) -> None:
     build_dataset(
         attributes=attributes,
         clues_dict=clues_dict,
-        prompt_template=prompt_template,
+        prompt_templates=prompt_templates,
         prompt_and=prompt_and,
         n_objects=n_objects,
         n_attributes=n_attributes,
