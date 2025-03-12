@@ -19,7 +19,6 @@ def choose_clues(
     n_objects: int,
     n_attributes: int,
     clues_dict: dict[str, str],
-    prompt_not: str,
 ) -> list[str]:
     """Generate a zebra puzzle.
 
@@ -32,7 +31,6 @@ def choose_clues(
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
         n_objects: Number of objects in the puzzle as an integer.
         n_attributes: Number of attributes per object as an integer.
-        prompt_not: The word to use when negating a clue.
 
     Returns:
         Clues for the zebra puzzle as a list of strings.
@@ -78,7 +76,6 @@ def choose_clues(
             chosen_attributes=chosen_attributes,
             chosen_attributes_descs=chosen_attributes_descs,
             clues_dict=clues_dict,
-            prompt_not=prompt_not,
         )
 
         # Check if the clue is obviously redundant before using the solver to save runtime
@@ -168,7 +165,6 @@ def create_clue(
     chosen_attributes: np.ndarray,
     chosen_attributes_descs: np.ndarray,
     clues_dict: dict[str, str],
-    prompt_not: str,
 ) -> tuple[str, tuple, tuple[str, list[int], np.ndarray]]:
     """Create a clue of a chosen type using random parts of the solution.
 
@@ -184,7 +180,6 @@ def create_clue(
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
         chosen_categories: Categories chosen for the solution.
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
-        prompt_not: The word to use when negating a clue.
 
     Returns:
         full_clue: Full clue as a string.
@@ -228,11 +223,11 @@ def create_clue(
             # Choose a random object
             i_object = sample(list(range(n_objects)), 1)[0]
             i_objects = [i_object, i_object]
-            negative_alt = False
+            desc_no = 1
         elif clue == "not_same_object":
             # Choose two random objects
             i_objects = sample(list(range(n_objects)), 2)
-            negative_alt = True
+            desc_no = 2
 
         # Choose two unique attributes
         clue_attributes, clue_attribute_descs = describe_random_attributes(
@@ -241,9 +236,7 @@ def create_clue(
             i_objects=i_objects,
             n_attributes=n_attributes,
             diff_cat=True,
-            alt_desc=True,
-            negative_alt=negative_alt,
-            prompt_not=prompt_not,
+            desc_no=desc_no,
         )
 
         # Create the full clue
@@ -394,9 +387,7 @@ def describe_random_attributes(
     i_objects: list[int],
     n_attributes: int,
     diff_cat: bool = False,
-    alt_desc: bool = False,
-    negative_alt: bool = False,
-    prompt_not: str = "",
+    desc_no: int = 0,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Get a random attribute description for an object.
 
@@ -414,7 +405,7 @@ def describe_random_attributes(
         i_objects: The index of the object to select an attribute from.
         n_attributes: Number of attributes per object.
         diff_cat: If True, the output attributes must belong to different categories.
-        alt_desc: If True, an alternative description is used.
+        desc_no: The index of the description to use for the last object in the clue if more than one object is described.
         negative_alt: If True, the "not_word" is inserted after the first word in the alternative description.
         prompt_not: The word to use when negating a clue.
 
@@ -439,12 +430,8 @@ def describe_random_attributes(
 
     for i, (i_obj, i_attr) in enumerate(zip(i_objects, i_attributes)):
         random_attributes[i] = chosen_attributes[i_obj][i_attr]
-        if alt_desc and i == len(i_objects) - 1 and n_clue_objects > 1:
-            random_attributes_desc[i] = chosen_attributes_descs[1][i_obj][i_attr]
-            if negative_alt:
-                random_attributes_desc[i] = str(random_attributes_desc[i]).replace(
-                    " ", " " + prompt_not + " ", 1
-                )
+        if i == len(i_objects) - 1 and n_clue_objects > 1:
+            random_attributes_desc[i] = chosen_attributes_descs[desc_no][i_obj][i_attr]
         else:
             random_attributes_desc[i] = chosen_attributes_descs[0][i_obj][i_attr]
 

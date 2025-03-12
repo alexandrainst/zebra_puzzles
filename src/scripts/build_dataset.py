@@ -27,7 +27,6 @@ def main(config: DictConfig) -> None:
     attributes = config.attributes
     prompt_template = config.prompt_template
     prompt_and = config.prompt_and
-    prompt_not = config.prompt_not
     n_objects = config.n_objects
     n_attributes = config.n_attributes
     clues_dict = config.clues_dict
@@ -37,7 +36,6 @@ def main(config: DictConfig) -> None:
         clues_dict=clues_dict,
         prompt_template=prompt_template,
         prompt_and=prompt_and,
-        prompt_not=prompt_not,
         n_objects=n_objects,
         n_attributes=n_attributes,
         n_puzzles=n_puzzles,

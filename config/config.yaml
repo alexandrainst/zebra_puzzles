@@ -26,71 +26,71 @@ n_attributes: 7
 attributes:
 
     land:
-        Danmark: ['danskeren', 'er dansk']
-        Sverige: ['svenskeren', 'er svensk']
-        Letland: ['letteren', 'er lettisk']
-        Frankrig: ['franskmanden', 'er fransk']
-        Spanien: ['spanieren', 'er spansk']
-        Italien: ['italieneren', 'er italiensk']
-        Norge: ['nordmanden', 'er norsk']
-        Fæøerne: ['færingen', 'er færøsk']
-        Nederlandene: ['nederlænderen', 'er nederlandsk']
-        Island: ['islænderen', 'er islandsk']
-        Storbritannien: ['briten', 'er britisk']
+        Danmark: ['danskeren', 'er dansk', 'er ikke dansk']
+        Sverige: ['svenskeren', 'er svensk', 'er ikke svensk']
+        Letland: ['letteren', 'er lettisk', 'er ikke lettisk']
+        Frankrig: ['franskmanden', 'er fransk','er ikke fransk']
+        Spanien: ['spanieren', 'er spansk', 'er ikke spansk']
+        Italien: ['italieneren', 'er italiensk', 'er ikke italiensk']
+        Norge: ['nordmanden', 'er norsk', 'er ikke norsk']
+        Fæøerne: ['færingen', 'er færøsk', 'er ikke færøsk']
+        Nederlandene: ['nederlænderen', 'er nederlandsk', 'er ikke nederlandsk']
+        Island: ['islænderen', 'er islandsk', 'er ikke islandsk']
+        Storbritannien: ['briten', 'er britisk', 'er ikke britisk']
 
     job:
-        bager: ['bageren', 'er bager']
-        minister: ['ministeren', 'er minister']
-        politibetjent: ['politibetjenten', 'er politibetjent']
-        sygeplejerske: ['sygeplejersken', 'er sygeplejerske']
-        lærer: ['læreren', 'er lærer']
-        software developer: ['software developeren', 'er software developer']
-        butiksassistent: ['butiksassistenten', 'er butiksassistent']
+        bager: ['bageren', 'er bager', 'er ikke bager']
+        minister: ['ministeren', 'er minister', 'er ikke minister']
+        politibetjent: ['politibetjenten', 'er politibetjent', 'er ikke politibetjent']
+        sygeplejerske: ['sygeplejersken', 'er sygeplejerske', 'er ikke sygeplejerske']
+        lærer: ['læreren', 'er lærer', 'er ikke lærer']
+        software developer: ['software developeren', 'er software developer', 'er ikke software developer']
+        butiksassistent: ['butiksassistenten', 'er butiksassistent', 'er ikke butiksassistent']
 
     kæledyr:
-        kat: ['katteejeren','har en kat']
-        hund: ['hundeejeren','har en hund']
-        kanin: ['kaninejeren','har en kanin']
-        zebra: ['zebraejeren','har en zebra']
-        undulat: ['undulatejeren','har en undulat']
-        snegl: ['snegleejeren','har en snegl']
-        vandrende pind: ['ejeren af en vandrende pind','har en vandrende pind']
+        kat: ['katteejeren','har en kat','har ikke en kat']
+        hund: ['hundeejeren','har en hund','har ikke en hund']
+        kanin: ['kaninejeren','har en kanin','har ikke en kanin']
+        zebra: ['zebraejeren','har en zebra','har ikke en zebra']
+        undulat: ['undulatejeren','har en undulat','har ikke en undulat']
+        snegl: ['snegleejeren','har en snegl','har ikke en snegl']
+        vandrende pind: ['ejeren af en vandrende pind','har en vandrende pind','har ikke en vandrende pind']
 
     drik:
-        juice: ['juicedrikkeren', 'drikker juice']
-        kaffe: ['kaffedrikkeren', 'drikker kaffe']
-        mælk: ['mælkedrikkeren', 'drikker mælk']
-        smoothie: ['smoothiedrikkeren', 'drikker smoothie']
-        kakao: ['kakaodrikkeren', 'drikker kakao']
-        te: ['tedrikkeren', 'drikker te']
-        sodavand: ['sodavandsdrikkeren', 'drikker sodavand']
+        juice: ['juicedrikkeren', 'drikker juice','drikker ikke juice']
+        kaffe: ['kaffedrikkeren', 'drikker kaffe','drikker ikke kaffe']
+        mælk: ['mælkedrikkeren', 'drikker mælk','drikker ikke mælk']
+        smoothie: ['smoothiedrikkeren', 'drikker smoothie','drikker ikke smoothie']
+        kakao: ['kakaodrikkeren', 'drikker kakao','drikker ikke kakao']
+        te: ['tedrikkeren', 'drikker te','drikker ikke te']
+        sodavand: ['sodavandsdrikkeren', 'drikker sodavand','drikker ikke sodavand']
 
     yndlingsboggenre:
-        faglitteratur: ['personen der læser faglitteratur', 'læser faglitteratur']
-        krimi: ['krimilæseren', 'læser krimier']
-        fantasy: ['fantasylæseren', 'læser fantasy']
-        science fiction: ['personen der læser science fiction', 'læser science fiction']
-        gyser: ['gyserlæseren', 'læser gysere']
-        poesi: ['poesilæseren', 'læser poesi']
-        kærlighedsromaner: ['personen der læser kærlighedsromaner', 'læser kærlighedsromaner']
+        faglitteratur: ['personen der læser faglitteratur', 'læser faglitteratur', 'læser ikke faglitteratur']
+        krimi: ['krimilæseren', 'læser krimier', 'læser ikke krimier']
+        fantasy: ['fantasylæseren', 'læser fantasy', 'læser ikke fantasy']
+        science fiction: ['personen der læser science fiction', 'læser science fiction','læser ikke science fiction']
+        gyser: ['gyserlæseren', 'læser gysere', 'læser ikke gysere']
+        poesi: ['poesilæseren', 'læser poesi', 'læser ikke poesi']
+        kærlighedsromaner: ['personen der læser kærlighedsromaner', 'læser kærlighedsromaner', 'læser ikke kærlighedsromaner']
 
     hobby:
-        klatring: ['personen der klatrer', 'klatrer']
-        maleri: ['personen der maler', 'maler']
-        brætspil: ['personen der spiller brætspil', 'spiller brætspil']
-        tennis: ['personen der spiller tennis', 'spiller tennis']
-        hækling: ['personen der hækler', 'hækler']
-        fodbold: ['personen der spiller fodbold', 'spiller fodbold']
-        håndbold: ['personen der spiller håndbold', 'spiller håndbold']
+        klatring: ['personen der klatrer', 'klatrer', 'klatrer ikke']
+        maleri: ['personen der maler', 'maler', 'maler ikke']
+        brætspil: ['personen der spiller brætspil', 'spiller brætspil', 'spiller ikke brætspil']
+        tennis: ['personen der spiller tennis', 'spiller tennis', 'spiller ikke tennis']
+        hækling: ['personen der hækler', 'hækler', 'hækler ikke']
+        fodbold: ['personen der spiller fodbold', 'spiller fodbold', 'spiller ikke fodbold']
+        håndbold: ['personen der spiller håndbold', 'spiller håndbold', 'spiller ikke håndbold']
 
     yndlingsfrugt:
-        æble: ['personen der elsker æbler', 'elsker æbler']
-        pære: ['personen der elsker pærer', 'elsker pærer']
-        appelsin: ['personen der elsker appelsiner', 'elsker appelsiner']
-        banan: ['personen der elsker bananer', 'elsker bananer']
-        jordbær: ['personen der elsker jordbær', 'elsker jordbær']
-        solbær: ['personen der elsker solbær', 'elsker solbær']
-        skovjordbær: ['personen der elsker skovjordbær', 'elsker skovjordbær']
+        æble: ['personen der elsker æbler', 'elsker æbler', 'kan ikke lide æbler']
+        pære: ['personen der elsker pærer', 'elsker pærer', 'kan ikke lide pærer']
+        appelsin: ['personen der elsker appelsiner', 'elsker appelsiner', 'kan ikke lide appelsiner']
+        banan: ['personen der elsker bananer', 'elsker bananer', 'kan ikke lide bananer']
+        jordbær: ['personen der elsker jordbær', 'elsker jordbær', 'kan ikke lide jordbær']
+        solbær: ['personen der elsker solbær', 'elsker solbær', 'kan ikke lide solbær']
+        skovjordbær: ['personen der elsker skovjordbær', 'elsker skovjordbær', 'kan ikke lide skovjordbær']
 
 
 
@@ -118,7 +118,6 @@ clues_dict:
 # TODO: Support the grammar of puzzles with a single category
 
 prompt_and: og
-prompt_not: ikke
 
 prompt_template: |
   En række huse er nummereret fra 1 til {n_objects} fra venstre mod højre.
