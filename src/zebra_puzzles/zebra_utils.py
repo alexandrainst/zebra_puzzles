@@ -18,10 +18,11 @@ def generate_solution(
         n_attributes: Number of attributes of each object.
 
     Returns:
-        solution: A solution to a zebra puzzle as a matrix of object indices and chosen attributes. The dimensions are n_objects x (1 + n_attributes).
-        chosen_categories: Categories chosen for the solution as a ndarray of strings of length n_attributes.
-        chosen_attributes: Attribute values chosen for the solution as a matrix of strings. The dimenstions are n_objects x n_attributes.
-        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix of strings. The dimenstions are n_objects x n_attributes.
+        A tuple (solution, chosen_categories, chosen_attributes, chosen_attributes_descs), where:
+            solution: A solution to a zebra puzzle as a matrix of object indices and chosen attributes. The dimensions are n_objects x (1 + n_attributes).
+            chosen_categories: Categories chosen for the solution as a ndarray of strings of length n_attributes.
+            chosen_attributes: Attribute values chosen for the solution as a matrix of strings. The dimenstions are n_objects x n_attributes.
+            chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix of strings. The dimenstions are n_objects x n_attributes.
     """
     # Choose a category for each attribute
     chosen_categories = np.array(sample(list(attributes.keys()), k=n_attributes))

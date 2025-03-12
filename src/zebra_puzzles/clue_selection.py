@@ -182,9 +182,10 @@ def create_clue(
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
 
     Returns:
-        full_clue: Full clue as a string.
-        constraint: Tuple consisting of a constraint function and a list of variables directly affected by the constraint.
-        clue_par: List containing the clue type, the object indices described in the clue and the attribute names.
+        A tuple (full_clue, constraint, clue_par), where:
+            full_clue: Full clue as a string.
+            constraint: Tuple consisting of a constraint function and a list of variables directly affected by the constraint.
+            clue_par: List containing the clue type, the object indices described in the clue and the attribute names.
     """
     clue_description = clues_dict[clue]
 
@@ -399,8 +400,9 @@ def describe_random_attributes(
         diff_cat: If True, the output attributes must belong to different categories.
 
     Returns:
-        random_attributes: A list of strings contraining one random attribute per object.
-        random_attributes_desc: A list of strings using the attributes to describe the objects.
+        A tuple (random_attributes, random_attributes_desc), where:
+            random_attributes: A list of strings contraining one random attribute per object.
+            random_attributes_desc: A list of strings using the attributes to describe the objects.
     """
     if diff_cat:
         i_attributes = sample(list(range(n_attributes)), k=len(i_objects))

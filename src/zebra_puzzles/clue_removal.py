@@ -32,8 +32,9 @@ def remove_redundant_clues_part1(
         prioritise_old_clues: Boolean indicating if the new clue should be rejected if it includes all information of an existing clue. This will reduce a bias towards more specific clues and result in more clues per puzzle. Otherwise, the old less specific clue will be added in clues_to_remove.
 
     Returns:
-        redundant: Boolean indicating if the clue is redundant
-        clues_to_remove: List of indices of clues to remove if the new clue is more specific than an existing clue. This is always empty if prioritise_old_clues is False.
+        A tuple (redundant, clues_to_remove), where:
+            redundant: Boolean indicating if the clue is redundant
+            clues_to_remove: List of indices of clues to remove if the new clue is more specific than an existing clue. This is always empty if prioritise_old_clues is False.
 
     """
     clues_to_remove = []
@@ -169,8 +170,9 @@ def remove_redundant_clues_part2(
         n_objects: Number of objects in the puzzle.
 
     Returns:
-        chosen_clues: Non-redundant clues for the zebra puzzle as a list of strings.
-        constraints: Non-redundant constraints for the puzzle solver.
+        A tuple (chosen_clues, constraints), where:
+            chosen_clues: Non-redundant clues for the zebra puzzle as a list of strings.
+            constraints: Non-redundant constraints for the puzzle solver.
 
     """
     for i in range(len(constraints) - 1, -1, -1):

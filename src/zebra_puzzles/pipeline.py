@@ -27,7 +27,9 @@ def run_pipeline(
         eval: Option to evaluate the prompt as a boolean.
 
     Returns:
-        A tuple (prompt, solution_str) with the prompt and the solution as a string.
+        A tuple (prompt, solution_str), where:
+            prompt: The full prompt for the zebra puzzle as a string.
+            solution_str: The solution as a string.
 
     TODO: Implement evaluation.
     TODO: Consider if enumeration should be removed when we only have one clue.

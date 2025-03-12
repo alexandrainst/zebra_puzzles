@@ -15,8 +15,9 @@ def solver(
         n_objects: Number of objects in the puzzle.
 
     Returns:
-        solution_attempt: Solution to the zebra puzzle as a list of lists representing the solution matrix of object indices and chosen attribute values. This matrix is n_objects x n_attributes.
-        completeness: Completeness of the solution as a float.
+        A tuple (solution_attempt, completeness), where:
+            solution_attempt: Solution to the zebra puzzle as a list of lists representing the solution matrix of object indices and chosen attribute values. This matrix is n_objects x n_attributes.
+            completeness: Completeness of the solution as a float.
     # NOTE: We could remove the uniqueness constraint
     """
     # ---- Define the puzzle ----#
@@ -63,7 +64,7 @@ def format_solution(
         n_objects: Number of objects in the puzzle.
         n_attributes: Number of attributes of each object.
 
-    Return:
+    Returns:
         Solution as a matrix in a numpy array.
     """
     solution_list = np.empty((n_objects, n_attributes + 1), dtype="U100")
