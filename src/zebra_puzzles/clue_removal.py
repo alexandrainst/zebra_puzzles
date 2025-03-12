@@ -160,7 +160,7 @@ def remove_redundant_clues_part1(
 
 
 def remove_redundant_clues_part2(
-    constraints: list,
+    chosen_constraints: list,
     chosen_clues: list[str],
     chosen_attributes_sorted: np.ndarray,
     n_objects: int,
@@ -171,7 +171,7 @@ def remove_redundant_clues_part2(
     Starts from the end of the list for easier iteration through a list we are removing elements from.
 
     Args:
-        constraints: List of constraints for the puzzle solver.
+        chosen_constraints: List of constraints for the puzzle solver.
         chosen_clues: Clues for the zebra puzzle as a list of strings.
         chosen_attributes_sorted: Matrix of attribute values chosen for the solution after sorting each category to avoid spoiling the solution.
         n_objects: Number of objects in the puzzle.
@@ -182,14 +182,14 @@ def remove_redundant_clues_part2(
             constraints: Non-redundant constraints for the puzzle solver.
 
     """
-    for i in range(len(constraints) - 1, -1, -1):
+    for i in range(len(chosen_constraints) - 1, -1, -1):
         _, completeness = solver(
-            constraints=constraints[:i] + constraints[i + 1 :],
+            constraints=chosen_constraints[:i] + chosen_constraints[i + 1 :],
             chosen_attributes=chosen_attributes_sorted,
             n_objects=n_objects,
         )
         if completeness == 1:
             del chosen_clues[i]
-            del constraints[i]
+            del chosen_constraints[i]
 
-    return chosen_clues, constraints
+    return chosen_clues, chosen_constraints

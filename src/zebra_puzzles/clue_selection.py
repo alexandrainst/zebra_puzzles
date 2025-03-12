@@ -60,17 +60,17 @@ def choose_clues(
     solutions: list[dict[str, int]] = []
     solved: bool = False
     chosen_clues: list[str] = []
-    constraints: list[tuple] = []
-    clue_pars: list = []
-    clue_types: list[str] = []
+    chosen_constraints: list[tuple] = []
+    chosen_clue_parameters: list = []
+    chosen_clue_types: list[str] = []
 
     max_iter = 100
     i_iter = 0
     while not solved:
         # Generate a random clue
-        clue_type = sample(sorted(clues_dict), 1)[0]
-        new_clue, constraint, clue_par = create_clue(
-            clue=clue_type,
+        new_clue_type = sample(sorted(clues_dict), 1)[0]
+        new_clue, new_constraint, new_clue_parameters = create_clue(
+            clue=new_clue_type,
             n_objects=n_objects,
             n_attributes=n_attributes,
             chosen_attributes=chosen_attributes,
@@ -82,10 +82,10 @@ def choose_clues(
         redundant, clues_to_remove = remove_redundant_clues_part1(
             new_clue=new_clue,
             old_clues=chosen_clues,
-            new_clue_parameters=clue_par,
-            old_clue_parameters=clue_pars,
-            new_clue_type=clue_type,
-            old_clue_types=clue_types,
+            new_clue_parameters=new_clue_parameters,
+            old_clue_parameters=chosen_clue_parameters,
+            new_clue_type=new_clue_type,
+            old_clue_types=chosen_clue_types,
             prioritise_old_clues=True,
         )
         if redundant:
@@ -96,11 +96,11 @@ def choose_clues(
 
             for i in clues_to_remove:
                 del chosen_clues[i]
-                del constraints[i]
-                del clue_pars[i]
-                del clue_types[i]
+                del chosen_constraints[i]
+                del chosen_clue_parameters[i]
+                del chosen_clue_types[i]
 
-        current_constraints = constraints + [constraint]
+        current_constraints = chosen_constraints + [new_constraint]
 
         # Try to solve the puzzle
         new_solutions, completeness = solver(
@@ -113,9 +113,9 @@ def choose_clues(
         if new_solutions != solutions:
             solutions = new_solutions
             chosen_clues.append(new_clue)
-            constraints.append(constraint)
-            clue_pars.append(clue_par)
-            clue_types.append(clue_type)
+            chosen_constraints.append(new_constraint)
+            chosen_clue_parameters.append(new_clue_parameters)
+            chosen_clue_types.append(new_clue_type)
 
         # Check if the solution is complete and the clues are non-redundant
 
@@ -141,7 +141,7 @@ def choose_clues(
 
             # Remove redundant clues
             chosen_clues, constraints = remove_redundant_clues_part2(
-                constraints=constraints,
+                chosen_constraints=chosen_constraints,
                 chosen_clues=chosen_clues,
                 chosen_attributes_sorted=chosen_attributes_sorted,
                 n_objects=n_objects,
