@@ -99,12 +99,15 @@ def complete_prompt(
     Returns:
         The full prompt for the zebra puzzle as a string.
 
-
-    TODO: Improve the prompt here and in the config file.
     """
-    chosen_clues = [
-        f"{i + 1}. {clue[0].upper()}{clue[1:]}" for i, clue in enumerate(chosen_clues)
-    ]
+    if len(chosen_clues) > 1:
+        # Format chosen_clues as a numbered list
+        chosen_clues = [
+            f"{i + 1}. {clue[0].upper()}{clue[1:]}"
+            for i, clue in enumerate(chosen_clues)
+        ]
+    else:
+        chosen_clues = [f"{clue[0].upper()}{clue[1:]}" for clue in chosen_clues]
 
     if len(chosen_clues) > 1:
         chosen_clues_str = "\n".join(chosen_clues)
