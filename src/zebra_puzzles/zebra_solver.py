@@ -17,7 +17,6 @@ def solver(
     Returns:
         solution_attempt: Solution to the zebra puzzle as a list of lists representing the solution matrix of object indices and chosen attribute values. This matrix is n_objects x n_attributes.
         completeness: Completeness of the solution as a float.
-
     # NOTE: We could remove the uniqueness constraint
     """
     # ---- Define the puzzle ----#
