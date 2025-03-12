@@ -10,11 +10,11 @@ n_puzzles: 10
 
 # Objects e.g. houses
 # Currently, 2 - 7 are supported
-n_objects: 3
+n_objects: 4
 
 # Attributes e.g. pets
 # Currently, 2 - 7 are supported.
-n_attributes: 7
+n_attributes: 4
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
@@ -111,7 +111,8 @@ clues_dict:
     not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                      # Requires n_attributes > 1, otherwise it cannot be used
     between: "{attribute_desc_2} bor mellem {attribute_desc_1} og {attribute_desc_3}."                                             # Requires n_objects > 2, otherwise it cannot be used
     not_between: "{attribute_desc_1} bor ikke mellem {attribute_desc_2} og {attribute_desc_3}, og de er tre forskellige personer." # Requires n_objects > 2, otherwise it cannot be used
-    n_between: "{attribute_desc_1} og {attribute_desc_2} bor med {n_between} huse mellem sig."                                     # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: "{attribute_desc_1} og {attribute_desc_2} bor med {n_between} huse mellem sig."                              # Requires n_objects > 3, otherwise it cannot be used
+    one_between: "Der er ét hus mellem {attribute_desc_1} og {attribute_desc_2}."                                                  # Requires n_objects > 2, otherwise it cannot be used
 
 
 # Prompt

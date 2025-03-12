@@ -21,7 +21,7 @@ def generate_solution(
         solution: A solution to a zebra puzzle as a matrix of object indices and chosen attributes. The dimensions are n_objects x (1 + n_attributes).
         chosen_categories: Categories chosen for the solution as a ndarray of strings of length n_attributes.
         chosen_attributes: Attribute values chosen for the solution as a matrix of strings. The dimensions are n_objects x n_attributes.
-        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix of strings. 2 versions are provided per description for different sentence structures. The dimensions are 2 x n_objects x n_attributes.
+        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix of strings. 3 versions are provided per description for different sentence structures. The dimensions are 3 x n_objects x n_attributes.
     """
     # Get the possible categories
     all_categories = np.array(list(attributes.keys()))

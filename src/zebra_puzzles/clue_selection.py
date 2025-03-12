@@ -36,8 +36,13 @@ def choose_clues(
         Clues for the zebra puzzle as a list of strings.
 
     """
-    # Exclude clues that cannot be used for this puzzle. We assume all puzzles are have at least 2 houses.
-    if n_objects <= 2:
+    # Exclude clues that cannot be used for this puzzle. We assume all puzzles have at least 2 objects.
+    if n_objects <= 3:
+        if any([i in clues_dict for i in ["multiple_between"]]):
+            raise ValueError(
+                "Too few objects for the chosen clues. Please adjust the config file."
+            )
+    elif n_objects <= 2:
         if any(
             [
                 i in clues_dict
@@ -348,12 +353,16 @@ def create_clue(
                 clue_attributes,
             )
 
-    elif clue == "n_between":
+    elif clue in ("one_between", "multiple_between"):
         # Choose two random objects with a distance of at least 2
-        n_between = 0
-        while n_between < 2:
+        objects_are_chosen = False
+        while not objects_are_chosen:
             i_objects = sample(list(range(n_objects)), 2)
-            n_between = abs(i_objects[0] - i_objects[1])
+            n_between = abs(i_objects[0] - i_objects[1]) - 1
+            if (n_between == 1 and clue == "one_between") or (
+                n_between > 1 and clue == "multiple_between"
+            ):
+                objects_are_chosen = True
 
         # Choose two random attributes
         clue_attributes, clue_attributes_desc = describe_random_attributes(
@@ -363,14 +372,21 @@ def create_clue(
             n_attributes=n_attributes,
         )
 
-        # Create the full clue
-        full_clue = clue_description.format(
-            attribute_desc_1=clue_attributes_desc[0],
-            attribute_desc_2=clue_attributes_desc[1],
-            n_between=n_between,
-        )
+        if clue == "one_between":
+            # Create the full clue
+            full_clue = clue_description.format(
+                attribute_desc_1=clue_attributes_desc[0],
+                attribute_desc_2=clue_attributes_desc[1],
+            )
+        else:
+            # Create the full clue
+            full_clue = clue_description.format(
+                attribute_desc_1=clue_attributes_desc[0],
+                attribute_desc_2=clue_attributes_desc[1],
+                n_between=n_between,
+            )
 
-        constraint = (lambda a, b: abs(b - a) == n_between, clue_attributes)
+        constraint = (lambda a, b: abs(b - a) - 1 == n_between, clue_attributes)
 
     else:
         raise ValueError("Unsupported clue '{clue}'")
