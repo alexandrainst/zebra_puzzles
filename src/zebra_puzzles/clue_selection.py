@@ -37,26 +37,27 @@ def choose_clues(
 
     """
     # Exclude clues that cannot be used for this puzzle. We assume all puzzles have at least 2 objects.
-    if n_objects <= 3:
-        if any([i in clues_dict for i in ["multiple_between"]]):
-            raise ValueError(
-                "Too few objects for the chosen clues. Please adjust the config file."
+    applicable_clues_dict = {k: v for k, v in clues_dict.items()}
+
+    for clue in clues_dict.keys():
+        if (
+            (n_objects <= 3 and clue in ("multiple_between"))
+            or (
+                n_objects <= 2
+                and clue
+                in (
+                    "not_next_to",
+                    "next_to",
+                    "left_of",
+                    "right_of",
+                    "between",
+                    "not_between",
+                    "one_between",
+                )
             )
-    elif n_objects <= 2:
-        if any(
-            [
-                i in clues_dict
-                for i in ["not_next_to", "next_to", "left_of", "right_of", "between"]
-            ]
+            or (n_attributes == 1 and clue in ("not_same_object", "same_object"))
         ):
-            raise ValueError(
-                "Too few objects for the chosen clues. Please adjust the config file."
-            )
-    if n_attributes == 1:
-        if any([i in clues_dict for i in ["not_same_object", "same_object"]]):
-            raise ValueError(
-                "Too few attributes for the chosen clues. Please adjust the config file."
-            )
+            del applicable_clues_dict[clue]
 
     # Transpose and sort the attributes
     chosen_attributes_sorted = chosen_attributes.T
@@ -73,7 +74,7 @@ def choose_clues(
     i_iter = 0
     while not solved:
         # Generate a random clue
-        clue_type = sample(sorted(clues_dict), 1)[0]
+        clue_type = sample(sorted(applicable_clues_dict), 1)[0]
         new_clue, constraint, clue_par = create_clue(
             clue=clue_type,
             n_objects=n_objects,
