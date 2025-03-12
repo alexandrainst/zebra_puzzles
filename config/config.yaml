@@ -105,14 +105,6 @@ attributes:
 # Clue names should not be edited, but they can be a subset of the full list of implemented clues: found_at, not_at
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 clues_dict:
-    found_at: Personen der {attribute_desc} bor i hus nummer {i_object}.
-    not_at: Personen der {attribute_desc} bor ikke i hus nummer {i_other_object}.
-
-# Clues
-# Clue names and text for the prompt depending on the clue type.
-# Clue names should not be edited, but they can be a subset of the full list of implemented clues: found_at, not_at
-# NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
-clues_dict:
     found_at: "{attribute_desc} bor i hus nummer {i_object}."
     not_at: "{attribute_desc} bor ikke i hus nummer {i_object}."
     next_to: "{attribute_desc_1} bor ved siden af {attribute_desc_2}."                                                             # Requires n_objects > 2, otherwise use not_same_object
@@ -143,7 +135,7 @@ prompt_template: |
   Derudover ved vi følgende:
 
   {chosen_clues_str}
-  
+
   Hvem har hvilke egenskaber og bor i hvilket hus? Angiv dit svar i følgende format, hvor det første tal i hver række repræsenterer husnummeret:
 
   1, egenskab_1, egenskab_2, egenskab_3 ...

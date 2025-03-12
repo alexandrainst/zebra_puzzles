@@ -64,6 +64,7 @@ def save_dataset(data: str, filename: str, folder: str = "data") -> None:
     with open(folder + "/" + filename, "w") as file:
         file.write(data)
 
+
 def complete_prompt(
     chosen_clues: list[str],
     n_objects: int,
