@@ -10,7 +10,9 @@ def solver(
     """Solve a zebra puzzle.
 
     Args:
-        constraints: Constraints for the zebra puzzle as a list of Tuples. Each tuple contains a constraint function and a list of directly affected variables. Each constaint corresponds to one clue.
+        constraints: Constraints for the zebra puzzle as a list of tuples. Each constaint corresponds to one clue. Each tuple (constraint_function, variables) contains:
+            constraint_function: A constraint function that the variables must satisfy.
+            variables: Attributes that the constraint applies to.
         chosen_attributes: Attribute values chosen for the solution. They should be sorted by category, but the order of attributes should be independent of the solution (random or sorted).
         n_objects: Number of objects in the puzzle.
 

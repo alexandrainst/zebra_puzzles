@@ -171,7 +171,9 @@ def remove_redundant_clues_part2(
     Starts from the end of the list for easier iteration through a list we are removing elements from.
 
     Args:
-        chosen_constraints: List of constraints for the puzzle solver.
+        chosen_constraints: Constraints for the zebra puzzle as a list of tuples. Each constaint corresponds to one clue. Each tuple (constraint_function, variables) contains:
+            constraint_function: A constraint function that the variables must satisfy.
+            variables: Attributes that the constraint applies to.
         chosen_clues: Clues for the zebra puzzle as a list of strings.
         chosen_attributes_sorted: Matrix of attribute values chosen for the solution after sorting each category to avoid spoiling the solution.
         n_objects: Number of objects in the puzzle.
