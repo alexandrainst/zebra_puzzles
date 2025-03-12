@@ -5,22 +5,10 @@ defaults:
   - _self_
 
 
-# Number of puzzles to generate
-n_puzzles: 10
-
-# Objects e.g. houses
-# Currently, 2 - 7 are supported
-n_objects: 4
-
-# Attributes e.g. pets
-# Currently, 2 - 7 are supported.
-n_attributes: 1
-
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
 # The attributes below should be in the preferred order of categories in the clues.
-# TODO: Make the phrasing sound more natural
 
 attributes:
 
@@ -105,8 +93,8 @@ clues_dict:
     just_right_of: "{attribute_desc_1} lives to the immediate right of {attribute_desc_2}."
     left_of: "{attribute_desc_1} lives to the left of {attribute_desc_2}."                                                                  # Requires n_objects > 2, otherwise use just_left_of
     right_of: "{attribute_desc_1} lives to the right of {attribute_desc_2}."                                                                 # Requires n_objects > 2, otherwise use just_right_of
-    #same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                   # Requires n_attributes > 1, otherwise it cannot be used
-    #not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                               # Requires n_attributes > 1, otherwise it cannot be used
+    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                   # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                               # Requires n_attributes > 1, otherwise it cannot be used
     between: "{attribute_desc_2} lives between {attribute_desc_1} and {attribute_desc_3}."                                                  # Requires n_objects > 2, otherwise it cannot be used
     not_between: "{attribute_desc_1} does not live between {attribute_desc_2} and {attribute_desc_3}, and they are three different people." # Requires n_objects > 2, otherwise it cannot be used
     multiple_between: "There are {n_between} houses between {attribute_desc_1} and {attribute_desc_2}."                                     # Requires n_objects > 3, otherwise it cannot be used

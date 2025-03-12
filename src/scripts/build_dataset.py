@@ -12,9 +12,7 @@ from omegaconf import DictConfig
 from zebra_puzzles.pipeline import build_dataset
 
 
-@hydra.main(
-    config_path="../../config", config_name="config_smoerrebroed", version_base=None
-)
+@hydra.main(config_path="../../config", config_name="config", version_base=None)
 def main(config: DictConfig) -> None:
     """Main script.
 
@@ -24,12 +22,12 @@ def main(config: DictConfig) -> None:
         config: Config file.
     """
     n_puzzles = config.n_puzzles
-    attributes = config.attributes
-    prompt_templates = config.prompt_templates
-    prompt_and = config.prompt_and
     n_objects = config.n_objects
     n_attributes = config.n_attributes
-    clues_dict = config.clues_dict
+    attributes = config.language.attributes
+    prompt_templates = config.language.prompt_templates
+    prompt_and = config.language.prompt_and
+    clues_dict = config.language.clues_dict
 
     build_dataset(
         attributes=attributes,
