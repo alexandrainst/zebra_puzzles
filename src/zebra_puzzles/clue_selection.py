@@ -6,8 +6,8 @@ import numpy as np
 from constraint import InSetConstraint, NotInSetConstraint
 
 from zebra_puzzles.clue_removal import (
-    remove_redundant_clues_part1,
-    remove_redundant_clues_part2,
+    remove_redundant_clues_with_rules,
+    remove_redundant_clues_with_solver,
 )
 from zebra_puzzles.zebra_solver import format_solution, solver
 
@@ -20,7 +20,7 @@ def choose_clues(
     n_attributes: int,
     clues_dict: dict[str, str],
 ) -> list[str]:
-    """Generate a zebra puzzle.
+    """Choose clues for a zebra puzzle.
 
     If the solver identifies a different solution than the expected one, it will raise a warning and change the solution to the one found by the solver.
 
@@ -36,7 +36,7 @@ def choose_clues(
         Clues for the zebra puzzle as a list of strings.
 
     """
-    # Exclude clues that cannot be used for this puzzle. We assume all puzzles are have at least 2 houses.
+    # Exclude clues that cannot be used for this puzzle. We assume all puzzles are have at least 2 objects.
     if n_objects <= 2:
         if any(
             [
@@ -79,7 +79,7 @@ def choose_clues(
         )
 
         # Check if the clue is obviously redundant before using the solver to save runtime
-        redundant, clues_to_remove = remove_redundant_clues_part1(
+        redundant, clues_to_remove = remove_redundant_clues_with_rules(
             new_clue=new_clue,
             old_clues=chosen_clues,
             new_clue_parameters=new_clue_parameters,
@@ -140,7 +140,7 @@ def choose_clues(
                 )
 
             # Remove redundant clues
-            chosen_clues, constraints = remove_redundant_clues_part2(
+            chosen_clues, chosen_constraints = remove_redundant_clues_with_solver(
                 chosen_constraints=chosen_constraints,
                 chosen_clues=chosen_clues,
                 chosen_attributes_sorted=chosen_attributes_sorted,

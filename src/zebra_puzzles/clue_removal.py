@@ -5,7 +5,7 @@ import numpy as np
 from zebra_puzzles.zebra_solver import solver
 
 
-def remove_redundant_clues_part1(
+def remove_redundant_clues_with_rules(
     new_clue: str,
     old_clues: list[str],
     new_clue_parameters: tuple[str, list[int], np.ndarray],
@@ -158,7 +158,7 @@ def remove_redundant_clues_part1(
     return False, clues_to_remove
 
 
-def remove_redundant_clues_part2(
+def remove_redundant_clues_with_solver(
     chosen_constraints: list,
     chosen_clues: list[str],
     chosen_attributes_sorted: np.ndarray,
