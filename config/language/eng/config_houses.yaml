@@ -1,10 +1,5 @@
 # Config file for generating zebra puzzles in English with the classic "houses" theme.
 
-defaults:
-  - override hydra/job_logging: custom
-  - _self_
-
-
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
