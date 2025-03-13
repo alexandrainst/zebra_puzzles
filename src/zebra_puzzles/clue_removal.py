@@ -136,24 +136,23 @@ def remove_redundant_clues_part1(
     # Go through the list of chosen clues
     for i, (clue_type_j, i_objects_j, attributes_j) in enumerate(old_clue_parameters):
         # Check if the new clue adds no new information
-        if (clue_type_j, new_clue_type) in redundant_clues:
-            # Check if the objects and attributes are the same
-            if (
-                sorted(i_objects_j) == sorted_new_objects
-                and sorted(attributes_j) == sorted_new_attributes
-            ):
-                return True, []
+        if (
+            (clue_type_j, new_clue_type) in redundant_clues
+            and sorted(i_objects_j) == sorted_new_objects
+            and sorted(attributes_j) == sorted_new_attributes
+        ):
+            return True, []
 
         # Check if an existing clue adds is less specific than the new clue
-        if (clue_type_j, new_clue_type) in redundant_clues:
-            if (
-                sorted(i_objects_j) == sorted_new_objects
-                and sorted(attributes_j) == sorted_new_attributes
-            ):
-                if prioritise_old_clues:
-                    return True, []
-                else:
-                    clues_to_remove.append(i)
+        if (
+            (clue_type_j, new_clue_type) in redundant_clues
+            and sorted(i_objects_j) == sorted_new_objects
+            and sorted(attributes_j) == sorted_new_attributes
+        ):
+            if prioritise_old_clues:
+                return True, []
+            else:
+                clues_to_remove.append(i)
 
     # Otherwise, the clue might not be redundant
     return False, clues_to_remove
