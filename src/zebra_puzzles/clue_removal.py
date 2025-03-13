@@ -68,7 +68,7 @@ def remove_redundant_clues_with_rules(
         for clue_type_j, i_objects_j, attributes_j in old_clue_parameters:
             # Check if the new clue type and an existing clue type are a pair in redundant_clues
             if clue_type_j in {"between", "not_between"}:
-                # Combine pairwise
+                # Combine objects and attributes in the clue pairwise
                 combined_obj_attributes = {
                     f"{x}{y}" for x, y in zip(i_objects_j, attributes_j)
                 }
@@ -88,7 +88,7 @@ def remove_redundant_clues_with_rules(
         ):
             # Check if the new clue type and an existing clue type are a pair in redundant_clues
             if clue_type_j == "not_same_object":
-                # Combine pairwise
+                # Combine objects and attributes in the clue pairwise
                 combined_obj_attributes = {
                     f"{x}{y}" for x, y in zip(i_objects_j, attributes_j)
                 }

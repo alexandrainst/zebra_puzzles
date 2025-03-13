@@ -135,7 +135,9 @@ def choose_clues(
                 n_attributes=n_attributes,
             )
 
-            if [sorted(x) for x in solution_attempt] != [sorted(x) for x in solution]:
+            if [sorted(obj) for obj in solution_attempt] != [
+                sorted(obj) for obj in solution
+            ]:
                 # Change the solution to the solution attempt and raise a warning
                 solution_old = solution
                 solution = solution_attempt
