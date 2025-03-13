@@ -37,21 +37,27 @@ def choose_clues(
 
     """
     # Exclude clues that cannot be used for this puzzle. We assume all puzzles are have at least 2 objects.
-    if n_objects <= 2:
-        if any(
-            [
-                i in clues_dict
-                for i in ["not_next_to", "next_to", "left_of", "right_of", "between"]
+    if n_objects <= 2 and any(
+        [
+            clue_type in clues_dict
+            for clue_type in [
+                "not_next_to",
+                "next_to",
+                "left_of",
+                "right_of",
+                "between",
             ]
-        ):
-            raise ValueError(
-                "Too few objects for the chosen clues. Please adjust the config file."
-            )
-    if n_attributes == 1:
-        if any([i in clues_dict for i in ["not_same_object", "same_object"]]):
-            raise ValueError(
-                "Too few attributes for the chosen clues. Please adjust the config file."
-            )
+        ]
+    ):
+        raise ValueError(
+            "Too few objects for the chosen clues. Please adjust the config file."
+        )
+    if n_attributes == 1 and any(
+        [clue_type in clues_dict for clue_type in ["not_same_object", "same_object"]]
+    ):
+        raise ValueError(
+            "Too few attributes for the chosen clues. Please adjust the config file."
+        )
 
     # Transpose and sort the attributes
     chosen_attributes_sorted = chosen_attributes.T

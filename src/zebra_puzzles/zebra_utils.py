@@ -155,7 +155,7 @@ def format_list_in_prompt(
     elif len(list_of_strings) == 2:
         formatted_list = f"{list_of_strings[0]} {prompt_and} {list_of_strings[1]}"
     else:
-        formatted_list = f"{', '.join(list_of_strings[:-1])}"
+        formatted_list = ", ".join(list_of_strings[:-1])
         if oxford_comma:
             formatted_list += ", "
         formatted_list += f" {prompt_and} {list_of_strings[-1]}"
