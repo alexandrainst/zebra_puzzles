@@ -36,28 +36,9 @@ def choose_clues(
         Clues for the zebra puzzle as a list of strings.
 
     """
-    # Exclude clues that cannot be used for this puzzle. We assume all puzzles have at least 2 objects.
-    applicable_clues_dict = {k: v for k, v in clues_dict.items()}
-
-    for clue in clues_dict.keys():
-        if (
-            (n_objects <= 3 and clue in ["multiple_between"])
-            or (
-                n_objects <= 2
-                and clue
-                in [
-                    "not_next_to",
-                    "next_to",
-                    "left_of",
-                    "right_of",
-                    "between",
-                    "not_between",
-                    "one_between",
-                ]
-            )
-            or (n_attributes == 1 and clue in ["not_same_object", "same_object"])
-        ):
-            del applicable_clues_dict[clue]
+    applicable_clues_dict = exclude_clues(
+        clues_dict=clues_dict, n_objects=n_objects, n_attributes=n_attributes
+    )
 
     # Transpose and sort the attributes
     chosen_attributes_sorted = chosen_attributes.T
@@ -162,6 +143,44 @@ def choose_clues(
             raise StopIteration("Used too many attempts to solve the puzzle.")
 
     return chosen_clues
+
+
+def exclude_clues(
+    clues_dict: dict[str, str], n_objects: int, n_attributes: int
+) -> dict[str, str]:
+    """Exclude clues that cannot be used for this puzzle. We assume all puzzles have at least 2 objects.
+
+    Args:
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
+        n_objects: Number of objects in the puzzle as an integer.
+        n_attributes: Number of attributes per object as an integer.
+
+    Returns:
+        applicable_clues_dict: Clues that can be used for this puzzle as a dictionary containing a title and a description of each
+
+    """
+    applicable_clues_dict = {k: v for k, v in clues_dict.items()}
+
+    for clue in clues_dict.keys():
+        if (
+            (n_objects <= 3 and clue in ["multiple_between"])
+            or (
+                n_objects <= 2
+                and clue
+                in [
+                    "not_next_to",
+                    "next_to",
+                    "left_of",
+                    "right_of",
+                    "between",
+                    "not_between",
+                    "one_between",
+                ]
+            )
+            or (n_attributes == 1 and clue in ["not_same_object", "same_object"])
+        ):
+            del applicable_clues_dict[clue]
+    return applicable_clues_dict
 
 
 def create_clue(
