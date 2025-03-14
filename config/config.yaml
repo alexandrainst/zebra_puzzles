@@ -17,4 +17,4 @@ n_puzzles: 10
 n_objects: 4
 
 # Attributes e.g. pets
-n_attributes: 3
+n_attributes: 5

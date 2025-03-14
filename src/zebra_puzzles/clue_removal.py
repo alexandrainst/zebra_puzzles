@@ -117,7 +117,8 @@ def remove_redundant_clues_part1(
         ("just_right_of", "next_to"),
         ("just_right_of", "not_same_object"),
         ("next_to", "not_same_object"),
-        ("n_between", "not_same_object"),
+        ("one_between", "not_same_object"),
+        ("multiple_between", "not_same_object"),
         ("between", "not_between"),
     }
 

@@ -25,7 +25,7 @@ Use config.yaml to specify:
 Typical runtimes for puzzles of size n_objects x n_attributes are (using all clue types):
 3x7: 0.7 s
 4x4: 0.6 s
-4x5: 16 s
+4x5: 11 s
 4x6: > 10 min
 5x3: 3.8 s
 6x3: > 10 min
