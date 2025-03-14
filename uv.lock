@@ -776,6 +776,23 @@ wheels = [
 ]
 
 [[package]]
+name = "python-constraint2"
+version = "2.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/a0/b3/ee7e34955b6dd0db88177a0993d283581d137f69e6b825405d92b7146821/python_constraint2-2.1.0.tar.gz", hash = "sha256:fbb6ab033a7a4250bce11ca12fdf8958c6c42853e933cf585dbd265e0967dd93", size = 599056 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c9/20/2bcc53f69cd2e570f270f119ec03e9192f87d3f8b7b944e6ac5544720954/python_constraint2-2.1.0-cp311-cp311-macosx_14_0_arm64.whl", hash = "sha256:1c650d717c2585fd8b2247f680ca1dcc6ea970cc5644c1d847f97eacb9f7dce2", size = 1338138 },
+    { url = "https://files.pythonhosted.org/packages/97/bb/2d5777bb05a42337312474d734b4b1b3e8a897193f2198d9e374610cc4dd/python_constraint2-2.1.0-cp311-cp311-manylinux_2_39_x86_64.whl", hash = "sha256:38e4dbb2522ca2295873a57f6e0fddbb0856a780c87edd79b4074fd78790fed3", size = 3169026 },
+    { url = "https://files.pythonhosted.org/packages/25/b2/aabd8eafb13c0619c047fcf05690fae608f1573c7aa3d9a3e624ffa098eb/python_constraint2-2.1.0-cp311-cp311-win_amd64.whl", hash = "sha256:6b8f82be66242fc5587011360b07c39e6e71e5d1c8f26a107dd2b04ab7854fcc", size = 610887 },
+    { url = "https://files.pythonhosted.org/packages/6e/18/a6866206081db3188f04d3d4f7e8f38c60fbee48c2b50d13a1ff585335db/python_constraint2-2.1.0-cp312-cp312-macosx_14_0_arm64.whl", hash = "sha256:ee3d33ca5694724a17bb596b93ff8687c70b4c07945e40a9007250e282e7ab28", size = 1352421 },
+    { url = "https://files.pythonhosted.org/packages/82/3a/912322e0e22f278ba4903993c701ff72105b2ea0a0ea3b49395425272aa4/python_constraint2-2.1.0-cp312-cp312-manylinux_2_39_x86_64.whl", hash = "sha256:b2385c99a9fe67ae26085a5a048c1d206cf0bd74acf0cd036227afa2a90fa4fd", size = 3146326 },
+    { url = "https://files.pythonhosted.org/packages/a2/22/726de2d23d5558ab5fd35edc180c15391782b48e01f724ec70e0621676f3/python_constraint2-2.1.0-cp312-cp312-win_amd64.whl", hash = "sha256:0e5ece0b4e85ed680af6b9db33ef3497a6f9499b8957cd830cd139f17ac29aef", size = 610888 },
+    { url = "https://files.pythonhosted.org/packages/57/d1/da7254c53b90d01c3c7c263379c18d1f88586b000ec74c2a6af2d0775c16/python_constraint2-2.1.0-cp313-cp313-macosx_14_0_arm64.whl", hash = "sha256:ace17786565250de48b8d18da555feb31f5fb3521b2bd65e9871459e1d179600", size = 1342805 },
+    { url = "https://files.pythonhosted.org/packages/41/5b/ae532923a214452f2348ff64676c9e09293073976770a1250a944e12311d/python_constraint2-2.1.0-cp313-cp313-manylinux_2_39_x86_64.whl", hash = "sha256:abea9ae443bf33fb396a6fb597b713e110f2abd9ecf1a656cd81f53da6751b79", size = 3137276 },
+    { url = "https://files.pythonhosted.org/packages/9d/b7/dd91fb2d19c6782a699a386c0b295bf7702c2e05211157e193bcadb9c604/python_constraint2-2.1.0-cp313-cp313-win_amd64.whl", hash = "sha256:fc3cffd0f16cb9b34d2e95bd6d27425dd24044073760477a1341e835fc9c45f4", size = 610887 },
+]
+
+[[package]]
 name = "python-dateutil"
 version = "2.9.0.post0"
 source = { registry = "https://pypi.org/simple" }
@@ -1178,6 +1195,7 @@ source = { editable = "." }
 dependencies = [
     { name = "hydra-core" },
     { name = "numpy" },
+    { name = "python-constraint2" },
 ]
 
 [package.dev-dependencies]
@@ -1202,6 +1220,7 @@ dev = [
 requires-dist = [
     { name = "hydra-core", specifier = ">=1.3.2" },
     { name = "numpy", specifier = ">=2.2.3" },
+    { name = "python-constraint2", specifier = ">=2.1.0" },
 ]
 
 [package.metadata.requires-dev]

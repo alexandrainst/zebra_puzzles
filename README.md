@@ -9,7 +9,7 @@
 
 # Zebra Puzzles
 
-Generation of zebra puzzles.
+Generation of zebra puzzles. GitHub Copilot has been used during this project.
 
 ______________________________________________________________________
 [![Code Coverage](https://img.shields.io/badge/Coverage-0%25-red.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
