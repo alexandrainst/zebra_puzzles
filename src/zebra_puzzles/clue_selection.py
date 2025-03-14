@@ -25,7 +25,7 @@ def choose_clues(
     If the solver identifies a different solution than the expected one, it will raise a warning and change the solution to the one found by the solver.
 
     Args:
-        solution: Solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x n_attributes.
+        solution: Solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x (n_attributes + 1).
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
         chosen_attributes: Attribute values chosen for the solution as a matrix.
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
@@ -110,21 +110,12 @@ def choose_clues(
             solved = True
 
             # Check if the solver found an unexpected solution. This should not be possible.
-            solution_attempt = format_solution(
-                solution_dict=solutions[0],
+            solution = confirm_original_solution(
+                solutions=solutions,
+                solution=solution,
                 n_objects=n_objects,
                 n_attributes=n_attributes,
             )
-
-            if [sorted(x) for x in solution_attempt] != [sorted(x) for x in solution]:
-                # Change the solution to the solution attempt and raise a warning
-                solution_old = solution
-                solution = solution_attempt
-                raise Warning(
-                    "The solver has found a solution that is not the expected one: \nFound \n{solution_attempt} \nExpected \n{solution}".format(
-                        solution_attempt=solution_attempt, solution=solution_old
-                    )
-                )
 
             # Remove redundant clues
             chosen_clues, constraints = remove_redundant_clues_part2(
@@ -145,6 +136,42 @@ def choose_clues(
     return chosen_clues
 
 
+def confirm_original_solution(
+    solutions: list[dict[str, int]],
+    solution: np.ndarray,
+    n_objects: int,
+    n_attributes: int,
+) -> np.ndarray:
+    """Check if the solver found the original solution or an unexpected one.
+
+    Finding a new solution should not be possible and indicates a bug in the solver or the clue selection process. If this happens, the solution is changed to the one found by the solver and a warning is raised.
+
+    Args:
+        solutions: Solutions to the zebra puzzle found by the solver as a list of dictionaries containing object indices and chosen attribute values.
+        solution: Expected solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x (n_attributes + 1).
+        n_objects: Number of objects in the puzzle as an integer.
+        n_attributes: Number of attributes per object as an integer.
+
+    Returns:
+        Solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x (n_attributes + 1).
+
+    """
+    solution_attempt = format_solution(
+        solution_dict=solutions[0], n_objects=n_objects, n_attributes=n_attributes
+    )
+
+    if [sorted(x) for x in solution_attempt] != [sorted(x) for x in solution]:
+        # Change the solution to the solution attempt and raise a warning
+        solution_old = solution
+        solution = solution_attempt
+        raise Warning(
+            "The solver has found a solution that is not the expected one: \nFound \n{solution_attempt} \nExpected \n{solution}".format(
+                solution_attempt=solution_attempt, solution=solution_old
+            )
+        )
+    return solution
+
+
 def exclude_clues(
     clues_dict: dict[str, str], n_objects: int, n_attributes: int
 ) -> dict[str, str]:
@@ -156,7 +183,7 @@ def exclude_clues(
         n_attributes: Number of attributes per object as an integer.
 
     Returns:
-        applicable_clues_dict: Clues that can be used for this puzzle as a dictionary containing a title and a description of each
+        Clues that can be used for this puzzle as a dictionary containing a title and a description of each.
 
     """
     applicable_clues_dict = {k: v for k, v in clues_dict.items()}
