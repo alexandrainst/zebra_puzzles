@@ -41,11 +41,11 @@ def choose_clues(
 
     for clue in clues_dict.keys():
         if (
-            (n_objects <= 3 and clue in ("multiple_between"))
+            (n_objects <= 3 and clue in ["multiple_between"])
             or (
                 n_objects <= 2
                 and clue
-                in (
+                in [
                     "not_next_to",
                     "next_to",
                     "left_of",
@@ -53,9 +53,9 @@ def choose_clues(
                     "between",
                     "not_between",
                     "one_between",
-                )
+                ]
             )
-            or (n_attributes == 1 and clue in ("not_same_object", "same_object"))
+            or (n_attributes == 1 and clue in ["not_same_object", "same_object"])
         ):
             del applicable_clues_dict[clue]
 

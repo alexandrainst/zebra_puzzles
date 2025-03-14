@@ -14,7 +14,7 @@ defaults:
 n_puzzles: 10
 
 # Objects e.g. houses
-n_objects: 4
+n_objects: 3
 
 # Attributes e.g. pets
-n_attributes: 5
+n_attributes: 6

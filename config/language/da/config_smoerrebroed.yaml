@@ -66,7 +66,7 @@ attributes:
         dild: ['stykket med dild', 'er drysset med dild','er ikke drysset med dild']
         kørvel: ['stykket med kørvel', 'er drysset med kørvel','er ikke drysset med kørvel']
         purløg: ['stykket med purløg', 'er drysset med purløg','er ikke drysset med purløg']
-        karse: ['stykket med karse', 'er drysset med karse]gt','er ikke drysset med karse']
+        karse: ['stykket med karse', 'er drysset med karse','er ikke drysset med karse']
         sesamfrø: ['stykket med sesamfrø', 'er drysset med sesamfrø','er ikke drysset med sesamfrø']
         ristede løg: ['stykket med ristede løg', 'er drysset med ristede løg', 'er ikke drysset med ristede løg']
         chiliflager: ['stykket med chiliflager', 'er drysset med chiliflager', 'er ikke drysset med chiliflager']
