@@ -276,11 +276,11 @@ def create_clue(
             # Choose a random object
             i_object = sample(list(range(n_objects)), 1)[0]
             i_objects = [i_object, i_object]
-            desc_no = 1
+            desc_index = 1
         elif clue == "not_same_object":
             # Choose two random objects
             i_objects = sample(list(range(n_objects)), 2)
-            desc_no = 2
+            desc_index = 2
 
         # Choose two unique attributes
         clue_attributes, clue_attribute_descs = describe_random_attributes(
@@ -289,7 +289,7 @@ def create_clue(
             i_objects=i_objects,
             n_attributes=n_attributes,
             diff_cat=True,
-            desc_no=desc_no,
+            desc_index=desc_index,
         )
 
         # Create the full clue
@@ -451,7 +451,7 @@ def describe_random_attributes(
     i_objects: list[int],
     n_attributes: int,
     diff_cat: bool = False,
-    desc_no: int = 0,
+    desc_index: int = 0,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Get a random attribute description for an object.
 
@@ -469,7 +469,7 @@ def describe_random_attributes(
         i_objects: The index of the object to select an attribute from.
         n_attributes: Number of attributes per object.
         diff_cat: If True, the output attributes must belong to different categories.
-        desc_no: The index of the description to use for the last object in the clue if more than one object is described.
+        desc_index: The index of the description to use for the last object in the clue if more than one object is described.
         negative_alt: If True, the "not_word" is inserted after the first word in the alternative description.
         prompt_not: The word to use when negating a clue.
 
@@ -496,7 +496,9 @@ def describe_random_attributes(
     for i, (i_obj, i_attr) in enumerate(zip(i_objects, i_attributes)):
         random_attributes[i] = chosen_attributes[i_obj][i_attr]
         if i == len(i_objects) - 1 and n_clue_objects > 1:
-            random_attributes_desc[i] = chosen_attributes_descs[desc_no][i_obj][i_attr]
+            random_attributes_desc[i] = chosen_attributes_descs[desc_index][i_obj][
+                i_attr
+            ]
         else:
             random_attributes_desc[i] = chosen_attributes_descs[0][i_obj][i_attr]
 
