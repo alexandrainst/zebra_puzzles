@@ -138,11 +138,11 @@ prompt_templates:
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
 
 red_herring_clues:
-    same_herring: “{attribute_desc} {attribute_desc_herring}”
-    next_to_herring: “{attribute_desc} bor ved siden af en person der {attribute_desc_herring}”
-    double_herring: “Personen der {attribute_desc_herring_1} {attribute_desc_herring_2}”
-    fact: “{fact}”
-    object_fact: "{attribute_desc} ved at {fact}”
+    same_herring: “{attribute_desc} {attribute_desc_herring}"
+    next_to_herring: “{attribute_desc} bor ved siden af en person der {attribute_desc_herring}"
+    double_herring: “Personen der {attribute_desc_herring_1} {attribute_desc_herring_2}"
+    fact: "{fact}"
+    object_fact: "{attribute_desc} ved at {fact}"
     friends: "{attribute_desc} er gode venner med personen der {attribute_desc_herring}"
 
 red_herring_attributes:

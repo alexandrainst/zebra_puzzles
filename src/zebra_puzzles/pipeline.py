@@ -1,6 +1,7 @@
 """Pipeline module for generating and saving zebra puzzles."""
 
-from zebra_puzzles.clue_selection import choose_clues, choose_red_herrings
+from zebra_puzzles.clue_selection import choose_clues
+from zebra_puzzles.red_herring_selection import choose_red_herrings
 from zebra_puzzles.zebra_utils import complete_prompt, generate_solution, save_dataset
 
 
