@@ -18,10 +18,11 @@ def generate_solution(
         n_attributes: Number of attributes of each object.
 
     Returns:
-        solution: A solution to a zebra puzzle as a matrix of object indices and chosen attributes. The dimensions are n_objects x (1 + n_attributes).
-        chosen_categories: Categories chosen for the solution as a ndarray of strings of length n_attributes.
-        chosen_attributes: Attribute values chosen for the solution as a matrix of strings. The dimensions are n_objects x n_attributes.
-        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix of strings. 3 versions are provided per description for different sentence structures. The dimensions are 3 x n_objects x n_attributes.
+        A tuple (solution, chosen_categories, chosen_attributes, chosen_attributes_descs), where:
+            solution: A solution to a zebra puzzle as a matrix of object indices and chosen attributes. The dimensions are n_objects x (1 + n_attributes).
+            chosen_categories: Categories chosen for the solution as a ndarray of strings of length n_attributes.
+            chosen_attributes: Attribute values chosen for the solution as a matrix of strings. The dimensions are n_objects x n_attributes.
+            chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix of strings. 3 versions are provided per description for different sentence structures. The dimensions are 3 x n_objects x n_attributes.
     """
     # Get the possible categories
     all_categories = np.array(list(attributes.keys()))
@@ -174,7 +175,7 @@ def format_list_in_prompt(
     elif len(list_of_strings) == 2:
         formatted_list = f"{list_of_strings[0]} {prompt_and} {list_of_strings[1]}"
     else:
-        formatted_list = f"{', '.join(list_of_strings[:-1])}"
+        formatted_list = ", ".join(list_of_strings[:-1])
         if oxford_comma:
             formatted_list += ", "
         formatted_list += f" {prompt_and} {list_of_strings[-1]}"

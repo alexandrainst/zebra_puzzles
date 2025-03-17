@@ -6,8 +6,8 @@ import numpy as np
 from constraint import InSetConstraint, NotInSetConstraint
 
 from zebra_puzzles.clue_removal import (
-    remove_redundant_clues_part1,
-    remove_redundant_clues_part2,
+    remove_redundant_clues_with_rules,
+    remove_redundant_clues_with_solver,
 )
 from zebra_puzzles.zebra_solver import format_solution, solver
 
@@ -20,7 +20,7 @@ def choose_clues(
     n_attributes: int,
     clues_dict: dict[str, str],
 ) -> list[str]:
-    """Generate a zebra puzzle.
+    """Choose clues for a zebra puzzle.
 
     If the solver identifies a different solution than the expected one, it will raise a warning and change the solution to the one found by the solver.
 
@@ -47,17 +47,17 @@ def choose_clues(
     solutions: list[dict[str, int]] = []
     solved: bool = False
     chosen_clues: list[str] = []
-    constraints: list[tuple] = []
-    clue_pars: list = []
-    clue_types: list[str] = []
+    chosen_constraints: list[tuple] = []
+    chosen_clue_parameters: list = []
+    chosen_clue_types: list[str] = []
 
     max_iter = 100
     i_iter = 0
     while not solved:
         # Generate a random clue
-        clue_type = sample(sorted(applicable_clues_dict), 1)[0]
-        new_clue, constraint, clue_par = create_clue(
-            clue=clue_type,
+        new_clue_type = sample(sorted(applicable_clues_dict), 1)[0]
+        new_clue, new_constraint, new_clue_parameters = create_clue(
+            clue=new_clue_type,
             n_objects=n_objects,
             n_attributes=n_attributes,
             chosen_attributes=chosen_attributes,
@@ -66,23 +66,26 @@ def choose_clues(
         )
 
         # Check if the clue is obviously redundant before using the solver to save runtime
-        redundant, chosen_clues, constraints, clue_pars, clue_types = (
-            remove_redundant_clues_part1(
-                new_clue=new_clue,
-                chosen_clues=chosen_clues,
-                constraints=constraints,
-                clue_par=clue_par,
-                clue_pars=clue_pars,
-                clue_type=clue_type,
-                clue_types=clue_types,
-                prioritise_old_clues=False,
-            )
+        (
+            redundant,
+            chosen_clues,
+            chosen_constraints,
+            chosen_clue_parameters,
+            chosen_clue_types,
+        ) = remove_redundant_clues_with_rules(
+            new_clue=new_clue,
+            old_clues=chosen_clues,
+            old_constraints=chosen_constraints,
+            new_clue_parameters=new_clue_parameters,
+            old_clue_parameters=chosen_clue_parameters,
+            new_clue_type=new_clue_type,
+            old_clue_types=chosen_clue_types,
+            prioritise_old_clues=False,
         )
         if redundant:
             continue
 
-        # Try to solve the puzzle
-        current_constraints = constraints + [constraint]
+        current_constraints = chosen_constraints + [new_constraint]
 
         new_solutions, completeness = solver(
             constraints=current_constraints,
@@ -94,9 +97,9 @@ def choose_clues(
         if new_solutions != solutions:
             solutions = new_solutions
             chosen_clues.append(new_clue)
-            constraints.append(constraint)
-            clue_pars.append(clue_par)
-            clue_types.append(clue_type)
+            chosen_constraints.append(new_constraint)
+            chosen_clue_parameters.append(new_clue_parameters)
+            chosen_clue_types.append(new_clue_type)
 
         # Check if the solution is complete and the clues are non-redundant
 
@@ -112,8 +115,8 @@ def choose_clues(
             )
 
             # Remove redundant clues
-            chosen_clues, constraints = remove_redundant_clues_part2(
-                constraints=constraints,
+            chosen_clues, chosen_constraints = remove_redundant_clues_with_solver(
+                chosen_constraints=chosen_constraints,
                 chosen_clues=chosen_clues,
                 chosen_attributes_sorted=chosen_attributes_sorted,
                 n_objects=n_objects,
@@ -154,7 +157,7 @@ def confirm_original_solution(
         solution_dict=solutions[0], n_objects=n_objects, n_attributes=n_attributes
     )
 
-    if [sorted(x) for x in solution_attempt] != [sorted(x) for x in solution]:
+    if [sorted(obj) for obj in solution_attempt] != [sorted(obj) for obj in solution]:
         # Change the solution to the solution attempt and raise a warning
         solution_old = solution
         solution = solution_attempt
@@ -228,9 +231,13 @@ def create_clue(
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
 
     Returns:
-        full_clue: Full clue as a string.
-        constraint: Tuple consisting of a constraint function and a list of variables directly affected by the constraint.
-        clue_par: List containing the clue type, the object indices described in the clue and the attribute names.
+        A tuple (full_clue, constraint, clue_par), where:
+            full_clue: Full clue as a string.
+            constraint: Tuple consisting of a constraint function and a list of variables (clue attributes) directly affected by the constraint.
+            clue_par: A tuple (clue_type, i_clue_objects, clue_attributes), where:
+                clue_type: The type of clue as a string.
+                i_clue_objects: The object indices described in the clue as a list of integers.
+                clue_attributes: The attribute names as an array of strings.
     """
     clue_description = clues_dict[clue]
 
@@ -467,8 +474,9 @@ def describe_random_attributes(
         prompt_not: The word to use when negating a clue.
 
     Returns:
-        random_attributes: A list of strings contraining one random attribute per object.
-        random_attributes_desc: A list of strings using the attributes to describe the objects.
+        A tuple (random_attributes, random_attributes_desc), where:
+            random_attributes: A list of strings contraining one random attribute per object.
+            random_attributes_desc: A list of strings using the attributes to describe the objects.
     """
     # Number of objects in the clue
     n_clue_objects = len(i_objects)

@@ -10,14 +10,16 @@ def solver(
     """Solve a zebra puzzle.
 
     Args:
-        constraints: Constraints for the zebra puzzle as a list of Tuples. Each tuple contains a constraint function and a list of directly affected variables. Each constaint corresponds to one clue.
+        constraints: Constraints for the zebra puzzle as a list of tuples. Each constaint corresponds to one clue. Each tuple (constraint_function, variables) contains:
+            constraint_function: A constraint function that the variables must satisfy.
+            variables: Attributes that the constraint applies to.
         chosen_attributes: Attribute values chosen for the solution. They should be sorted by category, but the order of attributes should be independent of the solution (random or sorted).
         n_objects: Number of objects in the puzzle.
 
     Returns:
-        solution_attempt: Solution to the zebra puzzle as a list of lists representing the solution matrix of object indices and chosen attribute values. This matrix is n_objects x n_attributes.
-        completeness: Completeness of the solution as a float.
-
+        A tuple (solution_attempt, completeness), where:
+            solution_attempt: Solution to the zebra puzzle as a list of lists representing the solution matrix of object indices and chosen attribute values. This matrix is n_objects x n_attributes.
+            completeness: Completeness of the solution as a float.
     # NOTE: We could remove the uniqueness constraint
     """
     # ---- Define the puzzle ----#
@@ -64,7 +66,7 @@ def format_solution(
         n_objects: Number of objects in the puzzle.
         n_attributes: Number of attributes of each object.
 
-    Return:
+    Returns:
         Solution as a matrix in a numpy array.
     """
     solution_list = np.empty((n_objects, n_attributes + 1), dtype="U100")
