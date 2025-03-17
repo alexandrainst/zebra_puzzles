@@ -18,8 +18,6 @@ Use config.yaml to specify:
 - puzzle dimensions
 - language
 - theme
-- clue types
-- output text
 
 
 Typical runtimes for puzzles of size n_objects x n_attributes are (using all clue types):
@@ -31,7 +29,7 @@ Typical runtimes for puzzles of size n_objects x n_attributes are (using all clu
 5x6: >10 min
 6x3: 4 min
 
-GitHub Copilot has been used during this project.
+GitHub Copilot has been used for this project.
 
 ______________________________________________________________________
 [![Code Coverage](https://img.shields.io/badge/Coverage-0%25-red.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
