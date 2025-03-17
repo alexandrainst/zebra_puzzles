@@ -12,7 +12,7 @@ def run_pipeline(
     clues_dict: dict[str, str],
     prompt_templates: list[str],
     prompt_and: str,
-    red_herring_info: tuple[list[str], dict[str, dict[str, str]], list[str]],
+    red_herring_info: tuple[int, list[str], dict[str, dict[str, str]], list[str]],
     verbose=False,
     eval=False,
 ) -> tuple[str, str]:
@@ -25,7 +25,8 @@ def run_pipeline(
         attributes: Possible attributes as a dictionary of dictionaries.
         prompt_templates: List of templates for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
-        red_herring_info: Information about red herrings as a tuple (red_herring_clues, red_herring_attributes, red_herring_facts), where:
+        red_herring_info: Information about red herrings as a tuple (n_red_herring_clues, red_herring_clues, red_herring_attributes, red_herring_facts), where:
+            n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
             red_herring_clues: Possible red herring clue types to include in the puzzle as a list of strings.
             red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
             red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
@@ -92,7 +93,7 @@ def build_dataset(
     prompt_templates: list[str],
     prompt_and: str,
     n_puzzles: int,
-    red_herring_info: tuple[list[str], dict[str, dict[str, str]], list[str]],
+    red_herring_info: tuple[int, list[str], dict[str, dict[str, str]], list[str]],
 ) -> None:
     """Build a dataset of zebra puzzles.
 
@@ -106,7 +107,8 @@ def build_dataset(
         prompt_templates: List of templates for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
         n_puzzles: Number of puzzles to generate.
-        red_herring_info: Information about red herrings as a tuple (red_herring_clues, red_herring_attributes, red_herring_facts), where:
+        red_herring_info: Information about red herrings as a tuple (n_red_herring_clues, red_herring_clues, red_herring_attributes, red_herring_facts), where:
+            n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
             red_herring_clues: Possible red herring clue types to include in the puzzle as a list of strings.
             red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
             red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.

@@ -18,3 +18,6 @@ n_objects: 3
 
 # Attributes e.g. pets
 n_attributes: 4
+
+#Number of red herring clues
+n_red_herring_clues: 2

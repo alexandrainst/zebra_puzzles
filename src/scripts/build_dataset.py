@@ -29,11 +29,17 @@ def main(config: DictConfig) -> None:
     prompt_and = config.language.prompt_and
     clues_dict = config.language.clues_dict
 
+    n_red_herring_clues = config.language.n_red_herring_clues
     red_herring_clues = config.language.red_herring_clues
     red_herring_attributes = config.language.red_herring_attributes
     red_herring_facts = config.language.red_herring_facts
 
-    red_herring_info = (red_herring_clues, red_herring_attributes, red_herring_facts)
+    red_herring_info = (
+        n_red_herring_clues,
+        red_herring_clues,
+        red_herring_attributes,
+        red_herring_facts,
+    )
 
     build_dataset(
         attributes=attributes,
