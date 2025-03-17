@@ -8,6 +8,61 @@ from zebra_puzzles.zebra_solver import solver
 def remove_redundant_clues_part1(
     new_clue: str,
     chosen_clues: list[str],
+    constraints: list,
+    clue_par: tuple[str, list[int], np.ndarray],
+    clue_pars: list,
+    clue_type: str,
+    clue_types: list[str],
+    prioritise_old_clues: bool = False,
+) -> tuple[bool, list[str], list, list, list]:
+    """Remove redundant clues and constraints.
+
+    Check if a suggested clue is redundant and remove it or existing clues if it is, depending on prioritise_old_clues.
+
+    Args:
+        new_clue: The suggested clue to check as a string.
+        chosen_clues: Chosen clues for the zebra puzzle as a list of strings.
+        constraints: Constraints for the puzzle solver.
+        clue_par: Clue parameters for the new clue.
+        clue_pars: List of clue parameters for the puzzle solver.
+        clue_type: Clue type for the new clue.
+        clue_types: List of clue types.
+        prioritise_old_clues: Boolean indicating if the new clue should be rejected if it includes all information of an existing clue. This will reduce a bias towards more specific clues and result in more clues per puzzle. Otherwise, the old less specific clue will be removed.
+
+    Returns:
+        A tuple (redundant, chosen_clues, constraints, clue_pars, clue_types), where:
+            redundant: Boolean indicating if the suggested clue is redundant.
+            chosen_clues: Non-redundant clues for the zebra puzzle as a list of strings.
+            constraints: Non-redundant constraints for the puzzle solver.
+            clue_pars: Non-redundant clue parameters for the puzzle solver.
+            clue_types: Non-redundant clue types.
+    """
+    redundant, clues_to_remove = is_clue_redundant(
+        new_clue=new_clue,
+        chosen_clues=chosen_clues,
+        clue_par=clue_par,
+        clue_pars=clue_pars,
+        clue_type=clue_type,
+        clue_types=clue_types,
+        prioritise_old_clues=prioritise_old_clues,
+    )
+
+    if clues_to_remove != []:
+        # Sort the list of clues to remove from last to first and only include unique ones
+        clues_to_remove = sorted(list(set(clues_to_remove)), reverse=True)
+
+        for i in clues_to_remove:
+            del chosen_clues[i]
+            del constraints[i]
+            del clue_pars[i]
+            del clue_types[i]
+
+    return redundant, chosen_clues, constraints, clue_pars, clue_types
+
+
+def is_clue_redundant(
+    new_clue: str,
+    chosen_clues: list[str],
     clue_par: tuple[str, list[int], np.ndarray],
     clue_pars: list,
     clue_type: str,

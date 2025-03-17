@@ -11,10 +11,10 @@ defaults:
   - _self_
 
 # Number of puzzles to generate
-n_puzzles: 10
+n_puzzles: 1
 
 # Objects e.g. houses
 n_objects: 3
 
 # Attributes e.g. pets
-n_attributes: 6
+n_attributes: 4

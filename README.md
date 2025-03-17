@@ -26,9 +26,10 @@ Typical runtimes for puzzles of size n_objects x n_attributes are (using all clu
 3x7: 0.7 s
 4x4: 0.6 s
 4x5: 11 s
-4x6: > 10 min
+4x6: 3 min
 5x3: 3.8 s
-6x3: > 10 min
+5x6: >10 min
+6x3: 4 min
 
 GitHub Copilot has been used during this project.
 
