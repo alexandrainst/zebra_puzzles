@@ -11,7 +11,7 @@
 
 Generation of zebra puzzles.
 
-Run build_dataset.py to generate puzzles.
+Run `uv run src/scripts/build_dataset.py` to generate puzzles.
 
 Use config.yaml to specify:
 - number of puzzles to generate
