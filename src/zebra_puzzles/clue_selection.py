@@ -140,7 +140,7 @@ def check_original_solution(
     n_objects: int,
     n_attributes: int,
     chosen_clues: list[str],
-) -> np.ndarray:
+):
     """Check if the solver found the original solution or an unexpected one.
 
     Finding a new solution should not be possible and indicates a bug in the solver or the clue selection process. If this happens, an error is raised.
@@ -161,8 +161,6 @@ def check_original_solution(
         raise ValueError(
             f"The solver has found a solution that is not the expected one: \nFound \n{solution_attempt} \nExpected \n{solution} \nChosen clues: \n{chosen_clues}"
         )
-
-    pass
 
 
 def exclude_clues(
