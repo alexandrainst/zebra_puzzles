@@ -13,7 +13,7 @@ Generation of zebra puzzles.
 
 Run `uv run src/scripts/build_dataset.py` to generate puzzles.
 
-Use config.yaml to specify:
+Use the configuration in `config/config.yaml` to specify:
 - number of puzzles to generate
 - puzzle dimensions
 - language
