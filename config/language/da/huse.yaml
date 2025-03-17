@@ -100,6 +100,9 @@ clues_dict:
 
 
 # Prompt
+# We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
+# prompt_and is the word used for separating the last two attributes in a list of attributes.
+
 prompt_and: og
 
 prompt_templates:

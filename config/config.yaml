@@ -1,12 +1,12 @@
 # Config file for generating zebra puzzles
 
 # Possible combinations of languages and themes:
-# da/config_huse
-# da/config_smoerrebroed
-# eng/config_houses
+# da/huse
+# da/smoerrebroed
+# en/houses
 
 defaults:
-  - language: da/config_smoerrebroed
+  - language: da/smoerrebroed
   - override hydra/job_logging: custom
   - _self_
 
