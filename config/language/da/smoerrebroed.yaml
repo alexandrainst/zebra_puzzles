@@ -138,7 +138,7 @@ red_herring_clues_dict:
     double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
     fact: "{fact}."
     object_fact: "Kokken der lavede {attribute_desc} ved at {fact}."
-    friends: "Kokkene der lavede {attribute_desc} og {attribute_desc_herring} er gode venner."
+    friends: "Kokkene der lavede {attribute_desc} og stykket der {attribute_desc_herring} er gode venner."
 
 red_herring_attributes:
     kvadratisk: ['det kvadratiske stykke','er kvadratisk','er kvadratisk']
