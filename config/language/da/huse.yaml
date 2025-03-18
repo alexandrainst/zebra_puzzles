@@ -137,17 +137,17 @@ prompt_templates:
 # Red herrings
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
 
-red_herring_clues:
-    same_herring: “{attribute_desc} {attribute_desc_herring}"
-    next_to_herring: “{attribute_desc} bor ved siden af en person der {attribute_desc_herring}"
-    double_herring: “Personen der {attribute_desc_herring_1} {attribute_desc_herring_2}"
-    fact: "{fact}"
-    object_fact: "{attribute_desc} ved at {fact}"
-    friends: "{attribute_desc} er gode venner med personen der {attribute_desc_herring}"
+red_herring_clues_dict:
+    same_herring: "{attribute_desc} {attribute_desc_herring}."
+    #next_to_herring: "{attribute_desc} bor ved siden af en person der {attribute_desc_herring}."
+    #double_herring: "Personen der {attribute_desc_herring_1} {attribute_desc_herring_2}."
+    fact: "{fact}."
+    #object_fact: "{attribute_desc} ved at {fact}."
+    #friends: "{attribute_desc} er gode venner med personen der {attribute_desc_herring}."
 
 red_herring_attributes:
     rødt_hår: ['personen med rødt hår','har rødt hår','har ikke rødt hår']
-    briller: ['personen med briller','har briller','har ikke briller']
+    briller: ['personen med briller','bruger briller','bruger ikke briller']
     tatovering: ['personen med en tatovering','har en tatovering','har ikke en tatovering']
     guitar: ['personen der spiller guitar','spiller guitar','spiller ikke guitar']
     cykel: ['personen der har en cykel','har en cykel','har ikke en cykel']
@@ -160,11 +160,11 @@ red_herring_attributes:
     USA: ['personen der har været i USA','har været i USA','har ikke været i USA']
     matematik: ['personen har en kandidatgrad i matematik','har en kandidatgrad i matematik','har ikke en kandidatgrad i matematik']
     fysik: ['personen der elsker fysik','elsker fysik','kan ikke lide fysik']
-    gammelt_dyr: ['personen der har et dyr som er gammelt for sin art','har et dyr som er gammelt for sin art','har dyr som ikke er specielt gammelt for sin art']
+    gammelt_dyr: ['personen der har et kæledyr som er gammelt for sin art','har et kæledyr som er gammelt for sin art','har kæledyr som ikke er specielt gammelt for sin art']
 
 red_herring_facts:
-    sild: "Sild er fisk"
-    sol_systemet: "Solsystemet bevæger sig med en hastighed på ca. 200 km/s rundt om galaksens centrum"
-    puzzle: "Det er sjovt at løse gåder"
-    huse: "Alle vejens huse har flotte haver"
-    døre: "Flere af husene har en grøn dør"
+    sild: "sild er fisk"
+    sol_systemet: "solsystemet bevæger sig med en hastighed på ca. 200 km/s rundt om galaksens centrum"
+    puzzle: "det er sjovt at løse gåder"
+    huse: "alle vejens huse har flotte haver"
+    døre: "flere af husene har en grøn dør"
