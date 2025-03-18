@@ -462,8 +462,6 @@ def describe_random_attributes(
         n_attributes: Number of attributes per object.
         diff_cat: If True, the output attributes must belong to different categories.
         desc_index: The index of the description to use for the last object in the clue if more than one object is described.
-        negative_alt: If True, the "not_word" is inserted after the first word in the alternative description.
-        prompt_not: The word to use when negating a clue.
 
     Returns:
         A tuple (random_attributes, random_attributes_desc), where:
