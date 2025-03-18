@@ -130,3 +130,36 @@ prompt_templates:
         1, ingrediens_1
         2, ingrediens_2
         ...
+
+
+red_herring_clues_dict:
+    same_herring: "{attribute_desc} {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} ligger ved siden af stykket der {attribute_desc_herring}."
+    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
+    fact: "{fact}."
+    object_fact: "Kokken der lavede {attribute_desc} ved at {fact}."
+    friends: "Kokkene der lavede {attribute_desc} og {attribute_desc_herring} er gode venner."
+
+red_herring_attributes:
+    kvadratisk: ['det kvadratiske stykke','er kvadratisk','er kvadratisk']
+    langt: ['det lange stykke','er langt','er langt']
+    tynd skive: ['stykket med en tynd skive brød','har en tynd skive brød','har en tynd skive brød']
+    meget pynt: ['stykket med meget pynt','har meget pynt','har meget pynt']
+    meget smørelse: ['stykket med et tykt lag smørelse på brødet','har meget smørelse på brødet','har meget smørelse på brødet']
+    største: ['det største stykke','er det største','er det største']
+    varmt: ['det varme stykke','er varmt','er varmt']
+    yndlings: ['stykket der er dommernes yndlings','er dommernes yndlings','er dommernes yndlings']
+    smager bedst: ['stykket der smager bedst','smager bedst','smager bedst']
+    grønt hus: ['stykket der er lavet af en kok som bor i et grønt hus','er lavet af en kok som bor i et grønt hus','er lavet af en kok som bor i et grønt hus']
+
+red_herring_facts:
+    sild: "sild er fisk"
+    sol_systemet: "solsystemet bevæger sig med en fart på ca. 200 km/s rundt om galaksens centrum"
+    puzzle: "det er sjovt at løse gåder"
+    flotte: "alle smørrebrødene er meget flotte"
+    tørre: "flere af smørrebrødene er blevet en smule tørre"
+    højtbelagt: "alle smørrebrødene er højtbelagte"
+    dommere: "der er tre dommere som vurderer smørrebrødene"
+    agurk: "agurk er et bær"
+    snegl: "snegle er bløddyr"
+    kaffe: "kaffe indeholder koffein"
