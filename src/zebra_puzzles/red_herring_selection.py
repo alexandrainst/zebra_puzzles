@@ -134,19 +134,44 @@ def create_red_herring(
             ],
             1,
         )[0]
-        red_herring_attribute_desc: str = red_herring_attributes[
-            red_herring_attribute_key
-        ][1]
+        attribute_desc_herring: str = red_herring_attributes[red_herring_attribute_key][
+            1
+        ]
 
         used_red_herrings.append(red_herring_attribute_key)
 
         # Create the clue
         full_clue = clue_description.format(
             attribute_desc=object_attributes_desc[0],
-            attribute_desc_herring=red_herring_attribute_desc,
+            attribute_desc_herring=attribute_desc_herring,
+        )
+    elif clue_type == "double_herring":
+        # Choose two red herring attributes
+        red_herring_attribute_keys = sample(
+            [
+                herring
+                for herring in sorted(red_herring_attributes)
+                if herring not in used_red_herrings
+            ],
+            2,
+        )
+        attribute_desc_herring_1 = red_herring_attributes[
+            red_herring_attribute_keys[0]
+        ][0]
+        attribute_desc_herring_2 = red_herring_attributes[
+            red_herring_attribute_keys[1]
+        ][1]
+
+        for herring in red_herring_attribute_keys:
+            used_red_herrings.append(herring)
+
+        # Create the clue
+        full_clue = clue_description.format(
+            attribute_desc_herring_1=attribute_desc_herring_1,
+            attribute_desc_herring_2=attribute_desc_herring_2,
         )
 
     else:
-        raise ValueError("Invalid red herring clue type")
+        raise ValueError(f"Invalid red herring clue type '{clue_type}'")
 
     return full_clue, used_red_herrings

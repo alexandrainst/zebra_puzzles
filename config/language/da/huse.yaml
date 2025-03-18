@@ -140,7 +140,7 @@ prompt_templates:
 red_herring_clues_dict:
     same_herring: "{attribute_desc} {attribute_desc_herring}."
     next_to_herring: "{attribute_desc} bor ved siden af en person der {attribute_desc_herring}."
-    #double_herring: "Personen der {attribute_desc_herring_1} {attribute_desc_herring_2}."
+    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
     fact: "{fact}."
     #object_fact: "{attribute_desc} ved at {fact}."
     friends: "{attribute_desc} er gode venner med personen der {attribute_desc_herring}."
