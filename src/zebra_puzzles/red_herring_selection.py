@@ -152,8 +152,16 @@ def create_red_herring(
             ],
             1,
         )[0]
+
+        # Choose a description based on the sentence structure in the clue type
+        # E.g. "har ikke en hund" vs. "ikke har en hund" in Danish
+        if clue_type == "same_herring":
+            desc_index = 1
+        else:
+            desc_index = 2
+
         attribute_desc_herring: str = red_herring_attributes[red_herring_attribute_key][
-            1
+            desc_index
         ]
 
         used_red_herrings.append(red_herring_attribute_key)
