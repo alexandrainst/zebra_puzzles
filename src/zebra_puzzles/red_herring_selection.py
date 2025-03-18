@@ -98,7 +98,8 @@ def create_red_herring(
     """
     clue_description = red_herring_clues_dict[clue_type]
 
-    if clue_type == "fact":
+    if clue_type in ("fact", "object_fact"):
+        # Choose a red herring fact
         fact_key = sample(
             [
                 herring
@@ -109,15 +110,32 @@ def create_red_herring(
         )[0]
         chosen_fact = red_herring_facts[fact_key]
 
+        # Choose an object to describe
+        i_objects = sample(list(range(n_objects)), 1)
+
+        # Choose an attribute from the solution
+        _, object_attributes_desc = describe_random_attributes(
+            chosen_attributes=chosen_attributes,
+            chosen_attributes_descs=chosen_attributes_descs,
+            i_objects=i_objects,
+            n_attributes=n_attributes,
+        )
+
         used_red_herrings.append(fact_key)
 
-        full_clue = clue_description.format(fact=chosen_fact)
+        # Create the clue
+        if clue_type == "fact":
+            full_clue = clue_description.format(fact=chosen_fact)
+        elif clue_type == "object_fact":
+            full_clue = clue_description.format(
+                attribute_desc=object_attributes_desc[0], fact=chosen_fact
+            )
 
     elif clue_type in ("same_herring", "next_to_herring", "friends"):
         # Choose an object to describe
         i_objects = sample(list(range(n_objects)), 1)
 
-        # Choose an attribute describing an object from the solution
+        # Choose an attribute from the solution
         _, object_attributes_desc = describe_random_attributes(
             chosen_attributes=chosen_attributes,
             chosen_attributes_descs=chosen_attributes_descs,
