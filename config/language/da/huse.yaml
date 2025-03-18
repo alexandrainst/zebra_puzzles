@@ -128,7 +128,7 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Hvem har hvilke egenskaber og bor i hvilket hus? Angiv dit svar i følgende format, hvor det første tal i hver række repræsenterer husnummeret:
+        Hvem har hvilke unikke egenskaber og bor i hvilket hus? Angiv dit svar i følgende format, hvor det første tal i hver række repræsenterer husnummeret:
 
         1, egenskab_1
         2, egenskab_2
@@ -139,11 +139,11 @@ prompt_templates:
 
 red_herring_clues_dict:
     same_herring: "{attribute_desc} {attribute_desc_herring}."
-    #next_to_herring: "{attribute_desc} bor ved siden af en person der {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} bor ved siden af en person der {attribute_desc_herring}."
     #double_herring: "Personen der {attribute_desc_herring_1} {attribute_desc_herring_2}."
     fact: "{fact}."
     #object_fact: "{attribute_desc} ved at {fact}."
-    #friends: "{attribute_desc} er gode venner med personen der {attribute_desc_herring}."
+    friends: "{attribute_desc} er gode venner med personen der {attribute_desc_herring}."
 
 red_herring_attributes:
     rødt_hår: ['personen med rødt hår','har rødt hår','har ikke rødt hår']

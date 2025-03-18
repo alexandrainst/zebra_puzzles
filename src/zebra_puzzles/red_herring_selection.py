@@ -113,7 +113,7 @@ def create_red_herring(
 
         full_clue = clue_description.format(fact=chosen_fact)
 
-    elif clue_type == "same_herring":
+    elif clue_type in ("same_herring", "next_to_herring", "friends"):
         # Choose an object to describe
         i_objects = sample(list(range(n_objects)), 1)
 
