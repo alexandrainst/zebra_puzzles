@@ -12,6 +12,9 @@ defaults:
   - override hydra/job_logging: custom
   - _self_
 
+# Model
+# The LLM model to evaluate on the puzzles.
+model : gpt-4o-mini
 
 # Number of puzzles to generate
 n_puzzles: 10
@@ -22,7 +25,7 @@ n_objects: 3
 
 # Attributes e.g. pets
 # Currently, 2 - 7 are supported.
-n_attributes: 7
+n_attributes: 2
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
@@ -136,8 +139,8 @@ prompt_template: |
 
   {chosen_clues_str}
 
-  Hvem har hvilke egenskaber og bor i hvilket hus? Angiv dit svar i følgende format, hvor det første tal i hver række repræsenterer husnummeret:
+  Hvem har hvilke egenskaber og bor i hvilket hus?
 
-  1, egenskab_1, egenskab_2, egenskab_3 ...
-  2, egenskab_1, egenskab_2, egenskab_3 ...
-  ...
+  Angiv venligst dit svar som et JSON dictionary på nedenstående format. Hver række skal starte med object_X hvor X er husnummeret. Hver kolonne repræsenterer en kategori, og de skal stå i samme rækkefølge som kategorierne er listet ovenfor.
+
+  {solution_template}

@@ -127,12 +127,18 @@ def complete_prompt(
     # Combine the attribute strings
     chosen_attributes_str = "\n".join(chosen_attributes_strs)
 
+    # Create a solution template
+    solution_template = create_solution_template(
+        n_objects=n_objects, chosen_categories=chosen_categories
+    )
+
     # Combine the prompt template with puzzle information
     prompt = prompt_template.format(
         n_objects=n_objects,
         chosen_categories_str=chosen_categories_str,
         chosen_attributes_str=chosen_attributes_str,
         chosen_clues_str=chosen_clues_str,
+        solution_template=solution_template,
     )
     return prompt
 
@@ -161,3 +167,52 @@ def format_list_in_prompt(
         formatted_list += f" {prompt_and} {list_of_strings[-1]}"
 
     return formatted_list
+
+
+def format_solution(solution: np.ndarray) -> str:
+    """Format the solution as a json dictionary.
+
+    Args:
+        solution: Solution to the zebra puzzle as a matrix of object indices and chosen attributes.
+
+    Returns:
+        The solution as a string representing a json dictionary
+    """
+    solution_json = "{\n"
+
+    for row in solution.astype(str):
+        row_object = row[0]
+        row_attributes = '", "'.join(row[1:])
+        solution_json += f'"object_{row_object}": ["{row_attributes}"],\n'
+
+    solution_json += "}"
+
+    return solution_json
+
+
+def create_solution_template(n_objects: int, chosen_categories: np.ndarray) -> str:
+    """Create a solution template for a zebra puzzle.
+
+    For example:
+    {
+    "object_1": ["attribute_1", "attribute_2"],
+    "object_2": ["attribute_1", "attribute_2"],
+    }
+
+
+    Args:
+        n_objects: Number of objects in the puzzle.
+        chosen_categories: Categories chosen for the solution.
+
+    Returns:
+        The solution template as a string.
+    """
+    example_solution = np.zeros((n_objects, len(chosen_categories) + 1), dtype="U100")
+    for i in range(n_objects):
+        example_solution[i, 0] = f"{i + 1}"
+        for j, cat in enumerate(chosen_categories):
+            example_solution[i, j + 1] = f"{cat}_{i + 1}"
+
+    solution_template = format_solution(example_solution)
+
+    return solution_template

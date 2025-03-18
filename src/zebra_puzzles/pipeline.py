@@ -1,7 +1,12 @@
 """Pipeline module for generating and saving zebra puzzles."""
 
 from zebra_puzzles.clue_selection import choose_clues
-from zebra_puzzles.zebra_utils import complete_prompt, generate_solution, save_dataset
+from zebra_puzzles.zebra_utils import (
+    complete_prompt,
+    format_solution,
+    generate_solution,
+    save_dataset,
+)
 
 
 def run_pipeline(
@@ -58,16 +63,16 @@ def run_pipeline(
         prompt_and=prompt_and,
     )
 
-    solution_str = "\n".join([" ".join(row) for row in solution])
+    solution_json = format_solution(solution=solution)
 
     if verbose:
         print("*** Prompt *** \n", prompt)
-        print("*** Solution *** \n", solution_str)
+        print("*** Solution *** \n", solution_json)
 
     if eval:
         pass
 
-    return prompt, solution_str
+    return prompt, solution_json
 
 
 def build_dataset(
@@ -95,7 +100,7 @@ def build_dataset(
     NOTE: Consider only saving the puzzle and solution instead of the whole prompt.
     """
     for i in range(n_puzzles):
-        prompt, solution_str = run_pipeline(
+        prompt, solution_json = run_pipeline(
             n_objects=n_objects,
             n_attributes=n_attributes,
             attributes=attributes,
@@ -109,7 +114,7 @@ def build_dataset(
             data=prompt, filename="zebra_puzzle_{}.txt".format(i), folder="data"
         )
         save_dataset(
-            data=solution_str,
+            data=solution_json,
             filename="zebra_puzzle_{}_solution.txt".format(i),
             folder="data",
         )
