@@ -455,8 +455,6 @@ def describe_random_attributes(
 
     Assumes the maximum string length is 100 characters.
 
-    Assumes the "not" word can be inserted after the first word in the alternative description.
-
     Args:
         chosen_attributes: Attribute values chosen for the solution as a matrix.
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
