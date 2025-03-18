@@ -1,0 +1,135 @@
+# Config file for generating zebra puzzles in Danish with the "smørrebrød" theme.
+
+# Attributes
+# The attributes are defined as a dictionary of dictionaries.
+# The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
+# The attributes below should be in the preferred order of categories in the clues.
+
+attributes:
+
+    brød:
+        softkernerugbrød: ['stykket med softkernerugbrød', 'er med softkernerugbrød', 'er ikke med softkernerugbrød']
+        solsikkerugbrød: ['stykket med solsikkerugbrød', 'er med solsikkerugbrød', 'er ikke med solsikkerugbrød']
+        vesterhavsrugbrød: ['stykket med vesterhavsrugbrød', 'er med vesterhavsrugbrød', 'er ikke med vesterhavsrugbrød']
+        sønderjysk rugbrød: ['stykket med sønderjysk rugbrød', 'er med sønderjysk rugbrød', 'er ikke med sønderjysk rugbrød']
+        glutenfrit rugbrød: ['stykket med glutenfrit rugbrød', 'er med glutenfrit rugbrød', 'er ikke med glutenfrit rugbrød']
+        franskbrød: ['stykket med franskbrød', 'er med franskbrød', 'er ikke med franskbrød']
+        groft landbrød: ['stykket med groft landbrød', 'er med groft landbrød', 'er ikke med groft landbrød']
+        ristet rugbrød: ['stykket med ristet rugbrød', 'er med ristet rugbrød', 'er ikke med ristet rugbrød']
+
+    smørelse:
+        smør: ['stykket med smør', 'er smurt med smør', 'er ikke smurt med smør']
+        andefedt: ['stykket med andefedt', 'er smurt med andefedt', 'er ikke smurt med andefedt']
+        svinefedt: ['stykket med svinefedt', 'er smurt med svinefedt', 'er ikke smurt med svinefedt']
+        plantesmør: ['stykket med plantesmør', 'er smurt med plantesmør', 'er ikke smurt med plantesmør']
+        flødeost: ['stykket med flødeost', 'er smurt med flødeost', 'er ikke smurt med flødeost']
+        hummus: ['stykket med hummus', 'er smurt med hummus', 'er ikke smurt med hummus']
+        pesto: ['stykket med pesto', 'er smurt med pesto', 'er ikke smurt med pesto']
+        mayonnaise: ['stykket med mayonnaise', 'er smurt med mayonnaise', 'er ikke smurt med mayonnaise']
+
+    pålæg:
+        røget laks: ['stykket med røget laks', 'er med røget laks', 'er ikke med røget laks']
+        roastbeef: ['stykket med roastbeef', 'er med roastbeef', 'er ikke med roastbeef']
+        spegepølse: ['stykket med spegepølse', 'er med spegepølse', 'er ikke med spegepølse']
+        leverpostej: ['stykket med leverpostej', 'er med leverpostej', 'er ikke med leverpostej']
+        kartoffel: ['stykket med kartoffel', 'er med kartoffel', 'er ikke med kartoffel']
+        sild: ['stykket med sild', 'er med sild', 'er ikke med sild']
+        avocado: ['stykket med avocado', 'er med avocado', 'er ikke med avocado']
+        fiskefilet: ['stykket med fiskefilet', 'er med fiskefilet', 'er ikke med fiskefilet']
+
+    sekundært pålæg:
+        æg: ['stykket med æg', 'er med æg','er ikke med æg']
+        ost: ['stykket med ost', 'er med ost', 'er ikke med ost']
+        asparges: ['stykket med asparges', 'er med asparges', 'er ikke med asparges']
+        tomat: ['stykket med tomat', 'er med tomat', 'er ikke med tomat']
+        bacon: ['stykket med bacon', 'er med bacon', 'er ikke med bacon']
+        stegte svampe: ['stykket med stegte svampe', 'er med stegte svampe','er ikke med stegte svampe']
+        sky: ['stykket med sky', 'er med sky', 'er ikke med sky']
+        rødbede: ['stykket med rødbede', 'er med rødbede', 'er ikke med rødbede']
+        remoulade: ['stykket med remoulade', 'er med remoulade','er ikke med remoulade']
+        rejer: ['stykket med rejer', 'er med rejer', 'er ikke med rejer']
+
+    pynt:
+        radise: ['stykket med radise', 'er pyntet med radise','er ikke pyntet med radise']
+        syltede agurker: ['stykket med syltede agurker', 'er pyntet med syltede agurker','er ikke pyntet med syltede agurker']
+        peberrod: ['stykket med peberrod', 'er pyntet med peberrod','er ikke pyntet med peberrod']
+        citronskiver: ['stykket med citronskiver', 'er pyntet med citronskiver','er ikke pyntet med citronskiver']
+        kaviar: ['stykket med kaviar', 'er pyntet med kaviar','er ikke pyntet med kaviar']
+        peberfrugt: ['stykket med peberfrugt', 'er pyntet med peberfrugt','er ikke pyntet med peberfrugt']
+        agurkeskiver: ['stykket med agurkeskiver', 'er pyntet med agurkeskiver','er ikke pyntet med agurkeskiver']
+        rødløg: ['stykket med rødløg', 'er pyntet med rødløg','er ikke pyntet med rødløg']
+        kapers: ['stykket med kapers', 'er pyntet med kapers','er ikke pyntet med kapers']
+
+    drys:
+        flagesalt: ['stykket med flagesalt', 'er drysset med flagesalt', 'er ikke drysset med flagesalt']
+        peber: ['stykket med peber', 'er drysset med peber', 'er ikke drysset med peber']
+        dild: ['stykket med dild', 'er drysset med dild','er ikke drysset med dild']
+        kørvel: ['stykket med kørvel', 'er drysset med kørvel','er ikke drysset med kørvel']
+        purløg: ['stykket med purløg', 'er drysset med purløg','er ikke drysset med purløg']
+        karse: ['stykket med karse', 'er drysset med karse','er ikke drysset med karse']
+        sesamfrø: ['stykket med sesamfrø', 'er drysset med sesamfrø','er ikke drysset med sesamfrø']
+        ristede løg: ['stykket med ristede løg', 'er drysset med ristede løg', 'er ikke drysset med ristede løg']
+        chiliflager: ['stykket med chiliflager', 'er drysset med chiliflager', 'er ikke drysset med chiliflager']
+        ristede mandler: ['stykket med ristede mandler', 'er drysset med ristede mandler', 'er ikke drysse med ristede mandler']
+        ingen drys: ['stykket uden drys', 'er uden drys', 'er drysset med noget']
+
+
+
+# Clues
+# Clue names and text for the prompt depending on the clue type.
+# Clue names should not be edited, but they can be a subset of the full list of implemented clues.
+# NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
+clues_dict:
+    found_at: "{attribute_desc} er nummer {i_object}."
+    not_at: "{attribute_desc} er ikke nummer {i_object}."
+    next_to: "{attribute_desc_1} ligger ved siden af {attribute_desc_2}."                                                                       # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: "{attribute_desc_1} ligger ikke ved siden af {attribute_desc_2}, og de er ikke det samme stykke smørrebrød."                   # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: "{attribute_desc_1} ligger lige til venstre for {attribute_desc_2}."
+    just_right_of: "{attribute_desc_1} ligger lige til højre for {attribute_desc_2}."
+    left_of: "{attribute_desc_1} ligger til venstre for {attribute_desc_2}."                                                                    # Requires n_objects > 2, otherwise use just_left_of
+    right_of: "{attribute_desc_1} ligger til højre for {attribute_desc_2}."                                                                     # Requires n_objects > 2, otherwise use just_right_of
+    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                       # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                   # Requires n_attributes > 1, otherwise it cannot be used
+    between: "{attribute_desc_2} ligger mellem {attribute_desc_1} og {attribute_desc_3}."                                                       # Requires n_objects > 2, otherwise it cannot be used
+    not_between: "{attribute_desc_1} ligger ikke mellem {attribute_desc_2} og {attribute_desc_3}, og de er tre forskellige stykker smørrebrød." # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: "{attribute_desc_1} og {attribute_desc_2} ligger med {n_between} stykker smørrebrød mellem sig."                          # Requires n_objects > 3, otherwise it cannot be used
+    one_between: "Der er ét stykke smørrebrød mellem {attribute_desc_1} og {attribute_desc_2}."                                                 # Requires n_objects > 2, otherwise it cannot be used
+
+
+# Prompt
+# We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
+# prompt_and is the word used for separating the last two attributes in a list of attributes.
+
+prompt_and: og
+
+prompt_templates:
+    - |
+        {n_objects} kokke præsenterer hvert deres bud på en ny type smørrebrød. Stykkerne ligger på række og er nummereret fra 1 til {n_objects} fra venstre mod højre.
+
+        Hvert stykke har unikke ingredienser i hver af de følgende kategorier:
+
+        {chosen_attributes_str}
+
+        Derudover ved vi følgende:
+
+        {chosen_clues_str}
+
+        Hvilke ingredienser indgår i hvilke smørrebrød? Angiv dit svar i følgende format, hvor det første tal i hver række angiver smørrebrødets nummer:
+
+        1, ingrediens_1, ingrediens_2, ingrediens_3 ...
+        2, ingrediens_4, ingrediens_5, ingrediens_5 ...
+        ...
+    - |
+        {n_objects} kokke præsenterer hvert deres stykke smørrebrød. Stykkerne ligger på række og er nummereret fra 1 til {n_objects} fra venstre mod højre.
+
+        Hvert stykke har en unik ingrediens i kategorien {chosen_attributes_str}.
+
+        Derudover ved vi følgende:
+
+        {chosen_clues_str}
+
+        Hvilken ingrediens indgår i hvilke smørrebrød? Angiv dit svar i følgende format, hvor det første tal i hver række angiver smørrebrødets nummer:
+
+        1, ingrediens_1
+        2, ingrediens_2
+        ...

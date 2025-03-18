@@ -1,0 +1,135 @@
+# Config file for generating zebra puzzles in English with the classic "houses" theme.
+
+# Attributes
+# The attributes are defined as a dictionary of dictionaries.
+# The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
+# The attributes below should be in the preferred order of categories in the clues.
+
+attributes:
+
+    nationalities:
+        Denmark: ['the Dane', 'is Danish', 'is not Danish']
+        Sweden: ['the Swede', 'is Swedish', 'is not Swedish']
+        Latvia: ['the Latvian', 'is Latvian', 'is not Latvian']
+        France: ['the Frenchman', 'is French', 'is not French']
+        Spain: ['the Spaniard', 'is Spanish', 'is not Spanish']
+        Italy: ['the Italian', 'is Italian', 'is not Italian']
+        Norway: ['the Norwegian', 'is Norwegian', 'is not Norwegian']
+        Faroe Islands: ['the Faroese', 'is Faroese','is not Faroese']
+        Netherlands: ['the Dutchman', 'is Dutch', 'is not Dutch']
+        Iceland: ['the Icelander', 'is Icelandic', 'is not Icelandic']
+        United Kingdom: ['the Brit', 'is British', 'is not British']
+
+    jobs:
+        baker: ['the baker', 'is a baker', 'is not a baker']
+        minister: ['the minister', 'is a minister', 'is not a minister']
+        police officer: ['the police officer', 'is a police officer', 'is not a police officer']
+        nurse: ['the nurse', 'is a nurse', 'is not a nurse']
+        teacher: ['the teacher', 'is a teacher', 'is not a teacher']
+        software developer: ['the software developer', 'is a software developer', 'is not a software developer']
+        shop assistant: ['the shop assistant', 'is a shop assistant', 'is not a shop assistant']
+
+    pets:
+        cat: ['the cat owner','has a cat','does not have a cat']
+        dog: ['the dog owner','has a dog','does not have a dog']
+        rabbit: ['the rabbit owner','has a rabbit','does not have a rabbit']
+        zebra: ['the zebra owner','has a zebra','does not have a zebra']
+        budgerigar: ['the budgie owner','has a budgie','does not have a budgie']
+        snail: ['the snail owner','has a snail','does not have a snail']
+        stick insect: ['the stick insect owner','has a stick insect','does not have a stick insect']
+
+    drinks:
+        juice: ['the juice drinker', 'drinks juice', 'does not drink juice']
+        coffee: ['the coffee drinker', 'drinks coffee', 'does not drink coffee']
+        milk: ['the milk drinker', 'drinks milk', 'does not drink milk']
+        smoothie: ['the smoothie drinker', 'drinks smoothie', 'does not drink smoothie']
+        cocoa: ['the cocoa drinker', 'drinks cocoa', 'does not drink cocoa']
+        tea: ['the tea drinker', 'drinks tea', 'does not drink tea']
+        soda: ['the soda drinker', 'drinks soda', 'does not drink soda']
+
+    favorite book genres:
+        non-fiction: ['the non-fiction reader', 'reads non-fiction', 'does not read non-fiction']
+        crime: ['the crime reader', 'reads crime novels', 'does not read crime novels']
+        fantasy: ['the fantasy reader', 'reads fantasy', 'does not read fantasy']
+        science fiction: ['the science fiction reader', 'reads science fiction', 'does not read science fiction']
+        horror: ['the horror reader', 'reads horror', 'does not read horror']
+        poetry: ['the poetry reader', 'reads poetry', 'does not read poetry']
+        romance: ['the romance reader', 'reads romance novels', 'does not read romance novels']
+
+    hobbies:
+        bouldering: ['the person who boulders', 'boulders', 'does not boulder']
+        painting: ['the person who paints', 'paints', 'does not paint']
+        board games: ['the person who plays board games', 'plays board games', 'does not play board games']
+        tennis: ['the person who plays tennis', 'plays tennis', 'does not play tennis']
+        crocheting: ['the person who crochets', 'crochets', 'does not crochet']
+        soccer: ['the person who plays football', 'plays football', 'does not play football']
+        handball: ['the person who plays handball', 'plays handball', 'does not play handball']
+
+    favorite fruits:
+        apple: ['the person who loves apples', 'loves apples', 'does not like apples']
+        pear: ['the person who loves pears', 'loves pears', 'does not like pears']
+        orange: ['the person who loves oranges', 'loves oranges', 'does not like oranges']
+        banana: ['the person who loves bananas', 'loves bananas', 'does not like bananas']
+        strawberry: ['the person who loves strawberries', 'loves strawberries', 'does not like strawberries']
+        blackcurrant: ['the person who loves blackcurrants', 'loves blackcurrants', 'does not like blackcurrants']
+        wild strawberry: ['the person who loves wild strawberries', 'loves wild strawberries', 'does not like wild strawberries']
+
+
+# Clues
+# Clue names and text for the prompt depending on the clue type.
+# Clue names should not be edited, but they can be a subset of the full list of implemented clues.
+# NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
+clues_dict:
+    found_at: "{attribute_desc} lives in house no. {i_object}."
+    not_at: "{attribute_desc} does not live in house no. {i_object}."
+    next_to: "{attribute_desc_1} lives next to {attribute_desc_2}."                                                               # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: "{attribute_desc_1} does not live next to {attribute_desc_2}, and they are different people."                              # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: "{attribute_desc_1} lives to the immediate left of {attribute_desc_2}, on their left."
+    just_right_of: "{attribute_desc_1} lives to the immediate right of {attribute_desc_2}."
+    left_of: "{attribute_desc_1} lives to the left of {attribute_desc_2}."                                                                  # Requires n_objects > 2, otherwise use just_left_of
+    right_of: "{attribute_desc_1} lives to the right of {attribute_desc_2}."                                                                 # Requires n_objects > 2, otherwise use just_right_of
+    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                   # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                               # Requires n_attributes > 1, otherwise it cannot be used
+    between: "{attribute_desc_2} lives between {attribute_desc_1} and {attribute_desc_3}."                                                  # Requires n_objects > 2, otherwise it cannot be used
+    not_between: "{attribute_desc_1} does not live between {attribute_desc_2} and {attribute_desc_3}, and they are three different people." # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: "There are {n_between} houses between {attribute_desc_1} and {attribute_desc_2}."                                     # Requires n_objects > 3, otherwise it cannot be used
+    one_between: "There is one house between {attribute_desc_1} and {attribute_desc_2}."                                                    # Requires n_objects > 2, otherwise it cannot be used
+
+
+# Prompt
+# We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
+# prompt_and is the word used for separating the last two attributes in a list of attributes.
+
+prompt_and: and
+
+prompt_templates:
+    - |
+        A row of houses have numbers 1 to {n_objects} from left to right.
+
+        In each house lives a person unique attributes in each of the following categories:
+
+        {chosen_attributes_str}
+
+        We also know the following:
+
+        {chosen_clues_str}
+
+        Who has which attributes and lives in which house? Please enter your answer in the following format, where the first number in each row represents the house number:
+
+        1, attribute_1, attribute_2, attribute_3 ...
+        2, attribute_4, attribute_5, attribute_6 ...
+        ...
+    - |
+        A row of houses have numbers 1 to {n_objects} from left to right.
+
+        In each house lives a person with a unique attribute in the category of {chosen_attributes_str}.
+
+        We also know the following:
+
+        {chosen_clues_str}
+
+        Which attributes belong to the person living in each house? Please enter your answer in the following format, where the first number in each row represents the house number:
+
+        1, attribute_1
+        2, attribute_2
+        ...
