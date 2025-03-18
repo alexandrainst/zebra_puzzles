@@ -99,7 +99,14 @@ def create_red_herring(
     clue_description = red_herring_clues_dict[clue_type]
 
     if clue_type == "fact":
-        fact_key = sample(sorted(red_herring_facts), 1)[0]
+        fact_key = sample(
+            [
+                herring
+                for herring in sorted(red_herring_facts)
+                if herring not in used_red_herrings
+            ],
+            1,
+        )[0]
         chosen_fact = red_herring_facts[fact_key]
 
         used_red_herrings.append(fact_key)
@@ -119,7 +126,14 @@ def create_red_herring(
         )
 
         # Choose a red herring attribute
-        red_herring_attribute_key = sample(list(red_herring_attributes.keys()), 1)[0]
+        red_herring_attribute_key = sample(
+            [
+                herring
+                for herring in sorted(red_herring_attributes)
+                if herring not in used_red_herrings
+            ],
+            1,
+        )[0]
         red_herring_attribute_desc: str = red_herring_attributes[
             red_herring_attribute_key
         ][1]

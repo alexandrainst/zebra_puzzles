@@ -14,10 +14,10 @@ defaults:
 n_puzzles: 1
 
 # Objects e.g. houses
-n_objects: 3
+n_objects: 2
 
 # Attributes e.g. pets
-n_attributes: 4
+n_attributes: 1
 
 #Number of red herring clues
-n_red_herring_clues: 2
+n_red_herring_clues: 3
