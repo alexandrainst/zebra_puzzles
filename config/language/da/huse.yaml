@@ -136,6 +136,7 @@ prompt_templates:
 
 # Red herrings
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
+# NOTE: More types could be added such as "Herring lives in house number 1" or "The person with a cactus is not the baker"
 
 red_herring_clues_dict:
     same_herring: "{attribute_desc} {attribute_desc_herring}."
@@ -148,8 +149,8 @@ red_herring_clues_dict:
 red_herring_attributes:
     rødt_hår: ['personen med rødt hår','har rødt hår','har rødt hår']
     briller: ['personen med briller','bruger briller','bruger briller']
-    tatovering: ['personen med en tatovering','har en tatovering','har ikke en tatovering']
-    guitar: ['personen der spiller guitar','spiller guitar','spiller ikke guitar']
+    tatovering: ['personen med en tatovering','har en tatovering','har en tatovering']
+    guitar: ['personen der spiller guitar','spiller guitar','spiller guitar']
     cykel: ['personen med en cykel','har en cykel','har en cykel']
     marsvin: ['personen med et marsvin','har ikke et marsvin','ikke har et marsvin']
     kaktus: ['personen med en kaktus','har ikke en kaktus','ikke har en kaktus']
