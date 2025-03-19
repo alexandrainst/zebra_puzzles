@@ -1,14 +1,16 @@
 """Module for evaluation."""
 
 import json
+import logging
 import os
 from pathlib import Path
 from typing import Any, Iterator, Type
 
 import numpy as np
 from dotenv import load_dotenv
-from openai import OpenAI
+from openai import BadRequestError, OpenAI
 from pydantic import BaseModel, create_model
+from tqdm import tqdm
 
 from zebra_puzzles.zebra_utils import save_dataset
 
@@ -61,10 +63,12 @@ def evaluate_all(
         theme: The theme of the puzzles
 
     """
+    # Initialize scores
     puzzle_scores: np.ndarray = np.zeros(n_puzzles)
     cell_scores: np.ndarray = np.zeros(n_puzzles)
 
-    for i, file_path in enumerate(file_paths):
+    # Evaluate each puzzle
+    for i, file_path in tqdm(enumerate(file_paths), total=n_puzzles):
         puzzle_score, cell_score = evaluate_single_puzzle(
             file_path=file_path,
             n_objects=n_objects,
@@ -74,13 +78,8 @@ def evaluate_all(
         puzzle_scores[i] = puzzle_score
         cell_scores[i] = cell_score
 
-    # Mean
-    mean_puzzle_score = float(np.mean(puzzle_scores))
-    mean_cell_score = float(np.mean(cell_scores))
-    metrics = {
-        "mean_puzzle_score": mean_puzzle_score,
-        "mean_cell_score": mean_cell_score,
-    }
+    # Compute summary metrics
+    metrics = compute_metrics(puzzle_scores=puzzle_scores, cell_scores=cell_scores)
 
     # Save scores
     score_str = format_scores(
@@ -93,6 +92,29 @@ def evaluate_all(
     save_dataset(data=score_str, filename=filename, folder="scores")
 
     # Consider saving the LLM outputs
+
+
+def compute_metrics(
+    puzzle_scores: np.ndarray, cell_scores: np.ndarray
+) -> dict[str, float]:
+    """Compute the metrics.
+
+    Args:
+        puzzle_scores: Puzzle scores as a numpy array.
+        cell_scores: Cell scores as a numpy array.
+
+    Returns:
+        Metrics as a dictionary.
+    """
+    mean_puzzle_score = float(np.mean(puzzle_scores))
+    mean_cell_score = float(np.mean(cell_scores))
+
+    metrics = {
+        "mean_puzzle_score": mean_puzzle_score,
+        "mean_cell_score": mean_cell_score,
+    }
+
+    return metrics
 
 
 def format_scores(
@@ -141,6 +163,8 @@ def evaluate_single_puzzle(
             puzzle_score: A puzzle-level score as a float.
             cell_score: A cell-level score as a float.
     """
+    logging.getLogger("httpx").setLevel(logging.ERROR)
+
     # Load the prompt
     with file_path.open() as file:
         prompt = file.read()
@@ -156,13 +180,24 @@ def evaluate_single_puzzle(
     )
 
     # Generate LLM output
-    response = client.beta.chat.completions.parse(
-        messages=[{"role": "user", "content": prompt}],
-        model=model,
-        temperature=0,
-        seed=42,
-        response_format=OutputFormat,
-    )
+    try:
+        response = client.beta.chat.completions.parse(
+            messages=[{"role": "user", "content": prompt}],
+            model=model,
+            temperature=0,
+            seed=42,
+            response_format=OutputFormat,
+        )
+    except BadRequestError as e:
+        if "'temperature' is not supported" in str(e):
+            response = client.beta.chat.completions.parse(
+                messages=[{"role": "user", "content": prompt}],
+                model=model,
+                seed=42,
+                response_format=OutputFormat,
+            )
+        else:
+            raise e
 
     # Reformat response
     output = OutputFormat.model_validate(response.choices[0].message.parsed)
@@ -174,6 +209,11 @@ def evaluate_single_puzzle(
     solution_json = OutputFormat.model_validate(solution_json)
 
     puzzle_score, cell_score = compare_solutions(output, solution_json)
+
+    # Save the output
+    output_str = json.dumps(output.model_dump(), indent=4)
+    output_filename = f"{file_path.stem}_response.json"
+    save_dataset(data=output_str, filename=output_filename, folder="responses")
 
     return puzzle_score, cell_score
 

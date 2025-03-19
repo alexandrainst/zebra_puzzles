@@ -17,7 +17,8 @@ theme: da_huse
 
 # Model
 # The LLM model to evaluate on the puzzles.
-model : gpt-4o-mini
+# examples: gpt-4o-mini, gpt-4o, o3-mini, o3
+model : o3-mini
 
 # Number of puzzles to generate
 n_puzzles: 4
@@ -28,7 +29,7 @@ n_objects: 3
 
 # Attributes e.g. pets
 # Currently, 2 - 7 are supported.
-n_attributes: 2
+n_attributes: 7
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
