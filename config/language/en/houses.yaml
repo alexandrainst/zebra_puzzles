@@ -139,6 +139,8 @@ red_herring_clues_dict:
     fact: "{fact}."
     object_fact: "{attribute_desc} knows that {fact}."
     friends: "{attribute_desc} is good friends with the person who {attribute_desc_herring}."
+    found_at: "{attribute_desc_herring} lives in house no. {i_object}."
+    not_at: "{attribute_desc_herring} does not live in house no. {i_object}."
 
 red_herring_attributes:
     red_hair: ['the person with red hair','has red hair','has red hair']
@@ -147,7 +149,7 @@ red_herring_attributes:
     guitar: ['the person who plays the guitar','plays the guitar','plays the guitar']
     bike: ['the person with a bike','has a bike','does not have a bike']
     guinea pig: ['the person with a guinea pig','does not have a guinea pig','does not have a guinea pig']
-    cactus: ['the person with a cactus','does not have a cactus','does not have a cactus']
+    cactus: ['the person who owns a cactus','does not own a cactus','does not own a cactus']
     video games: ['the person who plays video games','plays video games','plays video games']
     sister: ['the person with a sister','has a sister','has a sister']
     mango: ['the person who thinks the second best fruit is mango','thinks the second best fruit is mango','thinks the second best fruit is mango']

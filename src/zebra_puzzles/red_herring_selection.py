@@ -131,17 +131,24 @@ def create_red_herring(
                 attribute_desc=object_attributes_desc[0], fact=chosen_fact
             )
 
-    elif clue_type in ("same_herring", "next_to_herring", "friends"):
+    elif clue_type in (
+        "same_herring",
+        "next_to_herring",
+        "friends",
+        "found_at",
+        "not_at",
+    ):
         # Choose an object to describe
         i_objects = sample(list(range(n_objects)), 1)
 
-        # Choose an attribute from the solution
-        _, object_attributes_desc = describe_random_attributes(
-            chosen_attributes=chosen_attributes,
-            chosen_attributes_descs=chosen_attributes_descs,
-            i_objects=i_objects,
-            n_attributes=n_attributes,
-        )
+        if clue_type not in ("found_at", "not_at"):
+            # Choose an attribute from the solution
+            _, object_attributes_desc = describe_random_attributes(
+                chosen_attributes=chosen_attributes,
+                chosen_attributes_descs=chosen_attributes_descs,
+                i_objects=i_objects,
+                n_attributes=n_attributes,
+            )
 
         # Choose a red herring attribute
         red_herring_attribute_key = sample(
@@ -155,7 +162,9 @@ def create_red_herring(
 
         # Choose a description based on the sentence structure in the clue type
         # E.g. "har ikke en hund" vs. "ikke har en hund" in Danish
-        if clue_type == "same_herring":
+        if clue_type in ("found_at", "not_at"):
+            desc_index = 0
+        elif clue_type == "same_herring":
             desc_index = 1
         else:
             desc_index = 2
@@ -167,10 +176,17 @@ def create_red_herring(
         used_red_herrings.append(red_herring_attribute_key)
 
         # Create the clue
-        full_clue = clue_description.format(
-            attribute_desc=object_attributes_desc[0],
-            attribute_desc_herring=attribute_desc_herring,
-        )
+        if clue_type in ("found_at", "not_at"):
+            full_clue = clue_description.format(
+                attribute_desc_herring=attribute_desc_herring, i_object=i_objects[0] + 1
+            )
+
+        else:
+            full_clue = clue_description.format(
+                attribute_desc=object_attributes_desc[0],
+                attribute_desc_herring=attribute_desc_herring,
+            )
+
     elif clue_type == "double_herring":
         # Choose two red herring attributes
         red_herring_attribute_keys = sample(

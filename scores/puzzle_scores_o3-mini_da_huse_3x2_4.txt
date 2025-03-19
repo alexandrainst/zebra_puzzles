@@ -1,0 +1,13 @@
+Puzzle Scores
+-------------
+Metrics
+{
+    "mean_puzzle_score": 1.0,
+    "mean_cell_score": 1.0
+}
+-------------
+Single puzzle scores
+Puzzle 0: 1.0 1.0
+Puzzle 1: 1.0 1.0
+Puzzle 2: 1.0 1.0
+Puzzle 3: 1.0 1.0
