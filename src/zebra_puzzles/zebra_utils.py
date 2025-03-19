@@ -1,5 +1,6 @@
 """Utility module for generating zebra puzzles."""
 
+import os
 from random import sample
 
 import numpy as np
@@ -50,6 +51,30 @@ def generate_solution(
     )
 
     return solution, chosen_categories, chosen_attributes, chosen_attributes_descs
+
+
+def clean_folder(folder: str, keep_files: list[str]) -> None:
+    """Delete all files in a folder.
+
+    Args:
+        folder: Folder to clean.
+        keep_files: List of files to keep in the folder.
+    """
+    existing_files = os.listdir(folder)
+
+    # Get a list of files to delete
+    files_to_delete = [file for file in existing_files if file not in keep_files]
+
+    if len(files_to_delete) > 0:
+        useroutput = input(
+            f"Do you want to delete the following files in the folder {folder}?\n{files_to_delete}\n(y/n)"
+        )
+        if useroutput == "y":
+            for file in files_to_delete:
+                os.remove(os.path.join(folder, file))
+            print("Old files were deleted.")
+        else:
+            print("Old files were not deleted.")
 
 
 def save_dataset(data: str, filename: str, folder: str = "data") -> None:
