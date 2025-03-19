@@ -94,6 +94,10 @@ multirun/
 data/*
 !data/.gitkeep
 
+# Scores
+scores/*
+!scores/.gitkeep
+
 # Models
 models/*
 !models/.gitkeep

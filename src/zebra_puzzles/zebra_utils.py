@@ -53,14 +53,13 @@ def generate_solution(
 
 
 def save_dataset(data: str, filename: str, folder: str = "data") -> None:
-    """Save a zebra puzzle dataset.
+    """Save a file.
 
     Args:
         data: Data to save.
         filename: Name of the file.
         folder: Folder to save the file in.
 
-    TODO: Consider preferred format.
     """
     with open(folder + "/" + filename, "w") as file:
         file.write(data)

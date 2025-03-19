@@ -25,6 +25,7 @@ def main(config: DictConfig) -> None:
     n_objects = config.n_objects
     n_attributes = config.n_attributes
     model = config.model
+    theme = config.theme
 
     # Get names of all prompt files in the data folder
     file_paths = Path("data").glob("*[!_solution].txt")
@@ -35,6 +36,7 @@ def main(config: DictConfig) -> None:
         n_attributes=n_attributes,
         file_paths=file_paths,
         model=model,
+        theme=theme,
     )
 
 

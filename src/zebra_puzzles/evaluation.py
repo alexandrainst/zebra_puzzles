@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from pydantic import BaseModel, create_model
 
+from zebra_puzzles.zebra_utils import save_dataset
+
 # Load environment variables to get the API key
 load_dotenv()
 
@@ -46,6 +48,7 @@ def evaluate_all(
     n_attributes: int,
     file_paths: Iterator[Path],
     model: str,
+    theme: str,
 ) -> None:
     """Evaluate a dataset of zebra puzzles.
 
@@ -55,6 +58,7 @@ def evaluate_all(
         n_attributes: Number of attributes of each object as an integer.
         file_paths: Iterator of file paths to the dataset files.
         model: The model to use for the evaluation as a string.
+        theme: The theme of the puzzles
 
     """
     puzzle_scores: np.ndarray = np.zeros(n_puzzles)
@@ -73,10 +77,52 @@ def evaluate_all(
     # Mean
     mean_puzzle_score = float(np.mean(puzzle_scores))
     mean_cell_score = float(np.mean(cell_scores))
+    metrics = {
+        "mean_puzzle_score": mean_puzzle_score,
+        "mean_cell_score": mean_cell_score,
+    }
 
-    # TODO: Save scores to a file instead of printing them
-    print(f"Mean puzzle score: {mean_puzzle_score}")
-    print(f"Mean cell score: {mean_cell_score}")
+    # Save scores
+    score_str = format_scores(
+        puzzle_scores=puzzle_scores, cell_scores=cell_scores, metrics=metrics
+    )
+
+    filename = (
+        f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_puzzles}.txt"
+    )
+    save_dataset(data=score_str, filename=filename, folder="scores")
+
+    # Consider saving the LLM outputs
+
+
+def format_scores(
+    puzzle_scores: np.ndarray, cell_scores: np.ndarray, metrics: dict[str, float]
+) -> str:
+    """Format the scores.
+
+    Args:
+        puzzle_scores: Puzzle scores as a numpy array.
+        cell_scores: Cell scores as a numpy array.
+        metrics: Metrics as a dictionary.
+
+    Returns:
+        A formatted string of the scores.
+    """
+    score_str = "Puzzle Scores\n"
+    score_str += "-------------\n"
+    score_str += "Metrics\n"
+
+    metrics_str = json.dumps(metrics, indent=4)
+
+    score_str += metrics_str
+
+    score_str += "\n-------------\n"
+    score_str += "Single puzzle scores\n"
+
+    for i, (puzzle_score, cell_score) in enumerate(zip(puzzle_scores, cell_scores)):
+        score_str += f"Puzzle {i}: {puzzle_score} {cell_score}\n"
+
+    return score_str
 
 
 def evaluate_single_puzzle(
