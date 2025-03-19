@@ -134,27 +134,27 @@ prompt_templates:
 
 red_herring_clues_dict:
     same_herring: "{attribute_desc} {attribute_desc_herring}."
-    next_to_herring: "{attribute_desc} ligger ved siden af stykket der {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} ligger ved siden af {attribute_desc_herring}."
     double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
     fact: "{fact}."
     object_fact: "Kokken der lavede {attribute_desc} ved at {fact}."
-    friends: "Kokkene der lavede henholdsvis {attribute_desc} og stykket der {attribute_desc_herring} er gode venner."
+    friends: "Kokkene der lavede henholdsvis {attribute_desc_herring} og {attribute_desc} er gode venner."
     found_at: "{attribute_desc_herring} er nummer {i_object}."
     not_at: "{attribute_desc_herring} er ikke nummer {i_object}."
 
 red_herring_attributes:
-    kvadratisk: ['det kvadratiske stykke','er kvadratisk','er kvadratisk']
-    langt: ['det længste stykke','er langt','er langt']
-    tynd skive: ['stykket med en tynd skive brød','har en tynd skive brød','har en tynd skive brød']
-    meget pynt: ['stykket med meget pynt','har meget pynt','har meget pynt']
-    meget smørelse: ['stykket med et tykt lag smørelse på brødet','har meget smørelse på brødet','har meget smørelse på brødet']
-    største: ['det største stykke','er det største','er det største']
-    varmt: ['det varmeste stykke','er varmt','er varmt']
-    yndlings: ['stykket der er dommernes yndlings','er dommernes yndlings','er dommernes yndlings']
-    smager bedst: ['stykket der smager bedst','smager bedst','smager bedst']
-    grønt hus: ['stykket der er lavet af en kok som bor i et grønt hus','er lavet af en kok som bor i et grønt hus','er lavet af en kok som bor i et grønt hus']
-    bornholmsk: ['stykket der er lavet af en bornholmsk kok','er lavet af en bornholmsk kok','er lavet af en bornholmsk kok']
-    hurtigt: ['stykket der er lavet meget hurtigt','er lavet meget hurtigt','er lavet meget hurtigt']
+    kvadratisk: ['det kvadratiske stykke','er kvadratisk']
+    langt: ['det længste stykke','er langt']
+    tynd skive: ['stykket med en tynd skive brød','har en tynd skive brød']
+    meget pynt: ['stykket med meget pynt','har meget pynt']
+    meget smørelse: ['stykket med et tykt lag smørelse på brødet','har meget smørelse på brødet']
+    største: ['det største stykke','er det største']
+    varmt: ['det varmeste stykke','er varmt']
+    yndlings: ['stykket der er dommernes yndlings','er dommernes yndlings']
+    smager bedst: ['stykket der smager bedst','smager bedst']
+    grønt hus: ['stykket der er lavet af en kok som bor i et grønt hus','er lavet af en kok som bor i et grønt hus']
+    bornholmsk: ['stykket der er lavet af en bornholmsk kok','er lavet af en bornholmsk kok']
+    hurtigt: ['stykket der er lavet meget hurtigt','er lavet meget hurtigt']
 
 red_herring_facts:
     sild: "sild er fisk"

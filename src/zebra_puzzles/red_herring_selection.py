@@ -162,12 +162,10 @@ def create_red_herring(
 
         # Choose a description based on the sentence structure in the clue type
         # E.g. "har ikke en hund" vs. "ikke har en hund" in Danish
-        if clue_type in ("found_at", "not_at"):
+        if clue_type in ("found_at", "not_at", "next_to_herring", "friends"):
             desc_index = 0
         elif clue_type == "same_herring":
             desc_index = 1
-        else:
-            desc_index = 2
 
         attribute_desc_herring: str = red_herring_attributes[red_herring_attribute_key][
             desc_index
