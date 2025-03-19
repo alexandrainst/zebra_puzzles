@@ -107,11 +107,12 @@ def choose_clues(
             solved = True
 
             # Check if the solver found an unexpected solution. This should not be possible.
-            solution = confirm_original_solution(
+            check_original_solution(
                 solutions=solutions,
                 solution=solution,
                 n_objects=n_objects,
                 n_attributes=n_attributes,
+                chosen_clues=chosen_clues,
             )
 
             # Remove redundant clues
@@ -133,24 +134,23 @@ def choose_clues(
     return chosen_clues
 
 
-def confirm_original_solution(
+def check_original_solution(
     solutions: list[dict[str, int]],
     solution: np.ndarray,
     n_objects: int,
     n_attributes: int,
-) -> np.ndarray:
+    chosen_clues: list[str],
+):
     """Check if the solver found the original solution or an unexpected one.
 
-    Finding a new solution should not be possible and indicates a bug in the solver or the clue selection process. If this happens, the solution is changed to the one found by the solver and a warning is raised.
+    Finding a new solution should not be possible and indicates a bug in the solver or the clue selection process. If this happens, an error is raised.
 
     Args:
         solutions: Solutions to the zebra puzzle found by the solver as a list of dictionaries containing object indices and chosen attribute values.
         solution: Expected solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x (n_attributes + 1).
         n_objects: Number of objects in the puzzle as an integer.
         n_attributes: Number of attributes per object as an integer.
-
-    Returns:
-        Solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x (n_attributes + 1).
+        chosen_clues: Clues for the zebra puzzle as a list of strings.
 
     """
     solution_attempt = format_solution(
@@ -158,15 +158,9 @@ def confirm_original_solution(
     )
 
     if [sorted(obj) for obj in solution_attempt] != [sorted(obj) for obj in solution]:
-        # Change the solution to the solution attempt and raise a warning
-        solution_old = solution
-        solution = solution_attempt
-        raise Warning(
-            "The solver has found a solution that is not the expected one: \nFound \n{solution_attempt} \nExpected \n{solution}".format(
-                solution_attempt=solution_attempt, solution=solution_old
-            )
+        raise ValueError(
+            f"The solver has found a solution that is not the expected one: \nFound \n{solution_attempt} \nExpected \n{solution} \nChosen clues: \n{chosen_clues}"
         )
-    return solution
 
 
 def exclude_clues(
@@ -276,11 +270,11 @@ def create_clue(
             # Choose a random object
             i_object = sample(list(range(n_objects)), 1)[0]
             i_objects = [i_object, i_object]
-            desc_no = 1
+            desc_index = 1
         elif clue == "not_same_object":
             # Choose two random objects
             i_objects = sample(list(range(n_objects)), 2)
-            desc_no = 2
+            desc_index = 2
 
         # Choose two unique attributes
         clue_attributes, clue_attribute_descs = describe_random_attributes(
@@ -289,7 +283,7 @@ def create_clue(
             i_objects=i_objects,
             n_attributes=n_attributes,
             diff_cat=True,
-            desc_no=desc_no,
+            desc_index=desc_index,
         )
 
         # Create the full clue
@@ -451,7 +445,7 @@ def describe_random_attributes(
     i_objects: list[int],
     n_attributes: int,
     diff_cat: bool = False,
-    desc_no: int = 0,
+    desc_index: int = 0,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Get a random attribute description for an object.
 
@@ -467,9 +461,7 @@ def describe_random_attributes(
         i_objects: The index of the object to select an attribute from.
         n_attributes: Number of attributes per object.
         diff_cat: If True, the output attributes must belong to different categories.
-        desc_no: The index of the description to use for the last object in the clue if more than one object is described.
-        negative_alt: If True, the "not_word" is inserted after the first word in the alternative description.
-        prompt_not: The word to use when negating a clue.
+        desc_index: The index of the description to use for the last object in the clue if more than one object is described.
 
     Returns:
         A tuple (random_attributes, random_attributes_desc), where:
@@ -494,7 +486,9 @@ def describe_random_attributes(
     for i, (i_obj, i_attr) in enumerate(zip(i_objects, i_attributes)):
         random_attributes[i] = chosen_attributes[i_obj][i_attr]
         if i == len(i_objects) - 1 and n_clue_objects > 1:
-            random_attributes_desc[i] = chosen_attributes_descs[desc_no][i_obj][i_attr]
+            random_attributes_desc[i] = chosen_attributes_descs[desc_index][i_obj][
+                i_attr
+            ]
         else:
             random_attributes_desc[i] = chosen_attributes_descs[0][i_obj][i_attr]
 
