@@ -1,6 +1,6 @@
 """Module for evaluation."""
 
-import ast
+import json
 import os
 from pathlib import Path
 from typing import Any, Iterator, Type
@@ -46,7 +46,7 @@ def evaluate_all(
     n_attributes: int,
     file_paths: Iterator[Path],
     model: str,
-) -> float:
+) -> None:
     """Evaluate a dataset of zebra puzzles.
 
     Args:
@@ -56,31 +56,32 @@ def evaluate_all(
         file_paths: Iterator of file paths to the dataset files.
         model: The model to use for the evaluation as a string.
 
-    Returns:
-        The mean score of the dataset as a float.
-
     """
-    scores = np.zeros(n_puzzles)
+    puzzle_scores: np.ndarray = np.zeros(n_puzzles)
+    cell_scores: np.ndarray = np.zeros(n_puzzles)
+
     for i, file_path in enumerate(file_paths):
-        score = evaluate_single_puzzle(
+        puzzle_score, cell_score = evaluate_single_puzzle(
             file_path=file_path,
             n_objects=n_objects,
             n_attributes=n_attributes,
             model=model,
         )
-        scores[i] = score
+        puzzle_scores[i] = puzzle_score
+        cell_scores[i] = cell_score
 
     # Mean
-    mean_score = float(np.mean(scores))
+    mean_puzzle_score = float(np.mean(puzzle_scores))
+    mean_cell_score = float(np.mean(cell_scores))
 
-    print(f"Mean score: {mean_score}")
-
-    return mean_score
+    # TODO: Save scores to a file instead of printing them
+    print(f"Mean puzzle score: {mean_puzzle_score}")
+    print(f"Mean cell score: {mean_cell_score}")
 
 
 def evaluate_single_puzzle(
     file_path: Path, n_objects: int, n_attributes: int, model: str
-) -> float:
+) -> tuple[float, float]:
     """Evaluate a dataset of zebra puzzles.
 
     Args:
@@ -90,7 +91,9 @@ def evaluate_single_puzzle(
         model: The model to use for the evaluation as a
 
     Returns:
-        A score for the puzzle as a float.
+        A tuple (puzzle_score, cell_score), where:
+            puzzle_score: A puzzle-level score as a float.
+            cell_score: A cell-level score as a float.
     """
     # Load the prompt
     with file_path.open() as file:
@@ -119,21 +122,17 @@ def evaluate_single_puzzle(
     output = OutputFormat.model_validate(response.choices[0].message.parsed)
 
     # Change the format of solution to OutputFormat
-    # Format the solution as a dict
-    # TODO: Convert to OutputFormat in a nicer way
-    solution.replace("\n", " ")
-    # Delete last comma
-    solution.replace(", }", "}")
 
-    solution_dict: dict = ast.literal_eval(solution)
-    solution_json = OutputFormat.model_validate(solution_dict)
+    solution_json = json.loads(solution)
 
-    score = compare_solutions(output, solution_json)
+    solution_json = OutputFormat.model_validate(solution_json)
 
-    return score
+    puzzle_score, cell_score = compare_solutions(output, solution_json)
+
+    return puzzle_score, cell_score
 
 
-def compare_solutions(output: BaseModel, solution: BaseModel) -> float:
+def compare_solutions(output: BaseModel, solution: BaseModel) -> tuple[float, float]:
     """Compare the output to the solution.
 
     Args:
@@ -141,7 +140,9 @@ def compare_solutions(output: BaseModel, solution: BaseModel) -> float:
         solution: The solution as a dictionary.
 
     Returns:
-        A score for the puzzle as a float.
+        A tuple (puzzle_score, cell_score), where:
+            puzzle_score: A puzzle-level score as a float.
+            cell_score: A cell-level score as a float.
     """
     # Extract solution arrays
 
@@ -149,5 +150,13 @@ def compare_solutions(output: BaseModel, solution: BaseModel) -> float:
 
     # Compare the output to the solution
 
-    score = 0
-    return score
+    if output == solution:
+        puzzle_score = 1
+    else:
+        puzzle_score = 0
+
+    cell_score = puzzle_score
+
+    # Sort and compare again
+
+    return puzzle_score, cell_score

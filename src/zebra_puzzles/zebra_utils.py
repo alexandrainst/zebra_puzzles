@@ -187,6 +187,9 @@ def format_solution(solution: np.ndarray) -> str:
 
     solution_json += "}"
 
+    # Delete last comma
+    solution_json = solution_json.replace(",\n}", "\n}")
+
     return solution_json
 
 
@@ -196,7 +199,7 @@ def create_solution_template(n_objects: int, chosen_categories: np.ndarray) -> s
     For example:
     {
     "object_1": ["attribute_1", "attribute_2"],
-    "object_2": ["attribute_1", "attribute_2"],
+    "object_2": ["attribute_1", "attribute_2"]
     }
 
 
