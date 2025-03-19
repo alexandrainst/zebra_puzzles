@@ -67,7 +67,7 @@ def clean_folder(folder: str, keep_files: list[str]) -> None:
 
     if len(files_to_delete) > 0:
         useroutput = input(
-            f"Do you want to delete the following outdated files in the folder '{folder}'?\n{files_to_delete}\n(y/n)"
+            f"\nDo you want to delete the following outdated files in the folder '{folder}'?\n\n{files_to_delete}\n\n(y/n): "
         )
         if useroutput == "y":
             for file in files_to_delete:

@@ -1,5 +1,7 @@
 """Pipeline module for generating and saving zebra puzzles."""
 
+from tqdm import tqdm
+
 from zebra_puzzles.clue_selection import choose_clues
 from zebra_puzzles.zebra_utils import (
     clean_folder,
@@ -111,7 +113,7 @@ def build_dataset(
     # Clean data folder
     clean_folder(folder="data", keep_files=data_filenames)
 
-    for i in range(n_puzzles):
+    for i in tqdm(range(n_puzzles)):
         prompt, solution_json = run_pipeline(
             n_objects=n_objects,
             n_attributes=n_attributes,
