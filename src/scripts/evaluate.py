@@ -27,8 +27,8 @@ def main(config: DictConfig) -> None:
     model = config.model
     theme = config.theme
 
-    # Get names of all prompt files in the data folder
-    file_paths = Path("data").glob("*[!_solution].txt")
+    # Get sorted names of all prompt files in the data folder
+    file_paths = sorted(list(Path("data").glob("*[!_solution].txt")))
 
     evaluate_all(
         n_puzzles=n_puzzles,

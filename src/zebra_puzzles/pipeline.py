@@ -2,6 +2,7 @@
 
 from zebra_puzzles.clue_selection import choose_clues
 from zebra_puzzles.zebra_utils import (
+    clean_folder,
     complete_prompt,
     format_solution,
     generate_solution,
@@ -99,6 +100,17 @@ def build_dataset(
 
     NOTE: Consider only saving the puzzle and solution instead of the whole prompt.
     """
+    # Create data file names
+    prompt_filenames = ["zebra_puzzle_{}.txt".format(i) for i in range(n_puzzles)]
+    solution_filenames = [
+        str(file.split(".")[0]) + "_solution.txt" for file in prompt_filenames
+    ]
+
+    data_filenames = prompt_filenames + solution_filenames
+
+    # Clean data folder
+    clean_folder(folder="data", keep_files=data_filenames)
+
     for i in range(n_puzzles):
         prompt, solution_json = run_pipeline(
             n_objects=n_objects,
@@ -110,11 +122,5 @@ def build_dataset(
             verbose=False,
             eval=False,
         )
-        save_dataset(
-            data=prompt, filename="zebra_puzzle_{}.txt".format(i), folder="data"
-        )
-        save_dataset(
-            data=solution_json,
-            filename="zebra_puzzle_{}_solution.txt".format(i),
-            folder="data",
-        )
+        save_dataset(data=prompt, filename=data_filenames[i], folder="data")
+        save_dataset(data=solution_json, filename=solution_filenames[i], folder="data")

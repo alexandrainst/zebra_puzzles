@@ -98,6 +98,10 @@ data/*
 scores/*
 !scores/.gitkeep
 
+# Responses
+responses/*
+!responses/.gitkeep
+
 # Models
 models/*
 !models/.gitkeep

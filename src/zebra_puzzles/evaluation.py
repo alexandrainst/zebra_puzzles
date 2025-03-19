@@ -4,7 +4,7 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Any, Iterator, Type
+from typing import Any, Type
 
 import numpy as np
 from dotenv import load_dotenv
@@ -12,7 +12,7 @@ from openai import BadRequestError, OpenAI
 from pydantic import BaseModel, create_model
 from tqdm import tqdm
 
-from zebra_puzzles.zebra_utils import save_dataset
+from zebra_puzzles.zebra_utils import clean_folder, save_dataset
 
 # Load environment variables to get the API key
 load_dotenv()
@@ -48,7 +48,7 @@ def evaluate_all(
     n_puzzles: int,
     n_objects: int,
     n_attributes: int,
-    file_paths: Iterator[Path],
+    file_paths: list[Path],
     model: str,
     theme: str,
 ) -> None:
@@ -63,6 +63,12 @@ def evaluate_all(
         theme: The theme of the puzzles
 
     """
+    # Create reponse file names
+    response_filenames = [f"{file_path.stem}_response.json" for file_path in file_paths]
+
+    # Clean reponses folder
+    clean_folder(folder="responses", keep_files=response_filenames)
+
     # Initialize scores
     puzzle_scores: np.ndarray = np.zeros(n_puzzles)
     cell_scores: np.ndarray = np.zeros(n_puzzles)
@@ -74,6 +80,7 @@ def evaluate_all(
             n_objects=n_objects,
             n_attributes=n_attributes,
             model=model,
+            response_filename=response_filenames[i],
         )
         puzzle_scores[i] = puzzle_score
         cell_scores[i] = cell_score
@@ -90,8 +97,6 @@ def evaluate_all(
         f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_puzzles}.txt"
     )
     save_dataset(data=score_str, filename=filename, folder="scores")
-
-    # Consider saving the LLM outputs
 
 
 def compute_metrics(
@@ -148,7 +153,11 @@ def format_scores(
 
 
 def evaluate_single_puzzle(
-    file_path: Path, n_objects: int, n_attributes: int, model: str
+    file_path: Path,
+    n_objects: int,
+    n_attributes: int,
+    model: str,
+    response_filename: str,
 ) -> tuple[float, float]:
     """Evaluate a dataset of zebra puzzles.
 
@@ -157,6 +166,7 @@ def evaluate_single_puzzle(
         n_objects: Number of objects in each puzzle as an integer.
         n_attributes: Number of attributes of each object as an
         model: The model to use for the evaluation as a
+        response_filename: The name of the response file.
 
     Returns:
         A tuple (puzzle_score, cell_score), where:
@@ -212,8 +222,7 @@ def evaluate_single_puzzle(
 
     # Save the output
     output_str = json.dumps(output.model_dump(), indent=4)
-    output_filename = f"{file_path.stem}_response.json"
-    save_dataset(data=output_str, filename=output_filename, folder="responses")
+    save_dataset(data=output_str, filename=response_filename, folder="responses")
 
     return puzzle_score, cell_score
 
