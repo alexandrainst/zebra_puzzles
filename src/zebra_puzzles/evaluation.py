@@ -121,122 +121,6 @@ def generate_output_format_class(n_objects: int) -> Type[BaseModel]:
     return OutputFormat
 
 
-def compute_metrics(
-    scores_all_types: list[np.ndarray], score_types: list[str], n_puzzles: int
-) -> dict[str, tuple]:
-    """Compute the metrics.
-
-    For each score type e.g. cell score, a dictionary of metrics is computed. This dictionary includes a string describing the rounded metrics.
-
-    Args:
-        scores_all_types: Tuple of scores as numpy arrays. Each element contains the scores for a specific score type.
-        score_types: List of score type names as strings.
-        n_puzzles: Number of puzzles as an integer.
-
-    Returns:
-        Metrics as a dictionary of with the score type as the key, and the values being a tuple of ndarrays. The tuple contains the rounded metrics for the score type and a string describing the metrics for the score type.
-
-    TODO: Add more metrics e.g. from sklearn.metrics
-    """
-    # Number of score types
-    n_metrics = len(score_types)
-
-    # Initialize metrics
-    mean_scores = np.zeros(n_metrics, dtype=float)
-    std_scores = np.zeros(n_metrics, dtype=float)
-    std_mean_scores = np.zeros(n_metrics, dtype=float)
-
-    # Initialize strings describing metrics for each score type
-    score_strings = np.zeros(n_metrics, dtype="U100")
-
-    for i, scores in enumerate(scores_all_types):
-        # Take the mean
-        mean_scores[i] = float(np.mean(scores))
-
-        # Take the standard deviation
-        std_scores[i] = float(np.std(scores, ddof=1))
-
-        # Compute the standard deviation of the mean
-        std_mean_scores[i] = std_scores[i] / np.sqrt(float(n_puzzles))
-
-        # Round to significant digits
-        std_scores[i] = np.format_float_positional(
-            std_scores[i], precision=1, fractional=False
-        )
-        std_mean_scores[i] = np.format_float_positional(
-            std_mean_scores[i], precision=1, fractional=False
-        )
-        mean_precision = len(str(std_mean_scores[i]).split(".")[1])
-        mean_scores[i] = np.format_float_positional(
-            mean_scores[i], precision=mean_precision, fractional=False
-        )
-
-        # Describe the score with a string
-        score_str = f"\tMean: {mean_scores[i]} ± {std_mean_scores[i]}"
-        score_str += f"\n\tPopulation standard deviation: {std_scores[i]}"
-        score_strings[i] = score_str
-
-    # Make a dictionary of metrics and score strings for each score type
-    metrics = {
-        score_type: (
-            mean_scores[i],
-            std_scores[i],
-            std_mean_scores[i],
-            score_strings[i],
-        )
-        for i, score_type in enumerate(score_types)
-    }
-
-    return metrics
-
-
-def format_scores(
-    scores_all_types: list[np.ndarray],
-    score_types: list[str],
-    metrics: dict[str, tuple],
-    n_puzzles: int,
-) -> str:
-    """Format the scores.
-
-    Args:
-        scores_all_types: Tuple of scores as numpy arrays. Each element contains the scores for a specific score type.
-        score_types: List of score type names as strings.
-        n_puzzles: Number of puzzles as an integer.
-        metrics: Metrics as a dictionary of with the score type as the key, and the values being a tuple of ndarrays. The tuple contains the rounded metrics for the score type and a string describing the metrics for the score type.
-
-    Returns:
-        A formatted string of the scores.
-    """
-    # --- Describe overall metrics ---#
-
-    score_str = "Puzzle Scores\n"
-    score_str += "-------------\n"
-    score_str += "Metrics\n\n"
-
-    # Complete the string describing all metrics
-    metrics_str = ""
-    for score_type in score_types:
-        metrics_str += f"{score_type.capitalize()}:\n"
-        metrics_str += metrics[score_type][-1]
-        metrics_str += "\n\n"
-
-    metrics_str = metrics_str[:-4]
-
-    score_str += metrics_str
-
-    # --- Describe scores of individual puzzles ---#
-
-    score_str += "\n-------------\n"
-    score_str += "Single puzzle scores\n"
-
-    for i in range(n_puzzles):
-        score_str += f"\nPuzzle {i}: "
-        for score_type, scores in zip(score_types, scores_all_types):
-            score_str += f"\t{score_type}: {scores[i]:.2f}"
-
-    return score_str
-
-
 def evaluate_single_puzzle(
     file_path: Path,
     n_objects: int,
@@ -357,3 +241,119 @@ def query_LLM(
         raise e
 
     return output
+
+
+def compute_metrics(
+    scores_all_types: list[np.ndarray], score_types: list[str], n_puzzles: int
+) -> dict[str, tuple]:
+    """Compute the metrics.
+
+    For each score type e.g. cell score, a dictionary of metrics is computed. This dictionary includes a string describing the rounded metrics.
+
+    Args:
+        scores_all_types: Tuple of scores as numpy arrays. Each element contains the scores for a specific score type.
+        score_types: List of score type names as strings.
+        n_puzzles: Number of puzzles as an integer.
+
+    Returns:
+        Metrics as a dictionary of with the score type as the key, and the values being a tuple of ndarrays. The tuple contains the rounded metrics for the score type and a string describing the metrics for the score type.
+
+    TODO: Add more metrics e.g. from sklearn.metrics
+    """
+    # Number of score types
+    n_metrics = len(score_types)
+
+    # Initialize metrics
+    mean_scores = np.zeros(n_metrics, dtype=float)
+    std_scores = np.zeros(n_metrics, dtype=float)
+    std_mean_scores = np.zeros(n_metrics, dtype=float)
+
+    # Initialize strings describing metrics for each score type
+    score_strings = np.zeros(n_metrics, dtype="U100")
+
+    for i, scores in enumerate(scores_all_types):
+        # Take the mean
+        mean_scores[i] = float(np.mean(scores))
+
+        # Take the standard deviation
+        std_scores[i] = float(np.std(scores, ddof=1))
+
+        # Compute the standard deviation of the mean
+        std_mean_scores[i] = std_scores[i] / np.sqrt(float(n_puzzles))
+
+        # Round to significant digits
+        std_scores[i] = np.format_float_positional(
+            std_scores[i], precision=1, fractional=False
+        )
+        std_mean_scores[i] = np.format_float_positional(
+            std_mean_scores[i], precision=1, fractional=False
+        )
+        mean_precision = len(str(std_mean_scores[i]).split(".")[1])
+        mean_scores[i] = np.format_float_positional(
+            mean_scores[i], precision=mean_precision, fractional=False
+        )
+
+        # Describe the score with a string
+        score_str = f"\tMean: {mean_scores[i]} ± {std_mean_scores[i]}"
+        score_str += f"\n\tPopulation standard deviation: {std_scores[i]}"
+        score_strings[i] = score_str
+
+    # Make a dictionary of metrics and score strings for each score type
+    metrics = {
+        score_type: (
+            mean_scores[i],
+            std_scores[i],
+            std_mean_scores[i],
+            score_strings[i],
+        )
+        for i, score_type in enumerate(score_types)
+    }
+
+    return metrics
+
+
+def format_scores(
+    scores_all_types: list[np.ndarray],
+    score_types: list[str],
+    metrics: dict[str, tuple],
+    n_puzzles: int,
+) -> str:
+    """Format the scores.
+
+    Args:
+        scores_all_types: Tuple of scores as numpy arrays. Each element contains the scores for a specific score type.
+        score_types: List of score type names as strings.
+        n_puzzles: Number of puzzles as an integer.
+        metrics: Metrics as a dictionary of with the score type as the key, and the values being a tuple of ndarrays. The tuple contains the rounded metrics for the score type and a string describing the metrics for the score type.
+
+    Returns:
+        A formatted string of the scores.
+    """
+    # --- Describe overall metrics ---#
+
+    score_str = "Puzzle Scores\n"
+    score_str += "-------------\n"
+    score_str += "Metrics\n\n"
+
+    # Complete the string describing all metrics
+    metrics_str = ""
+    for score_type in score_types:
+        metrics_str += f"{score_type.capitalize()}:\n"
+        metrics_str += metrics[score_type][-1]
+        metrics_str += "\n\n"
+
+    metrics_str = metrics_str[:-1]
+
+    score_str += metrics_str
+
+    # --- Describe scores of individual puzzles ---#
+
+    score_str += "\n-------------\n"
+    score_str += "Single puzzle scores\n"
+
+    for i in range(n_puzzles):
+        score_str += f"\nPuzzle {i}: "
+        for score_type, scores in zip(score_types, scores_all_types):
+            score_str += f"\t{score_type}: {scores[i]:.2f}"
+
+    return score_str
