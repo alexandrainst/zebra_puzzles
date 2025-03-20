@@ -22,11 +22,17 @@ def generate_solution(
         A tuple (solution, chosen_categories, chosen_attributes, chosen_attributes_descs), where:
             solution: A solution to a zebra puzzle as a matrix of object indices and chosen attributes. The dimensions are n_objects x (1 + n_attributes).
             chosen_categories: Categories chosen for the solution as a ndarray of strings of length n_attributes.
-            chosen_attributes: Attribute values chosen for the solution as a matrix of strings. The dimenstions are n_objects x n_attributes.
-            chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix of strings. The dimenstions are n_objects x n_attributes.
+            chosen_attributes: Attribute values chosen for the solution as a matrix of strings. The dimensions are n_objects x n_attributes.
+            chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix of strings. 3 versions are provided per description for different sentence structures. The dimensions are 3 x n_objects x n_attributes.
     """
-    # Choose a category for each attribute
-    chosen_categories = np.array(sample(list(attributes.keys()), k=n_attributes))
+    # Get the possible categories
+    all_categories = np.array(list(attributes.keys()))
+
+    # Choose a category for each attribute while maintaining the order of the categories
+    chosen_cat_indices = sorted(
+        np.array(sample(range(len(all_categories)), k=n_attributes))
+    )
+    chosen_categories = all_categories[chosen_cat_indices]
 
     # Choose attribute values for each category
     chosen_attributes = np.array(
@@ -93,9 +99,10 @@ def save_dataset(data: str, filename: str, folder: str = "data") -> None:
 def complete_prompt(
     chosen_clues: list[str],
     n_objects: int,
+    n_attributes: int,
     chosen_categories: np.ndarray,
     chosen_attributes: np.ndarray,
-    prompt_template: str,
+    prompt_templates: list[str],
     prompt_and: str,
 ) -> str:
     """Complete the prompt with the chosen clues.
@@ -108,20 +115,24 @@ def complete_prompt(
     Args:
         chosen_clues: Chosen clues for the zebra puzzle as a list of strings.
         n_objects: Number of objects in the puzzle.
+        n_attributes: Number of attributes of each object.
         chosen_categories: Categories chosen for the solution.
         chosen_attributes: Attribute values chosen for the solution.
-        prompt_template: Template for the prompt.
+        prompt_templates: List of templates for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
 
     Returns:
         The full prompt for the zebra puzzle as a string.
 
-
-    TODO: Improve the prompt here and in the config file.
     """
-    chosen_clues = [
-        f"{i + 1}. {clue[0].upper()}{clue[1:]}" for i, clue in enumerate(chosen_clues)
-    ]
+    if len(chosen_clues) > 1:
+        # Format chosen_clues as a numbered list
+        chosen_clues = [
+            f"{i + 1}. {clue[0].upper()}{clue[1:]}"
+            for i, clue in enumerate(chosen_clues)
+        ]
+    else:
+        chosen_clues = [f"{clue[0].upper()}{clue[1:]}" for clue in chosen_clues]
 
     if len(chosen_clues) > 1:
         chosen_clues_str = "\n".join(chosen_clues)
@@ -145,8 +156,11 @@ def complete_prompt(
         for i, cat in enumerate(chosen_categories)
     ]
 
-    # Use uppercase for the first letter of each attribute string
-    chosen_attributes_strs = [f"{x[0].upper()}{x[1:]}." for x in chosen_attributes_strs]
+    if n_attributes > 1:
+        # Use uppercase for the first letter of each attribute string
+        chosen_attributes_strs = [
+            f"{x[0].upper()}{x[1:]}." for x in chosen_attributes_strs
+        ]
 
     # Combine the attribute strings
     chosen_attributes_str = "\n".join(chosen_attributes_strs)
@@ -155,6 +169,11 @@ def complete_prompt(
     solution_template = create_solution_template(
         n_objects=n_objects, chosen_categories=chosen_categories
     )
+    # Choose a prompt template
+    if n_attributes > 1:
+        prompt_template = prompt_templates[0]
+    else:
+        prompt_template = prompt_templates[1]
 
     # Combine the prompt template with puzzle information
     prompt = prompt_template.format(

@@ -20,17 +20,17 @@ def main(config: DictConfig) -> None:
         config: Config file.
     """
     n_puzzles = config.n_puzzles
-    attributes = config.attributes
-    prompt_template = config.prompt_template
-    prompt_and = config.prompt_and
     n_objects = config.n_objects
     n_attributes = config.n_attributes
-    clues_dict = config.clues_dict
+    attributes = config.language.attributes
+    prompt_templates = config.language.prompt_templates
+    prompt_and = config.language.prompt_and
+    clues_dict = config.language.clues_dict
 
     build_dataset(
         attributes=attributes,
         clues_dict=clues_dict,
-        prompt_template=prompt_template,
+        prompt_templates=prompt_templates,
         prompt_and=prompt_and,
         n_objects=n_objects,
         n_attributes=n_attributes,

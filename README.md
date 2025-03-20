@@ -9,7 +9,27 @@
 
 # Zebra Puzzles
 
-Generation of zebra puzzles. GitHub Copilot has been used during this project.
+Generation of zebra puzzles.
+
+Run `uv run src/scripts/build_dataset.py` to generate puzzles.
+
+Use the configuration in `config/config.yaml` to specify:
+- number of puzzles to generate
+- puzzle dimensions
+- language
+- theme
+
+
+Typical runtimes for puzzles of size n_objects x n_attributes are (using all clue types):
+3x7: 0.7 s
+4x4: 0.6 s
+4x5: 11 s
+4x6: 3 min
+5x3: 3.8 s
+5x6: >10 min
+6x3: 4 min
+
+GitHub Copilot has been used for this project.
 
 ______________________________________________________________________
 [![Code Coverage](https://img.shields.io/badge/Coverage-0%25-red.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
