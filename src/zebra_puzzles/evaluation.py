@@ -9,7 +9,7 @@ from typing import Any, Type
 import numpy as np
 from dotenv import load_dotenv
 from openai import BadRequestError, OpenAI
-from pydantic import BaseModel, create_model
+from pydantic import BaseModel, ValidationError, create_model
 from tqdm import tqdm
 
 from zebra_puzzles.zebra_utils import clean_folder, save_dataset
@@ -238,7 +238,16 @@ def evaluate_single_puzzle(
             raise e
 
     # Reformat response
-    output = OutputFormat.model_validate(response.choices[0].message.parsed)
+    try:
+        output = OutputFormat.model_validate(response.choices[0].message.parsed)
+    except ValidationError as e:
+        print("response.choices[0].message:\n", response.choices[0].message)
+        print(
+            "\nresponse.choices[0].message.parsed:\n",
+            response.choices[0].message.parsed,
+        )
+        print()
+        raise e
 
     # Change the format of solution to OutputFormat
 

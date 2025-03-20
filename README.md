@@ -23,14 +23,22 @@ Use the configuration in `config/config.yaml` to specify:
 
 Puzzles and their solutions are saved in the data folder, LLM reponses are saved in the reponse folder and LLM scores are saved in the scores folder.
 
-Typical runtimes for generating puzzles of size n_objects x n_attributes are (using all clue types):
+Typical runtimes for generating a puzzle of size n_objects x n_attributes are (using all clue types):
 - 3x7: 0.7 s
 - 4x4: 0.6 s
-- 4x5: 11 s
+- 4x5: 13 s
 - 4x6: 3 min
 - 5x3: 3.8 s
 - 5x6: >10 min
 - 6x3: 4 min
+
+Typical times for evaluation of a puzzle:
+
+gpt-4o-mini:
+-
+
+o3:
+- 4x5: 8 min
 
 GitHub Copilot has been used for this project.
 

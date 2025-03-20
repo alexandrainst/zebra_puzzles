@@ -12,13 +12,13 @@ defaults:
 
 # Model
 # The LLM model to evaluate on the puzzles.
-model : gpt-4o-mini
+model : o3-mini
 
 # Number of puzzles to generate
 n_puzzles: 4
 
 # Objects e.g. houses
-n_objects: 3
+n_objects: 4
 
 # Attributes e.g. pets
-n_attributes: 3
+n_attributes: 5
