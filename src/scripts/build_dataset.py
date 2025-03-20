@@ -34,13 +34,6 @@ def main(config: DictConfig) -> None:
     red_herring_attributes = config.language.red_herring_attributes
     red_herring_facts = config.language.red_herring_facts
 
-    red_herring_info = (
-        n_red_herring_clues,
-        red_herring_clues_dict,
-        red_herring_attributes,
-        red_herring_facts,
-    )
-
     build_dataset(
         attributes=attributes,
         clues_dict=clues_dict,
@@ -49,7 +42,10 @@ def main(config: DictConfig) -> None:
         n_objects=n_objects,
         n_attributes=n_attributes,
         n_puzzles=n_puzzles,
-        red_herring_info=red_herring_info,
+        n_red_herring_clues=n_red_herring_clues,
+        red_herring_clues_dict=red_herring_clues_dict,
+        red_herring_attributes=red_herring_attributes,
+        red_herring_facts=red_herring_facts,
     )
 
 

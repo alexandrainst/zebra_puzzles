@@ -8,7 +8,10 @@ from zebra_puzzles.clue_selection import describe_random_attributes
 
 
 def choose_red_herrings(
-    red_herring_info: tuple[int, dict[str, str], dict[str, list[str]], dict[str, str]],
+    n_red_herring_clues: int,
+    red_herring_clues_dict: dict[str, str],
+    red_herring_attributes: dict[str, list[str]],
+    red_herring_facts: dict[str, str],
     chosen_attributes: np.ndarray,
     chosen_attributes_descs: np.ndarray,
     n_objects: int,
@@ -17,11 +20,10 @@ def choose_red_herrings(
     """Choose red herrings for a zebra puzzle.
 
     Args:
-        red_herring_info: Information about red herrings as a tuple (n_red_herring_clues, red_herring_clues_dict, red_herring_attributes, red_herring_facts), where:
-            n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
-            red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
-            red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
-            red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
+        n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
+        red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
+        red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
+        red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
         chosen_attributes: Attribute values chosen for the solution as a matrix.
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
         n_objects: Number of objects in the puzzle.
@@ -31,13 +33,6 @@ def choose_red_herrings(
         Chosen red herring clues for the zebra puzzle as a list of strings.
 
     """
-    (
-        n_red_herring_clues,
-        red_herring_clues_dict,
-        red_herring_attributes,
-        red_herring_facts,
-    ) = red_herring_info
-
     chosen_clues: list[str] = []
     used_red_herrings: list[str] = []
     for _ in range(n_red_herring_clues):
