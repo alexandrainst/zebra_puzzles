@@ -72,6 +72,7 @@ def evaluate_all(
     # Initialize scores
     puzzle_scores: np.ndarray = np.zeros(n_puzzles)
     cell_scores: np.ndarray = np.zeros(n_puzzles)
+    sorted_cell_scores: np.ndarray = np.zeros(n_puzzles)
 
     # Evaluate each puzzle
     for i, file_path in tqdm(
@@ -82,7 +83,7 @@ def evaluate_all(
         colour="#5599ff",
         ascii="░█",
     ):
-        puzzle_score, cell_score = evaluate_single_puzzle(
+        puzzle_score, cell_score, sorted_cell_score = evaluate_single_puzzle(
             file_path=file_path,
             n_objects=n_objects,
             n_attributes=n_attributes,
@@ -91,13 +92,21 @@ def evaluate_all(
         )
         puzzle_scores[i] = puzzle_score
         cell_scores[i] = cell_score
+        sorted_cell_scores[i] = sorted_cell_score
 
     # Compute summary metrics
-    metrics = compute_metrics(puzzle_scores=puzzle_scores, cell_scores=cell_scores)
+    metrics = compute_metrics(
+        puzzle_scores=puzzle_scores,
+        cell_scores=cell_scores,
+        sorted_cell_scores=sorted_cell_scores,
+    )
 
     # Save scores
     score_str = format_scores(
-        puzzle_scores=puzzle_scores, cell_scores=cell_scores, metrics=metrics
+        puzzle_scores=puzzle_scores,
+        cell_scores=cell_scores,
+        sorted_cell_scores=sorted_cell_scores,
+        metrics=metrics,
     )
 
     filename = (
@@ -107,36 +116,45 @@ def evaluate_all(
 
 
 def compute_metrics(
-    puzzle_scores: np.ndarray, cell_scores: np.ndarray
+    puzzle_scores: np.ndarray, cell_scores: np.ndarray, sorted_cell_scores: np.ndarray
 ) -> dict[str, float]:
     """Compute the metrics.
 
     Args:
         puzzle_scores: Puzzle scores as a numpy array.
         cell_scores: Cell scores as a numpy array.
+        sorted_cell_scores: Cell scores as a numpy array after sorting the output and solution by the first attribute in each object.
 
     Returns:
         Metrics as a dictionary.
+
+    TODO: Add more metrics e.g. from sklearn.metrics
     """
     mean_puzzle_score = float(np.mean(puzzle_scores))
     mean_cell_score = float(np.mean(cell_scores))
+    mean_sorted_cell_score = float(np.mean(sorted_cell_scores))
 
     metrics = {
         "mean_puzzle_score": mean_puzzle_score,
         "mean_cell_score": mean_cell_score,
+        "mean_sorted_cell_score": mean_sorted_cell_score,
     }
 
     return metrics
 
 
 def format_scores(
-    puzzle_scores: np.ndarray, cell_scores: np.ndarray, metrics: dict[str, float]
+    puzzle_scores: np.ndarray,
+    cell_scores: np.ndarray,
+    sorted_cell_scores: np.ndarray,
+    metrics: dict[str, float],
 ) -> str:
     """Format the scores.
 
     Args:
         puzzle_scores: Puzzle scores as a numpy array.
         cell_scores: Cell scores as a numpy array.
+        sorted_cell_scores: Cell scores as a numpy array after sorting the output and solution by the first attribute in each object.
         metrics: Metrics as a dictionary.
 
     Returns:
@@ -153,8 +171,10 @@ def format_scores(
     score_str += "\n-------------\n"
     score_str += "Single puzzle scores\n"
 
-    for i, (puzzle_score, cell_score) in enumerate(zip(puzzle_scores, cell_scores)):
-        score_str += f"Puzzle {i}: {puzzle_score} {cell_score}\n"
+    for i, (puzzle_score, cell_score, sorted_cell_score) in enumerate(
+        zip(puzzle_scores, cell_scores, sorted_cell_scores)
+    ):
+        score_str += f"Puzzle {i}: {puzzle_score} {cell_score} {sorted_cell_score}\n"
 
     return score_str
 
@@ -165,7 +185,7 @@ def evaluate_single_puzzle(
     n_attributes: int,
     model: str,
     response_filename: str,
-) -> tuple[float, float]:
+) -> tuple[float, float, float]:
     """Evaluate a dataset of zebra puzzles.
 
     Args:
@@ -179,6 +199,7 @@ def evaluate_single_puzzle(
         A tuple (puzzle_score, cell_score), where:
             puzzle_score: A puzzle-level score as a float.
             cell_score: A cell-level score as a float.
+            sorted_cell_score: A cell-level score as a float after sorting the output and solution by the first attribute in each object.
     """
     logging.getLogger("httpx").setLevel(logging.ERROR)
 
@@ -225,40 +246,109 @@ def evaluate_single_puzzle(
 
     solution_json = OutputFormat.model_validate(solution_json)
 
-    puzzle_score, cell_score = compare_solutions(output, solution_json)
+    puzzle_score, cell_score, sorted_cell_score = compare_solutions(
+        output=output,
+        solution=solution_json,
+        n_objects=n_objects,
+        n_attributes=n_attributes,
+    )
 
     # Save the output
     output_str = json.dumps(output.model_dump(), indent=4)
     save_dataset(data=output_str, filename=response_filename, folder="responses")
 
-    return puzzle_score, cell_score
+    return puzzle_score, cell_score, sorted_cell_score
 
 
-def compare_solutions(output: BaseModel, solution: BaseModel) -> tuple[float, float]:
+def compare_solutions(
+    output: BaseModel, solution: BaseModel, n_objects: int, n_attributes: int
+) -> tuple[int, float, float]:
     """Compare the output to the solution.
 
+    The puzzle score is 1 for a correct solution and 0 for an incorrect solution.
+    The cell score is the proportion of cells that are correct.
+    The sorted cell score is the cell score after sorting the output and solution by the first attribute in each object. This will give a high score if the LLM coupled the attributes correctly, but misunderstood the order of the objects.
+
     Args:
-        output: The output as a dictionary.
-        solution: The solution as a dictionary.
+        output: The output in OutputFormat format.
+        solution: The solution in OutputFormat format.
+        n_objects: Number of objects in the puzzle.
+        n_attributes: Number of attributes of each object.
 
     Returns:
         A tuple (puzzle_score, cell_score), where:
-            puzzle_score: A puzzle-level score as a float.
+            puzzle_score: A puzzle-level score as an integer.
             cell_score: A cell-level score as a float.
+            sorted_cell_score: A cell-level score as a float after sorting the output and solution by the first attribute in each object.
     """
     # Extract solution arrays
 
-    # Strip whitespace
-
-    # Compare the output to the solution
+    # Compare the full output to the solution
 
     if output == solution:
         puzzle_score = 1
+        cell_score = 1.0
+        sorted_cell_score = 1.0
     else:
-        puzzle_score = 0
+        # Compare all cells
+        cell_score = compute_cell_score(
+            output=dict(output),
+            solution=dict(solution),
+            n_objects=n_objects,
+            n_attributes=n_attributes,
+        )
 
-    cell_score = puzzle_score
+        # Check if the puzzle is solved after stripping whitespace in cells
+        if cell_score == 1:
+            puzzle_score = 1
+            sorted_cell_score = 1.0
+        else:
+            puzzle_score = 0
 
-    # Sort and compare again
+            # Sort by the first attribute in each object
+            output_sorted = dict(sorted(output, key=lambda x: x[1]))
+            solution_sorted = dict(sorted(solution, key=lambda x: x[1]))
 
-    return puzzle_score, cell_score
+            # Compare the sorted output to the sorted solution
+            sorted_cell_score = compute_cell_score(
+                output_sorted, solution_sorted, n_objects, n_attributes
+            )
+
+    return puzzle_score, cell_score, sorted_cell_score
+
+
+def compute_cell_score(
+    output: dict[str, list],
+    solution: dict[str, list],
+    n_objects: int,
+    n_attributes: int,
+) -> float:
+    """Compute the cell score.
+
+    Args:
+        output: The output in OutputFormat format.
+        solution: The solution in OutputFormat format.
+        n_objects: Number of objects in the puzzle.
+        n_attributes: Number of attributes of each object.
+
+    Returns:
+        The cell score as a float.
+    """
+    # Compare each cell
+    cell_score: float = 0.0
+    for attributes_output, attributes_solution in zip(
+        output.values(), solution.values()
+    ):
+        for attribute_output, attribute_solution in zip(
+            attributes_output, attributes_solution
+        ):
+            if attribute_output.strip() == attribute_solution.strip():
+                cell_score += 1.0
+
+    # Normalise the cell score
+    cell_score /= n_objects * n_attributes
+
+    # Round to 2 decimal places
+    cell_score = round(cell_score, 2)
+
+    return cell_score
