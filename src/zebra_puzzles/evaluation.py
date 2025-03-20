@@ -1,5 +1,6 @@
 """Module for evaluation."""
 
+import itertools
 import json
 import logging
 import os
@@ -71,7 +72,7 @@ def evaluate_all(
     # Initialize scores
     puzzle_scores: np.ndarray = np.zeros(n_puzzles)
     cell_scores: np.ndarray = np.zeros(n_puzzles)
-    sorted_cell_scores: np.ndarray = np.zeros(n_puzzles)
+    best_permuted_cell_scores: np.ndarray = np.zeros(n_puzzles)
 
     # Evaluate each puzzle
     for i, file_path in tqdm(
@@ -82,7 +83,7 @@ def evaluate_all(
         colour="#5599ff",
         ascii="░█",
     ):
-        puzzle_score, cell_score, sorted_cell_score = evaluate_single_puzzle(
+        puzzle_score, cell_score, best_permuted_cell_score = evaluate_single_puzzle(
             file_path=file_path,
             n_objects=n_objects,
             n_attributes=n_attributes,
@@ -91,19 +92,20 @@ def evaluate_all(
         )
         puzzle_scores[i] = puzzle_score
         cell_scores[i] = cell_score
-        sorted_cell_scores[i] = sorted_cell_score
+        best_permuted_cell_scores[i] = best_permuted_cell_score
+
+    scores_all_types = [puzzle_scores, cell_scores, best_permuted_cell_scores]
+    score_types = ["puzzle score", "cell score", "best permuted cell score"]
 
     # Compute summary metrics
     metrics = compute_metrics(
-        scores_all_types=[puzzle_scores, cell_scores, sorted_cell_scores],
-        score_types=["puzzle score", "cell score", "sorted cell score"],
-        n_puzzles=n_puzzles,
+        scores_all_types=scores_all_types, score_types=score_types, n_puzzles=n_puzzles
     )
 
     # Save scores
     score_str = format_scores(
-        scores_all_types=[puzzle_scores, cell_scores, sorted_cell_scores],
-        score_types=["puzzle score", "cell score", "sorted cell score"],
+        scores_all_types=scores_all_types,
+        score_types=score_types,
         metrics=metrics,
         n_puzzles=n_puzzles,
     )
@@ -248,7 +250,7 @@ def evaluate_single_puzzle(
         A tuple (puzzle_score, cell_score), where:
             puzzle_score: A puzzle-level score as a float.
             cell_score: A cell-level score as a float.
-            sorted_cell_score: A cell-level score as a float after sorting the output and solution by the first attribute in each object.
+            best_permuted_cell_score: A cell-level score as a float after trying all permutations of the objects in the response.
     """
     logging.getLogger("httpx").setLevel(logging.ERROR)
 
@@ -288,7 +290,7 @@ def evaluate_single_puzzle(
     try:
         output = OutputFormat.model_validate(response.choices[0].message.parsed)
     except ValidationError as e:
-        print("response.choices[0].message:\n", response.choices[0].message)
+        print("response:\n", response)
         print(
             "\nresponse.choices[0].message.parsed:\n",
             response.choices[0].message.parsed,
@@ -302,7 +304,7 @@ def evaluate_single_puzzle(
 
     solution_json = OutputFormat.model_validate(solution_json)
 
-    puzzle_score, cell_score, sorted_cell_score = compare_solutions(
+    puzzle_score, cell_score, best_permuted_cell_score = compare_solutions(
         output=output,
         solution=solution_json,
         n_objects=n_objects,
@@ -313,7 +315,7 @@ def evaluate_single_puzzle(
     output_str = json.dumps(output.model_dump(), indent=4)
     save_dataset(data=output_str, filename=response_filename, folder="responses")
 
-    return puzzle_score, cell_score, sorted_cell_score
+    return puzzle_score, cell_score, best_permuted_cell_score
 
 
 def compare_solutions(
@@ -323,7 +325,7 @@ def compare_solutions(
 
     The puzzle score is 1 for a correct solution and 0 for an incorrect solution.
     The cell score is the proportion of cells that are correct.
-    The sorted cell score is the cell score after sorting the output and solution by the first attribute in each object. This will give a high score if the LLM coupled the attributes correctly, but misunderstood the order of the objects.
+    The best permuted cell score is the best cell score after trying all permutations of the objects in the response. This will give a high score if the LLM coupled the attributes correctly, but misunderstood the order of the objects.
 
     Args:
         output: The output in OutputFormat format.
@@ -335,21 +337,23 @@ def compare_solutions(
         A tuple (puzzle_score, cell_score), where:
             puzzle_score: A puzzle-level score as an integer.
             cell_score: A cell-level score as a float.
-            sorted_cell_score: A cell-level score as a float after sorting the output and solution by the first attribute in each object.
+            best_permuted_cell_score: The best cell-level score as a float after trying all permutations of the objects in the response.
     """
-    # Extract solution arrays
+    # Convert the output and solution to dictionaries
+    output_dict = dict(output)
+    solution_dict = dict(solution)
 
     # Compare the full output to the solution
 
-    if output == solution:
+    if output_dict == solution_dict:
         puzzle_score = 1
         cell_score = 1.0
-        sorted_cell_score = 1.0
+        best_permuted_cell_score = 1.0
     else:
         # Compare all cells
         cell_score = compute_cell_score(
-            output=dict(output),
-            solution=dict(solution),
+            output=output_dict,
+            solution=solution_dict,
             n_objects=n_objects,
             n_attributes=n_attributes,
         )
@@ -357,20 +361,39 @@ def compare_solutions(
         # Check if the puzzle is solved after stripping whitespace in cells
         if cell_score == 1:
             puzzle_score = 1
-            sorted_cell_score = 1.0
+            best_permuted_cell_score = 1.0
         else:
             puzzle_score = 0
 
-            # Sort by the first attribute in each object
-            output_sorted = dict(sorted(output, key=lambda x: x[1]))
-            solution_sorted = dict(sorted(solution, key=lambda x: x[1]))
+            # Evaluate every permutation of the objects in the response
 
-            # Compare the sorted output to the sorted solution
-            sorted_cell_score = compute_cell_score(
-                output_sorted, solution_sorted, n_objects, n_attributes
-            )
+            best_permuted_cell_score = 0.0
+            objects = list(output_dict.keys())
 
-    return puzzle_score, cell_score, sorted_cell_score
+            # Create all permutations of the objects where each object appears exactly once
+
+            object_permutations = list(itertools.permutations(objects))
+
+            # Evaluate each permutation
+            for object_permutation in object_permutations:
+                # Create a new output with the objects permuted
+                output_permuted = {
+                    object: output_dict[object] for object in object_permutation
+                }
+
+                # Compare the permuted output to the solution
+                permuted_cell_score = compute_cell_score(
+                    output=output_permuted,
+                    solution=solution_dict,
+                    n_objects=n_objects,
+                    n_attributes=n_attributes,
+                )
+
+                # Update the best permuted cell score
+                if permuted_cell_score > best_permuted_cell_score:
+                    best_permuted_cell_score = permuted_cell_score
+
+    return puzzle_score, cell_score, best_permuted_cell_score
 
 
 def compute_cell_score(
