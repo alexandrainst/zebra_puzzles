@@ -18,7 +18,7 @@ from zebra_puzzles.zebra_utils import clean_folder, save_dataset
 load_dotenv()
 
 
-def generate_output_format_class(n_objects: int, n_attributes: int) -> Type[BaseModel]:
+def generate_output_format_class(n_objects: int) -> Type[BaseModel]:
     """Generate the OutputFormat class based on the number of objects.
 
     The OutputFormat class is a dynamically generated Pydantic model that represents the output format of the LLM.
@@ -30,7 +30,6 @@ def generate_output_format_class(n_objects: int, n_attributes: int) -> Type[Base
 
     Args:
         n_objects: Number of objects in the puzzle.
-        n_attributes: Number of attributes of each object.
 
     Returns:
         A dynamically generated OutputFormat class.
@@ -96,17 +95,17 @@ def evaluate_all(
 
     # Compute summary metrics
     metrics = compute_metrics(
-        puzzle_scores=puzzle_scores,
-        cell_scores=cell_scores,
-        sorted_cell_scores=sorted_cell_scores,
+        scores_all_types=[puzzle_scores, cell_scores, sorted_cell_scores],
+        score_types=["puzzle score", "cell score", "sorted cell score"],
+        n_puzzles=n_puzzles,
     )
 
     # Save scores
     score_str = format_scores(
-        puzzle_scores=puzzle_scores,
-        cell_scores=cell_scores,
-        sorted_cell_scores=sorted_cell_scores,
+        scores_all_types=[puzzle_scores, cell_scores, sorted_cell_scores],
+        score_types=["puzzle score", "cell score", "sorted cell score"],
         metrics=metrics,
+        n_puzzles=n_puzzles,
     )
 
     filename = (
@@ -116,65 +115,115 @@ def evaluate_all(
 
 
 def compute_metrics(
-    puzzle_scores: np.ndarray, cell_scores: np.ndarray, sorted_cell_scores: np.ndarray
-) -> dict[str, float]:
+    scores_all_types: list[np.ndarray], score_types: list[str], n_puzzles: int
+) -> dict[str, tuple]:
     """Compute the metrics.
 
+    For each score type e.g. cell score, a dictionary of metrics is computed. This dictionary includes a string describing the rounded metrics.
+
     Args:
-        puzzle_scores: Puzzle scores as a numpy array.
-        cell_scores: Cell scores as a numpy array.
-        sorted_cell_scores: Cell scores as a numpy array after sorting the output and solution by the first attribute in each object.
+        scores_all_types: Tuple of scores as numpy arrays. Each element contains the scores for a specific score type.
+        score_types: List of score type names as strings.
+        n_puzzles: Number of puzzles as an integer.
 
     Returns:
-        Metrics as a dictionary.
+        Metrics as a dictionary of with the score type as the key, and the values being a tuple of ndarrays. The tuple contains the rounded metrics for the score type and a string describing the metrics for the score type.
 
     TODO: Add more metrics e.g. from sklearn.metrics
     """
-    mean_puzzle_score = float(np.mean(puzzle_scores))
-    mean_cell_score = float(np.mean(cell_scores))
-    mean_sorted_cell_score = float(np.mean(sorted_cell_scores))
+    # Number of score types
+    n_metrics = len(score_types)
 
+    # Initialize metrics
+    mean_scores = np.zeros(n_metrics, dtype=float)
+    std_scores = np.zeros(n_metrics, dtype=float)
+    std_mean_scores = np.zeros(n_metrics, dtype=float)
+
+    # Initialize strings describing metrics for each score type
+    score_strings = np.zeros(n_metrics, dtype="U100")
+
+    for i, scores in enumerate(scores_all_types):
+        # Take the mean
+        mean_scores[i] = float(np.mean(scores))
+
+        # Take the standard deviation
+        std_scores[i] = float(np.std(scores, ddof=1))
+
+        # Compute the standard deviation of the mean
+        std_mean_scores[i] = std_scores[i] / np.sqrt(float(n_puzzles))
+
+        # Round to significant digits
+        std_scores[i] = np.format_float_positional(
+            std_scores[i], precision=1, fractional=False
+        )
+        std_mean_scores[i] = np.format_float_positional(
+            std_mean_scores[i], precision=1, fractional=False
+        )
+        mean_precision = len(str(std_mean_scores[i]).split(".")[1])
+        mean_scores[i] = np.format_float_positional(
+            mean_scores[i], precision=mean_precision, fractional=False
+        )
+
+        # Describe the score with a string
+        score_str = f"\tMean: {mean_scores[i]} ± {std_mean_scores[i]}"
+        score_str += f"\n\tPopulation standard deviation: {std_scores[i]}"
+        score_strings[i] = score_str
+
+    # Make a dictionary of metrics and score strings for each score type
     metrics = {
-        "mean_puzzle_score": mean_puzzle_score,
-        "mean_cell_score": mean_cell_score,
-        "mean_sorted_cell_score": mean_sorted_cell_score,
+        score_type: (
+            mean_scores[i],
+            std_scores[i],
+            std_mean_scores[i],
+            score_strings[i],
+        )
+        for i, score_type in enumerate(score_types)
     }
 
     return metrics
 
 
 def format_scores(
-    puzzle_scores: np.ndarray,
-    cell_scores: np.ndarray,
-    sorted_cell_scores: np.ndarray,
-    metrics: dict[str, float],
+    scores_all_types: list[np.ndarray],
+    score_types: list[str],
+    metrics: dict[str, tuple],
+    n_puzzles: int,
 ) -> str:
     """Format the scores.
 
     Args:
-        puzzle_scores: Puzzle scores as a numpy array.
-        cell_scores: Cell scores as a numpy array.
-        sorted_cell_scores: Cell scores as a numpy array after sorting the output and solution by the first attribute in each object.
-        metrics: Metrics as a dictionary.
+        scores_all_types: Tuple of scores as numpy arrays. Each element contains the scores for a specific score type.
+        score_types: List of score type names as strings.
+        n_puzzles: Number of puzzles as an integer.
+        metrics: Metrics as a dictionary of with the score type as the key, and the values being a tuple of ndarrays. The tuple contains the rounded metrics for the score type and a string describing the metrics for the score type.
 
     Returns:
         A formatted string of the scores.
     """
+    # --- Describe overall metrics ---#
+
     score_str = "Puzzle Scores\n"
     score_str += "-------------\n"
-    score_str += "Metrics\n"
+    score_str += "Metrics\n\n"
 
-    metrics_str = json.dumps(metrics, indent=4)
+    # Complete the string describing all metrics
+    metrics_str = ""
+    for score_type in score_types:
+        metrics_str += f"{score_type.capitalize()}:\n"
+        metrics_str += metrics[score_type][-1]
+        metrics_str += "\n"
 
     score_str += metrics_str
+
+    # --- Describe scores of individual puzzles ---#
 
     score_str += "\n-------------\n"
     score_str += "Single puzzle scores\n"
 
-    for i, (puzzle_score, cell_score, sorted_cell_score) in enumerate(
-        zip(puzzle_scores, cell_scores, sorted_cell_scores)
-    ):
-        score_str += f"Puzzle {i}: {puzzle_score} {cell_score} {sorted_cell_score}\n"
+    for i in range(n_puzzles):
+        score_str += f"\nPuzzle {i}: "
+        for score_type, scores in zip(score_types, scores_all_types):
+            score_str += f"\t{score_type}: {scores[i]:.2f}"
 
     return score_str
 
@@ -213,9 +262,7 @@ def evaluate_single_puzzle(
     client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
     # Generate the dynamic OutputFormat class
-    OutputFormat = generate_output_format_class(
-        n_objects=n_objects, n_attributes=n_attributes
-    )
+    OutputFormat = generate_output_format_class(n_objects=n_objects)
 
     # Generate LLM output
     try:
@@ -355,9 +402,6 @@ def compute_cell_score(
                 cell_score += 1.0
 
     # Normalise the cell score
-    cell_score /= n_objects * n_attributes
-
-    # Round to 2 decimal places
-    cell_score = round(cell_score, 2)
+    cell_score /= float(n_objects * n_attributes)
 
     return cell_score
