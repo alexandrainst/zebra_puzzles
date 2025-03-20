@@ -35,9 +35,10 @@ Typical runtimes for generating a puzzle of size n_objects x n_attributes are (u
 Typical times for evaluation of a puzzle:
 
 gpt-4o-mini:
--
+- 4x4: 2 s
 
 o3:
+- 4x4: 2 min
 - 4x5: 8 min
 
 GitHub Copilot has been used for this project.
