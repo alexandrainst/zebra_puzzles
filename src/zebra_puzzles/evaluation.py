@@ -19,31 +19,6 @@ from zebra_puzzles.zebra_utils import clean_folder, save_dataset
 load_dotenv()
 
 
-def generate_output_format_class(n_objects: int) -> Type[BaseModel]:
-    """Generate the OutputFormat class based on the number of objects.
-
-    The OutputFormat class is a dynamically generated Pydantic model that represents the output format of the LLM.
-
-    The format will be:
-        object_1: list[str]
-        object_2: list[str]
-        ...
-
-    Args:
-        n_objects: Number of objects in the puzzle.
-
-    Returns:
-        A dynamically generated OutputFormat class.
-    """
-    fields: dict[str, Any] = {
-        f"object_{i + 1}": (list[str], ...) for i in range(n_objects)
-    }
-
-    OutputFormat = create_model("OutputFormat", **fields)
-
-    return OutputFormat
-
-
 def evaluate_all(
     n_puzzles: int,
     n_objects: int,
@@ -119,6 +94,31 @@ def evaluate_all(
         f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_puzzles}.txt"
     )
     save_dataset(data=score_str, filename=filename, folder="scores")
+
+
+def generate_output_format_class(n_objects: int) -> Type[BaseModel]:
+    """Generate the OutputFormat class based on the number of objects.
+
+    The OutputFormat class is a dynamically generated Pydantic model that represents the output format of the LLM.
+
+    The format will be:
+        object_1: list[str]
+        object_2: list[str]
+        ...
+
+    Args:
+        n_objects: Number of objects in the puzzle.
+
+    Returns:
+        A dynamically generated OutputFormat class.
+    """
+    fields: dict[str, Any] = {
+        f"object_{i + 1}": (list[str], ...) for i in range(n_objects)
+    }
+
+    OutputFormat = create_model("OutputFormat", **fields)
+
+    return OutputFormat
 
 
 def compute_metrics(
@@ -261,52 +261,13 @@ def evaluate_single_puzzle(
             cell_score: A cell-level score as a float.
             best_permuted_cell_score: A cell-level score as a float after trying all permutations of the objects in the response.
     """
+    # Generate the dynamic OutputFormat class
+    OutputFormat = generate_output_format_class(n_objects=n_objects)
+
     if generate_new_responses:
-        logging.getLogger("httpx").setLevel(logging.ERROR)
-
-        # Load the prompt
-        with file_path.open() as file:
-            prompt = file.read()
-
-        with file_path.with_stem(f"{file_path.stem}_solution").open() as file:
-            solution = file.read()
-
-        client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
-
-        # Generate the dynamic OutputFormat class
-        OutputFormat = generate_output_format_class(n_objects=n_objects)
-
-        # Generate LLM output
-        try:
-            response = client.beta.chat.completions.parse(
-                messages=[{"role": "user", "content": prompt}],
-                model=model,
-                temperature=0,
-                seed=42,
-                response_format=OutputFormat,
-            )
-        except BadRequestError as e:
-            if "'temperature' is not supported" in str(e):
-                response = client.beta.chat.completions.parse(
-                    messages=[{"role": "user", "content": prompt}],
-                    model=model,
-                    seed=42,
-                    response_format=OutputFormat,
-                )
-            else:
-                raise e
-
-        # Reformat response
-        try:
-            output = OutputFormat.model_validate(response.choices[0].message.parsed)
-        except ValidationError as e:
-            print("response:\n", response)
-            print(
-                "\nresponse.choices[0].message.parsed:\n",
-                response.choices[0].message.parsed,
-            )
-            print()
-            raise e
+        output = query_LLM(
+            file_path=file_path, model=model, response_format=OutputFormat
+        )
 
     else:
         # Load an existing response
@@ -314,6 +275,11 @@ def evaluate_single_puzzle(
             response_str = file.read()
 
         output = json.loads(response_str)
+
+    # Load the solution
+
+    with file_path.with_stem(f"{file_path.stem}_solution").open() as file:
+        solution = file.read()
 
     # Change the format of solution to OutputFormat
 
@@ -333,6 +299,63 @@ def evaluate_single_puzzle(
     save_dataset(data=output_str, filename=response_filename, folder="responses")
 
     return puzzle_score, cell_score, best_permuted_cell_score
+
+
+def query_LLM(
+    file_path: Path, model: str, response_format: Type[BaseModel]
+) -> BaseModel:
+    """Query an LLM API.
+
+    Args:
+        file_path: Path to the dataset file.
+        model: The model to use for the evaluation.
+        response_format: The response format as a Pydantic model.
+
+    Returns:
+        The output in OutputFormat format.
+
+    """
+    logging.getLogger("httpx").setLevel(logging.ERROR)
+
+    # Load the prompt
+    with file_path.open() as file:
+        prompt = file.read()
+
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+
+    # Generate LLM output
+    try:
+        response = client.beta.chat.completions.parse(
+            messages=[{"role": "user", "content": prompt}],
+            model=model,
+            temperature=0,
+            seed=42,
+            response_format=response_format,
+        )
+    except BadRequestError as e:
+        if "'temperature' is not supported" in str(e):
+            response = client.beta.chat.completions.parse(
+                messages=[{"role": "user", "content": prompt}],
+                model=model,
+                seed=42,
+                response_format=response_format,
+            )
+        else:
+            raise e
+
+    # Reformat response
+    try:
+        output = response_format.model_validate(response.choices[0].message.parsed)
+    except ValidationError as e:
+        print("response:\n", response)
+        print(
+            "\nresponse.choices[0].message.parsed:\n",
+            response.choices[0].message.parsed,
+        )
+        print()
+        raise e
+
+    return output
 
 
 def compare_solutions(
