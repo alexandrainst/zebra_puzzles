@@ -15,7 +15,7 @@ defaults:
 model : gpt-4o-mini
 
 # Whether to generate new LLM responses or only evaluate existing ones when running evaluate.py
-generate_new_responses: True
+generate_new_responses: False
 
 # Number of puzzles to generate
 n_puzzles: 4
