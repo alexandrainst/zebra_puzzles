@@ -114,7 +114,14 @@ def build_dataset(
     # Clean data folder
     clean_folder(folder="data", keep_files=data_filenames)
 
-    for i in tqdm(range(n_puzzles)):
+    for i in tqdm(
+        range(n_puzzles),
+        total=n_puzzles,
+        desc="Building dataset",
+        unit="puzzle",
+        colour="#5599ff",
+        ascii="░█",
+    ):
         prompt, solution_json = run_pipeline(
             n_objects=n_objects,
             n_attributes=n_attributes,

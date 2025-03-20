@@ -74,7 +74,14 @@ def evaluate_all(
     cell_scores: np.ndarray = np.zeros(n_puzzles)
 
     # Evaluate each puzzle
-    for i, file_path in tqdm(enumerate(file_paths), total=n_puzzles):
+    for i, file_path in tqdm(
+        enumerate(file_paths),
+        total=n_puzzles,
+        desc="Evaluating",
+        unit="puzzle",
+        colour="#5599ff",
+        ascii="░█",
+    ):
         puzzle_score, cell_score = evaluate_single_puzzle(
             file_path=file_path,
             n_objects=n_objects,
