@@ -1,8 +1,16 @@
 """Pipeline module for generating and saving zebra puzzles."""
 
+from tqdm import tqdm
+
 from zebra_puzzles.clue_selection import choose_clues
 from zebra_puzzles.red_herring_selection import choose_red_herrings
-from zebra_puzzles.zebra_utils import complete_prompt, generate_solution, save_dataset
+from zebra_puzzles.zebra_utils import (
+    clean_folder,
+    complete_prompt,
+    format_solution,
+    generate_solution,
+    save_dataset,
+)
 
 
 def run_pipeline(
@@ -80,16 +88,16 @@ def run_pipeline(
         prompt_and=prompt_and,
     )
 
-    solution_str = "\n".join([" ".join(row) for row in solution])
+    solution_json = format_solution(solution=solution)
 
     if verbose:
         print("*** Prompt *** \n", prompt)
-        print("*** Solution *** \n", solution_str)
+        print("*** Solution *** \n", solution_json)
 
     if eval:
         pass
 
-    return prompt, solution_str
+    return prompt, solution_json
 
 
 def build_dataset(
@@ -124,8 +132,26 @@ def build_dataset(
 
     NOTE: Consider only saving the puzzle and solution instead of the whole prompt.
     """
-    for i in range(n_puzzles):
-        prompt, solution_str = run_pipeline(
+    # Create data file names
+    prompt_filenames = ["zebra_puzzle_{}.txt".format(i) for i in range(n_puzzles)]
+    solution_filenames = [
+        str(file.split(".")[0]) + "_solution.txt" for file in prompt_filenames
+    ]
+
+    data_filenames = prompt_filenames + solution_filenames
+
+    # Clean data folder
+    clean_folder(folder="data", keep_files=data_filenames)
+
+    for i in tqdm(
+        range(n_puzzles),
+        total=n_puzzles,
+        desc="Building dataset",
+        unit="puzzle",
+        colour="#5599ff",
+        ascii="░█",
+    ):
+        prompt, solution_json = run_pipeline(
             n_objects=n_objects,
             n_attributes=n_attributes,
             attributes=attributes,
@@ -139,11 +165,5 @@ def build_dataset(
             verbose=False,
             eval=False,
         )
-        save_dataset(
-            data=prompt, filename="zebra_puzzle_{}.txt".format(i), folder="data"
-        )
-        save_dataset(
-            data=solution_str,
-            filename="zebra_puzzle_{}_solution.txt".format(i),
-            folder="data",
-        )
+        save_dataset(data=prompt, filename=data_filenames[i], folder="data")
+        save_dataset(data=solution_json, filename=solution_filenames[i], folder="data")

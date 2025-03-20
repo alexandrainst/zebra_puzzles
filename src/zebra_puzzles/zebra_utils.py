@@ -1,5 +1,6 @@
 """Utility module for generating zebra puzzles."""
 
+import os
 from random import sample, shuffle
 
 import numpy as np
@@ -58,15 +59,38 @@ def generate_solution(
     return solution, chosen_categories, chosen_attributes, chosen_attributes_descs
 
 
+def clean_folder(folder: str, keep_files: list[str]) -> None:
+    """Delete all files in a folder.
+
+    Args:
+        folder: Folder to clean.
+        keep_files: List of files to keep in the folder.
+    """
+    existing_files = os.listdir(folder)
+
+    # Get a list of files to delete
+    files_to_delete = [file for file in existing_files if file not in keep_files]
+
+    if len(files_to_delete) > 0:
+        useroutput = input(
+            f"\nDo you want to delete the following outdated files in the folder '{folder}'?\n\n{files_to_delete}\n\n(y/n): "
+        )
+        if useroutput == "y":
+            for file in files_to_delete:
+                os.remove(os.path.join(folder, file))
+            print("Old files were deleted.")
+        else:
+            print("Old files were not deleted.")
+
+
 def save_dataset(data: str, filename: str, folder: str = "data") -> None:
-    """Save a zebra puzzle dataset.
+    """Save a file.
 
     Args:
         data: Data to save.
         filename: Name of the file.
         folder: Folder to save the file in.
 
-    TODO: Consider preferred format.
     """
     with open(folder + "/" + filename, "w") as file:
         file.write(data)
@@ -148,6 +172,10 @@ def complete_prompt(
     # Combine the attribute strings
     chosen_attributes_str = "\n".join(chosen_attributes_strs)
 
+    # Create a solution template
+    solution_template = create_solution_template(
+        n_objects=n_objects, chosen_categories=chosen_categories
+    )
     # Choose a prompt template
     if n_attributes > 1:
         prompt_template = prompt_templates[0]
@@ -160,6 +188,7 @@ def complete_prompt(
         chosen_categories_str=chosen_categories_str,
         chosen_attributes_str=chosen_attributes_str,
         chosen_clues_str=chosen_clues_str,
+        solution_template=solution_template,
     )
     return prompt
 
@@ -188,3 +217,55 @@ def format_list_in_prompt(
         formatted_list += f" {prompt_and} {list_of_strings[-1]}"
 
     return formatted_list
+
+
+def format_solution(solution: np.ndarray) -> str:
+    """Format the solution as a json dictionary.
+
+    Args:
+        solution: Solution to the zebra puzzle as a matrix of object indices and chosen attributes.
+
+    Returns:
+        The solution as a string representing a json dictionary
+    """
+    solution_json = "{\n"
+
+    for row in solution.astype(str):
+        row_object = row[0]
+        row_attributes = '", "'.join(row[1:])
+        solution_json += f'"object_{row_object}": ["{row_attributes}"],\n'
+
+    solution_json += "}"
+
+    # Delete last comma
+    solution_json = solution_json.replace(",\n}", "\n}")
+
+    return solution_json
+
+
+def create_solution_template(n_objects: int, chosen_categories: np.ndarray) -> str:
+    """Create a solution template for a zebra puzzle.
+
+    For example:
+    {
+    "object_1": ["attribute_1", "attribute_2"],
+    "object_2": ["attribute_1", "attribute_2"]
+    }
+
+
+    Args:
+        n_objects: Number of objects in the puzzle.
+        chosen_categories: Categories chosen for the solution.
+
+    Returns:
+        The solution template as a string.
+    """
+    example_solution = np.zeros((n_objects, len(chosen_categories) + 1), dtype="U100")
+    for i in range(n_objects):
+        example_solution[i, 0] = f"{i + 1}"
+        for j, cat in enumerate(chosen_categories):
+            example_solution[i, j + 1] = f"{cat}_{i + 1}"
+
+    solution_template = format_solution(example_solution)
+
+    return solution_template
