@@ -1,6 +1,6 @@
 """Utility module for generating zebra puzzles."""
 
-from random import sample
+from random import sample, shuffle
 
 import numpy as np
 
@@ -74,6 +74,7 @@ def save_dataset(data: str, filename: str, folder: str = "data") -> None:
 
 def complete_prompt(
     chosen_clues: list[str],
+    chosen_red_herring_clues: list[str],
     n_objects: int,
     n_attributes: int,
     chosen_categories: np.ndarray,
@@ -90,6 +91,7 @@ def complete_prompt(
 
     Args:
         chosen_clues: Chosen clues for the zebra puzzle as a list of strings.
+        chosen_red_herring_clues: Chosen red herring clues for the zebra puzzle as a list of strings.
         n_objects: Number of objects in the puzzle.
         n_attributes: Number of attributes of each object.
         chosen_categories: Categories chosen for the solution.
@@ -101,6 +103,11 @@ def complete_prompt(
         The full prompt for the zebra puzzle as a string.
 
     """
+    # Mix and shuffle clues and red herrings
+    chosen_clues = chosen_clues + chosen_red_herring_clues
+    shuffle(chosen_clues)
+
+    # Format clues
     if len(chosen_clues) > 1:
         # Format chosen_clues as a numbered list
         chosen_clues = [

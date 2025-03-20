@@ -133,3 +133,44 @@ prompt_templates:
         1, attribute_1
         2, attribute_2
         ...
+
+
+red_herring_clues_dict:
+    same_herring: "{attribute_desc} {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} lives next to {attribute_desc_herring}."
+    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
+    fact: "{fact}."
+    object_fact: "{attribute_desc} knows that {fact}."
+    friends: "{attribute_desc} is good friends with {attribute_desc_herring}."
+    found_at: "{attribute_desc_herring} lives in house no. {i_object}."
+    not_at: "{attribute_desc_herring} does not live in house no. {i_object}."
+
+red_herring_attributes:
+    red_hair: ['the person with red hair','has red hair']
+    glasses: ['the person with glasses','wears glasses']
+    tattoo: ['the person with a tattoo','has a tattoo']
+    guitar: ['the person who plays the guitar','plays the guitar']
+    bike: ['the person with a bike','has a bike']
+    guinea pig: ['the person with a guinea pig','has a guinea pig']
+    cactus: ['the person who owns a cactus','does not own a cactus']
+    video games: ['the person who plays video games','plays video games']
+    sister: ['the person with a sister','has a sister']
+    mango: ['the person who thinks the second best fruit is mango','thinks the second best fruit is mango']
+    sailing: ['the person who often sails','often sails']
+    USA: ['the person who has been to the USA','has been to the USA']
+    mathematics: ["the person with a master's degree in mathematics","has a master's degree in mathematics"]
+    physics: ['the person who loves physics','loves physics']
+    old_animal: ['the person with a pet that is old for its species','has a pet that is old for its species']
+    football: ['the person who watches football','watches football']
+
+red_herring_facts:
+    herring: "herrings are fish"
+    solar_system: "the solar system moves at a speed of about 200 km/s around the center of the galaxy"
+    puzzle: "it is fun to solve puzzles"
+    houses: "all the houses on the street have beautiful gardens"
+    doors: "several of the houses have a green door"
+    windows: "all the houses have large windows"
+    cars: "there are many cars on the street"
+    cucumber: "cucumber is a berry"
+    snail: "snails are molluscs"
+    coffee: "coffee contains caffeine"
