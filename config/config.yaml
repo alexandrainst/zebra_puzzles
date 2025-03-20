@@ -10,12 +10,8 @@ defaults:
   - override hydra/job_logging: custom
   - _self_
 
-# Theme
-theme: da_huse
-
 # Model
 # The LLM model to evaluate on the puzzles.
-# examples: gpt-4o-mini, gpt-4o, o3-mini, o3
 model : gpt-4o-mini
 
 # Number of puzzles to generate

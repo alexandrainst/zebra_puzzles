@@ -9,25 +9,28 @@
 
 # Zebra Puzzles
 
-Generation of zebra puzzles.
+Generation and LLM evaluation of zebra puzzles in multiple languages and themes.
 
 Run `uv run src/scripts/build_dataset.py` to generate puzzles.
+Run `uv run src/scripts/evaluate.py` to evaluate puzzles.
 
 Use the configuration in `config/config.yaml` to specify:
 - number of puzzles to generate
 - puzzle dimensions
-- language
-- theme
+- language and theme
+- number of red herrings to include
+- model for evaluation (e.g. gpt-4o-mini, gpt-4o, o3-mini, o3)
 
+Puzzles and their solutions are saved in the data folder, LLM reponses are saved in the reponse folder and LLM scores are saved in the scores folder.
 
-Typical runtimes for puzzles of size n_objects x n_attributes are (using all clue types):
-3x7: 0.7 s
-4x4: 0.6 s
-4x5: 11 s
-4x6: 3 min
-5x3: 3.8 s
-5x6: >10 min
-6x3: 4 min
+Typical runtimes for generating puzzles of size n_objects x n_attributes are (using all clue types):
+- 3x7: 0.7 s
+- 4x4: 0.6 s
+- 4x5: 11 s
+- 4x6: 3 min
+- 5x3: 3.8 s
+- 5x6: >10 min
+- 6x3: 4 min
 
 GitHub Copilot has been used for this project.
 

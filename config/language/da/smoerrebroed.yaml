@@ -1,5 +1,8 @@
 # Config file for generating zebra puzzles in Danish with the "smørrebrød" theme.
 
+# Theme
+theme: da_smoerrebroed
+
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
