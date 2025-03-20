@@ -3,6 +3,7 @@
 from tqdm import tqdm
 
 from zebra_puzzles.clue_selection import choose_clues
+from zebra_puzzles.red_herring_selection import choose_red_herrings
 from zebra_puzzles.zebra_utils import (
     clean_folder,
     complete_prompt,
@@ -19,6 +20,10 @@ def run_pipeline(
     clues_dict: dict[str, str],
     prompt_templates: list[str],
     prompt_and: str,
+    n_red_herring_clues: int,
+    red_herring_clues_dict: dict[str, str],
+    red_herring_attributes: dict[str, list[str]],
+    red_herring_facts: dict[str, str],
     verbose=False,
     eval=False,
 ) -> tuple[str, str]:
@@ -31,6 +36,10 @@ def run_pipeline(
         attributes: Possible attributes as a dictionary of dictionaries.
         prompt_templates: List of templates for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
+        n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
+        red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
+        red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
+        red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
         verbose: Option to print the prompt and solution as a boolean.
         eval: Option to evaluate the prompt as a boolean.
 
@@ -57,8 +66,20 @@ def run_pipeline(
         clues_dict=clues_dict,
     )
 
+    chosen_red_herring_clues = choose_red_herrings(
+        n_red_herring_clues=n_red_herring_clues,
+        red_herring_clues_dict=red_herring_clues_dict,
+        red_herring_attributes=red_herring_attributes,
+        red_herring_facts=red_herring_facts,
+        chosen_attributes=chosen_attributes,
+        chosen_attributes_descs=chosen_attributes_descs,
+        n_objects=n_objects,
+        n_attributes=n_attributes,
+    )
+
     prompt = complete_prompt(
         chosen_clues=chosen_clues,
+        chosen_red_herring_clues=chosen_red_herring_clues,
         n_objects=n_objects,
         n_attributes=n_attributes,
         chosen_categories=chosen_categories,
@@ -87,6 +108,10 @@ def build_dataset(
     prompt_templates: list[str],
     prompt_and: str,
     n_puzzles: int,
+    n_red_herring_clues: int,
+    red_herring_clues_dict: dict[str, str],
+    red_herring_attributes: dict[str, list[str]],
+    red_herring_facts: dict[str, str],
 ) -> None:
     """Build a dataset of zebra puzzles.
 
@@ -100,6 +125,10 @@ def build_dataset(
         prompt_templates: List of templates for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
         n_puzzles: Number of puzzles to generate.
+        n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
+        red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
+        red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
+        red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
 
     NOTE: Consider only saving the puzzle and solution instead of the whole prompt.
     """
@@ -129,6 +158,10 @@ def build_dataset(
             clues_dict=clues_dict,
             prompt_templates=prompt_templates,
             prompt_and=prompt_and,
+            n_red_herring_clues=n_red_herring_clues,
+            red_herring_clues_dict=red_herring_clues_dict,
+            red_herring_attributes=red_herring_attributes,
+            red_herring_facts=red_herring_facts,
             verbose=False,
             eval=False,
         )
