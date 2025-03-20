@@ -51,6 +51,7 @@ def evaluate_all(
     file_paths: list[Path],
     model: str,
     theme: str,
+    generate_new_responses: bool = False,
 ) -> None:
     """Evaluate a dataset of zebra puzzles.
 
@@ -60,14 +61,17 @@ def evaluate_all(
         n_attributes: Number of attributes of each object as an integer.
         file_paths: Iterator of file paths to the dataset files.
         model: The model to use for the evaluation as a string.
-        theme: The theme of the puzzles
+        theme: The theme of the puzzles.
+        generate_new_responses: Whether to generate new responses or use existing ones.
 
+    TODO: Make the script more robust in cases where the expected responses are not found.
     """
     # Create reponse file names
     response_filenames = [f"{file_path.stem}_response.json" for file_path in file_paths]
 
-    # Clean reponses folder
-    clean_folder(folder="responses", keep_files=response_filenames)
+    if generate_new_responses:
+        # Clean reponses folder
+        clean_folder(folder="responses", keep_files=response_filenames)
 
     # Initialize scores
     puzzle_scores: np.ndarray = np.zeros(n_puzzles)
@@ -89,6 +93,7 @@ def evaluate_all(
             n_attributes=n_attributes,
             model=model,
             response_filename=response_filenames[i],
+            generate_new_responses=generate_new_responses,
         )
         puzzle_scores[i] = puzzle_score
         cell_scores[i] = cell_score
@@ -213,7 +218,9 @@ def format_scores(
     for score_type in score_types:
         metrics_str += f"{score_type.capitalize()}:\n"
         metrics_str += metrics[score_type][-1]
-        metrics_str += "\n"
+        metrics_str += "\n\n"
+
+    metrics_str = metrics_str[:-4]
 
     score_str += metrics_str
 
@@ -236,6 +243,7 @@ def evaluate_single_puzzle(
     n_attributes: int,
     model: str,
     response_filename: str,
+    generate_new_responses: bool,
 ) -> tuple[float, float, float]:
     """Evaluate a dataset of zebra puzzles.
 
@@ -245,6 +253,7 @@ def evaluate_single_puzzle(
         n_attributes: Number of attributes of each object as an
         model: The model to use for the evaluation as a
         response_filename: The name of the response file.
+        generate_new_responses: Whether to generate new responses or use existing ones.
 
     Returns:
         A tuple (puzzle_score, cell_score), where:
@@ -252,51 +261,59 @@ def evaluate_single_puzzle(
             cell_score: A cell-level score as a float.
             best_permuted_cell_score: A cell-level score as a float after trying all permutations of the objects in the response.
     """
-    logging.getLogger("httpx").setLevel(logging.ERROR)
+    if generate_new_responses:
+        logging.getLogger("httpx").setLevel(logging.ERROR)
 
-    # Load the prompt
-    with file_path.open() as file:
-        prompt = file.read()
+        # Load the prompt
+        with file_path.open() as file:
+            prompt = file.read()
 
-    with file_path.with_stem(f"{file_path.stem}_solution").open() as file:
-        solution = file.read()
+        with file_path.with_stem(f"{file_path.stem}_solution").open() as file:
+            solution = file.read()
 
-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+        client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
-    # Generate the dynamic OutputFormat class
-    OutputFormat = generate_output_format_class(n_objects=n_objects)
+        # Generate the dynamic OutputFormat class
+        OutputFormat = generate_output_format_class(n_objects=n_objects)
 
-    # Generate LLM output
-    try:
-        response = client.beta.chat.completions.parse(
-            messages=[{"role": "user", "content": prompt}],
-            model=model,
-            temperature=0,
-            seed=42,
-            response_format=OutputFormat,
-        )
-    except BadRequestError as e:
-        if "'temperature' is not supported" in str(e):
+        # Generate LLM output
+        try:
             response = client.beta.chat.completions.parse(
                 messages=[{"role": "user", "content": prompt}],
                 model=model,
+                temperature=0,
                 seed=42,
                 response_format=OutputFormat,
             )
-        else:
+        except BadRequestError as e:
+            if "'temperature' is not supported" in str(e):
+                response = client.beta.chat.completions.parse(
+                    messages=[{"role": "user", "content": prompt}],
+                    model=model,
+                    seed=42,
+                    response_format=OutputFormat,
+                )
+            else:
+                raise e
+
+        # Reformat response
+        try:
+            output = OutputFormat.model_validate(response.choices[0].message.parsed)
+        except ValidationError as e:
+            print("response:\n", response)
+            print(
+                "\nresponse.choices[0].message.parsed:\n",
+                response.choices[0].message.parsed,
+            )
+            print()
             raise e
 
-    # Reformat response
-    try:
-        output = OutputFormat.model_validate(response.choices[0].message.parsed)
-    except ValidationError as e:
-        print("response:\n", response)
-        print(
-            "\nresponse.choices[0].message.parsed:\n",
-            response.choices[0].message.parsed,
-        )
-        print()
-        raise e
+    else:
+        # Load an existing response
+        with Path(f"responses/{response_filename}").open() as file:
+            response_str = file.read()
+
+        output = json.loads(response_str)
 
     # Change the format of solution to OutputFormat
 

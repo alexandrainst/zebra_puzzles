@@ -26,6 +26,7 @@ def main(config: DictConfig) -> None:
     n_attributes = config.n_attributes
     model = config.model
     theme = config.language.theme
+    generate_new_responses = config.generate_new_responses
 
     # Get sorted names of all prompt files in the data folder
     file_paths = sorted(list(Path("data").glob("*[!_solution].txt")))
@@ -37,6 +38,7 @@ def main(config: DictConfig) -> None:
         file_paths=file_paths,
         model=model,
         theme=theme,
+        generate_new_responses=generate_new_responses,
     )
 
 
