@@ -275,6 +275,7 @@ def evaluate_single_puzzle(
             response_str = file.read()
 
         output = json.loads(response_str)
+        output = OutputFormat.model_validate(output)
 
     # Load the solution
 
@@ -406,32 +407,12 @@ def compare_solutions(
             puzzle_score = 0
 
             # Evaluate every permutation of the objects in the response
-
-            best_permuted_cell_score = 0.0
-            objects = list(output_dict.keys())
-
-            # Create all permutations of the objects where each object appears exactly once
-
-            object_permutations = list(itertools.permutations(objects))
-
-            # Evaluate each permutation
-            for object_permutation in object_permutations:
-                # Create a new output with the objects permuted
-                output_permuted = {
-                    object: output_dict[object] for object in object_permutation
-                }
-
-                # Compare the permuted output to the solution
-                permuted_cell_score = compute_cell_score(
-                    output=output_permuted,
-                    solution=solution_dict,
-                    n_objects=n_objects,
-                    n_attributes=n_attributes,
-                )
-
-                # Update the best permuted cell score
-                if permuted_cell_score > best_permuted_cell_score:
-                    best_permuted_cell_score = permuted_cell_score
+            best_permuted_cell_score = compute_best_permuted_cell_score(
+                output=output_dict,
+                solution=solution_dict,
+                n_objects=n_objects,
+                n_attributes=n_attributes,
+            )
 
     return puzzle_score, cell_score, best_permuted_cell_score
 
@@ -445,8 +426,8 @@ def compute_cell_score(
     """Compute the cell score.
 
     Args:
-        output: The output in OutputFormat format.
-        solution: The solution in OutputFormat format.
+        output: The output as a dictionary of objects and their attributes.
+        solution: The solution as a dictionary of objects and their attributes.
         n_objects: Number of objects in the puzzle.
         n_attributes: Number of attributes of each object.
 
@@ -468,3 +449,47 @@ def compute_cell_score(
     cell_score /= float(n_objects * n_attributes)
 
     return cell_score
+
+
+def compute_best_permuted_cell_score(
+    output: dict[str, list],
+    solution: dict[str, list],
+    n_objects: int,
+    n_attributes: int,
+) -> float:
+    """Compute the best permuted cell score.
+
+    Args:
+        output: The output as a dictionary of objects and their attributes.
+        solution: The solution as a dictionary of objects and their attributes.
+        n_objects: Number of objects in the puzzle.
+        n_attributes: Number of attributes of each object.
+
+    Returns:
+        The best permuted cell score as a float.
+    """
+    best_permuted_cell_score = 0.0
+    objects = list(output.keys())
+
+    # Create all permutations of the objects where each object appears exactly once
+
+    object_permutations = list(itertools.permutations(objects))
+
+    # Evaluate each permutation
+    for object_permutation in object_permutations:
+        # Create a new output with the objects permuted
+        output_permuted = {object: output[object] for object in object_permutation}
+
+        # Compare the permuted output to the solution
+        permuted_cell_score = compute_cell_score(
+            output=output_permuted,
+            solution=solution,
+            n_objects=n_objects,
+            n_attributes=n_attributes,
+        )
+
+        # Update the best permuted cell score
+        if permuted_cell_score > best_permuted_cell_score:
+            best_permuted_cell_score = permuted_cell_score
+
+    return best_permuted_cell_score
