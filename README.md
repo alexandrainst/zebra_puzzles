@@ -37,7 +37,8 @@ Typical times for evaluation of a puzzle:
 gpt-4o-mini:
 - 4x4: 2 s
 
-o3:
+o3 without red herrings:
+- 3x3: 1 min 10 s
 - 4x4: 2 min
 - 4x5: 8 min
 

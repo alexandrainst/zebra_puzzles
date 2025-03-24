@@ -21,6 +21,7 @@ load_dotenv()
 
 def evaluate_all(
     n_puzzles: int,
+    n_red_herring_clues: int,
     n_objects: int,
     n_attributes: int,
     file_paths: list[Path],
@@ -32,6 +33,7 @@ def evaluate_all(
 
     Args:
         n_puzzles: Number of puzzles to evaluate as an integer.
+        n_red_herring_clues: Number of red herring clues included in the puzzles as an integer.
         n_objects: Number of objects in each puzzle as an integer.
         n_attributes: Number of attributes of each object as an integer.
         file_paths: Iterator of file paths to the dataset files.
@@ -90,9 +92,7 @@ def evaluate_all(
         n_puzzles=n_puzzles,
     )
 
-    filename = (
-        f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_puzzles}.txt"
-    )
+    filename = f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues}_rh_{n_puzzles}_puzzles.txt"
     save_dataset(data=score_str, filename=filename, folder="scores")
 
 

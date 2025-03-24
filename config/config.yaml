@@ -15,16 +15,16 @@ defaults:
 model : gpt-4o-mini
 
 # Whether to generate new LLM responses or only evaluate existing ones when running evaluate.py
-generate_new_responses: False
+generate_new_responses: True
 
 # Number of puzzles to generate
 n_puzzles: 4
 
 # Objects e.g. houses
-n_objects: 4
+n_objects: 3
 
 # Attributes e.g. pets
-n_attributes: 1
+n_attributes: 3
 
 #Number of red herring clues
-n_red_herring_clues: 3
+n_red_herring_clues: 5
