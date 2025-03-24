@@ -60,12 +60,18 @@ def generate_solution(
 
 
 def clean_folder(folder: str, keep_files: list[str]) -> None:
-    """Delete all files in a folder.
+    """Clean a folder by deleting outdated files.
+
+    Creates the folder if it does not exist.
 
     Args:
         folder: Folder to clean.
         keep_files: List of files to keep in the folder.
     """
+    # Create the folder if it does not exist
+    os.makedirs(folder, exist_ok=True)
+
+    # Get a list of files in the folder
     existing_files = os.listdir(folder)
 
     # Get a list of files to delete

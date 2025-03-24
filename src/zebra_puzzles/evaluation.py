@@ -24,7 +24,6 @@ def evaluate_all(
     n_red_herring_clues: int,
     n_objects: int,
     n_attributes: int,
-    file_paths: list[Path],
     model: str,
     theme: str,
     generate_new_responses: bool = False,
@@ -36,19 +35,23 @@ def evaluate_all(
         n_red_herring_clues: Number of red herring clues included in the puzzles as an integer.
         n_objects: Number of objects in each puzzle as an integer.
         n_attributes: Number of attributes of each object as an integer.
-        file_paths: Iterator of file paths to the dataset files.
         model: The model to use for the evaluation as a string.
         theme: The theme of the puzzles.
         generate_new_responses: Whether to generate new responses or use existing ones.
 
     TODO: Make the script more robust in cases where the expected responses are not found.
     """
-    # Create reponse file names
-    response_filenames = [f"{file_path.stem}_response.json" for file_path in file_paths]
-
-    if generate_new_responses:
-        # Clean reponses folder
-        clean_folder(folder="responses", keep_files=response_filenames)
+    puzzle_paths, response_filenames, response_folder, score_filename, score_folder = (
+        prepare_eval_folders(
+            theme=theme,
+            n_objects=n_objects,
+            n_attributes=n_attributes,
+            n_red_herring_clues=n_red_herring_clues,
+            model=model,
+            n_puzzles=n_puzzles,
+            generate_new_responses=generate_new_responses,
+        )
+    )
 
     # Initialize scores
     puzzle_scores: np.ndarray = np.zeros(n_puzzles)
@@ -56,8 +59,8 @@ def evaluate_all(
     best_permuted_cell_scores: np.ndarray = np.zeros(n_puzzles)
 
     # Evaluate each puzzle
-    for i, file_path in tqdm(
-        enumerate(file_paths),
+    for i, puzzle_path in tqdm(
+        enumerate(puzzle_paths),
         total=n_puzzles,
         desc="Evaluating",
         unit="puzzle",
@@ -65,12 +68,13 @@ def evaluate_all(
         ascii="░█",
     ):
         puzzle_score, cell_score, best_permuted_cell_score = evaluate_single_puzzle(
-            file_path=file_path,
+            file_path=puzzle_path,
             n_objects=n_objects,
             n_attributes=n_attributes,
             model=model,
             response_filename=response_filenames[i],
             generate_new_responses=generate_new_responses,
+            response_folder=response_folder,
         )
         puzzle_scores[i] = puzzle_score
         cell_scores[i] = cell_score
@@ -92,8 +96,71 @@ def evaluate_all(
         n_puzzles=n_puzzles,
     )
 
-    filename = f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues}_rh_{n_puzzles}_puzzles.txt"
-    save_dataset(data=score_str, filename=filename, folder="scores")
+    save_dataset(data=score_str, filename=score_filename, folder=score_folder)
+
+
+def prepare_eval_folders(
+    theme: str,
+    n_objects: int,
+    n_attributes: int,
+    n_red_herring_clues: int,
+    model: str,
+    n_puzzles: int,
+    generate_new_responses: bool,
+):
+    """Prepare the folders for the evaluation.
+
+    Args:
+        theme: The theme of the puzzles.
+        n_objects: Number of objects in each puzzle as an integer.
+        n_attributes: Number of attributes of each object as an integer.
+        n_red_herring_clues: Number of red herring clues included in the puzzles as an integer.
+        model: The model to use for the evaluation as a string.
+        n_puzzles: Number of puzzles to evaluate as an integer.
+        generate_new_responses: Whether to generate new responses or use existing ones.
+
+    Returns:
+        A tuple (puzzle_paths, response_filenames, response_folder, score_filename, score_folder), where:
+            puzzle_paths: Paths to the puzzles.
+            response_filenames: Names of the response files.
+            response_folder: Folder to save the responses in.
+            score_filename: Name of the score file.
+            score_folder: Folder to save the scores in.
+    """
+    # Define the subfolders for puzzles, solutions, responses, and evaluations
+    puzzle_subfolder = f"{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh"
+    eval_subfolder = f"{puzzle_subfolder}/{model}"
+
+    # Get sorted names of all prompt files in the data folder
+    puzzle_paths = sorted(
+        list(Path(f"data/{puzzle_subfolder}").glob("*[!_solution].txt"))
+    )
+
+    # Create reponse file names
+    response_filenames = [
+        f"{file_path.stem}_response.json" for file_path in puzzle_paths
+    ]
+
+    score_filename = f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues}_rh_{n_puzzles}_puzzles.txt"
+
+    # Define evaluation folders
+    response_folder = f"responses/{eval_subfolder}"
+    score_folder = f"scores/{eval_subfolder}"
+
+    if generate_new_responses:
+        # Clean or create reponses folder
+        clean_folder(folder=response_folder, keep_files=response_filenames)
+
+    # Create the score folder if it does not exist
+    os.makedirs(score_folder, exist_ok=True)
+
+    return (
+        puzzle_paths,
+        response_filenames,
+        response_folder,
+        score_filename,
+        score_folder,
+    )
 
 
 def generate_output_format_class(n_objects: int) -> Type[BaseModel]:
@@ -127,6 +194,7 @@ def evaluate_single_puzzle(
     n_attributes: int,
     model: str,
     response_filename: str,
+    response_folder: str,
     generate_new_responses: bool,
 ) -> tuple[float, float, float]:
     """Evaluate a dataset of zebra puzzles.
@@ -137,6 +205,7 @@ def evaluate_single_puzzle(
         n_attributes: Number of attributes of each object as an
         model: The model to use for the evaluation as a
         response_filename: The name of the response file.
+        response_folder: The folder to save the response file in.
         generate_new_responses: Whether to generate new responses or use existing ones.
 
     Returns:
@@ -181,7 +250,7 @@ def evaluate_single_puzzle(
 
     # Save the output
     output_str = json.dumps(output.model_dump(), indent=4)
-    save_dataset(data=output_str, filename=response_filename, folder="responses")
+    save_dataset(data=output_str, filename=response_filename, folder=response_folder)
 
     return puzzle_score, cell_score, best_permuted_cell_score
 

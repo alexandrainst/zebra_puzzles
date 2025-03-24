@@ -26,6 +26,7 @@ def main(config: DictConfig) -> None:
     prompt_templates = config.language.prompt_templates
     prompt_and = config.language.prompt_and
     clues_dict = config.language.clues_dict
+    theme = config.language.theme
 
     n_red_herring_clues = config.n_red_herring_clues
     red_herring_clues_dict = config.language.red_herring_clues_dict
@@ -40,6 +41,7 @@ def main(config: DictConfig) -> None:
         n_objects=n_objects,
         n_attributes=n_attributes,
         n_puzzles=n_puzzles,
+        theme=theme,
         n_red_herring_clues=n_red_herring_clues,
         red_herring_clues_dict=red_herring_clues_dict,
         red_herring_attributes=red_herring_attributes,

@@ -108,6 +108,7 @@ def build_dataset(
     prompt_templates: list[str],
     prompt_and: str,
     n_puzzles: int,
+    theme: str,
     n_red_herring_clues: int,
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
@@ -125,6 +126,7 @@ def build_dataset(
         prompt_templates: List of templates for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
         n_puzzles: Number of puzzles to generate.
+        theme: Theme of the puzzles.
         n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
         red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
@@ -140,8 +142,11 @@ def build_dataset(
 
     data_filenames = prompt_filenames + solution_filenames
 
+    # Define folder
+    folder = f"data/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh"
+
     # Clean data folder
-    clean_folder(folder="data", keep_files=data_filenames)
+    clean_folder(folder=folder, keep_files=data_filenames)
 
     for i in tqdm(
         range(n_puzzles),
@@ -165,5 +170,5 @@ def build_dataset(
             verbose=False,
             eval=False,
         )
-        save_dataset(data=prompt, filename=data_filenames[i], folder="data")
-        save_dataset(data=solution_json, filename=solution_filenames[i], folder="data")
+        save_dataset(data=prompt, filename=data_filenames[i], folder=folder)
+        save_dataset(data=solution_json, filename=solution_filenames[i], folder=folder)

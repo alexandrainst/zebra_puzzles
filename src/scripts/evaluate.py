@@ -4,8 +4,6 @@ Usage:
     uv run src/scripts/evaluate.py <config_key>=<config_value> ...
 """
 
-from pathlib import Path
-
 import hydra
 from omegaconf import DictConfig
 
@@ -29,14 +27,10 @@ def main(config: DictConfig) -> None:
     generate_new_responses = config.generate_new_responses
     n_red_herring_clues = config.n_red_herring_clues
 
-    # Get sorted names of all prompt files in the data folder
-    file_paths = sorted(list(Path("data").glob("*[!_solution].txt")))
-
     evaluate_all(
         n_puzzles=n_puzzles,
         n_objects=n_objects,
         n_attributes=n_attributes,
-        file_paths=file_paths,
         model=model,
         theme=theme,
         generate_new_responses=generate_new_responses,
