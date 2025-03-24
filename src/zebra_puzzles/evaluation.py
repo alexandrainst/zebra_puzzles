@@ -168,7 +168,7 @@ def evaluate_single_puzzle(
 
     else:
         # Load an existing response
-        with Path(f"responses/{response_filename}").open() as file:
+        with open(response_folder + "/" + response_filename, "w") as file:
             response_str = file.read()
 
         output = json.loads(response_str)

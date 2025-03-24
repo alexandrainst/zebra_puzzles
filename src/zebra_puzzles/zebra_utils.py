@@ -176,7 +176,6 @@ def prepare_eval_folders(
     """
     # Define the subfolders for puzzles, solutions, responses, and evaluations
     puzzle_subfolder = f"{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh"
-    eval_subfolder = f"{puzzle_subfolder}/{model}"
 
     # Get sorted names of all prompt files in the data folder
     puzzle_paths = sorted(list(Path(f"data/{puzzle_subfolder}/puzzles").glob("*.txt")))
@@ -193,8 +192,8 @@ def prepare_eval_folders(
     score_filename = f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues}_rh_{n_puzzles}_puzzles.txt"
 
     # Define evaluation folders
-    response_folder = f"responses/{eval_subfolder}"
-    score_folder = f"scores/{eval_subfolder}"
+    response_folder = f"data/{puzzle_subfolder}/responses/{model}"
+    score_folder = f"scores/{puzzle_subfolder}/{model}"
 
     if generate_new_responses:
         # Clean or create reponses folder
