@@ -5,10 +5,10 @@ from tqdm import tqdm
 from zebra_puzzles.clue_selection import choose_clues
 from zebra_puzzles.red_herring_selection import choose_red_herrings
 from zebra_puzzles.zebra_utils import (
-    clean_folder,
     complete_prompt,
     format_solution,
     generate_solution,
+    prepare_data_folders,
     save_dataset,
 )
 
@@ -134,19 +134,15 @@ def build_dataset(
 
     NOTE: Consider only saving the puzzle and solution instead of the whole prompt.
     """
-    # Create data file names
-    prompt_filenames = ["zebra_puzzle_{}.txt".format(i) for i in range(n_puzzles)]
-    solution_filenames = [
-        str(file.split(".")[0]) + "_solution.txt" for file in prompt_filenames
-    ]
-
-    data_filenames = prompt_filenames + solution_filenames
-
-    # Define folder
-    folder = f"data/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh"
-
-    # Clean data folder
-    clean_folder(folder=folder, keep_files=data_filenames)
+    prompt_filenames, solution_filenames, puzzle_folder, solution_folder = (
+        prepare_data_folders(
+            n_puzzles=n_puzzles,
+            theme=theme,
+            n_objects=n_objects,
+            n_attributes=n_attributes,
+            n_red_herring_clues=n_red_herring_clues,
+        )
+    )
 
     for i in tqdm(
         range(n_puzzles),
@@ -170,5 +166,7 @@ def build_dataset(
             verbose=False,
             eval=False,
         )
-        save_dataset(data=prompt, filename=data_filenames[i], folder=folder)
-        save_dataset(data=solution_json, filename=solution_filenames[i], folder=folder)
+        save_dataset(data=prompt, filename=prompt_filenames[i], folder=puzzle_folder)
+        save_dataset(
+            data=solution_json, filename=solution_filenames[i], folder=solution_folder
+        )

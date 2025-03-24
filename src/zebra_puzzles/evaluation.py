@@ -13,7 +13,7 @@ from pydantic import BaseModel, ValidationError, create_model
 from tqdm import tqdm
 
 from zebra_puzzles.compare_solutions import compare_solutions
-from zebra_puzzles.zebra_utils import clean_folder, save_dataset
+from zebra_puzzles.zebra_utils import prepare_eval_folders, save_dataset
 
 # Load environment variables to get the API key
 load_dotenv()
@@ -41,16 +41,21 @@ def evaluate_all(
 
     TODO: Make the script more robust in cases where the expected responses are not found.
     """
-    puzzle_paths, response_filenames, response_folder, score_filename, score_folder = (
-        prepare_eval_folders(
-            theme=theme,
-            n_objects=n_objects,
-            n_attributes=n_attributes,
-            n_red_herring_clues=n_red_herring_clues,
-            model=model,
-            n_puzzles=n_puzzles,
-            generate_new_responses=generate_new_responses,
-        )
+    (
+        puzzle_paths,
+        solution_paths,
+        response_filenames,
+        response_folder,
+        score_filename,
+        score_folder,
+    ) = prepare_eval_folders(
+        theme=theme,
+        n_objects=n_objects,
+        n_attributes=n_attributes,
+        n_red_herring_clues=n_red_herring_clues,
+        model=model,
+        n_puzzles=n_puzzles,
+        generate_new_responses=generate_new_responses,
     )
 
     # Initialize scores
@@ -59,8 +64,8 @@ def evaluate_all(
     best_permuted_cell_scores: np.ndarray = np.zeros(n_puzzles)
 
     # Evaluate each puzzle
-    for i, puzzle_path in tqdm(
-        enumerate(puzzle_paths),
+    for i in tqdm(
+        range(n_puzzles),
         total=n_puzzles,
         desc="Evaluating",
         unit="puzzle",
@@ -68,7 +73,8 @@ def evaluate_all(
         ascii="░█",
     ):
         puzzle_score, cell_score, best_permuted_cell_score = evaluate_single_puzzle(
-            file_path=puzzle_path,
+            puzzle_path=puzzle_paths[i],
+            solution_path=solution_paths[i],
             n_objects=n_objects,
             n_attributes=n_attributes,
             model=model,
@@ -99,70 +105,6 @@ def evaluate_all(
     save_dataset(data=score_str, filename=score_filename, folder=score_folder)
 
 
-def prepare_eval_folders(
-    theme: str,
-    n_objects: int,
-    n_attributes: int,
-    n_red_herring_clues: int,
-    model: str,
-    n_puzzles: int,
-    generate_new_responses: bool,
-):
-    """Prepare the folders for the evaluation.
-
-    Args:
-        theme: The theme of the puzzles.
-        n_objects: Number of objects in each puzzle as an integer.
-        n_attributes: Number of attributes of each object as an integer.
-        n_red_herring_clues: Number of red herring clues included in the puzzles as an integer.
-        model: The model to use for the evaluation as a string.
-        n_puzzles: Number of puzzles to evaluate as an integer.
-        generate_new_responses: Whether to generate new responses or use existing ones.
-
-    Returns:
-        A tuple (puzzle_paths, response_filenames, response_folder, score_filename, score_folder), where:
-            puzzle_paths: Paths to the puzzles.
-            response_filenames: Names of the response files.
-            response_folder: Folder to save the responses in.
-            score_filename: Name of the score file.
-            score_folder: Folder to save the scores in.
-    """
-    # Define the subfolders for puzzles, solutions, responses, and evaluations
-    puzzle_subfolder = f"{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh"
-    eval_subfolder = f"{puzzle_subfolder}/{model}"
-
-    # Get sorted names of all prompt files in the data folder
-    puzzle_paths = sorted(
-        list(Path(f"data/{puzzle_subfolder}").glob("*[!_solution].txt"))
-    )
-
-    # Create reponse file names
-    response_filenames = [
-        f"{file_path.stem}_response.json" for file_path in puzzle_paths
-    ]
-
-    score_filename = f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues}_rh_{n_puzzles}_puzzles.txt"
-
-    # Define evaluation folders
-    response_folder = f"responses/{eval_subfolder}"
-    score_folder = f"scores/{eval_subfolder}"
-
-    if generate_new_responses:
-        # Clean or create reponses folder
-        clean_folder(folder=response_folder, keep_files=response_filenames)
-
-    # Create the score folder if it does not exist
-    os.makedirs(score_folder, exist_ok=True)
-
-    return (
-        puzzle_paths,
-        response_filenames,
-        response_folder,
-        score_filename,
-        score_folder,
-    )
-
-
 def generate_output_format_class(n_objects: int) -> Type[BaseModel]:
     """Generate the OutputFormat class based on the number of objects.
 
@@ -189,7 +131,8 @@ def generate_output_format_class(n_objects: int) -> Type[BaseModel]:
 
 
 def evaluate_single_puzzle(
-    file_path: Path,
+    puzzle_path: Path,
+    solution_path: Path,
     n_objects: int,
     n_attributes: int,
     model: str,
@@ -200,7 +143,8 @@ def evaluate_single_puzzle(
     """Evaluate a dataset of zebra puzzles.
 
     Args:
-        file_path: Path to the dataset file.
+        puzzle_path: Path to the prompt file.
+        solution_path: Path to the solution file.
         n_objects: Number of objects in each puzzle as an integer.
         n_attributes: Number of attributes of each object as an
         model: The model to use for the evaluation as a
@@ -219,7 +163,7 @@ def evaluate_single_puzzle(
 
     if generate_new_responses:
         output = query_LLM(
-            file_path=file_path, model=model, response_format=OutputFormat
+            puzzle_path=puzzle_path, model=model, response_format=OutputFormat
         )
 
     else:
@@ -231,8 +175,9 @@ def evaluate_single_puzzle(
         output = OutputFormat.model_validate(output)
 
     # Load the solution
+    solution_filename = f"{puzzle_path.stem}_solution.txt"
 
-    with file_path.with_stem(f"{file_path.stem}_solution").open() as file:
+    with solution_path.joinpath(solution_filename).open() as file:
         solution = file.read()
 
     # Change the format of solution to OutputFormat
@@ -256,12 +201,12 @@ def evaluate_single_puzzle(
 
 
 def query_LLM(
-    file_path: Path, model: str, response_format: Type[BaseModel]
+    puzzle_path: Path, model: str, response_format: Type[BaseModel]
 ) -> BaseModel:
     """Query an LLM API.
 
     Args:
-        file_path: Path to the dataset file.
+        puzzle_path: Path to the dataset file.
         model: The model to use for the evaluation.
         response_format: The response format as a Pydantic model.
 
@@ -272,7 +217,7 @@ def query_LLM(
     logging.getLogger("httpx").setLevel(logging.ERROR)
 
     # Load the prompt
-    with file_path.open() as file:
+    with puzzle_path.open() as file:
         prompt = file.read()
 
     client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
