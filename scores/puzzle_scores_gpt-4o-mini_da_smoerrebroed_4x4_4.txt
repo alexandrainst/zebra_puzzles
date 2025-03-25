@@ -1,0 +1,23 @@
+Puzzle Scores
+-------------
+Metrics
+
+Puzzle score:
+	Mean: 0.0 ± 0.0
+	Population standard deviation: 0.0
+
+Cell score:
+	Mean: 0.5 ± 0.1
+	Population standard deviation: 0.3
+
+Best permuted cell score:
+	Mean: 0.58 ± 0.08
+	Population standard deviation: 0.2
+
+-------------
+Single puzzle scores
+
+Puzzle 0: 	puzzle score: 0.00	cell score: 0.44	best permuted cell score: 0.56
+Puzzle 1: 	puzzle score: 0.00	cell score: 0.81	best permuted cell score: 0.81
+Puzzle 2: 	puzzle score: 0.00	cell score: 0.19	best permuted cell score: 0.50
+Puzzle 3: 	puzzle score: 0.00	cell score: 0.44	best permuted cell score: 0.44
