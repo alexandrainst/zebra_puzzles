@@ -24,8 +24,6 @@ def run_pipeline(
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
     red_herring_facts: dict[str, str],
-    verbose=False,
-    eval=False,
 ) -> tuple[str, str]:
     """Run the pipeline to generate one zebra puzzle.
 
@@ -48,7 +46,6 @@ def run_pipeline(
             prompt: The full prompt for the zebra puzzle as a string.
             solution_str: The solution as a string.
 
-    TODO: Implement evaluation.
     TODO: Consider if enumeration should be removed when we only have one clue.
     """
     solution, chosen_categories, chosen_attributes, chosen_attributes_descs = (
@@ -89,13 +86,6 @@ def run_pipeline(
     )
 
     solution_json = format_solution(solution=solution)
-
-    if verbose:
-        print("*** Prompt *** \n", prompt)
-        print("*** Solution *** \n", solution_json)
-
-    if eval:
-        pass
 
     return prompt, solution_json
 
@@ -163,8 +153,6 @@ def build_dataset(
             red_herring_clues_dict=red_herring_clues_dict,
             red_herring_attributes=red_herring_attributes,
             red_herring_facts=red_herring_facts,
-            verbose=False,
-            eval=False,
         )
         save_dataset(data=prompt, filename=prompt_filenames[i], folder=puzzle_folder)
         save_dataset(
