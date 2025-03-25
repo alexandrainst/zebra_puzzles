@@ -162,7 +162,7 @@ def evaluate_single_puzzle(
     OutputFormat = generate_output_format_class(n_objects=n_objects)
 
     if generate_new_responses:
-        output = query_LLM(
+        output = query_llm(
             puzzle_path=puzzle_path, model=model, response_format=OutputFormat
         )
 
