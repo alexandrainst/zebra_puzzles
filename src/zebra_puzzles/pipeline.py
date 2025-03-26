@@ -1,8 +1,16 @@
 """Pipeline module for generating and saving zebra puzzles."""
 
+from tqdm import tqdm
+
 from zebra_puzzles.clue_selection import choose_clues
 from zebra_puzzles.red_herring_selection import choose_red_herrings
-from zebra_puzzles.zebra_utils import complete_prompt, generate_solution, save_dataset
+from zebra_puzzles.zebra_utils import (
+    complete_prompt,
+    format_solution,
+    generate_solution,
+    prepare_data_folders,
+    save_dataset,
+)
 
 
 def run_pipeline(
@@ -16,8 +24,6 @@ def run_pipeline(
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
     red_herring_facts: dict[str, str],
-    verbose=False,
-    eval=False,
 ) -> tuple[str, str]:
     """Run the pipeline to generate one zebra puzzle.
 
@@ -40,7 +46,6 @@ def run_pipeline(
             prompt: The full prompt for the zebra puzzle as a string.
             solution_str: The solution as a string.
 
-    TODO: Implement evaluation.
     TODO: Consider if enumeration should be removed when we only have one clue.
     """
     solution, chosen_categories, chosen_attributes, chosen_attributes_descs = (
@@ -80,16 +85,9 @@ def run_pipeline(
         prompt_and=prompt_and,
     )
 
-    solution_str = "\n".join([" ".join(row) for row in solution])
+    solution_json = format_solution(solution=solution)
 
-    if verbose:
-        print("*** Prompt *** \n", prompt)
-        print("*** Solution *** \n", solution_str)
-
-    if eval:
-        pass
-
-    return prompt, solution_str
+    return prompt, solution_json
 
 
 def build_dataset(
@@ -100,6 +98,7 @@ def build_dataset(
     prompt_templates: list[str],
     prompt_and: str,
     n_puzzles: int,
+    theme: str,
     n_red_herring_clues: int,
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
@@ -117,6 +116,7 @@ def build_dataset(
         prompt_templates: List of templates for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
         n_puzzles: Number of puzzles to generate.
+        theme: Theme of the puzzles.
         n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
         red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
@@ -124,8 +124,25 @@ def build_dataset(
 
     NOTE: Consider only saving the puzzle and solution instead of the whole prompt.
     """
-    for i in range(n_puzzles):
-        prompt, solution_str = run_pipeline(
+    prompt_filenames, solution_filenames, puzzle_folder, solution_folder = (
+        prepare_data_folders(
+            n_puzzles=n_puzzles,
+            theme=theme,
+            n_objects=n_objects,
+            n_attributes=n_attributes,
+            n_red_herring_clues=n_red_herring_clues,
+        )
+    )
+
+    for i in tqdm(
+        range(n_puzzles),
+        total=n_puzzles,
+        desc="Building dataset",
+        unit="puzzle",
+        colour="#5599ff",
+        ascii="░█",
+    ):
+        prompt, solution_json = run_pipeline(
             n_objects=n_objects,
             n_attributes=n_attributes,
             attributes=attributes,
@@ -136,14 +153,8 @@ def build_dataset(
             red_herring_clues_dict=red_herring_clues_dict,
             red_herring_attributes=red_herring_attributes,
             red_herring_facts=red_herring_facts,
-            verbose=False,
-            eval=False,
         )
+        save_dataset(data=prompt, filename=prompt_filenames[i], folder=puzzle_folder)
         save_dataset(
-            data=prompt, filename="zebra_puzzle_{}.txt".format(i), folder="data"
-        )
-        save_dataset(
-            data=solution_str,
-            filename="zebra_puzzle_{}_solution.txt".format(i),
-            folder="data",
+            data=solution_json, filename=solution_filenames[i], folder=solution_folder
         )

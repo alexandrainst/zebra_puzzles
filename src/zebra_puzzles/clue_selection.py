@@ -480,6 +480,7 @@ def describe_random_attributes(
     i_attributes.sort()
 
     # Initialize the random attributes as type 'object' to avoid setting a maximum string length
+    # U100 is a Unicode string with a maximum length of 100 characters
     random_attributes = np.empty((n_clue_objects), dtype="U100")
     random_attributes_desc = np.empty((n_clue_objects), dtype="U100")
 

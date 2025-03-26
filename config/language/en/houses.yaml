@@ -1,5 +1,8 @@
 # Config file for generating zebra puzzles in English with the classic "houses" theme.
 
+# Theme
+theme: en_houses
+
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
@@ -114,11 +117,12 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Who has which attributes and lives in which house? Please enter your answer in the following format, where the first number in each row represents the house number:
+        Who has which attributes and lives in which house?
 
-        1, attribute_1, attribute_2, attribute_3 ...
-        2, attribute_4, attribute_5, attribute_6 ...
-        ...
+        Please submit your answer as a JSON dictionary in the format below. Each row must begin with object_X where X is the house number. Each column represents a category, and they should be in the same order as in the list of categories above.
+
+        {solution_template}
+
     - |
         A row of houses have numbers 1 to {n_objects} from left to right.
 
@@ -128,11 +132,11 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Which attributes belong to the person living in each house? Please enter your answer in the following format, where the first number in each row represents the house number:
+        Which attributes belong to the person living in each house?
 
-        1, attribute_1
-        2, attribute_2
-        ...
+        Please submit your answer as a JSON dictionary in the format below. Each row must begin with object_X where X is the house number. This is followed by a column with the attributes in the aforementioned category.
+
+        {solution_template}
 
 
 red_herring_clues_dict:

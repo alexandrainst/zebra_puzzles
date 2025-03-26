@@ -1,5 +1,8 @@
 # Config file for generating zebra puzzles in Danish with the "smørrebrød" theme.
 
+# Theme
+theme: da_smoerrebroed
+
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
@@ -18,14 +21,19 @@ attributes:
         ristet rugbrød: ['stykket med ristet rugbrød', 'er med ristet rugbrød', 'er ikke med ristet rugbrød']
 
     smørelse:
-        smør: ['stykket med smør', 'er smurt med smør', 'er ikke smurt med smør']
+        saltet smør: ['stykket med saltet smør', 'er smurt med saltet smør', 'er ikke smurt med saltet smør']
+        usaltet smør: ['stykket med usaltet smør', 'er smurt med usaltet smør', 'er ikke smurt med usaltet smør']
         andefedt: ['stykket med andefedt', 'er smurt med andefedt', 'er ikke smurt med andefedt']
-        svinefedt: ['stykket med svinefedt', 'er smurt med svinefedt', 'er ikke smurt med svinefedt']
         plantesmør: ['stykket med plantesmør', 'er smurt med plantesmør', 'er ikke smurt med plantesmør']
         flødeost: ['stykket med flødeost', 'er smurt med flødeost', 'er ikke smurt med flødeost']
         hummus: ['stykket med hummus', 'er smurt med hummus', 'er ikke smurt med hummus']
         pesto: ['stykket med pesto', 'er smurt med pesto', 'er ikke smurt med pesto']
         mayonnaise: ['stykket med mayonnaise', 'er smurt med mayonnaise', 'er ikke smurt med mayonnaise']
+        hjemmekærnet smør: ['stykket med hjemmekærnet smør', 'er smurt med hjemmekærnet smør', 'er ikke smurt med hjemmekærnet smør']
+        smørbart blandingsprodukt: ['stykket med smørbart blandingsprodukt', 'er smurt med et smørbart blandingsprodukt', 'er ikke smurt med et smørbart blandingsprodukt']
+        hvidløgssmør: ['stykket med hvidløgssmør', 'er smurt med hvidløgssmør', 'er ikke smurt med hvidløgssmør']
+
+
 
     pålæg:
         røget laks: ['stykket med røget laks', 'er med røget laks', 'er ikke med røget laks']
@@ -114,11 +122,12 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Hvilke ingredienser indgår i hvilke smørrebrød? Angiv dit svar i følgende format, hvor det første tal i hver række angiver smørrebrødets nummer:
+        Hvilke ingredienser indgår i hvilke smørrebrød?
 
-        1, ingrediens_1, ingrediens_2, ingrediens_3 ...
-        2, ingrediens_4, ingrediens_5, ingrediens_5 ...
-        ...
+        Angiv venligst dit svar som et JSON dictionary på nedenstående format. Hver række skal starte med object_X hvor X er smørrebrøddets nummer i rækken. Hver kolonne repræsenterer en kategori, og de skal stå i samme rækkefølge som kategorierne er oplistet ovenfor.
+
+        {solution_template}
+
     - |
         {n_objects} kokke præsenterer hvert deres stykke smørrebrød. Stykkerne ligger på række og er nummereret fra 1 til {n_objects} fra venstre mod højre.
 
@@ -128,11 +137,11 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Hvilken ingrediens indgår i hvilke smørrebrød? Angiv dit svar i følgende format, hvor det første tal i hver række angiver smørrebrødets nummer:
+        Hvilken ingrediens indgår i hvilke smørrebrød?
 
-        1, ingrediens_1
-        2, ingrediens_2
-        ...
+        Angiv venligst dit svar som et JSON dictionary på nedenstående format. Hver række skal starte med object_X hvor X er smørrebrøddets nummer i rækken. Derefter følger en kolonne med ingredienserne i førnævnte kategori.
+
+        {solution_template}
 
 
 red_herring_clues_dict:
