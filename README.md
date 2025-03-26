@@ -12,6 +12,7 @@
 Generation and LLM evaluation of zebra puzzles in multiple languages and themes.
 
 Run `uv run src/scripts/build_dataset.py` to generate puzzles.
+
 Run `uv run src/scripts/evaluate.py` to evaluate puzzles.
 
 Use the configuration in `config/config.yaml` to specify:
@@ -21,7 +22,9 @@ Use the configuration in `config/config.yaml` to specify:
 - number of red herrings to include
 - model for evaluation (e.g. gpt-4o-mini, gpt-4o, o3-mini, o3)
 
-Puzzles and their solutions are saved in the data folder, LLM reponses are saved in the reponse folder and LLM scores are saved in the scores folder.
+The data folder contains puzzles, their solutions and LLM reponses. The LLM scores are saved in the scores folder.
+
+## Typical runtimes
 
 Typical runtimes for generating a puzzle of size n_objects x n_attributes are (using all clue types):
 - 3x7: 0.7 s
@@ -32,12 +35,12 @@ Typical runtimes for generating a puzzle of size n_objects x n_attributes are (u
 - 5x6: >10 min
 - 6x3: 4 min
 
-Typical times for evaluation of a puzzle:
+Typical times for evaluation of a puzzle without red herrings:
 
 gpt-4o-mini:
 - 4x4: 2 s
 
-o3 without red herrings:
+o3:
 - 3x3: 1 min 10 s
 - 4x4: 2 min
 - 4x5: 8 min
