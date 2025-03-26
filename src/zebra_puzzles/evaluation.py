@@ -162,13 +162,13 @@ def evaluate_single_puzzle(
     OutputFormat = generate_output_format_class(n_objects=n_objects)
 
     if generate_new_responses:
-        output = query_LLM(
+        output = query_llm(
             puzzle_path=puzzle_path, model=model, response_format=OutputFormat
         )
 
     else:
         # Load an existing response
-        with open(response_folder + "/" + response_filename, "w") as file:
+        with open(response_folder + "/" + response_filename, "r") as file:
             response_str = file.read()
 
         output = json.loads(response_str)
@@ -200,7 +200,7 @@ def evaluate_single_puzzle(
     return puzzle_score, cell_score, best_permuted_cell_score
 
 
-def query_LLM(
+def query_llm(
     puzzle_path: Path, model: str, response_format: Type[BaseModel]
 ) -> BaseModel:
     """Query an LLM API.
@@ -264,6 +264,8 @@ def compute_metrics(
 
     For each score type e.g. cell score, a dictionary of metrics is computed. This dictionary includes a string describing the rounded metrics.
 
+    Assumes that the scores are normally distributed. Also assumes that the maximum length of the string describing each metric is 100 characters.
+
     Args:
         scores_all_types: Tuple of scores as numpy arrays. Each element contains the scores for a specific score type.
         score_types: List of score type names as strings.
@@ -283,6 +285,7 @@ def compute_metrics(
     std_mean_scores = np.zeros(n_metrics, dtype=float)
 
     # Initialize strings describing metrics for each score type
+    # U100 is a Unicode string with a maximum length of 100 characters
     score_strings = np.zeros(n_metrics, dtype="U100")
 
     for i, scores in enumerate(scores_all_types):
@@ -308,7 +311,7 @@ def compute_metrics(
         )
 
         # Describe the score with a string
-        score_str = f"\tMean: {mean_scores[i]} ± {std_mean_scores[i]}"
+        score_str = f"\tMean: {mean_scores[i]} ± {std_mean_scores[i]} (1σ)"
         score_str += f"\n\tPopulation standard deviation: {std_scores[i]}"
         score_strings[i] = score_str
 
@@ -348,7 +351,7 @@ def format_scores(
     score_str = "Puzzle Scores\n"
     score_str += "-------------\n"
     score_str += "Metrics\n\n"
-
+    score_str += "Uncertainty is given as one standard deviation (1σ), corresponding to a 68% confidence interval. The 95% confidence interval is approximately ±2σ.\n\n"
     # Complete the string describing all metrics
     metrics_str = ""
     for score_type in score_types:

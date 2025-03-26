@@ -1,5 +1,6 @@
 """Utility module for generating and evaluating zebra puzzles."""
 
+import json
 import os
 from pathlib import Path
 from random import sample, shuffle
@@ -344,19 +345,8 @@ def format_solution(solution: np.ndarray) -> str:
     Returns:
         The solution as a string representing a json dictionary
     """
-    solution_json = "{\n"
-
-    for row in solution.astype(str):
-        row_object = row[0]
-        row_attributes = '", "'.join(row[1:])
-        solution_json += f'"object_{row_object}": ["{row_attributes}"],\n'
-
-    solution_json += "}"
-
-    # Delete last comma
-    solution_json = solution_json.replace(",\n}", "\n}")
-
-    return solution_json
+    solution_dict = {f"object_{row[0].item()}": row[1:].tolist() for row in solution}
+    return json.dumps(solution_dict)
 
 
 def create_solution_template(n_objects: int, chosen_categories: np.ndarray) -> str:
