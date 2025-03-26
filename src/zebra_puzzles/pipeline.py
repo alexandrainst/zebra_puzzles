@@ -3,14 +3,10 @@
 from tqdm import tqdm
 
 from zebra_puzzles.clue_selection import choose_clues
+from zebra_puzzles.file_utils import prepare_data_folders, save_dataset
+from zebra_puzzles.prompt_completion import complete_prompt
 from zebra_puzzles.red_herring_selection import choose_red_herrings
-from zebra_puzzles.zebra_utils import (
-    complete_prompt,
-    format_solution,
-    generate_solution,
-    prepare_data_folders,
-    save_dataset,
-)
+from zebra_puzzles.zebra_utils import format_solution_as_json, generate_solution
 
 
 def run_pipeline(
@@ -85,7 +81,7 @@ def run_pipeline(
         prompt_and=prompt_and,
     )
 
-    solution_json = format_solution(solution=solution)
+    solution_json = format_solution_as_json(solution=solution)
 
     return prompt, solution_json
 

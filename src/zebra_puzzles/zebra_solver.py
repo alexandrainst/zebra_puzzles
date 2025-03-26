@@ -54,21 +54,24 @@ def solver(
     return solutions, completeness
 
 
-def format_solution(
+def format_solution_as_matrix(
     solution_dict: dict[str, int], n_objects: int, n_attributes: int
 ) -> np.ndarray:
     """Change solution format from dict to list.
 
+    The input format is the one given by the solver.
+
     Assumes the maximum string length is 100 characters.
 
     Args:
-        solution_dict: Solution as a dict of attributes and which object they are connected to.
+        solution_dict: Solution as a dict of attributes and which object they are connected to. The dictionary format is {attribute: i_object}, where i_object is the object index.
         n_objects: Number of objects in the puzzle.
         n_attributes: Number of attributes of each object.
 
     Returns:
         Solution as a matrix in a numpy array.
     """
+    # U100 is a Unicode string with a maximum length of 100 characters
     solution_list = np.empty((n_objects, n_attributes + 1), dtype="U100")
     for i_object in range(1, n_objects + 1):
         solution_list[i_object - 1, :] = [str(i_object)] + [

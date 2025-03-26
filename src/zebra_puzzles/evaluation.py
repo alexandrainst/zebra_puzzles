@@ -4,16 +4,17 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Any, Type
+from typing import Type
 
 import numpy as np
 from dotenv import load_dotenv
 from openai import BadRequestError, OpenAI
-from pydantic import BaseModel, ValidationError, create_model
+from pydantic import BaseModel, ValidationError
 from tqdm import tqdm
 
 from zebra_puzzles.compare_solutions import compare_solutions
-from zebra_puzzles.zebra_utils import prepare_eval_folders, save_dataset
+from zebra_puzzles.file_utils import prepare_eval_folders, save_dataset
+from zebra_puzzles.zebra_utils import generate_output_format_class
 
 # Load environment variables to get the API key
 load_dotenv()
@@ -103,31 +104,6 @@ def evaluate_all(
     )
 
     save_dataset(data=score_str, filename=score_filename, folder=score_folder)
-
-
-def generate_output_format_class(n_objects: int) -> Type[BaseModel]:
-    """Generate the OutputFormat class based on the number of objects.
-
-    The OutputFormat class is a dynamically generated Pydantic model that represents the output format of the LLM.
-
-    The format will be:
-        object_1: list[str]
-        object_2: list[str]
-        ...
-
-    Args:
-        n_objects: Number of objects in the puzzle.
-
-    Returns:
-        A dynamically generated OutputFormat class.
-    """
-    fields: dict[str, Any] = {
-        f"object_{i + 1}": (list[str], ...) for i in range(n_objects)
-    }
-
-    OutputFormat = create_model("OutputFormat", **fields)
-
-    return OutputFormat
 
 
 def evaluate_single_puzzle(
