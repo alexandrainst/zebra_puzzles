@@ -53,7 +53,7 @@ def prepare_data_folders(
     n_objects: int,
     n_attributes: int,
     n_red_herring_clues: int,
-) -> tuple[list[str], list[str], str, str]:
+) -> tuple[list[str], list[str], list[str], str, str, str]:
     """Prepare the data folders for the dataset.
 
     Args:
@@ -67,8 +67,10 @@ def prepare_data_folders(
         A tuple (prompt_filenames, solution_filenames, puzzle_folder, solution_folder), where:
             prompt_filenames: List of prompt file names.
             solution_filenames: List of solution file names.
+            red_herring_filenames: List of red herring file names.
             puzzle_folder: Folder for the prompt files.
             solution_folder: Folder for the solution files
+            red_herring_folder: Folder for the red herring files.
 
     """
     # Create data file names
@@ -76,17 +78,28 @@ def prepare_data_folders(
     solution_filenames = [
         str(file.split(".")[0]) + "_solution.json" for file in prompt_filenames
     ]
+    red_herring_filenames = [
+        str(file.split(".")[0]) + "_red_herrings.txt" for file in prompt_filenames
+    ]
 
     # Define folders
     subfolder = f"{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh"
     puzzle_folder = f"data/{subfolder}/puzzles"
     solution_folder = f"data/{subfolder}/solutions"
+    red_herring_folder = f"data/{subfolder}/red_herrings"
 
     # Clean folders
     clean_folder(folder=puzzle_folder, keep_files=prompt_filenames)
     clean_folder(folder=solution_folder, keep_files=solution_filenames)
 
-    return prompt_filenames, solution_filenames, puzzle_folder, solution_folder
+    return (
+        prompt_filenames,
+        solution_filenames,
+        red_herring_filenames,
+        puzzle_folder,
+        solution_folder,
+        red_herring_folder,
+    )
 
 
 def prepare_eval_folders(

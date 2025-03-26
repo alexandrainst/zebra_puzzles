@@ -1,7 +1,7 @@
 """Utility module for generating and evaluating zebra puzzles."""
 
 import json
-from random import choices, sample
+from random import choices, sample, shuffle
 from typing import Any, Type
 
 import numpy as np
@@ -185,3 +185,31 @@ def generate_output_format_class(n_objects: int) -> Type[BaseModel]:
     OutputFormat = create_model("OutputFormat", **fields)
 
     return OutputFormat
+
+
+def shuffle_clues(
+    chosen_clues: list[str], chosen_red_herring_clues: list[str]
+) -> tuple[list[str], str]:
+    """Shuffle the clues and red herrings and return the indices of the red herrings.
+
+    Args:
+        chosen_clues: Chosen clues for the zebra puzzle as a list of strings.
+        chosen_red_herring_clues: Chosen red herring clues for the zebra puzzle as a list of strings.
+
+    Returns:
+        A tuple (chosen_clues, i_red_herrings_str), where:
+            chosen_clues: Shuffled clues for the zebra puzzle as a list of strings incl. red herrings.
+            i_red_herrings_str: String of indices of the red herrings in the shuffled list of clues.
+
+    """
+    # Shuffle clues and red herrings and get the indices of the red herrings
+    chosen_clues = chosen_clues + chosen_red_herring_clues
+    i_shuffled = list(range(len(chosen_clues)))
+    shuffle(i_shuffled)
+    chosen_clues = [chosen_clues[i] for i in i_shuffled]
+    i_red_herrings = [
+        i for i in i_shuffled if i >= len(chosen_clues) - len(chosen_red_herring_clues)
+    ]
+    i_red_herrings_str = ", ".join([str(i) for i in i_red_herrings])
+
+    return chosen_clues, i_red_herrings_str

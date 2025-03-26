@@ -6,7 +6,11 @@ from zebra_puzzles.clue_selection import choose_clues
 from zebra_puzzles.file_utils import prepare_data_folders, save_dataset
 from zebra_puzzles.prompt_completion import complete_prompt
 from zebra_puzzles.red_herring_selection import choose_red_herrings
-from zebra_puzzles.zebra_utils import format_solution_as_json, generate_solution
+from zebra_puzzles.zebra_utils import (
+    format_solution_as_json,
+    generate_solution,
+    shuffle_clues,
+)
 
 
 def run_pipeline(
@@ -20,7 +24,7 @@ def run_pipeline(
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
     red_herring_facts: dict[str, str],
-) -> tuple[str, str]:
+) -> tuple[str, str, str]:
     """Run the pipeline to generate one zebra puzzle.
 
     Args:
@@ -38,9 +42,10 @@ def run_pipeline(
         eval: Option to evaluate the prompt as a boolean.
 
     Returns:
-        A tuple (prompt, solution_str), where:
+        A tuple (prompt, solution_str, i_red_herrings), where:
             prompt: The full prompt for the zebra puzzle as a string.
             solution_str: The solution as a string.
+            i_red_herrings: String of indices of the red herring clues in the shuffled list of clues.
 
     TODO: Consider if enumeration should be removed when we only have one clue.
     """
@@ -70,9 +75,12 @@ def run_pipeline(
         n_attributes=n_attributes,
     )
 
+    chosen_clues, i_red_herrings = shuffle_clues(
+        chosen_clues=chosen_clues, chosen_red_herring_clues=chosen_red_herring_clues
+    )
+
     prompt = complete_prompt(
         chosen_clues=chosen_clues,
-        chosen_red_herring_clues=chosen_red_herring_clues,
         n_objects=n_objects,
         n_attributes=n_attributes,
         chosen_categories=chosen_categories,
@@ -83,7 +91,7 @@ def run_pipeline(
 
     solution_json = format_solution_as_json(solution=solution)
 
-    return prompt, solution_json
+    return prompt, solution_json, i_red_herrings
 
 
 def build_dataset(
@@ -102,7 +110,7 @@ def build_dataset(
 ) -> None:
     """Build a dataset of zebra puzzles.
 
-    Saves prompts and solutions in separate files in the data folder.
+    Saves prompts and solutions in separate files in the data folder. Also saves indices to the red herring clues in the prompt files.
 
     Args:
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
@@ -120,14 +128,19 @@ def build_dataset(
 
     NOTE: Consider only saving the puzzle and solution instead of the whole prompt.
     """
-    prompt_filenames, solution_filenames, puzzle_folder, solution_folder = (
-        prepare_data_folders(
-            n_puzzles=n_puzzles,
-            theme=theme,
-            n_objects=n_objects,
-            n_attributes=n_attributes,
-            n_red_herring_clues=n_red_herring_clues,
-        )
+    (
+        prompt_filenames,
+        solution_filenames,
+        red_herring_filenames,
+        puzzle_folder,
+        solution_folder,
+        red_herring_folder,
+    ) = prepare_data_folders(
+        n_puzzles=n_puzzles,
+        theme=theme,
+        n_objects=n_objects,
+        n_attributes=n_attributes,
+        n_red_herring_clues=n_red_herring_clues,
     )
 
     for i in tqdm(
@@ -138,7 +151,7 @@ def build_dataset(
         colour="#5599ff",
         ascii="░█",
     ):
-        prompt, solution_json = run_pipeline(
+        prompt, solution_json, i_red_herrings = run_pipeline(
             n_objects=n_objects,
             n_attributes=n_attributes,
             attributes=attributes,
@@ -153,4 +166,9 @@ def build_dataset(
         save_dataset(data=prompt, filename=prompt_filenames[i], folder=puzzle_folder)
         save_dataset(
             data=solution_json, filename=solution_filenames[i], folder=solution_folder
+        )
+        save_dataset(
+            data=i_red_herrings,
+            filename=red_herring_filenames[i],
+            folder=red_herring_folder,
         )
