@@ -16,7 +16,7 @@ from zebra_puzzles.zebra_utils import (
 def run_pipeline(
     n_objects: int,
     n_attributes: int,
-    attributes: dict[str, dict[str, str]],
+    attributes: dict[str, dict[str, list[str]]],
     clues_dict: dict[str, str],
     prompt_templates: list[str],
     prompt_and: str,
@@ -93,7 +93,7 @@ def run_pipeline(
 def build_dataset(
     n_objects: int,
     n_attributes: int,
-    attributes: dict[str, dict[str, str]],
+    attributes: dict[str, dict[str, list[str]]],
     clues_dict: dict[str, str],
     prompt_templates: list[str],
     prompt_and: str,

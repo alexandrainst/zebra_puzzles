@@ -9,7 +9,7 @@ import numpy as np
 
 
 def generate_solution(
-    attributes: dict[str, dict[str, str]], n_objects: int, n_attributes: int
+    attributes: dict[str, dict[str, list[str]]], n_objects: int, n_attributes: int
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """Generate the solution to a zebra puzzle.
 
