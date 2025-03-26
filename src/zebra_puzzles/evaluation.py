@@ -26,7 +26,7 @@ def evaluate_all(
     n_attributes: int,
     model: str,
     theme: str,
-    generate_new_responses: bool = False,
+    generate_new_responses: bool,
 ) -> None:
     """Evaluate a dataset of zebra puzzles.
 
