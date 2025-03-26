@@ -131,7 +131,7 @@ def prepare_data_folders(
     # Create data file names
     prompt_filenames = ["zebra_puzzle_{}.txt".format(i) for i in range(n_puzzles)]
     solution_filenames = [
-        str(file.split(".")[0]) + "_solution.txt" for file in prompt_filenames
+        str(file.split(".")[0]) + "_solution.json" for file in prompt_filenames
     ]
 
     # Define folders
@@ -343,10 +343,11 @@ def format_solution(solution: np.ndarray) -> str:
         solution: Solution to the zebra puzzle as a matrix of object indices and chosen attributes.
 
     Returns:
-        The solution as a string representing a json dictionary
+        The solution as a json dictionary
     """
     solution_dict = {f"object_{row[0].item()}": row[1:].tolist() for row in solution}
-    return json.dumps(solution_dict)
+    solution_json = json.dumps(solution_dict)
+    return solution_json
 
 
 def create_solution_template(n_objects: int, chosen_categories: np.ndarray) -> str:

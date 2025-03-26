@@ -175,7 +175,7 @@ def evaluate_single_puzzle(
         output = OutputFormat.model_validate(output)
 
     # Load the solution
-    solution_filename = f"{puzzle_path.stem}_solution.txt"
+    solution_filename = f"{puzzle_path.stem}_solution.json"
 
     with solution_path.joinpath(solution_filename).open() as file:
         solution = file.read()
