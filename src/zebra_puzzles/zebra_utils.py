@@ -71,7 +71,7 @@ def format_solution_as_json(solution: np.ndarray) -> str:
         The solution as a json dictionary
     """
     solution_dict = {f"object_{row[0].item()}": row[1:].tolist() for row in solution}
-    solution_json = json.dumps(solution_dict)
+    solution_json = json.dumps(solution_dict, indent=4, ensure_ascii=False)
     return solution_json
 
 

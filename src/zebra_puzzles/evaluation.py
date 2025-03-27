@@ -176,7 +176,7 @@ def evaluate_single_puzzle(
     )
 
     # Save the output
-    output_str = json.dumps(output.model_dump(), indent=4)
+    output_str = json.dumps(output.model_dump(), indent=4, ensure_ascii=False)
     save_dataset(data=output_str, filename=response_filename, folder=response_folder)
 
     return puzzle_score, cell_score, best_permuted_cell_score
