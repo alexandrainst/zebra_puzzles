@@ -3,6 +3,8 @@
 import os
 from pathlib import Path
 
+from zebra_puzzles.clue_removal import remove_red_herrings
+
 
 def clean_folder(folder: str, keep_files: list[str]) -> None:
     """Clean a folder by deleting outdated files.
@@ -45,6 +47,38 @@ def save_dataset(data: str, filename: str, folder: str = "data") -> None:
     """
     with open(folder + "/" + filename, "w") as file:
         file.write(data)
+
+
+def load_puzzle(puzzle_path: Path, n_red_herrings_to_keep: int) -> str:
+    """Load a puzzle.
+
+    Args:
+        puzzle_path: Path to the puzzle file.
+        n_red_herrings_to_keep: Number of red herring clues to be included in the puzzle as an integer.
+
+    Returns:
+        The prompt as a string.
+    """
+    # Load the prompt
+    with puzzle_path.open() as file:
+        prompt = file.read()
+
+    # Load the red herring indices
+    red_herring_path = puzzle_path.parent.parent.joinpath("red_herrings").joinpath(
+        puzzle_path.stem + "_red_herrings.txt"
+    )
+
+    with red_herring_path.open() as file:
+        i_red_herrings = file.read()
+
+    # Remove some red herrings
+    prompt = remove_red_herrings(
+        prompt=prompt,
+        i_red_herrings=i_red_herrings,
+        n_red_herrings_to_keep=n_red_herrings_to_keep,
+    )
+
+    return prompt
 
 
 def prepare_data_folders(
@@ -106,7 +140,7 @@ def prepare_eval_folders(
     theme: str,
     n_objects: int,
     n_attributes: int,
-    n_red_herring_clues: int,
+    n_red_herring_clues_evaluated: int,
     model: str,
     n_puzzles: int,
     generate_new_responses: bool,
@@ -117,7 +151,7 @@ def prepare_eval_folders(
         theme: The theme of the puzzles.
         n_objects: Number of objects in each puzzle as an integer.
         n_attributes: Number of attributes of each object as an integer.
-        n_red_herring_clues: Number of red herring clues included in the puzzles as an integer.
+        n_red_herring_clues_evaluated: Number of red herring clues included in the evaluated version of the puzzles as an integer.
         model: The model to use for the evaluation as a string.
         n_puzzles: Number of puzzles to evaluate as an integer.
         generate_new_responses: Whether to generate new responses or use existing ones.
@@ -132,7 +166,9 @@ def prepare_eval_folders(
             score_folder: Folder to save the scores in.
     """
     # Define the subfolders for puzzles, solutions, responses, and evaluations
-    puzzle_subfolder = f"{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh"
+    puzzle_subfolder = (
+        f"{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues_evaluated}rh"
+    )
 
     # Get sorted names of all prompt files in the data folder
     puzzle_paths = sorted(list(Path(f"data/{puzzle_subfolder}/puzzles").glob("*.txt")))
@@ -146,7 +182,7 @@ def prepare_eval_folders(
         f"{file_path.stem}_response.json" for file_path in puzzle_paths
     ]
 
-    score_filename = f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues}_rh_{n_puzzles}_puzzles.txt"
+    score_filename = f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues_evaluated}_rh_{n_puzzles}_puzzles.txt"
 
     # Define evaluation folders
     response_folder = f"data/{puzzle_subfolder}/responses/{model}"

@@ -1,5 +1,8 @@
 """Module for removing redundant clues."""
 
+import re
+from random import sample
+
 import numpy as np
 
 from zebra_puzzles.zebra_solver import solver
@@ -253,3 +256,43 @@ def remove_redundant_clues_with_solver(
             del chosen_constraints[i]
 
     return chosen_clues, chosen_constraints
+
+
+def remove_red_herrings(
+    prompt: str, i_red_herrings: str, n_red_herrings_to_keep: int
+) -> str:
+    """Remove red herrings from the list of clues.
+
+    Args:
+        prompt: The full prompt for the zebra puzzle as a string.
+        i_red_herrings: String of indices of the red herring clues in the shuffled list of clues.
+        n_red_herrings_to_keep: Number of red herring clues to keep in the prompt as an integer.
+
+    Returns:
+        The prompt without the red herring clues.
+    """
+    # Split the string of indices into a list
+    i_red_herrings_list = i_red_herrings.split(", ")
+
+    n_red_herrings = len(i_red_herrings_list)
+
+    # Check that any red herrings should be removed
+    if i_red_herrings != "" and n_red_herrings_to_keep <= n_red_herrings:
+        # Select clues in prompt based on them following a number and a "." with regex
+        clues = re.findall(r"\d+\.\s.*", prompt)
+
+        # Randomly select red herring clues to remove
+        n_red_herrings_to_remove = n_red_herrings - n_red_herrings_to_keep
+        i_red_herrings_to_remove = sample(i_red_herrings_list, n_red_herrings_to_remove)
+
+        # Change numbering in prompt
+        for i, clue in enumerate(clues):
+            if i in i_red_herrings_to_remove:
+                # Remove red herring clues from prompt
+                prompt = prompt.replace(clue, "")
+            else:
+                # Replace clue numbers
+                clue = clue.split(".")[1]
+                prompt = prompt.replace(clue, f"{i + 1}. {clue}")
+
+    return prompt

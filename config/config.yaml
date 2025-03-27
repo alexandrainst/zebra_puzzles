@@ -26,5 +26,9 @@ n_objects: 3
 # Attributes e.g. pets
 n_attributes: 3
 
-#Number of red herring clues
+# Number of red herring clues generated
 n_red_herring_clues: 5
+
+# Number of red herrings clues evaluated
+# This must be less than or equal to n_red_herring_clues, as clues can be removed but not added during evaluation.
+n_red_herring_clues_evaluated: 3

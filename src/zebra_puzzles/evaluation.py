@@ -13,7 +13,7 @@ from pydantic import BaseModel, ValidationError
 from tqdm import tqdm
 
 from zebra_puzzles.compare_solutions import compare_solutions
-from zebra_puzzles.file_utils import prepare_eval_folders, save_dataset
+from zebra_puzzles.file_utils import load_puzzle, prepare_eval_folders, save_dataset
 from zebra_puzzles.zebra_utils import generate_output_format_class
 
 # Load environment variables to get the API key
@@ -22,7 +22,7 @@ load_dotenv()
 
 def evaluate_all(
     n_puzzles: int,
-    n_red_herring_clues: int,
+    n_red_herring_clues_evaluated: int,
     n_objects: int,
     n_attributes: int,
     model: str,
@@ -33,7 +33,7 @@ def evaluate_all(
 
     Args:
         n_puzzles: Number of puzzles to evaluate as an integer.
-        n_red_herring_clues: Number of red herring clues included in the puzzles as an integer.
+        n_red_herring_clues_evaluated: Number of red herring clues included in the puzzles as an integer. If this is smaller than the number of red herring clues used to generate the puzzles, the evaluation will be done on a subset of the red herring clues.
         n_objects: Number of objects in each puzzle as an integer.
         n_attributes: Number of attributes of each object as an integer.
         model: The model to use for the evaluation as a string.
@@ -53,7 +53,7 @@ def evaluate_all(
         theme=theme,
         n_objects=n_objects,
         n_attributes=n_attributes,
-        n_red_herring_clues=n_red_herring_clues,
+        n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
         model=model,
         n_puzzles=n_puzzles,
         generate_new_responses=generate_new_responses,
@@ -82,6 +82,7 @@ def evaluate_all(
             response_filename=response_filenames[i],
             generate_new_responses=generate_new_responses,
             response_folder=response_folder,
+            n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
         )
         puzzle_scores[i] = puzzle_score
         cell_scores[i] = cell_score
@@ -115,6 +116,7 @@ def evaluate_single_puzzle(
     response_filename: str,
     response_folder: str,
     generate_new_responses: bool,
+    n_red_herring_clues_evaluated: int,
 ) -> tuple[float, float, float]:
     """Evaluate a dataset of zebra puzzles.
 
@@ -127,6 +129,7 @@ def evaluate_single_puzzle(
         response_filename: The name of the response file.
         response_folder: The folder to save the response file in.
         generate_new_responses: Whether to generate new responses or use existing ones.
+        n_red_herring_clues_evaluated: Number of red herring clues included in the puzzles as an integer. If this is smaller than the number of red herring clues used to generate the puzzles, the evaluation will be done on a subset of the red herring clues.
 
     Returns:
         A tuple (puzzle_score, cell_score), where:
@@ -138,9 +141,12 @@ def evaluate_single_puzzle(
     OutputFormat = generate_output_format_class(n_objects=n_objects)
 
     if generate_new_responses:
-        output = query_llm(
-            puzzle_path=puzzle_path, model=model, response_format=OutputFormat
+        prompt = load_puzzle(
+            puzzle_path=puzzle_path,
+            n_red_herrings_to_keep=n_red_herring_clues_evaluated,
         )
+
+        output = query_llm(prompt=prompt, model=model, response_format=OutputFormat)
 
     else:
         # Load an existing response
@@ -176,13 +182,11 @@ def evaluate_single_puzzle(
     return puzzle_score, cell_score, best_permuted_cell_score
 
 
-def query_llm(
-    puzzle_path: Path, model: str, response_format: Type[BaseModel]
-) -> BaseModel:
+def query_llm(prompt: str, model: str, response_format: Type[BaseModel]) -> BaseModel:
     """Query an LLM API.
 
     Args:
-        puzzle_path: Path to the dataset file.
+        prompt: The prompt to use for the evaluation.
         model: The model to use for the evaluation.
         response_format: The response format as a Pydantic model.
 
@@ -191,10 +195,6 @@ def query_llm(
 
     """
     logging.getLogger("httpx").setLevel(logging.ERROR)
-
-    # Load the prompt
-    with puzzle_path.open() as file:
-        prompt = file.read()
 
     client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
