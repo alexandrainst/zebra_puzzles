@@ -20,6 +20,7 @@ def choose_clues(
     n_objects: int,
     n_attributes: int,
     clues_dict: dict[str, str],
+    clue_weights: dict[str, float],
 ) -> list[str]:
     """Choose clues for a zebra puzzle.
 
@@ -27,7 +28,8 @@ def choose_clues(
 
     Args:
         solution: Solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x (n_attributes + 1).
-        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
+        clue_weights: Weights for clue selection as a dictionary containing a title and a weight for each clue type.
         chosen_attributes: Attribute values chosen for the solution as a matrix.
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
         n_objects: Number of objects in the puzzle as an integer.
@@ -40,6 +42,17 @@ def choose_clues(
     applicable_clues_dict = exclude_clues(
         clues_dict=clues_dict, n_objects=n_objects, n_attributes=n_attributes
     )
+
+    # Select the weights for applicable clues
+    applicable_clue_weights = {
+        clue_type: clue_weights[clue_type]
+        for clue_type in applicable_clues_dict.keys()
+        if clue_type in clue_weights
+    }
+
+    # Normalise the clue weights
+    clue_probabilities = np.array(list(applicable_clue_weights.values()))
+    clue_probabilities = clue_probabilities / np.sum(clue_probabilities)
 
     # Transpose and sort the attributes
     chosen_attributes_sorted = chosen_attributes.T
@@ -56,7 +69,9 @@ def choose_clues(
     i_iter = 0
     while not solved:
         # Generate a random clue
-        new_clue_type = sample(sorted(applicable_clues_dict), 1)[0]
+        new_clue_type = str(
+            np.random.choice(sorted(applicable_clues_dict), p=clue_probabilities)
+        )
         new_clue, new_constraint, new_clue_parameters = create_clue(
             clue=new_clue_type,
             n_objects=n_objects,

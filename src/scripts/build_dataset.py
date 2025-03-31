@@ -26,6 +26,7 @@ def main(config: DictConfig) -> None:
     prompt_templates = config.language.prompt_templates
     prompt_and = config.language.prompt_and
     clues_dict = config.language.clues_dict
+    clue_weights = config.clue_weights
     theme = config.language.theme
 
     n_red_herring_clues = config.n_red_herring_clues
@@ -36,6 +37,7 @@ def main(config: DictConfig) -> None:
     build_dataset(
         attributes=attributes,
         clues_dict=clues_dict,
+        clue_weights=clue_weights,
         prompt_templates=prompt_templates,
         prompt_and=prompt_and,
         n_objects=n_objects,

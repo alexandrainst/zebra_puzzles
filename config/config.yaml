@@ -21,10 +21,10 @@ generate_new_responses: True
 n_puzzles: 4
 
 # Objects e.g. houses
-n_objects: 4
+n_objects: 3
 
 # Attributes e.g. pets
-n_attributes: 4
+n_attributes: 3
 
 # Number of red herring clues generated
 n_red_herring_clues: 5
@@ -32,3 +32,20 @@ n_red_herring_clues: 5
 # Number of red herrings clues evaluated
 # This must be less than or equal to n_red_herring_clues, as clues can be removed but not added during evaluation.
 n_red_herring_clues_evaluated: 3
+
+# Weights for the clue types
+clue_weights:
+    found_at: 1
+    not_at: 1
+    next_to: 1
+    not_next_to: 1
+    just_left_of: 1
+    just_right_of: 1
+    left_of: 1
+    right_of: 1
+    same_object: 1
+    not_same_object: 1
+    between: 1
+    not_between: 1
+    multiple_between: 1
+    one_between: 1

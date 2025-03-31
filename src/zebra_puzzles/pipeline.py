@@ -18,6 +18,7 @@ def run_pipeline(
     n_attributes: int,
     attributes: dict[str, dict[str, list[str]]],
     clues_dict: dict[str, str],
+    clue_weights: dict[str, float],
     prompt_templates: list[str],
     prompt_and: str,
     n_red_herring_clues: int,
@@ -28,7 +29,8 @@ def run_pipeline(
     """Run the pipeline to generate one zebra puzzle.
 
     Args:
-        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
+        clue_weights: Weights for clue selection as a dictionary containing a title and a weight for each clue type.
         n_objects: Number of objects in the puzzle as an integer.
         n_attributes: Number of attributes of each object as an integer.
         attributes: Possible attributes as a dictionary of dictionaries.
@@ -62,6 +64,7 @@ def run_pipeline(
         n_objects=n_objects,
         n_attributes=n_attributes,
         clues_dict=clues_dict,
+        clue_weights=clue_weights,
     )
 
     chosen_red_herring_clues = choose_red_herrings(
@@ -99,6 +102,7 @@ def build_dataset(
     n_attributes: int,
     attributes: dict[str, dict[str, list[str]]],
     clues_dict: dict[str, str],
+    clue_weights: dict[str, float],
     prompt_templates: list[str],
     prompt_and: str,
     n_puzzles: int,
@@ -113,7 +117,8 @@ def build_dataset(
     Saves prompts and solutions in separate files in the data folder. Also saves indices to the red herring clues in the prompt files.
 
     Args:
-        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
+        clue_weights: Weights for clue selection as a dictionary containing a title and a weight for each clue type.
         n_objects: Number of objects in the puzzle.
         n_attributes: Number of attributes of each object.
         attributes: Possible attributes as a dictionary of dictionaries.
@@ -156,6 +161,7 @@ def build_dataset(
             n_attributes=n_attributes,
             attributes=attributes,
             clues_dict=clues_dict,
+            clue_weights=clue_weights,
             prompt_templates=prompt_templates,
             prompt_and=prompt_and,
             n_red_herring_clues=n_red_herring_clues,
