@@ -16,7 +16,7 @@ def choose_red_herrings(
     chosen_attributes_descs: np.ndarray,
     n_objects: int,
     n_attributes: int,
-) -> list[str]:
+) -> tuple[list[str], list[str]]:
     """Choose red herrings for a zebra puzzle.
 
     Args:
@@ -30,10 +30,13 @@ def choose_red_herrings(
         n_attributes: Number of attributes of each object.
 
     Returns:
-        Chosen red herring clues for the zebra puzzle as a list of strings.
+        A tuple (chosen_clues, chosen_clue_types), where:
+            chosen_clues: The completed red herring clues as a list of strings.
+            chosen_clue_types: The types of red herring clues as a list of strings.
 
     """
     chosen_clues: list[str] = []
+    chosen_clue_types: list[str] = []
     used_red_herrings: list[str] = []
     for _ in range(n_red_herring_clues):
         # Choose a red herring clue type
@@ -53,8 +56,9 @@ def choose_red_herrings(
         )
 
         chosen_clues.append(clue)
+        chosen_clue_types.append(clue_type)
 
-    return chosen_clues
+    return chosen_clues, chosen_clue_types
 
 
 def create_red_herring(

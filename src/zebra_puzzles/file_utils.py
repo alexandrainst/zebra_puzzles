@@ -87,7 +87,7 @@ def prepare_data_folders(
     n_objects: int,
     n_attributes: int,
     n_red_herring_clues: int,
-) -> tuple[list[str], list[str], list[str], str, str, str]:
+) -> tuple[list[str], list[str], list[str], list[str], str, str, str, str]:
     """Prepare the data folders for the dataset.
 
     Args:
@@ -98,42 +98,50 @@ def prepare_data_folders(
         n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
 
     Returns:
-        A tuple (prompt_filenames, solution_filenames, puzzle_folder, solution_folder), where:
+        A tuple (prompt_filenames, clue_type_filenames, red_herring_filenames, solution_filenames, puzzle_folder, clue_type_folder, red_herring_folder, solution_folder), where:
             prompt_filenames: List of prompt file names.
-            solution_filenames: List of solution file names.
+            clue_type_filenames: List of clue type file names.
             red_herring_filenames: List of red herring file names.
+            solution_filenames: List of solution file names.
             puzzle_folder: Folder for the prompt files.
-            solution_folder: Folder for the solution files
+            clue_type_folder: Folder for the clue type files.
             red_herring_folder: Folder for the red herring files.
-
+            solution_folder: Folder for the solution files.
     """
     # Create data file names
     prompt_filenames = ["zebra_puzzle_{}.txt".format(i) for i in range(n_puzzles)]
-    solution_filenames = [
-        str(file.split(".")[0]) + "_solution.json" for file in prompt_filenames
+    clue_type_filenames = [
+        str(file.split(".")[0]) + "_clue_types.txt" for file in prompt_filenames
     ]
     red_herring_filenames = [
         str(file.split(".")[0]) + "_red_herrings.txt" for file in prompt_filenames
+    ]
+    solution_filenames = [
+        str(file.split(".")[0]) + "_solution.json" for file in prompt_filenames
     ]
 
     # Define folders
     subfolder = f"{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh"
     puzzle_folder = f"data/{subfolder}/puzzles"
-    solution_folder = f"data/{subfolder}/solutions"
+    clue_type_folder = f"data/{subfolder}/clue_types"
     red_herring_folder = f"data/{subfolder}/red_herrings"
+    solution_folder = f"data/{subfolder}/solutions"
 
     # Clean folders
     clean_folder(folder=puzzle_folder, keep_files=prompt_filenames)
-    clean_folder(folder=solution_folder, keep_files=solution_filenames)
+    clean_folder(folder=clue_type_folder, keep_files=clue_type_filenames)
     clean_folder(folder=red_herring_folder, keep_files=red_herring_filenames)
+    clean_folder(folder=solution_folder, keep_files=solution_filenames)
 
     return (
         prompt_filenames,
-        solution_filenames,
+        clue_type_filenames,
         red_herring_filenames,
+        solution_filenames,
         puzzle_folder,
-        solution_folder,
+        clue_type_folder,
         red_herring_folder,
+        solution_folder,
     )
 
 

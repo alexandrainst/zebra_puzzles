@@ -188,28 +188,44 @@ def generate_output_format_class(n_objects: int) -> Type[BaseModel]:
 
 
 def shuffle_clues(
-    chosen_clues: list[str], chosen_red_herring_clues: list[str]
-) -> tuple[list[str], str]:
+    chosen_clues: list[str],
+    chosen_red_herring_clues: list[str],
+    chosen_clue_types: list[str],
+    chosen_red_herring_clue_types: list[str],
+) -> tuple[list[str], str, str]:
     """Shuffle the clues and red herrings and return the indices of the red herrings.
+
+    The clue types are also shuffled and returned as a string.
 
     Args:
         chosen_clues: Chosen clues for the zebra puzzle as a list of strings.
         chosen_red_herring_clues: Chosen red herring clues for the zebra puzzle as a list of strings.
+        chosen_clue_types: Chosen clue types for the zebra puzzle as a list of strings.
+        chosen_red_herring_clue_types: Chosen red herring clue types for the zebra puzzle as a list of strings.
 
     Returns:
-        A tuple (chosen_clues, i_red_herrings_str), where:
+        A tuple (chosen_clues, i_red_herrings_str, chosen_clue_types_str), where:
             chosen_clues: Shuffled clues for the zebra puzzle as a list of strings incl. red herrings.
             i_red_herrings_str: String of indices of the red herrings in the shuffled list of clues.
+            chosen_clue_types_str: Shuffled clue types for the zebra puzzle as a string.
 
     """
-    # Shuffle clues and red herrings and get the indices of the red herrings
+    # Combine clues and red herrings
     chosen_clues = chosen_clues + chosen_red_herring_clues
+    chosen_clue_types = chosen_clue_types + chosen_red_herring_clue_types
+
+    # Shuffle the clues and red herrings
     i_shuffled = list(range(len(chosen_clues)))
     shuffle(i_shuffled)
     chosen_clues = [chosen_clues[i] for i in i_shuffled]
+    chosen_clue_types = [chosen_clue_types[i] for i in i_shuffled]
+
+    # Get the indices of the red herrings
     i_red_herrings = [
         i for i in i_shuffled if i >= len(chosen_clues) - len(chosen_red_herring_clues)
     ]
     i_red_herrings_str = ", ".join([str(i) for i in i_red_herrings])
 
-    return chosen_clues, i_red_herrings_str
+    chosen_clue_types_str = ", ".join(chosen_clue_types)
+
+    return chosen_clues, i_red_herrings_str, chosen_clue_types_str

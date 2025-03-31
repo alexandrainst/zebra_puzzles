@@ -25,7 +25,7 @@ def run_pipeline(
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
     red_herring_facts: dict[str, str],
-) -> tuple[str, str, str]:
+) -> tuple[str, str, str, str]:
     """Run the pipeline to generate one zebra puzzle.
 
     Args:
@@ -44,10 +44,11 @@ def run_pipeline(
         eval: Option to evaluate the prompt as a boolean.
 
     Returns:
-        A tuple (prompt, solution_str, i_red_herrings), where:
+        A tuple (prompt, solution_str, i_red_herrings, chosen_clue_types_str), where:
             prompt: The full prompt for the zebra puzzle as a string.
             solution_str: The solution as a string.
             i_red_herrings: String of indices of the red herring clues in the shuffled list of clues.
+            chosen_clue_types_str: The types of clues chosen for the puzzle as a string.
 
     TODO: Consider if enumeration should be removed when we only have one clue.
     """
@@ -57,7 +58,7 @@ def run_pipeline(
         )
     )
 
-    chosen_clues = choose_clues(
+    chosen_clues, chosen_clue_types = choose_clues(
         solution=solution,
         chosen_attributes=chosen_attributes,
         chosen_attributes_descs=chosen_attributes_descs,
@@ -67,7 +68,7 @@ def run_pipeline(
         clue_weights=clue_weights,
     )
 
-    chosen_red_herring_clues = choose_red_herrings(
+    chosen_red_herring_clues, chosen_red_herring_clue_types = choose_red_herrings(
         n_red_herring_clues=n_red_herring_clues,
         red_herring_clues_dict=red_herring_clues_dict,
         red_herring_attributes=red_herring_attributes,
@@ -78,8 +79,11 @@ def run_pipeline(
         n_attributes=n_attributes,
     )
 
-    chosen_clues, i_red_herrings = shuffle_clues(
-        chosen_clues=chosen_clues, chosen_red_herring_clues=chosen_red_herring_clues
+    chosen_clues, i_red_herrings, chosen_clue_types_str = shuffle_clues(
+        chosen_clues=chosen_clues,
+        chosen_red_herring_clues=chosen_red_herring_clues,
+        chosen_clue_types=chosen_clue_types,
+        chosen_red_herring_clue_types=chosen_red_herring_clue_types,
     )
 
     prompt = complete_prompt(
@@ -94,7 +98,7 @@ def run_pipeline(
 
     solution_json = format_solution_as_json(solution=solution)
 
-    return prompt, solution_json, i_red_herrings
+    return prompt, solution_json, i_red_herrings, chosen_clue_types_str
 
 
 def build_dataset(
@@ -135,11 +139,13 @@ def build_dataset(
     """
     (
         prompt_filenames,
-        solution_filenames,
+        clue_type_filenames,
         red_herring_filenames,
+        solution_filenames,
         puzzle_folder,
-        solution_folder,
+        clue_type_folder,
         red_herring_folder,
+        solution_folder,
     ) = prepare_data_folders(
         n_puzzles=n_puzzles,
         theme=theme,
@@ -156,7 +162,7 @@ def build_dataset(
         colour="#5599ff",
         ascii="░█",
     ):
-        prompt, solution_json, i_red_herrings = run_pipeline(
+        prompt, solution_json, i_red_herrings, chosen_clue_types_str = run_pipeline(
             n_objects=n_objects,
             n_attributes=n_attributes,
             attributes=attributes,
@@ -177,4 +183,9 @@ def build_dataset(
             data=i_red_herrings,
             filename=red_herring_filenames[i],
             folder=red_herring_folder,
+        )
+        save_dataset(
+            data=chosen_clue_types_str,
+            filename=clue_type_filenames[i],
+            folder=clue_type_folder,
         )

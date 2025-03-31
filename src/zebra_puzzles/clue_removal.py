@@ -224,8 +224,9 @@ def remove_redundant_clues_with_solver(
     chosen_constraints: list,
     chosen_clues: list[str],
     chosen_attributes_sorted: np.ndarray,
+    chosen_clue_types: list[str],
     n_objects: int,
-) -> tuple[list[str], list]:
+) -> tuple[list[str], list, list[str]]:
     """Remove redundant clues and constraints.
 
     Tries removing each clue and see if the solution is still found.
@@ -237,12 +238,14 @@ def remove_redundant_clues_with_solver(
             variables: Attributes that the constraint applies to.
         chosen_clues: Clues for the zebra puzzle as a list of strings.
         chosen_attributes_sorted: Matrix of attribute values chosen for the solution after sorting each category to avoid spoiling the solution.
+        chosen_clue_types: List of clue types for the chosen clues.
         n_objects: Number of objects in the puzzle.
 
     Returns:
-        A tuple (chosen_clues, constraints), where:
+        A tuple (chosen_clues, constraints, chosen_clue_types), where:
             chosen_clues: Non-redundant clues for the zebra puzzle as a list of strings.
             constraints: Non-redundant constraints for the puzzle solver.
+            chosen_clue_types: Non-redundant clue types for the zebra puzzle as a list of strings.
 
     """
     for i in range(len(chosen_constraints) - 1, -1, -1):
@@ -254,8 +257,9 @@ def remove_redundant_clues_with_solver(
         if completeness == 1:
             del chosen_clues[i]
             del chosen_constraints[i]
+            del chosen_clue_types[i]
 
-    return chosen_clues, chosen_constraints
+    return chosen_clues, chosen_constraints, chosen_clue_types
 
 
 def remove_red_herrings(

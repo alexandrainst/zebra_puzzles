@@ -21,7 +21,7 @@ def choose_clues(
     n_attributes: int,
     clues_dict: dict[str, str],
     clue_weights: dict[str, float],
-) -> list[str]:
+) -> tuple[list[str], list[str]]:
     """Choose clues for a zebra puzzle.
 
     If the solver identifies a different solution than the expected one, it will raise a warning and change the solution to the one found by the solver.
@@ -36,7 +36,9 @@ def choose_clues(
         n_attributes: Number of attributes per object as an integer.
 
     Returns:
-        Clues for the zebra puzzle as a list of strings.
+        A tuple (chosen_clues, chosen_clue_types), where:
+            chosen_clues: Clues for the zebra puzzle as a list of strings.
+            chosen_clue_types: Types of clues chosen for the puzzle as a list of strings.
 
     """
     applicable_clues_dict = exclude_clues(
@@ -132,11 +134,14 @@ def choose_clues(
             )
 
             # Remove redundant clues
-            chosen_clues, chosen_constraints = remove_redundant_clues_with_solver(
-                chosen_constraints=chosen_constraints,
-                chosen_clues=chosen_clues,
-                chosen_attributes_sorted=chosen_attributes_sorted,
-                n_objects=n_objects,
+            chosen_clues, chosen_constraints, chosen_clue_types = (
+                remove_redundant_clues_with_solver(
+                    chosen_constraints=chosen_constraints,
+                    chosen_clues=chosen_clues,
+                    chosen_attributes_sorted=chosen_attributes_sorted,
+                    n_objects=n_objects,
+                    chosen_clue_types=chosen_clue_types,
+                )
             )
 
         i_iter += 1
@@ -147,7 +152,7 @@ def choose_clues(
             print("current_constraints:", current_constraints)
             raise StopIteration("Used too many attempts to solve the puzzle.")
 
-    return chosen_clues
+    return chosen_clues, chosen_clue_types
 
 
 def test_original_solution(
