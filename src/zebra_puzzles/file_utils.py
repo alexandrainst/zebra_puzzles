@@ -125,6 +125,7 @@ def prepare_data_folders(
     # Clean folders
     clean_folder(folder=puzzle_folder, keep_files=prompt_filenames)
     clean_folder(folder=solution_folder, keep_files=solution_filenames)
+    clean_folder(folder=red_herring_folder, keep_files=red_herring_filenames)
 
     return (
         prompt_filenames,
