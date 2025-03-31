@@ -140,6 +140,7 @@ def prepare_eval_folders(
     theme: str,
     n_objects: int,
     n_attributes: int,
+    n_red_herring_clues: int,
     n_red_herring_clues_evaluated: int,
     model: str,
     n_puzzles: int,
@@ -151,6 +152,7 @@ def prepare_eval_folders(
         theme: The theme of the puzzles.
         n_objects: Number of objects in each puzzle as an integer.
         n_attributes: Number of attributes of each object as an integer.
+        n_red_herring_clues: Number of red herring clues included in the generated version of the puzzles as an integer.
         n_red_herring_clues_evaluated: Number of red herring clues included in the evaluated version of the puzzles as an integer.
         model: The model to use for the evaluation as a string.
         n_puzzles: Number of puzzles to evaluate as an integer.
@@ -166,12 +168,16 @@ def prepare_eval_folders(
             score_folder: Folder to save the scores in.
     """
     # Define the subfolders for puzzles, solutions, responses, and evaluations
-    puzzle_subfolder = (
-        f"{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues_evaluated}rh"
-    )
+    puzzle_subfolder = f"{theme}/{n_objects}x{n_attributes}"
 
     # Get sorted names of all prompt files in the data folder
-    puzzle_paths = sorted(list(Path(f"data/{puzzle_subfolder}/puzzles").glob("*.txt")))
+    puzzle_paths = sorted(
+        list(
+            Path(f"data/{puzzle_subfolder}/{n_red_herring_clues}rh/puzzles").glob(
+                "*.txt"
+            )
+        )
+    )
 
     solution_paths = [
         puzzle_path.parent.parent.joinpath("solutions") for puzzle_path in puzzle_paths
@@ -185,8 +191,12 @@ def prepare_eval_folders(
     score_filename = f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues_evaluated}_rh_{n_puzzles}_puzzles.txt"
 
     # Define evaluation folders
-    response_folder = f"data/{puzzle_subfolder}/responses/{model}"
-    score_folder = f"scores/{puzzle_subfolder}/{model}"
+    response_folder = (
+        f"data/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/responses/{model}"
+    )
+    score_folder = (
+        f"scores/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/{model}"
+    )
 
     if generate_new_responses:
         # Clean or create reponses folder

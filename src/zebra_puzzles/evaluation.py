@@ -22,6 +22,7 @@ load_dotenv()
 
 def evaluate_all(
     n_puzzles: int,
+    n_red_herring_clues: int,
     n_red_herring_clues_evaluated: int,
     n_objects: int,
     n_attributes: int,
@@ -33,7 +34,8 @@ def evaluate_all(
 
     Args:
         n_puzzles: Number of puzzles to evaluate as an integer.
-        n_red_herring_clues_evaluated: Number of red herring clues included in the puzzles as an integer. If this is smaller than the number of red herring clues used to generate the puzzles, the evaluation will be done on a subset of the red herring clues.
+        n_red_herring_clues: Number of red herring clues in the generated puzzles as an integer.
+        n_red_herring_clues_evaluated: Number of red herring clues to be included in the evaluated puzzles as an integer. If this is smaller than the number of red herring clues used to generate the puzzles, the evaluation will be done on a subset of the red herring clues.
         n_objects: Number of objects in each puzzle as an integer.
         n_attributes: Number of attributes of each object as an integer.
         model: The model to use for the evaluation as a string.
@@ -41,6 +43,7 @@ def evaluate_all(
         generate_new_responses: Whether to generate new responses or use existing ones.
 
     TODO: Make the script more robust in cases where the expected responses are not found.
+    TODO: Save the updated puzzles and selected rh clue types.
     """
     (
         puzzle_paths,
@@ -53,6 +56,7 @@ def evaluate_all(
         theme=theme,
         n_objects=n_objects,
         n_attributes=n_attributes,
+        n_red_herring_clues=n_red_herring_clues,
         n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
         model=model,
         n_puzzles=n_puzzles,
