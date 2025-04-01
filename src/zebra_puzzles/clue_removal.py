@@ -264,7 +264,7 @@ def remove_redundant_clues_with_solver(
 
 def remove_red_herrings(
     prompt: str,
-    i_red_herrings: str,
+    red_herring_indices_str: str,
     chosen_clue_types_str: str,
     n_red_herrings_to_keep: int,
 ) -> tuple[str, str, bool]:
@@ -272,7 +272,7 @@ def remove_red_herrings(
 
     Args:
         prompt: The full prompt for the zebra puzzle as a string.
-        i_red_herrings: String of comma-separated indices of the red herring clues in the shuffled list of clues.
+        red_herring_indices_str: String of comma-separated indices of the red herring clues in the shuffled list of clues.
         chosen_clue_types_str: String of comma-separated clue types chosen for the puzzle.
         n_red_herrings_to_keep: Number of red herring clues to keep in the prompt as an integer.
 
@@ -283,18 +283,18 @@ def remove_red_herrings(
             fewer_rh: Boolean indicating if fewer red herrings are included than in the original prompt.
     """
     # Split the string of indices into a list
-    i_red_herrings_list = i_red_herrings.split(", ")
+    i_red_herrings = red_herring_indices_str.split(", ")
 
-    n_red_herrings = len(i_red_herrings_list)
+    n_red_herrings = len(i_red_herrings)
 
     # Check that any red herrings should be removed
-    if i_red_herrings != "" and n_red_herrings_to_keep < n_red_herrings:
+    if red_herring_indices_str != "" and n_red_herrings_to_keep < n_red_herrings:
         # Select clues in prompt based on them following a number and a "." with regex
         clues = re.findall(r"\d+\.\s.*", prompt)
 
         # Randomly select red herring clues to remove
         n_red_herrings_to_remove = n_red_herrings - n_red_herrings_to_keep
-        i_red_herrings_to_remove = sample(i_red_herrings_list, n_red_herrings_to_remove)
+        i_red_herrings_to_remove = sample(i_red_herrings, n_red_herrings_to_remove)
 
         chosen_clue_types = chosen_clue_types_str.split(", ")
 

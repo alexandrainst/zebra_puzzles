@@ -79,7 +79,7 @@ def load_puzzle(
     )
 
     with red_herring_path.open() as file:
-        i_red_herrings = file.read()
+        red_herring_indices_str = file.read()
 
     # Load the clue types
     clue_type_path = puzzle_path.parent.parent.joinpath("clue_types").joinpath(
@@ -91,7 +91,7 @@ def load_puzzle(
     # Remove some red herrings and save the new puzzle file and clue types
     prompt, chosen_clue_types_str, fewer_rh = remove_red_herrings(
         prompt=prompt,
-        i_red_herrings=i_red_herrings,
+        red_herring_indices_str=red_herring_indices_str,
         n_red_herrings_to_keep=n_red_herrings_to_keep,
         chosen_clue_types_str=chosen_clue_types_str,
     )

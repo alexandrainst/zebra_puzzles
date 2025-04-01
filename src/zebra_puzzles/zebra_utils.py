@@ -204,9 +204,9 @@ def shuffle_clues(
         chosen_red_herring_clue_types: Chosen red herring clue types for the zebra puzzle as a list of strings.
 
     Returns:
-        A tuple (chosen_clues, i_red_herrings_str, chosen_clue_types_str), where:
+        A tuple (chosen_clues, red_herring_indices_str, chosen_clue_types_str), where:
             chosen_clues: Shuffled clues for the zebra puzzle as a list of strings incl. red herrings.
-            i_red_herrings_str: String of indices of the red herrings in the shuffled list of clues.
+            red_herring_indices_str: String of indices of the red herrings in the shuffled list of clues.
             chosen_clue_types_str: String of comma-separated clue types chosen for the puzzle.
 
     """
@@ -226,8 +226,8 @@ def shuffle_clues(
         for new_i, old_i in enumerate(i_shuffled)
         if old_i >= len(chosen_clues) - len(chosen_red_herring_clues)
     ]
-    i_red_herrings_str = ", ".join([str(i) for i in i_red_herrings])
+    red_herring_indices_str = ", ".join([str(i) for i in i_red_herrings])
 
     chosen_clue_types_str = ", ".join(chosen_clue_types)
 
-    return chosen_clues, i_red_herrings_str, chosen_clue_types_str
+    return chosen_clues, red_herring_indices_str, chosen_clue_types_str
