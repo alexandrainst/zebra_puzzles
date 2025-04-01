@@ -79,3 +79,32 @@ def format_solution_as_matrix(
         ]
 
     return solution_list
+
+
+def test_original_solution(
+    solutions: list[dict[str, int]],
+    solution: np.ndarray,
+    n_objects: int,
+    n_attributes: int,
+    chosen_clues: list[str],
+):
+    """Test if the solver found the original solution or an unexpected one.
+
+    Finding a new solution should not be possible and indicates a bug in the solver or the clue selection process. If this happens, an error is raised.
+
+    Args:
+        solutions: Solutions to the zebra puzzle found by the solver as a list of dictionaries containing object indices and chosen attribute values.
+        solution: Expected solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x (n_attributes + 1).
+        n_objects: Number of objects in the puzzle as an integer.
+        n_attributes: Number of attributes per object as an integer.
+        chosen_clues: Clues for the zebra puzzle as a list of strings.
+
+    """
+    solution_attempt = format_solution_as_matrix(
+        solution_dict=solutions[0], n_objects=n_objects, n_attributes=n_attributes
+    )
+
+    if [sorted(obj) for obj in solution_attempt] != [sorted(obj) for obj in solution]:
+        raise ValueError(
+            f"The solver has found a solution that is not the expected one: \nFound \n{solution_attempt} \nExpected \n{solution} \nChosen clues: \n{chosen_clues}"
+        )
