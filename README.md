@@ -23,7 +23,9 @@ Use the configuration in `config/config.yaml` to specify:
 - model for evaluation (e.g. gpt-4o-mini, gpt-4o, o3-mini, o3)
 - weights for clue types
 
-The data folder contains puzzles, their solutions and LLM reponses. The LLM scores are saved in the scores folder.
+The 'data' folder contains puzzles, their solutions, LLM reponses, chosen clue types and the indices to red herring clues in each puzzle. The LLM scores are saved in the 'scores' folder.
+
+Puzzles can be evaluated using fewer red herrings than they were generated with. This allows for measuring the impact of red herrings. If the number of red herrings is reduced, the new version of the puzzle is saved in a 'reduced_puzzles' folder, and the clue types are saved in a 'reduced_clue_types' folder.
 
 ## Typical runtimes
 
