@@ -283,7 +283,7 @@ def remove_red_herrings(
             fewer_rh: Boolean indicating if fewer red herrings are included than in the original prompt.
     """
     # Split the string of indices into a list
-    i_red_herrings = red_herring_indices_str.split(", ")
+    i_red_herrings = [idx.strip() for idx in red_herring_indices_str.split(",")]
 
     n_red_herrings = len(i_red_herrings)
 
@@ -296,7 +296,10 @@ def remove_red_herrings(
         n_red_herrings_to_remove = n_red_herrings - n_red_herrings_to_keep
         i_red_herrings_to_remove = sample(i_red_herrings, n_red_herrings_to_remove)
 
-        chosen_clue_types = chosen_clue_types_str.split(", ")
+        # Split the string of clue types into a list
+        chosen_clue_types = [
+            clue_type.strip() for clue_type in chosen_clue_types_str.split(",")
+        ]
 
         # Change numbering in prompt
         new_clue_number = 1
