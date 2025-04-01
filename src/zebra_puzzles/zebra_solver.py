@@ -20,7 +20,10 @@ def solver(
         A tuple (solution_attempt, completeness), where:
             solution_attempt: Solution to the zebra puzzle as a list of lists representing the solution matrix of object indices and chosen attribute values. This matrix is n_objects x n_attributes.
             completeness: Completeness of the solution as a float.
+
     # NOTE: We could remove the uniqueness constraint
+    # NOTE: The completeness of the solution could just be measured as the number of solutions.
+
     """
     # ---- Define the puzzle ----#
     solver = OptimizedBacktrackingSolver()
@@ -42,8 +45,6 @@ def solver(
     solutions = problem.getSolutions()
 
     # Measure completeness of the solution.
-    # NOTE: This can be improved by measuring the overlap between all found solutions
-
     if len(solutions) > 0:
         completeness = 1.0 / float(len(solutions))
     else:

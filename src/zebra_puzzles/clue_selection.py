@@ -235,9 +235,6 @@ def create_clue(
 ) -> tuple[str, tuple, tuple[str, list[int], np.ndarray]]:
     """Create a clue of a chosen type using random parts of the solution.
 
-    NOTE: More clue types can be included. For example: odd_pos, even_pos, either
-    NOTE: The current implementation does not allow objects to have non-unique attributes
-
     Args:
         clue: Chosen clue type as a string.
         n_objects: Number of objects in the puzzle as an integer.
@@ -256,6 +253,11 @@ def create_clue(
                 clue_type: The type of clue as a string.
                 i_clue_objects: The object indices described in the clue as a list of integers.
                 clue_attributes: The attribute names as an array of strings.
+
+    NOTE: More clue types can be included. For example: odd_pos, even_pos, either
+    NOTE: The current implementation does not allow objects to have non-unique attributes
+    NOTE: Half-herrings could be added, where the clue adds some information but also contains irrelevant information.
+
     """
     clue_description = clues_dict[clue]
 

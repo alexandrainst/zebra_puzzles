@@ -43,6 +43,7 @@ def evaluate_all(
         generate_new_responses: Whether to generate new responses or use existing ones.
 
     TODO: Make the script more robust in cases where the expected responses are not found.
+
     """
     (
         puzzle_paths,
@@ -262,7 +263,8 @@ def compute_metrics(
     Returns:
         Metrics as a dictionary of with the score type as the key, and the values being a tuple of ndarrays. The tuple contains the rounded metrics for the score type and a string describing the metrics for the score type.
 
-    TODO: Add more metrics e.g. from sklearn.metrics
+    NOTE: More metrics could be added e.g. from sklearn.metrics
+
     """
     # Number of score types
     n_metrics = len(score_types)

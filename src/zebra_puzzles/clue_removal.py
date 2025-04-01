@@ -79,10 +79,6 @@ def is_clue_redundant(
 
     This is to avoid using the solver for every clue suggestion and thereby speed up the clue selection process.
 
-    NOTE: More checks could be added e.g. "same_object" and "not_same_object" with 1 identical attribute and secondary attributes of the same category.
-    NOTE: Consider adapting for non-unique attributes
-    TODO: Combine checks for fewer loops
-
     Args:
         new_clue: The suggested clue to check as a string.
         old_clues: Chosen clues for the zebra puzzle as a list of strings.
@@ -99,6 +95,10 @@ def is_clue_redundant(
         A tuple (redundant, clues_to_remove), where:
             redundant: Boolean indicating if the clue is redundant
             clues_to_remove: List of indices of clues to remove if the new clue is more specific than an existing clue. This is always empty if prioritise_old_clues is False.
+
+    NOTE: More checks could be added e.g. "same_object" and "not_same_object" with 1 identical attribute and secondary attributes of the same category.
+    NOTE: Consider adapting for non-unique attributes
+    TODO: Combine checks for fewer loops
 
     """
     clues_to_remove = []

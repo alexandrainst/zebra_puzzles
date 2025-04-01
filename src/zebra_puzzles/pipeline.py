@@ -52,7 +52,8 @@ def run_pipeline(
             i_red_herrings: String of indices of the red herring clues in the shuffled list of clues.
             chosen_clue_types_str: The types of clues chosen for the puzzle as a string.
 
-    TODO: Consider if enumeration should be removed when we only have one clue.
+    NOTE: Consider if enumeration should be removed when we only have one clue.
+
     """
     solution, chosen_categories, chosen_attributes, chosen_attributes_descs = (
         generate_solution(
@@ -141,6 +142,7 @@ def build_dataset(
         red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
 
     NOTE: Consider only saving the puzzle and solution instead of the whole prompt.
+
     """
     (
         prompt_filenames,

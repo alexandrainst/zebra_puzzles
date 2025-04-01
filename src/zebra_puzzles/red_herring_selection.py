@@ -107,7 +107,7 @@ def create_red_herring(
             clue: The completed red herring clue as a string.
             used_red_herring_attributes: Attributes that have already been used in red herring clues as a list of strings.
 
-    TODO: Do not select something already in used_red_herrings
+    # NOTE: More red herring types could be added. For example, types corresponding to more of the normal clue types.
 
     """
     clue_description = red_herring_clues_dict[clue_type]
