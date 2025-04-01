@@ -60,9 +60,11 @@ def choose_clues(
     chosen_clue_parameters: list = []
     chosen_clue_types: list[str] = []
 
+    # Define the maximum number of attempts to create a solvable puzzle by adding clues
     max_iter = 100
-    i_iter = 0
-    while not solved:
+
+    # Add clues until the puzzle is solved or the maximum number of attempts is reached
+    for _ in range(max_iter):
         # Generate a random clue
         new_clue_type = str(
             np.random.choice(sorted(applicable_clues_dict), p=clue_probabilities)
@@ -137,13 +139,14 @@ def choose_clues(
                 )
             )
 
-        i_iter += 1
-        if i_iter >= max_iter:
-            solved = True
-            print("solution:", solution)
-            print("chosen clues so far:", chosen_clues)
-            print("current_constraints:", current_constraints)
-            raise StopIteration("Used too many attempts to solve the puzzle.")
+            # Break the loop because the puzzle is solved
+            break
+
+    if not solved:
+        print("solution:", solution)
+        print("chosen clues so far:", chosen_clues)
+        print("current_constraints:", current_constraints)
+        raise StopIteration("Used too many attempts to solve the puzzle.")
 
     return chosen_clues, chosen_clue_types
 
