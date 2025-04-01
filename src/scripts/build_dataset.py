@@ -26,16 +26,19 @@ def main(config: DictConfig) -> None:
     prompt_templates = config.language.prompt_templates
     prompt_and = config.language.prompt_and
     clues_dict = config.language.clues_dict
+    clue_weights = config.clue_weights
     theme = config.language.theme
 
     n_red_herring_clues = config.n_red_herring_clues
     red_herring_clues_dict = config.language.red_herring_clues_dict
     red_herring_attributes = config.language.red_herring_attributes
     red_herring_facts = config.language.red_herring_facts
+    red_herring_clue_weights = config.red_herring_clue_weights
 
     build_dataset(
         attributes=attributes,
         clues_dict=clues_dict,
+        clue_weights=clue_weights,
         prompt_templates=prompt_templates,
         prompt_and=prompt_and,
         n_objects=n_objects,
@@ -46,6 +49,7 @@ def main(config: DictConfig) -> None:
         red_herring_clues_dict=red_herring_clues_dict,
         red_herring_attributes=red_herring_attributes,
         red_herring_facts=red_herring_facts,
+        red_herring_clue_weights=red_herring_clue_weights,
     )
 
 

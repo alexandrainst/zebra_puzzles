@@ -4,7 +4,10 @@ from random import sample
 
 import numpy as np
 
-from zebra_puzzles.clue_selection import describe_random_attributes
+from zebra_puzzles.clue_selection import (
+    describe_random_attributes,
+    get_clue_probabilities,
+)
 
 
 def choose_red_herrings(
@@ -12,11 +15,12 @@ def choose_red_herrings(
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
     red_herring_facts: dict[str, str],
+    red_herring_clue_weights: dict[str, float],
     chosen_attributes: np.ndarray,
     chosen_attributes_descs: np.ndarray,
     n_objects: int,
     n_attributes: int,
-) -> list[str]:
+) -> tuple[list[str], list[str]]:
     """Choose red herrings for a zebra puzzle.
 
     Args:
@@ -24,20 +28,34 @@ def choose_red_herrings(
         red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
         red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
+        red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
         chosen_attributes: Attribute values chosen for the solution as a matrix.
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
         n_objects: Number of objects in the puzzle.
         n_attributes: Number of attributes of each object.
 
     Returns:
-        Chosen red herring clues for the zebra puzzle as a list of strings.
+        A tuple (chosen_clues, chosen_clue_types), where:
+            chosen_clues: The completed red herring clues as a list of strings.
+            chosen_clue_types: The types of red herring clues as a list of strings.
 
     """
+    # Get the probability of selecting each clue type
+    _, clue_probabilities = get_clue_probabilities(
+        clue_weights=red_herring_clue_weights,
+        clues_dict=red_herring_clues_dict,
+        n_objects=n_objects,
+        n_attributes=n_attributes,
+    )
+
     chosen_clues: list[str] = []
+    chosen_clue_types: list[str] = []
     used_red_herrings: list[str] = []
     for _ in range(n_red_herring_clues):
         # Choose a red herring clue type
-        clue_type = sample(sorted(red_herring_clues_dict), 1)[0]
+        clue_type = str(
+            np.random.choice(sorted(red_herring_clues_dict), p=clue_probabilities)
+        )
 
         # Create a red herring clue
         clue, used_red_herrings = create_red_herring(
@@ -53,8 +71,9 @@ def choose_red_herrings(
         )
 
         chosen_clues.append(clue)
+        chosen_clue_types.append(clue_type)
 
-    return chosen_clues
+    return chosen_clues, chosen_clue_types
 
 
 def create_red_herring(
@@ -88,7 +107,7 @@ def create_red_herring(
             clue: The completed red herring clue as a string.
             used_red_herring_attributes: Attributes that have already been used in red herring clues as a list of strings.
 
-    TODO: Do not select something already in used_red_herrings
+    # NOTE: More red herring types could be added. For example, types corresponding to more of the normal clue types.
 
     """
     clue_description = red_herring_clues_dict[clue_type]
@@ -130,13 +149,13 @@ def create_red_herring(
         "same_herring",
         "next_to_herring",
         "friends",
-        "found_at",
-        "not_at",
+        "herring_found_at",
+        "herring_not_at",
     ):
         # Choose an object to describe
         i_objects = sample(list(range(n_objects)), 1)
 
-        if clue_type not in ("found_at", "not_at"):
+        if clue_type not in ("herring_found_at", "herring_not_at"):
             # Choose an attribute from the solution
             _, object_attributes_desc = describe_random_attributes(
                 chosen_attributes=chosen_attributes,
@@ -157,7 +176,12 @@ def create_red_herring(
 
         # Choose a description based on the sentence structure in the clue type
         # E.g. "har ikke en hund" vs. "ikke har en hund" in Danish
-        if clue_type in ("found_at", "not_at", "next_to_herring", "friends"):
+        if clue_type in (
+            "herring_found_at",
+            "herring_not_at",
+            "next_to_herring",
+            "friends",
+        ):
             desc_index = 0
         elif clue_type == "same_herring":
             desc_index = 1
@@ -169,7 +193,7 @@ def create_red_herring(
         used_red_herrings.append(red_herring_attribute_key)
 
         # Create the clue
-        if clue_type in ("found_at", "not_at"):
+        if clue_type in ("herring_found_at", "herring_not_at"):
             full_clue = clue_description.format(
                 attribute_desc_herring=attribute_desc_herring, i_object=i_objects[0] + 1
             )

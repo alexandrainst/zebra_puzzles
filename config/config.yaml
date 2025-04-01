@@ -12,13 +12,13 @@ defaults:
 
 # Model
 # The LLM model to evaluate on the puzzles.
-model : gpt-4o-mini
+model : o3-mini
 
 # Whether to generate new LLM responses or only evaluate existing ones when running evaluate.py
 generate_new_responses: True
 
 # Number of puzzles to generate
-n_puzzles: 4
+n_puzzles: 10
 
 # Objects e.g. houses
 n_objects: 3
@@ -26,5 +26,39 @@ n_objects: 3
 # Attributes e.g. pets
 n_attributes: 3
 
-#Number of red herring clues
+# Weights for the clue types
+# The weights are used to determine the probability of generating each type of clue. The distribution of accepted clue types will be different, as redundant clues are removed.
+clue_weights:
+    found_at: 1
+    not_at: 1
+    next_to: 1
+    not_next_to: 1
+    just_left_of: 1
+    just_right_of: 1
+    left_of: 1
+    right_of: 1
+    same_object: 1
+    not_same_object: 1
+    between: 1
+    not_between: 1
+    multiple_between: 1
+    one_between: 1
+
+# Number of red herring clues generated
 n_red_herring_clues: 5
+
+# Number of red herrings clues evaluated
+# This must be less than or equal to n_red_herring_clues, as clues can be removed but not added during evaluation.
+n_red_herring_clues_evaluated: 5
+
+# Weights for the red herring clues
+# The weights are used to determine the probability of generating each type of red herring clue.
+red_herring_clue_weights:
+    same_herring: 1
+    next_to_herring: 1
+    double_herring: 1
+    fact: 1
+    object_fact: 1
+    friends: 1
+    herring_found_at: 1
+    herring_not_at: 1

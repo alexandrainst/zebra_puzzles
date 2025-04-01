@@ -85,12 +85,12 @@ attributes:
 clues_dict:
     found_at: "{attribute_desc} lives in house no. {i_object}."
     not_at: "{attribute_desc} does not live in house no. {i_object}."
-    next_to: "{attribute_desc_1} lives next to {attribute_desc_2}."                                                               # Requires n_objects > 2, otherwise use not_same_object
+    next_to: "{attribute_desc_1} lives next to {attribute_desc_2}."                                                                         # Requires n_objects > 2, otherwise use not_same_object
     not_next_to: "{attribute_desc_1} does not live next to {attribute_desc_2}, and they are different people."                              # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} lives to the immediate left of {attribute_desc_2}, on their left."
-    just_right_of: "{attribute_desc_1} lives to the immediate right of {attribute_desc_2}."
-    left_of: "{attribute_desc_1} lives to the left of {attribute_desc_2}."                                                                  # Requires n_objects > 2, otherwise use just_left_of
-    right_of: "{attribute_desc_1} lives to the right of {attribute_desc_2}."                                                                 # Requires n_objects > 2, otherwise use just_right_of
+    just_left_of: "{attribute_desc_1} lives to the immediate left of {attribute_desc_2}, on their left."                                    # Requires n_objects > 2, otherwise use left_of
+    just_right_of: "{attribute_desc_1} lives to the immediate right of {attribute_desc_2}."                                                 # Requires n_objects > 2, otherwise use right_of
+    left_of: "{attribute_desc_1} lives to the left of {attribute_desc_2}."
+    right_of: "{attribute_desc_1} lives to the right of {attribute_desc_2}."
     same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                   # Requires n_attributes > 1, otherwise it cannot be used
     not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                               # Requires n_attributes > 1, otherwise it cannot be used
     between: "{attribute_desc_2} lives between {attribute_desc_1} and {attribute_desc_3}."                                                  # Requires n_objects > 2, otherwise it cannot be used
@@ -146,8 +146,8 @@ red_herring_clues_dict:
     fact: "{fact}."
     object_fact: "{attribute_desc} knows that {fact}."
     friends: "{attribute_desc} is good friends with {attribute_desc_herring}."
-    found_at: "{attribute_desc_herring} lives in house no. {i_object}."
-    not_at: "{attribute_desc_herring} does not live in house no. {i_object}."
+    herring_found_at: "{attribute_desc_herring} lives in house no. {i_object}."
+    herring_not_at: "{attribute_desc_herring} does not live in house no. {i_object}."
 
 red_herring_attributes:
     red_hair: ['the person with red hair','has red hair']

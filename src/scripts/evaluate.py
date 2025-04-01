@@ -26,6 +26,7 @@ def main(config: DictConfig) -> None:
     theme = config.language.theme
     generate_new_responses = config.generate_new_responses
     n_red_herring_clues = config.n_red_herring_clues
+    n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
 
     evaluate_all(
         n_puzzles=n_puzzles,
@@ -35,6 +36,7 @@ def main(config: DictConfig) -> None:
         theme=theme,
         generate_new_responses=generate_new_responses,
         n_red_herring_clues=n_red_herring_clues,
+        n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
     )
 
 

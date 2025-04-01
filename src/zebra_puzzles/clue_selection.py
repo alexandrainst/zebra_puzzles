@@ -1,6 +1,6 @@
 """Module for selecting clues for a zebra puzzle."""
 
-from random import choices, randint, sample, shuffle
+from random import randint, sample, shuffle
 
 import numpy as np
 from constraint import InSetConstraint, NotInSetConstraint
@@ -9,7 +9,8 @@ from zebra_puzzles.clue_removal import (
     remove_redundant_clues_with_rules,
     remove_redundant_clues_with_solver,
 )
-from zebra_puzzles.zebra_solver import format_solution, solver
+from zebra_puzzles.zebra_solver import raise_if_unexpected_solution_found, solver
+from zebra_puzzles.zebra_utils import describe_random_attributes
 
 
 def choose_clues(
@@ -19,25 +20,33 @@ def choose_clues(
     n_objects: int,
     n_attributes: int,
     clues_dict: dict[str, str],
-) -> list[str]:
+    clue_weights: dict[str, float],
+) -> tuple[list[str], list[str]]:
     """Choose clues for a zebra puzzle.
 
     If the solver identifies a different solution than the expected one, it will raise a warning and change the solution to the one found by the solver.
 
     Args:
         solution: Solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x (n_attributes + 1).
-        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
+        clue_weights: Weights for clue selection as a dictionary containing a title and a weight for each clue type.
         chosen_attributes: Attribute values chosen for the solution as a matrix.
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
         n_objects: Number of objects in the puzzle as an integer.
         n_attributes: Number of attributes per object as an integer.
 
     Returns:
-        Clues for the zebra puzzle as a list of strings.
+        A tuple (chosen_clues, chosen_clue_types), where:
+            chosen_clues: Clues for the zebra puzzle as a list of strings.
+            chosen_clue_types: Types of clues chosen for the puzzle as a list of strings.
 
     """
-    applicable_clues_dict = exclude_clues(
-        clues_dict=clues_dict, n_objects=n_objects, n_attributes=n_attributes
+    # Get the probability of selecting each applicable clue type
+    applicable_clues_dict, clue_probabilities = get_clue_probabilities(
+        clue_weights=clue_weights,
+        clues_dict=clues_dict,
+        n_objects=n_objects,
+        n_attributes=n_attributes,
     )
 
     # Transpose and sort the attributes
@@ -51,11 +60,15 @@ def choose_clues(
     chosen_clue_parameters: list = []
     chosen_clue_types: list[str] = []
 
+    # Define the maximum number of attempts to create a solvable puzzle by adding clues
     max_iter = 100
-    i_iter = 0
-    while not solved:
+
+    # Add clues until the puzzle is solved or the maximum number of attempts is reached
+    for _ in range(max_iter):
         # Generate a random clue
-        new_clue_type = sample(sorted(applicable_clues_dict), 1)[0]
+        new_clue_type = str(
+            np.random.choice(sorted(applicable_clues_dict), p=clue_probabilities)
+        )
         new_clue, new_constraint, new_clue_parameters = create_clue(
             clue=new_clue_type,
             n_objects=n_objects,
@@ -107,7 +120,7 @@ def choose_clues(
             solved = True
 
             # Check if the solver found an unexpected solution. This should not be possible.
-            check_original_solution(
+            raise_if_unexpected_solution_found(
                 solutions=solutions,
                 solution=solution,
                 n_objects=n_objects,
@@ -116,57 +129,71 @@ def choose_clues(
             )
 
             # Remove redundant clues
-            chosen_clues, chosen_constraints = remove_redundant_clues_with_solver(
-                chosen_constraints=chosen_constraints,
-                chosen_clues=chosen_clues,
-                chosen_attributes_sorted=chosen_attributes_sorted,
-                n_objects=n_objects,
+            chosen_clues, chosen_constraints, chosen_clue_types = (
+                remove_redundant_clues_with_solver(
+                    chosen_constraints=chosen_constraints,
+                    chosen_clues=chosen_clues,
+                    chosen_attributes_sorted=chosen_attributes_sorted,
+                    n_objects=n_objects,
+                    chosen_clue_types=chosen_clue_types,
+                )
             )
 
-        i_iter += 1
-        if i_iter >= max_iter:
-            solved = True
-            print("solution:", solution)
-            print("chosen clues so far:", chosen_clues)
-            print("current_constraints:", current_constraints)
-            raise StopIteration("Used too many attempts to solve the puzzle.")
+            # Break the loop because the puzzle is solved
+            break
 
-    return chosen_clues
+    if not solved:
+        print("solution:", solution)
+        print("chosen clues so far:", chosen_clues)
+        print("current_constraints:", current_constraints)
+        raise StopIteration("Used too many attempts to solve the puzzle.")
+
+    return chosen_clues, chosen_clue_types
 
 
-def check_original_solution(
-    solutions: list[dict[str, int]],
-    solution: np.ndarray,
+def get_clue_probabilities(
+    clue_weights: dict[str, float],
+    clues_dict: dict[str, str],
     n_objects: int,
     n_attributes: int,
-    chosen_clues: list[str],
-):
-    """Check if the solver found the original solution or an unexpected one.
-
-    Finding a new solution should not be possible and indicates a bug in the solver or the clue selection process. If this happens, an error is raised.
+) -> tuple[dict[str, str], np.ndarray]:
+    """Get the applicable clues and their probabilities.
 
     Args:
-        solutions: Solutions to the zebra puzzle found by the solver as a list of dictionaries containing object indices and chosen attribute values.
-        solution: Expected solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x (n_attributes + 1).
+        clue_weights: Weights for clue selection as a dictionary containing a title and a weight for each clue type.
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
         n_objects: Number of objects in the puzzle as an integer.
         n_attributes: Number of attributes per object as an integer.
-        chosen_clues: Clues for the zebra puzzle as a list of strings.
 
+    Returns:
+        A tuple (applicable_clues_dict, clue_probabilities), where:
+            applicable_clues_dict: Clue types that can be used for this puzzle as a dictionary containing a title and a description of each clue.
+            clue_probabilities: Probabilities of selecting each applicable clue type as a numpy array.
+
+    NOTE: Consider setting p=0 for excluded clue types instead of defining applicable_clues_dict
     """
-    solution_attempt = format_solution(
-        solution_dict=solutions[0], n_objects=n_objects, n_attributes=n_attributes
+    applicable_clues_dict = exclude_clues(
+        clues_dict=clues_dict, n_objects=n_objects, n_attributes=n_attributes
     )
 
-    if [sorted(obj) for obj in solution_attempt] != [sorted(obj) for obj in solution]:
-        raise ValueError(
-            f"The solver has found a solution that is not the expected one: \nFound \n{solution_attempt} \nExpected \n{solution} \nChosen clues: \n{chosen_clues}"
-        )
+    # Select the weights for applicable clues
+    applicable_clue_weights = {
+        clue_type: clue_weights[clue_type]
+        for clue_type in applicable_clues_dict.keys()
+        if clue_type in clue_weights
+    }
+
+    # Normalise the clue weights
+    clue_probabilities = np.array(list(applicable_clue_weights.values()))
+    clue_probabilities = clue_probabilities / np.sum(clue_probabilities)
+
+    return applicable_clues_dict, clue_probabilities
 
 
 def exclude_clues(
     clues_dict: dict[str, str], n_objects: int, n_attributes: int
 ) -> dict[str, str]:
-    """Exclude clues that cannot be used for this puzzle. We assume all puzzles have at least 2 objects.
+    """Exclude clue types that cannot be used for this puzzle. We assume all puzzles have at least 2 objects.
 
     Args:
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
@@ -188,8 +215,8 @@ def exclude_clues(
                 in [
                     "not_next_to",
                     "next_to",
-                    "left_of",
-                    "right_of",
+                    "just_left_of",
+                    "just_right_of",
                     "between",
                     "not_between",
                     "one_between",
@@ -211,9 +238,6 @@ def create_clue(
 ) -> tuple[str, tuple, tuple[str, list[int], np.ndarray]]:
     """Create a clue of a chosen type using random parts of the solution.
 
-    NOTE: More clue types can be included. For example: odd_pos, even_pos, either
-    NOTE: The current implementation does not allow objects to have non-unique attributes
-
     Args:
         clue: Chosen clue type as a string.
         n_objects: Number of objects in the puzzle as an integer.
@@ -232,6 +256,11 @@ def create_clue(
                 clue_type: The type of clue as a string.
                 i_clue_objects: The object indices described in the clue as a list of integers.
                 clue_attributes: The attribute names as an array of strings.
+
+    NOTE: More clue types can be included. For example: odd_pos, even_pos, either
+    NOTE: The current implementation does not allow objects to have non-unique attributes
+    NOTE: Half-herrings could be added, where the clue adds some information but also contains irrelevant information.
+
     """
     clue_description = clues_dict[clue]
 
@@ -437,60 +466,3 @@ def create_clue(
     clue_par = (clue, i_objects, clue_attributes)
 
     return full_clue, constraint, clue_par
-
-
-def describe_random_attributes(
-    chosen_attributes: np.ndarray,
-    chosen_attributes_descs: np.ndarray,
-    i_objects: list[int],
-    n_attributes: int,
-    diff_cat: bool = False,
-    desc_index: int = 0,
-) -> tuple[np.ndarray, np.ndarray]:
-    """Get a random attribute description for an object.
-
-    Choose a random attribute for each object with indices given by i_objects. Looks up attributes from chosen_attributes in the attributes dict.
-
-    The attributes are sorted by category to be presented in the preferred order.
-
-    Assumes the maximum string length is 100 characters.
-
-    Args:
-        chosen_attributes: Attribute values chosen for the solution as a matrix.
-        chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
-        i_objects: The index of the object to select an attribute from.
-        n_attributes: Number of attributes per object.
-        diff_cat: If True, the output attributes must belong to different categories.
-        desc_index: The index of the description to use for the last object in the clue if more than one object is described.
-
-    Returns:
-        A tuple (random_attributes, random_attributes_desc), where:
-            random_attributes: A list of strings contraining one random attribute per object.
-            random_attributes_desc: A list of strings using the attributes to describe the objects.
-    """
-    # Number of objects in the clue
-    n_clue_objects = len(i_objects)
-
-    if diff_cat:
-        i_attributes = sample(list(range(n_attributes)), k=n_clue_objects)
-    else:
-        i_attributes = choices(list(range(n_attributes)), k=n_clue_objects)
-
-    # Keep the order of the categories
-    i_attributes.sort()
-
-    # Initialize the random attributes as type 'object' to avoid setting a maximum string length
-    # U100 is a Unicode string with a maximum length of 100 characters
-    random_attributes = np.empty((n_clue_objects), dtype="U100")
-    random_attributes_desc = np.empty((n_clue_objects), dtype="U100")
-
-    for i, (i_obj, i_attr) in enumerate(zip(i_objects, i_attributes)):
-        random_attributes[i] = chosen_attributes[i_obj][i_attr]
-        if i == len(i_objects) - 1 and n_clue_objects > 1:
-            random_attributes_desc[i] = chosen_attributes_descs[desc_index][i_obj][
-                i_attr
-            ]
-        else:
-            random_attributes_desc[i] = chosen_attributes_descs[0][i_obj][i_attr]
-
-    return random_attributes, random_attributes_desc

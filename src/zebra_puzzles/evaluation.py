@@ -4,16 +4,17 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Any, Type
+from typing import Type
 
 import numpy as np
 from dotenv import load_dotenv
 from openai import BadRequestError, OpenAI
-from pydantic import BaseModel, ValidationError, create_model
+from pydantic import BaseModel, ValidationError
 from tqdm import tqdm
 
 from zebra_puzzles.compare_solutions import compare_solutions
-from zebra_puzzles.zebra_utils import prepare_eval_folders, save_dataset
+from zebra_puzzles.file_utils import load_puzzle, prepare_eval_folders, save_dataset
+from zebra_puzzles.zebra_utils import generate_output_format_class
 
 # Load environment variables to get the API key
 load_dotenv()
@@ -22,6 +23,7 @@ load_dotenv()
 def evaluate_all(
     n_puzzles: int,
     n_red_herring_clues: int,
+    n_red_herring_clues_evaluated: int,
     n_objects: int,
     n_attributes: int,
     model: str,
@@ -32,7 +34,8 @@ def evaluate_all(
 
     Args:
         n_puzzles: Number of puzzles to evaluate as an integer.
-        n_red_herring_clues: Number of red herring clues included in the puzzles as an integer.
+        n_red_herring_clues: Number of red herring clues in the generated puzzles as an integer.
+        n_red_herring_clues_evaluated: Number of red herring clues to be included in the evaluated puzzles as an integer. If this is smaller than the number of red herring clues used to generate the puzzles, the evaluation will be done on a subset of the red herring clues.
         n_objects: Number of objects in each puzzle as an integer.
         n_attributes: Number of attributes of each object as an integer.
         model: The model to use for the evaluation as a string.
@@ -40,10 +43,13 @@ def evaluate_all(
         generate_new_responses: Whether to generate new responses or use existing ones.
 
     TODO: Make the script more robust in cases where the expected responses are not found.
+
     """
     (
         puzzle_paths,
         solution_paths,
+        reduced_puzzle_paths,
+        reduced_clue_type_paths,
         response_filenames,
         response_folder,
         score_filename,
@@ -53,11 +59,11 @@ def evaluate_all(
         n_objects=n_objects,
         n_attributes=n_attributes,
         n_red_herring_clues=n_red_herring_clues,
+        n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
         model=model,
         n_puzzles=n_puzzles,
         generate_new_responses=generate_new_responses,
     )
-
     # Initialize scores
     puzzle_scores: np.ndarray = np.zeros(n_puzzles)
     cell_scores: np.ndarray = np.zeros(n_puzzles)
@@ -75,12 +81,15 @@ def evaluate_all(
         puzzle_score, cell_score, best_permuted_cell_score = evaluate_single_puzzle(
             puzzle_path=puzzle_paths[i],
             solution_path=solution_paths[i],
+            reduced_puzzle_path=reduced_puzzle_paths[i],
+            reduced_clue_type_path=reduced_clue_type_paths[i],
             n_objects=n_objects,
             n_attributes=n_attributes,
             model=model,
             response_filename=response_filenames[i],
             generate_new_responses=generate_new_responses,
             response_folder=response_folder,
+            n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
         )
         puzzle_scores[i] = puzzle_score
         cell_scores[i] = cell_score
@@ -105,52 +114,33 @@ def evaluate_all(
     save_dataset(data=score_str, filename=score_filename, folder=score_folder)
 
 
-def generate_output_format_class(n_objects: int) -> Type[BaseModel]:
-    """Generate the OutputFormat class based on the number of objects.
-
-    The OutputFormat class is a dynamically generated Pydantic model that represents the output format of the LLM.
-
-    The format will be:
-        object_1: list[str]
-        object_2: list[str]
-        ...
-
-    Args:
-        n_objects: Number of objects in the puzzle.
-
-    Returns:
-        A dynamically generated OutputFormat class.
-    """
-    fields: dict[str, Any] = {
-        f"object_{i + 1}": (list[str], ...) for i in range(n_objects)
-    }
-
-    OutputFormat = create_model("OutputFormat", **fields)
-
-    return OutputFormat
-
-
 def evaluate_single_puzzle(
     puzzle_path: Path,
     solution_path: Path,
+    reduced_puzzle_path: Path,
+    reduced_clue_type_path: Path,
     n_objects: int,
     n_attributes: int,
     model: str,
     response_filename: str,
     response_folder: str,
     generate_new_responses: bool,
+    n_red_herring_clues_evaluated: int,
 ) -> tuple[float, float, float]:
     """Evaluate a dataset of zebra puzzles.
 
     Args:
         puzzle_path: Path to the prompt file.
         solution_path: Path to the solution file.
+        reduced_puzzle_path: Path to the reduced puzzle file.
+        reduced_clue_type_path: Path to the reduced clue type file.
         n_objects: Number of objects in each puzzle as an integer.
         n_attributes: Number of attributes of each object as an
         model: The model to use for the evaluation as a
         response_filename: The name of the response file.
         response_folder: The folder to save the response file in.
         generate_new_responses: Whether to generate new responses or use existing ones.
+        n_red_herring_clues_evaluated: Number of red herring clues included in the puzzles as an integer. If this is smaller than the number of red herring clues used to generate the puzzles, the evaluation will be done on a subset of the red herring clues.
 
     Returns:
         A tuple (puzzle_score, cell_score), where:
@@ -162,9 +152,14 @@ def evaluate_single_puzzle(
     OutputFormat = generate_output_format_class(n_objects=n_objects)
 
     if generate_new_responses:
-        output = query_llm(
-            puzzle_path=puzzle_path, model=model, response_format=OutputFormat
+        prompt = load_puzzle(
+            puzzle_path=puzzle_path,
+            reduced_puzzle_path=reduced_puzzle_path,
+            reduced_clue_type_path=reduced_clue_type_path,
+            n_red_herrings_to_keep=n_red_herring_clues_evaluated,
         )
+
+        output = query_llm(prompt=prompt, model=model, response_format=OutputFormat)
 
     else:
         # Load an existing response
@@ -175,7 +170,7 @@ def evaluate_single_puzzle(
         output = OutputFormat.model_validate(output)
 
     # Load the solution
-    solution_filename = f"{puzzle_path.stem}_solution.txt"
+    solution_filename = f"{puzzle_path.stem}_solution.json"
 
     with solution_path.joinpath(solution_filename).open() as file:
         solution = file.read()
@@ -194,19 +189,17 @@ def evaluate_single_puzzle(
     )
 
     # Save the output
-    output_str = json.dumps(output.model_dump(), indent=4)
+    output_str = json.dumps(output.model_dump(), indent=4, ensure_ascii=False)
     save_dataset(data=output_str, filename=response_filename, folder=response_folder)
 
     return puzzle_score, cell_score, best_permuted_cell_score
 
 
-def query_llm(
-    puzzle_path: Path, model: str, response_format: Type[BaseModel]
-) -> BaseModel:
+def query_llm(prompt: str, model: str, response_format: Type[BaseModel]) -> BaseModel:
     """Query an LLM API.
 
     Args:
-        puzzle_path: Path to the dataset file.
+        prompt: The prompt to use for the evaluation.
         model: The model to use for the evaluation.
         response_format: The response format as a Pydantic model.
 
@@ -215,10 +208,6 @@ def query_llm(
 
     """
     logging.getLogger("httpx").setLevel(logging.ERROR)
-
-    # Load the prompt
-    with puzzle_path.open() as file:
-        prompt = file.read()
 
     client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
@@ -274,7 +263,8 @@ def compute_metrics(
     Returns:
         Metrics as a dictionary of with the score type as the key, and the values being a tuple of ndarrays. The tuple contains the rounded metrics for the score type and a string describing the metrics for the score type.
 
-    TODO: Add more metrics e.g. from sklearn.metrics
+    NOTE: More metrics could be added e.g. from sklearn.metrics
+
     """
     # Number of score types
     n_metrics = len(score_types)
