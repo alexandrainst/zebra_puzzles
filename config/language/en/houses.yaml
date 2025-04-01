@@ -146,8 +146,8 @@ red_herring_clues_dict:
     fact: "{fact}."
     object_fact: "{attribute_desc} knows that {fact}."
     friends: "{attribute_desc} is good friends with {attribute_desc_herring}."
-    found_at: "{attribute_desc_herring} lives in house no. {i_object}."
-    not_at: "{attribute_desc_herring} does not live in house no. {i_object}."
+    herring_found_at: "{attribute_desc_herring} lives in house no. {i_object}."
+    herring_not_at: "{attribute_desc_herring} does not live in house no. {i_object}."
 
 red_herring_attributes:
     red_hair: ['the person with red hair','has red hair']

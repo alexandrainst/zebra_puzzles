@@ -43,11 +43,12 @@ def evaluate_all(
         generate_new_responses: Whether to generate new responses or use existing ones.
 
     TODO: Make the script more robust in cases where the expected responses are not found.
-    TODO: Save the updated puzzles and selected rh clue types.
     """
     (
         puzzle_paths,
         solution_paths,
+        reduced_puzzle_paths,
+        reduced_clue_type_paths,
         response_filenames,
         response_folder,
         score_filename,
@@ -62,7 +63,6 @@ def evaluate_all(
         n_puzzles=n_puzzles,
         generate_new_responses=generate_new_responses,
     )
-
     # Initialize scores
     puzzle_scores: np.ndarray = np.zeros(n_puzzles)
     cell_scores: np.ndarray = np.zeros(n_puzzles)
@@ -80,6 +80,8 @@ def evaluate_all(
         puzzle_score, cell_score, best_permuted_cell_score = evaluate_single_puzzle(
             puzzle_path=puzzle_paths[i],
             solution_path=solution_paths[i],
+            reduced_puzzle_path=reduced_puzzle_paths[i],
+            reduced_clue_type_path=reduced_clue_type_paths[i],
             n_objects=n_objects,
             n_attributes=n_attributes,
             model=model,
@@ -114,6 +116,8 @@ def evaluate_all(
 def evaluate_single_puzzle(
     puzzle_path: Path,
     solution_path: Path,
+    reduced_puzzle_path: Path,
+    reduced_clue_type_path: Path,
     n_objects: int,
     n_attributes: int,
     model: str,
@@ -127,6 +131,8 @@ def evaluate_single_puzzle(
     Args:
         puzzle_path: Path to the prompt file.
         solution_path: Path to the solution file.
+        reduced_puzzle_path: Path to the reduced puzzle file.
+        reduced_clue_type_path: Path to the reduced clue type file.
         n_objects: Number of objects in each puzzle as an integer.
         n_attributes: Number of attributes of each object as an
         model: The model to use for the evaluation as a
@@ -147,6 +153,8 @@ def evaluate_single_puzzle(
     if generate_new_responses:
         prompt = load_puzzle(
             puzzle_path=puzzle_path,
+            reduced_puzzle_path=reduced_puzzle_path,
+            reduced_clue_type_path=reduced_clue_type_path,
             n_red_herrings_to_keep=n_red_herring_clues_evaluated,
         )
 

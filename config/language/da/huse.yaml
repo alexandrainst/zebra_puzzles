@@ -150,8 +150,8 @@ red_herring_clues_dict:
     fact: "{fact}."
     object_fact: "{attribute_desc} ved at {fact}."
     friends: "{attribute_desc} er gode venner med {attribute_desc_herring}."
-    found_at: "{attribute_desc_herring} bor i hus nummer {i_object}."
-    not_at: "{attribute_desc_herring} bor ikke i hus nummer {i_object}."
+    herring_found_at: "{attribute_desc_herring} bor i hus nummer {i_object}."
+    herring_not_at: "{attribute_desc_herring} bor ikke i hus nummer {i_object}."
 
 
 red_herring_attributes:

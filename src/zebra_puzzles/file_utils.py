@@ -49,11 +49,21 @@ def save_dataset(data: str, filename: str, folder: str = "data") -> None:
         file.write(data)
 
 
-def load_puzzle(puzzle_path: Path, n_red_herrings_to_keep: int) -> str:
-    """Load a puzzle.
+def load_puzzle(
+    puzzle_path: Path,
+    reduced_puzzle_path: Path,
+    reduced_clue_type_path: Path,
+    n_red_herrings_to_keep: int,
+) -> str:
+    """Load a puzzle and reduce the number of red herrings.
+
+    This function loads a puzzle from a file, and if n_red_herrings_to_keep us less than the number of red herrings in the puzzle, it removes some of them.
+    It also saves the new puzzle file and clue types.
 
     Args:
         puzzle_path: Path to the puzzle file.
+        reduced_puzzle_path: Path to the folder where the reduced puzzle file will be saved.
+        reduced_clue_type_path: Path to the folder where the reduced clue type file will be saved.
         n_red_herrings_to_keep: Number of red herring clues to be included in the puzzle as an integer.
 
     Returns:
@@ -71,12 +81,36 @@ def load_puzzle(puzzle_path: Path, n_red_herrings_to_keep: int) -> str:
     with red_herring_path.open() as file:
         i_red_herrings = file.read()
 
-    # Remove some red herrings
-    prompt = remove_red_herrings(
+    # Load the clue types
+    clue_type_path = puzzle_path.parent.parent.joinpath("clue_types").joinpath(
+        puzzle_path.stem + "_clue_types.txt"
+    )
+    with clue_type_path.open() as file:
+        chosen_clue_types_str = file.read()
+
+    # Remove some red herrings and save the new puzzle file and clue types
+    prompt, chosen_clue_types_str, fewer_rh = remove_red_herrings(
         prompt=prompt,
         i_red_herrings=i_red_herrings,
         n_red_herrings_to_keep=n_red_herrings_to_keep,
+        chosen_clue_types_str=chosen_clue_types_str,
     )
+
+    if fewer_rh:
+        # Save the new puzzle and clue types in the right folder e.g. 3rh instead of 5rh
+        reduced_puzzle_filename = reduced_puzzle_path.stem + ".txt"
+        reduced_puzzle_folder = str(reduced_puzzle_path.parent)
+        save_dataset(
+            data=prompt, filename=reduced_puzzle_filename, folder=reduced_puzzle_folder
+        )
+
+        clue_type_filename = reduced_clue_type_path.stem + "_clue_types_reduced.txt"
+        reduced_clue_type_folder = str(reduced_clue_type_path.parent)
+        save_dataset(
+            data=chosen_clue_types_str,
+            filename=clue_type_filename,
+            folder=reduced_clue_type_folder,
+        )
 
     return prompt
 
@@ -154,7 +188,7 @@ def prepare_eval_folders(
     model: str,
     n_puzzles: int,
     generate_new_responses: bool,
-) -> tuple[list[Path], list[Path], list[str], str, str, str]:
+) -> tuple[list[Path], list[Path], list[Path], list[Path], list[str], str, str, str]:
     """Prepare the folders for the evaluation.
 
     Args:
@@ -168,9 +202,11 @@ def prepare_eval_folders(
         generate_new_responses: Whether to generate new responses or use existing ones.
 
     Returns:
-        A tuple (puzzle_paths, solution_paths, response_filenames, response_folder, score_filename, score_folder), where:
+        A tuple (puzzle_paths, solution_paths, reduced_puzzle_paths, reduced_clue_type_paths, response_filenames, response_folder, score_filename, score_folder), where:
             puzzle_paths: Paths to the puzzles.
             solution_paths: Paths to the solutions.
+            reduced_puzzle_paths: Paths to the puzzles after reducing the number of red herrings.
+            reduced_clue_type_paths: Paths to the clue types after reducing the number of red herrings.
             response_filenames: Names of the response files.
             response_folder: Folder to save the responses in.
             score_filename: Name of the score file.
@@ -206,10 +242,37 @@ def prepare_eval_folders(
     score_folder = (
         f"scores/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/{model}"
     )
+    reduced_puzzle_folder = (
+        f"data/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/reduced_puzzles"
+    )
+    reduced_clue_type_folder = (
+        f"data/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/reduced_clue_types"
+    )
+
+    # Get the paths of the reduced puzzles and clue types based on reduced_puzzle_folder
+    reduced_puzzle_paths = [
+        Path(reduced_puzzle_folder).joinpath(f"{file_path.stem}_reduced.txt")
+        for file_path in puzzle_paths
+    ]
+    reduced_clue_type_paths = [
+        Path(reduced_clue_type_folder).joinpath(
+            f"{file_path.stem}_clue_types_reduced.txt"
+        )
+        for file_path in puzzle_paths
+    ]
 
     if generate_new_responses:
+        reduced_puzzle_filenames = [path.stem + ".txt" for path in reduced_puzzle_paths]
+        reduced_clue_type_filenames = [
+            path.stem + ".txt" for path in reduced_puzzle_paths
+        ]
+
         # Clean or create reponses folder
         clean_folder(folder=response_folder, keep_files=response_filenames)
+        clean_folder(folder=reduced_puzzle_folder, keep_files=reduced_puzzle_filenames)
+        clean_folder(
+            folder=reduced_clue_type_folder, keep_files=reduced_clue_type_filenames
+        )
 
     # Create the score folder if it does not exist
     os.makedirs(score_folder, exist_ok=True)
@@ -217,6 +280,8 @@ def prepare_eval_folders(
     return (
         puzzle_paths,
         solution_paths,
+        reduced_puzzle_paths,
+        reduced_clue_type_paths,
         response_filenames,
         response_folder,
         score_filename,

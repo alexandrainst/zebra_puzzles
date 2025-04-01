@@ -151,8 +151,8 @@ red_herring_clues_dict:
     fact: "{fact}."
     object_fact: "Kokken der lavede {attribute_desc} ved at {fact}."
     friends: "Kokkene der lavede henholdsvis {attribute_desc_herring} og {attribute_desc} er gode venner."
-    found_at: "{attribute_desc_herring} er nummer {i_object}."
-    not_at: "{attribute_desc_herring} er ikke nummer {i_object}."
+    herring_found_at: "{attribute_desc_herring} er nummer {i_object}."
+    herring_not_at: "{attribute_desc_herring} er ikke nummer {i_object}."
 
 red_herring_attributes:
     kvadratisk: ['det kvadratiske stykke','er kvadratisk']
