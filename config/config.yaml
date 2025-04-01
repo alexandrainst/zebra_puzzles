@@ -18,7 +18,7 @@ model : gpt-4o-mini
 generate_new_responses: True
 
 # Number of puzzles to generate
-n_puzzles: 4
+n_puzzles: 10
 
 # Objects e.g. houses
 n_objects: 3
@@ -48,7 +48,7 @@ n_red_herring_clues: 5
 
 # Number of red herrings clues evaluated
 # This must be less than or equal to n_red_herring_clues, as clues can be removed but not added during evaluation.
-n_red_herring_clues_evaluated: 3
+n_red_herring_clues_evaluated: 5
 
 # Weights for the red herring clues
 red_herring_clue_weights:

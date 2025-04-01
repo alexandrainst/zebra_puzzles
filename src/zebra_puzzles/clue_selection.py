@@ -166,6 +166,8 @@ def get_clue_probabilities(
         A tuple (applicable_clues_dict, clue_probabilities), where:
             applicable_clues_dict: Clue types that can be used for this puzzle as a dictionary containing a title and a description of each clue.
             clue_probabilities: Probabilities of selecting each applicable clue type as a numpy array.
+
+    NOTE: Consider setting p=0 for excluded clue types instead of defining applicable_clues_dict
     """
     applicable_clues_dict = exclude_clues(
         clues_dict=clues_dict, n_objects=n_objects, n_attributes=n_attributes
@@ -210,8 +212,8 @@ def exclude_clues(
                 in [
                     "not_next_to",
                     "next_to",
-                    "left_of",
-                    "right_of",
+                    "just_left_of",
+                    "just_right_of",
                     "between",
                     "not_between",
                     "one_between",

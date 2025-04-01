@@ -92,10 +92,10 @@ clues_dict:
     not_at: "{attribute_desc} er ikke nummer {i_object}."
     next_to: "{attribute_desc_1} ligger ved siden af {attribute_desc_2}."                                                                       # Requires n_objects > 2, otherwise use not_same_object
     not_next_to: "{attribute_desc_1} ligger ikke ved siden af {attribute_desc_2}, og de er ikke det samme stykke smørrebrød."                   # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} ligger lige til venstre for {attribute_desc_2}."
-    just_right_of: "{attribute_desc_1} ligger lige til højre for {attribute_desc_2}."
-    left_of: "{attribute_desc_1} ligger til venstre for {attribute_desc_2}."                                                                    # Requires n_objects > 2, otherwise use just_left_of
-    right_of: "{attribute_desc_1} ligger til højre for {attribute_desc_2}."                                                                     # Requires n_objects > 2, otherwise use just_right_of
+    just_left_of: "{attribute_desc_1} ligger lige til venstre for {attribute_desc_2}."                                                          # Requires n_objects > 2, otherwise use left_of
+    just_right_of: "{attribute_desc_1} ligger lige til højre for {attribute_desc_2}."                                                           # Requires n_objects > 2, otherwise use right_of
+    left_of: "{attribute_desc_1} ligger til venstre for {attribute_desc_2}."
+    right_of: "{attribute_desc_1} ligger til højre for {attribute_desc_2}."
     same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                       # Requires n_attributes > 1, otherwise it cannot be used
     not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                   # Requires n_attributes > 1, otherwise it cannot be used
     between: "{attribute_desc_2} ligger mellem {attribute_desc_1} og {attribute_desc_3}."                                                       # Requires n_objects > 2, otherwise it cannot be used
