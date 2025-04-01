@@ -9,7 +9,7 @@ from zebra_puzzles.clue_removal import (
     remove_redundant_clues_with_rules,
     remove_redundant_clues_with_solver,
 )
-from zebra_puzzles.zebra_solver import solver, test_original_solution
+from zebra_puzzles.zebra_solver import raise_if_unexpected_solution_found, solver
 from zebra_puzzles.zebra_utils import describe_random_attributes
 
 
@@ -120,7 +120,7 @@ def choose_clues(
             solved = True
 
             # Check if the solver found an unexpected solution. This should not be possible.
-            test_original_solution(
+            raise_if_unexpected_solution_found(
                 solutions=solutions,
                 solution=solution,
                 n_objects=n_objects,

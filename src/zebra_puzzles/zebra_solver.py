@@ -82,14 +82,14 @@ def format_solution_as_matrix(
     return solution_list
 
 
-def test_original_solution(
+def raise_if_unexpected_solution_found(
     solutions: list[dict[str, int]],
     solution: np.ndarray,
     n_objects: int,
     n_attributes: int,
     chosen_clues: list[str],
 ):
-    """Test if the solver found the original solution or an unexpected one.
+    """Check if the solver found the original solution or an unexpected one.
 
     Finding a new solution should not be possible and indicates a bug in the solver or the clue selection process. If this happens, an error is raised.
 
