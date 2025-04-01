@@ -21,6 +21,7 @@ Use the configuration in `config/config.yaml` to specify:
 - language and theme
 - number of red herrings to include
 - model for evaluation (e.g. gpt-4o-mini, gpt-4o, o3-mini, o3)
+- weights for clue types
 
 The data folder contains puzzles, their solutions and LLM reponses. The LLM scores are saved in the scores folder.
 
@@ -38,10 +39,12 @@ Typical runtimes for generating a puzzle of size n_objects x n_attributes are (u
 Typical times for evaluation of a puzzle without red herrings:
 
 gpt-4o-mini:
+- 3x3: 1.5 s
 - 4x4: 2 s
+- 4x5: 2 s
 
-o3:
-- 3x3: 1 min 10 s
+o3-mini:
+- 3x3: 25 s  (35 s with 5 red herrings)
 - 4x4: 2 min
 - 4x5: 8 min
 
