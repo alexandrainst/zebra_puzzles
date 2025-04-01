@@ -220,9 +220,11 @@ def shuffle_clues(
     chosen_clues = [chosen_clues[i] for i in i_shuffled]
     chosen_clue_types = [chosen_clue_types[i] for i in i_shuffled]
 
-    # Get the indices of the red herrings
+    # Get the new indices of the red herrings
     i_red_herrings = [
-        i for i in i_shuffled if i >= len(chosen_clues) - len(chosen_red_herring_clues)
+        new_i
+        for new_i, old_i in enumerate(i_shuffled)
+        if old_i >= len(chosen_clues) - len(chosen_red_herring_clues)
     ]
     i_red_herrings_str = ", ".join([str(i) for i in i_red_herrings])
 
