@@ -49,8 +49,8 @@ def run_pipeline(
         A tuple (prompt, solution_str, i_red_herrings, chosen_clue_types_str), where:
             prompt: The full prompt for the zebra puzzle as a string.
             solution_str: The solution as a string.
-            i_red_herrings: String of indices of the red herring clues in the shuffled list of clues.
-            chosen_clue_types_str: The types of clues chosen for the puzzle as a string.
+            i_red_herrings: String of comma-separated indices of the red herring clues in the shuffled list of clues.
+            chosen_clue_types_str: String of comma-separated clue types chosen for the puzzle.
 
     NOTE: Consider if enumeration should be removed when we only have one clue.
 

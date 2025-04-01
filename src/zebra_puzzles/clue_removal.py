@@ -272,14 +272,14 @@ def remove_red_herrings(
 
     Args:
         prompt: The full prompt for the zebra puzzle as a string.
-        i_red_herrings: String of indices of the red herring clues in the shuffled list of clues.
-        chosen_clue_types_str: The types of clues chosen for the puzzle as a string.
+        i_red_herrings: String of comma-separated indices of the red herring clues in the shuffled list of clues.
+        chosen_clue_types_str: String of comma-separated clue types chosen for the puzzle.
         n_red_herrings_to_keep: Number of red herring clues to keep in the prompt as an integer.
 
     Returns:
         A tuple (prompt, chosen_clue_types_str, fewer_rh), where:
             prompt: The full prompt for the zebra puzzle as a string with some red herrings removed.
-            chosen_clue_types_str: The types of clues chosen for the puzzle as a string with some red herrings removed.
+            chosen_clue_types_str: String of comma-separated clue types chosen after removing some red herrings.
             fewer_rh: Boolean indicating if fewer red herrings are included than in the original prompt.
     """
     # Split the string of indices into a list

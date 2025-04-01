@@ -207,7 +207,7 @@ def shuffle_clues(
         A tuple (chosen_clues, i_red_herrings_str, chosen_clue_types_str), where:
             chosen_clues: Shuffled clues for the zebra puzzle as a list of strings incl. red herrings.
             i_red_herrings_str: String of indices of the red herrings in the shuffled list of clues.
-            chosen_clue_types_str: Shuffled clue types for the zebra puzzle as a string.
+            chosen_clue_types_str: String of comma-separated clue types chosen for the puzzle.
 
     """
     # Combine clues and red herrings
