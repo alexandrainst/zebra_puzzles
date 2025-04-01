@@ -41,20 +41,13 @@ def choose_clues(
             chosen_clue_types: Types of clues chosen for the puzzle as a list of strings.
 
     """
-    applicable_clues_dict = exclude_clues(
-        clues_dict=clues_dict, n_objects=n_objects, n_attributes=n_attributes
+    # Get the probability of selecting each applicable clue type
+    applicable_clues_dict, clue_probabilities = get_clue_probabilities(
+        clue_weights=clue_weights,
+        clues_dict=clues_dict,
+        n_objects=n_objects,
+        n_attributes=n_attributes,
     )
-
-    # Select the weights for applicable clues
-    applicable_clue_weights = {
-        clue_type: clue_weights[clue_type]
-        for clue_type in applicable_clues_dict.keys()
-        if clue_type in clue_weights
-    }
-
-    # Normalise the clue weights
-    clue_probabilities = np.array(list(applicable_clue_weights.values()))
-    clue_probabilities = clue_probabilities / np.sum(clue_probabilities)
 
     # Transpose and sort the attributes
     chosen_attributes_sorted = chosen_attributes.T
@@ -182,6 +175,43 @@ def test_original_solution(
         raise ValueError(
             f"The solver has found a solution that is not the expected one: \nFound \n{solution_attempt} \nExpected \n{solution} \nChosen clues: \n{chosen_clues}"
         )
+
+
+def get_clue_probabilities(
+    clue_weights: dict[str, float],
+    clues_dict: dict[str, str],
+    n_objects: int,
+    n_attributes: int,
+) -> tuple[dict[str, str], np.ndarray]:
+    """Get the applicable clues and their probabilities.
+
+    Args:
+        clue_weights: Weights for clue selection as a dictionary containing a title and a weight for each clue type.
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
+        n_objects: Number of objects in the puzzle as an integer.
+        n_attributes: Number of attributes per object as an integer.
+
+    Returns:
+        A tuple (applicable_clues_dict, clue_probabilities), where:
+            applicable_clues_dict: Clue types that can be used for this puzzle as a dictionary containing a title and a description of each clue.
+            clue_probabilities: Probabilities of selecting each applicable clue type as a numpy array.
+    """
+    applicable_clues_dict = exclude_clues(
+        clues_dict=clues_dict, n_objects=n_objects, n_attributes=n_attributes
+    )
+
+    # Select the weights for applicable clues
+    applicable_clue_weights = {
+        clue_type: clue_weights[clue_type]
+        for clue_type in applicable_clues_dict.keys()
+        if clue_type in clue_weights
+    }
+
+    # Normalise the clue weights
+    clue_probabilities = np.array(list(applicable_clue_weights.values()))
+    clue_probabilities = clue_probabilities / np.sum(clue_probabilities)
+
+    return applicable_clues_dict, clue_probabilities
 
 
 def exclude_clues(
