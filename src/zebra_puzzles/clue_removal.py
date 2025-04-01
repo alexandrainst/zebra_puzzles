@@ -277,10 +277,10 @@ def remove_red_herrings(
         n_red_herrings_to_keep: Number of red herring clues to keep in the prompt as an integer.
 
     Returns:
-        A tuple (prompt, chosen_clue_types_str, fewer_rh), where:
+        A tuple (prompt, chosen_clue_types_str, fewer_red_herrings_flag), where:
             prompt: The full prompt for the zebra puzzle as a string with some red herrings removed.
             chosen_clue_types_str: String of comma-separated clue types chosen after removing some red herrings.
-            fewer_rh: Boolean indicating if fewer red herrings are included than in the original prompt.
+            fewer_red_herrings_flag: Boolean indicating if fewer red herrings are included than in the original prompt.
     """
     # Split the string of indices into a list
     i_red_herrings = [idx.strip() for idx in red_herring_indices_str.split(",")]
@@ -323,12 +323,12 @@ def remove_red_herrings(
 
         chosen_clue_types_str = ", ".join(chosen_clue_types)
 
-        fewer_rh = True
+        fewer_red_herrings_flag = True
     elif n_red_herrings_to_keep > n_red_herrings:
         raise ValueError(
             f"n_red_herrings_to_keep ({n_red_herrings_to_keep}) is greater than the number of red herrings ({n_red_herrings})."
         )
     else:
-        fewer_rh = False
+        fewer_red_herrings_flag = False
 
-    return prompt, chosen_clue_types_str, fewer_rh
+    return prompt, chosen_clue_types_str, fewer_red_herrings_flag

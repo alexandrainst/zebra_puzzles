@@ -89,14 +89,14 @@ def load_puzzle(
         chosen_clue_types_str = file.read()
 
     # Remove some red herrings and save the new puzzle file and clue types
-    prompt, chosen_clue_types_str, fewer_rh = remove_red_herrings(
+    prompt, chosen_clue_types_str, fewer_red_herrings_flag = remove_red_herrings(
         prompt=prompt,
         red_herring_indices_str=red_herring_indices_str,
         n_red_herrings_to_keep=n_red_herrings_to_keep,
         chosen_clue_types_str=chosen_clue_types_str,
     )
 
-    if fewer_rh:
+    if fewer_red_herrings_flag:
         # Save the new puzzle and clue types in the right folder e.g. 3rh instead of 5rh
         reduced_puzzle_filename = reduced_puzzle_path.stem + ".txt"
         reduced_puzzle_folder = str(reduced_puzzle_path.parent)
