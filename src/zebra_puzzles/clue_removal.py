@@ -299,17 +299,24 @@ def remove_red_herrings(
         chosen_clue_types = chosen_clue_types_str.split(", ")
 
         # Change numbering in prompt
+        new_clue_number = 1
         for i, clue in enumerate(clues):
-            if i in i_red_herrings_to_remove:
+            if str(i) in i_red_herrings_to_remove:
                 # Remove red herring clues from prompt
-                prompt = prompt.replace(clue, "")
+                prompt = prompt.replace("\n" + clue, "")
 
-                # Remove red herring clue types from clue types
-                del chosen_clue_types[i]
             else:
                 # Replace clue numbers
-                clue = clue.split(".")[1]
-                prompt = prompt.replace(clue, f"{i + 1}. {clue}")
+                clue_not_numbered = clue.split(". ")[1]
+                prompt = prompt.replace(clue, f"{new_clue_number}. {clue_not_numbered}")
+                new_clue_number += 1
+
+        # Remove red herring clue types from clue types
+        chosen_clue_types = [
+            clue_type
+            for i, clue_type in enumerate(chosen_clue_types)
+            if str(i) not in i_red_herrings_to_remove
+        ]
 
         chosen_clue_types_str = ", ".join(chosen_clue_types)
 

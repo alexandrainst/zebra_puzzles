@@ -104,7 +104,7 @@ def load_puzzle(
             data=prompt, filename=reduced_puzzle_filename, folder=reduced_puzzle_folder
         )
 
-        clue_type_filename = reduced_clue_type_path.stem + "_clue_types_reduced.txt"
+        clue_type_filename = reduced_clue_type_path.stem + ".txt"
         reduced_clue_type_folder = str(reduced_clue_type_path.parent)
         save_dataset(
             data=chosen_clue_types_str,
@@ -264,7 +264,7 @@ def prepare_eval_folders(
     if generate_new_responses:
         reduced_puzzle_filenames = [path.stem + ".txt" for path in reduced_puzzle_paths]
         reduced_clue_type_filenames = [
-            path.stem + ".txt" for path in reduced_puzzle_paths
+            path.stem + ".txt" for path in reduced_clue_type_paths
         ]
 
         # Clean or create reponses folder
