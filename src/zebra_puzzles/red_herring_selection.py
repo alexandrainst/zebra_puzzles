@@ -4,7 +4,10 @@ from random import sample
 
 import numpy as np
 
-from zebra_puzzles.clue_selection import describe_random_attributes
+from zebra_puzzles.clue_selection import (
+    describe_random_attributes,
+    get_clue_probabilities,
+)
 
 
 def choose_red_herrings(
@@ -12,6 +15,7 @@ def choose_red_herrings(
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
     red_herring_facts: dict[str, str],
+    red_herring_clue_weights: dict[str, float],
     chosen_attributes: np.ndarray,
     chosen_attributes_descs: np.ndarray,
     n_objects: int,
@@ -24,6 +28,7 @@ def choose_red_herrings(
         red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
         red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
+        red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
         chosen_attributes: Attribute values chosen for the solution as a matrix.
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
         n_objects: Number of objects in the puzzle.
@@ -35,12 +40,22 @@ def choose_red_herrings(
             chosen_clue_types: The types of red herring clues as a list of strings.
 
     """
+    # Get the probability of selecting each clue type
+    _, clue_probabilities = get_clue_probabilities(
+        clue_weights=red_herring_clue_weights,
+        clues_dict=red_herring_clues_dict,
+        n_objects=n_objects,
+        n_attributes=n_attributes,
+    )
+
     chosen_clues: list[str] = []
     chosen_clue_types: list[str] = []
     used_red_herrings: list[str] = []
     for _ in range(n_red_herring_clues):
         # Choose a red herring clue type
-        clue_type = sample(sorted(red_herring_clues_dict), 1)[0]
+        clue_type = str(
+            np.random.choice(sorted(red_herring_clues_dict), p=clue_probabilities)
+        )
 
         # Create a red herring clue
         clue, used_red_herrings = create_red_herring(

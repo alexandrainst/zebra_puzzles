@@ -25,6 +25,7 @@ def run_pipeline(
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
     red_herring_facts: dict[str, str],
+    red_herring_clue_weights: dict[str, float],
 ) -> tuple[str, str, str, str]:
     """Run the pipeline to generate one zebra puzzle.
 
@@ -40,6 +41,7 @@ def run_pipeline(
         red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
         red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
+        red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
         verbose: Option to print the prompt and solution as a boolean.
         eval: Option to evaluate the prompt as a boolean.
 
@@ -73,6 +75,7 @@ def run_pipeline(
         red_herring_clues_dict=red_herring_clues_dict,
         red_herring_attributes=red_herring_attributes,
         red_herring_facts=red_herring_facts,
+        red_herring_clue_weights=red_herring_clue_weights,
         chosen_attributes=chosen_attributes,
         chosen_attributes_descs=chosen_attributes_descs,
         n_objects=n_objects,
@@ -115,6 +118,7 @@ def build_dataset(
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
     red_herring_facts: dict[str, str],
+    red_herring_clue_weights: dict[str, float],
 ) -> None:
     """Build a dataset of zebra puzzles.
 
@@ -134,6 +138,7 @@ def build_dataset(
         red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
         red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
+        red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
 
     NOTE: Consider only saving the puzzle and solution instead of the whole prompt.
     """
@@ -174,6 +179,7 @@ def build_dataset(
             red_herring_clues_dict=red_herring_clues_dict,
             red_herring_attributes=red_herring_attributes,
             red_herring_facts=red_herring_facts,
+            red_herring_clue_weights=red_herring_clue_weights,
         )
         save_dataset(data=prompt, filename=prompt_filenames[i], folder=puzzle_folder)
         save_dataset(
