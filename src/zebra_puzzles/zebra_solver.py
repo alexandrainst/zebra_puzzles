@@ -20,7 +20,10 @@ def solver(
         A tuple (solution_attempt, completeness), where:
             solution_attempt: Solution to the zebra puzzle as a list of lists representing the solution matrix of object indices and chosen attribute values. This matrix is n_objects x n_attributes.
             completeness: Completeness of the solution as a float.
+
     # NOTE: We could remove the uniqueness constraint
+    # NOTE: The completeness of the solution could just be measured as the number of solutions.
+
     """
     # ---- Define the puzzle ----#
     solver = OptimizedBacktrackingSolver()
@@ -42,8 +45,6 @@ def solver(
     solutions = problem.getSolutions()
 
     # Measure completeness of the solution.
-    # NOTE: This can be improved by measuring the overlap between all found solutions
-
     if len(solutions) > 0:
         completeness = 1.0 / float(len(solutions))
     else:
@@ -54,21 +55,24 @@ def solver(
     return solutions, completeness
 
 
-def format_solution(
+def format_solution_as_matrix(
     solution_dict: dict[str, int], n_objects: int, n_attributes: int
 ) -> np.ndarray:
     """Change solution format from dict to list.
 
+    The input format is the one given by the solver.
+
     Assumes the maximum string length is 100 characters.
 
     Args:
-        solution_dict: Solution as a dict of attributes and which object they are connected to.
+        solution_dict: Solution as a dict of attributes and which object they are connected to. The dictionary format is {attribute: i_object}, where i_object is the object index.
         n_objects: Number of objects in the puzzle.
         n_attributes: Number of attributes of each object.
 
     Returns:
         Solution as a matrix in a numpy array.
     """
+    # U100 is a Unicode string with a maximum length of 100 characters
     solution_list = np.empty((n_objects, n_attributes + 1), dtype="U100")
     for i_object in range(1, n_objects + 1):
         solution_list[i_object - 1, :] = [str(i_object)] + [
@@ -76,3 +80,32 @@ def format_solution(
         ]
 
     return solution_list
+
+
+def raise_if_unexpected_solution_found(
+    solutions: list[dict[str, int]],
+    solution: np.ndarray,
+    n_objects: int,
+    n_attributes: int,
+    chosen_clues: list[str],
+):
+    """Check if the solver found the original solution or an unexpected one.
+
+    Finding a new solution should not be possible and indicates a bug in the solver or the clue selection process. If this happens, an error is raised.
+
+    Args:
+        solutions: Solutions to the zebra puzzle found by the solver as a list of dictionaries containing object indices and chosen attribute values.
+        solution: Expected solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x (n_attributes + 1).
+        n_objects: Number of objects in the puzzle as an integer.
+        n_attributes: Number of attributes per object as an integer.
+        chosen_clues: Clues for the zebra puzzle as a list of strings.
+
+    """
+    solution_attempt = format_solution_as_matrix(
+        solution_dict=solutions[0], n_objects=n_objects, n_attributes=n_attributes
+    )
+
+    if [sorted(obj) for obj in solution_attempt] != [sorted(obj) for obj in solution]:
+        raise ValueError(
+            f"The solver has found a solution that is not the expected one: \nFound \n{solution_attempt} \nExpected \n{solution} \nChosen clues: \n{chosen_clues}"
+        )

@@ -9,25 +9,46 @@
 
 # Zebra Puzzles
 
-Generation of zebra puzzles.
+Generation and LLM evaluation of zebra puzzles in multiple languages and themes.
 
 Run `uv run src/scripts/build_dataset.py` to generate puzzles.
+
+Run `uv run src/scripts/evaluate.py` to evaluate puzzles.
 
 Use the configuration in `config/config.yaml` to specify:
 - number of puzzles to generate
 - puzzle dimensions
-- language
-- theme
+- language and theme
+- number of red herrings to include
+- model for evaluation (e.g. gpt-4o-mini, gpt-4o, o3-mini, o3)
+- weights for clue types
 
+The 'data' folder contains puzzles, their solutions, LLM reponses, chosen clue types and the indices to red herring clues in each puzzle. The LLM scores are saved in the 'scores' folder.
 
-Typical runtimes for puzzles of size n_objects x n_attributes are (using all clue types):
-3x7: 0.7 s
-4x4: 0.6 s
-4x5: 11 s
-4x6: 3 min
-5x3: 3.8 s
-5x6: >10 min
-6x3: 4 min
+Puzzles can be evaluated using fewer red herrings than they were generated with. This allows for measuring the impact of red herrings. If the number of red herrings is reduced, the new version of the puzzle is saved in a 'reduced_puzzles' folder, and the clue types are saved in a 'reduced_clue_types' folder.
+
+## Typical runtimes
+
+Typical runtimes for generating a puzzle of size n_objects x n_attributes are (using all clue types):
+- 3x7: 0.7 s
+- 4x4: 0.6 s
+- 4x5: 13 s
+- 4x6: 3 min
+- 5x3: 3.8 s
+- 5x6: >10 min
+- 6x3: 4 min
+
+Typical times for evaluation of a puzzle without red herrings:
+
+gpt-4o-mini:
+- 3x3: 1.5 s
+- 4x4: 2 s
+- 4x5: 2 s
+
+o3-mini:
+- 3x3: 25 s  (35 s with 5 red herrings)
+- 4x4: 2 min
+- 4x5: 8 min
 
 GitHub Copilot has been used for this project.
 

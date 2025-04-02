@@ -1,5 +1,8 @@
 # Config file for generating zebra puzzles in Danish with the "smørrebrød" theme.
 
+# Theme
+theme: da_smoerrebroed
+
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
@@ -18,14 +21,19 @@ attributes:
         ristet rugbrød: ['stykket med ristet rugbrød', 'er med ristet rugbrød', 'er ikke med ristet rugbrød']
 
     smørelse:
-        smør: ['stykket med smør', 'er smurt med smør', 'er ikke smurt med smør']
+        saltet smør: ['stykket med saltet smør', 'er smurt med saltet smør', 'er ikke smurt med saltet smør']
+        usaltet smør: ['stykket med usaltet smør', 'er smurt med usaltet smør', 'er ikke smurt med usaltet smør']
         andefedt: ['stykket med andefedt', 'er smurt med andefedt', 'er ikke smurt med andefedt']
-        svinefedt: ['stykket med svinefedt', 'er smurt med svinefedt', 'er ikke smurt med svinefedt']
         plantesmør: ['stykket med plantesmør', 'er smurt med plantesmør', 'er ikke smurt med plantesmør']
         flødeost: ['stykket med flødeost', 'er smurt med flødeost', 'er ikke smurt med flødeost']
         hummus: ['stykket med hummus', 'er smurt med hummus', 'er ikke smurt med hummus']
         pesto: ['stykket med pesto', 'er smurt med pesto', 'er ikke smurt med pesto']
         mayonnaise: ['stykket med mayonnaise', 'er smurt med mayonnaise', 'er ikke smurt med mayonnaise']
+        hjemmekærnet smør: ['stykket med hjemmekærnet smør', 'er smurt med hjemmekærnet smør', 'er ikke smurt med hjemmekærnet smør']
+        smørbart blandingsprodukt: ['stykket med smørbart blandingsprodukt', 'er smurt med et smørbart blandingsprodukt', 'er ikke smurt med et smørbart blandingsprodukt']
+        hvidløgssmør: ['stykket med hvidløgssmør', 'er smurt med hvidløgssmør', 'er ikke smurt med hvidløgssmør']
+
+
 
     pålæg:
         røget laks: ['stykket med røget laks', 'er med røget laks', 'er ikke med røget laks']
@@ -84,10 +92,10 @@ clues_dict:
     not_at: "{attribute_desc} er ikke nummer {i_object}."
     next_to: "{attribute_desc_1} ligger ved siden af {attribute_desc_2}."                                                                       # Requires n_objects > 2, otherwise use not_same_object
     not_next_to: "{attribute_desc_1} ligger ikke ved siden af {attribute_desc_2}, og de er ikke det samme stykke smørrebrød."                   # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} ligger lige til venstre for {attribute_desc_2}."
-    just_right_of: "{attribute_desc_1} ligger lige til højre for {attribute_desc_2}."
-    left_of: "{attribute_desc_1} ligger til venstre for {attribute_desc_2}."                                                                    # Requires n_objects > 2, otherwise use just_left_of
-    right_of: "{attribute_desc_1} ligger til højre for {attribute_desc_2}."                                                                     # Requires n_objects > 2, otherwise use just_right_of
+    just_left_of: "{attribute_desc_1} ligger lige til venstre for {attribute_desc_2}."                                                          # Requires n_objects > 2, otherwise use left_of
+    just_right_of: "{attribute_desc_1} ligger lige til højre for {attribute_desc_2}."                                                           # Requires n_objects > 2, otherwise use right_of
+    left_of: "{attribute_desc_1} ligger til venstre for {attribute_desc_2}."
+    right_of: "{attribute_desc_1} ligger til højre for {attribute_desc_2}."
     same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                       # Requires n_attributes > 1, otherwise it cannot be used
     not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                   # Requires n_attributes > 1, otherwise it cannot be used
     between: "{attribute_desc_2} ligger mellem {attribute_desc_1} og {attribute_desc_3}."                                                       # Requires n_objects > 2, otherwise it cannot be used
@@ -114,11 +122,12 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Hvilke ingredienser indgår i hvilke smørrebrød? Angiv dit svar i følgende format, hvor det første tal i hver række angiver smørrebrødets nummer:
+        Hvilke ingredienser indgår i hvilke smørrebrød?
 
-        1, ingrediens_1, ingrediens_2, ingrediens_3 ...
-        2, ingrediens_4, ingrediens_5, ingrediens_5 ...
-        ...
+        Angiv venligst dit svar som et JSON dictionary på nedenstående format. Hver række skal starte med object_X hvor X er smørrebrøddets nummer i rækken. Hver kolonne repræsenterer en kategori, og de skal stå i samme rækkefølge som kategorierne er oplistet ovenfor.
+
+        {solution_template}
+
     - |
         {n_objects} kokke præsenterer hvert deres stykke smørrebrød. Stykkerne ligger på række og er nummereret fra 1 til {n_objects} fra venstre mod højre.
 
@@ -128,11 +137,11 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Hvilken ingrediens indgår i hvilke smørrebrød? Angiv dit svar i følgende format, hvor det første tal i hver række angiver smørrebrødets nummer:
+        Hvilken ingrediens indgår i hvilke smørrebrød?
 
-        1, ingrediens_1
-        2, ingrediens_2
-        ...
+        Angiv venligst dit svar som et JSON dictionary på nedenstående format. Hver række skal starte med object_X hvor X er smørrebrøddets nummer i rækken. Derefter følger en kolonne med ingredienserne i førnævnte kategori.
+
+        {solution_template}
 
 
 red_herring_clues_dict:
@@ -142,8 +151,8 @@ red_herring_clues_dict:
     fact: "{fact}."
     object_fact: "Kokken der lavede {attribute_desc} ved at {fact}."
     friends: "Kokkene der lavede henholdsvis {attribute_desc_herring} og {attribute_desc} er gode venner."
-    found_at: "{attribute_desc_herring} er nummer {i_object}."
-    not_at: "{attribute_desc_herring} er ikke nummer {i_object}."
+    herring_found_at: "{attribute_desc_herring} er nummer {i_object}."
+    herring_not_at: "{attribute_desc_herring} er ikke nummer {i_object}."
 
 red_herring_attributes:
     kvadratisk: ['det kvadratiske stykke','er kvadratisk']

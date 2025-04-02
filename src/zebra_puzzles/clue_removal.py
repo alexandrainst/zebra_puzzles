@@ -1,5 +1,8 @@
 """Module for removing redundant clues."""
 
+import re
+from random import sample
+
 import numpy as np
 
 from zebra_puzzles.zebra_solver import solver
@@ -76,10 +79,6 @@ def is_clue_redundant(
 
     This is to avoid using the solver for every clue suggestion and thereby speed up the clue selection process.
 
-    NOTE: More checks could be added e.g. "same_object" and "not_same_object" with 1 identical attribute and secondary attributes of the same category.
-    NOTE: Consider adapting for non-unique attributes
-    TODO: Combine checks for fewer loops
-
     Args:
         new_clue: The suggested clue to check as a string.
         old_clues: Chosen clues for the zebra puzzle as a list of strings.
@@ -96,6 +95,10 @@ def is_clue_redundant(
         A tuple (redundant, clues_to_remove), where:
             redundant: Boolean indicating if the clue is redundant
             clues_to_remove: List of indices of clues to remove if the new clue is more specific than an existing clue. This is always empty if prioritise_old_clues is False.
+
+    NOTE: More checks could be added e.g. "same_object" and "not_same_object" with 1 identical attribute and secondary attributes of the same category.
+    NOTE: Consider adapting for non-unique attributes
+    TODO: Combine checks for fewer loops
 
     """
     clues_to_remove = []
@@ -221,8 +224,9 @@ def remove_redundant_clues_with_solver(
     chosen_constraints: list,
     chosen_clues: list[str],
     chosen_attributes_sorted: np.ndarray,
+    chosen_clue_types: list[str],
     n_objects: int,
-) -> tuple[list[str], list]:
+) -> tuple[list[str], list, list[str]]:
     """Remove redundant clues and constraints.
 
     Tries removing each clue and see if the solution is still found.
@@ -234,12 +238,14 @@ def remove_redundant_clues_with_solver(
             variables: Attributes that the constraint applies to.
         chosen_clues: Clues for the zebra puzzle as a list of strings.
         chosen_attributes_sorted: Matrix of attribute values chosen for the solution after sorting each category to avoid spoiling the solution.
+        chosen_clue_types: List of clue types for the chosen clues.
         n_objects: Number of objects in the puzzle.
 
     Returns:
-        A tuple (chosen_clues, constraints), where:
+        A tuple (chosen_clues, constraints, chosen_clue_types), where:
             chosen_clues: Non-redundant clues for the zebra puzzle as a list of strings.
             constraints: Non-redundant constraints for the puzzle solver.
+            chosen_clue_types: Non-redundant clue types for the zebra puzzle as a list of strings.
 
     """
     for i in range(len(chosen_constraints) - 1, -1, -1):
@@ -251,5 +257,78 @@ def remove_redundant_clues_with_solver(
         if completeness == 1:
             del chosen_clues[i]
             del chosen_constraints[i]
+            del chosen_clue_types[i]
 
-    return chosen_clues, chosen_constraints
+    return chosen_clues, chosen_constraints, chosen_clue_types
+
+
+def remove_red_herrings(
+    prompt: str,
+    red_herring_indices_str: str,
+    chosen_clue_types_str: str,
+    n_red_herrings_to_keep: int,
+) -> tuple[str, str, bool]:
+    """Remove red herrings from the list of clues.
+
+    Args:
+        prompt: The full prompt for the zebra puzzle as a string.
+        red_herring_indices_str: String of comma-separated indices of the red herring clues in the shuffled list of clues.
+        chosen_clue_types_str: String of comma-separated clue types chosen for the puzzle.
+        n_red_herrings_to_keep: Number of red herring clues to keep in the prompt as an integer.
+
+    Returns:
+        A tuple (prompt, chosen_clue_types_str, fewer_red_herrings_flag), where:
+            prompt: The full prompt for the zebra puzzle as a string with some red herrings removed.
+            chosen_clue_types_str: String of comma-separated clue types chosen after removing some red herrings.
+            fewer_red_herrings_flag: Boolean indicating if fewer red herrings are included than in the original prompt.
+    """
+    # Split the string of indices into a list
+    i_red_herrings = [idx.strip() for idx in red_herring_indices_str.split(",")]
+
+    n_red_herrings = len(i_red_herrings)
+
+    # Check that any red herrings should be removed
+    if red_herring_indices_str != "" and n_red_herrings_to_keep < n_red_herrings:
+        # Select clues in prompt based on them following a number and a "." with regex
+        clues = re.findall(r"\d+\.\s.*", prompt)
+
+        # Randomly select red herring clues to remove
+        n_red_herrings_to_remove = n_red_herrings - n_red_herrings_to_keep
+        i_red_herrings_to_remove = sample(i_red_herrings, n_red_herrings_to_remove)
+
+        # Split the string of clue types into a list
+        chosen_clue_types = [
+            clue_type.strip() for clue_type in chosen_clue_types_str.split(",")
+        ]
+
+        # Change numbering in prompt
+        new_clue_number = 1
+        for i, clue in enumerate(clues):
+            if str(i) in i_red_herrings_to_remove:
+                # Remove red herring clues from prompt
+                prompt = prompt.replace("\n" + clue, "")
+
+            else:
+                # Replace clue numbers
+                clue_not_numbered = clue.split(". ")[1]
+                prompt = prompt.replace(clue, f"{new_clue_number}. {clue_not_numbered}")
+                new_clue_number += 1
+
+        # Remove red herring clue types from clue types
+        chosen_clue_types = [
+            clue_type
+            for i, clue_type in enumerate(chosen_clue_types)
+            if str(i) not in i_red_herrings_to_remove
+        ]
+
+        chosen_clue_types_str = ", ".join(chosen_clue_types)
+
+        fewer_red_herrings_flag = True
+    elif n_red_herrings_to_keep > n_red_herrings:
+        raise ValueError(
+            f"n_red_herrings_to_keep ({n_red_herrings_to_keep}) is greater than the number of red herrings ({n_red_herrings})."
+        )
+    else:
+        fewer_red_herrings_flag = False
+
+    return prompt, chosen_clue_types_str, fewer_red_herrings_flag

@@ -1,6 +1,7 @@
 # Config file for generating zebra puzzles in Danish with the classic "houses" theme.
 
-
+# Theme
+theme: da_huse
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
@@ -87,10 +88,10 @@ clues_dict:
     not_at: "{attribute_desc} bor ikke i hus nummer {i_object}."
     next_to: "{attribute_desc_1} bor ved siden af {attribute_desc_2}."                                                             # Requires n_objects > 2, otherwise use not_same_object
     not_next_to: "{attribute_desc_1} bor ikke ved siden af {attribute_desc_2}, og de er ikke den samme person."                    # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} bor lige til venstre for {attribute_desc_2}."
-    just_right_of: "{attribute_desc_1} bor lige til højre for {attribute_desc_2}."
-    left_of: "{attribute_desc_1} bor til venstre for {attribute_desc_2}."                                                          # Requires n_objects > 2, otherwise use just_left_of
-    right_of: "{attribute_desc_1} bor til højre for {attribute_desc_2}."                                                           # Requires n_objects > 2, otherwise use just_right_of
+    just_left_of: "{attribute_desc_1} bor lige til venstre for {attribute_desc_2}."                                                # Requires n_objects > 2, otherwise use left_of
+    just_right_of: "{attribute_desc_1} bor lige til højre for {attribute_desc_2}."                                                 # Requires n_objects > 2, otherwise use right_of
+    left_of: "{attribute_desc_1} bor til venstre for {attribute_desc_2}."
+    right_of: "{attribute_desc_1} bor til højre for {attribute_desc_2}."
     same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                          # Requires n_attributes > 1, otherwise it cannot be used
     not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                      # Requires n_attributes > 1, otherwise it cannot be used
     between: "{attribute_desc_2} bor mellem {attribute_desc_1} og {attribute_desc_3}."                                             # Requires n_objects > 2, otherwise it cannot be used
@@ -117,11 +118,11 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Hvem har hvilke egenskaber og bor i hvilket hus? Angiv dit svar i følgende format, hvor det første tal i hver række repræsenterer husnummeret:
+        Hvem har hvilke egenskaber og bor i hvilket hus?
 
-        1, egenskab_1, egenskab_2, egenskab_3 ...
-        2, egenskab_4, egenskab_5, egenskab_6 ...
-        ...
+        Angiv venligst dit svar som et JSON dictionary på nedenstående format. Hver række skal starte med object_X hvor X er husnummeret. Hver kolonne repræsenterer en kategori, og de skal stå i samme rækkefølge som kategorierne er oplistet ovenfor.
+
+        {solution_template}
     - |
         En række huse er nummereret fra 1 til {n_objects} fra venstre mod højre.
 
@@ -131,11 +132,12 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Hvem har hvilke unikke egenskaber og bor i hvilket hus? Angiv dit svar i følgende format, hvor det første tal i hver række repræsenterer husnummeret:
+        Hvem har hvilke egenskaber og bor i hvilket hus?
 
-        1, egenskab_1
-        2, egenskab_2
-        ...
+        Angiv venligst dit svar som et JSON dictionary på nedenstående format. Hver række skal starte med object_X hvor X er husnummeret. Derefter følger en kolonne med egenskaberne i førnævnte kategori.
+
+        {solution_template}
+
 
 # Red herrings
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
@@ -148,8 +150,8 @@ red_herring_clues_dict:
     fact: "{fact}."
     object_fact: "{attribute_desc} ved at {fact}."
     friends: "{attribute_desc} er gode venner med {attribute_desc_herring}."
-    found_at: "{attribute_desc_herring} bor i hus nummer {i_object}."
-    not_at: "{attribute_desc_herring} bor ikke i hus nummer {i_object}."
+    herring_found_at: "{attribute_desc_herring} bor i hus nummer {i_object}."
+    herring_not_at: "{attribute_desc_herring} bor ikke i hus nummer {i_object}."
 
 
 red_herring_attributes:
