@@ -19,5 +19,6 @@ def config() -> Generator[DictConfig, None, None]:
             "n_objects=3",
             "n_attributes=3",
             "data_folder=tests/test_data",
+            "model=gpt-4o-mini",
         ],
     )

@@ -1,17 +1,17 @@
 {
     "object_1": [
         "andefedt",
-        "sky",
-        "ingen drys"
-    ],
-    "object_2": [
-        "hummus",
-        "æg",
+        "bacon",
         "purløg"
     ],
-    "object_3": [
+    "object_2": [
         "smørbart blandingsprodukt",
-        "bacon",
+        "æg",
+        "ingen drys"
+    ],
+    "object_3": [
+        "hummus",
+        "sky",
         "chiliflager"
     ]
 }

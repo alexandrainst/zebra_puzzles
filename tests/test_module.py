@@ -2,6 +2,7 @@
 
 import json
 
+from zebra_puzzles.evaluation import evaluate_all
 from zebra_puzzles.pipeline import build_dataset
 
 
@@ -82,3 +83,62 @@ def test_solution(config) -> None:
     assert isinstance(solution_dict, dict)
     assert len(solution_dict) == n_objects
     assert len(solution_dict["object_1"]) == n_attributes
+
+
+def test_evaluation(config) -> None:
+    """Test the evaluation of a dataset of zebra puzzles."""
+    # Generate a small dataset of zebra puzzles
+    build_dataset(
+        attributes=config.language.attributes,
+        clues_dict=config.language.clues_dict,
+        clue_weights=config.clue_weights,
+        prompt_templates=config.language.prompt_templates,
+        prompt_and=config.language.prompt_and,
+        n_objects=config.n_objects,
+        n_attributes=config.n_attributes,
+        n_puzzles=2,  # Do this in conftest.py instead,
+        theme=config.language.theme,
+        n_red_herring_clues=config.n_red_herring_clues,
+        red_herring_clues_dict=config.language.red_herring_clues_dict,
+        red_herring_attributes=config.language.red_herring_attributes,
+        red_herring_facts=config.language.red_herring_facts,
+        red_herring_clue_weights=config.red_herring_clue_weights,
+        data_folder=config.data_folder,
+    )
+
+    # Evaluate the dataset
+    evaluate_all(
+        n_puzzles=2,  # Do this in conftest.py instead,
+        n_objects=config.n_objects,
+        n_attributes=config.n_attributes,
+        model=config.model,
+        theme=config.language.theme,
+        generate_new_responses=config.generate_new_responses,
+        n_red_herring_clues=config.n_red_herring_clues,
+        n_red_herring_clues_evaluated=config.n_red_herring_clues_evaluated,
+        data_folder=config.data_folder,
+    )
+
+    # Load the score file
+    data_folder = config.data_folder
+    theme = config.language.theme
+    n_objects = config.n_objects
+    n_attributes = config.n_attributes
+    n_red_herring_clues = config.n_red_herring_clues
+    n_puzzles = 2  # Do this in conftest.py instead
+    model = config.model
+
+    scores_path_str = f"{data_folder}/scores/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh/{model}/"
+    scores_path_str += f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues}rh_{n_puzzles}_puzzles.txt"
+    with open(scores_path_str, "r") as f:
+        scores_str = f.read()
+
+    # Get the number after "best permuted cell score:"
+    best_permuted_cell_score_str = scores_str.split("best permuted cell score: ")[1]
+    best_permuted_cell_score_str = best_permuted_cell_score_str.split("\n")[0]
+    best_permuted_cell_score = float(best_permuted_cell_score_str)
+
+    # Check that the score file is not empty and the best permuted cell score is greater than 0
+    assert isinstance(scores_str, str)
+    assert len(scores_str) > 0
+    assert best_permuted_cell_score > 0

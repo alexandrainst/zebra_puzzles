@@ -1,0 +1,23 @@
+Puzzle Scores
+-------------
+Metrics
+
+Uncertainty is given as one standard deviation (1σ), corresponding to a 68% confidence interval. The 95% confidence interval is approximately ±2σ.
+
+Puzzle score:
+	Mean: 0.0 ± 0.0 (1σ)
+	Population standard deviation: 0.0
+
+Cell score:
+	Mean: 0.4 ± 0.1 (1σ)
+	Population standard deviation: 0.2
+
+Best permuted cell score:
+	Mean: 0.6 ± 0.2 (1σ)
+	Population standard deviation: 0.3
+
+-------------
+Single puzzle scores
+
+Puzzle 0: 	puzzle score: 0.00	cell score: 0.33	best permuted cell score: 0.33
+Puzzle 1: 	puzzle score: 0.00	cell score: 0.56	best permuted cell score: 0.78

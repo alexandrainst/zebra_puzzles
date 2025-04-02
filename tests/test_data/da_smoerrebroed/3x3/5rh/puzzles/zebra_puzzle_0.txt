@@ -2,20 +2,21 @@
 
 Hvert stykke har unikke ingredienser i hver af de følgende kategorier:
 
-Pålæg: fiskefilet, kartoffel og roastbeef.
-Sekundært pålæg: rejer, remoulade og æg.
-Drys: chiliflager, flagesalt og ristede mandler.
+Smørelse: andefedt, hummus og smørbart blandingsprodukt.
+Sekundært pålæg: bacon, sky og æg.
+Drys: chiliflager, ingen drys og purløg.
 
 Derudover ved vi følgende:
 
-1. Alle smørrebrødene er meget flotte.
-2. Stykket med chiliflager ligger ved siden af stykket med et tykt lag smørelse på brødet.
-3. Der er ét stykke smørrebrød mellem stykket med roastbeef og stykket med rejer.
-4. Det varmeste stykke er ikke nummer 1.
-5. Stykket med ristede mandler er lavet meget hurtigt.
-6. Stykket med fiskefilet ligger til venstre for stykket med æg.
-7. Stykket med en tynd skive brød er langt.
-8. Stykket med flagesalt ligger mellem stykket med kartoffel og stykket med ristede mandler.
+1. Stykket med smørbart blandingsprodukt er ikke nummer 1.
+2. Stykket der er lavet af en bornholmsk kok er nummer 3.
+3. Stykket med en tynd skive brød er nummer 3.
+4. Stykket med æg ligger mellem stykket med andefedt og stykket med chiliflager.
+5. Stykket uden drys ligger ved siden af stykket der er lavet meget hurtigt.
+6. Stykket med bacon er ikke nummer 1.
+7. Stykket med sky ligger ved siden af det varmeste stykke.
+8. Stykket der er lavet af en kok som bor i et grønt hus er det største.
+9. Stykket med æg ligger mellem stykket med smørbart blandingsprodukt og stykket uden drys.
 
 Hvilke ingredienser indgår i hvilke smørrebrød?
 
@@ -23,17 +24,17 @@ Angiv venligst dit svar som et JSON dictionary på nedenstående format. Hver r�
 
 {
     "object_1": [
-        "pålæg_1",
+        "smørelse_1",
         "sekundært pålæg_1",
         "drys_1"
     ],
     "object_2": [
-        "pålæg_2",
+        "smørelse_2",
         "sekundært pålæg_2",
         "drys_2"
     ],
     "object_3": [
-        "pålæg_3",
+        "smørelse_3",
         "sekundært pålæg_3",
         "drys_3"
     ]
