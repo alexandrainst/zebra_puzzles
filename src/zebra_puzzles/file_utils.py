@@ -36,7 +36,7 @@ def clean_folder(folder: str, keep_files: list[str]) -> None:
             print("Old files were not deleted.")
 
 
-def save_dataset(data: str, filename: str, folder: str = "data") -> None:
+def save_dataset(data: str, filename: str, folder: str) -> None:
     """Save a file.
 
     Args:
@@ -121,6 +121,7 @@ def prepare_data_folders(
     n_objects: int,
     n_attributes: int,
     n_red_herring_clues: int,
+    data_folder: str,
 ) -> tuple[list[str], list[str], list[str], list[str], str, str, str, str]:
     """Prepare the data folders for the dataset.
 
@@ -130,6 +131,7 @@ def prepare_data_folders(
         n_objects: Number of objects a the puzzle.
         n_attributes: Number of attributes of each object.
         n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
+        data_folder: Path to the data folder as a string.
 
     Returns:
         A tuple (prompt_filenames, clue_type_filenames, red_herring_filenames, solution_filenames, puzzle_folder, clue_type_folder, red_herring_folder, solution_folder), where:
@@ -155,11 +157,13 @@ def prepare_data_folders(
     ]
 
     # Define folders
-    subfolder = f"{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh"
-    puzzle_folder = f"data/{subfolder}/puzzles"
-    clue_type_folder = f"data/{subfolder}/clue_types"
-    red_herring_folder = f"data/{subfolder}/red_herrings"
-    solution_folder = f"data/{subfolder}/solutions"
+    subfolder = (
+        f"{data_folder}/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh"
+    )
+    puzzle_folder = f"{subfolder}/puzzles"
+    clue_type_folder = f"{subfolder}/clue_types"
+    red_herring_folder = f"{subfolder}/red_herrings"
+    solution_folder = f"{subfolder}/solutions"
 
     # Clean folders
     clean_folder(folder=puzzle_folder, keep_files=prompt_filenames)
@@ -188,6 +192,7 @@ def prepare_eval_folders(
     model: str,
     n_puzzles: int,
     generate_new_responses: bool,
+    data_folder: str,
 ) -> tuple[list[Path], list[Path], list[Path], list[Path], list[str], str, str, str]:
     """Prepare the folders for the evaluation.
 
@@ -200,6 +205,7 @@ def prepare_eval_folders(
         model: The model to use for the evaluation as a string.
         n_puzzles: Number of puzzles to evaluate as an integer.
         generate_new_responses: Whether to generate new responses or use existing ones.
+        data_folder: Path to the data folder as a string.
 
     Returns:
         A tuple (puzzle_paths, solution_paths, reduced_puzzle_paths, reduced_clue_type_paths, response_filenames, response_folder, score_filename, score_folder), where:
@@ -218,9 +224,9 @@ def prepare_eval_folders(
     # Get sorted names of all prompt files in the data folder
     puzzle_paths = sorted(
         list(
-            Path(f"data/{puzzle_subfolder}/{n_red_herring_clues}rh/puzzles").glob(
-                "*.txt"
-            )
+            Path(
+                f"{data_folder}/{puzzle_subfolder}/{n_red_herring_clues}rh/puzzles"
+            ).glob("*.txt")
         )
     )
 
@@ -236,18 +242,10 @@ def prepare_eval_folders(
     score_filename = f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues_evaluated}_rh_{n_puzzles}_puzzles.txt"
 
     # Define evaluation folders
-    response_folder = (
-        f"data/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/responses/{model}"
-    )
-    score_folder = (
-        f"scores/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/{model}"
-    )
-    reduced_puzzle_folder = (
-        f"data/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/reduced_puzzles"
-    )
-    reduced_clue_type_folder = (
-        f"data/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/reduced_clue_types"
-    )
+    response_folder = f"{data_folder}/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/responses/{model}"
+    score_folder = f"{data_folder}/scores/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/{model}"
+    reduced_puzzle_folder = f"{data_folder}/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/reduced_puzzles"
+    reduced_clue_type_folder = f"{data_folder}/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/reduced_clue_types"
 
     # Get the paths of the reduced puzzles and clue types based on reduced_puzzle_folder
     reduced_puzzle_paths = [

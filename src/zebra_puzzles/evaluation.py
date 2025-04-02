@@ -29,6 +29,7 @@ def evaluate_all(
     model: str,
     theme: str,
     generate_new_responses: bool,
+    data_folder: str,
 ) -> None:
     """Evaluate a dataset of zebra puzzles.
 
@@ -39,8 +40,9 @@ def evaluate_all(
         n_objects: Number of objects in each puzzle as an integer.
         n_attributes: Number of attributes of each object as an integer.
         model: The model to use for the evaluation as a string.
-        theme: The theme of the puzzles.
-        generate_new_responses: Whether to generate new responses or use existing ones.
+        theme: The theme of the puzzles as a string.
+        generate_new_responses: A boolean describing whether to generate new responses or use existing ones.
+        data_folder: The path to the folder containing the data as a string.
 
     TODO: Make the script more robust in cases where the expected responses are not found.
 
@@ -63,6 +65,7 @@ def evaluate_all(
         model=model,
         n_puzzles=n_puzzles,
         generate_new_responses=generate_new_responses,
+        data_folder=data_folder,
     )
     # Initialize scores
     puzzle_scores: np.ndarray = np.zeros(n_puzzles)

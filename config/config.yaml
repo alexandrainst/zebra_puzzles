@@ -17,6 +17,9 @@ model : o3-mini
 # Whether to generate new LLM responses or only evaluate existing ones when running evaluate.py
 generate_new_responses: True
 
+# The folder where data is stored
+data_folder: data
+
 # Number of puzzles to generate
 n_puzzles: 10
 

@@ -27,6 +27,7 @@ def main(config: DictConfig) -> None:
     generate_new_responses = config.generate_new_responses
     n_red_herring_clues = config.n_red_herring_clues
     n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
+    data_folder = config.data_folder
 
     evaluate_all(
         n_puzzles=n_puzzles,
@@ -37,6 +38,7 @@ def main(config: DictConfig) -> None:
         generate_new_responses=generate_new_responses,
         n_red_herring_clues=n_red_herring_clues,
         n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
+        data_folder=data_folder,
     )
 
 
