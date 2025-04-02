@@ -1,1 +1,0 @@
-herring_not_at, herring_not_at, left_of, right_of, right_of, next_to_herring, same_object, double_herring, next_to, friends

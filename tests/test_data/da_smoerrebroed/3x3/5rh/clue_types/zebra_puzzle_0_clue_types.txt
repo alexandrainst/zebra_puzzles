@@ -1,1 +1,0 @@
-not_at, herring_found_at, herring_found_at, between, next_to_herring, not_at, next_to_herring, double_herring, between
