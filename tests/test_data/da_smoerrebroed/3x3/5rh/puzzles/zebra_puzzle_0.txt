@@ -1,0 +1,40 @@
+3 kokke præsenterer hvert deres bud på en ny type smørrebrød. Stykkerne ligger på række og er nummereret fra 1 til 3 fra venstre mod højre.
+
+Hvert stykke har unikke ingredienser i hver af de følgende kategorier:
+
+Pålæg: fiskefilet, kartoffel og roastbeef.
+Sekundært pålæg: rejer, remoulade og æg.
+Drys: chiliflager, flagesalt og ristede mandler.
+
+Derudover ved vi følgende:
+
+1. Alle smørrebrødene er meget flotte.
+2. Stykket med chiliflager ligger ved siden af stykket med et tykt lag smørelse på brødet.
+3. Der er ét stykke smørrebrød mellem stykket med roastbeef og stykket med rejer.
+4. Det varmeste stykke er ikke nummer 1.
+5. Stykket med ristede mandler er lavet meget hurtigt.
+6. Stykket med fiskefilet ligger til venstre for stykket med æg.
+7. Stykket med en tynd skive brød er langt.
+8. Stykket med flagesalt ligger mellem stykket med kartoffel og stykket med ristede mandler.
+
+Hvilke ingredienser indgår i hvilke smørrebrød?
+
+Angiv venligst dit svar som et JSON dictionary på nedenstående format. Hver række skal starte med object_X hvor X er smørrebrøddets nummer i rækken. Hver kolonne repræsenterer en kategori, og de skal stå i samme rækkefølge som kategorierne er oplistet ovenfor.
+
+{
+    "object_1": [
+        "pålæg_1",
+        "sekundært pålæg_1",
+        "drys_1"
+    ],
+    "object_2": [
+        "pålæg_2",
+        "sekundært pålæg_2",
+        "drys_2"
+    ],
+    "object_3": [
+        "pålæg_3",
+        "sekundært pålæg_3",
+        "drys_3"
+    ]
+}

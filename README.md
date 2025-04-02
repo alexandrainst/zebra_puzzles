@@ -53,7 +53,7 @@ o3-mini:
 GitHub Copilot has been used for this project.
 
 ______________________________________________________________________
-[![Code Coverage](https://img.shields.io/badge/Coverage-0%25-red.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
+[![Code Coverage](https://img.shields.io/badge/Coverage-61%25-yellow.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
 [![Documentation](https://img.shields.io/badge/docs-passing-green)](https://alexandrainst.github.io/zebra_puzzles)
 [![License](https://img.shields.io/github/license/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/blob/main/LICENSE)
 [![LastCommit](https://img.shields.io/github/last-commit/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/commits/main)
