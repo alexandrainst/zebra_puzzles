@@ -8,6 +8,7 @@ import pytest
 from hydra import compose, initialize
 from omegaconf import DictConfig
 
+from zebra_puzzles.evaluation import evaluate_all
 from zebra_puzzles.pipeline import build_dataset
 
 initialize(config_path="../config", version_base=None)
@@ -76,3 +77,41 @@ def data_paths(config) -> Generator[tuple[Path, Path, Path], None, None]:
 
     # Cleanup
     rmtree(puzzle_path.parent.parent, ignore_errors=True)
+
+
+@pytest.fixture(scope="session")
+def eval_paths(data_paths, config) -> Generator[tuple[Path, Path], None, None]:
+    """Fixture to evaluate puzzles after generating them by the data_paths fixture."""
+    # Evaluate the dataset
+    evaluate_all(
+        n_puzzles=config.n_puzzles,
+        n_objects=config.n_objects,
+        n_attributes=config.n_attributes,
+        model=config.model,
+        theme=config.language.theme,
+        generate_new_responses=config.generate_new_responses,
+        n_red_herring_clues=config.n_red_herring_clues,
+        n_red_herring_clues_evaluated=config.n_red_herring_clues_evaluated,
+        data_folder=config.data_folder,
+    )
+
+    # Load the response files
+    data_folder = config.data_folder
+    theme = config.language.theme
+    n_objects = config.n_objects
+    n_attributes = config.n_attributes
+    n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
+    model = config.model
+
+    scores_path = Path(
+        f"{data_folder}/scores/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues_evaluated}rh/{model}/"
+    )
+    responses_path = Path(
+        f"{data_folder}/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues_evaluated}rh/responses/{model}/"
+    )
+
+    yield scores_path, responses_path
+
+    # Cleanup
+    rmtree(scores_path, ignore_errors=True)
+    rmtree(responses_path, ignore_errors=True)
