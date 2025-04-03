@@ -1,0 +1,17 @@
+Puzzle Scores
+-------------
+Metrics
+
+Puzzle score:
+	Mean: 0.0
+
+Cell score:
+	Mean: 0.44
+
+Best permuted cell score:
+	Mean: 0.56
+
+-------------
+Single puzzle scores
+
+Puzzle 0: 	puzzle score: 0.00	cell score: 0.44	best permuted cell score: 0.56

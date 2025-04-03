@@ -1,6 +1,8 @@
 """Tests for the `module` module.
 
 Use 'pytest tests/test_module.py::test_name' to run a single test.
+
+Use 'make test' to run all tests.
 """
 
 import json
@@ -16,7 +18,8 @@ def test_prompt(puzzle_and_solution_paths, config) -> None:
     puzzle_path = puzzle_and_solution_paths[0]
 
     # Load the first file in the puzzle directory
-    puzzle_file_path_str = os.listdir(puzzle_path)[0]
+    puzzle_filename = os.listdir(puzzle_path)[0]
+    puzzle_file_path_str = puzzle_path / puzzle_filename
 
     # Load a generated puzzle
     with open(puzzle_file_path_str, "r") as f:
