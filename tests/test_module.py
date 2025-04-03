@@ -71,11 +71,7 @@ def test_red_herring_files(data_paths, config) -> None:
 
 
 def test_scores(eval_paths, config) -> None:
-    """Test the evaluation scores of a dataset of zebra puzzles.
-
-    TODO: Check that the score names are correct in evaluation.py.
-    TODO: Remove _ in e.g. 5_rh in score names
-    """
+    """Test the evaluation scores of a dataset of zebra puzzles."""
     # Get the scores path
     scores_path = eval_paths[0]
 
@@ -88,7 +84,7 @@ def test_scores(eval_paths, config) -> None:
 
     scores_file_path = (
         scores_path
-        / f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues_evaluated}_rh_{n_puzzles}_puzzles.txt"
+        / f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.txt"
     )
     with open(scores_file_path, "r") as f:
         scores_str = f.read()

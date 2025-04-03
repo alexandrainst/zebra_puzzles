@@ -239,11 +239,11 @@ def prepare_eval_folders(
         f"{file_path.stem}_response.json" for file_path in puzzle_paths
     ]
 
-    score_filename = f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues_evaluated}_rh_{n_puzzles}_puzzles.txt"
+    score_filename = f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.txt"
 
     # Define evaluation folders
     response_folder = f"{data_folder}/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/responses/{model}"
-    score_folder = f"{data_folder}/scores/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/{model}"
+    score_folder = f"{data_folder}/scores/{model}/{n_red_herring_clues_evaluated}rh"
     reduced_puzzle_folder = f"{data_folder}/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/reduced_puzzles"
     reduced_clue_type_folder = f"{data_folder}/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/reduced_clue_types"
 

@@ -104,7 +104,7 @@ def eval_paths(data_paths, config) -> Generator[tuple[Path, Path], None, None]:
     model = config.model
 
     scores_path = Path(
-        f"{data_folder}/scores/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues_evaluated}rh/{model}/"
+        f"{data_folder}/scores/{model}/{n_red_herring_clues_evaluated}rh"
     )
     responses_path = Path(
         f"{data_folder}/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues_evaluated}rh/responses/{model}/"
