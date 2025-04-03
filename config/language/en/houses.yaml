@@ -77,11 +77,11 @@ attributes:
         blackcurrant: ['the person who loves blackcurrants', 'loves blackcurrants', 'does not like blackcurrants']
         wild strawberry: ['the person who loves wild strawberries', 'loves wild strawberries', 'does not like wild strawberries']
 
-
 # Clues
 # Clue names and text for the prompt depending on the clue type.
 # Clue names should not be edited, but they can be a subset of the full list of implemented clues.
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
+
 clues_dict:
     found_at: "{attribute_desc} lives in house no. {i_object}."
     not_at: "{attribute_desc} does not live in house no. {i_object}."
@@ -97,7 +97,6 @@ clues_dict:
     not_between: "{attribute_desc_1} does not live between {attribute_desc_2} and {attribute_desc_3}, and they are three different people." # Requires n_objects > 2, otherwise it cannot be used
     multiple_between: "There are {n_between} houses between {attribute_desc_1} and {attribute_desc_2}."                                     # Requires n_objects > 3, otherwise it cannot be used
     one_between: "There is one house between {attribute_desc_1} and {attribute_desc_2}."                                                    # Requires n_objects > 2, otherwise it cannot be used
-
 
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
@@ -138,6 +137,8 @@ prompt_templates:
 
         {solution_template}
 
+# Red herrings
+# The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
 
 red_herring_clues_dict:
     same_herring: "{attribute_desc} {attribute_desc_herring}."

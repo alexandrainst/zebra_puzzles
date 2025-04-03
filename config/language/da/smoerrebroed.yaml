@@ -33,8 +33,6 @@ attributes:
         smørbart blandingsprodukt: ['stykket med smørbart blandingsprodukt', 'er smurt med et smørbart blandingsprodukt', 'er ikke smurt med et smørbart blandingsprodukt']
         hvidløgssmør: ['stykket med hvidløgssmør', 'er smurt med hvidløgssmør', 'er ikke smurt med hvidløgssmør']
 
-
-
     pålæg:
         røget laks: ['stykket med røget laks', 'er med røget laks', 'er ikke med røget laks']
         roastbeef: ['stykket med roastbeef', 'er med roastbeef', 'er ikke med roastbeef']
@@ -81,8 +79,6 @@ attributes:
         ristede mandler: ['stykket med ristede mandler', 'er drysset med ristede mandler', 'er ikke drysse med ristede mandler']
         ingen drys: ['stykket uden drys', 'er uden drys', 'er drysset med noget']
 
-
-
 # Clues
 # Clue names and text for the prompt depending on the clue type.
 # Clue names should not be edited, but they can be a subset of the full list of implemented clues.
@@ -102,7 +98,6 @@ clues_dict:
     not_between: "{attribute_desc_1} ligger ikke mellem {attribute_desc_2} og {attribute_desc_3}, og de er tre forskellige stykker smørrebrød." # Requires n_objects > 2, otherwise it cannot be used
     multiple_between: "{attribute_desc_1} og {attribute_desc_2} ligger med {n_between} stykker smørrebrød mellem sig."                          # Requires n_objects > 3, otherwise it cannot be used
     one_between: "Der er ét stykke smørrebrød mellem {attribute_desc_1} og {attribute_desc_2}."                                                 # Requires n_objects > 2, otherwise it cannot be used
-
 
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
@@ -143,6 +138,8 @@ prompt_templates:
 
         {solution_template}
 
+# Red herrings
+# The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
 
 red_herring_clues_dict:
     same_herring: "{attribute_desc} {attribute_desc_herring}."

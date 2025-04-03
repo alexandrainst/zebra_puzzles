@@ -77,8 +77,6 @@ attributes:
         solbær: ['personen der elsker solbær', 'elsker solbær', 'kan ikke lide solbær']
         skovjordbær: ['personen der elsker skovjordbær', 'elsker skovjordbær', 'kan ikke lide skovjordbær']
 
-
-
 # Clues
 # Clue names and text for the prompt depending on the clue type.
 # Clue names should not be edited, but they can be a subset of the full list of implemented clues.
@@ -98,7 +96,6 @@ clues_dict:
     not_between: "{attribute_desc_1} bor ikke mellem {attribute_desc_2} og {attribute_desc_3}, og de er tre forskellige personer." # Requires n_objects > 2, otherwise it cannot be used
     multiple_between: "{attribute_desc_1} og {attribute_desc_2} bor med {n_between} huse mellem sig."                              # Requires n_objects > 3, otherwise it cannot be used
     one_between: "Der er ét hus mellem {attribute_desc_1} og {attribute_desc_2}."                                                  # Requires n_objects > 2, otherwise it cannot be used
-
 
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
@@ -138,10 +135,9 @@ prompt_templates:
 
         {solution_template}
 
-
 # Red herrings
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
-# NOTE: More types could be added such as "Herring lives in house number 1" or "The person with a cactus is not the baker"
+# NOTE: More types could be added such as "The person with a cactus is not the baker"
 
 red_herring_clues_dict:
     same_herring: "{attribute_desc} {attribute_desc_herring}."
@@ -152,7 +148,6 @@ red_herring_clues_dict:
     friends: "{attribute_desc} er gode venner med {attribute_desc_herring}."
     herring_found_at: "{attribute_desc_herring} bor i hus nummer {i_object}."
     herring_not_at: "{attribute_desc_herring} bor ikke i hus nummer {i_object}."
-
 
 red_herring_attributes:
     rødt_hår: ['personen med rødt hår','har rødt hår']
