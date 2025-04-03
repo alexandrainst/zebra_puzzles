@@ -18,6 +18,7 @@ def config(request) -> Generator[DictConfig, None, None]:
     """Hydra configuration.
 
     This fixture yields a Hydra configuration object for the tests. It uses params to create multiple configurations.
+    #TODO: Test multiple values of n_red_herring_clues and n_red_herring_clues_evaluated
     """
     yield compose(
         config_name="config",
@@ -25,6 +26,8 @@ def config(request) -> Generator[DictConfig, None, None]:
             f"n_puzzles={request.param}",
             "n_objects=3",
             "n_attributes=3",
+            "n_red_herring_clues=5",
+            "n_red_herring_clues_evaluated=1",
             "data_folder=tests/test_data",
             "model=gpt-4o-mini",
         ],
@@ -32,7 +35,7 @@ def config(request) -> Generator[DictConfig, None, None]:
 
 
 @pytest.fixture(scope="session")
-def puzzle_and_solution_paths(config) -> Generator[tuple[Path, Path], None, None]:
+def data_paths(config) -> Generator[tuple[Path, Path, Path], None, None]:
     """Fixture to generate a small dataset of zebra puzzles."""
     build_dataset(
         attributes=config.language.attributes,
@@ -65,8 +68,11 @@ def puzzle_and_solution_paths(config) -> Generator[tuple[Path, Path], None, None
     solution_path = Path(
         f"{data_folder}/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh/solutions/"
     )
+    red_herrings_path = Path(
+        f"{data_folder}/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh/red_herrings/"
+    )
 
-    yield puzzle_path, solution_path
+    yield puzzle_path, solution_path, red_herrings_path
 
     # Cleanup
     rmtree(puzzle_path.parent, ignore_errors=True)
