@@ -21,7 +21,7 @@ generate_new_responses: True
 data_folder: data
 
 # Number of puzzles to generate
-n_puzzles: 1
+n_puzzles: 2
 
 # Objects e.g. houses
 n_objects: 3

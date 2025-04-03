@@ -75,4 +75,4 @@ def data_paths(config) -> Generator[tuple[Path, Path, Path], None, None]:
     yield puzzle_path, solution_path, red_herrings_path
 
     # Cleanup
-    rmtree(puzzle_path.parent, ignore_errors=True)
+    rmtree(puzzle_path.parent.parent, ignore_errors=True)
