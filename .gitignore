@@ -94,6 +94,10 @@ multirun/
 data/*
 !data/.gitkeep
 
+# Data backup
+data_backup/*
+!data_backup/.gitkeep
+
 # Scores
 scores/*
 !scores/.gitkeep
