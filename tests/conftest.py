@@ -1,4 +1,4 @@
-"""Define test configuations."""
+"""Define test configurations."""
 
 import random
 from pathlib import Path
