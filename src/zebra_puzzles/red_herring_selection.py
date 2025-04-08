@@ -38,7 +38,6 @@ def choose_red_herrings(
         A tuple (chosen_clues, chosen_clue_types), where:
             chosen_clues: The completed red herring clues as a list of strings.
             chosen_clue_types: The types of red herring clues as a list of strings.
-
     """
     # Get the probability of selecting each clue type
     _, clue_probabilities = get_clue_probabilities(
@@ -108,7 +107,6 @@ def create_red_herring(
             used_red_herring_attributes: Attributes that have already been used in red herring clues as a list of strings.
 
     # NOTE: More red herring types could be added. For example, types corresponding to more of the normal clue types.
-
     """
     clue_description = red_herring_clues_dict[clue_type]
 

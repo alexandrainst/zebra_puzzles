@@ -23,7 +23,6 @@ def solver(
 
     # NOTE: We could remove the uniqueness constraint
     # NOTE: The completeness of the solution could just be measured as the number of solutions.
-
     """
     # ---- Define the puzzle ----#
     solver = OptimizedBacktrackingSolver()
@@ -99,7 +98,6 @@ def raise_if_unexpected_solution_found(
         n_objects: Number of objects in the puzzle as an integer.
         n_attributes: Number of attributes per object as an integer.
         chosen_clues: Clues for the zebra puzzle as a list of strings.
-
     """
     solution_attempt = format_solution_as_matrix(
         solution_dict=solutions[0], n_objects=n_objects, n_attributes=n_attributes

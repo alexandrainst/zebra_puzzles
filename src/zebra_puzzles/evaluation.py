@@ -45,7 +45,6 @@ def evaluate_all(
         data_folder: The path to the folder containing the data as a string.
 
     TODO: Make the script more robust in cases where the expected responses are not found.
-
     """
     (
         puzzle_paths,
@@ -208,7 +207,6 @@ def query_llm(prompt: str, model: str, response_format: Type[BaseModel]) -> Base
 
     Returns:
         The output in OutputFormat format.
-
     """
     logging.getLogger("httpx").setLevel(logging.ERROR)
 
@@ -267,7 +265,6 @@ def compute_metrics(
         Metrics as a dictionary of with the score type as the key, and the values being a tuple of ndarrays. The tuple contains the rounded metrics for the score type and a string describing the metrics for the score type.
 
     NOTE: More metrics could be added e.g. from sklearn.metrics
-
     """
     # Number of score types
     n_metrics = len(score_types)

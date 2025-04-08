@@ -99,7 +99,6 @@ def is_clue_redundant(
     NOTE: More checks could be added e.g. "same_object" and "not_same_object" with 1 identical attribute and secondary attributes of the same category.
     NOTE: Consider adapting for non-unique attributes
     TODO: Combine checks for fewer loops
-
     """
     clues_to_remove = []
 
@@ -246,7 +245,6 @@ def remove_redundant_clues_with_solver(
             chosen_clues: Non-redundant clues for the zebra puzzle as a list of strings.
             constraints: Non-redundant constraints for the puzzle solver.
             chosen_clue_types: Non-redundant clue types for the zebra puzzle as a list of strings.
-
     """
     for i in range(len(chosen_constraints) - 1, -1, -1):
         _, completeness = solver(

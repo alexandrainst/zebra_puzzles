@@ -53,7 +53,6 @@ def run_pipeline(
             chosen_clue_types_str: String of comma-separated clue types chosen for the puzzle.
 
     NOTE: Consider if enumeration should be removed when we only have one clue.
-
     """
     solution, chosen_categories, chosen_attributes, chosen_attributes_descs = (
         generate_solution(
@@ -144,7 +143,6 @@ def build_dataset(
         data_folder: Folder to save the dataset in.
 
     NOTE: Consider only saving the puzzle and solution instead of the whole prompt.
-
     """
     (
         prompt_filenames,

@@ -18,7 +18,6 @@ def main(config: DictConfig) -> None:
 
     Args:
         config: Config file.
-
     """
     n_puzzles = config.n_puzzles
     n_objects = config.n_objects
