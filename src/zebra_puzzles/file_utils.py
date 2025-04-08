@@ -45,7 +45,7 @@ def save_dataset(data: str, filename: str, folder: str) -> None:
         folder: Folder to save the file in.
 
     """
-    with open(folder + "/" + filename, "w") as file:
+    with open(folder + "/" + filename, "w", encoding="utf-8") as file:
         file.write(data)
 
 
