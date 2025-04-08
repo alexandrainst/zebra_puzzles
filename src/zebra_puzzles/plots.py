@@ -104,7 +104,7 @@ def plot_heatmaps(
         )
         plt.imshow(
             score_type_array_not_empty,
-            cmap="viridis",
+            cmap="Greens",
             aspect="equal",
             origin="lower",
             vmin=0,
