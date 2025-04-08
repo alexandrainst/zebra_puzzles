@@ -22,8 +22,6 @@ def main(config: DictConfig) -> None:
         config: Config file.
     """
     n_puzzles = config.n_puzzles
-    n_objects = config.n_objects
-    n_attributes = config.n_attributes
     model = config.model
     theme = config.language.theme
     n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
@@ -31,8 +29,6 @@ def main(config: DictConfig) -> None:
 
     plot_results(
         n_puzzles=n_puzzles,
-        n_objects=n_objects,
-        n_attributes=n_attributes,
         model=model,
         theme=theme,
         n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
