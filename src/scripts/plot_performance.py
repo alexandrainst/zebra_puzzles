@@ -1,15 +1,15 @@
-"""Evaluation script.
+"""Script to analyse and plot performance of the LMM's.
 
-This script should run after build_dataset.py.
+This script should run after build_dataset.py and evaluate.py.
 
 Usage:
-    uv run src/scripts/evaluate.py <config_key>=<config_value> ...
+    uv run src/scripts/plot_performance.py <config_key>=<config_value> ...
 """
 
 import hydra
 from omegaconf import DictConfig
 
-from zebra_puzzles.evaluation import evaluate_all
+from zebra_puzzles.plots import plot_results
 
 
 @hydra.main(config_path="../../config", config_name="config", version_base=None)
@@ -26,19 +26,15 @@ def main(config: DictConfig) -> None:
     n_attributes = config.n_attributes
     model = config.model
     theme = config.language.theme
-    generate_new_responses = config.generate_new_responses
-    n_red_herring_clues = config.n_red_herring_clues
     n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
     data_folder = config.data_folder
 
-    evaluate_all(
+    plot_results(
         n_puzzles=n_puzzles,
         n_objects=n_objects,
         n_attributes=n_attributes,
         model=model,
         theme=theme,
-        generate_new_responses=generate_new_responses,
-        n_red_herring_clues=n_red_herring_clues,
         n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
         data_folder=data_folder,
     )
