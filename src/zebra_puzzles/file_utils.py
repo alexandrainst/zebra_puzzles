@@ -291,7 +291,7 @@ def prepare_eval_folders(
 
 
 def get_score_file_paths(
-    data_folder: str,
+    data_folder: Path,
     model: str,
     n_red_herring_clues_evaluated: int,
     theme: str,
@@ -309,12 +309,12 @@ def get_score_file_paths(
     Returns:
         List of score file paths.
     """
-    scores_path = f"{data_folder}/scores/{model}/{n_red_herring_clues_evaluated}rh/"
+    scores_path = data_folder / "scores" / model / f"{n_red_herring_clues_evaluated}rh"
 
     # Get sorted names of all score files in the data folder that are evaluated on the correct number of puzzles
     score_file_paths = sorted(
         list(
-            Path(scores_path).glob(
+            scores_path.glob(
                 f"puzzle_scores_{model}_{theme}*_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.txt"
             )
         )

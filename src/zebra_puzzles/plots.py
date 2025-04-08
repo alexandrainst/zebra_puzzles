@@ -17,7 +17,7 @@ def plot_results(
     model: str,
     theme: str,
     n_red_herring_clues_evaluated: int,
-    data_folder: str,
+    data_folder_str: str,
 ) -> None:
     """Plot the results of the LLM's trying to solve zebra puzzles.
 
@@ -28,10 +28,13 @@ def plot_results(
         model: LLM model name.
         theme: Theme name.
         n_red_herring_clues_evaluated: Number of red herring clues evaluated.
-        data_folder: Path to the data folder.
+        data_folder_str: Path to the data folder as a string.
 
     TODO: Consider just plotting everything in a folder instead of specifying n_puzzles, model etc.
     """
+    # Convert the data folder string to a Path object
+    data_folder = Path(data_folder_str)
+
     # ----- Import results from score files -----#
 
     # Get the paths of the score files
@@ -69,7 +72,7 @@ def plot_results(
         scores_array=mean_scores_array, score_types=score_types, plot_path=plot_path
     )
 
-    # TODO: More plots e.g. score vs. n_red_herrings_evaluated
+    # TODO: More plots e.g. score vs. n_red_herrings_evaluated, clue type histograms, clue type difficulty etc.
 
 
 def plot_heatmaps(
