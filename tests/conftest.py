@@ -1,9 +1,11 @@
 """Define test configuations."""
 
+import random
 from pathlib import Path
 from shutil import rmtree
 from typing import Generator
 
+import numpy as np
 import pytest
 from hydra import compose, initialize
 from omegaconf import DictConfig
@@ -14,21 +16,29 @@ from zebra_puzzles.pipeline import build_dataset
 initialize(config_path="../config", version_base=None)
 
 
-@pytest.fixture(scope="session", params=[1, 2])
+# Test configurations for pytest
+# Each set of parameters represents a different configuration for the tests.
+@pytest.fixture(
+    scope="session", params=[(1, 2, 0), (2, 2, 0), (1, 2, 2), (2, 2, 2), (2, 0, 0)]
+)
 def config(request) -> Generator[DictConfig, None, None]:
     """Hydra configuration.
 
     This fixture yields a Hydra configuration object for the tests. It uses params to create multiple configurations.
-    #TODO: Test multiple values of n_red_herring_clues and n_red_herring_clues_evaluated
     """
+    # Set the seeds of random and numpy
+
+    random.seed(42)
+    np.random.seed(42)
+
     yield compose(
         config_name="config",
         overrides=[
-            f"n_puzzles={request.param}",
+            f"n_puzzles={request.param[0]}",
             "n_objects=3",
             "n_attributes=3",
-            "n_red_herring_clues=5",
-            "n_red_herring_clues_evaluated=1",
+            f"n_red_herring_clues={request.param[1]}",
+            f"n_red_herring_clues_evaluated={request.param[2]}",
             "data_folder=tests/test_data",
             "model=gpt-4o-mini",
         ],
