@@ -30,14 +30,16 @@ def config(request) -> Generator[DictConfig, None, None]:
     random.seed(42)
     np.random.seed(42)
 
+    n_puzzles, n_red_herring_clues, n_red_herring_clues_evaluated = request.param
+
     yield compose(
         config_name="config",
         overrides=[
-            f"n_puzzles={request.param[0]}",
+            f"n_puzzles={n_puzzles}",
             "n_objects=3",
             "n_attributes=3",
-            f"n_red_herring_clues={request.param[1]}",
-            f"n_red_herring_clues_evaluated={request.param[2]}",
+            f"n_red_herring_clues={n_red_herring_clues}",
+            f"n_red_herring_clues_evaluated={n_red_herring_clues_evaluated}",
             "data_folder=tests/test_data",
             "model=gpt-4o-mini",
         ],
