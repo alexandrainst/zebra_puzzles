@@ -103,8 +103,8 @@ data_backup/*
 #!scores/.gitkeep
 
 # Test data
-tests/test_data/*
-!tests/test_data/.gitkeep
+#tests/test_data/*
+#!tests/test_data/.gitkeep
 
 # Models
 models/*
