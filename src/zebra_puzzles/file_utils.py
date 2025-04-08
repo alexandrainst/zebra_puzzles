@@ -361,25 +361,30 @@ def load_scores(
     score_file_paths: list[Path],
     n_objects_list: list[int],
     n_attributes_list: list[int],
+    score_types: list[str],
 ) -> tuple[np.ndarray, np.ndarray]:
     """Load the scores from the score files.
+
+    The scores are stored in a 3D array with dimensions (n_score_types, n_objects_max-1, n_attributes_max). The number of objects is at least 2 in all puzzles, so we create n_objects_max-1 rows.
+
+    Values are -1 if the score was not found in the file.
 
     Args:
         score_file_paths: List of score file paths.
         n_objects_list: List of the number of objects in the puzzles evaluated in each score file.
         n_attributes_list: List of the number of attributes in the puzzles evaluated in each score file.
+        score_types: List of score types to find in the score files.
 
     Returns:
-        A tuple (mean_scores_array, std_mean_scores_array) where:
-            mean_scores_array: Array of mean scores for each score file.
-            std_mean_scores_array: Array of standard deviations of the mean scores for each score file.
+        A tuple (mean_scores_array_min_2_n_objects, std_mean_scores_array_min_2_n_objects) where:
+            mean_scores_array: Array of mean scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -1 if the score was not found.
+            std_mean_scores_array: Array of standard deviations of the mean scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -1 if the score was not found.
     """
     # Get the maximum number of objects and attributes
     n_objects_max = max(n_objects_list)
     n_attributes_max = max(n_attributes_list)
 
     # Prepare array of scores
-    score_types = ["puzzle score", "cell score", "best permuted cell score"]
     mean_scores_array = (
         np.ones((len(score_types), n_objects_max, n_attributes_max)) * -1
     )
@@ -411,4 +416,8 @@ def load_scores(
                 i_score_type, n_objects_in_file - 1, n_attributes_in_file - 1
             ] = std_mean
 
-    return mean_scores_array, std_mean_scores_array
+    # Remove the n_objects = 1 row
+    mean_scores_array_min_2_n_objects = np.delete(mean_scores_array, 0, axis=1)
+    std_mean_scores_array_min_2_n_objects = np.delete(std_mean_scores_array, 0, axis=1)
+
+    return mean_scores_array_min_2_n_objects, std_mean_scores_array_min_2_n_objects

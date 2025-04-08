@@ -27,7 +27,7 @@ n_puzzles: 2
 n_objects: 2
 
 # Attributes e.g. pets
-n_attributes: 2
+n_attributes: 1
 
 # Weights for the clue types
 # The weights are used to determine the probability of generating each type of clue. The distribution of accepted clue types will be different, as redundant clues are removed.
