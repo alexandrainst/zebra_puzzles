@@ -99,12 +99,12 @@ data_backup/*
 !data_backup/.gitkeep
 
 # Scores
-#scores/*
-#!scores/.gitkeep
+scores/*
+!scores/.gitkeep
 
 # Test data
-#tests/test_data/*
-#!tests/test_data/.gitkeep
+tests/test_data/*
+!tests/test_data/.gitkeep
 
 # Models
 models/*
