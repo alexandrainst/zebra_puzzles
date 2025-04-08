@@ -119,7 +119,7 @@ def build_dataset(
     red_herring_attributes: dict[str, list[str]],
     red_herring_facts: dict[str, str],
     red_herring_clue_weights: dict[str, float],
-    data_folder: str,
+    data_folder_str: str,
 ) -> None:
     """Build a dataset of zebra puzzles.
 
@@ -140,7 +140,7 @@ def build_dataset(
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
         red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
         red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
-        data_folder: Folder to save the dataset in.
+        data_folder_str: Folder to save the dataset in as a string.
 
     NOTE: Consider only saving the puzzle and solution instead of the whole prompt.
     """
@@ -159,7 +159,7 @@ def build_dataset(
         n_objects=n_objects,
         n_attributes=n_attributes,
         n_red_herring_clues=n_red_herring_clues,
-        data_folder=data_folder,
+        data_folder_str=data_folder_str,
     )
 
     for i in tqdm(

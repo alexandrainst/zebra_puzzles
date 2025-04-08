@@ -29,7 +29,7 @@ def evaluate_all(
     model: str,
     theme: str,
     generate_new_responses: bool,
-    data_folder: str,
+    data_folder_str: str,
 ) -> None:
     """Evaluate a dataset of zebra puzzles.
 
@@ -42,7 +42,7 @@ def evaluate_all(
         model: The model to use for the evaluation as a string.
         theme: The theme of the puzzles as a string.
         generate_new_responses: A boolean describing whether to generate new responses or use existing ones.
-        data_folder: The path to the folder containing the data as a string.
+        data_folder_str: The path to the folder containing the data as a string.
 
     TODO: Make the script more robust in cases where the expected responses are not found.
     """
@@ -64,7 +64,7 @@ def evaluate_all(
         model=model,
         n_puzzles=n_puzzles,
         generate_new_responses=generate_new_responses,
-        data_folder=data_folder,
+        data_folder_str=data_folder_str,
     )
     # Initialize scores
     puzzle_scores: np.ndarray = np.zeros(n_puzzles)
@@ -81,16 +81,16 @@ def evaluate_all(
         ascii="░█",
     ):
         puzzle_score, cell_score, best_permuted_cell_score = evaluate_single_puzzle(
-            puzzle_path=puzzle_paths[i],
-            solution_path=solution_paths[i],
-            reduced_puzzle_path=reduced_puzzle_paths[i],
-            reduced_clue_type_path=reduced_clue_type_paths[i],
+            puzzle_file_path=puzzle_paths[i],
+            solution_file_path=solution_paths[i],
+            reduced_puzzle_file_path=reduced_puzzle_paths[i],
+            reduced_clue_type_file_path=reduced_clue_type_paths[i],
             n_objects=n_objects,
             n_attributes=n_attributes,
             model=model,
             response_filename=response_filenames[i],
             generate_new_responses=generate_new_responses,
-            response_folder=response_folder,
+            response_folder_path=response_folder,
             n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
         )
         puzzle_scores[i] = puzzle_score
@@ -117,30 +117,30 @@ def evaluate_all(
 
 
 def evaluate_single_puzzle(
-    puzzle_path: Path,
-    solution_path: Path,
-    reduced_puzzle_path: Path,
-    reduced_clue_type_path: Path,
+    puzzle_file_path: Path,
+    solution_file_path: Path,
+    reduced_puzzle_file_path: Path,
+    reduced_clue_type_file_path: Path,
     n_objects: int,
     n_attributes: int,
     model: str,
     response_filename: str,
-    response_folder: str,
+    response_folder_path: Path,
     generate_new_responses: bool,
     n_red_herring_clues_evaluated: int,
 ) -> tuple[float, float, float]:
     """Evaluate a dataset of zebra puzzles.
 
     Args:
-        puzzle_path: Path to the prompt file.
-        solution_path: Path to the solution file.
-        reduced_puzzle_path: Path to the reduced puzzle file.
-        reduced_clue_type_path: Path to the reduced clue type file.
+        puzzle_file_path: Path to the prompt file.
+        solution_file_path: Path to the solution file.
+        reduced_puzzle_file_path: Path to the reduced puzzle file.
+        reduced_clue_type_file_path: Path to the reduced clue type file.
         n_objects: Number of objects in each puzzle as an integer.
         n_attributes: Number of attributes of each object as an
         model: The model to use for the evaluation as a
         response_filename: The name of the response file.
-        response_folder: The folder to save the response file in.
+        response_folder_path: The path to the folder to save the response file in.
         generate_new_responses: Whether to generate new responses or use existing ones.
         n_red_herring_clues_evaluated: Number of red herring clues included in the puzzles as an integer. If this is smaller than the number of red herring clues used to generate the puzzles, the evaluation will be done on a subset of the red herring clues.
 
@@ -155,9 +155,9 @@ def evaluate_single_puzzle(
 
     if generate_new_responses:
         prompt = load_puzzle(
-            puzzle_path=puzzle_path,
-            reduced_puzzle_path=reduced_puzzle_path,
-            reduced_clue_type_path=reduced_clue_type_path,
+            puzzle_file_path=puzzle_file_path,
+            reduced_puzzle_file_path=reduced_puzzle_file_path,
+            reduced_clue_type_file_path=reduced_clue_type_file_path,
             n_red_herrings_to_keep=n_red_herring_clues_evaluated,
         )
 
@@ -165,16 +165,17 @@ def evaluate_single_puzzle(
 
     else:
         # Load an existing response
-        with open(response_folder + "/" + response_filename, "r") as file:
+        response_file_path = response_folder_path / response_filename
+        with open(response_file_path, "r") as file:
             response_str = file.read()
 
         output = json.loads(response_str)
         output = OutputFormat.model_validate(output)
 
     # Load the solution
-    solution_filename = f"{puzzle_path.stem}_solution.json"
+    solution_filename = f"{puzzle_file_path.stem}_solution.json"
 
-    with solution_path.joinpath(solution_filename).open() as file:
+    with solution_file_path.joinpath(solution_filename).open() as file:
         solution = file.read()
 
     # Change the format of solution to OutputFormat
@@ -192,7 +193,9 @@ def evaluate_single_puzzle(
 
     # Save the output
     output_str = json.dumps(output.model_dump(), indent=4, ensure_ascii=False)
-    save_dataset(data=output_str, filename=response_filename, folder=response_folder)
+    save_dataset(
+        data=output_str, filename=response_filename, folder=response_folder_path
+    )
 
     return puzzle_score, cell_score, best_permuted_cell_score
 
@@ -317,7 +320,6 @@ def compute_metrics(
             score_strings[i] = f"\tMean: {mean_scores[i]}"
 
     # Make a dictionary of metrics and score strings for each score type
-
     if n_puzzles > 1:
         metrics: dict[str, tuple[str | float, ...]] = {
             score_type: (
@@ -361,6 +363,7 @@ def format_scores(
     score_str += "Metrics\n\n"
     if n_puzzles > 1:
         score_str += "Uncertainty is given as one standard deviation (1σ), corresponding to a 68% confidence interval. The 95% confidence interval is approximately ±2σ.\n\n"
+
     # Complete the string describing all metrics
     metrics_str = ""
     for score_type in score_types:

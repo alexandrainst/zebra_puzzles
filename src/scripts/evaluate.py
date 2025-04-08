@@ -38,7 +38,7 @@ def main(config: DictConfig) -> None:
         generate_new_responses=generate_new_responses,
         n_red_herring_clues=n_red_herring_clues,
         n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
-        data_folder=data_folder,
+        data_folder_str=data_folder,
     )
 
 
