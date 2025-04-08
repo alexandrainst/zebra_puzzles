@@ -99,8 +99,8 @@ data_backup/*
 !data_backup/.gitkeep
 
 # Scores
-scores/da_smoerrebroed*
-!scores/.gitkeep
+#scores/*
+#!scores/.gitkeep
 
 # Test data
 tests/test_data/*
