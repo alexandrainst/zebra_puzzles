@@ -312,6 +312,38 @@ def prepare_eval_folders(
     )
 
 
+def get_evaluated_params(data_folder: Path) -> tuple[list[str], set[int]]:
+    """Get the names and number of red herrings of the models used in the evaluation.
+
+    Args:
+        data_folder: Path to the data folder.
+
+    Returns:
+        A tuple (model_names, rh_values) where:
+            model_names: List of model names.
+            rh_values: Set of red herring numbers evaluated.
+    """
+    # Define the path to the scores folder
+    scores_path = data_folder / "scores"
+
+    # Get the names of all models in the scores folder
+    model_names = [model.name for model in scores_path.iterdir() if model.is_dir()]
+
+    # Get the set of red herring numbers evaluated
+    # Do this by getting the names of all folders in the scores folder and splitting the folder names by "rh"
+    rh_values = set()
+    for model in model_names:
+        rh_values.update(
+            [
+                int(rh.name.split("rh")[0])
+                for rh in (scores_path / model).iterdir()
+                if rh.is_dir()
+            ]
+        )
+
+    return model_names, rh_values
+
+
 def get_score_file_paths(
     data_folder: Path,
     model: str,

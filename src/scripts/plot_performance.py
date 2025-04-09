@@ -22,18 +22,10 @@ def main(config: DictConfig) -> None:
         config: Config file.
     """
     n_puzzles = config.n_puzzles
-    model = config.model
     theme = config.language.theme
-    n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
     data_folder = config.data_folder
 
-    plot_results(
-        n_puzzles=n_puzzles,
-        model=model,
-        theme=theme,
-        n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
-        data_folder_str=data_folder,
-    )
+    plot_results(n_puzzles=n_puzzles, theme=theme, data_folder_str=data_folder)
 
 
 if __name__ == "__main__":

@@ -6,75 +6,77 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from zebra_puzzles.file_utils import (
+    get_evaluated_params,
     get_puzzle_dimensions_from_filename,
     get_score_file_paths,
     load_scores,
 )
 
 
-def plot_results(
-    n_puzzles: int,
-    model: str,
-    theme: str,
-    n_red_herring_clues_evaluated: int,
-    data_folder_str: str,
-) -> None:
+def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
     """Plot the results of the LLM's trying to solve zebra puzzles.
 
     Args:
         n_puzzles: Number of puzzles evaluated.
-        n_objects: Number of objects.
-        n_attributes: Number of attributes.
-        model: LLM model name.
         theme: Theme name.
-        n_red_herring_clues_evaluated: Number of red herring clues evaluated.
         data_folder_str: Path to the data folder as a string.
 
-    TODO: Consider just plotting everything in a folder instead of specifying n_puzzles, model etc.
     """
     # Convert the data folder string to a Path object
     data_folder = Path(data_folder_str)
 
     # ----- Import results from score files -----#
 
-    # Get the paths of the score files
-    score_file_paths = get_score_file_paths(
-        data_folder=data_folder,
-        model=model,
-        n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
-        theme=theme,
-        n_puzzles=n_puzzles,
-    )
+    model_names, rh_values = get_evaluated_params(data_folder=data_folder)
 
-    # Check the puzzle dimensions in score filenames
-    n_objects_list, n_attributes_list = get_puzzle_dimensions_from_filename(
-        score_file_paths=score_file_paths
-    )
+    mean_scores_all_eval_array = []
+    std_mean_scores_all_eval_array = []
 
-    # Define the score types to search for in the score files
-    score_types = ["puzzle score", "cell score", "best permuted cell score"]
+    for model in model_names:
+        for n_red_herring_clues_evaluated in rh_values:
+            # Get the paths of the score files
+            score_file_paths = get_score_file_paths(
+                data_folder=data_folder,
+                model=model,
+                n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
+                theme=theme,
+                n_puzzles=n_puzzles,
+            )
 
-    # Load the scores from the score files
-    mean_scores_array, std_mean_scores_array, std_scores_array = load_scores(
-        score_file_paths=score_file_paths,
-        n_objects_list=n_objects_list,
-        n_attributes_list=n_attributes_list,
-        score_types=score_types,
-    )
+            # Check the puzzle dimensions in score filenames
+            n_objects_list, n_attributes_list = get_puzzle_dimensions_from_filename(
+                score_file_paths=score_file_paths
+            )
 
-    # ----- Plot the results -----#
+            # Define the score types to search for in the score files
+            score_types = ["puzzle score", "cell score", "best permuted cell score"]
 
-    # Prepare path for plots
-    plot_path = Path(f"{data_folder}/plots/{model}/{n_red_herring_clues_evaluated}rh/")
+            # Load the scores from the score files
+            mean_scores_array, std_mean_scores_array, std_scores_array = load_scores(
+                score_file_paths=score_file_paths,
+                n_objects_list=n_objects_list,
+                n_attributes_list=n_attributes_list,
+                score_types=score_types,
+            )
 
-    # Make heatmaps of mean scores
-    plot_heatmaps(
-        scores_array=mean_scores_array,
-        score_types=score_types,
-        plot_path=plot_path,
-        n_referred_herring_clues_evaluated=n_red_herring_clues_evaluated,
-        std_scores_array=std_scores_array,
-    )
+            # ----- Plot the results -----#
+
+            # Prepare path for plots
+            plot_path = Path(
+                f"{data_folder}/plots/{model}/{n_red_herring_clues_evaluated}rh/"
+            )
+
+            # Make heatmaps of mean scores
+            plot_heatmaps(
+                scores_array=mean_scores_array,
+                score_types=score_types,
+                plot_path=plot_path,
+                n_referred_herring_clues_evaluated=n_red_herring_clues_evaluated,
+                std_scores_array=std_scores_array,
+            )
+
+            mean_scores_all_eval_array.append(mean_scores_array)
+            std_mean_scores_all_eval_array.append(std_mean_scores_array)
 
     # TODO: More plots e.g. score vs. n_red_herrings_evaluated, clue type histograms, clue type difficulty etc.
 
