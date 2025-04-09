@@ -384,7 +384,7 @@ def load_scores(
     n_objects_list: list[int],
     n_attributes_list: list[int],
     score_types: list[str],
-) -> tuple[np.ndarray, np.ndarray]:
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Load the scores from the score files.
 
     The scores are stored in a 3D array with dimensions (n_score_types, n_objects_max-1, n_attributes_max). The number of objects is at least 2 in all puzzles, so we create n_objects_max-1 rows.
@@ -398,21 +398,20 @@ def load_scores(
         score_types: List of score types to find in the score files.
 
     Returns:
-        A tuple (mean_scores_array_min_2_n_objects, std_mean_scores_array_min_2_n_objects) where:
-            mean_scores_array: Array of mean scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -1 if the score was not found.
-            std_mean_scores_array: Array of standard deviations of the mean scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -1 if the score was not found.
+        A tuple (mean_scores_array_min_2_n_objects, std_mean_scores_array_min_2_n_objects, std_scores_array_min_2_n_objects) where:
+            mean_scores_array_min_2_n_objects: Array of mean scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -1 if the score was not found.
+            std_mean_scores_array_min_2_n_objects: Array of standard deviations of the mean scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -1 if the score was not found.
+            std_scores_array_min_2_n_objects: Array of population standard deviations of the scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -1 if the score was not found.
     """
     # Get the maximum number of objects and attributes
     n_objects_max = max(n_objects_list)
     n_attributes_max = max(n_attributes_list)
 
     # Prepare array of scores
-    mean_scores_array = (
-        np.ones((len(score_types), n_objects_max, n_attributes_max)) * -1
-    )
-    std_mean_scores_array = (
-        np.ones((len(score_types), n_objects_max, n_attributes_max)) * -1
-    )
+    mean_scores_array, std_mean_scores_array, std_scores_array = [
+        (np.ones((len(score_types), n_objects_max, n_attributes_max)) * -1)
+        for _ in range(3)
+    ]
 
     for score_file_path, n_objects_in_file, n_attributes_in_file in zip(
         score_file_paths, n_objects_list, n_attributes_list
@@ -426,9 +425,12 @@ def load_scores(
             score_str = scores_str.split(f"{score_type.capitalize()}:\n\tMean: ")[1]
             mean_str = score_str.split(" ")[0]
             mean_std_str = score_str.split("± ")[1].split(" ")[0]
+            std_str = scores_str.split("Population standard deviation: ")[1]
+            std_str = std_str.split("\n")[0]
 
             mean = float(mean_str)
             std_mean = float(mean_std_str)
+            std = float(std_str)
 
             # Add the score to the array
             mean_scores_array[
@@ -437,9 +439,17 @@ def load_scores(
             std_mean_scores_array[
                 i_score_type, n_objects_in_file - 1, n_attributes_in_file - 1
             ] = std_mean
+            std_scores_array[
+                i_score_type, n_objects_in_file - 1, n_attributes_in_file - 1
+            ] = std
 
     # Remove the n_objects = 1 row
     mean_scores_array_min_2_n_objects = np.delete(mean_scores_array, 0, axis=1)
     std_mean_scores_array_min_2_n_objects = np.delete(std_mean_scores_array, 0, axis=1)
+    std_scores_array_min_2_n_objects = np.delete(std_scores_array, 0, axis=1)
 
-    return mean_scores_array_min_2_n_objects, std_mean_scores_array_min_2_n_objects
+    return (
+        mean_scores_array_min_2_n_objects,
+        std_mean_scores_array_min_2_n_objects,
+        std_scores_array_min_2_n_objects,
+    )
