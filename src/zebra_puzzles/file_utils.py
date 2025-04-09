@@ -9,15 +9,18 @@ import numpy as np
 from zebra_puzzles.clue_removal import remove_red_herrings
 
 
-def clean_folder(folder: str, keep_files: list[str]) -> None:
+def clean_folder(folder_path: Path, keep_files: list[str]) -> None:
     """Clean a folder by deleting outdated files.
 
     Creates the folder if it does not exist.
 
     Args:
-        folder: Folder to clean.
+        folder_path: Path to the folder to clean.
         keep_files: List of files to keep in the folder.
     """
+    # Convert the folder path to a string
+    folder = str(folder_path)
+
     # Create the folder if it does not exist
     os.makedirs(folder, exist_ok=True)
 
@@ -39,23 +42,24 @@ def clean_folder(folder: str, keep_files: list[str]) -> None:
             print("Old files were not deleted.")
 
 
-def save_dataset(data: str, filename: str, folder: str) -> None:
+def save_dataset(data: str, filename: str, folder: Path) -> None:
     """Save a file.
 
     Args:
         data: Data to save.
         filename: Name of the file.
-        folder: Folder to save the file in.
-
+        folder: Path of the folder to save the file in.
     """
-    with open(folder + "/" + filename, "w", encoding="utf-8") as file:
+    file_path = folder / filename
+
+    with file_path.open("w", encoding="utf-8") as file:
         file.write(data)
 
 
 def load_puzzle(
-    puzzle_path: Path,
-    reduced_puzzle_path: Path,
-    reduced_clue_type_path: Path,
+    puzzle_file_path: Path,
+    reduced_puzzle_file_path: Path,
+    reduced_clue_type_file_path: Path,
     n_red_herrings_to_keep: int,
 ) -> str:
     """Load a puzzle and reduce the number of red herrings.
@@ -64,29 +68,29 @@ def load_puzzle(
     It also saves the new puzzle file and clue types.
 
     Args:
-        puzzle_path: Path to the puzzle file.
-        reduced_puzzle_path: Path to the folder where the reduced puzzle file will be saved.
-        reduced_clue_type_path: Path to the folder where the reduced clue type file will be saved.
+        puzzle_file_path: Path to the puzzle file.
+        reduced_puzzle_file_path: Path to the folder where the reduced puzzle file will be saved.
+        reduced_clue_type_file_path: Path to the folder where the reduced clue type file will be saved.
         n_red_herrings_to_keep: Number of red herring clues to be included in the puzzle as an integer.
 
     Returns:
         The prompt as a string.
     """
     # Load the prompt
-    with puzzle_path.open() as file:
+    with puzzle_file_path.open() as file:
         prompt = file.read()
 
     # Load the red herring indices
-    red_herring_path = puzzle_path.parent.parent.joinpath("red_herrings").joinpath(
-        puzzle_path.stem + "_red_herrings.txt"
+    red_herring_path = puzzle_file_path.parent.parent.joinpath("red_herrings").joinpath(
+        puzzle_file_path.stem + "_red_herrings.txt"
     )
 
     with red_herring_path.open() as file:
         red_herring_indices_str = file.read()
 
     # Load the clue types
-    clue_type_path = puzzle_path.parent.parent.joinpath("clue_types").joinpath(
-        puzzle_path.stem + "_clue_types.txt"
+    clue_type_path = puzzle_file_path.parent.parent.joinpath("clue_types").joinpath(
+        puzzle_file_path.stem + "_clue_types.txt"
     )
     with clue_type_path.open() as file:
         chosen_clue_types_str = file.read()
@@ -101,14 +105,14 @@ def load_puzzle(
 
     if fewer_red_herrings_flag:
         # Save the new puzzle and clue types in the right folder e.g. 3rh instead of 5rh
-        reduced_puzzle_filename = reduced_puzzle_path.stem + ".txt"
-        reduced_puzzle_folder = str(reduced_puzzle_path.parent)
+        reduced_puzzle_filename = reduced_puzzle_file_path.stem + ".txt"
+        reduced_puzzle_folder = reduced_puzzle_file_path.parent
         save_dataset(
             data=prompt, filename=reduced_puzzle_filename, folder=reduced_puzzle_folder
         )
 
-        clue_type_filename = reduced_clue_type_path.stem + ".txt"
-        reduced_clue_type_folder = str(reduced_clue_type_path.parent)
+        clue_type_filename = reduced_clue_type_file_path.stem + ".txt"
+        reduced_clue_type_folder = reduced_clue_type_file_path.parent
         save_dataset(
             data=chosen_clue_types_str,
             filename=clue_type_filename,
@@ -124,8 +128,8 @@ def prepare_data_folders(
     n_objects: int,
     n_attributes: int,
     n_red_herring_clues: int,
-    data_folder: str,
-) -> tuple[list[str], list[str], list[str], list[str], str, str, str, str]:
+    data_folder_str: str,
+) -> tuple[list[str], list[str], list[str], list[str], Path, Path, Path, Path]:
     """Prepare the data folders for the dataset.
 
     Args:
@@ -134,7 +138,7 @@ def prepare_data_folders(
         n_objects: Number of objects a the puzzle.
         n_attributes: Number of attributes of each object.
         n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
-        data_folder: Path to the data folder as a string.
+        data_folder_str: Path to the data folder as a string.
 
     Returns:
         A tuple (prompt_filenames, clue_type_filenames, red_herring_filenames, solution_filenames, puzzle_folder, clue_type_folder, red_herring_folder, solution_folder), where:
@@ -142,10 +146,10 @@ def prepare_data_folders(
             clue_type_filenames: List of clue type file names.
             red_herring_filenames: List of red herring file names.
             solution_filenames: List of solution file names.
-            puzzle_folder: Folder for the prompt files.
-            clue_type_folder: Folder for the clue type files.
-            red_herring_folder: Folder for the red herring files.
-            solution_folder: Folder for the solution files.
+            puzzle_folder: Path to the folder for prompt files.
+            clue_type_folder: Path to the folder for clue type files.
+            red_herring_folder: Path to the folder for red herring files.
+            solution_folder: Path to the folder for solution files.
     """
     # Create data file names
     prompt_filenames = ["zebra_puzzle_{}.txt".format(i) for i in range(n_puzzles)]
@@ -159,20 +163,23 @@ def prepare_data_folders(
         str(file.split(".")[0]) + "_solution.json" for file in prompt_filenames
     ]
 
+    # Convert data_folder from UNIX string to Path object. Both "/" and "\" should work on Windows"
+    data_folder = Path(data_folder_str)
+
     # Define folders
     subfolder = (
-        f"{data_folder}/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh"
+        data_folder / theme / f"{n_objects}x{n_attributes}" / f"{n_red_herring_clues}rh"
     )
-    puzzle_folder = f"{subfolder}/puzzles"
-    clue_type_folder = f"{subfolder}/clue_types"
-    red_herring_folder = f"{subfolder}/red_herrings"
-    solution_folder = f"{subfolder}/solutions"
+    puzzle_folder = subfolder / "puzzles"
+    clue_type_folder = subfolder / "clue_types"
+    red_herring_folder = subfolder / "red_herrings"
+    solution_folder = subfolder / "solutions"
 
     # Clean folders
-    clean_folder(folder=puzzle_folder, keep_files=prompt_filenames)
-    clean_folder(folder=clue_type_folder, keep_files=clue_type_filenames)
-    clean_folder(folder=red_herring_folder, keep_files=red_herring_filenames)
-    clean_folder(folder=solution_folder, keep_files=solution_filenames)
+    clean_folder(folder_path=puzzle_folder, keep_files=prompt_filenames)
+    clean_folder(folder_path=clue_type_folder, keep_files=clue_type_filenames)
+    clean_folder(folder_path=red_herring_folder, keep_files=red_herring_filenames)
+    clean_folder(folder_path=solution_folder, keep_files=solution_filenames)
 
     return (
         prompt_filenames,
@@ -195,8 +202,8 @@ def prepare_eval_folders(
     model: str,
     n_puzzles: int,
     generate_new_responses: bool,
-    data_folder: str,
-) -> tuple[list[Path], list[Path], list[Path], list[Path], list[str], str, str, str]:
+    data_folder_str: str,
+) -> tuple[list[Path], list[Path], list[Path], list[Path], list[str], Path, str, Path]:
     """Prepare the folders for the evaluation.
 
     Args:
@@ -208,7 +215,7 @@ def prepare_eval_folders(
         model: The model to use for the evaluation as a string.
         n_puzzles: Number of puzzles to evaluate as an integer.
         generate_new_responses: Whether to generate new responses or use existing ones.
-        data_folder: Path to the data folder as a string.
+        data_folder_str: Path to the data folder as a string.
 
     Returns:
         A tuple (puzzle_paths, solution_paths, reduced_puzzle_paths, reduced_clue_type_paths, response_filenames, response_folder, score_filename, score_folder), where:
@@ -217,21 +224,20 @@ def prepare_eval_folders(
             reduced_puzzle_paths: Paths to the puzzles after reducing the number of red herrings.
             reduced_clue_type_paths: Paths to the clue types after reducing the number of red herrings.
             response_filenames: Names of the response files.
-            response_folder: Folder to save the responses in.
+            response_folder: Path to the folder to save the responses in.
             score_filename: Name of the score file.
-            score_folder: Folder to save the scores in.
+            score_folder: Path to the folder to save the scores in.
     """
+    # Convert data_folder from UNIX string to Path object. Both "/" and "\" should work on Windows"
+    data_folder = Path(data_folder_str)
+
     # Define the subfolders for puzzles, solutions, responses, and evaluations
-    puzzle_subfolder = f"{theme}/{n_objects}x{n_attributes}"
+    puzzle_subfolder = Path(theme) / f"{n_objects}x{n_attributes}"
 
     # Get sorted names of all prompt files in the data folder
-    puzzle_paths = sorted(
-        list(
-            Path(
-                f"{data_folder}/{puzzle_subfolder}/{n_red_herring_clues}rh/puzzles"
-            ).glob("*.txt")
-        )
-    )
+    puzzle_folder = data_folder / puzzle_subfolder / f"{n_red_herring_clues}rh/puzzles"
+
+    puzzle_paths = sorted(list(puzzle_folder.glob("*.txt")))
 
     solution_paths = [
         puzzle_path.parent.parent.joinpath("solutions") for puzzle_path in puzzle_paths
@@ -245,20 +251,34 @@ def prepare_eval_folders(
     score_filename = f"puzzle_scores_{model}_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.txt"
 
     # Define evaluation folders
-    response_folder = f"{data_folder}/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/responses/{model}"
-    score_folder = f"{data_folder}/scores/{model}/{n_red_herring_clues_evaluated}rh"
-    reduced_puzzle_folder = f"{data_folder}/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/reduced_puzzles"
-    reduced_clue_type_folder = f"{data_folder}/{puzzle_subfolder}/{n_red_herring_clues_evaluated}rh/reduced_clue_types"
+    response_folder = (
+        data_folder
+        / puzzle_subfolder
+        / f"{n_red_herring_clues_evaluated}rh"
+        / "responses"
+        / model
+    )
+    score_folder = data_folder / "scores" / model / f"{n_red_herring_clues_evaluated}rh"
+    reduced_puzzle_folder = (
+        data_folder
+        / puzzle_subfolder
+        / f"{n_red_herring_clues_evaluated}rh"
+        / "reduced_puzzles"
+    )
+    reduced_clue_type_folder = (
+        data_folder
+        / puzzle_subfolder
+        / f"{n_red_herring_clues_evaluated}rh"
+        / "reduced_clue_types"
+    )
 
     # Get the paths of the reduced puzzles and clue types based on reduced_puzzle_folder
     reduced_puzzle_paths = [
-        Path(reduced_puzzle_folder).joinpath(f"{file_path.stem}_reduced.txt")
+        reduced_puzzle_folder.joinpath(f"{file_path.stem}_reduced.txt")
         for file_path in puzzle_paths
     ]
     reduced_clue_type_paths = [
-        Path(reduced_clue_type_folder).joinpath(
-            f"{file_path.stem}_clue_types_reduced.txt"
-        )
+        reduced_clue_type_folder.joinpath(f"{file_path.stem}_clue_types_reduced.txt")
         for file_path in puzzle_paths
     ]
 
@@ -269,14 +289,16 @@ def prepare_eval_folders(
         ]
 
         # Clean or create reponses folder
-        clean_folder(folder=response_folder, keep_files=response_filenames)
-        clean_folder(folder=reduced_puzzle_folder, keep_files=reduced_puzzle_filenames)
+        clean_folder(folder_path=response_folder, keep_files=response_filenames)
         clean_folder(
-            folder=reduced_clue_type_folder, keep_files=reduced_clue_type_filenames
+            folder_path=reduced_puzzle_folder, keep_files=reduced_puzzle_filenames
+        )
+        clean_folder(
+            folder_path=reduced_clue_type_folder, keep_files=reduced_clue_type_filenames
         )
 
     # Create the score folder if it does not exist
-    os.makedirs(score_folder, exist_ok=True)
+    os.makedirs(str(score_folder), exist_ok=True)
 
     return (
         puzzle_paths,

@@ -32,7 +32,6 @@ def complete_prompt(
 
     Returns:
         The full prompt for the zebra puzzle as a string.
-
     """
     # Format clues
     if len(chosen_clues) > 1:

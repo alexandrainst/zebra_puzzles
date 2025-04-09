@@ -1,4 +1,4 @@
-"""Define test configuations."""
+"""Define test configurations."""
 
 import random
 from pathlib import Path
@@ -27,18 +27,19 @@ def config(request) -> Generator[DictConfig, None, None]:
     This fixture yields a Hydra configuration object for the tests. It uses params to create multiple configurations.
     """
     # Set the seeds of random and numpy
-
     random.seed(42)
     np.random.seed(42)
+
+    n_puzzles, n_red_herring_clues, n_red_herring_clues_evaluated = request.param
 
     yield compose(
         config_name="config",
         overrides=[
-            f"n_puzzles={request.param[0]}",
+            f"n_puzzles={n_puzzles}",
             "n_objects=3",
             "n_attributes=3",
-            f"n_red_herring_clues={request.param[1]}",
-            f"n_red_herring_clues_evaluated={request.param[2]}",
+            f"n_red_herring_clues={n_red_herring_clues}",
+            f"n_red_herring_clues_evaluated={n_red_herring_clues_evaluated}",
             "data_folder=tests/test_data",
             "model=gpt-4o-mini",
         ],
@@ -63,24 +64,38 @@ def data_paths(config) -> Generator[tuple[Path, Path, Path], None, None]:
         red_herring_attributes=config.language.red_herring_attributes,
         red_herring_facts=config.language.red_herring_facts,
         red_herring_clue_weights=config.red_herring_clue_weights,
-        data_folder=config.data_folder,
+        data_folder_str=config.data_folder,
     )
 
     # Load the generated puzzle
-    data_folder = config.data_folder
+    data_folder_str = config.data_folder
     theme = config.language.theme
     n_objects = config.n_objects
     n_attributes = config.n_attributes
     n_red_herring_clues = config.n_red_herring_clues
 
-    puzzle_path = Path(
-        f"{data_folder}/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh/puzzles/"
+    data_folder = Path(data_folder_str)
+
+    puzzle_path = (
+        data_folder
+        / theme
+        / f"{n_objects}x{n_attributes}"
+        / f"{n_red_herring_clues}rh"
+        / "puzzles"
     )
-    solution_path = Path(
-        f"{data_folder}/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh/solutions/"
+    solution_path = (
+        data_folder
+        / theme
+        / f"{n_objects}x{n_attributes}"
+        / f"{n_red_herring_clues}rh"
+        / "solutions"
     )
-    red_herrings_path = Path(
-        f"{data_folder}/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues}rh/red_herrings/"
+    red_herrings_path = (
+        data_folder
+        / theme
+        / f"{n_objects}x{n_attributes}"
+        / f"{n_red_herring_clues}rh"
+        / "red_herrings"
     )
 
     yield puzzle_path, solution_path, red_herrings_path
@@ -102,22 +117,27 @@ def eval_paths(data_paths, config) -> Generator[tuple[Path, Path], None, None]:
         generate_new_responses=config.generate_new_responses,
         n_red_herring_clues=config.n_red_herring_clues,
         n_red_herring_clues_evaluated=config.n_red_herring_clues_evaluated,
-        data_folder=config.data_folder,
+        data_folder_str=config.data_folder,
     )
 
     # Load the response files
-    data_folder = config.data_folder
+    data_folder_str = config.data_folder
     theme = config.language.theme
     n_objects = config.n_objects
     n_attributes = config.n_attributes
     n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
     model = config.model
 
-    scores_path = Path(
-        f"{data_folder}/scores/{model}/{n_red_herring_clues_evaluated}rh"
-    )
-    responses_path = Path(
-        f"{data_folder}/{theme}/{n_objects}x{n_attributes}/{n_red_herring_clues_evaluated}rh/responses/{model}/"
+    data_folder = Path(data_folder_str)
+
+    scores_path = data_folder / "scores" / model / f"{n_red_herring_clues_evaluated}rh"
+    responses_path = (
+        data_folder
+        / theme
+        / f"{n_objects}x{n_attributes}"
+        / f"{n_red_herring_clues_evaluated}rh"
+        / "responses"
+        / model
     )
 
     yield scores_path, responses_path

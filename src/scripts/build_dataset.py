@@ -18,7 +18,6 @@ def main(config: DictConfig) -> None:
 
     Args:
         config: Config file.
-
     """
     n_puzzles = config.n_puzzles
     n_objects = config.n_objects
@@ -52,7 +51,7 @@ def main(config: DictConfig) -> None:
         red_herring_attributes=red_herring_attributes,
         red_herring_facts=red_herring_facts,
         red_herring_clue_weights=red_herring_clue_weights,
-        data_folder=data_folder,
+        data_folder_str=data_folder,
     )
 
 

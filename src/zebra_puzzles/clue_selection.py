@@ -39,7 +39,6 @@ def choose_clues(
         A tuple (chosen_clues, chosen_clue_types), where:
             chosen_clues: Clues for the zebra puzzle as a list of strings.
             chosen_clue_types: Types of clues chosen for the puzzle as a list of strings.
-
     """
     # Get the probability of selecting each applicable clue type
     applicable_clues_dict, clue_probabilities = get_clue_probabilities(
@@ -202,7 +201,6 @@ def exclude_clues(
 
     Returns:
         Clues that can be used for this puzzle as a dictionary containing a title and a description of each.
-
     """
     applicable_clues_dict = {k: v for k, v in clues_dict.items()}
 
@@ -260,7 +258,6 @@ def create_clue(
     NOTE: More clue types can be included. For example: odd_pos, even_pos, either
     NOTE: The current implementation does not allow objects to have non-unique attributes
     NOTE: Half-herrings could be added, where the clue adds some information but also contains irrelevant information.
-
     """
     clue_description = clues_dict[clue]
 
