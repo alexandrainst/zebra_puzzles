@@ -208,7 +208,6 @@ def shuffle_clues(
             chosen_clues: Shuffled clues for the zebra puzzle as a list of strings incl. red herrings.
             red_herring_indices_str: String of indices of the red herrings in the shuffled list of clues.
             chosen_clue_types_str: String of comma-separated clue types chosen for the puzzle.
-
     """
     # Combine clues and red herrings
     chosen_clues = chosen_clues + chosen_red_herring_clues

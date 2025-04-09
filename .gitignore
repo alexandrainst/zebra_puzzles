@@ -94,13 +94,17 @@ multirun/
 data/*
 !data/.gitkeep
 
+# Data backup
+data_backup/*
+!data_backup/.gitkeep
+
 # Scores
 scores/*
 !scores/.gitkeep
 
-# Responses
-responses/*
-!responses/.gitkeep
+# Test data
+tests/test_data/*
+!tests/test_data/.gitkeep
 
 # Models
 models/*
