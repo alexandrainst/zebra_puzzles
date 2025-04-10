@@ -164,7 +164,7 @@ def compare_models(
             )
 
             # Compute the difference in mean scores
-            scores_diff, std_score_diff = compute_scores_diff(
+            scores_diff, std_score_diff, i_not_evaluated_by_both = compute_scores_diff(
                 model_i_scores=model_i_scores,
                 model_j_scores=model_j_scores,
                 model_i_std_mean_scores=model_i_std_mean_scores,
@@ -191,6 +191,7 @@ def compare_models(
                 model_j=model_j,
                 n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
                 plot_path=plot_path,
+                i_not_evaluated_by_both=i_not_evaluated_by_both,
             )
 
 
@@ -215,12 +216,13 @@ def load_score_overlap(
         j: Index of the second model.
 
     Returns:
-        model_i_scores: Mean scores of the first model.
-        model_j_scores: Mean scores of the second model.
-        model_i_std_mean_scores: Standard deviations of the mean scores of the first model.
-        model_j_std_mean_scores: Standard deviations of the mean scores of the second model.
-        model_i: Name of the first model.
-        model_j: Name of the second model.
+        A tuple (model_i_scores, model_j_scores, model_i_std_mean_scores, model_j_std_mean_scores, model_i, model_j) where:
+            model_i_scores: Mean scores of the first model.
+            model_j_scores: Mean scores of the second model.
+            model_i_std_mean_scores: Standard deviations of the mean scores of the first model.
+            model_j_std_mean_scores: Standard deviations of the mean scores of the second model.
+            model_i: Name of the first model.
+            model_j: Name of the second model.
     """
     # Get the model specific parameters
     (
@@ -272,7 +274,7 @@ def compute_scores_diff(
     model_j_scores: np.ndarray,
     model_i_std_mean_scores: np.ndarray,
     model_j_std_mean_scores: np.ndarray,
-) -> tuple[np.ndarray, np.ndarray]:
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Compute the difference in mean scores of two models.
 
     Args:
@@ -282,23 +284,28 @@ def compute_scores_diff(
         model_j_std_mean_scores: Standard deviations of the mean scores of the second model.
 
     Returns:
-        scores_diff: Difference in mean scores of the two models.
-        std_score_diff: Standard deviation of the difference in mean scores.
+        A tuple (scores_diff, std_score_diff, i_not_evaluated_by_both) where:
+            scores_diff: Difference in mean scores of the two models.
+            std_score_diff: Standard deviation of the difference in mean scores.
+            i_not_evaluated_by_both: Boolean array indicating cells not evaluated by both models.
     """
     # Compute the difference in mean scores where the two models have the same n_objects and n_attributes
     scores_diff = model_i_scores - model_j_scores
 
-    # If a cell is not evaluated by one of the models, set it to -999
-    scores_diff[model_i_scores == -999] = -999
-    scores_diff[model_j_scores == -999] = -999
-
     # Compute the standard deviation of the difference of mean scores
-    # Assuming the scores are independent (but they are in fact evaluated on the same puzzles)
+    # The formula follows from the law of error propagation assuming the scores are independent (but they are in fact evaluated on the same puzzles)
     std_score_diff = np.sqrt(model_i_std_mean_scores**2 + model_j_std_mean_scores**2)
-    std_score_diff[model_i_scores == -999] = -999
-    std_score_diff[model_j_scores == -999] = -999
 
-    return scores_diff, std_score_diff
+    # Define the cells that are not evaluated by one of the models
+    i_not_evaluated_by_both = np.logical_or(
+        model_i_scores == -999, model_j_scores == -999
+    )
+
+    # If a cell is not evaluated by one of the models, set it to -999
+    scores_diff[i_not_evaluated_by_both] = -999
+    std_score_diff[i_not_evaluated_by_both] = -999
+
+    return scores_diff, std_score_diff, i_not_evaluated_by_both
 
 
 def plot_heatmaps(
@@ -322,6 +329,7 @@ def plot_heatmaps(
         model: Name of the model or models as a string.
 
     NOTE: Consider using subplots instead of saving separate figures for each score type.
+    NOTE: Consider using i_not_evaluated_by_both instead of looking for -999 in the scores.
     TODO: Correct number of significant digits in the text annotations.
     """
     for score_type, score_type_array, std_score_type_array in zip(
@@ -331,8 +339,7 @@ def plot_heatmaps(
         fig, ax = plt.subplots(figsize=(10, 8))
 
         # Fill untested cells with grey
-        empty_cells = np.zeros_like(score_type_array)
-        empty_cells[score_type_array == -999] = 1
+        empty_cells = np.ones_like(score_type_array)
         empty_cells[score_type_array != -999] = 0
         ax.imshow(empty_cells, cmap="Greys", alpha=0.5)
 
@@ -420,6 +427,7 @@ def create_comparison_txt(
     model_j: str,
     n_red_herring_clues_evaluated: int,
     plot_path: Path,
+    i_not_evaluated_by_both: np.ndarray,
 ):
     """Create a text file with the comparison results.
 
@@ -429,9 +437,10 @@ def create_comparison_txt(
         model_j: Name of the second model.
         n_red_herring_clues_evaluated: Number of red herring clues evaluated.
         plot_path: Path to save the text file.
+        i_not_evaluated_by_both: Boolean array indicating cells not evaluated by both models.
     """
     # Compute the mean score difference
-    non_empty_scores_diff = scores_diff[scores_diff != -999]
+    non_empty_scores_diff = scores_diff[~i_not_evaluated_by_both]
     n_non_empty_cells = len(non_empty_scores_diff)
 
     score_diff_all_cells = np.mean(non_empty_scores_diff)
@@ -447,13 +456,12 @@ def create_comparison_txt(
 
     # TODO: Show the correct number of significant digits
     # TODO: Fix bug w. empty cells
+    # TODO: Save this for all score types
 
     # Save the overall results
     filename = f"comparison_{model_i}_vs_{model_j}.txt"
 
     comparison_str = f"Model {model_i} vs {model_j} with {n_red_herring_clues_evaluated} red herring clues on puzzle sizes evaluated by both models."
-    comparison_str += f"\n\nMean score with {model_i}: {np.mean(scores_diff):.2f}"
-    comparison_str += f"\nMean score with {model_j}: {np.mean(scores_diff):.2f}"
     comparison_str += f"\n\nMean score difference: {score_diff_all_cells:.2f}"
     comparison_str += (
         f"\nStandard deviation of the difference: {std_score_diff_all_cells:.2f}"
