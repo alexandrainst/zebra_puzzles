@@ -10,6 +10,7 @@ from zebra_puzzles.file_utils import (
     get_puzzle_dimensions_from_filename,
     get_score_file_paths,
     load_scores,
+    save_dataset,
 )
 
 
@@ -144,52 +145,31 @@ def compare_models(
     # Iterate over all combinations of models
     for i in model_idx_1:
         for j in model_idx_2:
-            # Get the names of the two models
-            model_i = model_names[i]
-            model_j = model_names[j]
-
-            # Get the mean scores of the two models
-            model_i_scores = mean_scores_all_models_array[i]
-            model_j_scores = mean_scores_all_models_array[j]
-
-            # Get the standard deviations of the two models
-            model_i_std_mean_scores = std_mean_scores_all_models_array[i]
-            model_j_std_mean_scores = std_mean_scores_all_models_array[j]
-
-            # Get the number of objects and attributes for the two models
-            n_objects_i = n_objects_max_all_models[i]
-            n_attributes_i = n_attributes_max_all_models[i]
-            n_objects_j = n_objects_max_all_models[j]
-            n_attributes_j = n_attributes_max_all_models[j]
-
-            # Limit the number of objects and attributes to the minimum of the maxima of the two models
-            n_objects = min(n_objects_i, n_objects_j)
-            n_attributes = min(n_attributes_i, n_attributes_j)
-            model_i_scores = model_i_scores[:n_attributes, : n_objects - 1]
-            model_j_scores = model_j_scores[:n_attributes, : n_objects - 1]
-            model_i_std_mean_scores = model_i_std_mean_scores[
-                :n_attributes, : n_objects - 1
-            ]
-            model_j_std_mean_scores = model_j_std_mean_scores[
-                :n_attributes, : n_objects - 1
-            ]
-
-            # Compute the difference in mean scores where the two models have the same n_objects and n_attributes
-            scores_diff = model_i_scores - model_j_scores
-
-            # If a cell is not evaluated by one of the models, set it to -999
-            scores_diff[model_i_scores == -999] = -999
-            scores_diff[model_j_scores == -999] = -999
-
-            # Compute the standard deviation of the difference of mean scores
-            # Assuming the scores are independent (but they are in fact evaluated on the same puzzles)
-            std_score_diff = np.sqrt(
-                model_i_std_mean_scores**2 + model_j_std_mean_scores**2
+            # Get parameters for the two models where they overlap in n_objects and n_attributes
+            (
+                model_i_scores,
+                model_j_scores,
+                model_i_std_mean_scores,
+                model_j_std_mean_scores,
+                model_i,
+                model_j,
+            ) = load_score_overlap(
+                model_names=model_names,
+                mean_scores_all_models_array=mean_scores_all_models_array,
+                std_mean_scores_all_models_array=std_mean_scores_all_models_array,
+                n_objects_max_all_models=n_objects_max_all_models,
+                n_attributes_max_all_models=n_attributes_max_all_models,
+                i=i,
+                j=j,
             )
-            std_score_diff[model_i_scores == -999] = -999
-            std_score_diff[model_j_scores == -999] = -999
 
-            # TODO: Correct the number of significant digits
+            # Compute the difference in mean scores
+            scores_diff, std_score_diff = compute_scores_diff(
+                model_i_scores=model_i_scores,
+                model_j_scores=model_j_scores,
+                model_i_std_mean_scores=model_i_std_mean_scores,
+                model_j_std_mean_scores=model_j_std_mean_scores,
+            )
 
             # Prepare path for plots
             plot_path = Path(f"{data_folder}/plots/{model_i}_vs_{model_j}/")
@@ -205,30 +185,120 @@ def compare_models(
                 model=f"{model_i} vs {model_j}",
             )
 
-            # Compute the mean score difference
-            non_empty_scores_diff = scores_diff[scores_diff != -999]
-            n_non_empty_cells = len(non_empty_scores_diff)
-
-            score_diff_all_cells = np.mean(non_empty_scores_diff)
-
-            # Compute the standard deviation of the score difference
-            std_score_diff_all_cells = np.std(non_empty_scores_diff, ddof=1) / np.sqrt(
-                n_non_empty_cells
+            create_comparison_txt(
+                scores_diff=scores_diff,
+                model_i=model_i,
+                model_j=model_j,
+                n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
+                plot_path=plot_path,
             )
 
-            # Compute the t-statistic (number of standard deviations between the means) across all cells
-            # Note that this might average out differences in performance on puzzles of different sizes
-            t_statistic_all_cells = score_diff_all_cells / std_score_diff_all_cells
 
-            # TODO: Show the correct number of significant digits
-            print(
-                f"Model {model_i} vs {model_j} with {n_red_herring_clues_evaluated} red herring clues:"
-            )
-            print(f"Mean score difference: {score_diff_all_cells:.2f}")
-            print(
-                f"Standard deviation of the difference: {std_score_diff_all_cells:.2f}"
-            )
-            print(f"t-statistic: {t_statistic_all_cells:.2f}")
+def load_score_overlap(
+    model_names: list[str],
+    mean_scores_all_models_array: list[np.ndarray],
+    std_mean_scores_all_models_array: list[np.ndarray],
+    n_objects_max_all_models: list[int],
+    n_attributes_max_all_models: list[int],
+    i: int,
+    j: int,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, str, str]:
+    """Load the scores of two models and limit them to the minimum number of objects and attributes.
+
+    Args:
+        model_names: List of model names.
+        mean_scores_all_models_array: List of mean scores arrays.
+        std_mean_scores_all_models_array: List of standard deviation arrays.
+        n_objects_max_all_models: List of the maximum number of objects in puzzles for each evaluated model.
+        n_attributes_max_all_models: List of the maximum number of attributes in puzzles for each evaluated model.
+        i: Index of the first model.
+        j: Index of the second model.
+
+    Returns:
+        model_i_scores: Mean scores of the first model.
+        model_j_scores: Mean scores of the second model.
+        model_i_std_mean_scores: Standard deviations of the mean scores of the first model.
+        model_j_std_mean_scores: Standard deviations of the mean scores of the second model.
+        model_i: Name of the first model.
+        model_j: Name of the second model.
+    """
+    # Get the model specific parameters
+    (
+        model_i,
+        model_i_scores,
+        model_i_std_mean_scores,
+        n_objects_max_i,
+        n_attributes_i,
+    ) = (
+        model_names[i],
+        mean_scores_all_models_array[i],
+        std_mean_scores_all_models_array[i],
+        n_objects_max_all_models[i],
+        n_attributes_max_all_models[i],
+    )
+    (
+        model_j,
+        model_j_scores,
+        model_j_std_mean_scores,
+        n_objects_max_j,
+        n_attributes_j,
+    ) = (
+        model_names[j],
+        mean_scores_all_models_array[j],
+        std_mean_scores_all_models_array[j],
+        n_objects_max_all_models[j],
+        n_attributes_max_all_models[j],
+    )
+
+    # Limit the number of objects and attributes to the minimum of the maxima of the two models
+    n_objects = min(n_objects_max_i, n_objects_max_j)
+    n_attributes = min(n_attributes_i, n_attributes_j)
+    model_i_scores = model_i_scores[:n_attributes, : n_objects - 1]
+    model_j_scores = model_j_scores[:n_attributes, : n_objects - 1]
+    model_i_std_mean_scores = model_i_std_mean_scores[:n_attributes, : n_objects - 1]
+    model_j_std_mean_scores = model_j_std_mean_scores[:n_attributes, : n_objects - 1]
+    return (
+        model_i_scores,
+        model_j_scores,
+        model_i_std_mean_scores,
+        model_j_std_mean_scores,
+        model_i,
+        model_j,
+    )
+
+
+def compute_scores_diff(
+    model_i_scores: np.ndarray,
+    model_j_scores: np.ndarray,
+    model_i_std_mean_scores: np.ndarray,
+    model_j_std_mean_scores: np.ndarray,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Compute the difference in mean scores of two models.
+
+    Args:
+        model_i_scores: Mean scores of the first model.
+        model_j_scores: Mean scores of the second model.
+        model_i_std_mean_scores: Standard deviations of the mean scores of the first model.
+        model_j_std_mean_scores: Standard deviations of the mean scores of the second model.
+
+    Returns:
+        scores_diff: Difference in mean scores of the two models.
+        std_score_diff: Standard deviation of the difference in mean scores.
+    """
+    # Compute the difference in mean scores where the two models have the same n_objects and n_attributes
+    scores_diff = model_i_scores - model_j_scores
+
+    # If a cell is not evaluated by one of the models, set it to -999
+    scores_diff[model_i_scores == -999] = -999
+    scores_diff[model_j_scores == -999] = -999
+
+    # Compute the standard deviation of the difference of mean scores
+    # Assuming the scores are independent (but they are in fact evaluated on the same puzzles)
+    std_score_diff = np.sqrt(model_i_std_mean_scores**2 + model_j_std_mean_scores**2)
+    std_score_diff[model_i_scores == -999] = -999
+    std_score_diff[model_j_scores == -999] = -999
+
+    return scores_diff, std_score_diff
 
 
 def plot_heatmaps(
@@ -342,3 +412,53 @@ def plot_heatmaps(
         )
         plt.savefig(plot_path / plot_filename, dpi=300, bbox_inches="tight")
         plt.close(fig)
+
+
+def create_comparison_txt(
+    scores_diff: np.ndarray,
+    model_i: str,
+    model_j: str,
+    n_red_herring_clues_evaluated: int,
+    plot_path: Path,
+):
+    """Create a text file with the comparison results.
+
+    Args:
+        scores_diff: Array of score differences.
+        model_i: Name of the first model.
+        model_j: Name of the second model.
+        n_red_herring_clues_evaluated: Number of red herring clues evaluated.
+        plot_path: Path to save the text file.
+    """
+    # Compute the mean score difference
+    non_empty_scores_diff = scores_diff[scores_diff != -999]
+    n_non_empty_cells = len(non_empty_scores_diff)
+
+    score_diff_all_cells = np.mean(non_empty_scores_diff)
+
+    # Compute the standard deviation of the score difference
+    std_score_diff_all_cells = np.std(non_empty_scores_diff, ddof=1) / np.sqrt(
+        n_non_empty_cells
+    )
+
+    # Compute the t-statistic (number of standard deviations between the means) across all cells
+    # Note that this might average out differences in performance on puzzles of different sizes
+    t_statistic_all_cells = score_diff_all_cells / std_score_diff_all_cells
+
+    # TODO: Show the correct number of significant digits
+    # TODO: Fix bug w. empty cells
+
+    # Save the overall results
+    filename = f"comparison_{model_i}_vs_{model_j}.txt"
+
+    comparison_str = f"Model {model_i} vs {model_j} with {n_red_herring_clues_evaluated} red herring clues on puzzle sizes evaluated by both models."
+    comparison_str += f"\n\nMean score with {model_i}: {np.mean(scores_diff):.2f}"
+    comparison_str += f"\nMean score with {model_j}: {np.mean(scores_diff):.2f}"
+    comparison_str += f"\n\nMean score difference: {score_diff_all_cells:.2f}"
+    comparison_str += (
+        f"\nStandard deviation of the difference: {std_score_diff_all_cells:.2f}"
+    )
+    comparison_str += f"\n\nt-statistic: {t_statistic_all_cells:.2f}"
+
+    # Save the comparison results to a text file
+    save_dataset(data=comparison_str, filename=filename, folder=plot_path)
