@@ -139,8 +139,11 @@ def compare_models(
         n_attributes_max_all_models: List of the maximum number of attributes in puzzles for each evaluated model.
     """
     # Choose each combination of two models
-    for i in range(len(model_names)):
-        for j in range(i + 1, len(model_names)):
+    model_idx_1, model_idx_2 = np.triu_indices(len(model_names), k=1)
+
+    # Iterate over all combinations of models
+    for i in model_idx_1:
+        for j in model_idx_2:
             # Get the names of the two models
             model_i = model_names[i]
             model_j = model_names[j]
@@ -218,12 +221,14 @@ def compare_models(
             t_statistic_all_cells = score_diff_all_cells / std_score_diff_all_cells
 
             # TODO: Show the correct number of significant digits
-            print(f"Model {model_i} vs {model_j}:")
+            print(
+                f"Model {model_i} vs {model_j} with {n_red_herring_clues_evaluated} red herring clues:"
+            )
             print(f"Mean score difference: {score_diff_all_cells:.2f}")
             print(
                 f"Standard deviation of the difference: {std_score_diff_all_cells:.2f}"
             )
-            print(f"t-statistic: {t_statistic_all_cells}")
+            print(f"t-statistic: {t_statistic_all_cells:.2f}")
 
 
 def plot_heatmaps(
@@ -278,7 +283,10 @@ def plot_heatmaps(
 
         # Set the title and labels
         if single_model:
-            title = f"{score_type.capitalize()}s with {n_referred_herring_clues_evaluated} red herrings incl. sample std. dev. ({model})"
+            if not score_type == "puzzle score":
+                title = f"{score_type.capitalize()}s with {n_referred_herring_clues_evaluated} red herrings incl. sample std. dev. ({model})"
+            else:
+                title = f"{score_type.capitalize()}s with {n_referred_herring_clues_evaluated} red herrings ({model})"
         else:
             title = f"Difference in mean {score_type} with {n_referred_herring_clues_evaluated} red herrings ({model.replace('vs', '-')}) incl. std. error"
 
@@ -299,18 +307,29 @@ def plot_heatmaps(
             labels=[str(i + 2) for i in range(n_objects_max)],
         )
 
-        # Annotate the cells with the mean scores
+        # Annotate the cells with the mean scores (except for puzzle scores)
+
         for i in range(n_objects_max):
             for j in range(n_attributes_max):
                 if score_type_array[i, j] != -999:
-                    ax.text(
-                        j,
-                        i,
-                        f"{score_type_array[i, j]:.2f} ± {std_score_type_array[i, j]:.2f}",
-                        ha="center",
-                        va="center",
-                        color="black",
-                    )
+                    if score_type == "puzzle score" and "vs" not in model:
+                        ax.text(
+                            j,
+                            i,
+                            f"{score_type_array[i, j]:.2f}",
+                            ha="center",
+                            va="center",
+                            color="black",
+                        )
+                    else:
+                        ax.text(
+                            j,
+                            i,
+                            f"{score_type_array[i, j]:.2f} ± {std_score_type_array[i, j]:.2f}",
+                            ha="center",
+                            va="center",
+                            color="black",
+                        )
 
         # Adjust the layout
         fig.tight_layout()
