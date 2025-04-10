@@ -230,3 +230,24 @@ def shuffle_clues(
     chosen_clue_types_str = ", ".join(chosen_clue_types)
 
     return chosen_clues, red_herring_indices_str, chosen_clue_types_str
+
+
+def round_using_std(value: float, std: float) -> tuple[str, str]:
+    """Round a value to match a standard deviation.
+
+    Args:
+        value: The value to round.
+        std: The standard deviation to match.
+
+    Returns:
+        A tuple (value, std) where:
+            value: The rounded value.
+            std: The rounded standard deviation.
+    TODO: Fix the number of trailing zeros in the output.
+    """
+    std_rounded = np.format_float_positional(std, precision=1, fractional=False)
+    value_precision = len(str(std_rounded).split(".")[1])
+    value_rounded = np.format_float_positional(
+        value, precision=value_precision, fractional=False
+    )
+    return value_rounded, std_rounded

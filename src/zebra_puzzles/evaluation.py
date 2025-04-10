@@ -14,7 +14,7 @@ from tqdm import tqdm
 
 from zebra_puzzles.compare_solutions import compare_solutions
 from zebra_puzzles.file_utils import load_puzzle, prepare_eval_folders, save_dataset
-from zebra_puzzles.zebra_utils import generate_output_format_class
+from zebra_puzzles.zebra_utils import generate_output_format_class, round_using_std
 
 # Load environment variables to get the API key
 load_dotenv()
@@ -297,12 +297,9 @@ def compute_metrics(
             std_scores[i] = np.format_float_positional(
                 std_scores[i], precision=1, fractional=False
             )
-            std_mean_scores[i] = np.format_float_positional(
-                std_mean_scores[i], precision=1, fractional=False
-            )
-            mean_precision = len(str(std_mean_scores[i]).split(".")[1])
-            mean_scores[i] = np.format_float_positional(
-                mean_scores[i], precision=mean_precision, fractional=False
+
+            mean_scores[i], std_mean_scores[i] = round_using_std(
+                value=mean_scores[i], std=std_mean_scores[i]
             )
 
             # Describe the score with a string

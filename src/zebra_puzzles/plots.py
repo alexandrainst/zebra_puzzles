@@ -12,6 +12,7 @@ from zebra_puzzles.file_utils import (
     load_scores,
     save_dataset,
 )
+from zebra_puzzles.zebra_utils import round_using_std
 
 
 def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
@@ -454,19 +455,20 @@ def create_comparison_txt(
     # Note that this might average out differences in performance on puzzles of different sizes
     t_statistic_all_cells = score_diff_all_cells / std_score_diff_all_cells
 
-    # TODO: Show the correct number of significant digits
-    # TODO: Fix bug w. empty cells
-    # TODO: Save this for all score types
+    # Round to the correct number significant digits
+    score_diff_all_cells, std_score_diff_all_cells = round_using_std(
+        value=score_diff_all_cells, std=std_score_diff_all_cells
+    )
 
     # Save the overall results
     filename = f"comparison_{model_i}_vs_{model_j}.txt"
 
     comparison_str = f"Model {model_i} vs {model_j} with {n_red_herring_clues_evaluated} red herring clues on puzzle sizes evaluated by both models."
-    comparison_str += f"\n\nMean score difference: {score_diff_all_cells:.2f}"
+    comparison_str += f"\n\nMean score difference: {score_diff_all_cells}"
     comparison_str += (
-        f"\nStandard deviation of the difference: {std_score_diff_all_cells:.2f}"
+        f"\nStandard deviation of the difference: {std_score_diff_all_cells}"
     )
-    comparison_str += f"\n\nt-statistic: {t_statistic_all_cells:.2f}"
+    comparison_str += f"\n\nt-statistic: {t_statistic_all_cells:.2f} (number of standard deviations between the means)"
 
     # Save the comparison results to a text file
     save_dataset(data=comparison_str, filename=filename, folder=plot_path)
