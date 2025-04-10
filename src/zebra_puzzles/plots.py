@@ -174,11 +174,17 @@ def compare_models(
             # Compute the difference in mean scores where the two models have the same n_objects and n_attributes
             scores_diff = model_i_scores - model_j_scores
 
+            # If a cell is not evaluated by one of the models, set it to -999
+            scores_diff[model_i_scores == -999] = -999
+            scores_diff[model_j_scores == -999] = -999
+
             # Compute the standard deviation of the difference of mean scores
             # Assuming the scores are independent (but they are in fact evaluated on the same puzzles)
             std_score_diff = np.sqrt(
                 model_i_std_mean_scores**2 + model_j_std_mean_scores**2
             )
+            std_score_diff[model_i_scores == -999] = -999
+            std_score_diff[model_j_scores == -999] = -999
 
             # Prepare path for plots
             plot_path = Path(f"{data_folder}/plots/{model_i}_vs_{model_j}/")
@@ -194,21 +200,19 @@ def compare_models(
                 model=f"{model_i} vs {model_j}",
             )
 
-            # Compute the t-statistic (number of standard deviations between the means)
-            # t_statistic = scores_diff / std_score_diff
-
-            # TODO: Plot the t-statistics
-
             # Compute the mean score difference
-            # TODO: Take empty cells into account
-            score_diff_all_cells = np.mean(scores_diff)
+            non_empty_scores_diff = scores_diff[scores_diff != -999]
+            n_non_empty_cells = len(non_empty_scores_diff)
+
+            score_diff_all_cells = np.mean(non_empty_scores_diff)
 
             # Compute the standard deviation of the score difference
-            n_non_empty_cells = np.count_nonzero(scores_diff != -999)
-            std_score_diff_all_cells = np.std(scores_diff, ddof=1) / np.sqrt(
+            std_score_diff_all_cells = np.std(non_empty_scores_diff, ddof=1) / np.sqrt(
                 n_non_empty_cells
             )
 
+            # Compute the t-statistic (number of standard deviations between the means) across all cells
+            # Note that this might average out differences in performance on puzzles of different sizes
             t_statistic_all_cells = score_diff_all_cells / std_score_diff_all_cells
 
             print(f"Model {model_i} vs {model_j}:")
@@ -271,7 +275,7 @@ def plot_heatmaps(
         if single_model:
             title = f"{score_type.capitalize()}s with {n_referred_herring_clues_evaluated} red herrings incl. population std. dev. ({model})"
         else:
-            title = f"Difference in mean {score_type} with {n_referred_herring_clues_evaluated} red herrings ({model})"
+            title = f"Difference in mean {score_type} with {n_referred_herring_clues_evaluated} red herrings ({model.replace('vs', '-')})"
 
         ax.set_title(title)
         ax.set_xlabel("# Attributes")
