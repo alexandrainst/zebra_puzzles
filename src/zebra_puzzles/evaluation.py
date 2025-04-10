@@ -307,7 +307,7 @@ def compute_metrics(
 
             # Describe the score with a string
             score_str = f"\tMean: {mean_scores[i]} ± {std_mean_scores[i]} (1σ)"
-            score_str += f"\n\tPopulation standard deviation: {std_scores[i]}"
+            score_str += f"\n\tSample standard deviation: {std_scores[i]}"
             score_strings[i] = score_str
         else:
             # Round mean to 2 significant digits

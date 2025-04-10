@@ -186,6 +186,8 @@ def compare_models(
             std_score_diff[model_i_scores == -999] = -999
             std_score_diff[model_j_scores == -999] = -999
 
+            # TODO: Correct the number of significant digits
+
             # Prepare path for plots
             plot_path = Path(f"{data_folder}/plots/{model_i}_vs_{model_j}/")
 
@@ -215,9 +217,12 @@ def compare_models(
             # Note that this might average out differences in performance on puzzles of different sizes
             t_statistic_all_cells = score_diff_all_cells / std_score_diff_all_cells
 
+            # TODO: Show the correct number of significant digits
             print(f"Model {model_i} vs {model_j}:")
-            print(f"Mean score difference: {score_diff_all_cells}")
-            print(f"Standard deviation of the difference: {std_score_diff_all_cells}")
+            print(f"Mean score difference: {score_diff_all_cells:.2f}")
+            print(
+                f"Standard deviation of the difference: {std_score_diff_all_cells:.2f}"
+            )
             print(f"t-statistic: {t_statistic_all_cells}")
 
 
@@ -237,7 +242,7 @@ def plot_heatmaps(
         score_types: List of score types as strings.
         plot_path: Path to save the plots.
         n_referred_herring_clues_evaluated: Number of red herring clues evaluated.
-        std_scores_array: Array of population standard deviations of scores.
+        std_scores_array: Array of sample standard deviations of scores.
         single_model: Boolean indicating if the scores are from a single model.
         model: Name of the model or models as a string.
 
@@ -273,9 +278,9 @@ def plot_heatmaps(
 
         # Set the title and labels
         if single_model:
-            title = f"{score_type.capitalize()}s with {n_referred_herring_clues_evaluated} red herrings incl. population std. dev. ({model})"
+            title = f"{score_type.capitalize()}s with {n_referred_herring_clues_evaluated} red herrings incl. sample std. dev. ({model})"
         else:
-            title = f"Difference in mean {score_type} with {n_referred_herring_clues_evaluated} red herrings ({model.replace('vs', '-')})"
+            title = f"Difference in mean {score_type} with {n_referred_herring_clues_evaluated} red herrings ({model.replace('vs', '-')}) incl. std. error"
 
         ax.set_title(title)
         ax.set_xlabel("# Attributes")

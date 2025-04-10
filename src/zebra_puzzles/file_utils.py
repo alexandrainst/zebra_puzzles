@@ -433,7 +433,7 @@ def load_scores(
         A tuple (mean_scores_array_min_2_n_objects, std_mean_scores_array_min_2_n_objects, std_scores_array_min_2_n_objects) where:
             mean_scores_array_min_2_n_objects: Array of mean scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -1 if the score was not found.
             std_mean_scores_array_min_2_n_objects: Array of standard deviations of the mean scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -1 if the score was not found.
-            std_scores_array_min_2_n_objects: Array of population standard deviations of the scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -1 if the score was not found.
+            std_scores_array_min_2_n_objects: Array of sample standard deviations of the scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -1 if the score was not found.
     """
     # Get the maximum number of objects and attributes
     n_objects_max = max(n_objects_list)
@@ -457,7 +457,7 @@ def load_scores(
             score_str = scores_str.split(f"{score_type.capitalize()}:\n\tMean: ")[1]
             mean_str = score_str.split(" ")[0]
             mean_std_str = score_str.split("± ")[1].split(" ")[0]
-            std_str = scores_str.split("Population standard deviation: ")[1]
+            std_str = scores_str.split("Sample standard deviation: ")[1]
             std_str = std_str.split("\n")[0]
 
             mean = float(mean_str)
