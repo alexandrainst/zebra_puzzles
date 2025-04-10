@@ -421,7 +421,7 @@ def load_scores(
 
     The scores are stored in a 3D array with dimensions (n_score_types, n_objects_max-1, n_attributes_max). The number of objects is at least 2 in all puzzles, so we create n_objects_max-1 rows.
 
-    Values are -1 if the score was not found in the file.
+    Values are -999 if the score was not found in the file.
 
     Args:
         score_file_paths: List of score file paths.
@@ -441,7 +441,7 @@ def load_scores(
 
     # Prepare array of scores
     mean_scores_array, std_mean_scores_array, std_scores_array = [
-        (np.ones((len(score_types), n_objects_max, n_attributes_max)) * -1)
+        (np.ones((len(score_types), n_objects_max, n_attributes_max)) * -999)
         for _ in range(3)
     ]
 

@@ -21,6 +21,8 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
         theme: Theme name.
         data_folder_str: Path to the data folder as a string.
 
+    TODO: More plots e.g. score vs. n_red_herrings_evaluated, clue type histograms, clue type difficulty etc.
+    TODO: Analyze when o3-mini fails to solve the puzzle. There seems to be a shift in puzzle numbers in files vs. in the score file.
     """
     # Convert the data folder string to a Path object
     data_folder = Path(data_folder_str)
@@ -29,11 +31,19 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
 
     model_names, rh_values = get_evaluated_params(data_folder=data_folder)
 
+    # TODO: Rename the following variables
     mean_scores_all_eval_array = []
     std_mean_scores_all_eval_array = []
+    n_objects_max_all_eval = []
+    n_attributes_max_all_eval = []
 
-    for model in model_names:
-        for n_red_herring_clues_evaluated in rh_values:
+    for n_red_herring_clues_evaluated in rh_values:
+        mean_scores_all_models_array = []
+        std_mean_scores_all_models_array = []
+        n_objects_max_all_models = []
+        n_attributes_max_all_models = []
+
+        for model in model_names:
             # Get the paths of the score files
             score_file_paths = get_score_file_paths(
                 data_folder=data_folder,
@@ -73,12 +83,138 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
                 plot_path=plot_path,
                 n_referred_herring_clues_evaluated=n_red_herring_clues_evaluated,
                 std_scores_array=std_scores_array,
+                single_model=True,
+                model=model,
             )
 
-            mean_scores_all_eval_array.append(mean_scores_array)
-            std_mean_scores_all_eval_array.append(std_mean_scores_array)
+            # Save values across all models
+            mean_scores_all_models_array.append(mean_scores_array)
+            std_mean_scores_all_models_array.append(std_mean_scores_array)
+            n_objects_max_all_models.append(max(n_objects_list))
+            n_attributes_max_all_models.append(max(n_attributes_list))
 
-    # TODO: More plots e.g. score vs. n_red_herrings_evaluated, clue type histograms, clue type difficulty etc.
+        # Compare the mean scores of different models
+        compare_models(
+            model_names=model_names,
+            mean_scores_all_models_array=mean_scores_all_models_array,
+            std_mean_scores_all_models_array=std_mean_scores_all_models_array,
+            n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
+            data_folder=data_folder,
+            score_types=score_types,
+            n_objects_max_all_models=n_objects_max_all_models,
+            n_attributes_max_all_models=n_attributes_max_all_models,
+        )
+
+        # Save values across all values of n_red_herring_clues_evaluated
+        mean_scores_all_eval_array.append(mean_scores_all_models_array)
+        std_mean_scores_all_eval_array.append(std_mean_scores_all_models_array)
+        n_objects_max_all_eval.append(n_objects_max_all_models)
+        n_attributes_max_all_eval.append(n_attributes_max_all_models)
+
+    # TODO: Compare mean scores for different n_red_herring_clues_evaluated
+
+
+def compare_models(
+    model_names: list[str],
+    mean_scores_all_models_array: list[np.ndarray],
+    std_mean_scores_all_models_array: list[np.ndarray],
+    n_red_herring_clues_evaluated: int,
+    data_folder: Path,
+    score_types: list[str],
+    n_objects_max_all_models: list[int],
+    n_attributes_max_all_models: list[int],
+) -> None:
+    """Compare the mean scores of different models.
+
+    We assume that we only need to specify the maximum number of objects and attributes for each model.
+
+    Args:
+        model_names: List of model names.
+        mean_scores_all_models_array: List of mean scores arrays.
+        std_mean_scores_all_models_array: List of standard deviation arrays.
+        n_red_herring_clues_evaluated: Number of red herring clues evaluated.
+        data_folder: Path to the data folder.
+        score_types: List of score types as strings.
+        n_objects_max_all_models: List of the maximum number of objects in puzzles for each evaluated model.
+        n_attributes_max_all_models: List of the maximum number of attributes in puzzles for each evaluated model.
+    """
+    # Choose each combination of two models
+    for i in range(len(model_names)):
+        for j in range(i + 1, len(model_names)):
+            # Get the names of the two models
+            model_i = model_names[i]
+            model_j = model_names[j]
+
+            # Get the mean scores of the two models
+            model_i_scores = mean_scores_all_models_array[i]
+            model_j_scores = mean_scores_all_models_array[j]
+
+            # Get the standard deviations of the two models
+            model_i_std_mean_scores = std_mean_scores_all_models_array[i]
+            model_j_std_mean_scores = std_mean_scores_all_models_array[j]
+
+            # Get the number of objects and attributes for the two models
+            n_objects_i = n_objects_max_all_models[i]
+            n_attributes_i = n_attributes_max_all_models[i]
+            n_objects_j = n_objects_max_all_models[j]
+            n_attributes_j = n_attributes_max_all_models[j]
+
+            # Limit the number of objects and attributes to the minimum of the maxima of the two models
+            n_objects = min(n_objects_i, n_objects_j)
+            n_attributes = min(n_attributes_i, n_attributes_j)
+            model_i_scores = model_i_scores[:n_attributes, : n_objects - 1]
+            model_j_scores = model_j_scores[:n_attributes, : n_objects - 1]
+            model_i_std_mean_scores = model_i_std_mean_scores[
+                :n_attributes, : n_objects - 1
+            ]
+            model_j_std_mean_scores = model_j_std_mean_scores[
+                :n_attributes, : n_objects - 1
+            ]
+
+            # Compute the difference in mean scores where the two models have the same n_objects and n_attributes
+            scores_diff = model_i_scores - model_j_scores
+
+            # Compute the standard deviation of the difference of mean scores
+            # Assuming the scores are independent (but they are in fact evaluated on the same puzzles)
+            std_score_diff = np.sqrt(
+                model_i_std_mean_scores**2 + model_j_std_mean_scores**2
+            )
+
+            # Prepare path for plots
+            plot_path = Path(f"{data_folder}/plots/{model_i}_vs_{model_j}/")
+
+            # Make heatmaps of differences in mean scores
+            plot_heatmaps(
+                scores_array=scores_diff,
+                score_types=score_types,
+                plot_path=plot_path,
+                n_referred_herring_clues_evaluated=n_red_herring_clues_evaluated,
+                std_scores_array=std_score_diff,
+                single_model=False,
+                model=f"{model_i} vs {model_j}",
+            )
+
+            # Compute the t-statistic (number of standard deviations between the means)
+            # t_statistic = scores_diff / std_score_diff
+
+            # TODO: Plot the t-statistics
+
+            # Compute the mean score difference
+            # TODO: Take empty cells into account
+            score_diff_all_cells = np.mean(scores_diff)
+
+            # Compute the standard deviation of the score difference
+            n_non_empty_cells = np.count_nonzero(scores_diff != -999)
+            std_score_diff_all_cells = np.std(scores_diff, ddof=1) / np.sqrt(
+                n_non_empty_cells
+            )
+
+            t_statistic_all_cells = score_diff_all_cells / std_score_diff_all_cells
+
+            print(f"Model {model_i} vs {model_j}:")
+            print(f"Mean score difference: {score_diff_all_cells}")
+            print(f"Standard deviation of the difference: {std_score_diff_all_cells}")
+            print(f"t-statistic: {t_statistic_all_cells}")
 
 
 def plot_heatmaps(
@@ -87,6 +223,8 @@ def plot_heatmaps(
     plot_path: Path,
     n_referred_herring_clues_evaluated: int,
     std_scores_array: np.ndarray,
+    single_model: bool,
+    model: str,
 ) -> None:
     """Plot heatmaps of the mean scores.
 
@@ -96,6 +234,8 @@ def plot_heatmaps(
         plot_path: Path to save the plots.
         n_referred_herring_clues_evaluated: Number of red herring clues evaluated.
         std_scores_array: Array of population standard deviations of scores.
+        single_model: Boolean indicating if the scores are from a single model.
+        model: Name of the model or models as a string.
 
     NOTE: Consider using subplots instead of saving separate figures for each score type.
     TODO: Correct number of significant digits in the text annotations.
@@ -108,13 +248,13 @@ def plot_heatmaps(
 
         # Fill untested cells with grey
         empty_cells = np.zeros_like(score_type_array)
-        empty_cells[score_type_array == -1] = 1
-        empty_cells[score_type_array != -1] = 0
+        empty_cells[score_type_array == -999] = 1
+        empty_cells[score_type_array != -999] = 0
         ax.imshow(empty_cells, cmap="Greys", alpha=0.5)
 
         # Plot the mean scores
         score_type_array_not_empty = np.ma.masked_where(
-            score_type_array == -1, score_type_array
+            score_type_array == -999, score_type_array
         )
         image = ax.imshow(
             score_type_array_not_empty,
@@ -128,9 +268,12 @@ def plot_heatmaps(
         fig.colorbar(mappable=image, orientation="vertical", fraction=0.037, pad=0.04)
 
         # Set the title and labels
-        ax.set_title(
-            f"{score_type.capitalize()}s with {n_referred_herring_clues_evaluated} red herrings incl. population std. dev."
-        )
+        if single_model:
+            title = f"{score_type.capitalize()}s with {n_referred_herring_clues_evaluated} red herrings incl. population std. dev. ({model})"
+        else:
+            title = f"Difference in mean {score_type} with {n_referred_herring_clues_evaluated} red herrings ({model})"
+
+        ax.set_title(title)
         ax.set_xlabel("# Attributes")
         ax.set_ylabel("# Objects")
 
@@ -150,7 +293,7 @@ def plot_heatmaps(
         # Annotate the cells with the mean scores
         for i in range(n_objects_max):
             for j in range(n_attributes_max):
-                if score_type_array[i, j] != -1:
+                if score_type_array[i, j] != -999:
                     ax.text(
                         j,
                         i,
@@ -166,6 +309,8 @@ def plot_heatmaps(
         # Save the plot
         plot_path.mkdir(parents=True, exist_ok=True)
         score_type = score_type.replace(" ", "_")
-        plot_filename = f"mean_{score_type}.png"
+        plot_filename = (
+            f"mean_{score_type}_{model}_{n_referred_herring_clues_evaluated}rh.png"
+        )
         plt.savefig(plot_path / plot_filename, dpi=300, bbox_inches="tight")
         plt.close(fig)
