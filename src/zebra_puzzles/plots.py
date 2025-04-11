@@ -69,6 +69,7 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
                 n_objects_list=n_objects_list,
                 n_attributes_list=n_attributes_list,
                 score_types=score_types,
+                n_puzzles=n_puzzles,
             )
 
             # ----- Plot the results -----#
@@ -458,14 +459,21 @@ def create_comparison_txt(
 
     score_diff_all_cells = np.mean(non_empty_scores_diff)
 
-    # Compute the standard deviation of the score difference
-    std_score_diff_all_cells = np.std(non_empty_scores_diff, ddof=1) / np.sqrt(
-        n_non_empty_cells
-    )
+    if n_puzzles > 1:
+        # Compute the standard deviation of the score difference
+        std_score_diff_all_cells = np.std(non_empty_scores_diff, ddof=1) / np.sqrt(
+            n_non_empty_cells
+        )
 
-    # Compute the t-statistic (number of standard deviations between the means) across all cells
-    # Note that this might average out differences in performance on puzzles of different sizes
-    t_statistic_all_cells = score_diff_all_cells / std_score_diff_all_cells
+        # Compute the t-statistic (number of standard deviations between the means) across all cells
+        # Note that this might average out differences in performance on puzzles of different sizes
+        if std_score_diff_all_cells != 0:
+            t_statistic_all_cells = score_diff_all_cells / std_score_diff_all_cells
+        else:
+            t_statistic_all_cells = -999
+
+    else:
+        std_score_diff_all_cells = 0.0
 
     # Round to the correct number significant digits
     score_diff_all_cells, std_score_diff_all_cells = round_using_std(
@@ -473,14 +481,15 @@ def create_comparison_txt(
     )
 
     # Save the overall results
-    filename = f"comparison_{model_i}_vs_{model_j}_{n_puzzles}_puzzles.txt"
+    filename = f"comparison_{model_i}_vs_{model_j}_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.txt"
 
     comparison_str = f"Model {model_i} vs {model_j} with {n_red_herring_clues_evaluated} red herring clues on puzzle sizes evaluated by both models. {n_puzzles} puzzles are evaluated for each size.\n"
     comparison_str += f"\n\nMean score difference: {score_diff_all_cells}"
-    comparison_str += (
-        f"\nStandard deviation of the difference: {std_score_diff_all_cells}"
-    )
-    comparison_str += f"\n\nt-statistic: {t_statistic_all_cells:.2f} (number of standard deviations between the means)"
+    if n_puzzles > 1:
+        comparison_str += (
+            f"\nStandard deviation of the difference: {std_score_diff_all_cells}"
+        )
+        comparison_str += f"\n\nt-statistic: {t_statistic_all_cells:.2f} (number of standard deviations between the means)"
 
     # Save the comparison results to a text file
     save_dataset(data=comparison_str, filename=filename, folder=plot_path)

@@ -416,6 +416,7 @@ def load_scores(
     n_objects_list: list[int],
     n_attributes_list: list[int],
     score_types: list[str],
+    n_puzzles: int,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Load the scores from the score files.
 
@@ -423,11 +424,14 @@ def load_scores(
 
     Values are -999 if the score was not found in the file.
 
+    If n_puzzles is 1, the standard deviation is not available, so it is set to 0.
+
     Args:
         score_file_paths: List of score file paths.
         n_objects_list: List of the number of objects in the puzzles evaluated in each score file.
         n_attributes_list: List of the number of attributes in the puzzles evaluated in each score file.
         score_types: List of score types to find in the score files.
+        n_puzzles: Number of puzzles evaluated in each score file.
 
     Returns:
         A tuple (mean_scores_array_min_2_n_objects, std_mean_scores_array_min_2_n_objects, std_scores_array_min_2_n_objects) where:
@@ -455,10 +459,17 @@ def load_scores(
         for i_score_type, score_type in enumerate(score_types):
             # Get the number after "puzzle score:"
             score_str = scores_str.split(f"{score_type.capitalize()}:\n\tMean: ")[1]
-            mean_str = score_str.split(" ")[0]
-            mean_std_str = score_str.split("± ")[1].split(" ")[0]
-            std_str = scores_str.split("Sample standard deviation: ")[1]
-            std_str = std_str.split("\n")[0]
+            if n_puzzles > 1:
+                mean_str = score_str.split(" ")[0]
+                mean_std_str = score_str.split("± ")[1].split(" ")[0]
+                std_str = scores_str.split("Sample standard deviation: ")[1]
+                std_str = std_str.split("\n")[0]
+            else:
+                mean_str = score_str.split("\n")[0]
+
+                # The standard deviation is not available for a single puzzle
+                mean_std_str = "0"
+                std_str = "0"
 
             mean = float(mean_str)
             std_mean = float(mean_std_str)

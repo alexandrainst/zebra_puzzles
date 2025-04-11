@@ -249,9 +249,9 @@ def round_using_std(value: float, std: float) -> tuple[str, str]:
     """
     std_rounded = np.format_float_positional(std, precision=1, fractional=False)
 
-    # If the standard deviation is 0, we get the same score for all puzzles. In this case, just use 1 significant digit.
+    # If the standard deviation is 0, we get the same score for all puzzles. In this case, just use 2 significant digits.
     if std_rounded == "0.":
-        value_precision = 1
+        value_precision = 2
     else:
         value_precision = len(str(std_rounded).split(".")[1])
 
