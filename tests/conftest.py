@@ -105,7 +105,7 @@ def data_paths(config) -> Generator[tuple[Path, Path, Path], None, None]:
 
 
 @pytest.fixture(scope="session")
-def eval_paths(data_paths, config) -> Generator[tuple[Path, Path], None, None]:
+def eval_paths(data_paths, config) -> Generator[tuple[Path, Path, Path], None, None]:
     """Fixture to evaluate puzzles after generating them by the data_paths fixture."""
     # Evaluate the dataset
     evaluate_all(
@@ -139,8 +139,9 @@ def eval_paths(data_paths, config) -> Generator[tuple[Path, Path], None, None]:
         / "responses"
         / model
     )
+    plots_path = data_folder / "plots"
 
-    yield scores_path, responses_path
+    yield scores_path, responses_path, plots_path
 
     # Cleanup
     rmtree(scores_path, ignore_errors=True)
