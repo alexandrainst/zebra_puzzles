@@ -87,6 +87,7 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
                 std_scores_array=std_scores_array,
                 single_model=True,
                 model=model,
+                n_puzzles=n_puzzles,
             )
 
             # Save values across all models
@@ -105,6 +106,7 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
             score_types=score_types,
             n_objects_max_all_models=n_objects_max_all_models,
             n_attributes_max_all_models=n_attributes_max_all_models,
+            n_puzzles=n_puzzles,
         )
 
         # Save values across all values of n_red_herring_clues_evaluated
@@ -125,6 +127,7 @@ def compare_models(
     score_types: list[str],
     n_objects_max_all_models: list[int],
     n_attributes_max_all_models: list[int],
+    n_puzzles: int,
 ) -> None:
     """Compare the mean scores of different models.
 
@@ -139,6 +142,7 @@ def compare_models(
         score_types: List of score types as strings.
         n_objects_max_all_models: List of the maximum number of objects in puzzles for each evaluated model.
         n_attributes_max_all_models: List of the maximum number of attributes in puzzles for each evaluated model.
+        n_puzzles: Number of puzzles evaluated with each size.
     """
     # Choose each combination of two models
     model_idx_1, model_idx_2 = np.triu_indices(len(model_names), k=1)
@@ -184,6 +188,7 @@ def compare_models(
                 std_scores_array=std_score_diff,
                 single_model=False,
                 model=f"{model_i} vs {model_j}",
+                n_puzzles=n_puzzles,
             )
 
             create_comparison_txt(
@@ -193,6 +198,7 @@ def compare_models(
                 n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
                 plot_path=plot_path,
                 i_not_evaluated_by_both=i_not_evaluated_by_both,
+                n_puzzles=n_puzzles,
             )
 
 
@@ -317,6 +323,7 @@ def plot_heatmaps(
     std_scores_array: np.ndarray,
     single_model: bool,
     model: str,
+    n_puzzles: int,
 ) -> None:
     """Plot heatmaps of the mean scores.
 
@@ -328,6 +335,7 @@ def plot_heatmaps(
         std_scores_array: Array of sample standard deviations of scores.
         single_model: Boolean indicating if the scores are from a single model.
         model: Name of the model or models as a string.
+        n_puzzles: Number of puzzles evaluated.
 
     NOTE: Consider using subplots instead of saving separate figures for each score type.
     NOTE: Consider using i_not_evaluated_by_both instead of looking for -999 in the scores.
@@ -419,9 +427,7 @@ def plot_heatmaps(
         # Save the plot
         plot_path.mkdir(parents=True, exist_ok=True)
         score_type = score_type.replace(" ", "_")
-        plot_filename = (
-            f"mean_{score_type}_{model}_{n_referred_herring_clues_evaluated}rh.png"
-        )
+        plot_filename = f"mean_{score_type}_{model}_{n_referred_herring_clues_evaluated}rh_{n_puzzles}_puzzles.png"
         plt.savefig(plot_path / plot_filename, dpi=300, bbox_inches="tight")
         plt.close(fig)
 
@@ -433,6 +439,7 @@ def create_comparison_txt(
     n_red_herring_clues_evaluated: int,
     plot_path: Path,
     i_not_evaluated_by_both: np.ndarray,
+    n_puzzles: int,
 ):
     """Create a text file with the comparison results.
 
@@ -443,6 +450,7 @@ def create_comparison_txt(
         n_red_herring_clues_evaluated: Number of red herring clues evaluated.
         plot_path: Path to save the text file.
         i_not_evaluated_by_both: Boolean array indicating cells not evaluated by both models.
+        n_puzzles: Number of puzzles evaluated of each size.
     """
     # Compute the mean score difference
     non_empty_scores_diff = scores_diff[~i_not_evaluated_by_both]
@@ -465,9 +473,9 @@ def create_comparison_txt(
     )
 
     # Save the overall results
-    filename = f"comparison_{model_i}_vs_{model_j}.txt"
+    filename = f"comparison_{model_i}_vs_{model_j}_{n_puzzles}_puzzles.txt"
 
-    comparison_str = f"Model {model_i} vs {model_j} with {n_red_herring_clues_evaluated} red herring clues on puzzle sizes evaluated by both models."
+    comparison_str = f"Model {model_i} vs {model_j} with {n_red_herring_clues_evaluated} red herring clues on puzzle sizes evaluated by both models. {n_puzzles} puzzles are evaluated for each size.\n"
     comparison_str += f"\n\nMean score difference: {score_diff_all_cells}"
     comparison_str += (
         f"\nStandard deviation of the difference: {std_score_diff_all_cells}"

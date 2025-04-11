@@ -235,6 +235,8 @@ def shuffle_clues(
 def round_using_std(value: float, std: float) -> tuple[str, str]:
     """Round a value to match a standard deviation.
 
+    Assumes the value is not much larger than 1.
+
     Args:
         value: The value to round.
         std: The standard deviation to match.
