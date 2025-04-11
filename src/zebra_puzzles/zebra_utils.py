@@ -246,8 +246,27 @@ def round_using_std(value: float, std: float) -> tuple[str, str]:
     TODO: Fix the number of trailing zeros in the output.
     """
     std_rounded = np.format_float_positional(std, precision=1, fractional=False)
-    value_precision = len(str(std_rounded).split(".")[1])
+
+    # If the standard deviation is 0, we get the same score for all puzzles. In this case, just use 1 significant digit.
+    if std_rounded == "0.":
+        value_precision = 1
+    else:
+        value_precision = len(str(std_rounded).split(".")[1])
+
     value_rounded = np.format_float_positional(
         value, precision=value_precision, fractional=False
     )
+
+    # Include trailing zeros
+    n_decimal_places = len(std_rounded.split(".")[1])
+    n_trailing_zeros = n_decimal_places - len(value_rounded.split(".")[1])
+    if n_trailing_zeros > 0:
+        value_rounded += "0" * n_trailing_zeros
+
+    # Turn 1. into 1 and 0. into 0
+    if value_rounded[-1] == ".":
+        value_rounded = value_rounded[:-1]
+    if std_rounded[-1] == ".":
+        std_rounded = std_rounded[:-1]
+
     return value_rounded, std_rounded

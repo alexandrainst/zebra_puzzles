@@ -400,10 +400,14 @@ def plot_heatmaps(
                             color="black",
                         )
                     else:
+                        # Round to the correct number significant digits
+                        score_rounded, std_rounded = round_using_std(
+                            value=score_type_array[i, j], std=std_score_type_array[i, j]
+                        )
                         ax.text(
                             j,
                             i,
-                            f"{score_type_array[i, j]:.2f} ± {std_score_type_array[i, j]:.2f}",
+                            f"{score_rounded} ± {std_rounded}",
                             ha="center",
                             va="center",
                             color="black",
