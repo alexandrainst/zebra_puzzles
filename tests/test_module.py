@@ -3,12 +3,12 @@
 Use 'pytest tests/test_module.py::test_name' to run a single test.
 
 Use 'make test' to run all tests.
+
+TODO: Do not check every parameter combination for all tests.
 """
 
 import json
 import os
-
-from zebra_puzzles.plots import plot_results
 
 
 def test_prompt(data_paths, config) -> None:
@@ -119,28 +119,14 @@ def test_responses(eval_paths, config) -> None:
     assert len(response_dict["object_1"]) == config.n_attributes
 
 
-def test_plotting(eval_paths, config) -> None:
-    """Test the plotting of the evaluation results.
-
-    We check that the expected folder and files for config.model exist, and ignore folders from other models. Comparisons are not tested.
-    """
+def test_plots_for_current_model(plot_paths, config) -> None:
+    """Test that the model in the config has folders and files saved in the plots folder."""
     # Get the plotting path
-    plots_path = eval_paths[2]
-
-    # Run the plotting script
-    n_puzzles = config.n_puzzles
-    theme = config.language.theme
-    data_folder = config.data_folder
-
-    plot_results(n_puzzles=n_puzzles, theme=theme, data_folder_str=data_folder)
-
-    # Get the folder names in the plots path (corresponding to the model names and comparisons)
-    plots_model_paths = [p for p in plots_path.iterdir() if p.is_dir()]
-
-    # Check that the model folders exist and that the config.model is represented
-    assert len(plots_model_paths) > 0
+    plots_path = plot_paths[0]
 
     model = config.model
+
+    # Get the path to the model currently in the config
     model_folder = plots_path / model
 
     assert model_folder.exists()
@@ -153,25 +139,41 @@ def test_plotting(eval_paths, config) -> None:
     assert red_herring_folder.is_dir()
 
     # Check that the folder contains the expected cell score file
+    n_puzzles = config.n_puzzles
     cell_score_plot_filename = f"mean_cell_score_{model}_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.png"
     cell_score_plot_file_path = red_herring_folder / cell_score_plot_filename
 
-    # Check each red herring folder contains the expected cell score file
     assert cell_score_plot_file_path.exists()
     assert cell_score_plot_file_path.is_file()
     assert os.path.getsize(cell_score_plot_file_path) > 0
 
-    if len(plots_model_paths) > 1:
-        # Check that the comparison folders exist and that they are not empty
 
+def test_model_comparisons(plot_paths, config) -> None:
+    """Test the comparisons between models in the plots folder.
+
+    # TODO: Make sure a comparison is actually done, by running two models.
+    """
+    # Get the list of paths to plots for each LLM model / comparison
+    plots_model_paths = plot_paths[1]
+
+    # Check that the model folders exist
+    assert len(plots_model_paths) > 0
+
+    # If multiple models are present, test the comparisons
+    if len(plots_model_paths) > 1:
         # Select a folder with "vs" in the name
         comparison_folder = next((p for p in plots_model_paths if "vs" in p.name), None)
+
+        # Check that the folder exists
         assert comparison_folder is not None
         assert comparison_folder.exists()
         assert comparison_folder.is_dir()
 
         # Check that the folder contains the expected cell score diff file
-        cell_score_diff_plot_filename = f"mean_cell_score_diff_{model}_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.png"
+        n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
+        n_puzzles = config.n_puzzles
+
+        cell_score_diff_plot_filename = f"mean_cell_score_*{comparison_folder.name}*_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.png"
         cell_score_diff_plot_file_path = (
             comparison_folder / cell_score_diff_plot_filename
         )
@@ -184,10 +186,10 @@ def test_plotting(eval_paths, config) -> None:
         # Check that the folder contains the expected comparison txt file
         comparison_txt_filename = next(
             (
-                f
-                for f in comparison_folder.iterdir()
-                if f.name.startswith("comparison_")
-                and f.name.endswith(
+                file
+                for file in comparison_folder.iterdir()
+                if file.name.startswith("comparison_")
+                and file.name.endswith(
                     "_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.txt"
                 )
             ),

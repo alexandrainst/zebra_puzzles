@@ -12,6 +12,7 @@ from omegaconf import DictConfig
 
 from zebra_puzzles.evaluation import evaluate_all
 from zebra_puzzles.pipeline import build_dataset
+from zebra_puzzles.plots import plot_results
 
 initialize(config_path="../config", version_base=None)
 
@@ -105,7 +106,7 @@ def data_paths(config) -> Generator[tuple[Path, Path, Path], None, None]:
 
 
 @pytest.fixture(scope="session")
-def eval_paths(data_paths, config) -> Generator[tuple[Path, Path, Path], None, None]:
+def eval_paths(data_paths, config) -> Generator[tuple[Path, Path], None, None]:
     """Fixture to evaluate puzzles after generating them by the data_paths fixture."""
     # Evaluate the dataset
     evaluate_all(
@@ -139,10 +140,30 @@ def eval_paths(data_paths, config) -> Generator[tuple[Path, Path, Path], None, N
         / "responses"
         / model
     )
-    plots_path = data_folder / "plots"
 
-    yield scores_path, responses_path, plots_path
+    yield scores_path, responses_path
 
     # Cleanup
     rmtree(scores_path, ignore_errors=True)
     rmtree(responses_path, ignore_errors=True)
+
+
+@pytest.fixture(scope="session")
+def plot_paths(eval_paths, config) -> Generator[tuple[Path, list], None, None]:
+    """Fixture to generate plots after evaluating puzzles by the eval_paths fixture."""
+    # Run the plotting script
+    n_puzzles = config.n_puzzles
+    theme = config.language.theme
+    data_folder = config.data_folder
+
+    plot_results(n_puzzles=n_puzzles, theme=theme, data_folder_str=data_folder)
+
+    plots_path = Path(data_folder) / "plots"
+
+    # Get the folder names in the plots path (corresponding to the model names and comparisons)
+    plots_model_paths = [p for p in plots_path.iterdir() if p.is_dir()]
+
+    yield plots_path, plots_model_paths
+
+    # Cleanup
+    rmtree(plots_path, ignore_errors=True)
