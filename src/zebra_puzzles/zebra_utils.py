@@ -238,14 +238,13 @@ def round_using_std(value: float, std: float) -> tuple[str, str]:
     Assumes the value is not much larger than 1.
 
     Args:
-        value: The value to round.
-        std: The standard deviation to match.
+        value: The value to round as a float.
+        std: The standard deviation to match as a float.
 
     Returns:
         A tuple (value, std) where:
-            value: The rounded value.
-            std: The rounded standard deviation.
-    TODO: Fix the number of trailing zeros in the output.
+            value: The rounded value as a string.
+            std: The rounded standard deviation as a string.
     """
     std_rounded = np.format_float_positional(std, precision=1, fractional=False)
 
@@ -253,14 +252,25 @@ def round_using_std(value: float, std: float) -> tuple[str, str]:
     if std_rounded == "0.":
         value_precision = 2
     else:
+        # Get the number of decimal places in the standard deviation
         value_precision = len(str(std_rounded).split(".")[1])
 
+    # Round the value to the same number of decimal places as the standard deviation
     value_rounded = np.format_float_positional(
-        value, precision=value_precision, fractional=False
+        value, precision=value_precision, fractional=True
     )
 
     # Include trailing zeros
-    n_decimal_places = len(std_rounded.split(".")[1])
+    if std_rounded == "0.":
+        # Set n_decimal_places to the value_precision minus the number of non-zero digits in the value before the decimal point
+        digits_before_decimal = value_rounded.split(".")[0]
+        n_nonzero_digits_before_decimal = len(
+            [d for d in digits_before_decimal if d != "0"]
+        )
+        n_decimal_places = 2 - n_nonzero_digits_before_decimal
+    else:
+        # Get n_decimal_places as the number of decimal places in std_rounded
+        n_decimal_places = len(std_rounded.split(".")[1])
     n_trailing_zeros = n_decimal_places - len(value_rounded.split(".")[1])
     if n_trailing_zeros > 0:
         value_rounded += "0" * n_trailing_zeros
