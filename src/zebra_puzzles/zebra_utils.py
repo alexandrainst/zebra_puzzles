@@ -272,3 +272,29 @@ def round_using_std(value: float, std: float) -> tuple[str, str]:
         std_rounded = std_rounded[:-1]
 
     return value_rounded, std_rounded
+
+
+def bernoulli_std(n_trials: int, n_successes: int) -> tuple[float, float]:
+    """Calculate the standard deviation of success and probability of success in a bernoulli trial.
+
+    We assume puzzle scores are independent Bernoulli trials, each with the same probability of success.
+
+    Args:
+        n_trials: Number of trials.
+        n_successes: Number of successes.
+
+    Returns:
+        A tuple (std_one_trial, std_p), where:
+            std_one_trial: The standard deviation of the bernoulli distribution (of 0's and 1's)
+            std_p: The standard error of the outcomes i.e. the standard deviation of the probability of success.
+    """
+    # Calculate the probability of success
+    p = n_successes / n_trials
+
+    # Calculate the error of the bernoulli distribution (of 0's and 1's)
+    std_one_trial = np.sqrt(p * (1 - p))
+
+    # Calculate the error of the mean (p)
+    std_p = np.sqrt(p * (1 - p) / n_trials)
+
+    return std_one_trial, std_p

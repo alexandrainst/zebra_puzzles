@@ -18,7 +18,7 @@ model : gpt-4o-mini
 generate_new_responses: True
 
 # The folder where data is stored
-data_folder: data
+data_folder: data_backup
 
 # Number of puzzles to generate
 n_puzzles: 100

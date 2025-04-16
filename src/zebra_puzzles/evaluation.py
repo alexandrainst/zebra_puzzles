@@ -14,7 +14,11 @@ from tqdm import tqdm
 
 from zebra_puzzles.compare_solutions import compare_solutions
 from zebra_puzzles.file_utils import load_puzzle, prepare_eval_folders, save_dataset
-from zebra_puzzles.zebra_utils import generate_output_format_class, round_using_std
+from zebra_puzzles.zebra_utils import (
+    bernoulli_std,
+    generate_output_format_class,
+    round_using_std,
+)
 
 # Load environment variables to get the API key
 load_dotenv()
@@ -288,11 +292,17 @@ def compute_metrics(
         mean_scores[i] = float(np.mean(scores))
 
         if n_puzzles > 1:
-            # Take the standard deviation
-            std_scores[i] = float(np.std(scores, ddof=1))
+            if score_types[i] == "puzzle_score":
+                n_successes = int(mean_scores[i] * n_puzzles)
+                std_scores[i], std_mean_scores[i] = bernoulli_std(
+                    n_trials=n_puzzles, n_successes=n_successes
+                )
+            else:
+                # Take the standard deviation
+                std_scores[i] = float(np.std(scores, ddof=1))
 
-            # Compute the standard deviation of the mean
-            std_mean_scores[i] = std_scores[i] / np.sqrt(float(n_puzzles))
+                # Compute the standard deviation of the mean
+                std_mean_scores[i] = std_scores[i] / np.sqrt(float(n_puzzles))
 
             # Round to significant digits
             std_scores[i] = np.format_float_positional(
