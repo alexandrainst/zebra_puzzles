@@ -545,7 +545,12 @@ def plot_heatmaps(
         for i in range(n_objects_max):
             for j in range(n_attributes_max):
                 if score_type_array[i, j] != -999:
-                    if score_type == "puzzle score" and "vs" not in model:
+                    # If we are showing puzzle scores for a single evaluation, do not show the standard deviations, as the Bernoulli standard deviations can appear confusing
+                    if (
+                        score_type == "puzzle score"
+                        and "vs" not in model
+                        and "vs" not in n_red_herring_clues_evaluated_str
+                    ):
                         ax.text(
                             j,
                             i,
