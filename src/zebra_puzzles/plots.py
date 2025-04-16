@@ -603,31 +603,13 @@ def create_comparison_txt(
         n_puzzles: Number of puzzles evaluated of each size.
 
     """
-    # Compute the mean score difference
-    non_empty_scores_diff = scores_diff[~i_not_evaluated_by_both]
-    n_non_empty_cells = len(non_empty_scores_diff)
-
-    score_diff_all_cells = np.mean(non_empty_scores_diff)
-
-    if n_puzzles > 1:
-        # Compute the standard deviation of the score difference
-        std_score_diff_all_cells = np.std(non_empty_scores_diff, ddof=1) / np.sqrt(
-            n_non_empty_cells
+    # Compute the comparison statistics
+    score_diff_all_cells, std_score_diff_all_cells, t_statistic_all_cells = (
+        compute_comparison_stats(
+            scores_diff=scores_diff,
+            i_not_evaluated_by_both=i_not_evaluated_by_both,
+            n_puzzles=n_puzzles,
         )
-
-        # Compute the t-statistic (number of standard deviations between the means) across all cells
-        # Note that this might average out differences in performance on puzzles of different sizes
-        if std_score_diff_all_cells != 0:
-            t_statistic_all_cells = score_diff_all_cells / std_score_diff_all_cells
-        else:
-            t_statistic_all_cells = -999
-
-    else:
-        std_score_diff_all_cells = 0.0
-
-    # Round to the correct number significant digits
-    score_diff_all_cells, std_score_diff_all_cells = round_using_std(
-        value=score_diff_all_cells, std=std_score_diff_all_cells
     )
 
     # Save the overall results
@@ -646,3 +628,48 @@ def create_comparison_txt(
 
     # Save the comparison results to a text file
     save_dataset(data=comparison_str, filename=filename, folder=plot_path)
+
+
+def compute_comparison_stats(
+    scores_diff: np.ndarray, i_not_evaluated_by_both: np.ndarray, n_puzzles: int
+) -> tuple[float, float, float]:
+    """Compute the comparison statistics.
+
+    Args:
+        scores_diff: Array of score differences.
+        i_not_evaluated_by_both: Boolean array indicating cells not evaluated by both models.
+        n_puzzles: Number of puzzles evaluated of each size.
+
+    Returns:
+        A tuple (score_diff_all_cells, std_score_diff_all_cells, t_statistic_all_cells) where:
+            score_diff_all_cells: Mean score difference across all cells.
+            std_score_diff_all_cells: Standard deviation of the mean score difference across all cells.
+            t_statistic_all_cells: t-statistic for the score difference across all cells.
+    """
+    # Compute the mean score difference
+    non_empty_scores_diff = scores_diff[~i_not_evaluated_by_both]
+    n_non_empty_cells = len(non_empty_scores_diff)
+
+    score_diff_all_cells = np.mean(non_empty_scores_diff)
+
+    if n_puzzles > 1:
+        # Compute the standard deviation of the mean score difference
+        std_score_diff_all_cells = np.std(non_empty_scores_diff, ddof=1) / np.sqrt(
+            n_non_empty_cells
+        )
+
+        # Compute the t-statistic (number of standard deviations between the means) across all cells
+        # Note that this might average out differences in performance on puzzles of different sizes
+        if std_score_diff_all_cells != 0:
+            t_statistic_all_cells = score_diff_all_cells / std_score_diff_all_cells
+        else:
+            t_statistic_all_cells = -999
+
+    else:
+        std_score_diff_all_cells = 0.0
+
+    # Round to the correct number significant digits
+    score_diff_all_cells, std_score_diff_all_cells = round_using_std(
+        value=score_diff_all_cells, std=std_score_diff_all_cells
+    )
+    return score_diff_all_cells, std_score_diff_all_cells, t_statistic_all_cells
