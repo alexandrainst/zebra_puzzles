@@ -23,17 +23,73 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
         theme: Theme name.
         data_folder_str: Path to the data folder as a string.
 
-    TODO: More plots e.g. score vs. n_red_herrings_evaluated, clue type histograms, clue type difficulty etc.
+    TODO: More plots e.g. clue type histograms, clue type difficulty etc.
     TODO: Analyze when o3-mini fails to solve the puzzle. There seems to be a shift in puzzle numbers in files vs. in the score file.
     """
     # Convert the data folder string to a Path object
     data_folder = Path(data_folder_str)
 
     # ----- Import results from score files -----#
-
     model_names, n_red_herring_values = get_evaluated_params(data_folder=data_folder)
 
-    # TODO: Rename the following variables
+    # Define the score types to search for in the score files
+    score_types = ["puzzle score", "cell score", "best permuted cell score"]
+
+    (
+        mean_scores_all_eval_array,
+        std_mean_scores_all_eval_array,
+        n_objects_max_all_eval,
+        n_attributes_max_all_eval,
+    ) = load_scores_and_plot_results_for_each_evaluation(
+        data_folder=data_folder,
+        theme=theme,
+        n_puzzles=n_puzzles,
+        model_names=model_names,
+        n_red_herring_values=n_red_herring_values,
+        score_types=score_types,
+    )
+
+    # ----- Compare the mean scores of different evaluations -----#
+    compare_all_eval_types(
+        model_names=model_names,
+        mean_scores_all_eval_array=mean_scores_all_eval_array,
+        std_mean_scores_all_eval_array=std_mean_scores_all_eval_array,
+        n_red_herring_values=n_red_herring_values,
+        n_objects_max_all_eval=n_objects_max_all_eval,
+        n_attributes_max_all_eval=n_attributes_max_all_eval,
+        data_folder=data_folder,
+        score_types=score_types,
+        n_puzzles=n_puzzles,
+    )
+
+
+def load_scores_and_plot_results_for_each_evaluation(
+    data_folder: Path,
+    theme: str,
+    n_puzzles: int,
+    model_names: list[str],
+    n_red_herring_values: list[int],
+    score_types: list[str],
+) -> tuple[
+    list[list[np.ndarray]], list[list[np.ndarray]], list[list[int]], list[list[int]]
+]:
+    """Load the scores from the score files and plot the results for each evaluation.
+
+    Args:
+        data_folder: Path to the data folder.
+        theme: Theme name.
+        n_puzzles: Number of puzzles evaluated.
+        model_names: List of model names.
+        n_red_herring_values: Number of red herring clues evaluated.
+        score_types: List of score types as strings.
+
+    Returns:
+        A tuple (mean_scores_all_eval_array, std_mean_scores_all_eval_array, n_objects_max_all_eval, n_attributes_max_all_eval) where:
+            mean_scores_all_eval_array: List of mean scores arrays. The outer list is for different n_red_herring_clues_evaluated and the inner list is for different models.
+            std_mean_scores_all_eval_array: List of standard deviation arrays. The outer list is for different n_red_herring_clues_evaluated and the inner list is for different models.
+            n_objects_max_all_eval: List of lists of the maximum number of objects in puzzles for each evaluation. The outer list is for different n_red_herring_clues_evaluated and the inner list is for different models.
+            n_attributes_max_all_eval: List of lists of the maximum number of attributes in puzzles for each evaluation. The outer list is for different n_red_herring_clues_evaluated and the inner list is for different models.
+    """
     mean_scores_all_eval_array = []
     std_mean_scores_all_eval_array = []
     n_objects_max_all_eval = []
@@ -59,9 +115,6 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
             n_objects_list, n_attributes_list = get_puzzle_dimensions_from_filename(
                 score_file_paths=score_file_paths
             )
-
-            # Define the score types to search for in the score files
-            score_types = ["puzzle score", "cell score", "best permuted cell score"]
 
             # Load the scores from the score files
             mean_scores_array, std_mean_scores_array, std_scores_array = load_scores(
@@ -103,16 +156,11 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
         n_objects_max_all_eval.append(n_objects_max_all_models)
         n_attributes_max_all_eval.append(n_attributes_max_all_models)
 
-    compare_all_eval_types(
-        model_names=model_names,
-        mean_scores_all_eval_array=mean_scores_all_eval_array,
-        std_mean_scores_all_eval_array=std_mean_scores_all_eval_array,
-        n_red_herring_values=n_red_herring_values,
-        n_objects_max_all_eval=n_objects_max_all_eval,
-        n_attributes_max_all_eval=n_attributes_max_all_eval,
-        data_folder=data_folder,
-        score_types=score_types,
-        n_puzzles=n_puzzles,
+    return (
+        mean_scores_all_eval_array,
+        std_mean_scores_all_eval_array,
+        n_objects_max_all_eval,
+        n_attributes_max_all_eval,
     )
 
 
