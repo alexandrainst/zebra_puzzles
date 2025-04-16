@@ -12,7 +12,7 @@ from omegaconf import DictConfig
 
 from zebra_puzzles.evaluation import evaluate_all
 from zebra_puzzles.pipeline import build_dataset
-from zebra_puzzles.plots import plot_results
+from zebra_puzzles.plot_pipeline import plot_results
 
 initialize(config_path="../config", version_base=None)
 
