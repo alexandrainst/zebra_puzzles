@@ -86,33 +86,15 @@ def plot_heatmaps(
         )
 
         # Annotate the cells with the mean scores (except for puzzle scores)
-
-        for i in range(n_objects_max):
-            for j in range(n_attributes_max):
-                if score_type_array[i, j] != -999:
-                    # If we are showing puzzle scores for a single evaluation, do not show the standard deviations, as the Bernoulli standard deviations can appear confusing
-                    if score_type == "puzzle score" and single_model:
-                        ax.text(
-                            j,
-                            i,
-                            f"{score_type_array[i, j]:.2f}",
-                            ha="center",
-                            va="center",
-                            color="black",
-                        )
-                    else:
-                        # Round to the correct number significant digits
-                        score_rounded, std_rounded = round_using_std(
-                            value=score_type_array[i, j], std=std_score_type_array[i, j]
-                        )
-                        ax.text(
-                            j,
-                            i,
-                            f"{score_rounded} ± {std_rounded}",
-                            ha="center",
-                            va="center",
-                            color="black",
-                        )
+        ax = annotate_heatmap(
+            ax=ax,
+            data=score_type_array,
+            std_data=std_score_type_array,
+            single_model=single_model,
+            score_type=score_type,
+            n_x_max=n_attributes_max,
+            n_y_max=n_objects_max,
+        )
 
         # Adjust the layout
         fig.tight_layout()
@@ -150,3 +132,55 @@ def choose_heatmap_title(
     else:
         title = f"Difference in mean {score_type} with {n_red_herring_clues_evaluated_str.replace('vs', '-')} red herrings for model {model.replace('vs', '-')} incl. std. error"
     return title
+
+
+def annotate_heatmap(
+    ax: plt.Axes,
+    data: np.ndarray,
+    std_data: np.ndarray,
+    single_model: bool,
+    score_type: str,
+    n_x_max: int,
+    n_y_max: int,
+) -> plt.Axes:
+    """Annotate the heatmap with the mean scores and standard deviations.
+
+    Args:
+        ax: Axes object to annotate.
+        data: Array of mean scores.
+        std_data: Array of sample standard deviations of scores.
+        single_model: Boolean indicating if the scores are from a single model.
+        score_type: Type of score as a string.
+        n_x_max: Maximum number of attributes.
+        n_y_max: Maximum number of objects.
+
+    Returns:
+        ax: Annotated Axes object.
+    """
+    for i in range(n_y_max):
+        for j in range(n_x_max):
+            if data[i, j] != -999:
+                # If we are showing puzzle scores for a single evaluation, do not show the standard deviations, as the Bernoulli standard deviations can appear confusing
+                if score_type == "puzzle score" and single_model:
+                    ax.text(
+                        j,
+                        i,
+                        f"{data[i, j]:.2f}",
+                        ha="center",
+                        va="center",
+                        color="black",
+                    )
+                else:
+                    # Round to the correct number significant digits
+                    score_rounded, std_rounded = round_using_std(
+                        value=data[i, j], std=std_data[i, j]
+                    )
+                    ax.text(
+                        j,
+                        i,
+                        f"{score_rounded} ± {std_rounded}",
+                        ha="center",
+                        va="center",
+                        color="black",
+                    )
+    return ax
