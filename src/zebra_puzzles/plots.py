@@ -31,7 +31,7 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
 
     # ----- Import results from score files -----#
 
-    model_names, rh_values = get_evaluated_params(data_folder=data_folder)
+    model_names, n_red_herring_values = get_evaluated_params(data_folder=data_folder)
 
     # TODO: Rename the following variables
     mean_scores_all_eval_array = []
@@ -39,7 +39,7 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
     n_objects_max_all_eval = []
     n_attributes_max_all_eval = []
 
-    for n_red_herring_clues_evaluated in rh_values:
+    for n_red_herring_clues_evaluated in n_red_herring_values:
         mean_scores_all_models_array = []
         std_mean_scores_all_models_array = []
         n_objects_max_all_models = []
@@ -84,7 +84,7 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
                 scores_array=mean_scores_array,
                 score_types=score_types,
                 plot_path=plot_path,
-                n_referred_herring_clues_evaluated=n_red_herring_clues_evaluated,
+                n_red_herring_clues_evaluated_str=str(n_red_herring_clues_evaluated),
                 std_scores_array=std_scores_array,
                 single_model=True,
                 model=model,
@@ -97,16 +97,19 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
             n_objects_max_all_models.append(max(n_objects_list))
             n_attributes_max_all_models.append(max(n_attributes_list))
 
-        # Compare the mean scores of different models
-        compare_models(
+        # ----- Compare the mean scores of different models -----#
+        # TODO: Move this out of the loop and make a function for it
+
+        # Compare the mean scores of different models (same n_red_herring_clues_evaluated)
+        compare_evals(
             model_names=model_names,
-            mean_scores_all_models_array=mean_scores_all_models_array,
-            std_mean_scores_all_models_array=std_mean_scores_all_models_array,
-            n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
+            mean_scores_some_eval_array=mean_scores_all_models_array,
+            std_mean_scores_some_eval_array=std_mean_scores_all_models_array,
+            n_red_herring_values=[str(n_red_herring_clues_evaluated)],
             data_folder=data_folder,
             score_types=score_types,
-            n_objects_max_all_models=n_objects_max_all_models,
-            n_attributes_max_all_models=n_attributes_max_all_models,
+            n_objects_max_some_eval=n_objects_max_all_models,
+            n_attributes_max_some_eval=n_attributes_max_all_models,
             n_puzzles=n_puzzles,
         )
 
@@ -116,87 +119,147 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
         n_objects_max_all_eval.append(n_objects_max_all_models)
         n_attributes_max_all_eval.append(n_attributes_max_all_models)
 
-    # TODO: Compare mean scores for different n_red_herring_clues_evaluated
+    # ----- Compare the mean scores of different n_red_herring_clues_evaluated -----#
+
+    # For each model, compare mean scores for different n_red_herring_clues_evaluated
+    for i, model in enumerate(model_names):
+        # Get the parameters for a specific model for all n_red_herring_clues_evaluated
+        mean_scores_all_eval_array_model_i = [
+            red_herring_eval[i] for red_herring_eval in mean_scores_all_eval_array
+        ]
+        std_mean_scores_all_eval_array_model_i = [
+            red_herring_eval[i] for red_herring_eval in std_mean_scores_all_eval_array
+        ]
+        n_objects_max_all_eval_model_i = [
+            red_herring_eval[i] for red_herring_eval in n_objects_max_all_eval
+        ]
+        n_attributes_max_all_eval_model_i = [
+            red_herring_eval[i] for red_herring_eval in n_attributes_max_all_eval
+        ]
+
+        compare_evals(
+            model_names=[model],
+            mean_scores_some_eval_array=mean_scores_all_eval_array_model_i,
+            std_mean_scores_some_eval_array=std_mean_scores_all_eval_array_model_i,
+            n_red_herring_values=[str(n) for n in n_red_herring_values],
+            data_folder=data_folder,
+            score_types=score_types,
+            n_objects_max_some_eval=n_objects_max_all_eval_model_i,
+            n_attributes_max_some_eval=n_attributes_max_all_eval_model_i,
+            n_puzzles=n_puzzles,
+        )
 
 
-def compare_models(
+def compare_evals(
     model_names: list[str],
-    mean_scores_all_models_array: list[np.ndarray],
-    std_mean_scores_all_models_array: list[np.ndarray],
-    n_red_herring_clues_evaluated: int,
+    mean_scores_some_eval_array: list[np.ndarray],
+    std_mean_scores_some_eval_array: list[np.ndarray],
+    n_red_herring_values: list[str],
     data_folder: Path,
     score_types: list[str],
-    n_objects_max_all_models: list[int],
-    n_attributes_max_all_models: list[int],
+    n_objects_max_some_eval: list[int],
+    n_attributes_max_some_eval: list[int],
     n_puzzles: int,
 ) -> None:
-    """Compare the mean scores of different models.
+    """Compare the mean scores of different evaluations.
+
+    This could be evaluations using different models or a different number of red herring clues.
 
     We assume that we only need to specify the maximum number of objects and attributes for each model.
 
     Args:
         model_names: List of model names.
-        mean_scores_all_models_array: List of mean scores arrays.
-        std_mean_scores_all_models_array: List of standard deviation arrays.
-        n_red_herring_clues_evaluated: Number of red herring clues evaluated.
+        mean_scores_some_eval_array: List of mean scores arrays.
+        std_mean_scores_some_eval_array: List of standard deviation arrays.
+        n_red_herring_values: Number of red herring clues evaluated.
         data_folder: Path to the data folder.
         score_types: List of score types as strings.
-        n_objects_max_all_models: List of the maximum number of objects in puzzles for each evaluated model.
-        n_attributes_max_all_models: List of the maximum number of attributes in puzzles for each evaluated model.
+        n_objects_max_some_eval: List of the maximum number of objects in puzzles for each evaluated model.
+        n_attributes_max_some_eval: List of the maximum number of attributes in puzzles for each evaluated model.
         n_puzzles: Number of puzzles evaluated with each size.
     """
-    # Choose each combination of two models
-    model_idx_1, model_idx_2 = np.triu_indices(len(model_names), k=1)
+    # Check if the number of models is greater than 1
+    if len(model_names) < 2:
+        if len(n_red_herring_values) < 2:
+            raise ValueError(
+                "At least two models or two different n_red_herring_values are required for comparison."
+            )
+        # Choose each combination of two models
+        compare_mode = "red_herrings"
+        eval_idx_1, eval_idx_2 = np.triu_indices(len(n_red_herring_values), k=1)
+        eval_names = n_red_herring_values
+    else:
+        if len(n_red_herring_values) > 1:
+            raise ValueError(
+                "Only one model can be compared across different n_red_herring_values."
+            )
+        # Choose each combination of two models
+        compare_mode = "models"
+        eval_idx_1, eval_idx_2 = np.triu_indices(len(model_names), k=1)
+        eval_names = model_names
 
     # Iterate over all combinations of models
-    for i in model_idx_1:
-        for j in model_idx_2:
+    for i in eval_idx_1:
+        for j in eval_idx_2:
             # Get parameters for the two models where they overlap in n_objects and n_attributes
             (
-                model_i_scores,
-                model_j_scores,
-                model_i_std_mean_scores,
-                model_j_std_mean_scores,
-                model_i,
-                model_j,
+                eval_i_scores,
+                eval_j_scores,
+                eval_i_std_mean_scores,
+                eval_j_std_mean_scores,
+                eval_i_name,
+                eval_j_name,
             ) = load_score_overlap(
-                model_names=model_names,
-                mean_scores_all_models_array=mean_scores_all_models_array,
-                std_mean_scores_all_models_array=std_mean_scores_all_models_array,
-                n_objects_max_all_models=n_objects_max_all_models,
-                n_attributes_max_all_models=n_attributes_max_all_models,
+                eval_names=eval_names,
+                mean_scores_some_eval_array=mean_scores_some_eval_array,
+                std_mean_scores_some_eval_array=std_mean_scores_some_eval_array,
+                n_objects_max_some_eval=n_objects_max_some_eval,
+                n_attributes_max_some_eval=n_attributes_max_some_eval,
                 i=i,
                 j=j,
             )
 
             # Compute the difference in mean scores
             scores_diff, std_score_diff, i_not_evaluated_by_both = compute_scores_diff(
-                model_i_scores=model_i_scores,
-                model_j_scores=model_j_scores,
-                model_i_std_mean_scores=model_i_std_mean_scores,
-                model_j_std_mean_scores=model_j_std_mean_scores,
+                eval_i_scores=eval_i_scores,
+                eval_j_scores=eval_j_scores,
+                eval_i_std_mean_scores=eval_i_std_mean_scores,
+                eval_j_std_mean_scores=eval_j_std_mean_scores,
             )
 
-            # Prepare path for plots
-            plot_path = Path(f"{data_folder}/plots/{model_i}_vs_{model_j}/")
+            if compare_mode == "red_herrings":
+                full_model_name = model_names[0]
+                full_red_herring_name = f"{eval_i_name} vs {eval_j_name}"
+                # Prepare path for plots
+                plot_path = Path(
+                    f"{data_folder}/plots/{full_model_name.replace(' ', '_')}/rh_comparison/"
+                )
+
+            else:
+                full_model_name = f"{eval_i_name} vs {eval_j_name}"
+                full_red_herring_name = n_red_herring_values[0]
+
+                # Prepare path for plots
+                plot_path = Path(
+                    f"{data_folder}/plots/{full_model_name.replace(' ', '_')}/"
+                )
 
             # Make heatmaps of differences in mean scores
             plot_heatmaps(
                 scores_array=scores_diff,
                 score_types=score_types,
                 plot_path=plot_path,
-                n_referred_herring_clues_evaluated=n_red_herring_clues_evaluated,
+                n_red_herring_clues_evaluated_str=full_red_herring_name,
                 std_scores_array=std_score_diff,
                 single_model=False,
-                model=f"{model_i} vs {model_j}",
+                model=full_model_name,
                 n_puzzles=n_puzzles,
             )
 
             create_comparison_txt(
                 scores_diff=scores_diff,
-                model_i=model_i,
-                model_j=model_j,
-                n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
+                full_model_name=full_model_name,
+                full_red_herring_name=full_red_herring_name,
                 plot_path=plot_path,
                 i_not_evaluated_by_both=i_not_evaluated_by_both,
                 n_puzzles=n_puzzles,
@@ -204,112 +267,102 @@ def compare_models(
 
 
 def load_score_overlap(
-    model_names: list[str],
-    mean_scores_all_models_array: list[np.ndarray],
-    std_mean_scores_all_models_array: list[np.ndarray],
-    n_objects_max_all_models: list[int],
-    n_attributes_max_all_models: list[int],
+    eval_names: list[str],
+    mean_scores_some_eval_array: list[np.ndarray],
+    std_mean_scores_some_eval_array: list[np.ndarray],
+    n_objects_max_some_eval: list[int],
+    n_attributes_max_some_eval: list[int],
     i: int,
     j: int,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, str, str]:
-    """Load the scores of two models and limit them to the minimum number of objects and attributes.
+    """Load the scores of two evaluations and limit them to the minimum number of objects and attributes.
+
+    An evaluation can be a model or a number of red herring clues.
 
     Args:
-        model_names: List of model names.
-        mean_scores_all_models_array: List of mean scores arrays.
-        std_mean_scores_all_models_array: List of standard deviation arrays.
-        n_objects_max_all_models: List of the maximum number of objects in puzzles for each evaluated model.
-        n_attributes_max_all_models: List of the maximum number of attributes in puzzles for each evaluated model.
-        i: Index of the first model.
-        j: Index of the second model.
+        eval_names: List of evaluation names.
+        mean_scores_some_eval_array: List of mean scores arrays.
+        std_mean_scores_some_eval_array: List of standard deviation arrays.
+        n_objects_max_some_eval: List of the maximum number of objects in puzzles for each evaluation.
+        n_attributes_max_some_eval: List of the maximum number of attributes in puzzles for each evaluation.
+        i: Index of the first evaluation.
+        j: Index of the second evaluation.
 
     Returns:
-        A tuple (model_i_scores, model_j_scores, model_i_std_mean_scores, model_j_std_mean_scores, model_i, model_j) where:
-            model_i_scores: Mean scores of the first model.
-            model_j_scores: Mean scores of the second model.
-            model_i_std_mean_scores: Standard deviations of the mean scores of the first model.
-            model_j_std_mean_scores: Standard deviations of the mean scores of the second model.
-            model_i: Name of the first model.
-            model_j: Name of the second model.
+        A tuple (eval_i_scores, eval_j_scores, eval_i_std_mean_scores, eval_j_std_mean_scores, eval_i, eval_j) where:
+            eval_i_scores: Mean scores of the first evaluation.
+            eval_j_scores: Mean scores of the second evaluation.
+            eval_i_std_mean_scores: Standard deviations of the mean scores of the first evaluation.
+            eval_j_std_mean_scores: Standard deviations of the mean scores of the second evaluation.
+            eval_i: Name of the first evaluation.
+            eval_j: Name of the second evaluation.
     """
-    # Get the model specific parameters
-    (
-        model_i,
-        model_i_scores,
-        model_i_std_mean_scores,
-        n_objects_max_i,
-        n_attributes_i,
-    ) = (
-        model_names[i],
-        mean_scores_all_models_array[i],
-        std_mean_scores_all_models_array[i],
-        n_objects_max_all_models[i],
-        n_attributes_max_all_models[i],
+    # Get the evaluation specific parameters
+    (eval_i, eval_i_scores, eval_i_std_mean_scores, n_objects_max_i, n_attributes_i) = (
+        eval_names[i],
+        mean_scores_some_eval_array[i],
+        std_mean_scores_some_eval_array[i],
+        n_objects_max_some_eval[i],
+        n_attributes_max_some_eval[i],
     )
-    (
-        model_j,
-        model_j_scores,
-        model_j_std_mean_scores,
-        n_objects_max_j,
-        n_attributes_j,
-    ) = (
-        model_names[j],
-        mean_scores_all_models_array[j],
-        std_mean_scores_all_models_array[j],
-        n_objects_max_all_models[j],
-        n_attributes_max_all_models[j],
+    (eval_j, eval_j_scores, eval_j_std_mean_scores, n_objects_max_j, n_attributes_j) = (
+        eval_names[j],
+        mean_scores_some_eval_array[j],
+        std_mean_scores_some_eval_array[j],
+        n_objects_max_some_eval[j],
+        n_attributes_max_some_eval[j],
     )
 
-    # Limit the number of objects and attributes to the minimum of the maxima of the two models
+    # Limit the number of objects and attributes to the minimum of the maxima of the two evaluations
     n_objects = min(n_objects_max_i, n_objects_max_j)
     n_attributes = min(n_attributes_i, n_attributes_j)
-    model_i_scores = model_i_scores[:n_attributes, : n_objects - 1]
-    model_j_scores = model_j_scores[:n_attributes, : n_objects - 1]
-    model_i_std_mean_scores = model_i_std_mean_scores[:n_attributes, : n_objects - 1]
-    model_j_std_mean_scores = model_j_std_mean_scores[:n_attributes, : n_objects - 1]
+    eval_i_scores = eval_i_scores[:n_attributes, : n_objects - 1]
+    eval_j_scores = eval_j_scores[:n_attributes, : n_objects - 1]
+    eval_i_std_mean_scores = eval_i_std_mean_scores[:n_attributes, : n_objects - 1]
+    eval_j_std_mean_scores = eval_j_std_mean_scores[:n_attributes, : n_objects - 1]
     return (
-        model_i_scores,
-        model_j_scores,
-        model_i_std_mean_scores,
-        model_j_std_mean_scores,
-        model_i,
-        model_j,
+        eval_i_scores,
+        eval_j_scores,
+        eval_i_std_mean_scores,
+        eval_j_std_mean_scores,
+        eval_i,
+        eval_j,
     )
 
 
 def compute_scores_diff(
-    model_i_scores: np.ndarray,
-    model_j_scores: np.ndarray,
-    model_i_std_mean_scores: np.ndarray,
-    model_j_std_mean_scores: np.ndarray,
+    eval_i_scores: np.ndarray,
+    eval_j_scores: np.ndarray,
+    eval_i_std_mean_scores: np.ndarray,
+    eval_j_std_mean_scores: np.ndarray,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Compute the difference in mean scores of two models.
+    """Compute the difference in mean scores of two evaluations.
 
     Args:
-        model_i_scores: Mean scores of the first model.
-        model_j_scores: Mean scores of the second model.
-        model_i_std_mean_scores: Standard deviations of the mean scores of the first model.
-        model_j_std_mean_scores: Standard deviations of the mean scores of the second model.
+        eval_i_scores: Mean scores of the first evaluation.
+        eval_j_scores: Mean scores of the second evaluation.
+        eval_i_std_mean_scores: Standard deviations of the mean scores of the first evaluation.
+        eval_j_std_mean_scores: Standard deviations of the mean scores of the second evaluation.
 
     Returns:
         A tuple (scores_diff, std_score_diff, i_not_evaluated_by_both) where:
-            scores_diff: Difference in mean scores of the two models.
+            scores_diff: Difference in mean scores of the two evaluations.
             std_score_diff: Standard deviation of the difference in mean scores.
-            i_not_evaluated_by_both: Boolean array indicating cells not evaluated by both models.
+            i_not_evaluated_by_both: Boolean array indicating cells not evaluated by both evaluations.
     """
-    # Compute the difference in mean scores where the two models have the same n_objects and n_attributes
-    scores_diff = model_i_scores - model_j_scores
+    # Compute the difference in mean scores where the two evaluations have the same n_objects and n_attributes
+    scores_diff = eval_i_scores - eval_j_scores
 
     # Compute the standard deviation of the difference of mean scores
     # The formula follows from the law of error propagation assuming the scores are independent (but they are in fact evaluated on the same puzzles)
-    std_score_diff = np.sqrt(model_i_std_mean_scores**2 + model_j_std_mean_scores**2)
+    std_score_diff = np.sqrt(eval_i_std_mean_scores**2 + eval_j_std_mean_scores**2)
 
-    # Define the cells that are not evaluated by one of the models
+    # Define the cells that are not evaluated by one of the evaluations
     i_not_evaluated_by_both = np.logical_or(
-        model_i_scores == -999, model_j_scores == -999
+        eval_i_scores == -999, eval_j_scores == -999
     )
 
-    # If a cell is not evaluated by one of the models, set it to -999
+    # If a cell is not evaluated by one of the evaluations, set it to -999
     scores_diff[i_not_evaluated_by_both] = -999
     std_score_diff[i_not_evaluated_by_both] = -999
 
@@ -320,7 +373,7 @@ def plot_heatmaps(
     scores_array: np.ndarray,
     score_types: list[str],
     plot_path: Path,
-    n_referred_herring_clues_evaluated: int,
+    n_red_herring_clues_evaluated_str: str,
     std_scores_array: np.ndarray,
     single_model: bool,
     model: str,
@@ -332,11 +385,12 @@ def plot_heatmaps(
         scores_array: Array of mean scores.
         score_types: List of score types as strings.
         plot_path: Path to save the plots.
-        n_referred_herring_clues_evaluated: Number of red herring clues evaluated.
+        n_red_herring_clues_evaluated_str: Number of red herring clues evaluated as a string.
         std_scores_array: Array of sample standard deviations of scores.
         single_model: Boolean indicating if the scores are from a single model.
         model: Name of the model or models as a string.
         n_puzzles: Number of puzzles evaluated.
+        compare_mode: Mode of comparison, either "models" or "red_herrings".
 
     NOTE: Consider using subplots instead of saving separate figures for each score type.
     NOTE: Consider using i_not_evaluated_by_both instead of looking for -999 in the scores.
@@ -371,11 +425,11 @@ def plot_heatmaps(
         # Set the title and labels
         if single_model:
             if not score_type == "puzzle score":
-                title = f"{score_type.capitalize()}s with {n_referred_herring_clues_evaluated} red herrings incl. sample std. dev. ({model})"
+                title = f"{score_type.capitalize()}s with {n_red_herring_clues_evaluated_str} red herrings incl. sample std. dev. for model {model}"
             else:
-                title = f"{score_type.capitalize()}s with {n_referred_herring_clues_evaluated} red herrings ({model})"
+                title = f"{score_type.capitalize()}s with {n_red_herring_clues_evaluated_str} red herrings for model {model}"
         else:
-            title = f"Difference in mean {score_type} with {n_referred_herring_clues_evaluated} red herrings ({model.replace('vs', '-')}) incl. std. error"
+            title = f"Difference in mean {score_type} with {n_red_herring_clues_evaluated_str.replace('vs', '-')} red herrings for model {model.replace('vs', '-')} incl. std. error"
 
         ax.set_title(title)
         ax.set_xlabel("# Attributes")
@@ -427,17 +481,16 @@ def plot_heatmaps(
 
         # Save the plot
         plot_path.mkdir(parents=True, exist_ok=True)
-        score_type = score_type.replace(" ", "_")
-        plot_filename = f"mean_{score_type}_{model}_{n_referred_herring_clues_evaluated}rh_{n_puzzles}_puzzles.png"
+        plot_filename = f"mean_{score_type}_{model}_{n_red_herring_clues_evaluated_str}rh_{n_puzzles}_puzzles.png"
+        plot_filename = plot_filename.replace(" ", "_")
         plt.savefig(plot_path / plot_filename, dpi=300, bbox_inches="tight")
         plt.close(fig)
 
 
 def create_comparison_txt(
     scores_diff: np.ndarray,
-    model_i: str,
-    model_j: str,
-    n_red_herring_clues_evaluated: int,
+    full_model_name: str,
+    full_red_herring_name: str,
     plot_path: Path,
     i_not_evaluated_by_both: np.ndarray,
     n_puzzles: int,
@@ -446,12 +499,12 @@ def create_comparison_txt(
 
     Args:
         scores_diff: Array of score differences.
-        model_i: Name of the first model.
-        model_j: Name of the second model.
-        n_red_herring_clues_evaluated: Number of red herring clues evaluated.
+        full_model_name: String describing the model name configuration(s).
+        full_red_herring_name: String describing the configuration(s) on the number of red herring clues.
         plot_path: Path to save the text file.
         i_not_evaluated_by_both: Boolean array indicating cells not evaluated by both models.
         n_puzzles: Number of puzzles evaluated of each size.
+
     """
     # Compute the mean score difference
     non_empty_scores_diff = scores_diff[~i_not_evaluated_by_both]
@@ -481,9 +534,12 @@ def create_comparison_txt(
     )
 
     # Save the overall results
-    filename = f"comparison_{model_i}_vs_{model_j}_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.txt"
+    filename = (
+        f"comparison_{full_model_name}_{full_red_herring_name}_{n_puzzles}_puzzles.txt"
+    )
+    filename = filename.replace(" ", "_")
 
-    comparison_str = f"Model {model_i} vs {model_j} with {n_red_herring_clues_evaluated} red herring clues on puzzle sizes evaluated by both models. {n_puzzles} puzzles are evaluated for each size.\n"
+    comparison_str = f"Model {full_model_name} with {full_red_herring_name} red herring clues on puzzle sizes evaluated by both. {n_puzzles} puzzles are evaluated for each size.\n"
     comparison_str += f"\n\nMean score difference: {score_diff_all_cells}"
     if n_puzzles > 1:
         comparison_str += (
