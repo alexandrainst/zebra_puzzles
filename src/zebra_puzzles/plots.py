@@ -97,27 +97,71 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
             n_objects_max_all_models.append(max(n_objects_list))
             n_attributes_max_all_models.append(max(n_attributes_list))
 
-        # ----- Compare the mean scores of different models -----#
-        # TODO: Move this out of the loop and make a function for it
-
-        # Compare the mean scores of different models (same n_red_herring_clues_evaluated)
-        compare_evals(
-            model_names=model_names,
-            mean_scores_some_eval_array=mean_scores_all_models_array,
-            std_mean_scores_some_eval_array=std_mean_scores_all_models_array,
-            n_red_herring_values=[str(n_red_herring_clues_evaluated)],
-            data_folder=data_folder,
-            score_types=score_types,
-            n_objects_max_some_eval=n_objects_max_all_models,
-            n_attributes_max_some_eval=n_attributes_max_all_models,
-            n_puzzles=n_puzzles,
-        )
-
         # Save values across all values of n_red_herring_clues_evaluated
         mean_scores_all_eval_array.append(mean_scores_all_models_array)
         std_mean_scores_all_eval_array.append(std_mean_scores_all_models_array)
         n_objects_max_all_eval.append(n_objects_max_all_models)
         n_attributes_max_all_eval.append(n_attributes_max_all_models)
+
+    compare_all_eval_types(
+        model_names=model_names,
+        mean_scores_all_eval_array=mean_scores_all_eval_array,
+        std_mean_scores_all_eval_array=std_mean_scores_all_eval_array,
+        n_red_herring_values=n_red_herring_values,
+        n_objects_max_all_eval=n_objects_max_all_eval,
+        n_attributes_max_all_eval=n_attributes_max_all_eval,
+        data_folder=data_folder,
+        score_types=score_types,
+        n_puzzles=n_puzzles,
+    )
+
+
+def compare_all_eval_types(
+    model_names: list[str],
+    mean_scores_all_eval_array: list[list[np.ndarray]],
+    std_mean_scores_all_eval_array: list[list[np.ndarray]],
+    n_red_herring_values: list[int],
+    n_objects_max_all_eval: list[list[int]],
+    n_attributes_max_all_eval: list[list[int]],
+    data_folder: Path,
+    score_types: list[str],
+    n_puzzles: int,
+) -> None:
+    """Compare the mean scores of different evaluations.
+
+    Args:
+        model_names: List of model names.
+        mean_scores_all_eval_array: List of list of mean scores arrays. The outer list is for different n_red_herring_clues_evaluated and the inner list is for different models.
+        std_mean_scores_all_eval_array: List of standard deviation arrays. The outer list is for different n_red_herring_clues_evaluated and the inner list is for different models.
+        n_red_herring_values: Number of red herring clues evaluated.
+        n_objects_max_all_eval: List of lists of the maximum number of objects in puzzles for each evaluation. The outer list is for different n_red_herring_clues_evaluated and the inner list is for different models.
+        n_attributes_max_all_eval: List of lists of the maximum number of attributes in puzzles for each evaluation. The outer list is for different n_red_herring_clues_evaluated and the inner list is for different models.
+        data_folder: Path to the data folder.
+        score_types: List of score types as strings.
+        n_puzzles: Number of puzzles evaluated with each size.
+    """
+    # ----- Compare the mean scores of different models -----#
+
+    # Compare the mean scores of different models (same n_red_herring_clues_evaluated)
+    for i, n_red_herring_clues_evaluated in enumerate(n_red_herring_values):
+        mean_scores_all_eval_array_n_red_herrings_i = mean_scores_all_eval_array[i]
+        std_mean_scores_all_eval_array_n_red_herrings_i = (
+            std_mean_scores_all_eval_array[i]
+        )
+        n_objects_max_all_eval_n_red_herrings_i = n_objects_max_all_eval[i]
+        n_attributes_max_all_eval_n_red_herrings_i = n_attributes_max_all_eval[i]
+
+        compare_eval_type(
+            model_names=model_names,
+            mean_scores_some_eval_array=mean_scores_all_eval_array_n_red_herrings_i,
+            std_mean_scores_some_eval_array=std_mean_scores_all_eval_array_n_red_herrings_i,
+            n_red_herring_values=[str(n_red_herring_clues_evaluated)],
+            data_folder=data_folder,
+            score_types=score_types,
+            n_objects_max_some_eval=n_objects_max_all_eval_n_red_herrings_i,
+            n_attributes_max_some_eval=n_attributes_max_all_eval_n_red_herrings_i,
+            n_puzzles=n_puzzles,
+        )
 
     # ----- Compare the mean scores of different n_red_herring_clues_evaluated -----#
 
@@ -137,7 +181,7 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
             red_herring_eval[i] for red_herring_eval in n_attributes_max_all_eval
         ]
 
-        compare_evals(
+        compare_eval_type(
             model_names=[model],
             mean_scores_some_eval_array=mean_scores_all_eval_array_model_i,
             std_mean_scores_some_eval_array=std_mean_scores_all_eval_array_model_i,
@@ -150,7 +194,7 @@ def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
         )
 
 
-def compare_evals(
+def compare_eval_type(
     model_names: list[str],
     mean_scores_some_eval_array: list[np.ndarray],
     std_mean_scores_some_eval_array: list[np.ndarray],
@@ -161,7 +205,7 @@ def compare_evals(
     n_attributes_max_some_eval: list[int],
     n_puzzles: int,
 ) -> None:
-    """Compare the mean scores of different evaluations.
+    """Compare the mean scores of different evaluations of a specific type.
 
     This could be evaluations using different models or a different number of red herring clues.
 
