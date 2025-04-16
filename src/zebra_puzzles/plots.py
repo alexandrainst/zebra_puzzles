@@ -270,25 +270,10 @@ def compare_eval_type(
         n_attributes_max_some_eval: List of the maximum number of attributes in puzzles for each evaluated model.
         n_puzzles: Number of puzzles evaluated with each size.
     """
-    # Check if the number of models is greater than 1
-    if len(model_names) < 2:
-        if len(n_red_herring_values) < 2:
-            raise ValueError(
-                "At least two models or two different n_red_herring_values are required for comparison."
-            )
-        # Choose each combination of two models
-        compare_mode = "red_herrings"
-        eval_idx_1, eval_idx_2 = np.triu_indices(len(n_red_herring_values), k=1)
-        eval_names = n_red_herring_values
-    else:
-        if len(n_red_herring_values) > 1:
-            raise ValueError(
-                "Only one model can be compared across different n_red_herring_values."
-            )
-        # Choose each combination of two models
-        compare_mode = "models"
-        eval_idx_1, eval_idx_2 = np.triu_indices(len(model_names), k=1)
-        eval_names = model_names
+    # Choose the evaluation pairs for comparison
+    eval_idx_1, eval_idx_2, compare_mode, eval_names = choose_eval_pairs(
+        model_names=model_names, n_red_herring_values=n_red_herring_values
+    )
 
     # Iterate over all combinations of models
     for i in eval_idx_1:
@@ -319,10 +304,11 @@ def compare_eval_type(
                 eval_j_std_mean_scores=eval_j_std_mean_scores,
             )
 
+            # Prepare names and paths
             if compare_mode == "red_herrings":
                 full_model_name = model_names[0]
                 full_red_herring_name = f"{eval_i_name} vs {eval_j_name}"
-                # Prepare path for plots
+
                 plot_path = Path(
                     f"{data_folder}/plots/{full_model_name.replace(' ', '_')}/rh_comparison/"
                 )
@@ -331,7 +317,6 @@ def compare_eval_type(
                 full_model_name = f"{eval_i_name} vs {eval_j_name}"
                 full_red_herring_name = n_red_herring_values[0]
 
-                # Prepare path for plots
                 plot_path = Path(
                     f"{data_folder}/plots/{full_model_name.replace(' ', '_')}/"
                 )
@@ -356,6 +341,44 @@ def compare_eval_type(
                 i_not_evaluated_by_both=i_not_evaluated_by_both,
                 n_puzzles=n_puzzles,
             )
+
+
+def choose_eval_pairs(
+    model_names: list[str], n_red_herring_values: list[str]
+) -> tuple[np.ndarray, np.ndarray, str, list[str]]:
+    """Choose the evaluation pairs for comparison.
+
+    Args:
+        model_names: List of model names.
+        n_red_herring_values: Number of red herring clues evaluated.
+
+    Returns:
+        A tuple (eval_idx_1, eval_idx_2, compare_mode, eval_names) where:
+            eval_idx_1: Indices of the first evaluation.
+            eval_idx_2: Indices of the second evaluation.
+            compare_mode: Mode of comparison, either "models" or "red_herrings".
+            eval_names: Names of the evaluations to be compared.
+    """
+    if len(model_names) < 2:
+        if len(n_red_herring_values) < 2:
+            raise ValueError(
+                "At least two models or two different n_red_herring_values are required for comparison."
+            )
+        # Choose each combination of two models
+        compare_mode = "red_herrings"
+        eval_idx_1, eval_idx_2 = np.triu_indices(len(n_red_herring_values), k=1)
+        eval_names = n_red_herring_values
+    else:
+        if len(n_red_herring_values) > 1:
+            raise ValueError(
+                "Only one model can be compared across different n_red_herring_values."
+            )
+        # Choose each combination of two models
+        compare_mode = "models"
+        eval_idx_1, eval_idx_2 = np.triu_indices(len(model_names), k=1)
+        eval_names = model_names
+
+    return eval_idx_1, eval_idx_2, compare_mode, eval_names
 
 
 def load_score_overlap(
@@ -486,7 +509,6 @@ def plot_heatmaps(
 
     NOTE: Consider using subplots instead of saving separate figures for each score type.
     NOTE: Consider using i_not_evaluated_by_both instead of looking for -999 in the scores.
-    TODO: Correct number of significant digits in the text annotations.
     """
     for score_type, score_type_array, std_score_type_array in zip(
         score_types, scores_array, std_scores_array
@@ -515,13 +537,12 @@ def plot_heatmaps(
         fig.colorbar(mappable=image, orientation="vertical", fraction=0.037, pad=0.04)
 
         # Set the title and labels
-        if single_model:
-            if not score_type == "puzzle score":
-                title = f"{score_type.capitalize()}s with {n_red_herring_clues_evaluated_str} red herrings incl. sample std. dev. for model {model}"
-            else:
-                title = f"{score_type.capitalize()}s with {n_red_herring_clues_evaluated_str} red herrings for model {model}"
-        else:
-            title = f"Difference in mean {score_type} with {n_red_herring_clues_evaluated_str.replace('vs', '-')} red herrings for model {model.replace('vs', '-')} incl. std. error"
+        title = choose_heatmap_title(
+            single_model=single_model,
+            score_type=score_type,
+            n_red_herring_clues_evaluated_str=n_red_herring_clues_evaluated_str,
+            model=model,
+        )
 
         ax.set_title(title)
         ax.set_xlabel("# Attributes")
@@ -546,11 +567,7 @@ def plot_heatmaps(
             for j in range(n_attributes_max):
                 if score_type_array[i, j] != -999:
                     # If we are showing puzzle scores for a single evaluation, do not show the standard deviations, as the Bernoulli standard deviations can appear confusing
-                    if (
-                        score_type == "puzzle score"
-                        and "vs" not in model
-                        and "vs" not in n_red_herring_clues_evaluated_str
-                    ):
+                    if score_type == "puzzle score" and single_model:
                         ax.text(
                             j,
                             i,
@@ -582,6 +599,33 @@ def plot_heatmaps(
         plot_filename = plot_filename.replace(" ", "_")
         plt.savefig(plot_path / plot_filename, dpi=300, bbox_inches="tight")
         plt.close(fig)
+
+
+def choose_heatmap_title(
+    single_model: bool,
+    score_type: str,
+    n_red_herring_clues_evaluated_str: str,
+    model: str,
+) -> str:
+    """Choose the title for the heatmap.
+
+    Args:
+        single_model: Boolean indicating if the scores are from a single model.
+        score_type: Type of score as a string.
+        n_red_herring_clues_evaluated_str: Number of red herring clues evaluated as a string.
+        model: Name of the model or models as a string.
+
+    Returns:
+        title: Title for the heatmap.
+    """
+    if single_model:
+        if not score_type == "puzzle score":
+            title = f"{score_type.capitalize()}s with {n_red_herring_clues_evaluated_str} red herrings incl. sample std. dev. for model {model}"
+        else:
+            title = f"{score_type.capitalize()}s with {n_red_herring_clues_evaluated_str} red herrings for model {model}"
+    else:
+        title = f"Difference in mean {score_type} with {n_red_herring_clues_evaluated_str.replace('vs', '-')} red herrings for model {model.replace('vs', '-')} incl. std. error"
+    return title
 
 
 def create_comparison_txt(
