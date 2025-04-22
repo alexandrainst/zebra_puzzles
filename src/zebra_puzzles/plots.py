@@ -212,18 +212,17 @@ def plot_clue_type_frequencies(
         n_puzzles: The number of puzzles as an integer.
     """
     # Initialise the figure of n_objects_max_all_models x n_attributes_max_all_models subplots
-    # TODO: Make plots wider
     fig, axs = plt.subplots(
         n_objects_max - 1,
         n_attributes_max,
-        figsize=(n_attributes_max * 3.5, n_objects_max * 2),
+        figsize=(n_attributes_max * 3.7, n_objects_max * 2),
         sharex=True,
         sharey=True,
     )
     fig.suptitle(
         f"Frequencies of clue types with {n_red_herring_clues_evaluated_str} red herrings for theme {theme}"
     )
-    fig.subplots_adjust(hspace=0.4, wspace=0.4)
+    fig.subplots_adjust(hspace=0.4, wspace=0.2)
 
     # Sort n_objects in reverse and remove n_objects=1
     n_objects_list = sorted(
@@ -238,6 +237,25 @@ def plot_clue_type_frequencies(
 
     max_n_objects = max(n_objects_list)
 
+    clue_type_frequencies_normalised_mean_all_sizes: dict[str, dict[str, float]] = {}
+    for puzzle_size in clue_type_frequencies_all_sizes.keys():
+        clue_type_frequencies_normalised_mean_one_size = get_clue_frequencies_per_puzzle_size(
+            clue_type_frequencies_all_sizes_normalised=clue_type_frequencies_all_sizes_normalised,
+            puzzle_size=puzzle_size,
+            n_puzzles=n_puzzles,
+        )
+        clue_type_frequencies_normalised_mean_all_sizes[puzzle_size] = (
+            clue_type_frequencies_normalised_mean_one_size
+        )
+
+    # Get the maximum frequency for each clue type across all puzzle sizes
+    max_mean_normalised_frequency = max(
+        [
+            max(clue_type_frequencies_normalised_mean_all_sizes[puzzle_size].values())
+            for puzzle_size in clue_type_frequencies_normalised_mean_all_sizes.keys()
+        ]
+    )
+
     for puzzle_size in clue_type_frequencies_all_sizes.keys():
         # Get the number of objects and attributes from the puzzle size
         n_objects, n_attributes = map(int, puzzle_size.split("x"))
@@ -245,27 +263,21 @@ def plot_clue_type_frequencies(
         # Get the subplot for this puzzle size
         ax = axs[max_n_objects - n_objects, n_attributes - 1]
 
-        clue_type_frequencies_normalised_mean_one_size = get_clue_frequencies_per_puzzle_size(
-            clue_type_frequencies_all_sizes_normalised=clue_type_frequencies_all_sizes_normalised,
-            puzzle_size=puzzle_size,
-            n_puzzles=n_puzzles,
-        )
-
         # Create a bar plot for this puzzle size
         # TODO: Improve the plot layout and style
         ax.bar(
-            clue_type_frequencies_normalised_mean_one_size.keys(),
-            clue_type_frequencies_normalised_mean_one_size.values(),
+            clue_type_frequencies_normalised_mean_all_sizes[puzzle_size].keys(),
+            clue_type_frequencies_normalised_mean_all_sizes[puzzle_size].values(),
         )
         ax.set_xlabel("Clue type")
         ax.set_ylabel("Frequency")
         ax.set_title(f"{n_objects}x{n_attributes}")
         ax.set_xticklabels(
-            clue_type_frequencies_normalised_mean_one_size.keys(),
+            clue_type_frequencies_normalised_mean_all_sizes[puzzle_size].keys(),
             rotation=45,
             ha="right",
         )
-        ax.set_ylim(0, 0.4)
+        ax.set_ylim(0, max_mean_normalised_frequency * 1.1)
         ax.grid(axis="y")
 
     plt.tight_layout()
