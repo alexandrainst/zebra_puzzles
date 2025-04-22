@@ -214,9 +214,9 @@ def plot_clue_type_frequencies(
     # Initialise the figure of n_objects_max_all_models x n_attributes_max_all_models subplots
     # TODO: Make plots wider
     fig, axs = plt.subplots(
-        n_objects_max,
+        n_objects_max - 1,
         n_attributes_max,
-        figsize=(n_attributes_max * 3, n_objects_max * 3),
+        figsize=(n_attributes_max * 3.5, n_objects_max * 2),
         sharex=True,
         sharey=True,
     )
@@ -225,15 +225,25 @@ def plot_clue_type_frequencies(
     )
     fig.subplots_adjust(hspace=0.4, wspace=0.4)
 
-    # TODO: Sort n_objects in reverse and remove n_objects=1
-    puzzle_sizes = clue_type_frequencies_all_sizes.keys()
+    # Sort n_objects in reverse and remove n_objects=1
+    n_objects_list = sorted(
+        np.unique(
+            [
+                int(puzzle_size.split("x")[0])
+                for puzzle_size in clue_type_frequencies_all_sizes.keys()
+            ]
+        ),
+        reverse=True,
+    )
 
-    for puzzle_size in puzzle_sizes:
+    max_n_objects = max(n_objects_list)
+
+    for puzzle_size in clue_type_frequencies_all_sizes.keys():
         # Get the number of objects and attributes from the puzzle size
         n_objects, n_attributes = map(int, puzzle_size.split("x"))
 
         # Get the subplot for this puzzle size
-        ax = axs[n_objects - 1, n_attributes - 1]
+        ax = axs[max_n_objects - n_objects, n_attributes - 1]
 
         clue_type_frequencies_normalised_mean_one_size = get_clue_frequencies_per_puzzle_size(
             clue_type_frequencies_all_sizes_normalised=clue_type_frequencies_all_sizes_normalised,
@@ -247,7 +257,7 @@ def plot_clue_type_frequencies(
             clue_type_frequencies_normalised_mean_one_size.keys(),
             clue_type_frequencies_normalised_mean_one_size.values(),
         )
-        ax.set_xlabel("Clue Type")
+        ax.set_xlabel("Clue type")
         ax.set_ylabel("Frequency")
         ax.set_title(f"{n_objects}x{n_attributes}")
         ax.set_xticklabels(
