@@ -567,23 +567,25 @@ def load_scores(
 
 def get_clue_type_frequencies(
     clue_type_file_paths_all_sizes: dict[str, list[Path]],
-) -> dict[str, dict[str, int]]:
+) -> dict[str, dict[int, dict[str, int]]]:
     """Get the frequencies of each clue type from the clue type files.
 
     Args:
         clue_type_file_paths_all_sizes: List of paths to the clue type files.
 
     Returns:
-        clue_type_frequencies_all_sizes: Dictionary of dictionaries of clue type frequencies. The outer dictionary is for each puzzle size and the inner dictionary is for each clue type.
-
-    # TODO: Save the frequencies for each puzzle instead of for each size
+        clue_type_frequencies_all_sizes: Dictionary of dictionaries of dictionaries of clue type frequencies.
+            The outer dictionary is for each puzzle size, the middle dictionary is for a puzzle index, and the inner dictionary is for each clue type.
     """
-    clue_type_frequencies_all_sizes: dict[str, dict[str, int]] = {}
+    clue_type_frequencies_all_sizes: dict[str, dict[int, dict[str, int]]] = {}
+    clue_type_frequencies_one_puzzle_size: dict[int, dict[str, int]] = {}
     clue_type_frequencies: dict[str, int] = {}
 
     # Loop though all the puzzle sizes and all the clue type files
     for puzzle_size, clue_type_file_paths in clue_type_file_paths_all_sizes.items():
         for clue_type_file_path in clue_type_file_paths:
+            # Get the puzzle index from the clue type file name
+            puzzle_index = int(clue_type_file_path.stem.split("_")[2])
             with open(clue_type_file_path, "r") as file:
                 # Read the clue types from the file
                 chosen_clue_types_str = file.read()
@@ -600,9 +602,20 @@ def get_clue_type_frequencies(
                     else:
                         clue_type_frequencies[clue_type] = 1
 
+                # Add the clue type frequencies for this puzzle to the dictionary
+                clue_type_frequencies_one_puzzle_size[puzzle_index] = (
+                    clue_type_frequencies
+                )
+
+                # Reset the clue type frequencies dictionary for this file
+                clue_type_frequencies = {}
+
         # Add the clue type frequencies for this puzzle size to the dictionary
-        clue_type_frequencies_all_sizes[puzzle_size] = clue_type_frequencies
-        # Reset the clue type frequencies for the next puzzle size
-        clue_type_frequencies = {}
+        clue_type_frequencies_all_sizes[puzzle_size] = (
+            clue_type_frequencies_one_puzzle_size
+        )
+
+        # Reset the clue type frequencies dictionary for the next puzzle size
+        clue_type_frequencies_one_puzzle_size = {}
 
     return clue_type_frequencies_all_sizes
