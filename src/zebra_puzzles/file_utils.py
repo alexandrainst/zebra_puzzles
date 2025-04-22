@@ -567,22 +567,39 @@ def load_scores(
 
 def get_clue_type_frequencies(
     clue_type_file_paths_all_sizes: dict[str, list[Path]],
-) -> dict[str, dict[int, dict[str, int]]]:
+) -> tuple[
+    dict[str, dict[int, dict[str, int]]],
+    dict[str, dict[int, int]],
+    dict[str, dict[int, dict[str, float]]],
+]:
     """Get the frequencies of each clue type from the clue type files.
 
     Args:
         clue_type_file_paths_all_sizes: List of paths to the clue type files.
 
     Returns:
-        clue_type_frequencies_all_sizes: Dictionary of dictionaries of dictionaries of clue type frequencies.
-            The outer dictionary is for each puzzle size, the middle dictionary is for a puzzle index, and the inner dictionary is for each clue type.
+        A tuple (clue_type_frequencies_all_sizes, n_clues_all_sizes, clue_type_frequencies_all_sizes_normalised) where:
+            clue_type_frequencies_all_sizes: Dictionary of dictionaries of dictionaries of clue type frequencies.
+                The outer dictionary is for each puzzle size, the middle dictionary is for a puzzle index, and the inner dictionary is for each clue type.
+            n_clues_all_sizes: Dictionary of dictionaries of the number of clues for each puzzle size.
+                The outer dictionary is for each puzzle size, and the inner dictionary is for a puzzle index.
+            clue_type_frequencies_all_sizes_normalised: Dictionary of dictionaries of dictionaries of normalised clue type frequencies. The format matches clue_type_frequencies_all_sizes.
     """
     clue_type_frequencies_all_sizes: dict[str, dict[int, dict[str, int]]] = {}
-    clue_type_frequencies_one_puzzle_size: dict[int, dict[str, int]] = {}
+    clue_type_frequencies_one_size: dict[int, dict[str, int]] = {}
     clue_type_frequencies: dict[str, int] = {}
 
-    # Loop though all the puzzle sizes and all the clue type files
+    n_clues_all_sizes: dict[str, dict[int, int]] = {}
+    n_clues_one_size: dict[int, int] = {}
+
+    clue_type_frequencies_all_sizes_normalised: dict[
+        str, dict[int, dict[str, float]]
+    ] = {}
+    clue_type_frequencies_one_size_normalised: dict[int, dict[str, float]] = {}
+
+    # Loop though all the puzzle sizes
     for puzzle_size, clue_type_file_paths in clue_type_file_paths_all_sizes.items():
+        # Loop through all the clue type files
         for clue_type_file_path in clue_type_file_paths:
             # Get the puzzle index from the clue type file name
             puzzle_index = int(clue_type_file_path.stem.split("_")[2])
@@ -603,19 +620,47 @@ def get_clue_type_frequencies(
                         clue_type_frequencies[clue_type] = 1
 
                 # Add the clue type frequencies for this puzzle to the dictionary
-                clue_type_frequencies_one_puzzle_size[puzzle_index] = (
-                    clue_type_frequencies
+                clue_type_frequencies_one_size[puzzle_index] = clue_type_frequencies
+
+                # Add the number of clues for this puzzle to the dictionary
+                n_clues_one_size[puzzle_index] = sum(clue_type_frequencies.values())
+
+                # Normalise the clue type frequencies
+                clue_type_frequencies_normalised: dict[str, float] = {
+                    clue_type: freq / float(n_clues_one_size[puzzle_index])
+                    for clue_type, freq in clue_type_frequencies.items()
+                }
+
+                # Check the sum of clue_type_frequencies_normalised
+                sum_normalised_frequencies = sum(
+                    clue_type_frequencies_normalised.values()
+                )
+                if abs(sum_normalised_frequencies - 1.0) > 0.0001:
+                    raise ValueError(
+                        f"The normalised frequencies do not sum to 1. They sum to {sum_normalised_frequencies}."
+                    )
+
+                clue_type_frequencies_one_size_normalised[puzzle_index] = (
+                    clue_type_frequencies_normalised
                 )
 
                 # Reset the clue type frequencies dictionary for this file
                 clue_type_frequencies = {}
 
-        # Add the clue type frequencies for this puzzle size to the dictionary
-        clue_type_frequencies_all_sizes[puzzle_size] = (
-            clue_type_frequencies_one_puzzle_size
+        # Add the clue type frequencies for this puzzle size to the dictionary of all sizes
+        clue_type_frequencies_all_sizes[puzzle_size] = clue_type_frequencies_one_size
+        n_clues_all_sizes[puzzle_size] = n_clues_one_size
+        clue_type_frequencies_all_sizes_normalised[puzzle_size] = (
+            clue_type_frequencies_one_size_normalised
         )
 
-        # Reset the clue type frequencies dictionary for the next puzzle size
-        clue_type_frequencies_one_puzzle_size = {}
+        # Reset dictionaries for the next puzzle size
+        clue_type_frequencies_one_size = {}
+        n_clues_one_size = {}
+        clue_type_frequencies_one_size_normalised = {}
 
-    return clue_type_frequencies_all_sizes
+    return (
+        clue_type_frequencies_all_sizes,
+        n_clues_all_sizes,
+        clue_type_frequencies_all_sizes_normalised,
+    )
