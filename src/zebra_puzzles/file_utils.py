@@ -377,6 +377,64 @@ def get_score_file_paths(
     return score_file_paths
 
 
+def get_clue_type_file_paths(
+    data_folder: Path,
+    n_red_herring_clues_evaluated: int,
+    theme: str,
+    n_puzzles: int,
+    reduced_flag: bool,
+) -> list[Path]:
+    """Get the paths of the clue type files.
+
+    Args:
+        data_folder: Path to the data folder.
+        model: LLM model name.
+        n_red_herring_clues_evaluated: Number of red herring clues evaluated.
+        theme: Theme name.
+        n_puzzles: Number of puzzles evaluated.
+        reduced_flag: Whether the number of red herrings has been reduced.
+            If True, the clue type files are in the "reduced_clue_types" folder.
+            If False, the clue type files are in the "clue_types" folder.
+
+    Returns:
+        List of clue type file paths.
+
+    TODO: Do not load all files at once, but one puzzle size at a time.
+    """
+    # Check all size puzzles in the data/theme folder
+
+    clue_type_path = data_folder / theme
+
+    # Get sorted names of all clue type files in the data folder
+    if reduced_flag:
+        clue_type_file_paths = sorted(
+            list(
+                clue_type_path.glob(
+                    f"*/{n_red_herring_clues_evaluated}rh/reduced_clue_types/zebra_puzzle_*_clue_types_reduced.txt"
+                )
+            )
+        )
+    else:
+        clue_type_file_paths = sorted(
+            list(
+                clue_type_path.glob(
+                    f"*/{n_red_herring_clues_evaluated}rh/clue_types/zebra_puzzle_*_clue_types.txt"
+                )
+            )
+        )
+
+    if len(clue_type_file_paths) < n_puzzles:
+        raise ValueError(
+            f"Not enough clue type files found in {clue_type_path}. Found {len(clue_type_file_paths)}, expected {n_puzzles}."
+        )
+    if len(clue_type_file_paths) > n_puzzles:
+        raise ValueError(
+            f"Too many clue type files found in {clue_type_path}. Found {len(clue_type_file_paths)}, expected {n_puzzles}."
+        )
+
+    return clue_type_file_paths
+
+
 def get_puzzle_dimensions_from_filename(
     score_file_paths: list[Path],
 ) -> tuple[list[int], list[int]]:
@@ -496,3 +554,34 @@ def load_scores(
         std_mean_scores_array_min_2_n_objects,
         std_scores_array_min_2_n_objects,
     )
+
+
+def get_clue_type_frequencies(clue_type_file_paths: list[Path]) -> dict[str, int]:
+    """Get the frequencies of each clue type from the clue type files.
+
+    Args:
+        clue_type_file_paths: List of paths to the clue type files.
+
+    Returns:
+        clue_type_frequencies: Dictionary with clue types as keys and their frequencies as values.
+    """
+    clue_type_frequencies: dict[str, int] = {}
+
+    for clue_type_file_path in clue_type_file_paths:
+        with open(clue_type_file_path, "r") as file:
+            # Read the clue types from the file
+            chosen_clue_types_str = file.read()
+
+            # Split the string of clue types into a list
+            chosen_clue_types = [
+                clue_type.strip() for clue_type in chosen_clue_types_str.split(",")
+            ]
+
+            # Count the frequency of each clue type
+            for clue_type in chosen_clue_types:
+                if clue_type in clue_type_frequencies:
+                    clue_type_frequencies[clue_type] += 1
+                else:
+                    clue_type_frequencies[clue_type] = 1
+
+    return clue_type_frequencies

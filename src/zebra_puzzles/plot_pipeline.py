@@ -6,6 +6,8 @@ import numpy as np
 
 from zebra_puzzles.eval_comparisons import compare_all_eval_types
 from zebra_puzzles.file_utils import (
+    get_clue_type_file_paths,
+    get_clue_type_frequencies,
     get_evaluated_params,
     get_puzzle_dimensions_from_filename,
     get_score_file_paths,
@@ -94,6 +96,8 @@ def load_scores_and_plot_results_for_each_evaluation(
     n_objects_max_all_eval = []
     n_attributes_max_all_eval = []
 
+    n_red_herring_clues_evaluated_max = max(n_red_herring_values)
+
     for n_red_herring_clues_evaluated in n_red_herring_values:
         mean_scores_all_models_array = []
         std_mean_scores_all_models_array = []
@@ -124,6 +128,24 @@ def load_scores_and_plot_results_for_each_evaluation(
                 n_puzzles=n_puzzles,
             )
 
+            # Get the paths of the clue type files
+            reduced_flag = (
+                n_red_herring_clues_evaluated < n_red_herring_clues_evaluated_max
+            )
+
+            clue_type_file_paths = get_clue_type_file_paths(
+                data_folder=data_folder,
+                n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
+                theme=theme,
+                n_puzzles=n_puzzles,
+                reduced_flag=reduced_flag,
+            )
+
+            # Load the clue type frequencies
+            clue_type_frequencies = get_clue_type_frequencies(
+                clue_type_file_paths=clue_type_file_paths
+            )
+
             # ----- Plot the results -----#
 
             # Prepare path for plots
@@ -143,6 +165,14 @@ def load_scores_and_plot_results_for_each_evaluation(
                 n_puzzles=n_puzzles,
             )
 
+            # Plot the clue type frequencies
+            if clue_type_frequencies is not None:
+                pass
+
+            # TODO: Perhaps optional: Make a grid of histograms of clue type frequencies
+            # TODO: Compute the difficulty of each clue type
+            #                For example as the mean score of puzzles weighted by the number of times the clue type was used.
+            #                Or normalise the scores to compare the difficulty of clues for the puzzle size. Then, the normalised scores can be compared across different puzzle sizes.
             # Save values across all models
             mean_scores_all_models_array.append(mean_scores_array)
             std_mean_scores_all_models_array.append(std_mean_scores_array)
