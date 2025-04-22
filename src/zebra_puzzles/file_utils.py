@@ -383,7 +383,7 @@ def get_clue_type_file_paths(
     theme: str,
     n_puzzles: int,
     reduced_flag: bool,
-) -> list[Path]:
+) -> dict[str, list[Path]]:
     """Get the paths of the clue type files.
 
     Args:
@@ -397,42 +397,51 @@ def get_clue_type_file_paths(
             If False, the clue type files are in the "clue_types" folder.
 
     Returns:
-        List of clue type file paths.
-
-    TODO: Do not load all files at once, but one puzzle size at a time.
+        Dictionary of the clue type file paths for each puzzle size.
     """
     # Check all size puzzles in the data/theme folder
 
     clue_type_path = data_folder / theme
 
-    # Get sorted names of all clue type files in the data folder
-    if reduced_flag:
-        clue_type_file_paths = sorted(
-            list(
-                clue_type_path.glob(
-                    f"*/{n_red_herring_clues_evaluated}rh/reduced_clue_types/zebra_puzzle_*_clue_types_reduced.txt"
+    # Get the puzzle size folders
+    puzzle_size_folders = [
+        folder for folder in clue_type_path.iterdir() if folder.is_dir()
+    ]
+
+    # Define the dictionary to store the clue type file paths
+    clue_type_file_paths_all_sizes: dict[str, list[Path]] = {}
+
+    for puzzle_size_folder in puzzle_size_folders:
+        # Get sorted names of all clue type files in the data folder
+        if reduced_flag:
+            clue_type_file_paths = sorted(
+                list(
+                    puzzle_size_folder.glob(
+                        f"{n_red_herring_clues_evaluated}rh/reduced_clue_types/zebra_puzzle_*_clue_types_reduced.txt"
+                    )
                 )
             )
-        )
-    else:
-        clue_type_file_paths = sorted(
-            list(
-                clue_type_path.glob(
-                    f"*/{n_red_herring_clues_evaluated}rh/clue_types/zebra_puzzle_*_clue_types.txt"
+        else:
+            clue_type_file_paths = sorted(
+                list(
+                    puzzle_size_folder.glob(
+                        f"{n_red_herring_clues_evaluated}rh/clue_types/zebra_puzzle_*_clue_types.txt"
+                    )
                 )
             )
-        )
+        if len(clue_type_file_paths) < n_puzzles:
+            raise ValueError(
+                f"Not enough clue type files found in {clue_type_path}. Found {len(clue_type_file_paths)}, expected {n_puzzles}."
+            )
+        if len(clue_type_file_paths) > n_puzzles:
+            raise ValueError(
+                f"Too many clue type files found in {clue_type_path}. Found {len(clue_type_file_paths)}, expected {n_puzzles}."
+            )
 
-    if len(clue_type_file_paths) < n_puzzles:
-        raise ValueError(
-            f"Not enough clue type files found in {clue_type_path}. Found {len(clue_type_file_paths)}, expected {n_puzzles}."
-        )
-    if len(clue_type_file_paths) > n_puzzles:
-        raise ValueError(
-            f"Too many clue type files found in {clue_type_path}. Found {len(clue_type_file_paths)}, expected {n_puzzles}."
-        )
+        # Add the clue type file paths to the dictionary
+        clue_type_file_paths_all_sizes[puzzle_size_folder.name] = clue_type_file_paths
 
-    return clue_type_file_paths
+    return clue_type_file_paths_all_sizes
 
 
 def get_puzzle_dimensions_from_filename(
@@ -556,32 +565,44 @@ def load_scores(
     )
 
 
-def get_clue_type_frequencies(clue_type_file_paths: list[Path]) -> dict[str, int]:
+def get_clue_type_frequencies(
+    clue_type_file_paths_all_sizes: dict[str, list[Path]],
+) -> dict[str, dict[str, int]]:
     """Get the frequencies of each clue type from the clue type files.
 
     Args:
-        clue_type_file_paths: List of paths to the clue type files.
+        clue_type_file_paths_all_sizes: List of paths to the clue type files.
 
     Returns:
-        clue_type_frequencies: Dictionary with clue types as keys and their frequencies as values.
+        clue_type_frequencies_all_sizes: Dictionary of dictionaries of clue type frequencies. The outer dictionary is for each puzzle size and the inner dictionary is for each clue type.
+
+    # TODO: Save the frequencies for each puzzle instead of for each size
     """
+    clue_type_frequencies_all_sizes: dict[str, dict[str, int]] = {}
     clue_type_frequencies: dict[str, int] = {}
 
-    for clue_type_file_path in clue_type_file_paths:
-        with open(clue_type_file_path, "r") as file:
-            # Read the clue types from the file
-            chosen_clue_types_str = file.read()
+    # Loop though all the puzzle sizes and all the clue type files
+    for puzzle_size, clue_type_file_paths in clue_type_file_paths_all_sizes.items():
+        for clue_type_file_path in clue_type_file_paths:
+            with open(clue_type_file_path, "r") as file:
+                # Read the clue types from the file
+                chosen_clue_types_str = file.read()
 
-            # Split the string of clue types into a list
-            chosen_clue_types = [
-                clue_type.strip() for clue_type in chosen_clue_types_str.split(",")
-            ]
+                # Split the string of clue types into a list
+                chosen_clue_types = [
+                    clue_type.strip() for clue_type in chosen_clue_types_str.split(",")
+                ]
 
-            # Count the frequency of each clue type
-            for clue_type in chosen_clue_types:
-                if clue_type in clue_type_frequencies:
-                    clue_type_frequencies[clue_type] += 1
-                else:
-                    clue_type_frequencies[clue_type] = 1
+                # Count the frequency of each clue type
+                for clue_type in chosen_clue_types:
+                    if clue_type in clue_type_frequencies:
+                        clue_type_frequencies[clue_type] += 1
+                    else:
+                        clue_type_frequencies[clue_type] = 1
 
-    return clue_type_frequencies
+        # Add the clue type frequencies for this puzzle size to the dictionary
+        clue_type_frequencies_all_sizes[puzzle_size] = clue_type_frequencies
+        # Reset the clue type frequencies for the next puzzle size
+        clue_type_frequencies = {}
+
+    return clue_type_frequencies_all_sizes

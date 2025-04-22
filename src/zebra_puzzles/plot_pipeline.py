@@ -133,7 +133,7 @@ def load_scores_and_plot_results_for_each_evaluation(
                 n_red_herring_clues_evaluated < n_red_herring_clues_evaluated_max
             )
 
-            clue_type_file_paths = get_clue_type_file_paths(
+            clue_type_file_paths_all_sizes = get_clue_type_file_paths(
                 data_folder=data_folder,
                 n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
                 theme=theme,
@@ -142,8 +142,8 @@ def load_scores_and_plot_results_for_each_evaluation(
             )
 
             # Load the clue type frequencies
-            clue_type_frequencies = get_clue_type_frequencies(
-                clue_type_file_paths=clue_type_file_paths
+            clue_type_frequencies_all_sizes = get_clue_type_frequencies(
+                clue_type_file_paths_all_sizes=clue_type_file_paths_all_sizes
             )
 
             # ----- Plot the results -----#
@@ -166,7 +166,7 @@ def load_scores_and_plot_results_for_each_evaluation(
             )
 
             # Plot the clue type frequencies
-            if clue_type_frequencies is not None:
+            if clue_type_frequencies_all_sizes is not None:
                 pass
 
             # TODO: Perhaps optional: Make a grid of histograms of clue type frequencies
