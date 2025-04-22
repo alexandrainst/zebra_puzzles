@@ -184,3 +184,134 @@ def annotate_heatmap(
                         color="black",
                     )
     return ax
+
+
+def plot_clue_type_frequencies(
+    clue_type_frequencies_all_sizes: dict[str, dict[int, dict[str, int]]],
+    clue_type_frequencies_all_sizes_normalised: dict[str, dict[int, dict[str, float]]],
+    n_red_herring_clues_evaluated_str: str,
+    data_folder: Path,
+    theme: str,
+    n_objects_max: int,
+    n_attributes_max: int,
+    n_puzzles: int,
+) -> None:
+    """Plot the frequencies of clue types.
+
+    We plot the mean frequencies of clue types for each puzzle size after normalising the frequencies to sum to 1 in each puzzle.
+
+    Args:
+        clue_type_frequencies_all_sizes: Dictionary of dictionaries of dictionaries of clue type frequencies.
+            The outer dictionary is for each puzzle size, the middle dictionary is for a puzzle index, and the inner dictionary is for each clue type.
+        clue_type_frequencies_all_sizes_normalised: Dictionary of dictionaries of dictionaries of normalised clue type frequencies. The format matches clue_type_frequencies_all_sizes.
+        n_red_herring_clues_evaluated_str: Number of red herring clues evaluated as a string.
+        data_folder: Path to the data folder.
+        theme: Theme name as a string.
+        n_objects_max: Maximum number of objects in puzzles as an integer.
+        n_attributes_max: Maximum number of attributes in puzzles as an integer.
+        n_puzzles: The number of puzzles as an integer.
+    """
+    # Initialise the figure of n_objects_max_all_models x n_attributes_max_all_models subplots
+    # TODO: Make plots wider
+    fig, axs = plt.subplots(
+        n_objects_max,
+        n_attributes_max,
+        figsize=(n_attributes_max * 3, n_objects_max * 3),
+        sharex=True,
+        sharey=True,
+    )
+    fig.suptitle(
+        f"Frequencies of clue types with {n_red_herring_clues_evaluated_str} red herrings for theme {theme}"
+    )
+    fig.subplots_adjust(hspace=0.4, wspace=0.4)
+
+    # TODO: Sort n_objects in reverse and remove n_objects=1
+    puzzle_sizes = clue_type_frequencies_all_sizes.keys()
+
+    for puzzle_size in puzzle_sizes:
+        # Get the number of objects and attributes from the puzzle size
+        n_objects, n_attributes = map(int, puzzle_size.split("x"))
+
+        # Get the subplot for this puzzle size
+        ax = axs[n_objects - 1, n_attributes - 1]
+
+        clue_type_frequencies_normalised_mean_one_size = get_clue_frequencies_per_puzzle_size(
+            clue_type_frequencies_all_sizes_normalised=clue_type_frequencies_all_sizes_normalised,
+            puzzle_size=puzzle_size,
+            n_puzzles=n_puzzles,
+        )
+
+        # Create a bar plot for this puzzle size
+        # TODO: Improve the plot layout and style
+        ax.bar(
+            clue_type_frequencies_normalised_mean_one_size.keys(),
+            clue_type_frequencies_normalised_mean_one_size.values(),
+        )
+        ax.set_xlabel("Clue Type")
+        ax.set_ylabel("Frequency")
+        ax.set_title(f"{n_objects}x{n_attributes}")
+        ax.set_xticklabels(
+            clue_type_frequencies_normalised_mean_one_size.keys(),
+            rotation=45,
+            ha="right",
+        )
+        ax.set_ylim(0, 0.4)
+        ax.grid(axis="y")
+
+    plt.tight_layout()
+
+    # Save the plot
+    plot_path = data_folder / "plots"
+    plot_path.mkdir(parents=True, exist_ok=True)
+    plot_filename = f"clue_type_frequencies_{n_red_herring_clues_evaluated_str}rh.png"
+    plt.savefig(plot_path / plot_filename, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+
+def get_clue_frequencies_per_puzzle_size(
+    clue_type_frequencies_all_sizes_normalised: dict[str, dict[int, dict[str, float]]],
+    puzzle_size: str,
+    n_puzzles: int,
+) -> dict[str, float]:
+    """Get the mean of the normalised frequencies of each clue type for puzzles of a specific size.
+
+    Args:
+        clue_type_frequencies_all_sizes_normalised: Dictionary of dictionaries of dictionaries of normalised clue type frequencies.
+            The outer dictionary is for each puzzle size, the middle dictionary is for a puzzle index, and the inner dictionary is for each clue type.
+        puzzle_size: String describing the puzzle size.
+        n_puzzles: The number of puzzles for each puzzle size.
+
+    Returns:
+        A dictionary with clue types as keys and the mean of the normalised frequencies as the values.
+    """
+    # Take the mean of the clue type frequencies across all puzzles of this size
+    clue_type_frequencies_normalised_mean_one_size: dict[str, float] = {}
+    # TODO: Refactor a bit
+    for (
+        puzzle_index,
+        clue_type_frequencies_normalised,
+    ) in clue_type_frequencies_all_sizes_normalised[puzzle_size].items():
+        # Sum the normalised frequencies of all puzzles of the chosen size
+        for clue_type, freq_norm in clue_type_frequencies_normalised.items():
+            if clue_type not in clue_type_frequencies_normalised_mean_one_size:
+                clue_type_frequencies_normalised_mean_one_size[clue_type] = 0.0
+            clue_type_frequencies_normalised_mean_one_size[clue_type] += freq_norm
+
+    # Divide the sum for each clue type by the number of puzzles
+    for (
+        clue_type,
+        freq_norm_sum,
+    ) in clue_type_frequencies_normalised_mean_one_size.items():
+        clue_type_frequencies_normalised_mean_one_size[clue_type] = (
+            freq_norm_sum / float(n_puzzles)
+        )
+
+    sum_all_normalised_frequencies = sum(
+        clue_type_frequencies_normalised_mean_one_size.values()
+    )
+    if abs(sum_all_normalised_frequencies - 1.0) > 0.0001:
+        raise ValueError(
+            f"The normalised frequencies do not sum to 1. They sum to {sum_all_normalised_frequencies}."
+        )
+
+    return clue_type_frequencies_normalised_mean_one_size

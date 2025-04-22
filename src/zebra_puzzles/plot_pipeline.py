@@ -13,7 +13,7 @@ from zebra_puzzles.file_utils import (
     get_score_file_paths,
     load_scores,
 )
-from zebra_puzzles.plots import plot_heatmaps
+from zebra_puzzles.plots import plot_clue_type_frequencies, plot_heatmaps
 
 
 def plot_results(n_puzzles: int, theme: str, data_folder_str: str) -> None:
@@ -95,6 +95,7 @@ def load_scores_and_plot_results_for_each_evaluation(
     std_mean_scores_all_eval_array = []
     n_objects_max_all_eval = []
     n_attributes_max_all_eval = []
+    clue_type_file_paths_all_eval = []
 
     n_red_herring_clues_evaluated_max = max(n_red_herring_values)
 
@@ -128,29 +129,15 @@ def load_scores_and_plot_results_for_each_evaluation(
                 n_puzzles=n_puzzles,
             )
 
-            # Get the paths of the clue type files
-            reduced_flag = (
-                n_red_herring_clues_evaluated < n_red_herring_clues_evaluated_max
-            )
-
-            clue_type_file_paths_all_sizes = get_clue_type_file_paths(
-                data_folder=data_folder,
-                n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
-                theme=theme,
-                n_puzzles=n_puzzles,
-                reduced_flag=reduced_flag,
-            )
-
-            # Load the clue type frequencies
-            clue_type_frequencies_all_sizes = get_clue_type_frequencies(
-                clue_type_file_paths_all_sizes=clue_type_file_paths_all_sizes
-            )
-
             # ----- Plot the results -----#
 
             # Prepare path for plots
-            plot_path = Path(
-                f"{data_folder}/plots/{model}/{n_red_herring_clues_evaluated}rh/"
+            plot_path = (
+                data_folder
+                / "plots"
+                / theme
+                / model
+                / f"{n_red_herring_clues_evaluated}rh"
             )
 
             # Make heatmaps of mean scores
@@ -165,11 +152,6 @@ def load_scores_and_plot_results_for_each_evaluation(
                 n_puzzles=n_puzzles,
             )
 
-            # Plot the clue type frequencies
-            if clue_type_frequencies_all_sizes is not None:
-                pass
-
-            # TODO: Perhaps optional: Make a grid of histograms of clue type frequencies
             # TODO: Compute the difficulty of each clue type
             #                For example as the mean score of puzzles weighted by the number of times the clue type was used.
             #                Or normalise the scores to compare the difficulty of clues for the puzzle size. Then, the normalised scores can be compared across different puzzle sizes.
@@ -179,11 +161,44 @@ def load_scores_and_plot_results_for_each_evaluation(
             n_objects_max_all_models.append(max(n_objects_list))
             n_attributes_max_all_models.append(max(n_attributes_list))
 
+        # Get the paths of the clue type files
+        reduced_flag = n_red_herring_clues_evaluated < n_red_herring_clues_evaluated_max
+
+        clue_type_file_paths_all_sizes = get_clue_type_file_paths(
+            data_folder=data_folder,
+            n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
+            theme=theme,
+            n_puzzles=n_puzzles,
+            reduced_flag=reduced_flag,
+        )
+
+        # Load the clue type frequencies
+        (
+            clue_type_frequencies_all_sizes,
+            n_clues_all_sizes,
+            clue_type_frequencies_all_sizes_normalised,
+        ) = get_clue_type_frequencies(
+            clue_type_file_paths_all_sizes=clue_type_file_paths_all_sizes
+        )
+
+        # Make a grid of histograms of clue type frequencies
+        plot_clue_type_frequencies(
+            clue_type_frequencies_all_sizes=clue_type_frequencies_all_sizes,
+            clue_type_frequencies_all_sizes_normalised=clue_type_frequencies_all_sizes_normalised,
+            n_red_herring_clues_evaluated_str=str(n_red_herring_clues_evaluated),
+            data_folder=data_folder,
+            theme=theme,
+            n_puzzles=n_puzzles,
+            n_objects_max=max(n_objects_max_all_models),
+            n_attributes_max=max(n_attributes_max_all_models),
+        )
+
         # Save values across all values of n_red_herring_clues_evaluated
         mean_scores_all_eval_array.append(mean_scores_all_models_array)
         std_mean_scores_all_eval_array.append(std_mean_scores_all_models_array)
         n_objects_max_all_eval.append(n_objects_max_all_models)
         n_attributes_max_all_eval.append(n_attributes_max_all_models)
+        clue_type_file_paths_all_eval.append(clue_type_file_paths_all_sizes)
 
     return (
         mean_scores_all_eval_array,
