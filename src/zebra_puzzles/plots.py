@@ -5,7 +5,10 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-from zebra_puzzles.zebra_utils import round_using_std
+from zebra_puzzles.zebra_utils import (
+    get_all_mean_clue_frequencies_per_puzzle_size,
+    round_using_std,
+)
 
 
 def plot_heatmaps(
@@ -265,7 +268,7 @@ def plot_clue_type_frequencies(
     max_n_objects = max(n_objects_list)
 
     # Compute the mean of the normalised frequencies of each clue type for all puzzle sizes
-    # And make a list of all clue types
+    # and make a list of all clue types and get the maximum frequency for each clue type acreoss all puzzle sizes
     (
         clue_type_frequencies_normalised_mean_all_sizes,
         all_clue_types,
@@ -310,105 +313,3 @@ def plot_clue_type_frequencies(
     plot_filename = f"clue_type_frequencies_{n_red_herring_clues_evaluated_str}rh.png"
     plt.savefig(plot_path / plot_filename, dpi=300, bbox_inches="tight")
     plt.close(fig)
-
-
-def get_all_mean_clue_frequencies_per_puzzle_size(
-    clue_type_frequencies_all_sizes: dict[str, dict[int, dict[str, int]]],
-    clue_type_frequencies_all_sizes_normalised: dict[str, dict[int, dict[str, float]]],
-    n_puzzles: int,
-) -> tuple[dict[str, dict[str, float]], list[str], float]:
-    """Get the mean of the normalised frequencies of each clue type for all puzzle sizes.
-
-    Args:
-        clue_type_frequencies_all_sizes: Dictionary of dictionaries of dictionaries of clue type frequencies.
-            The outer dictionary is for each puzzle size, the middle dictionary is for a puzzle index, and the inner dictionary is for each clue type.
-        clue_type_frequencies_all_sizes_normalised: Dictionary of dictionaries of dictionaries of normalised clue type frequencies.
-            The format matches clue_type_frequencies_all_sizes.
-        n_puzzles: The number of puzzles for each puzzle size.
-
-    Returns:
-        A tuple (clue_type_frequencies_normalised_mean_all_sizes, all_clue_types, max_mean_normalised_frequency), where:
-            clue_type_frequencies_normalised_mean_all_sizes: Dictionary of dictionaries of mean normalised clue type frequencies for each puzzle size.
-            all_clue_types: List of all clue types.
-            max_mean_normalised_frequency: Maximum mean normalised frequency across all puzzle sizes.
-    """
-    clue_type_frequencies_normalised_mean_all_sizes: dict[str, dict[str, float]] = {}
-    all_clue_types: list[str] = []
-
-    # Get the mean of the normalised frequencies of each clue type for all puzzle sizes
-    # and make a list of all clue types
-    for puzzle_size in clue_type_frequencies_all_sizes.keys():
-        clue_type_frequencies_normalised_mean_one_size = get_mean_clue_frequencies_for_one_puzzle_size(
-            clue_type_frequencies_all_sizes_normalised=clue_type_frequencies_all_sizes_normalised,
-            puzzle_size=puzzle_size,
-            n_puzzles=n_puzzles,
-        )
-        clue_type_frequencies_normalised_mean_all_sizes[puzzle_size] = (
-            clue_type_frequencies_normalised_mean_one_size
-        )
-        all_clue_types.extend(clue_type_frequencies_normalised_mean_one_size.keys())
-
-    all_clue_types = sorted(set(all_clue_types))
-
-    # Get the maximum frequency for each clue type across all puzzle sizes
-    max_mean_normalised_frequency = max(
-        [
-            max(clue_type_frequencies_normalised_mean_all_sizes[puzzle_size].values())
-            for puzzle_size in clue_type_frequencies_normalised_mean_all_sizes.keys()
-        ]
-    )
-
-    return (
-        clue_type_frequencies_normalised_mean_all_sizes,
-        all_clue_types,
-        max_mean_normalised_frequency,
-    )
-
-
-def get_mean_clue_frequencies_for_one_puzzle_size(
-    clue_type_frequencies_all_sizes_normalised: dict[str, dict[int, dict[str, float]]],
-    puzzle_size: str,
-    n_puzzles: int,
-) -> dict[str, float]:
-    """Get the mean of the normalised frequencies of each clue type for puzzles of a specific size.
-
-    Args:
-        clue_type_frequencies_all_sizes_normalised: Dictionary of dictionaries of dictionaries of normalised clue type frequencies.
-            The outer dictionary is for each puzzle size, the middle dictionary is for a puzzle index, and the inner dictionary is for each clue type.
-        puzzle_size: String describing the puzzle size.
-        n_puzzles: The number of puzzles for each puzzle size.
-
-    Returns:
-        A dictionary with clue types as keys and the mean of the normalised frequencies as the values.
-    """
-    # Take the mean of the clue type frequencies across all puzzles of this size
-    clue_type_frequencies_normalised_mean_one_size: dict[str, float] = {}
-    # TODO: Refactor a bit
-    for (
-        puzzle_index,
-        clue_type_frequencies_normalised,
-    ) in clue_type_frequencies_all_sizes_normalised[puzzle_size].items():
-        # Sum the normalised frequencies of all puzzles of the chosen size
-        for clue_type, freq_norm in clue_type_frequencies_normalised.items():
-            if clue_type not in clue_type_frequencies_normalised_mean_one_size:
-                clue_type_frequencies_normalised_mean_one_size[clue_type] = 0.0
-            clue_type_frequencies_normalised_mean_one_size[clue_type] += freq_norm
-
-    # Divide the sum for each clue type by the number of puzzles
-    for (
-        clue_type,
-        freq_norm_sum,
-    ) in clue_type_frequencies_normalised_mean_one_size.items():
-        clue_type_frequencies_normalised_mean_one_size[clue_type] = (
-            freq_norm_sum / float(n_puzzles)
-        )
-
-    sum_all_normalised_frequencies = sum(
-        clue_type_frequencies_normalised_mean_one_size.values()
-    )
-    if abs(sum_all_normalised_frequencies - 1.0) > 0.0001:
-        raise ValueError(
-            f"The normalised frequencies do not sum to 1. They sum to {sum_all_normalised_frequencies}."
-        )
-
-    return clue_type_frequencies_normalised_mean_one_size
