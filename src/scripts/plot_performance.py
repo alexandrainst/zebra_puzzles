@@ -16,7 +16,7 @@ from zebra_puzzles.plot_pipeline import plot_results
 def main(config: DictConfig) -> None:
     """Main script.
 
-    Evaluates a dataset of zebra puzzles.
+    Plots and compares LLM performance on a dataset of zebra puzzles.
 
     Args:
         config: Config file.
@@ -24,8 +24,14 @@ def main(config: DictConfig) -> None:
     n_puzzles = config.n_puzzles
     theme = config.language.theme
     data_folder = config.data_folder
+    clue_types = config.clue_weights.keys()
 
-    plot_results(n_puzzles=n_puzzles, theme=theme, data_folder_str=data_folder)
+    plot_results(
+        n_puzzles=n_puzzles,
+        theme=theme,
+        data_folder_str=data_folder,
+        clue_types=clue_types,
+    )
 
 
 if __name__ == "__main__":

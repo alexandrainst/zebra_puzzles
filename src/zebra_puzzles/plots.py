@@ -198,6 +198,7 @@ def plot_clue_type_frequencies(
     n_objects_max: int,
     n_attributes_max: int,
     n_puzzles: int,
+    clue_types: list[str],
 ) -> None:
     """Plot the frequencies of clue types.
 
@@ -213,7 +214,7 @@ def plot_clue_type_frequencies(
         n_objects_max: Maximum number of objects in puzzles as an integer.
         n_attributes_max: Maximum number of attributes in puzzles as an integer.
         n_puzzles: The number of puzzles as an integer.
-    TODO: Sort by herring vs. non-herring clues and plot a line separating them.
+        clue_types: List of possible non red herring clue types as strings.
     """
     # Initialise the figure of n_objects_max_all_models x n_attributes_max_all_models subplots
     fig, axs = plt.subplots(
@@ -277,6 +278,7 @@ def plot_clue_type_frequencies(
         clue_type_frequencies_all_sizes=clue_type_frequencies_all_sizes,
         clue_type_frequencies_all_sizes_normalised=clue_type_frequencies_all_sizes_normalised,
         n_puzzles=n_puzzles,
+        clue_types=clue_types,
     )
 
     for puzzle_size in clue_type_frequencies_all_sizes.keys():
@@ -286,14 +288,37 @@ def plot_clue_type_frequencies(
         # Get the subplot for this puzzle size
         ax = axs[max_n_objects - n_objects, n_attributes - 1]
 
-        # Create a bar plot for this puzzle size
-        ax.bar(
-            clue_type_frequencies_normalised_mean_all_sizes[puzzle_size].keys(),
-            clue_type_frequencies_normalised_mean_all_sizes[puzzle_size].values(),
+        clues_one_size: list[str] = list(
+            clue_type_frequencies_normalised_mean_all_sizes[puzzle_size].keys()
         )
+        clue_mean_frequencies_one_size: list[float] = list(
+            clue_type_frequencies_normalised_mean_all_sizes[puzzle_size].values()
+        )
+
+        # Sort clue_mean_frequencies_one_size to match the order of all_clue_types
+        # Set the clue_mean_frequencies_one_size to 0 for clues not in clue_mean_frequencies_one_size
+        clue_mean_frequencies_one_size = [
+            clue_mean_frequencies_one_size[clues_one_size.index(clue_type)]
+            if clue_type in clues_one_size
+            else 0
+            for clue_type in all_clue_types
+        ]
+
+        # Create a bar plot for this puzzle size
+        ax.bar(all_clue_types, clue_mean_frequencies_one_size)
         ax.set_title(f"{n_objects} objects, {n_attributes} attributes")
         ax.set_ylim(0, max_mean_normalised_frequency * 1.1)
         ax.grid(axis="y", linestyle="--", alpha=0.7)
+
+        # Add a vertical line to separate the red herring clues from the non-red herring clues
+        if n_red_herring_clues_evaluated_str != "0":
+            ax.axvline(
+                x=len(clue_types) - 0.5,
+                color="red",
+                linestyle="--",
+                label="Red herring clues",
+                alpha=0.7,
+            )
 
         ax.set_xticks(
             ticks=np.arange(len(all_clue_types)), labels=all_clue_types, rotation=45
