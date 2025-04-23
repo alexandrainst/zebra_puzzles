@@ -210,19 +210,46 @@ def plot_clue_type_frequencies(
         n_objects_max: Maximum number of objects in puzzles as an integer.
         n_attributes_max: Maximum number of attributes in puzzles as an integer.
         n_puzzles: The number of puzzles as an integer.
+    TODO: Sort by herring vs. non-herring clues and plot a line separating them.
     """
     # Initialise the figure of n_objects_max_all_models x n_attributes_max_all_models subplots
     fig, axs = plt.subplots(
         n_objects_max - 1,
         n_attributes_max,
-        figsize=(n_attributes_max * 3.7, n_objects_max * 2),
+        figsize=(n_attributes_max * 4.2, n_objects_max * 2),
         sharex=True,
         sharey=True,
     )
+
+    fig.subplots_adjust(hspace=0.4, wspace=-0.8)
+
+    # Set the title of the figure
     fig.suptitle(
-        f"Frequencies of clue types with {n_red_herring_clues_evaluated_str} red herrings for theme {theme}"
+        f"Frequencies of clue types with {n_red_herring_clues_evaluated_str} red herrings for theme {theme}, {n_puzzles} puzzles of each size",
+        fontsize=16,
+        fontweight="bold",
     )
-    fig.subplots_adjust(hspace=0.4, wspace=0.2)
+
+    # Add common labels for the x and y axes
+    fig.text(
+        0.5,
+        0.001,
+        "Clue types",
+        ha="center",
+        va="center",
+        fontsize=14,
+        fontweight="bold",
+    )
+    fig.text(
+        0.001,
+        0.5,
+        "Mean normalised frequency",
+        ha="center",
+        va="center",
+        rotation="vertical",
+        fontsize=14,
+        fontweight="bold",
+    )
 
     # Sort n_objects in reverse and remove n_objects=1
     n_objects_list = sorted(
@@ -237,7 +264,10 @@ def plot_clue_type_frequencies(
 
     max_n_objects = max(n_objects_list)
 
+    # Compute the mean of the normalised frequencies of each clue type for all puzzle sizes
+    # And make a list of all clue types
     clue_type_frequencies_normalised_mean_all_sizes: dict[str, dict[str, float]] = {}
+    all_clue_types: list[str] = []
     for puzzle_size in clue_type_frequencies_all_sizes.keys():
         clue_type_frequencies_normalised_mean_one_size = get_clue_frequencies_per_puzzle_size(
             clue_type_frequencies_all_sizes_normalised=clue_type_frequencies_all_sizes_normalised,
@@ -247,6 +277,9 @@ def plot_clue_type_frequencies(
         clue_type_frequencies_normalised_mean_all_sizes[puzzle_size] = (
             clue_type_frequencies_normalised_mean_one_size
         )
+        all_clue_types.extend(clue_type_frequencies_normalised_mean_one_size.keys())
+
+    all_clue_types = sorted(set(all_clue_types))
 
     # Get the maximum frequency for each clue type across all puzzle sizes
     max_mean_normalised_frequency = max(
@@ -264,25 +297,27 @@ def plot_clue_type_frequencies(
         ax = axs[max_n_objects - n_objects, n_attributes - 1]
 
         # Create a bar plot for this puzzle size
-        # TODO: Improve the plot layout and style
         ax.bar(
             clue_type_frequencies_normalised_mean_all_sizes[puzzle_size].keys(),
             clue_type_frequencies_normalised_mean_all_sizes[puzzle_size].values(),
         )
-        ax.set_xlabel("Clue type")
-        ax.set_ylabel("Frequency")
-        ax.set_title(f"{n_objects}x{n_attributes}")
-        ax.set_xticklabels(
-            clue_type_frequencies_normalised_mean_all_sizes[puzzle_size].keys(),
-            rotation=45,
-            ha="right",
-        )
+        ax.set_title(f"{n_objects} objects, {n_attributes} attributes")
         ax.set_ylim(0, max_mean_normalised_frequency * 1.1)
-        ax.grid(axis="y")
+        ax.grid(axis="y", linestyle="--", alpha=0.7)
 
-    plt.tight_layout()
+        ax.set_xticks(
+            ticks=np.arange(len(all_clue_types)), labels=all_clue_types, rotation=45
+        )
+        ax.tick_params(axis="x", labelsize=10)
+        ax.tick_params(axis="y", labelsize=10)
+        ax.set_xticklabels(all_clue_types, rotation=45, ha="right", fontsize=10)
+        ax.set_yticks(ticks=np.arange(0, max_mean_normalised_frequency * 1.1, 0.1))
+        ax.set_yticklabels(
+            [f"{x:.2f}" for x in ax.get_yticks()], rotation=0, ha="right", fontsize=10
+        )
 
     # Save the plot
+    plt.tight_layout()
     plot_path = data_folder / "plots"
     plot_path.mkdir(parents=True, exist_ok=True)
     plot_filename = f"clue_type_frequencies_{n_red_herring_clues_evaluated_str}rh.png"
