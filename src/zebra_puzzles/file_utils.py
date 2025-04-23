@@ -414,21 +414,28 @@ def get_clue_type_file_paths(
     for puzzle_size_folder in puzzle_size_folders:
         # Get sorted names of all clue type files in the data folder
         if reduced_flag:
-            clue_type_file_paths = sorted(
-                list(
-                    puzzle_size_folder.glob(
-                        f"{n_red_herring_clues_evaluated}rh/reduced_clue_types/zebra_puzzle_*_clue_types_reduced.txt"
-                    )
+            clue_type_file_paths = list(
+                puzzle_size_folder.glob(
+                    f"{n_red_herring_clues_evaluated}rh/reduced_clue_types/zebra_puzzle_*_clue_types_reduced.txt"
                 )
             )
         else:
-            clue_type_file_paths = sorted(
-                list(
-                    puzzle_size_folder.glob(
-                        f"{n_red_herring_clues_evaluated}rh/clue_types/zebra_puzzle_*_clue_types.txt"
-                    )
+            clue_type_file_paths = list(
+                puzzle_size_folder.glob(
+                    f"{n_red_herring_clues_evaluated}rh/clue_types/zebra_puzzle_*_clue_types.txt"
                 )
             )
+
+        # Sort the clue type file paths by the puzzle index (the number after zebra_puzzle_)
+        puzzle_indices = [
+            int(file_path.name.split("_")[2]) for file_path in clue_type_file_paths
+        ]
+        clue_type_file_paths = [
+            file_path
+            for _, file_path in sorted(zip(puzzle_indices, clue_type_file_paths))
+        ]
+
+        # Check that the number of clue type files is equal to the number of puzzles
         if len(clue_type_file_paths) < n_puzzles:
             raise ValueError(
                 f"Not enough clue type files found in {clue_type_path}. Found {len(clue_type_file_paths)}, expected {n_puzzles}."
