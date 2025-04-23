@@ -155,13 +155,15 @@ def plot_paths(eval_paths, config) -> Generator[tuple[Path, list], None, None]:
     n_puzzles = config.n_puzzles
     theme = config.language.theme
     data_folder = config.data_folder
-    clue_types = config.clue_weights.keys()
+    clue_types = list(config.clue_weights.keys())
+    red_herring_clue_types = list(config.red_herring_clue_weights.keys())
 
     plot_results(
         n_puzzles=n_puzzles,
         theme=theme,
         data_folder_str=data_folder,
         clue_types=clue_types,
+        red_herring_clue_types=red_herring_clue_types,
     )
 
     plots_path = Path(data_folder) / "plots"

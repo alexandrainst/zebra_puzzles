@@ -199,6 +199,7 @@ def plot_clue_type_frequencies(
     n_attributes_max: int,
     n_puzzles: int,
     clue_types: list[str],
+    red_herring_clue_types: list[str],
 ) -> None:
     """Plot the frequencies of clue types.
 
@@ -215,6 +216,7 @@ def plot_clue_type_frequencies(
         n_attributes_max: Maximum number of attributes in puzzles as an integer.
         n_puzzles: The number of puzzles as an integer.
         clue_types: List of possible non red herring clue types as strings.
+        red_herring_clue_types: List of possible red herring clue types as strings.
     """
     # Initialise the figure of n_objects_max_all_models x n_attributes_max_all_models subplots
     fig, axs = plt.subplots(
@@ -279,6 +281,7 @@ def plot_clue_type_frequencies(
         clue_type_frequencies_all_sizes_normalised=clue_type_frequencies_all_sizes_normalised,
         n_puzzles=n_puzzles,
         clue_types=clue_types,
+        red_herring_clue_types=red_herring_clue_types,
     )
 
     for puzzle_size in clue_type_frequencies_all_sizes.keys():

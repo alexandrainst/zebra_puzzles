@@ -17,7 +17,11 @@ from zebra_puzzles.plots import plot_clue_type_frequencies, plot_heatmaps
 
 
 def plot_results(
-    n_puzzles: int, theme: str, data_folder_str: str, clue_types: list[str]
+    n_puzzles: int,
+    theme: str,
+    data_folder_str: str,
+    clue_types: list[str],
+    red_herring_clue_types: list[str],
 ) -> None:
     """Plot the results of the LLM's trying to solve zebra puzzles.
 
@@ -26,8 +30,9 @@ def plot_results(
         theme: Theme name.
         data_folder_str: Path to the data folder as a string.
         clue_types: List of possible non red herring clue types.
+        red_herring_clue_types: List of possible red herring clue types.
 
-    TODO: More plots e.g. clue type histograms, clue type difficulty etc.
+    TODO: More plots e.g. clue type difficulty.
     TODO: Analyze when o3-mini fails to solve the puzzle. There seems to be a shift in puzzle numbers in files vs. in the score file.
     """
     # Convert the data folder string to a Path object
@@ -52,6 +57,7 @@ def plot_results(
         n_red_herring_values=n_red_herring_values,
         score_types=score_types,
         clue_types=clue_types,
+        red_herring_clue_types=red_herring_clue_types,
     )
 
     # ----- Compare the mean scores of different evaluations -----#
@@ -76,6 +82,7 @@ def load_scores_and_plot_results_for_each_evaluation(
     n_red_herring_values: list[int],
     score_types: list[str],
     clue_types: list[str],
+    red_herring_clue_types: list[str],
 ) -> tuple[
     list[list[np.ndarray]], list[list[np.ndarray]], list[list[int]], list[list[int]]
 ]:
@@ -89,6 +96,7 @@ def load_scores_and_plot_results_for_each_evaluation(
         n_red_herring_values: Number of red herring clues evaluated.
         score_types: List of score types as strings.
         clue_types: List of possible non red herring clue types.
+        red_herring_clue_types: List of possible red herring clue types.
 
     Returns:
         A tuple (mean_scores_all_eval_array, std_mean_scores_all_eval_array, n_objects_max_all_eval, n_attributes_max_all_eval) where:
@@ -198,6 +206,7 @@ def load_scores_and_plot_results_for_each_evaluation(
             n_objects_max=max(n_objects_max_all_models),
             n_attributes_max=max(n_attributes_max_all_models),
             clue_types=clue_types,
+            red_herring_clue_types=red_herring_clue_types,
         )
 
         # Save values across all values of n_red_herring_clues_evaluated
