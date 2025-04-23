@@ -393,11 +393,9 @@ def get_mean_clue_frequencies_for_one_puzzle_size(
     """
     # Take the mean of the clue type frequencies across all puzzles of this size
     clue_type_frequencies_normalised_mean_one_size: dict[str, float] = {}
-    # TODO: Refactor a bit
-    for (
-        puzzle_index,
-        clue_type_frequencies_normalised,
-    ) in clue_type_frequencies_all_sizes_normalised[puzzle_size].items():
+    for clue_type_frequencies_normalised in clue_type_frequencies_all_sizes_normalised[
+        puzzle_size
+    ].values():
         # Sum the normalised frequencies of all puzzles of the chosen size
         for clue_type, freq_norm in clue_type_frequencies_normalised.items():
             if clue_type not in clue_type_frequencies_normalised_mean_one_size:

@@ -257,7 +257,7 @@ def plot_clue_type_frequencies(
         fontweight="bold",
     )
 
-    # Sort n_objects in reverse and remove n_objects=1
+    # Get the maximum number of objects from the puzzle sizes
     n_objects_list = sorted(
         np.unique(
             [
@@ -284,12 +284,18 @@ def plot_clue_type_frequencies(
         red_herring_clue_types=red_herring_clue_types,
     )
 
+    # Hide all plots
+    for ax in axs.flat:
+        ax.set_visible(False)
+
     for puzzle_size in clue_type_frequencies_all_sizes.keys():
         # Get the number of objects and attributes from the puzzle size
         n_objects, n_attributes = map(int, puzzle_size.split("x"))
 
         # Get the subplot for this puzzle size
         ax = axs[max_n_objects - n_objects, n_attributes - 1]
+
+        ax.set_visible(True)
 
         clues_one_size: list[str] = list(
             clue_type_frequencies_normalised_mean_all_sizes[puzzle_size].keys()
