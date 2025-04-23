@@ -1,11 +1,15 @@
 """Utility module for generating and evaluating zebra puzzles."""
 
 import json
+from pathlib import Path
 from random import choices, sample, shuffle
 from typing import Any, Type
 
 import numpy as np
 from pydantic import BaseModel, create_model
+from sklearn.linear_model import LinearRegression
+
+from zebra_puzzles.file_utils import load_individual_puzzle_scores
 
 
 def generate_solution(
@@ -424,52 +428,92 @@ def get_mean_clue_frequencies_for_one_puzzle_size(
 
 def estimate_clue_type_difficulty(
     clue_type_frequencies_all_sizes: dict[str, dict[int, dict[str, int]]],
-    mean_scores_array: np.ndarray,
-    std_mean_scores_array: np.ndarray,
-    n_clues_all_sizes: dict[str, dict[int, int]],
     clue_types: list[str],
     red_herring_clue_types: list[str],
     n_red_herring_clues_evaluated: int,
     model: str,
-) -> list[list[float]]:
+    theme: str,
+    n_puzzles: int,
+    data_folder: Path,
+) -> dict[str, list[float]]:
     """Estimate the difficulty of each clue type.
 
     Args:
         clue_type_frequencies_all_sizes: Dictionary of dictionaries of dictionaries of clue type frequencies.
             The outer dictionary is for each puzzle size, the middle dictionary is for a puzzle index, and the inner dictionary is for each clue type.
-        mean_scores_array: Array of mean scores for each puzzle size.
-        std_mean_scores_array: Array of standard deviations of the mean scores for each puzzle size.
-        n_clues_all_sizes: Dictionary of dictionaries of the number of clues for each puzzle size.
-            The outer dictionary is for each puzzle size and the inner dictionary is for a puzzle index.
         clue_types: List of non red herring clue types.
         red_herring_clue_types: List of red herring clue types.
         n_red_herring_clues_evaluated: Number of red herring clues evaluated.
         model: LLM model used to evaluate the puzzles.
+        theme: Theme of the puzzle.
+        n_puzzles: The number of puzzles for each puzzle size.
+        data_folder: Path to the data folder.
 
     Returns:
-        A list of lists of clue difficulties as floats. The outer list is for each puzzle size and the inner list is for each clue type.
+        A dictionary of lists of clue difficulties as floats. The keys are the puzzle sizes.
 
     # TODO: Compute the difficulty of each clue type
     #                For example as the mean score of puzzles weighted by the number of times the clue type was used.
     #                Or normalise the scores to compare the difficulty of clues for the puzzle size. Then, the normalised scores can be compared across different puzzle sizes.
     #                Or use linear regression to estimate the difficulty of each clue type.
+
+    NOTE: Consider using scipy instead of sklearn for linear regression to get the standard deviation of the coefficients.
+    NOTE: Consider if we should fit to clue type frequencies or normalised clue type frequencies.
+    NOTE: Consider if the normalisation of difficulties should be done differently.
     """
-    clue_difficulties_all_sizes: list[list[float]] = []
+    clue_difficulties_all_sizes: dict[str, list[float]] = {}
+
+    all_possible_clue_types = clue_types + red_herring_clue_types
 
     # Select a puzzle size
     for puzzle_size in clue_type_frequencies_all_sizes.keys():
-        # Get the number of clues for this puzzle size
-        n_clues = n_clues_all_sizes[puzzle_size]
-
         # Get the frequencies of each clue type for this puzzle size
         clue_type_frequencies = clue_type_frequencies_all_sizes[puzzle_size]
 
+        # Load the list of scores incl. all n_puzzles
+        scores_individual_puzzles = load_individual_puzzle_scores(
+            data_folder=data_folder,
+            score_type="cell_score",
+            model=model,
+            n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
+            n_puzzles=n_puzzles,
+            theme=theme,
+            puzzle_size=puzzle_size,
+        )
+
+        # If we tried to load scores for a size that was not evaluated by the model, skip this size
+        if scores_individual_puzzles[0] == -999.0:
+            continue
+
         # Calculate the difficulty of each clue type
-        n_clues = n_clues
-        clue_type_frequencies = clue_type_frequencies
-        clue_difficulties: list[float] = []
+        # Use linear regression to model score as a function of the clue type frequencies in each puzzle
+
+        # Create a linear regression model
+        regression_model = LinearRegression()
+
+        # Create the feature matrix (frequency of each clue type in each puzzle)
+        X = np.zeros((n_puzzles, len(all_possible_clue_types)))
+        for i, clue_type in enumerate(all_possible_clue_types):
+            for j, puzzle_index in enumerate(clue_type_frequencies.keys()):
+                X[j, i] = clue_type_frequencies[puzzle_index].get(clue_type, 0)
+        # Create the target vector
+        y = np.zeros((n_puzzles, 1))
+
+        for j, puzzle_index in enumerate(list(clue_type_frequencies.keys())):
+            y[j] = scores_individual_puzzles[puzzle_index]
+        # Fit the regression model to the data
+        regression_model.fit(X, y)
+
+        # Estimate feature importance in the linear regression model
+        # The higher the coefficient, the more important the feature is for predicting the target variable
+        clue_importances = regression_model.coef_[0]
+
+        # TODO: Get the standard deviation of each clue type's importance
+
+        # Normalise the clue importances to sum to 1
+        clue_importances_normalised = clue_importances / np.sum(clue_importances)
 
         # Append the difficulties for this puzzle size to the list
-        clue_difficulties_all_sizes.append(clue_difficulties)
+        clue_difficulties_all_sizes[puzzle_size] = clue_importances_normalised.tolist()
 
     return clue_difficulties_all_sizes

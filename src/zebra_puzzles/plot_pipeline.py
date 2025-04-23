@@ -223,13 +223,13 @@ def load_scores_and_plot_results_for_each_evaluation(
 
                 clue_difficulties_all_sizes = estimate_clue_type_difficulty(
                     clue_type_frequencies_all_sizes=clue_type_frequencies_all_sizes,
-                    mean_scores_array=mean_scores_all_models_array[i],
-                    std_mean_scores_array=std_mean_scores_all_models_array[i],
-                    n_clues_all_sizes=n_clues_all_sizes,
                     clue_types=clue_types,
                     red_herring_clue_types=red_herring_clue_types,
                     n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
                     model=model,
+                    data_folder=data_folder,
+                    theme=theme,
+                    n_puzzles=n_puzzles,
                 )
 
                 # Make a grid of bar plots of clue type difficulty

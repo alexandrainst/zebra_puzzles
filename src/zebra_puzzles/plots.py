@@ -350,7 +350,7 @@ def plot_clue_type_frequencies(
 
 
 def plot_clue_type_difficulty(
-    clue_difficulties_all_sizes: list[list[float]],
+    clue_difficulties_all_sizes: dict[str, list[float]],
     n_red_herring_clues_evaluated_str: str,
     data_folder: Path,
     theme: str,
@@ -363,7 +363,7 @@ def plot_clue_type_difficulty(
     """Plot the difficulty of each clue type.
 
     Args:
-        clue_difficulties_all_sizes: List of lists of clue difficulties as floats. The outer list is for each puzzle size and the inner list is for each clue type.
+        clue_difficulties_all_sizes: Dictionary of clue type difficulties for each puzzle size.
         n_red_herring_clues_evaluated_str: Number of red herring clues evaluated as a string.
         data_folder: Path to the data folder.
         theme: Theme name as a string.

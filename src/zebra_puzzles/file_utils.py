@@ -509,9 +509,9 @@ def load_scores(
 
     Returns:
         A tuple (mean_scores_array_min_2_n_objects, std_mean_scores_array_min_2_n_objects, std_scores_array_min_2_n_objects) where:
-            mean_scores_array_min_2_n_objects: Array of mean scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -1 if the score was not found.
-            std_mean_scores_array_min_2_n_objects: Array of standard deviations of the mean scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -1 if the score was not found.
-            std_scores_array_min_2_n_objects: Array of sample standard deviations of the scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -1 if the score was not found.
+            mean_scores_array_min_2_n_objects: Array of mean scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -999 if the score was not found.
+            std_mean_scores_array_min_2_n_objects: Array of standard deviations of the mean scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -999 if the score was not found.
+            std_scores_array_min_2_n_objects: Array of sample standard deviations of the scores for each score type in each score file. The dimensions are n_score_types x n_objects_max-1 x n_attributes_max. Values are -999 if the score was not found.
     """
     # Get the maximum number of objects and attributes
     n_objects_max = max(n_objects_list)
@@ -570,6 +570,56 @@ def load_scores(
         std_mean_scores_array_min_2_n_objects,
         std_scores_array_min_2_n_objects,
     )
+
+
+def load_individual_puzzle_scores(
+    data_folder: Path,
+    score_type: str,
+    model: str,
+    n_red_herring_clues_evaluated: int,
+    n_puzzles: int,
+    theme: str,
+    puzzle_size: str,
+) -> dict[int, float]:
+    """Load the individual puzzle scores from the score files.
+
+    The scores from a specific score file and for a specific score type.
+
+    Args:
+        data_folder: Path to the data folder.
+        score_type: Type of score to load.
+        model: LLM model name.
+        n_red_herring_clues_evaluated: Number of red herring clues evaluated.
+        n_puzzles: Number of puzzles evaluated.
+        theme: Theme name.
+        puzzle_size: Size of the puzzle.
+
+    Returns:
+        The scores as a dictionary with the puzzle index as the key and the score as the value.
+    """
+    score_file_path = (
+        data_folder
+        / "scores"
+        / model
+        / f"{n_red_herring_clues_evaluated}rh"
+        / f"puzzle_scores_{model}_{theme}_{puzzle_size}_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.txt"
+    )
+
+    score_type = score_type.replace("_", " ")
+    try:
+        with open(score_file_path, "r") as f:
+            scores_str = f.read()
+            # Get every number after "{score_type}: " and before "\t"
+            pattern = re.compile(rf"{score_type}:\s+(\d.+)\t")
+            matches = pattern.findall(scores_str)
+            scores_individual_puzzles = {
+                i: float(match) for i, match in enumerate(matches)
+            }
+    except FileNotFoundError:
+        # If the file is not found, return scores of -999.
+        scores_individual_puzzles = {i: -999.0 for i in range(n_puzzles)}
+
+    return scores_individual_puzzles
 
 
 def get_clue_type_frequencies(
