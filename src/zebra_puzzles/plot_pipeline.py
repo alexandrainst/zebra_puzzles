@@ -6,8 +6,6 @@ import numpy as np
 
 from zebra_puzzles.eval_comparisons import compare_all_eval_types
 from zebra_puzzles.file_utils import (
-    get_clue_type_file_paths,
-    get_clue_type_frequencies,
     get_evaluated_params,
     get_puzzle_dimensions_from_filename,
     get_score_file_paths,
@@ -180,42 +178,21 @@ def load_scores_and_plot_results_for_each_evaluation(
         # ---- Plot the distribution of clue types -----#
         # Do it after all models have been evaluated to know the maximum number of objects and attributes
 
-        # Get the paths of the clue type files
-        reduced_flag = n_red_herring_clues_evaluated < n_red_herring_clues_evaluated_max
-
-        clue_type_file_paths_all_sizes = get_clue_type_file_paths(
-            data_folder=data_folder,
-            n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
-            theme=theme,
-            n_puzzles=n_puzzles,
-            reduced_flag=reduced_flag,
-        )
-
-        # Load the clue type frequencies
-        (
-            clue_type_frequencies_all_sizes,
-            n_clues_all_sizes,
-            clue_type_frequencies_all_sizes_normalised,
-        ) = get_clue_type_frequencies(
-            clue_type_file_paths_all_sizes=clue_type_file_paths_all_sizes
-        )
-
-        # Make a grid of bar plots of clue type frequencies
-        plot_clue_type_frequencies(
-            clue_type_frequencies_all_sizes=clue_type_frequencies_all_sizes,
-            clue_type_frequencies_all_sizes_normalised=clue_type_frequencies_all_sizes_normalised,
-            n_red_herring_clues_evaluated_str=str(n_red_herring_clues_evaluated),
-            data_folder=data_folder,
-            theme=theme,
-            n_puzzles=n_puzzles,
-            n_objects_max=max(n_objects_max_all_models),
-            n_attributes_max=max(n_attributes_max_all_models),
-            clue_types=clue_types,
-            red_herring_clue_types=red_herring_clue_types,
+        clue_type_file_paths_all_sizes, clue_type_frequencies_all_sizes = (
+            plot_clue_type_frequencies(
+                data_folder=data_folder,
+                n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
+                n_red_herring_clues_evaluated_max=n_red_herring_clues_evaluated_max,
+                theme=theme,
+                n_puzzles=n_puzzles,
+                n_objects_max_all_models=n_objects_max_all_models,
+                n_attributes_max_all_models=n_attributes_max_all_models,
+                clue_types=clue_types,
+                red_herring_clue_types=red_herring_clue_types,
+            )
         )
 
         # ---- Plot the clue type difficulties for each model but only for max n_red_herring_clues_evaluated -----#
-        # TODO: Implement the functions
 
         if n_red_herring_clues_evaluated == n_red_herring_clues_evaluated_max:
             for i, model in enumerate(model_names):
