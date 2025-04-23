@@ -15,6 +15,8 @@ Run `uv run src/scripts/build_dataset.py` to generate puzzles.
 
 Run `uv run src/scripts/evaluate.py` to evaluate puzzles.
 
+Run `uv run src/scripts/plot_performance.py` to plot and compare puzzle evaluation performance.
+
 Use the configuration in `config/config.yaml` to specify:
 - number of puzzles to generate
 - puzzle dimensions
