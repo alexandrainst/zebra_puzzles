@@ -347,3 +347,32 @@ def plot_clue_type_frequencies(
     plot_filename = f"clue_type_frequencies_{n_red_herring_clues_evaluated_str}rh.png"
     plt.savefig(plot_path / plot_filename, dpi=300, bbox_inches="tight")
     plt.close(fig)
+
+
+def plot_clue_type_difficulty(
+    clue_difficulties_all_sizes: list[list[float]],
+    n_red_herring_clues_evaluated_str: str,
+    data_folder: Path,
+    theme: str,
+    n_puzzles: int,
+    n_objects_max: int,
+    n_attributes_max: int,
+    clue_types: list[str],
+    red_herring_clue_types: list[str],
+) -> None:
+    """Plot the difficulty of each clue type.
+
+    Args:
+        clue_difficulties_all_sizes: List of lists of clue difficulties as floats. The outer list is for each puzzle size and the inner list is for each clue type.
+        n_red_herring_clues_evaluated_str: Number of red herring clues evaluated as a string.
+        data_folder: Path to the data folder.
+        theme: Theme name as a string.
+        n_puzzles: The number of puzzles per size as an integer.
+        n_objects_max: Maximum number of objects in puzzles as an integer.
+        n_attributes_max: Maximum number of attributes in puzzles as an integer.
+        clue_types: List of possible non red herring clue types as strings.
+        red_herring_clue_types: List of possible red herring clue types as strings.
+
+    TODO: Implement this function.
+    """
+    pass

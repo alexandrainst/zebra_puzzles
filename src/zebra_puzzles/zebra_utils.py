@@ -420,3 +420,56 @@ def get_mean_clue_frequencies_for_one_puzzle_size(
         )
 
     return clue_type_frequencies_normalised_mean_one_size
+
+
+def estimate_clue_type_difficulty(
+    clue_type_frequencies_all_sizes: dict[str, dict[int, dict[str, int]]],
+    mean_scores_array: np.ndarray,
+    std_mean_scores_array: np.ndarray,
+    n_clues_all_sizes: dict[str, dict[int, int]],
+    clue_types: list[str],
+    red_herring_clue_types: list[str],
+    n_red_herring_clues_evaluated: int,
+    model: str,
+) -> list[list[float]]:
+    """Estimate the difficulty of each clue type.
+
+    Args:
+        clue_type_frequencies_all_sizes: Dictionary of dictionaries of dictionaries of clue type frequencies.
+            The outer dictionary is for each puzzle size, the middle dictionary is for a puzzle index, and the inner dictionary is for each clue type.
+        mean_scores_array: Array of mean scores for each puzzle size.
+        std_mean_scores_array: Array of standard deviations of the mean scores for each puzzle size.
+        n_clues_all_sizes: Dictionary of dictionaries of the number of clues for each puzzle size.
+            The outer dictionary is for each puzzle size and the inner dictionary is for a puzzle index.
+        clue_types: List of non red herring clue types.
+        red_herring_clue_types: List of red herring clue types.
+        n_red_herring_clues_evaluated: Number of red herring clues evaluated.
+        model: LLM model used to evaluate the puzzles.
+
+    Returns:
+        A list of lists of clue difficulties as floats. The outer list is for each puzzle size and the inner list is for each clue type.
+
+    # TODO: Compute the difficulty of each clue type
+    #                For example as the mean score of puzzles weighted by the number of times the clue type was used.
+    #                Or normalise the scores to compare the difficulty of clues for the puzzle size. Then, the normalised scores can be compared across different puzzle sizes.
+    #                Or use linear regression to estimate the difficulty of each clue type.
+    """
+    clue_difficulties_all_sizes: list[list[float]] = []
+
+    # Select a puzzle size
+    for puzzle_size in clue_type_frequencies_all_sizes.keys():
+        # Get the number of clues for this puzzle size
+        n_clues = n_clues_all_sizes[puzzle_size]
+
+        # Get the frequencies of each clue type for this puzzle size
+        clue_type_frequencies = clue_type_frequencies_all_sizes[puzzle_size]
+
+        # Calculate the difficulty of each clue type
+        n_clues = n_clues
+        clue_type_frequencies = clue_type_frequencies
+        clue_difficulties: list[float] = []
+
+        # Append the difficulties for this puzzle size to the list
+        clue_difficulties_all_sizes.append(clue_difficulties)
+
+    return clue_difficulties_all_sizes
