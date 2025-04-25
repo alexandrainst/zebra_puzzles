@@ -178,18 +178,20 @@ def load_scores_and_plot_results_for_each_evaluation(
         # ---- Plot the distribution of clue types -----#
         # Do it after all models have been evaluated to know the maximum number of objects and attributes
 
-        clue_type_file_paths_all_sizes, clue_type_frequencies_all_sizes = (
-            plot_clue_type_frequencies(
-                data_folder=data_folder,
-                n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
-                n_red_herring_clues_evaluated_max=n_red_herring_clues_evaluated_max,
-                theme=theme,
-                n_puzzles=n_puzzles,
-                n_objects_max_all_models=n_objects_max_all_models,
-                n_attributes_max_all_models=n_attributes_max_all_models,
-                clue_types=clue_types,
-                red_herring_clue_types=red_herring_clue_types,
-            )
+        (
+            clue_type_file_paths_all_sizes,
+            clue_type_frequencies_all_sizes,
+            all_clue_types,
+        ) = plot_clue_type_frequencies(
+            data_folder=data_folder,
+            n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
+            n_red_herring_clues_evaluated_max=n_red_herring_clues_evaluated_max,
+            theme=theme,
+            n_puzzles=n_puzzles,
+            n_objects_max_all_models=n_objects_max_all_models,
+            n_attributes_max_all_models=n_attributes_max_all_models,
+            clue_types=clue_types,
+            red_herring_clue_types=red_herring_clue_types,
         )
 
         # ---- Plot the clue type difficulties for each model but only for max n_red_herring_clues_evaluated -----#
@@ -198,7 +200,7 @@ def load_scores_and_plot_results_for_each_evaluation(
             for i, model in enumerate(model_names):
                 # Estimate the difficulty of each clue type for a specific model
 
-                clue_difficulties_all_sizes = estimate_clue_type_difficulty(
+                clue_type_difficulties_all_sizes = estimate_clue_type_difficulty(
                     clue_type_frequencies_all_sizes=clue_type_frequencies_all_sizes,
                     clue_types=clue_types,
                     red_herring_clue_types=red_herring_clue_types,
@@ -211,17 +213,15 @@ def load_scores_and_plot_results_for_each_evaluation(
 
                 # Make a grid of bar plots of clue type difficulty
                 plot_clue_type_difficulty(
-                    clue_difficulties_all_sizes=clue_difficulties_all_sizes,
-                    n_red_herring_clues_evaluated_str=str(
-                        n_red_herring_clues_evaluated
-                    ),
+                    clue_type_difficulties_all_sizes=clue_type_difficulties_all_sizes,
+                    n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
                     data_folder=data_folder,
                     theme=theme,
                     n_puzzles=n_puzzles,
                     n_objects_max=max(n_objects_max_all_models),
                     n_attributes_max=max(n_attributes_max_all_models),
                     clue_types=clue_types,
-                    red_herring_clue_types=red_herring_clue_types,
+                    all_clue_types=all_clue_types,
                 )
 
         # Save values across all values of n_red_herring_clues_evaluated

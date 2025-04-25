@@ -435,7 +435,7 @@ def estimate_clue_type_difficulty(
     theme: str,
     n_puzzles: int,
     data_folder: Path,
-) -> dict[str, list[float]]:
+) -> dict[str, dict[str, float]]:
     """Estimate the difficulty of each clue type.
 
     Args:
@@ -450,7 +450,8 @@ def estimate_clue_type_difficulty(
         data_folder: Path to the data folder.
 
     Returns:
-        A dictionary of lists of clue difficulties as floats. The keys are the puzzle sizes.
+        A dictionary of dictionaries of clue difficulties as floats.
+            The outer dictionary is for each puzzle size, the inner dictionary is for each clue type.
 
     # TODO: Compute the difficulty of each clue type
     #                For example as the mean score of puzzles weighted by the number of times the clue type was used.
@@ -460,8 +461,9 @@ def estimate_clue_type_difficulty(
     NOTE: Consider using scipy instead of sklearn for linear regression to get the standard deviation of the coefficients.
     NOTE: Consider if we should fit to clue type frequencies or normalised clue type frequencies.
     NOTE: Consider if the normalisation of difficulties should be done differently.
+    TODO: Handle extreme values and NaN values in the difficulties.
     """
-    clue_difficulties_all_sizes: dict[str, list[float]] = {}
+    clue_type_difficulties_all_sizes: dict[str, dict[str, float]] = {}
 
     all_possible_clue_types = clue_types + red_herring_clue_types
 
@@ -469,6 +471,7 @@ def estimate_clue_type_difficulty(
     for puzzle_size in clue_type_frequencies_all_sizes.keys():
         # Get the frequencies of each clue type for this puzzle size
         clue_type_frequencies = clue_type_frequencies_all_sizes[puzzle_size]
+        clue_types_one_size = clue_type_frequencies.keys()
 
         # Load the list of scores incl. all n_puzzles
         scores_individual_puzzles = load_individual_puzzle_scores(
@@ -494,13 +497,14 @@ def estimate_clue_type_difficulty(
         # Create the feature matrix (frequency of each clue type in each puzzle)
         X = np.zeros((n_puzzles, len(all_possible_clue_types)))
         for i, clue_type in enumerate(all_possible_clue_types):
-            for j, puzzle_index in enumerate(clue_type_frequencies.keys()):
+            for j, puzzle_index in enumerate(clue_types_one_size):
                 X[j, i] = clue_type_frequencies[puzzle_index].get(clue_type, 0)
         # Create the target vector
         y = np.zeros((n_puzzles, 1))
 
         for j, puzzle_index in enumerate(list(clue_type_frequencies.keys())):
             y[j] = scores_individual_puzzles[puzzle_index]
+
         # Fit the regression model to the data
         regression_model.fit(X, y)
 
@@ -513,7 +517,13 @@ def estimate_clue_type_difficulty(
         # Normalise the clue importances to sum to 1
         clue_importances_normalised = clue_importances / np.sum(clue_importances)
 
-        # Append the difficulties for this puzzle size to the list
-        clue_difficulties_all_sizes[puzzle_size] = clue_importances_normalised.tolist()
+        # Make a dictionary of clue importances
+        clue_importances_normalised_dict = {
+            clue_type: float(clue_importances_normalised[i])
+            for i, clue_type in enumerate(all_possible_clue_types)
+        }
 
-    return clue_difficulties_all_sizes
+        # Append the difficulties for this puzzle size to the list
+        clue_type_difficulties_all_sizes[puzzle_size] = clue_importances_normalised_dict
+
+    return clue_type_difficulties_all_sizes

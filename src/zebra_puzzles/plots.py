@@ -200,7 +200,7 @@ def plot_clue_type_frequencies(
     n_attributes_max_all_models: list[int],
     clue_types: list[str],
     red_herring_clue_types: list[str],
-):
+) -> tuple[dict[str, list[Path]], dict[str, dict[int, dict[str, int]]], list[str]]:
     """Plot the frequencies of clue types for each puzzle size.
 
     We plot the mean frequencies of clue types for each puzzle size after normalising the frequencies to sum to 1 in each puzzle.
@@ -217,9 +217,11 @@ def plot_clue_type_frequencies(
         red_herring_clue_types: List of possible red herring clue types as strings.
 
     Returns:
-        A tuple (clue_type_file_paths_all_sizes, clue_type_frequencies_all_sizes) where:
+        A tuple (clue_type_file_paths_all_sizes, clue_type_frequencies_all_sizes, all_clue_types) where:
             clue_type_file_paths_all_sizes: Dictionary of clue type file paths for each puzzle size.
-            clue_type_frequencies_all_sizes: Dictionary of clue type frequencies for each puzzle size.
+            clue_type_frequencies_all_sizes: Dictionary of dictionaries of dictionaries of clue type frequencies.
+                The outer dictionary is for each puzzle size, the middle dictionary is for a puzzle index, and the inner dictionary is for each clue type.
+            all_clue_types: List of all used clue types as strings.
     """
     # Get the paths of the clue type files
     reduced_flag = n_red_herring_clues_evaluated < n_red_herring_clues_evaluated_max
@@ -275,7 +277,66 @@ def plot_clue_type_frequencies(
         n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
     )
 
-    return clue_type_file_paths_all_sizes, clue_type_frequencies_all_sizes
+    return (
+        clue_type_file_paths_all_sizes,
+        clue_type_frequencies_all_sizes,
+        all_clue_types,
+    )
+
+
+def plot_clue_type_difficulty(
+    clue_type_difficulties_all_sizes: dict[str, dict[str, float]],
+    n_red_herring_clues_evaluated: int,
+    data_folder: Path,
+    theme: str,
+    n_puzzles: int,
+    n_objects_max: int,
+    n_attributes_max: int,
+    clue_types: list[str],
+    all_clue_types: list[str],
+) -> None:
+    """Plot the difficulty of each clue type.
+
+    Args:
+        clue_type_difficulties_all_sizes: Dictionary of dictionaries of clue type difficulties.
+            The outer dictionary is for each puzzle size, and the inner dictionary is for each clue type.
+        n_red_herring_clues_evaluated: Number of red herring clues evaluated as an integer.
+        data_folder: Path to the data folder.
+        theme: Theme name as a string.
+        n_puzzles: The number of puzzles per size as an integer.
+        n_objects_max: Maximum number of objects in puzzles as an integer.
+        n_attributes_max: Maximum number of attributes in puzzles as an integer.
+        clue_types: List of possible non red herring clue types as strings.
+        all_clue_types: List of all used clue types as strings.
+
+    TODO: Refactor to share more code with plot_clue_type_frequencies.
+    """
+    # Get the maximum frequency for each clue type across all puzzle sizes
+    max_difficulty = max(
+        [
+            max(clue_type_difficulties_all_sizes[puzzle_size].values())
+            for puzzle_size in clue_type_difficulties_all_sizes.keys()
+        ]
+    )
+    puzzle_sizes = list(clue_type_difficulties_all_sizes.keys())
+
+    plot_title = f"Frequencies of clue types with {n_red_herring_clues_evaluated} red herrings for theme {theme}, {n_puzzles} puzzles of each size"
+    plot_filename = f"clue_type_frequencies_{n_red_herring_clues_evaluated}rh.png"
+
+    # Make a grid of bar plots of clue type difficulties
+    plot_bar_grid(
+        bar_dicts_all_sizes=clue_type_difficulties_all_sizes,
+        all_clue_types=all_clue_types,
+        max_y_value=max_difficulty,
+        puzzle_sizes=puzzle_sizes,
+        data_folder=data_folder,
+        n_objects_max=n_objects_max,
+        n_attributes_max=n_attributes_max,
+        clue_types=clue_types,
+        plot_filename=plot_filename,
+        plot_title=plot_title,
+        n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
+    )
 
 
 def plot_bar_grid(
@@ -411,32 +472,3 @@ def plot_bar_grid(
     plot_path.mkdir(parents=True, exist_ok=True)
     plt.savefig(plot_path / plot_filename, dpi=300, bbox_inches="tight")
     plt.close(fig)
-
-
-def plot_clue_type_difficulty(
-    clue_difficulties_all_sizes: dict[str, list[float]],
-    n_red_herring_clues_evaluated_str: str,
-    data_folder: Path,
-    theme: str,
-    n_puzzles: int,
-    n_objects_max: int,
-    n_attributes_max: int,
-    clue_types: list[str],
-    red_herring_clue_types: list[str],
-) -> None:
-    """Plot the difficulty of each clue type.
-
-    Args:
-        clue_difficulties_all_sizes: Dictionary of clue type difficulties for each puzzle size.
-        n_red_herring_clues_evaluated_str: Number of red herring clues evaluated as a string.
-        data_folder: Path to the data folder.
-        theme: Theme name as a string.
-        n_puzzles: The number of puzzles per size as an integer.
-        n_objects_max: Maximum number of objects in puzzles as an integer.
-        n_attributes_max: Maximum number of attributes in puzzles as an integer.
-        clue_types: List of possible non red herring clue types as strings.
-        red_herring_clue_types: List of possible red herring clue types as strings.
-
-    TODO: Implement this function. Use plot_bar_grid.
-    """
-    pass
