@@ -519,7 +519,7 @@ def estimate_clue_type_difficulty(
 
         # TODO: Get the standard deviation of each clue type's importance
 
-        # Normalise the clue importances to sum to 1
+        # Scale the clue importances so the absolute values sum to 1
         clue_importances_normalised = clue_importances / np.sum(abs(clue_importances))
 
         # Take the negative of the importances as the difficulty

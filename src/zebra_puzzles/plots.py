@@ -259,6 +259,7 @@ def plot_clue_type_frequencies(
 
     puzzle_sizes = list(clue_type_frequencies_all_sizes.keys())
 
+    # Define the plot title and file path
     plot_title = f"Frequencies of clue types with {n_red_herring_clues_evaluated} red herrings for theme {theme}, {n_puzzles} puzzles of each size"
     plot_filename = f"clue_type_frequencies_{n_red_herring_clues_evaluated}rh.png"
     plot_path = data_folder / "plots"
@@ -292,8 +293,6 @@ def plot_clue_type_difficulty(
     data_folder: Path,
     theme: str,
     n_puzzles: int,
-    n_objects_max: int,
-    n_attributes_max: int,
     clue_types: list[str],
     all_clue_types: list[str],
     model: str,
@@ -307,8 +306,6 @@ def plot_clue_type_difficulty(
         data_folder: Path to the data folder.
         theme: Theme name as a string.
         n_puzzles: The number of puzzles per size as an integer.
-        n_objects_max: Maximum number of objects in puzzles as an integer.
-        n_attributes_max: Maximum number of attributes in puzzles as an integer.
         clue_types: List of possible non red herring clue types as strings.
         all_clue_types: List of all used clue types as strings.
         model: Name of the model as a string.
@@ -331,6 +328,22 @@ def plot_clue_type_difficulty(
 
     puzzle_sizes = list(clue_type_difficulties_all_sizes.keys())
 
+    # Get the maximum number of objects from the puzzle sizes
+    n_objects_list = sorted(
+        np.unique([int(puzzle_size.split("x")[0]) for puzzle_size in puzzle_sizes]),
+        reverse=True,
+    )
+
+    n_objects_max = int(max(n_objects_list))
+
+    # Get the maximum number of attributes from the puzzle sizes
+    n_attributes_list = sorted(
+        np.unique([int(puzzle_size.split("x")[1]) for puzzle_size in puzzle_sizes]),
+        reverse=True,
+    )
+    n_attributes_max = int(max(n_attributes_list))
+
+    # Define the plot title and file path
     plot_title = f"Difficulty of clue types with {n_red_herring_clues_evaluated} red herrings for theme {theme}, {n_puzzles} puzzles of each size"
     plot_filename = f"clue_type_difficulties_{n_red_herring_clues_evaluated}rh.png"
     plot_path = data_folder / "plots" / model
@@ -357,10 +370,10 @@ def plot_bar_grid(
     all_clue_types: list[str],
     max_y_value: float,
     min_y_value: float,
-    puzzle_sizes: list[str],
-    plot_path: Path,
     n_objects_max: int,
     n_attributes_max: int,
+    puzzle_sizes: list[str],
+    plot_path: Path,
     clue_types: list[str],
     plot_filename: str,
     plot_title: str,
@@ -374,12 +387,12 @@ def plot_bar_grid(
         all_clue_types: List of all clue types as strings.
         max_y_value: Maximum value for the y axis as a float.
         min_y_value: Minimum value for the y axis as a float. If this is larger than 0, it will be set to 0.
+        n_objects_max: Maximum number of objects in puzzles as an integer.
+        n_attributes_max: Maximum number of attributes in puzzles as an integer.
         puzzle_sizes: List of puzzle sizes as strings.
         n_red_herring_clues_evaluated: Number of red herring clues evaluated as an integer.
         plot_path: Path to the folder to save the plot in.
         theme: Theme name as a string.
-        n_objects_max: Maximum number of objects in puzzles as an integer.
-        n_attributes_max: Maximum number of attributes in puzzles as an integer.
         clue_types: List of possible non red herring clue types as strings.
         plot_filename: Name of the plot file as a string.
         plot_title: Title of the plot as a string.
@@ -419,13 +432,6 @@ def plot_bar_grid(
         fontweight="bold",
     )
 
-    # Get the maximum number of objects from the puzzle sizes
-    n_objects_list = sorted(
-        np.unique([int(puzzle_size.split("x")[0]) for puzzle_size in puzzle_sizes]),
-        reverse=True,
-    )
-
-    max_n_objects = max(n_objects_list)
     min_y_value = min(min_y_value * 1.1, 0)
     max_y_value = max_y_value * 1.1
 
@@ -438,7 +444,11 @@ def plot_bar_grid(
         n_objects, n_attributes = map(int, puzzle_size.split("x"))
 
         # Get the subplot for this puzzle size
-        ax = axs[max_n_objects - n_objects, n_attributes - 1]
+        # If n_objects_max is 2, then we only have one row of subplots
+        if n_objects_max > 2:
+            ax = axs[n_objects_max - n_objects, n_attributes - 1]
+        else:
+            ax = axs[n_attributes - 1]
 
         ax.set_visible(True)
 

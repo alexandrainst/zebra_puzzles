@@ -218,8 +218,6 @@ def load_scores_and_plot_results_for_each_evaluation(
                     data_folder=data_folder,
                     theme=theme,
                     n_puzzles=n_puzzles,
-                    n_objects_max=max(n_objects_max_all_models),
-                    n_attributes_max=max(n_attributes_max_all_models),
                     clue_types=clue_types,
                     all_clue_types=all_clue_types,
                     model=model,
