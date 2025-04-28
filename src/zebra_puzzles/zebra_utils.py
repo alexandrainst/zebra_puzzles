@@ -471,7 +471,7 @@ def estimate_clue_type_difficulty(
     for puzzle_size in clue_type_frequencies_all_sizes.keys():
         # Get the frequencies of each clue type for this puzzle size
         clue_type_frequencies = clue_type_frequencies_all_sizes[puzzle_size]
-        clue_types_one_size = clue_type_frequencies.keys()
+        puzzle_indices_one_size = clue_type_frequencies.keys()
 
         # Load the list of scores incl. all n_puzzles
         scores_individual_puzzles = load_individual_puzzle_scores(
@@ -497,13 +497,18 @@ def estimate_clue_type_difficulty(
         # Create the feature matrix (frequency of each clue type in each puzzle)
         X = np.zeros((n_puzzles, len(all_possible_clue_types)))
         for i, clue_type in enumerate(all_possible_clue_types):
-            for j, puzzle_index in enumerate(clue_types_one_size):
+            for j, puzzle_index in enumerate(puzzle_indices_one_size):
                 X[j, i] = clue_type_frequencies[puzzle_index].get(clue_type, 0)
         # Create the target vector
         y = np.zeros((n_puzzles, 1))
 
-        for j, puzzle_index in enumerate(list(clue_type_frequencies.keys())):
+        for j, puzzle_index in enumerate(puzzle_indices_one_size):
             y[j] = scores_individual_puzzles[puzzle_index]
+
+        # Check whether the target vector only has one value
+        if len(set(y.flatten())) == 1:
+            # Skip this puzzle size as a fit is not meaningful
+            continue
 
         # Fit the regression model to the data
         regression_model.fit(X, y)
@@ -515,15 +520,19 @@ def estimate_clue_type_difficulty(
         # TODO: Get the standard deviation of each clue type's importance
 
         # Normalise the clue importances to sum to 1
-        clue_importances_normalised = clue_importances / np.sum(clue_importances)
+        clue_importances_normalised = clue_importances / np.sum(abs(clue_importances))
+
+        # Take the negative of the importances as the difficulty
+        clue_difficulties = -clue_importances_normalised
 
         # Make a dictionary of clue importances
-        clue_importances_normalised_dict = {
-            clue_type: float(clue_importances_normalised[i])
+        clue_difficulties_dict = {
+            clue_type: float(clue_difficulties[i])
             for i, clue_type in enumerate(all_possible_clue_types)
         }
 
         # Append the difficulties for this puzzle size to the list
-        clue_type_difficulties_all_sizes[puzzle_size] = clue_importances_normalised_dict
+        # Use the negative of the importances as the difficulty
+        clue_type_difficulties_all_sizes[puzzle_size] = clue_difficulties_dict
 
     return clue_type_difficulties_all_sizes
