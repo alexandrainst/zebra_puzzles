@@ -239,8 +239,11 @@ def prepare_eval_folders(
 
     puzzle_paths = sorted(list(puzzle_folder.glob("*.txt")))
 
+    solution_folder = puzzle_folder.parent / "solutions"
+
     solution_paths = [
-        puzzle_path.parent.parent.joinpath("solutions") for puzzle_path in puzzle_paths
+        solution_folder / f"{puzzle_path.stem}_solution.json"
+        for puzzle_path in puzzle_paths
     ]
 
     # Create reponse file names

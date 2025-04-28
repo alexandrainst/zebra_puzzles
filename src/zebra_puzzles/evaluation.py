@@ -49,6 +49,8 @@ def evaluate_all(
         data_folder_str: The path to the folder containing the data as a string.
 
     TODO: Make the script more robust in cases where the expected responses are not found.
+    TODO: Fix order of puzzle_paths, reduced_puzzle_paths, reduced_clue_type_paths, response_filenames
+    TODO: Fix solution_paths (make them include the filename)
     """
     (
         puzzle_paths,
@@ -116,7 +118,6 @@ def evaluate_all(
         metrics=metrics,
         n_puzzles=n_puzzles,
     )
-
     save_dataset(data=score_str, filename=score_filename, folder=score_folder)
 
 
@@ -177,9 +178,7 @@ def evaluate_single_puzzle(
         output = OutputFormat.model_validate(output)
 
     # Load the solution
-    solution_filename = f"{puzzle_file_path.stem}_solution.json"
-
-    with solution_file_path.joinpath(solution_filename).open() as file:
+    with solution_file_path.open() as file:
         solution = file.read()
 
     # Change the format of solution to OutputFormat
