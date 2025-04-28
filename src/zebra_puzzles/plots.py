@@ -261,14 +261,16 @@ def plot_clue_type_frequencies(
 
     plot_title = f"Frequencies of clue types with {n_red_herring_clues_evaluated} red herrings for theme {theme}, {n_puzzles} puzzles of each size"
     plot_filename = f"clue_type_frequencies_{n_red_herring_clues_evaluated}rh.png"
+    plot_path = data_folder / "plots"
 
     # Make a grid of bar plots of clue type frequencies
     plot_bar_grid(
         bar_dicts_all_sizes=clue_type_frequencies_normalised_mean_all_sizes,
         all_clue_types=all_clue_types,
         max_y_value=max_mean_normalised_frequency,
+        min_y_value=0,
         puzzle_sizes=puzzle_sizes,
-        data_folder=data_folder,
+        plot_path=plot_path,
         n_objects_max=max(n_objects_max_all_models),
         n_attributes_max=max(n_attributes_max_all_models),
         clue_types=clue_types,
@@ -294,6 +296,7 @@ def plot_clue_type_difficulty(
     n_attributes_max: int,
     clue_types: list[str],
     all_clue_types: list[str],
+    model: str,
 ) -> None:
     """Plot the difficulty of each clue type.
 
@@ -308,6 +311,7 @@ def plot_clue_type_difficulty(
         n_attributes_max: Maximum number of attributes in puzzles as an integer.
         clue_types: List of possible non red herring clue types as strings.
         all_clue_types: List of all used clue types as strings.
+        model: Name of the model as a string.
 
     TODO: Refactor to share more code with plot_clue_type_frequencies.
     """
@@ -318,18 +322,27 @@ def plot_clue_type_difficulty(
             for puzzle_size in clue_type_difficulties_all_sizes.keys()
         ]
     )
+    min_difficulty = min(
+        [
+            min(clue_type_difficulties_all_sizes[puzzle_size].values())
+            for puzzle_size in clue_type_difficulties_all_sizes.keys()
+        ]
+    )
+
     puzzle_sizes = list(clue_type_difficulties_all_sizes.keys())
 
-    plot_title = f"Frequencies of clue types with {n_red_herring_clues_evaluated} red herrings for theme {theme}, {n_puzzles} puzzles of each size"
-    plot_filename = f"clue_type_frequencies_{n_red_herring_clues_evaluated}rh.png"
+    plot_title = f"Difficulty of clue types with {n_red_herring_clues_evaluated} red herrings for theme {theme}, {n_puzzles} puzzles of each size"
+    plot_filename = f"clue_type_difficulties_{n_red_herring_clues_evaluated}rh.png"
+    plot_path = data_folder / "plots" / model
 
     # Make a grid of bar plots of clue type difficulties
     plot_bar_grid(
         bar_dicts_all_sizes=clue_type_difficulties_all_sizes,
         all_clue_types=all_clue_types,
         max_y_value=max_difficulty,
+        min_y_value=min_difficulty,
         puzzle_sizes=puzzle_sizes,
-        data_folder=data_folder,
+        plot_path=plot_path,
         n_objects_max=n_objects_max,
         n_attributes_max=n_attributes_max,
         clue_types=clue_types,
@@ -343,8 +356,9 @@ def plot_bar_grid(
     bar_dicts_all_sizes: dict[str, dict[str, float]],
     all_clue_types: list[str],
     max_y_value: float,
+    min_y_value: float,
     puzzle_sizes: list[str],
-    data_folder: Path,
+    plot_path: Path,
     n_objects_max: int,
     n_attributes_max: int,
     clue_types: list[str],
@@ -359,9 +373,10 @@ def plot_bar_grid(
             The outer dictionary is for each puzzle size, the middle dictionary is for a puzzle index, and the inner dictionary is for each clue type.
         all_clue_types: List of all clue types as strings.
         max_y_value: Maximum value for the y axis as a float.
+        min_y_value: Minimum value for the y axis as a float. If this is larger than 0, it will be set to 0.
         puzzle_sizes: List of puzzle sizes as strings.
         n_red_herring_clues_evaluated: Number of red herring clues evaluated as an integer.
-        data_folder: Path to the data folder.
+        plot_path: Path to the folder to save the plot in.
         theme: Theme name as a string.
         n_objects_max: Maximum number of objects in puzzles as an integer.
         n_attributes_max: Maximum number of attributes in puzzles as an integer.
@@ -411,6 +426,8 @@ def plot_bar_grid(
     )
 
     max_n_objects = max(n_objects_list)
+    min_y_value = min(min_y_value * 1.1, 0)
+    max_y_value = max_y_value * 1.1
 
     # Hide all plots
     for ax in axs.flat:
@@ -442,7 +459,7 @@ def plot_bar_grid(
         # Create a bar plot for this puzzle size
         ax.bar(all_clue_types, bar_values_one_size)
         ax.set_title(f"{n_objects} objects, {n_attributes} attributes")
-        ax.set_ylim(0, max_y_value * 1.1)
+        ax.set_ylim(min_y_value, max_y_value)
         ax.grid(axis="y", linestyle="--", alpha=0.7)
 
         # Add a vertical line to separate the red herring clues from the non-red herring clues
@@ -461,14 +478,13 @@ def plot_bar_grid(
         ax.tick_params(axis="x", labelsize=10)
         ax.tick_params(axis="y", labelsize=10)
         ax.set_xticklabels(all_clue_types, rotation=45, ha="right", fontsize=10)
-        ax.set_yticks(ticks=np.arange(0, max_y_value * 1.1, 0.1))
+        ax.set_yticks(ticks=np.arange(min_y_value, max_y_value, 0.1))
         ax.set_yticklabels(
             [f"{x:.2f}" for x in ax.get_yticks()], rotation=0, ha="right", fontsize=10
         )
 
     # Save the plot
     plt.tight_layout()
-    plot_path = data_folder / "plots"
     plot_path.mkdir(parents=True, exist_ok=True)
     plt.savefig(plot_path / plot_filename, dpi=300, bbox_inches="tight")
     plt.close(fig)

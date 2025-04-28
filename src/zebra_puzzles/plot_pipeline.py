@@ -222,6 +222,7 @@ def load_scores_and_plot_results_for_each_evaluation(
                     n_attributes_max=max(n_attributes_max_all_models),
                     clue_types=clue_types,
                     all_clue_types=all_clue_types,
+                    model=model,
                 )
 
         # Save values across all values of n_red_herring_clues_evaluated
