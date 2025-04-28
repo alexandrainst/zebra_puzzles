@@ -235,9 +235,20 @@ def prepare_eval_folders(
     puzzle_subfolder = Path(theme) / f"{n_objects}x{n_attributes}"
 
     # Get sorted names of all prompt files in the data folder
-    puzzle_folder = data_folder / puzzle_subfolder / f"{n_red_herring_clues}rh/puzzles"
+    puzzle_folder = (
+        data_folder / puzzle_subfolder / f"{n_red_herring_clues}rh" / "puzzles"
+    )
 
-    puzzle_paths = sorted(list(puzzle_folder.glob("*.txt")))
+    # Load the puzzle paths
+    puzzle_paths = sorted(list(puzzle_folder.glob("zebra_puzzle_*.txt")))
+
+    # Sort the puzzle paths by the puzzle index (the number after zebra_puzzle_ and before .txt)
+    puzzle_indices = [
+        int(file_path.name.split("_")[2].split(".txt")[0]) for file_path in puzzle_paths
+    ]
+    puzzle_paths = [
+        file_path for _, file_path in sorted(zip(puzzle_indices, puzzle_paths))
+    ]
 
     solution_folder = puzzle_folder.parent / "solutions"
 

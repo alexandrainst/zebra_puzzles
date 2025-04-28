@@ -49,8 +49,6 @@ def evaluate_all(
         data_folder_str: The path to the folder containing the data as a string.
 
     TODO: Make the script more robust in cases where the expected responses are not found.
-    TODO: Fix order of puzzle_paths, reduced_puzzle_paths, reduced_clue_type_paths, response_filenames
-    TODO: Fix solution_paths (make them include the filename)
     """
     (
         puzzle_paths,
@@ -118,6 +116,7 @@ def evaluate_all(
         metrics=metrics,
         n_puzzles=n_puzzles,
     )
+
     save_dataset(data=score_str, filename=score_filename, folder=score_folder)
 
 
