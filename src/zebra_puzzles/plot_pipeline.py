@@ -35,7 +35,7 @@ def plot_results(
         clue_types: List of possible non red herring clue types.
         red_herring_clue_types: List of possible red herring clue types.
 
-    TODO: More plots e.g. clue type difficulty bar plots, score vs. n_clues etc.
+    NOTE: More plots can be added e.g. score vs. n_clues etc.
     TODO: Analyze when o3-mini fails to solve the puzzle. There seems to be a shift in puzzle numbers in files vs. in the score file.
     """
     # Convert the data folder string to a Path object

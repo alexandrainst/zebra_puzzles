@@ -311,8 +311,6 @@ def plot_clue_type_difficulty(
         clue_types: List of possible non red herring clue types as strings.
         all_clue_types: List of all used clue types as strings.
         model: Name of the model as a string.
-
-    TODO: Refactor to share more code with plot_clue_type_frequencies.
     """
     # Get the maximum frequency for each clue type across all puzzle sizes
     max_difficulty = max(

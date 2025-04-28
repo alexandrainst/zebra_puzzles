@@ -272,7 +272,6 @@ def compute_metrics(
         Metrics as a dictionary of with the score type as the key, and the values being a tuple of ndarrays. The tuple contains the rounded metrics for the score type and a string describing the metrics for the score type.
 
     NOTE: More metrics could be added e.g. from sklearn.metrics
-    TODO: Use the binomial standard deviation for puzzle scores
     """
     # Number of score types
     n_metrics = len(score_types)

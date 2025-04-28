@@ -453,15 +453,11 @@ def estimate_clue_type_difficulty(
         A dictionary of dictionaries of clue difficulties as floats.
             The outer dictionary is for each puzzle size, the inner dictionary is for each clue type.
 
-    # TODO: Compute the difficulty of each clue type
-    #                For example as the mean score of puzzles weighted by the number of times the clue type was used.
-    #                Or normalise the scores to compare the difficulty of clues for the puzzle size. Then, the normalised scores can be compared across different puzzle sizes.
-    #                Or use linear regression to estimate the difficulty of each clue type.
 
-    NOTE: Consider using scipy instead of sklearn for linear regression to get the standard deviation of the coefficients.
+    NOTE: We can consider other methods to compute the difficulty of each clue type.
+    NOTE: It would be very useful to have a measure of the uncertainty of the difficulty estimates. Perhaps by using scipy.
     NOTE: Consider if we should fit to clue type frequencies or normalised clue type frequencies.
-    NOTE: Consider if the normalisation of difficulties should be done differently.
-    TODO: Handle extreme values and NaN values in the difficulties.
+
     """
     clue_type_difficulties_all_sizes: dict[str, dict[str, float]] = {}
 
@@ -516,8 +512,6 @@ def estimate_clue_type_difficulty(
         # Estimate feature importance in the linear regression model
         # The higher the coefficient, the more important the feature is for predicting the target variable
         clue_importances = regression_model.coef_[0]
-
-        # TODO: Get the standard deviation of each clue type's importance
 
         # Scale the clue importances so the absolute values sum to 1
         clue_importances_normalised = clue_importances / np.sum(abs(clue_importances))
