@@ -20,7 +20,7 @@ initialize(config_path="../config", version_base=None)
 # Test configurations for pytest
 # Each set of parameters represents a different configuration for the tests.
 @pytest.fixture(
-    scope="session", params=[(1, 2, 0), (2, 2, 0), (1, 2, 2), (2, 2, 2), (2, 0, 0)]
+    scope="session", params=[(1, 2, 0), (2, 2, 0), (1, 2, 2), (2, 2, 2), (3, 0, 0)]
 )
 def config(request) -> Generator[DictConfig, None, None]:
     """Hydra configuration.
@@ -169,10 +169,14 @@ def plot_paths(eval_paths, config) -> Generator[tuple[Path, list], None, None]:
         n_red_herring_clues_generated=n_red_herring_clues,
     )
 
-    plots_path = Path(data_folder) / "plots"
+    plots_path = Path(data_folder) / "plots" / theme
 
     # Get the folder names in the plots path (corresponding to the model names and comparisons)
-    plots_model_paths = [p for p in plots_path.iterdir() if p.is_dir()]
+    plots_model_paths = [
+        p
+        for p in plots_path.iterdir()
+        if p.is_dir() and p.name != "clue_type_frequencies"
+    ]
 
     yield plots_path, plots_model_paths
 

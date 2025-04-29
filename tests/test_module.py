@@ -128,8 +128,7 @@ def test_heatmaps_for_current_model(plot_paths, config) -> None:
 
     # Get the path to the model currently in the config
     model = config.model
-    theme = config.language.theme
-    model_folder = plots_path / theme / model
+    model_folder = plots_path / model
 
     # Check that the model folder exists
     assert model_folder.exists()
@@ -152,16 +151,18 @@ def test_heatmaps_for_current_model(plot_paths, config) -> None:
 
 
 def test_clue_type_difficulty_plot(plot_paths, config) -> None:
-    """Test that the clue type difficulty plot file exists."""
+    """Test that the clue type difficulty plot file exists.
+
+    Only test this when n_puzzles > 1.
+    """
     # Get the plotting path
     plots_path = plot_paths[0]
     model = config.model
     n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
     n_puzzles = config.n_puzzles
-    theme = config.language.theme
 
     # Get the path to the model currently in the config
-    model_folder = plots_path / theme / model
+    model_folder = plots_path / model
 
     # Define the filename for the clue type difficulty plot
     clue_type_difficulty_plot_filename = f"clue_type_difficulties_{model}_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.png"
@@ -169,10 +170,14 @@ def test_clue_type_difficulty_plot(plot_paths, config) -> None:
         model_folder / clue_type_difficulty_plot_filename
     )
 
-    # Check that the clue type difficulty plot file exists
-    assert clue_type_difficulty_plot_file_path.exists()
-    assert clue_type_difficulty_plot_file_path.is_file()
-    assert os.path.getsize(clue_type_difficulty_plot_file_path) > 0
+    if n_puzzles == 1:
+        # If n_puzzles is 1, the plot is not generated
+        assert not clue_type_difficulty_plot_file_path.exists()
+    else:
+        # Check that the clue type difficulty plot file exists
+        assert clue_type_difficulty_plot_file_path.exists()
+        assert clue_type_difficulty_plot_file_path.is_file()
+        assert os.path.getsize(clue_type_difficulty_plot_file_path) > 0
 
 
 def test_clue_type_frequency_plots(plot_paths, config) -> None:
@@ -184,7 +189,9 @@ def test_clue_type_frequency_plots(plot_paths, config) -> None:
 
     # Define the filename for the clue type frequency plot
     clue_type_frequency_plot_filename = f"clue_type_frequencies_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.png"
-    clue_type_frequency_plot_file_path = plots_path / clue_type_frequency_plot_filename
+    clue_type_frequency_plot_file_path = (
+        plots_path / "clue_type_frequencies" / clue_type_frequency_plot_filename
+    )
 
     # Check that the clue type frequency plot file exists
     assert clue_type_frequency_plot_file_path.exists()

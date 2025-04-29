@@ -17,6 +17,7 @@ def compare_all_eval_types(
     n_objects_max_all_eval: list[list[int]],
     n_attributes_max_all_eval: list[list[int]],
     data_folder: Path,
+    theme: str,
     score_types: list[str],
     n_puzzles: int,
 ) -> None:
@@ -30,6 +31,7 @@ def compare_all_eval_types(
         n_objects_max_all_eval: List of lists of the maximum number of objects in puzzles for each evaluation. The outer list is for different n_red_herring_clues_evaluated and the inner list is for different models.
         n_attributes_max_all_eval: List of lists of the maximum number of attributes in puzzles for each evaluation. The outer list is for different n_red_herring_clues_evaluated and the inner list is for different models.
         data_folder: Path to the data folder.
+        theme: Theme of the puzzles as a string.
         score_types: List of score types as strings.
         n_puzzles: Number of puzzles evaluated with each size.
     """
@@ -50,6 +52,7 @@ def compare_all_eval_types(
             std_mean_scores_some_eval_array=std_mean_scores_all_eval_array_n_red_herrings_i,
             n_red_herring_values=[str(n_red_herring_clues_evaluated)],
             data_folder=data_folder,
+            theme=theme,
             score_types=score_types,
             n_objects_max_some_eval=n_objects_max_all_eval_n_red_herrings_i,
             n_attributes_max_some_eval=n_attributes_max_all_eval_n_red_herrings_i,
@@ -80,6 +83,7 @@ def compare_all_eval_types(
             std_mean_scores_some_eval_array=std_mean_scores_all_eval_array_model_i,
             n_red_herring_values=[str(n) for n in n_red_herring_values],
             data_folder=data_folder,
+            theme=theme,
             score_types=score_types,
             n_objects_max_some_eval=n_objects_max_all_eval_model_i,
             n_attributes_max_some_eval=n_attributes_max_all_eval_model_i,
@@ -93,6 +97,7 @@ def compare_eval_type(
     std_mean_scores_some_eval_array: list[np.ndarray],
     n_red_herring_values: list[str],
     data_folder: Path,
+    theme: str,
     score_types: list[str],
     n_objects_max_some_eval: list[int],
     n_attributes_max_some_eval: list[int],
@@ -110,6 +115,7 @@ def compare_eval_type(
         std_mean_scores_some_eval_array: List of standard deviation arrays.
         n_red_herring_values: Number of red herring clues evaluated.
         data_folder: Path to the data folder.
+        theme: Theme of the puzzles as a string.
         score_types: List of score types as strings.
         n_objects_max_some_eval: List of the maximum number of objects in puzzles for each evaluated model.
         n_attributes_max_some_eval: List of the maximum number of attributes in puzzles for each evaluated model.
@@ -154,16 +160,23 @@ def compare_eval_type(
                 full_model_name = model_names[0]
                 full_red_herring_name = f"{eval_i_name} vs {eval_j_name}"
 
-                plot_path = Path(
-                    f"{data_folder}/plots/{full_model_name.replace(' ', '_')}/rh_comparison/"
+                plot_path = (
+                    data_folder
+                    / "plots"
+                    / theme
+                    / f"{full_model_name.replace(' ', '_')}"
+                    / "rh_comparison"
                 )
 
             else:
                 full_model_name = f"{eval_i_name} vs {eval_j_name}"
                 full_red_herring_name = n_red_herring_values[0]
 
-                plot_path = Path(
-                    f"{data_folder}/plots/{full_model_name.replace(' ', '_')}/"
+                plot_path = (
+                    data_folder
+                    / "plots"
+                    / theme
+                    / f"{full_model_name.replace(' ', '_')}"
                 )
 
             # Make heatmaps of differences in mean scores

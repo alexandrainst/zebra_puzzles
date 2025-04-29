@@ -75,6 +75,7 @@ def plot_results(
             n_objects_max_all_eval=n_objects_max_all_eval,
             n_attributes_max_all_eval=n_attributes_max_all_eval,
             data_folder=data_folder,
+            theme=theme,
             score_types=score_types,
             n_puzzles=n_puzzles,
         )

@@ -262,7 +262,7 @@ def plot_clue_type_frequencies(
     # Define the plot title and file path
     plot_title = f"Frequencies of clue types in puzzles w. {n_red_herring_clues_evaluated} red herrings and theme {theme}, {n_puzzles} puzzles/size"
     plot_filename = f"clue_type_frequencies_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.png"
-    plot_path = data_folder / "plots"
+    plot_path = data_folder / "plots" / theme / "clue_type_frequencies"
     y_label = "Mean normalised frequency"
 
     # Make a grid of bar plots of clue type frequencies
@@ -346,7 +346,7 @@ def plot_clue_type_difficulty(
     # Define the plot title and file path
     plot_title = f"Difficulty of clue types in puzzles w. {n_red_herring_clues_evaluated} red herrings and theme {theme}, {n_puzzles} puzzles/size"
     plot_filename = f"clue_type_difficulties_{model}_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.png"
-    plot_path = data_folder / "plots" / model
+    plot_path = data_folder / "plots" / theme / model
     y_label = "Relative difficulty"
 
     # Make a grid of bar plots of clue type difficulties
