@@ -26,6 +26,7 @@ def main(config: DictConfig) -> None:
     data_folder = config.data_folder
     clue_types = list(config.clue_weights.keys())
     red_herring_clue_types = list(config.red_herring_clue_weights.keys())
+    n_red_herring_clues_generated = config.n_red_herring_clues
 
     plot_results(
         n_puzzles=n_puzzles,
@@ -33,6 +34,7 @@ def main(config: DictConfig) -> None:
         data_folder_str=data_folder,
         clue_types=clue_types,
         red_herring_clue_types=red_herring_clue_types,
+        n_red_herring_clues_generated=n_red_herring_clues_generated,
     )
 
 

@@ -204,9 +204,10 @@ def choose_eval_pairs(
             compare_mode: Mode of comparison, either "models" or "red_herrings".
             eval_names: Names of the evaluations to be compared.
     """
-    if len(model_names) < 2:
+    # Check if we are comparing models or red herring clues
+    if len(model_names) == 1:
         if len(n_red_herring_values) < 2:
-            raise ValueError(
+            raise Warning(
                 "At least two models or two different n_red_herring_values are required for comparison."
             )
         # Choose each combination of two models

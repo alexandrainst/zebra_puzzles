@@ -18,10 +18,10 @@ model : o3-mini
 generate_new_responses: False
 
 # The folder where data is stored
-data_folder: data
+data_folder: data_backup
 
 # Number of puzzles to generate
-n_puzzles: 20
+n_puzzles: 100
 
 # Objects e.g. houses
 n_objects: 2

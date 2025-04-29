@@ -121,16 +121,17 @@ def test_responses(eval_paths, config) -> None:
     assert len(response_dict["object_1"]) == config.n_attributes
 
 
-def test_plots_for_current_model(plot_paths, config) -> None:
+def test_heatmaps_for_current_model(plot_paths, config) -> None:
     """Test that the model in the config has folders and files saved in the plots folder."""
     # Get the plotting path
     plots_path = plot_paths[0]
 
-    model = config.model
-
     # Get the path to the model currently in the config
-    model_folder = plots_path / model
+    model = config.model
+    theme = config.language.theme
+    model_folder = plots_path / theme / model
 
+    # Check that the model folder exists
     assert model_folder.exists()
     assert model_folder.is_dir()
 
@@ -150,10 +151,51 @@ def test_plots_for_current_model(plot_paths, config) -> None:
     assert os.path.getsize(cell_score_plot_file_path) > 0
 
 
+def test_clue_type_difficulty_plot(plot_paths, config) -> None:
+    """Test that the clue type difficulty plot file exists."""
+    # Get the plotting path
+    plots_path = plot_paths[0]
+    model = config.model
+    n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
+    n_puzzles = config.n_puzzles
+    theme = config.language.theme
+
+    # Get the path to the model currently in the config
+    model_folder = plots_path / theme / model
+
+    # Define the filename for the clue type difficulty plot
+    clue_type_difficulty_plot_filename = f"clue_type_difficulties_{model}_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.png"
+    clue_type_difficulty_plot_file_path = (
+        model_folder / clue_type_difficulty_plot_filename
+    )
+
+    # Check that the clue type difficulty plot file exists
+    assert clue_type_difficulty_plot_file_path.exists()
+    assert clue_type_difficulty_plot_file_path.is_file()
+    assert os.path.getsize(clue_type_difficulty_plot_file_path) > 0
+
+
+def test_clue_type_frequency_plots(plot_paths, config) -> None:
+    """Test that the clue type frequency plot files exist."""
+    # Get the plotting path
+    plots_path = plot_paths[0]
+    n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
+    n_puzzles = config.n_puzzles
+
+    # Define the filename for the clue type frequency plot
+    clue_type_frequency_plot_filename = f"clue_type_frequencies_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.png"
+    clue_type_frequency_plot_file_path = plots_path / clue_type_frequency_plot_filename
+
+    # Check that the clue type frequency plot file exists
+    assert clue_type_frequency_plot_file_path.exists()
+    assert clue_type_frequency_plot_file_path.is_file()
+    assert os.path.getsize(clue_type_frequency_plot_file_path) > 0
+
+
 def test_model_comparisons(plot_paths, config) -> None:
     """Test the comparisons between models in the plots folder.
 
-    # TODO: Make sure a comparison is actually done, by running two models.
+    TODO: Make sure a comparison is actually done, by running two models.
     """
     # Get the list of paths to plots for each LLM model / comparison
     plots_model_paths = plot_paths[1]

@@ -193,7 +193,7 @@ def annotate_heatmap(
 def plot_clue_type_frequencies(
     data_folder: Path,
     n_red_herring_clues_evaluated: int,
-    n_red_herring_clues_evaluated_max: int,
+    n_red_herring_clues_generated: int,
     theme: str,
     n_puzzles: int,
     n_objects_max_all_models: list[int],
@@ -208,7 +208,7 @@ def plot_clue_type_frequencies(
     Args:
         data_folder: Path to the data folder.
         n_red_herring_clues_evaluated: Number of red herring clues evaluated as an integer.
-        n_red_herring_clues_evaluated_max: Maximum number of red herring clues evaluated as an integer.
+        n_red_herring_clues_generated: The number of red herring clues originally generated in the puzzles.
         theme: Theme name as a string.
         n_puzzles: The number of puzzles as an integer.
         n_objects_max_all_models: Maximum number of objects in puzzles as a list of integers.
@@ -224,7 +224,7 @@ def plot_clue_type_frequencies(
             all_clue_types: List of all used clue types as strings.
     """
     # Get the paths of the clue type files
-    reduced_flag = n_red_herring_clues_evaluated < n_red_herring_clues_evaluated_max
+    reduced_flag = n_red_herring_clues_evaluated < n_red_herring_clues_generated
 
     clue_type_file_paths_all_sizes = get_clue_type_file_paths(
         data_folder=data_folder,

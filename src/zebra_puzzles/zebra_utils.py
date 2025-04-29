@@ -438,6 +438,8 @@ def estimate_clue_type_difficulty(
 ) -> dict[str, dict[str, float]]:
     """Estimate the difficulty of each clue type.
 
+    To estimate the clue type difficulties for a size, the size needs to contain multiple puzzles with different clue type frequencies and different scores.
+
     Args:
         clue_type_frequencies_all_sizes: Dictionary of dictionaries of dictionaries of clue type frequencies.
             The outer dictionary is for each puzzle size, the middle dictionary is for a puzzle index, and the inner dictionary is for each clue type.
@@ -463,11 +465,29 @@ def estimate_clue_type_difficulty(
 
     all_possible_clue_types = clue_types + red_herring_clue_types
 
+    n_non_evaluated_puzzles = 0
+    n_identical_frequencies = 0
+    n_identical_scores = 0
+
+    puzzle_sizes = sorted(clue_type_frequencies_all_sizes.keys())
+
     # Select a puzzle size
-    for puzzle_size in clue_type_frequencies_all_sizes.keys():
+    for puzzle_size in puzzle_sizes:
         # Get the frequencies of each clue type for this puzzle size
-        clue_type_frequencies = clue_type_frequencies_all_sizes[puzzle_size]
-        puzzle_indices_one_size = clue_type_frequencies.keys()
+        clue_type_frequencies_one_size = clue_type_frequencies_all_sizes[puzzle_size]
+        puzzle_indices_one_size = sorted(clue_type_frequencies_one_size.keys())
+
+        # Check if the combination of clue types and their frequencies are identical for all puzzles of this size
+        all_identical_frequencies_flag = check_identical_frequencies(
+            puzzle_indices_one_size=puzzle_indices_one_size,
+            clue_type_frequencies_one_size=clue_type_frequencies_one_size,
+            all_possible_clue_types=all_possible_clue_types,
+        )
+
+        # If the frequencies are identical for all puzzles of this size, skip this size
+        if all_identical_frequencies_flag:
+            n_identical_frequencies += 1
+            continue
 
         # Load the list of scores incl. all n_puzzles
         scores_individual_puzzles = load_individual_puzzle_scores(
@@ -482,6 +502,12 @@ def estimate_clue_type_difficulty(
 
         # If we tried to load scores for a size that was not evaluated by the model, skip this size
         if scores_individual_puzzles[0] == -999.0:
+            n_non_evaluated_puzzles += 1
+            continue
+
+        # If the scores are identical for all puzzles of this size, skip this size
+        if len(set(scores_individual_puzzles.values())) == 1:
+            n_identical_scores += 1
             continue
 
         # Calculate the difficulty of each clue type
@@ -494,7 +520,7 @@ def estimate_clue_type_difficulty(
         X = np.zeros((n_puzzles, len(all_possible_clue_types)))
         for i, clue_type in enumerate(all_possible_clue_types):
             for j, puzzle_index in enumerate(puzzle_indices_one_size):
-                X[j, i] = clue_type_frequencies[puzzle_index].get(clue_type, 0)
+                X[j, i] = clue_type_frequencies_one_size[puzzle_index].get(clue_type, 0)
         # Create the target vector
         y = np.zeros((n_puzzles, 1))
 
@@ -529,4 +555,59 @@ def estimate_clue_type_difficulty(
         # Use the negative of the importances as the difficulty
         clue_type_difficulties_all_sizes[puzzle_size] = clue_difficulties_dict
 
+    print(
+        f"Out of {len(puzzle_sizes)} puzzle sizes, clue difficulty estimation has been skipped for {n_identical_frequencies} sizes with identical clue type frequencies, {n_identical_scores} sizes with identical scores, and {n_non_evaluated_puzzles} sizes with no evaluated puzzles."
+    )
+    if (
+        len(clue_type_difficulties_all_sizes)
+        != len(puzzle_sizes)
+        - n_identical_frequencies
+        - n_identical_scores
+        - n_non_evaluated_puzzles
+    ):
+        raise Warning(
+            f"The number of puzzle sizes with estimated clue difficulties is not equal to the number of puzzle sizes minus the number of skipped sizes. {len(clue_type_difficulties_all_sizes)} != {len(puzzle_sizes)} - {n_identical_frequencies} - {n_identical_scores} - {n_non_evaluated_puzzles}"
+        )
+
     return clue_type_difficulties_all_sizes
+
+
+def check_identical_frequencies(
+    puzzle_indices_one_size: list[int],
+    clue_type_frequencies_one_size: dict[int, dict[str, int]],
+    all_possible_clue_types: list[str],
+) -> bool:
+    """Check if the frequencies of each clue type are identical for all puzzles of a given size.
+
+    Args:
+        puzzle_indices_one_size: List of puzzle indices for the given size.
+        clue_type_frequencies_one_size: Dictionary of dictionaries of clue type frequencies for the given size.
+        all_possible_clue_types: List of all possible clue types.
+
+    Returns:
+        A boolean indicating whether the frequencies are identical for all puzzles of this size.
+    """
+    for puzzle_index in puzzle_indices_one_size[1:]:
+        # For each clue type, check if the frequencies are identical to the first puzzle
+        n_identical_frequencies_one_size = 0
+        n_identical_frequencies_one_puzzle = 0
+
+        # Check if the frequencies in this puzzle are identical to the first puzzle
+        for clue_type in all_possible_clue_types:
+            if clue_type_frequencies_one_size[puzzle_index].get(
+                clue_type, 0
+            ) != clue_type_frequencies_one_size[puzzle_indices_one_size[0]].get(
+                clue_type, 0
+            ):
+                n_identical_frequencies_one_puzzle += 1
+
+            # Check whether all frequencies are identical for this puzzle size
+            if n_identical_frequencies_one_puzzle == len(all_possible_clue_types):
+                n_identical_frequencies_one_size += 1
+
+        # Check whether all frequencies are identical for this puzzle size
+        all_identical_frequencies_flag = n_identical_frequencies_one_size == len(
+            puzzle_indices_one_size
+        )
+
+    return all_identical_frequencies_flag

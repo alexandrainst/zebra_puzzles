@@ -43,6 +43,7 @@ def config(request) -> Generator[DictConfig, None, None]:
             f"n_red_herring_clues_evaluated={n_red_herring_clues_evaluated}",
             "data_folder=tests/test_data",
             "model=gpt-4o-mini",
+            "generate_new_responses=True",
         ],
     )
 
@@ -157,6 +158,7 @@ def plot_paths(eval_paths, config) -> Generator[tuple[Path, list], None, None]:
     data_folder = config.data_folder
     clue_types = list(config.clue_weights.keys())
     red_herring_clue_types = list(config.red_herring_clue_weights.keys())
+    n_red_herring_clues = config.n_red_herring_clues
 
     plot_results(
         n_puzzles=n_puzzles,
@@ -164,6 +166,7 @@ def plot_paths(eval_paths, config) -> Generator[tuple[Path, list], None, None]:
         data_folder_str=data_folder,
         clue_types=clue_types,
         red_herring_clue_types=red_herring_clue_types,
+        n_red_herring_clues_generated=n_red_herring_clues,
     )
 
     plots_path = Path(data_folder) / "plots"

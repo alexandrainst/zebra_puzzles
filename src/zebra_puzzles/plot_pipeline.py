@@ -25,6 +25,7 @@ def plot_results(
     data_folder_str: str,
     clue_types: list[str],
     red_herring_clue_types: list[str],
+    n_red_herring_clues_generated: int,
 ) -> None:
     """Plot the results of the LLM's trying to solve zebra puzzles.
 
@@ -34,6 +35,7 @@ def plot_results(
         data_folder_str: Path to the data folder as a string.
         clue_types: List of possible non red herring clue types.
         red_herring_clue_types: List of possible red herring clue types.
+        n_red_herring_clues_generated: Number of red herring clues generated in the original puzzles.
 
     NOTE: More plots can be added e.g. score vs. n_clues etc.
     """
@@ -60,20 +62,22 @@ def plot_results(
         score_types=score_types,
         clue_types=clue_types,
         red_herring_clue_types=red_herring_clue_types,
+        n_red_herring_clues_generated=n_red_herring_clues_generated,
     )
 
     # ----- Compare the mean scores of different evaluations -----#
-    compare_all_eval_types(
-        model_names=model_names,
-        mean_scores_all_eval_array=mean_scores_all_eval_array,
-        std_mean_scores_all_eval_array=std_mean_scores_all_eval_array,
-        n_red_herring_values=n_red_herring_values,
-        n_objects_max_all_eval=n_objects_max_all_eval,
-        n_attributes_max_all_eval=n_attributes_max_all_eval,
-        data_folder=data_folder,
-        score_types=score_types,
-        n_puzzles=n_puzzles,
-    )
+    if len(model_names) > 1 or len(n_red_herring_values) > 1:
+        compare_all_eval_types(
+            model_names=model_names,
+            mean_scores_all_eval_array=mean_scores_all_eval_array,
+            std_mean_scores_all_eval_array=std_mean_scores_all_eval_array,
+            n_red_herring_values=n_red_herring_values,
+            n_objects_max_all_eval=n_objects_max_all_eval,
+            n_attributes_max_all_eval=n_attributes_max_all_eval,
+            data_folder=data_folder,
+            score_types=score_types,
+            n_puzzles=n_puzzles,
+        )
 
 
 def load_scores_and_plot_results_for_each_evaluation(
@@ -85,6 +89,7 @@ def load_scores_and_plot_results_for_each_evaluation(
     score_types: list[str],
     clue_types: list[str],
     red_herring_clue_types: list[str],
+    n_red_herring_clues_generated: int,
 ) -> tuple[
     list[list[np.ndarray]], list[list[np.ndarray]], list[list[int]], list[list[int]]
 ]:
@@ -99,6 +104,7 @@ def load_scores_and_plot_results_for_each_evaluation(
         score_types: List of score types as strings.
         clue_types: List of possible non red herring clue types.
         red_herring_clue_types: List of possible red herring clue types.
+        n_red_herring_clues_generated: Number of red herring clues generated in the original puzzles.
 
     Returns:
         A tuple (mean_scores_all_eval_array, std_mean_scores_all_eval_array, n_objects_max_all_eval, n_attributes_max_all_eval) where:
@@ -184,7 +190,7 @@ def load_scores_and_plot_results_for_each_evaluation(
         ) = plot_clue_type_frequencies(
             data_folder=data_folder,
             n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
-            n_red_herring_clues_evaluated_max=n_red_herring_clues_evaluated_max,
+            n_red_herring_clues_generated=n_red_herring_clues_generated,
             theme=theme,
             n_puzzles=n_puzzles,
             n_objects_max_all_models=n_objects_max_all_models,
@@ -195,10 +201,12 @@ def load_scores_and_plot_results_for_each_evaluation(
 
         # ---- Plot the clue type difficulties for each model but only for max n_red_herring_clues_evaluated -----#
 
-        if n_red_herring_clues_evaluated == n_red_herring_clues_evaluated_max:
+        if (
+            n_red_herring_clues_evaluated == n_red_herring_clues_evaluated_max
+            and n_puzzles > 1
+        ):
             for i, model in enumerate(model_names):
                 # Estimate the difficulty of each clue type for a specific model
-
                 clue_type_difficulties_all_sizes = estimate_clue_type_difficulty(
                     clue_type_frequencies_all_sizes=clue_type_frequencies_all_sizes,
                     clue_types=clue_types,
@@ -209,18 +217,22 @@ def load_scores_and_plot_results_for_each_evaluation(
                     theme=theme,
                     n_puzzles=n_puzzles,
                 )
-
-                # Make a grid of bar plots of clue type difficulty
-                plot_clue_type_difficulty(
-                    clue_type_difficulties_all_sizes=clue_type_difficulties_all_sizes,
-                    n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
-                    data_folder=data_folder,
-                    theme=theme,
-                    n_puzzles=n_puzzles,
-                    clue_types=clue_types,
-                    all_clue_types=all_clue_types,
-                    model=model,
-                )
+                if len(clue_type_difficulties_all_sizes) > 0:
+                    # Make a grid of bar plots of clue type difficulty
+                    plot_clue_type_difficulty(
+                        clue_type_difficulties_all_sizes=clue_type_difficulties_all_sizes,
+                        n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
+                        data_folder=data_folder,
+                        theme=theme,
+                        n_puzzles=n_puzzles,
+                        clue_types=clue_types,
+                        all_clue_types=all_clue_types,
+                        model=model,
+                    )
+                else:
+                    print(
+                        f"No clue type difficulties found for model {model} with {n_red_herring_clues_evaluated} red herring clues evaluated and theme {theme}."
+                    )
 
         # Save values across all values of n_red_herring_clues_evaluated
         mean_scores_all_eval_array.append(mean_scores_all_models_array)
