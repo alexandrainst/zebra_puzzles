@@ -17,6 +17,7 @@ dependencies = [
     "openai>=1.66.3",
     "python-constraint2>=2.1.0",
     "python-dotenv>=1.0.1",
+    "scikit-learn>=1.6.1",
 ]
 
 [project.urls]
