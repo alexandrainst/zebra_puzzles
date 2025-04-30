@@ -555,7 +555,7 @@ def estimate_clue_type_difficulty(
         clue_type_difficulties_all_sizes[puzzle_size] = clue_difficulties_dict
 
     print(
-        f"Out of {len(puzzle_sizes)} puzzle sizes for n_red_herring_clues_evaluated={n_red_herring_clues_evaluated}, clue difficulty estimation has been skipped for {n_identical_frequencies} sizes with identical clue type frequencies, {n_identical_scores} sizes with identical scores, and {n_non_evaluated_puzzles} sizes with no evaluated puzzles."
+        f"Out of {len(puzzle_sizes)} puzzle sizes for model {model}, clue difficulty estimation has been skipped for {n_identical_frequencies} sizes with identical clue type frequencies, {n_identical_scores} sizes with identical scores, and {n_non_evaluated_puzzles} sizes with no evaluated puzzles."
     )
     if (
         len(clue_type_difficulties_all_sizes)
