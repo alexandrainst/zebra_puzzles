@@ -475,6 +475,10 @@ def plot_bar_grid(
         ax.set_ylim(min_y_value, max_y_value)
         ax.grid(axis="y", linestyle="--", alpha=0.7)
 
+        # Add a hortizontal line at y=0
+        if min_y_value < 0:
+            ax.axhline(y=0, color="black", linestyle="-", linewidth=1, alpha=0.7)
+
         # Add a vertical line to separate the red herring clues from the non-red herring clues
         if n_red_herring_clues_evaluated != 0:
             ax.axvline(
