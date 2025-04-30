@@ -49,7 +49,7 @@ def config(request) -> Generator[DictConfig, None, None]:
 
 
 @pytest.fixture(scope="session")
-def data_paths(config) -> Generator[tuple[Path, Path, Path], None, None]:
+def data_paths_fixture(config) -> Generator[tuple[Path, Path, Path], None, None]:
     """Fixture to generate a small dataset of zebra puzzles."""
     build_dataset(
         attributes=config.language.attributes,
@@ -107,7 +107,9 @@ def data_paths(config) -> Generator[tuple[Path, Path, Path], None, None]:
 
 
 @pytest.fixture(scope="session")
-def eval_paths(data_paths, config) -> Generator[tuple[Path, Path], None, None]:
+def eval_paths_fixture(
+    data_paths_fixture, config
+) -> Generator[tuple[Path, Path], None, None]:
     """Fixture to evaluate puzzles after generating them by the data_paths fixture."""
     # Evaluate the dataset
     evaluate_all(
@@ -150,7 +152,9 @@ def eval_paths(data_paths, config) -> Generator[tuple[Path, Path], None, None]:
 
 
 @pytest.fixture(scope="session")
-def plot_paths(eval_paths, config) -> Generator[tuple[Path, list], None, None]:
+def plot_paths_fixture(
+    eval_paths_fixture, config
+) -> Generator[tuple[Path, list], None, None]:
     """Fixture to generate plots after evaluating puzzles by the eval_paths fixture."""
     # Run the plotting script
     n_puzzles = config.n_puzzles
