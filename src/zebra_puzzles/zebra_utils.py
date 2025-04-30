@@ -456,9 +456,8 @@ def estimate_clue_type_difficulty(
             The outer dictionary is for each puzzle size, the inner dictionary is for each clue type.
 
 
-    NOTE: We can consider other methods to compute the difficulty of each clue type.
+    NOTE: We can consider other methods for computing the difficulty of each clue type.
     NOTE: It would be very useful to have a measure of the uncertainty of the difficulty estimates. Perhaps by using scipy.
-    NOTE: Consider if we should fit to clue type frequencies or normalised clue type frequencies.
 
     """
     clue_type_difficulties_all_sizes: dict[str, dict[str, float]] = {}

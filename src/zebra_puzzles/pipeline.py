@@ -141,8 +141,6 @@ def build_dataset(
         red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
         red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
         data_folder_str: Folder to save the dataset in as a string.
-
-    NOTE: Consider only saving the puzzle and solution instead of the whole prompt.
     """
     (
         prompt_filenames,
