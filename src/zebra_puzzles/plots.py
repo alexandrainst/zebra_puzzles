@@ -130,11 +130,11 @@ def choose_heatmap_title(
     """
     if single_model:
         if not score_type == "puzzle score":
-            title = f"{score_type.capitalize()}s with {n_red_herring_clues_evaluated_str} red herrings incl. sample std. dev. for model {model}"
+            title = f"{score_type.capitalize()}s w. {n_red_herring_clues_evaluated_str} red herrings incl. sample std. dev. for model {model}"
         else:
-            title = f"{score_type.capitalize()}s with {n_red_herring_clues_evaluated_str} red herrings for model {model}"
+            title = f"{score_type.capitalize()}s w. {n_red_herring_clues_evaluated_str} red herrings for model {model}"
     else:
-        title = f"Difference in mean {score_type} with {n_red_herring_clues_evaluated_str.replace('vs', '-')} red herrings for model {model.replace('vs', '-')} incl. std. error"
+        title = f"Difference in mean {score_type} w. {n_red_herring_clues_evaluated_str.replace('vs', '-')} red herrings for model {model.replace('vs', '-')} incl. std. err."
     return title
 
 

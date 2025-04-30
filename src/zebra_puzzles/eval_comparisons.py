@@ -372,9 +372,7 @@ def create_comparison_txt(
     )
 
     # Save the overall results
-    filename = (
-        f"comparison_{full_model_name}_{full_red_herring_name}_{n_puzzles}_puzzles.txt"
-    )
+    filename = f"comparison_{full_model_name}_{full_red_herring_name}rh_{n_puzzles}_puzzles.txt"
     filename = filename.replace(" ", "_")
 
     comparison_str = f"Model {full_model_name} with {full_red_herring_name} red herring clues on puzzle sizes evaluated by both. {n_puzzles} puzzles are evaluated for each size.\n"
