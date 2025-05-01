@@ -115,6 +115,8 @@ def load_scores_and_plot_results_for_each_evaluation(
             std_mean_scores_all_eval_array: List of standard deviation arrays. The outer list is for different n_red_herring_clues_evaluated and the inner list is for different models.
             n_objects_max_all_eval: List of lists of the maximum number of objects in puzzles for each evaluation. The outer list is for different n_red_herring_clues_evaluated and the inner list is for different models.
             n_attributes_max_all_eval: List of lists of the maximum number of attributes in puzzles for each evaluation. The outer list is for different n_red_herring_clues_evaluated and the inner list is for different models.
+
+    NOTE: Consider splitting this into two functions: one for loading the scores and one for plotting the results.
     """
     mean_scores_all_eval_array = []
     std_mean_scores_all_eval_array = []

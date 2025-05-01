@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from zebra_puzzles.file_utils import get_clue_type_file_paths
-from zebra_puzzles.load_data import get_clue_type_frequencies
 from zebra_puzzles.zebra_utils import (
+    get_all_clue_type_frequencies,
     get_all_mean_clue_frequencies_per_puzzle_size,
     round_using_std,
 )
@@ -242,7 +242,7 @@ def plot_clue_type_frequencies(
         clue_type_frequencies_all_sizes,
         n_clues_all_sizes,
         clue_type_frequencies_all_sizes_normalised,
-    ) = get_clue_type_frequencies(
+    ) = get_all_clue_type_frequencies(
         clue_type_file_paths_all_sizes=clue_type_file_paths_all_sizes
     )
 
