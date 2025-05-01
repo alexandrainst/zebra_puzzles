@@ -1,9 +1,12 @@
 """Module for loading data from files."""
 
+import json
 import re
 from pathlib import Path
+from typing import Type
 
 import numpy as np
+from pydantic import BaseModel
 
 from zebra_puzzles.clue_removal import remove_red_herrings
 from zebra_puzzles.file_utils import save_dataset
@@ -311,3 +314,27 @@ def get_clue_type_frequencies(
         n_clues_all_sizes,
         clue_type_frequencies_all_sizes_normalised,
     )
+
+
+def load_solution(solution_file_path: Path, OutputFormat: Type[BaseModel]) -> BaseModel:
+    """Load a puzzle solution.
+
+    The solution is loaded from a file and converted to the OutputFormat.
+
+    Args:
+        solution_file_path: Path to the solution file.
+        OutputFormat: The output format as a Pydantic model.
+
+    Returns:
+        The solution in OutputFormat format.
+    """
+    with solution_file_path.open() as file:
+        solution = file.read()
+
+    # Change the format of solution to OutputFormat
+
+    solution_json = json.loads(solution)
+
+    solution_json = OutputFormat.model_validate(solution_json)
+
+    return solution_json

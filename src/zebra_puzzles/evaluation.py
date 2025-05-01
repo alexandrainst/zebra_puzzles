@@ -14,7 +14,7 @@ from tqdm import tqdm
 
 from zebra_puzzles.compare_solutions import compare_solutions
 from zebra_puzzles.file_utils import prepare_eval_folders, save_dataset
-from zebra_puzzles.load_data import load_puzzle
+from zebra_puzzles.load_data import load_puzzle, load_solution
 from zebra_puzzles.zebra_utils import (
     bernoulli_std,
     generate_output_format_class,
@@ -182,14 +182,9 @@ def evaluate_single_puzzle(
         output = OutputFormat.model_validate(output)
 
     # Load the solution
-    with solution_file_path.open() as file:
-        solution = file.read()
-
-    # Change the format of solution to OutputFormat
-
-    solution_json = json.loads(solution)
-
-    solution_json = OutputFormat.model_validate(solution_json)
+    solution_json = load_solution(
+        solution_file_path=solution_file_path, OutputFormat=OutputFormat
+    )
 
     puzzle_score, cell_score, best_permuted_cell_score = compare_solutions(
         output=output,
