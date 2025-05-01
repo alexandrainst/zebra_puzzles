@@ -175,11 +175,9 @@ def evaluate_single_puzzle(
     else:
         # Load an existing response
         response_file_path = response_folder_path / response_filename
-        with open(response_file_path, "r") as file:
-            response_str = file.read()
-
-        output = json.loads(response_str)
-        output = OutputFormat.model_validate(output)
+        output = load_solution(
+            solution_file_path=response_file_path, OutputFormat=OutputFormat
+        )
 
     # Load the solution
     solution_json = load_solution(

@@ -317,12 +317,10 @@ def get_clue_type_frequencies(
 
 
 def load_solution(solution_file_path: Path, OutputFormat: Type[BaseModel]) -> BaseModel:
-    """Load a puzzle solution.
-
-    The solution is loaded from a file and converted to the OutputFormat.
+    """Load a puzzle solution or LLM response.
 
     Args:
-        solution_file_path: Path to the solution file.
+        solution_file_path: Path to the solution or response file.
         OutputFormat: The output format as a Pydantic model.
 
     Returns:
@@ -334,7 +332,6 @@ def load_solution(solution_file_path: Path, OutputFormat: Type[BaseModel]) -> Ba
     # Change the format of solution to OutputFormat
 
     solution_json = json.loads(solution)
-
     solution_json = OutputFormat.model_validate(solution_json)
 
     return solution_json
