@@ -4,6 +4,7 @@ from pathlib import Path
 
 import numpy as np
 
+from zebra_puzzles.clue_analysis import estimate_clue_type_difficulty
 from zebra_puzzles.eval_comparisons import compare_all_eval_types
 from zebra_puzzles.file_utils import (
     get_evaluated_params,
@@ -16,7 +17,6 @@ from zebra_puzzles.plots import (
     plot_clue_type_frequencies,
     plot_heatmaps,
 )
-from zebra_puzzles.zebra_utils import estimate_clue_type_difficulty
 
 
 def plot_results(
