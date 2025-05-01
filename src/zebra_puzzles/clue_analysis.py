@@ -228,7 +228,7 @@ def get_mean_clue_frequencies_for_one_puzzle_size(
     return clue_type_frequencies_normalised_mean_one_size
 
 
-def estimate_clue_type_difficulty(
+def estimate_clue_type_difficulty_for_all_puzzle_sizes(
     clue_type_frequencies_all_sizes: dict[str, dict[int, dict[str, int]]],
     clue_types: list[str],
     red_herring_clue_types: list[str],
@@ -238,7 +238,7 @@ def estimate_clue_type_difficulty(
     n_puzzles: int,
     data_folder: Path,
 ) -> dict[str, dict[str, float]]:
-    """Estimate the difficulty of each clue type.
+    """Estimate the difficulty of each clue type for each puzzle size.
 
     To estimate the clue type difficulties for a size, the size needs to contain multiple puzzles with different clue type frequencies and different scores.
 
@@ -313,44 +313,13 @@ def estimate_clue_type_difficulty(
 
         # Calculate the difficulty of each clue type
         # Use linear regression to model score as a function of the clue type frequencies in each puzzle
-
-        # Create a linear regression model
-        regression_model = LinearRegression()
-
-        # Create the feature matrix (frequency of each clue type in each puzzle)
-        X = np.zeros((n_puzzles, len(all_possible_clue_types)))
-        for i, clue_type in enumerate(all_possible_clue_types):
-            for j, puzzle_index in enumerate(puzzle_indices_one_size):
-                X[j, i] = clue_type_frequencies_one_size[puzzle_index].get(clue_type, 0)
-        # Create the target vector
-        y = np.zeros((n_puzzles, 1))
-
-        for j, puzzle_index in enumerate(puzzle_indices_one_size):
-            y[j] = scores_individual_puzzles[puzzle_index]
-
-        # Check whether the target vector only has one value
-        if len(set(y.flatten())) == 1:
-            # Skip this puzzle size as a fit is not meaningful
-            continue
-
-        # Fit the regression model to the data
-        regression_model.fit(X, y)
-
-        # Estimate feature importance in the linear regression model
-        # The higher the coefficient, the more important the feature is for predicting the target variable
-        clue_importances = regression_model.coef_[0]
-
-        # Scale the clue importances so the absolute values sum to 1
-        clue_importances_normalised = clue_importances / np.sum(abs(clue_importances))
-
-        # Take the negative of the importances as the difficulty
-        clue_difficulties = -clue_importances_normalised
-
-        # Make a dictionary of clue importances
-        clue_difficulties_dict = {
-            clue_type: float(clue_difficulties[i])
-            for i, clue_type in enumerate(all_possible_clue_types)
-        }
+        clue_difficulties_dict = estimate_clue_type_difficulty_for_one_puzzle_size(
+            clue_type_frequencies_one_size=clue_type_frequencies_one_size,
+            scores_individual_puzzles=scores_individual_puzzles,
+            n_puzzles=n_puzzles,
+            all_possible_clue_types=all_possible_clue_types,
+            puzzle_indices_one_size=puzzle_indices_one_size,
+        )
 
         # Append the difficulties for this puzzle size to the list
         # Use the negative of the importances as the difficulty
@@ -371,6 +340,69 @@ def estimate_clue_type_difficulty(
         )
 
     return clue_type_difficulties_all_sizes
+
+
+def estimate_clue_type_difficulty_for_one_puzzle_size(
+    clue_type_frequencies_one_size: dict[int, dict[str, int]],
+    scores_individual_puzzles: dict[int, float],
+    n_puzzles: int,
+    all_possible_clue_types: list[str],
+    puzzle_indices_one_size: list[int],
+) -> dict[str, float]:
+    """Estimate the difficulty of each clue type for a specific puzzle size.
+
+    This function uses linear regression to model scores as a function of the clue type frequencies in each puzzle.
+    The coefficients of the linear regression model are used to estimate the difficulty of each clue type.
+    The higher the coefficient, the more it is correlated with a high score, and the easier the clue type is.
+
+    Args:
+        clue_type_frequencies_one_size: Dictionary of dictionaries of clue type frequencies for the given size.
+            The outer dictionary is for each puzzle index, and the inner dictionary is for each clue type.
+        scores_individual_puzzles: Dictionary of scores for each puzzle index.
+        n_puzzles: The number of puzzles for this size.
+        all_possible_clue_types: List of all possible clue types.
+        puzzle_indices_one_size: List of puzzle indices for the given size.
+
+    Returns:
+        A dictionary of clue difficulties as floats.
+    """
+    # --- Fit a linear regression model to predict scores from frequencies ---#
+    regression_model = LinearRegression()
+
+    # Create the feature matrix (frequency of each clue type in each puzzle)
+    X = np.zeros((n_puzzles, len(all_possible_clue_types)))
+    for i, clue_type in enumerate(all_possible_clue_types):
+        for j, puzzle_index in enumerate(puzzle_indices_one_size):
+            X[j, i] = clue_type_frequencies_one_size[puzzle_index].get(clue_type, 0)
+
+    # Create the target vector
+    y = np.zeros((n_puzzles, 1))
+
+    for j, puzzle_index in enumerate(puzzle_indices_one_size):
+        y[j] = scores_individual_puzzles[puzzle_index]
+
+    # Fit the regression model to the data
+    regression_model.fit(X, y)
+
+    # --- Interpret the fit ---#
+
+    # Estimate feature importance in the linear regression model
+    # The higher the coefficient, the more important the feature is for predicting the target variable
+    clue_importances = regression_model.coef_[0]
+
+    # Scale the clue importances so the absolute values sum to 1
+    clue_importances_normalised = clue_importances / np.sum(abs(clue_importances))
+
+    # Take the negative of the importances as the difficulty
+    clue_difficulties = -clue_importances_normalised
+
+    # Make a dictionary of clue importances
+    clue_difficulties_dict = {
+        clue_type: float(clue_difficulties[i])
+        for i, clue_type in enumerate(all_possible_clue_types)
+    }
+
+    return clue_difficulties_dict
 
 
 def check_identical_frequencies(

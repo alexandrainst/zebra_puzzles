@@ -4,7 +4,9 @@ from pathlib import Path
 
 import numpy as np
 
-from zebra_puzzles.clue_analysis import estimate_clue_type_difficulty
+from zebra_puzzles.clue_analysis import (
+    estimate_clue_type_difficulty_for_all_puzzle_sizes,
+)
 from zebra_puzzles.eval_comparisons import compare_all_eval_types
 from zebra_puzzles.file_utils import (
     get_evaluated_params,
@@ -212,15 +214,17 @@ def load_scores_and_plot_results_for_each_evaluation(
         ):
             for i, model in enumerate(model_names):
                 # Estimate the difficulty of each clue type for a specific model
-                clue_type_difficulties_all_sizes = estimate_clue_type_difficulty(
-                    clue_type_frequencies_all_sizes=clue_type_frequencies_all_sizes,
-                    clue_types=clue_types,
-                    red_herring_clue_types=red_herring_clue_types,
-                    n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
-                    model=model,
-                    data_folder=data_folder,
-                    theme=theme,
-                    n_puzzles=n_puzzles,
+                clue_type_difficulties_all_sizes = (
+                    estimate_clue_type_difficulty_for_all_puzzle_sizes(
+                        clue_type_frequencies_all_sizes=clue_type_frequencies_all_sizes,
+                        clue_types=clue_types,
+                        red_herring_clue_types=red_herring_clue_types,
+                        n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
+                        model=model,
+                        data_folder=data_folder,
+                        theme=theme,
+                        n_puzzles=n_puzzles,
+                    )
                 )
                 if len(clue_type_difficulties_all_sizes) > 0:
                     # Make a grid of bar plots of clue type difficulty
