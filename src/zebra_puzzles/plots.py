@@ -117,7 +117,7 @@ def choose_heatmap_title(
     n_red_herring_clues_evaluated_str: str,
     model: str,
 ) -> str:
-    """Choose the title for the heatmap.
+    """Choose the title for a heatmap.
 
     Args:
         single_model: Boolean indicating if the scores are from a single model.
@@ -147,7 +147,7 @@ def annotate_heatmap(
     n_x_max: int,
     n_y_max: int,
 ) -> plt.Axes:
-    """Annotate the heatmap with the mean scores and standard deviations.
+    """Annotate a heatmap with the mean scores and standard deviations.
 
     Args:
         ax: Axes object to annotate.
@@ -204,6 +204,8 @@ def plot_clue_type_frequencies(
     """Plot the frequencies of clue types for each puzzle size.
 
     We plot the mean frequencies of clue types for each puzzle size after normalising the frequencies to sum to 1 in each puzzle.
+
+    Frequencies are loaded from the clue type files.
 
     Args:
         data_folder: Path to the data folder.

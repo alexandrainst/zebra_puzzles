@@ -29,6 +29,8 @@ def plot_results(
 ) -> None:
     """Plot the results of the LLM's trying to solve zebra puzzles.
 
+    Generate plots for each LLM evaluation, and compare the mean scores of different evaluations when possible.
+
     Args:
         n_puzzles: Number of puzzles evaluated.
         theme: Theme name.

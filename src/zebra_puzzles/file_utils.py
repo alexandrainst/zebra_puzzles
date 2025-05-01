@@ -400,6 +400,10 @@ def get_clue_type_file_paths(
 ) -> dict[str, list[Path]]:
     """Get the paths of the clue type files.
 
+    The clue type files are stored in the "clue_types" folder for the original puzzles and in the "reduced_clue_types" folder for the reduced puzzles.
+
+    The clue type file paths are sorted by the puzzle indices.
+
     Args:
         data_folder: Path to the data folder.
         model: LLM model name.

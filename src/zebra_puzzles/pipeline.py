@@ -29,6 +29,8 @@ def run_pipeline(
 ) -> tuple[str, str, str, str]:
     """Run the pipeline to generate one zebra puzzle.
 
+    Generates a solution, chooses clues, and creates a prompt for the zebra puzzle.
+
     Args:
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
         clue_weights: Weights for clue selection as a dictionary containing a title and a weight for each clue type.
@@ -123,7 +125,7 @@ def build_dataset(
 ) -> None:
     """Build a dataset of zebra puzzles.
 
-    Saves prompts and solutions in separate files in the data folder. Also saves indices to the red herring clues in the prompt files.
+    Generates a specified number of zebra puzzles. Saves prompts, solutions, indices to the red herring clues and clue types in separate files in the data folder.
 
     Args:
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
