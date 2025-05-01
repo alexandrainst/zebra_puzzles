@@ -9,7 +9,7 @@ import numpy as np
 from pydantic import BaseModel, create_model
 from sklearn.linear_model import LinearRegression
 
-from zebra_puzzles.file_utils import load_individual_puzzle_scores
+from zebra_puzzles.load_data import load_individual_puzzle_scores
 
 
 def generate_solution(

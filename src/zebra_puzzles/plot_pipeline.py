@@ -9,8 +9,8 @@ from zebra_puzzles.file_utils import (
     get_evaluated_params,
     get_puzzle_dimensions_from_filename,
     get_score_file_paths,
-    load_scores,
 )
+from zebra_puzzles.load_data import load_scores
 from zebra_puzzles.plots import (
     plot_clue_type_difficulty,
     plot_clue_type_frequencies,
