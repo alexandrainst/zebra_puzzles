@@ -366,22 +366,14 @@ def get_all_clue_type_frequencies(
             clue_type_frequencies = load_clue_type_frequencies(
                 clue_type_file_path=clue_type_file_path
             )
-            # --- Normalise --- #
+
             # Get the number of clues in the puzzle
             n_clues = sum(clue_type_frequencies.values())
 
-            # Normalise the clue type frequencies
-            clue_type_frequencies_normalised: dict[str, float] = {
-                clue_type: freq / float(n_clues)
-                for clue_type, freq in clue_type_frequencies.items()
-            }
-
-            # Check the sum of clue_type_frequencies_normalised
-            sum_normalised_frequencies = sum(clue_type_frequencies_normalised.values())
-            if abs(sum_normalised_frequencies - 1.0) > 0.0001:
-                raise ValueError(
-                    f"The normalised frequencies do not sum to 1. They sum to {sum_normalised_frequencies}."
-                )
+            # Normalise
+            clue_type_frequencies_normalised = normalise_clue_type_frequencies(
+                clue_type_frequencies=clue_type_frequencies, n_clues=n_clues
+            )
 
             # Add this puzzle to the dictionaries
             clue_type_frequencies_one_size[puzzle_index] = clue_type_frequencies
@@ -407,6 +399,34 @@ def get_all_clue_type_frequencies(
         n_clues_all_sizes,
         clue_type_frequencies_all_sizes_normalised,
     )
+
+
+def normalise_clue_type_frequencies(
+    clue_type_frequencies: dict[str, int], n_clues: int
+) -> dict[str, float]:
+    """Normalise the clue type frequencies.
+
+    Args:
+        clue_type_frequencies: Dictionary of clue type frequencies in one puzzle.
+        n_clues: Number of clues in the puzzle.
+
+    Returns:
+        A dictionary of normalised clue type frequencies.
+    """
+    # Normalise the clue type frequencies
+    clue_type_frequencies_normalised: dict[str, float] = {
+        clue_type: freq / float(n_clues)
+        for clue_type, freq in clue_type_frequencies.items()
+    }
+
+    # Check that the sum of clue_type_frequencies_normalised is close to 1
+    sum_normalised_frequencies = sum(clue_type_frequencies_normalised.values())
+    if abs(sum_normalised_frequencies - 1.0) > 0.0001:
+        raise ValueError(
+            f"The normalised frequencies do not sum to 1. They sum to {sum_normalised_frequencies}."
+        )
+
+    return clue_type_frequencies_normalised
 
 
 def get_all_mean_clue_frequencies_per_puzzle_size(
