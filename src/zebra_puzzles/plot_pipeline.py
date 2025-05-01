@@ -127,6 +127,7 @@ def load_scores_and_plot_results_for_each_evaluation(
     clue_type_file_paths_all_eval = []
 
     n_red_herring_clues_evaluated_max = max(n_red_herring_values)
+    all_possible_clue_types = clue_types + red_herring_clue_types
 
     for n_red_herring_clues_evaluated in n_red_herring_values:
         mean_scores_all_models_array = []
@@ -203,7 +204,7 @@ def load_scores_and_plot_results_for_each_evaluation(
             n_objects_max_all_models=n_objects_max_all_models,
             n_attributes_max_all_models=n_attributes_max_all_models,
             clue_types=clue_types,
-            red_herring_clue_types=red_herring_clue_types,
+            all_possible_clue_types=all_possible_clue_types,
         )
 
         # ---- Plot the clue type difficulties for each model but only for max n_red_herring_clues_evaluated -----#
@@ -217,8 +218,7 @@ def load_scores_and_plot_results_for_each_evaluation(
                 clue_type_difficulties_all_sizes = (
                     estimate_clue_type_difficulty_for_all_puzzle_sizes(
                         clue_type_frequencies_all_sizes=clue_type_frequencies_all_sizes,
-                        clue_types=clue_types,
-                        red_herring_clue_types=red_herring_clue_types,
+                        all_possible_clue_types=all_possible_clue_types,
                         n_red_herring_clues_evaluated=n_red_herring_clues_evaluated,
                         model=model,
                         data_folder=data_folder,

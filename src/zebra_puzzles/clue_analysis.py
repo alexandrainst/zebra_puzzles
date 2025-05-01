@@ -123,8 +123,7 @@ def get_all_mean_clue_frequencies_per_puzzle_size(
     clue_type_frequencies_all_sizes: dict[str, dict[int, dict[str, int]]],
     clue_type_frequencies_all_sizes_normalised: dict[str, dict[int, dict[str, float]]],
     n_puzzles: int,
-    clue_types: list[str],
-    red_herring_clue_types: list[str],
+    all_possible_clue_types: list[str],
 ) -> tuple[dict[str, dict[str, float]], list[str], float]:
     """Get the mean of the normalised frequencies of each clue type for all puzzle sizes.
 
@@ -134,8 +133,7 @@ def get_all_mean_clue_frequencies_per_puzzle_size(
         clue_type_frequencies_all_sizes_normalised: Dictionary of dictionaries of dictionaries of normalised clue type frequencies.
             The format matches clue_type_frequencies_all_sizes.
         n_puzzles: The number of puzzles for each puzzle size.
-        clue_types: List of non red herring clue types.
-        red_herring_clue_types: List of red herring clue types.
+        all_possible_clue_types: List of possible clue types incl. red herring clues.
 
     Returns:
         A tuple (clue_type_frequencies_normalised_mean_all_sizes, all_clue_types, max_mean_normalised_frequency), where:
@@ -160,8 +158,6 @@ def get_all_mean_clue_frequencies_per_puzzle_size(
         all_clue_types.extend(clue_type_frequencies_normalised_mean_one_size.keys())
 
     all_clue_types = sorted(set(all_clue_types))
-
-    all_possible_clue_types = clue_types + red_herring_clue_types
 
     # Sort all clue types by all_possible_clue_types
     all_clue_types.sort(key=lambda x: all_possible_clue_types.index(x))
@@ -230,8 +226,7 @@ def get_mean_clue_frequencies_for_one_puzzle_size(
 
 def estimate_clue_type_difficulty_for_all_puzzle_sizes(
     clue_type_frequencies_all_sizes: dict[str, dict[int, dict[str, int]]],
-    clue_types: list[str],
-    red_herring_clue_types: list[str],
+    all_possible_clue_types: list[str],
     n_red_herring_clues_evaluated: int,
     model: str,
     theme: str,
@@ -245,8 +240,7 @@ def estimate_clue_type_difficulty_for_all_puzzle_sizes(
     Args:
         clue_type_frequencies_all_sizes: Dictionary of dictionaries of dictionaries of clue type frequencies.
             The outer dictionary is for each puzzle size, the middle dictionary is for a puzzle index, and the inner dictionary is for each clue type.
-        clue_types: List of non red herring clue types.
-        red_herring_clue_types: List of red herring clue types.
+        all_possible_clue_types: List of possible clue types incl. red herring clues.
         n_red_herring_clues_evaluated: Number of red herring clues evaluated.
         model: LLM model used to evaluate the puzzles.
         theme: Theme of the puzzle.
@@ -263,8 +257,6 @@ def estimate_clue_type_difficulty_for_all_puzzle_sizes(
 
     """
     clue_type_difficulties_all_sizes: dict[str, dict[str, float]] = {}
-
-    all_possible_clue_types = clue_types + red_herring_clue_types
 
     n_non_evaluated_puzzles = 0
     n_identical_frequencies = 0

@@ -200,7 +200,7 @@ def plot_clue_type_frequencies(
     n_objects_max_all_models: list[int],
     n_attributes_max_all_models: list[int],
     clue_types: list[str],
-    red_herring_clue_types: list[str],
+    all_possible_clue_types: list[str],
 ) -> tuple[dict[str, list[Path]], dict[str, dict[int, dict[str, int]]], list[str]]:
     """Plot the frequencies of clue types for each puzzle size.
 
@@ -217,7 +217,7 @@ def plot_clue_type_frequencies(
         n_objects_max_all_models: Maximum number of objects in puzzles as a list of integers.
         n_attributes_max_all_models: Maximum number of attributes in puzzles as a list of integers.
         clue_types: List of possible non red herring clue types as strings.
-        red_herring_clue_types: List of possible red herring clue types as strings.
+        all_possible_clue_types: List of all possible clue types as strings incl. red herring clues.
 
     Returns:
         A tuple (clue_type_file_paths_all_sizes, clue_type_frequencies_all_sizes, all_clue_types) where:
@@ -256,8 +256,7 @@ def plot_clue_type_frequencies(
         clue_type_frequencies_all_sizes=clue_type_frequencies_all_sizes,
         clue_type_frequencies_all_sizes_normalised=clue_type_frequencies_all_sizes_normalised,
         n_puzzles=n_puzzles,
-        clue_types=clue_types,
-        red_herring_clue_types=red_herring_clue_types,
+        all_possible_clue_types=all_possible_clue_types,
     )
 
     puzzle_sizes = list(clue_type_frequencies_all_sizes.keys())
