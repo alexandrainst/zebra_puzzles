@@ -137,7 +137,7 @@ def compare_eval_type(
                 eval_j_std_mean_scores,
                 eval_i_name,
                 eval_j_name,
-            ) = load_score_overlap(
+            ) = find_score_overlap(
                 eval_names=eval_names,
                 mean_scores_some_eval_array=mean_scores_some_eval_array,
                 std_mean_scores_some_eval_array=std_mean_scores_some_eval_array,
@@ -240,7 +240,7 @@ def choose_eval_pairs(
     return eval_idx_1, eval_idx_2, compare_mode, eval_names
 
 
-def load_score_overlap(
+def find_score_overlap(
     eval_names: list[str],
     mean_scores_some_eval_array: list[np.ndarray],
     std_mean_scores_some_eval_array: list[np.ndarray],
@@ -249,7 +249,7 @@ def load_score_overlap(
     i: int,
     j: int,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, str, str]:
-    """Load the scores of two evaluations and limit them to the minimum number of objects and attributes.
+    """Find the scores of two LLM evaluations and limit them to the minimum number of objects and attributes.
 
     An evaluation can be a model or a number of red herring clues.
 
