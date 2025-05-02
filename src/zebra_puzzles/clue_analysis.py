@@ -25,7 +25,7 @@ def get_all_clue_type_frequencies(
     We also compute the normalised frequencies which sum to 1 in each puzzle, and we store the number of clues in each puzzle.
 
     Args:
-        clue_type_file_paths_all_sizes: List of paths to the clue type files.
+        clue_type_file_paths_all_sizes: Dictionary with mapping from each puzzle size to the corresponding list of paths to the clue type files.
 
     Returns:
         A tuple (clue_type_frequencies_all_sizes, n_clues_all_sizes, clue_type_frequencies_all_sizes_normalised) where:
