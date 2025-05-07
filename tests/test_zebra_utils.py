@@ -5,42 +5,33 @@ Use 'pytest tests/test_zebra_utils.py::test_name' to run a single test.
 Use 'make test' to run all tests.
 """
 
+import pytest
+
 from zebra_puzzles.zebra_utils import round_using_std
 
 
-def test_rounding() -> None:
+@pytest.mark.parametrize(
+    argnames=["value", "std", "value_rounded", "std_rounded"],
+    argvalues=[
+        # Test a value that is not rounded
+        (0.4, 0.3, "0.4", "0.3"),
+        # Test a value and standard deviation that is rounded
+        (0.464, 0.31, "0.5", "0.3"),
+        # Test rounding of a negative number
+        (-0.464, 0.31, "-0.5", "0.3"),
+        # Test rounding that requires trailing zeros
+        (-0.460, 0.001, "-0.460", "0.001"),
+        # Test default rounding when the standard deviation is unknown (0)
+        (0.464, 0, "0.46", "0"),
+        # Test default rounding when the standard deviation is unknown and the value has a trailing zero
+        (0.40, 0, "0.40", "0"),
+        # Test rounding of a number much smaller than the standard deviation
+        (0.0002, 0.3, "0.0", "0.3"),
+    ],
+)
+def test_rounding(value, std, value_rounded, std_rounded) -> None:
     """Test the rounding function."""
     # Test a value that is not rounded
-    value_rounded, std_rounded = round_using_std(value=0.4, std=0.3)
-    assert value_rounded == "0.4"
-    assert std_rounded == "0.3"
-
-    # Test a value and standard deviation that is rounded
-    value_rounded, std_rounded = round_using_std(value=0.464, std=0.31)
-    assert value_rounded == "0.5"
-    assert std_rounded == "0.3"
-
-    # Test rounding of a negative number
-    value_rounded, std_rounded = round_using_std(value=-0.464, std=0.31)
-    assert value_rounded == "-0.5"
-    assert std_rounded == "0.3"
-
-    # Test rounding that requires trailing zeros
-    value_rounded, std_rounded = round_using_std(value=-0.460, std=0.001)
-    assert value_rounded == "-0.460"
-    assert std_rounded == "0.001"
-
-    # Test default rounding when the standard deviation is unknown (0)
-    value_rounded, std_rounded = round_using_std(value=0.464, std=0)
-    assert value_rounded == "0.46"
-    assert std_rounded == "0"
-
-    # Test default rounding when the standard deviation is unknown and the value has a trailing zero
-    value_rounded, std_rounded = round_using_std(value=0.40, std=0)
-    assert value_rounded == "0.40"
-    assert std_rounded == "0"
-
-    # Test rounding of a number much smaller than the standard deviation
-    value_rounded, std_rounded = round_using_std(value=0.0002, std=0.3)
-    assert value_rounded == "0.0"
-    assert std_rounded == "0.3"
+    value_rounded, std_rounded = round_using_std(value=value, std=std)
+    assert value_rounded == value_rounded
+    assert std_rounded == std_rounded
