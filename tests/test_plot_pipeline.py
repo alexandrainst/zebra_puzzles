@@ -10,33 +10,44 @@ TODO: Do not check every parameter combination for all tests.
 import os
 
 
-def test_heatmaps_for_current_model(plot_paths_fixture, config) -> None:
-    """Test that the model in the config has folders and files saved in the plots folder."""
-    # Get the plotting path
-    plots_path = plot_paths_fixture[0]
+class TestHeatmapsForCurrentModel:
+    """Tests related to heatmaps for the current model."""
 
-    # Get the path to the model currently in the config
-    model = config.model
-    model_folder = plots_path / model
+    def test_model_plot_folder_exists(self, plot_paths_fixture, config) -> None:
+        """Test that the model in the config has a folder in the plots folder."""
+        # Get the path to the model currently in the config
+        model_folder = plot_paths_fixture[2]
 
-    # Check that the model folder exists
-    assert model_folder.exists()
-    assert model_folder.is_dir()
+        # Check that the model folder exists
+        assert model_folder.exists()
+        assert model_folder.is_dir()
 
-    # Check that the model folder contains a subfolder for the number of evaluated red herring clues
-    n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
-    red_herring_folder = model_folder / f"{n_red_herring_clues_evaluated}rh"
-    assert red_herring_folder.exists()
-    assert red_herring_folder.is_dir()
+    def test_red_herring_plot_folder_exists(self, plot_paths_fixture, config) -> None:
+        """Test that the model in the config has a folder for the chosen number of evaluated red herrings in the plots folder."""
+        # Get the path to the model and number of evaluated red herring clues currently in the config
+        red_herring_folder = plot_paths_fixture[3]
 
-    # Check that the folder contains the expected cell score file
-    n_puzzles = config.n_puzzles
-    cell_score_plot_filename = f"mean_cell_score_{model}_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.png"
-    cell_score_plot_file_path = red_herring_folder / cell_score_plot_filename
+        # Check that the model folder contains a subfolder for the number of evaluated red herring clues
+        assert red_herring_folder.exists()
+        assert red_herring_folder.is_dir()
 
-    assert cell_score_plot_file_path.exists()
-    assert cell_score_plot_file_path.is_file()
-    assert os.path.getsize(cell_score_plot_file_path) > 0
+    def test_heatmaps_for_current_model(self, plot_paths_fixture, config) -> None:
+        """Test that the cell score heatmap for the current evaluation is saved in the plots folder."""
+        # Get the path to the model and number of evaluated red herring clues currently in the config
+        red_herring_folder = plot_paths_fixture[3]
+
+        # Get the path to the model currently in the config
+        model = config.model
+        n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
+
+        # Check that the folder contains the expected cell score file
+        n_puzzles = config.n_puzzles
+        cell_score_plot_filename = f"mean_cell_score_{model}_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.png"
+        cell_score_plot_file_path = red_herring_folder / cell_score_plot_filename
+
+        assert cell_score_plot_file_path.exists()
+        assert cell_score_plot_file_path.is_file()
+        assert os.path.getsize(cell_score_plot_file_path) > 0
 
 
 def test_clue_type_difficulty_plot(plot_paths_fixture, config) -> None:

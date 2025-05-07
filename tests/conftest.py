@@ -154,7 +154,7 @@ def eval_paths_fixture(
 @pytest.fixture(scope="session")
 def plot_paths_fixture(
     eval_paths_fixture, config
-) -> Generator[tuple[Path, list], None, None]:
+) -> Generator[tuple[Path, list, Path, Path], None, None]:
     """Fixture to generate plots after evaluating puzzles by the eval_paths fixture."""
     # Run the plotting script
     n_puzzles = config.n_puzzles
@@ -163,6 +163,8 @@ def plot_paths_fixture(
     clue_types = list(config.clue_weights.keys())
     red_herring_clue_types = list(config.red_herring_clue_weights.keys())
     n_red_herring_clues = config.n_red_herring_clues
+    model = config.model
+    n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
 
     plot_results(
         n_puzzles=n_puzzles,
@@ -182,7 +184,11 @@ def plot_paths_fixture(
         if p.is_dir() and p.name != "clue_type_frequencies"
     ]
 
-    yield plots_path, plots_model_paths
+    model_folder = plots_path / model
+
+    red_herring_folder = model_folder / f"{n_red_herring_clues_evaluated}rh"
+
+    yield plots_path, plots_model_paths, model_folder, red_herring_folder
 
     # Cleanup
     rmtree(plots_path, ignore_errors=True)
