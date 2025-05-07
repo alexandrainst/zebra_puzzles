@@ -230,3 +230,81 @@ def shuffle_clues(
     chosen_clue_types_str = ", ".join(chosen_clue_types)
 
     return chosen_clues, red_herring_indices_str, chosen_clue_types_str
+
+
+def round_using_std(value: float, std: float) -> tuple[str, str]:
+    """Round a value to match a standard deviation.
+
+    Assumes the value is not much larger than 1.
+
+    Args:
+        value: The value to round as a float.
+        std: The standard deviation to match as a float.
+
+    Returns:
+        A tuple (value, std) where:
+            value: The rounded value as a string.
+            std: The rounded standard deviation as a string.
+    """
+    std_rounded = np.format_float_positional(std, precision=1, fractional=False)
+
+    # If the standard deviation is 0, we get the same score for all puzzles. In this case, just use 2 significant digits.
+    if std_rounded == "0.":
+        value_precision = 2
+    else:
+        # Get the number of decimal places in the standard deviation
+        value_precision = len(str(std_rounded).split(".")[1])
+
+    # Round the value to the same number of decimal places as the standard deviation
+    value_rounded = np.format_float_positional(
+        value, precision=value_precision, fractional=True
+    )
+
+    # Include trailing zeros
+    if std_rounded == "0.":
+        # Set n_decimal_places to the value_precision minus the number of non-zero digits in the value before the decimal point
+        digits_before_decimal = value_rounded.split(".")[0]
+        n_nonzero_digits_before_decimal = len(
+            [d for d in digits_before_decimal if d != "0"]
+        )
+        n_decimal_places = 2 - n_nonzero_digits_before_decimal
+    else:
+        # Get n_decimal_places as the number of decimal places in std_rounded
+        n_decimal_places = len(std_rounded.split(".")[1])
+    n_trailing_zeros = n_decimal_places - len(value_rounded.split(".")[1])
+    if n_trailing_zeros > 0:
+        value_rounded += "0" * n_trailing_zeros
+
+    # Turn 1. into 1 and 0. into 0
+    if value_rounded[-1] == ".":
+        value_rounded = value_rounded[:-1]
+    if std_rounded[-1] == ".":
+        std_rounded = std_rounded[:-1]
+
+    return value_rounded, std_rounded
+
+
+def bernoulli_std(n_trials: int, n_successes: int) -> tuple[float, float]:
+    """Calculate the standard deviation of success and probability of success in a bernoulli trial.
+
+    We assume puzzle scores are independent Bernoulli trials, each with the same probability of success.
+
+    Args:
+        n_trials: Number of trials.
+        n_successes: Number of successes.
+
+    Returns:
+        A tuple (std_one_trial, std_p), where:
+            std_one_trial: The standard deviation of the bernoulli distribution (of 0's and 1's)
+            std_p: The standard error of the outcomes i.e. the standard deviation of the probability of success.
+    """
+    # Calculate the probability of success
+    p = n_successes / n_trials
+
+    # Calculate the error of the bernoulli distribution (of 0's and 1's)
+    std_one_trial = np.sqrt(p * (1 - p))
+
+    # Calculate the error of the mean (p)
+    std_p = np.sqrt(p * (1 - p) / n_trials)
+
+    return std_one_trial, std_p
