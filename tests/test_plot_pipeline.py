@@ -103,7 +103,7 @@ def test_clue_type_frequency_plots(plot_paths_fixture, config) -> None:
 def test_model_comparisons(plot_paths_fixture, config) -> None:
     """Test the comparisons between models in the plots folder.
 
-    TODO: Make sure a comparison is actually done, by running two models.
+    TODO: Make sure a comparison is actually done, by running two models or placing two score files in the data folder.
     """
     # Get the list of paths to plots for each LLM model / comparison
     plots_model_paths = plot_paths_fixture[1]
