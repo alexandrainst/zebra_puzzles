@@ -1,5 +1,7 @@
 """Evaluation script.
 
+This script should run after build_dataset.py.
+
 Usage:
     uv run src/scripts/evaluate.py <config_key>=<config_value> ...
 """

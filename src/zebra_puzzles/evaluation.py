@@ -13,8 +13,13 @@ from pydantic import BaseModel, ValidationError
 from tqdm import tqdm
 
 from zebra_puzzles.compare_solutions import compare_solutions
-from zebra_puzzles.file_utils import load_puzzle, prepare_eval_folders, save_dataset
-from zebra_puzzles.zebra_utils import generate_output_format_class
+from zebra_puzzles.file_utils import prepare_eval_folders, save_dataset
+from zebra_puzzles.load_data import load_puzzle, load_solution
+from zebra_puzzles.zebra_utils import (
+    bernoulli_std,
+    generate_output_format_class,
+    round_using_std,
+)
 
 # Load environment variables to get the API key
 load_dotenv()
@@ -32,6 +37,8 @@ def evaluate_all(
     data_folder_str: str,
 ) -> None:
     """Evaluate a dataset of zebra puzzles.
+
+    An LLM is used to evaluate each puzzle. Performance is evaluated by comparing the output of the LLM with the expected solution. Metrics are computed for each puzzle and saved in a file.
 
     Args:
         n_puzzles: Number of puzzles to evaluate as an integer.
@@ -131,6 +138,8 @@ def evaluate_single_puzzle(
 ) -> tuple[float, float, float]:
     """Evaluate a dataset of zebra puzzles.
 
+    An LLM is called to evaluate a puzzle. The response is saved and compared with the expected solution.
+
     Args:
         puzzle_file_path: Path to the prompt file.
         solution_file_path: Path to the solution file.
@@ -166,23 +175,14 @@ def evaluate_single_puzzle(
     else:
         # Load an existing response
         response_file_path = response_folder_path / response_filename
-        with open(response_file_path, "r") as file:
-            response_str = file.read()
-
-        output = json.loads(response_str)
-        output = OutputFormat.model_validate(output)
+        output = load_solution(
+            solution_file_path=response_file_path, OutputFormat=OutputFormat
+        )
 
     # Load the solution
-    solution_filename = f"{puzzle_file_path.stem}_solution.json"
-
-    with solution_file_path.joinpath(solution_filename).open() as file:
-        solution = file.read()
-
-    # Change the format of solution to OutputFormat
-
-    solution_json = json.loads(solution)
-
-    solution_json = OutputFormat.model_validate(solution_json)
+    solution_json = load_solution(
+        solution_file_path=solution_file_path, OutputFormat=OutputFormat
+    )
 
     puzzle_score, cell_score, best_permuted_cell_score = compare_solutions(
         output=output,
@@ -257,7 +257,9 @@ def compute_metrics(
 
     For each score type e.g. cell score, a dictionary of metrics is computed. This dictionary includes a string describing the rounded metrics.
 
-    Assumes that the scores are normally distributed. Also assumes that the maximum length of the string describing each metric is 100 characters.
+    Assumes that the scores are normally distributed, except the puzzle score. Also assumes that the maximum length of the string describing each metric is 100 characters.
+
+    The puzzle score is assumed to follow a Bernoulli distribution.
 
     Args:
         scores_all_types: Tuple of scores as numpy arrays. Each element contains the scores for a specific score type.
@@ -287,27 +289,31 @@ def compute_metrics(
         mean_scores[i] = float(np.mean(scores))
 
         if n_puzzles > 1:
-            # Take the standard deviation
-            std_scores[i] = float(np.std(scores, ddof=1))
+            if score_types[i] == "puzzle_score":
+                # Take the standard deviations of the sample and of the mean for a Bernoulli distribution
+                n_successes = int(mean_scores[i] * n_puzzles)
+                std_scores[i], std_mean_scores[i] = bernoulli_std(
+                    n_trials=n_puzzles, n_successes=n_successes
+                )
+            else:
+                # Take the standard deviation
+                std_scores[i] = float(np.std(scores, ddof=1))
 
-            # Compute the standard deviation of the mean
-            std_mean_scores[i] = std_scores[i] / np.sqrt(float(n_puzzles))
+                # Take the standard deviation of the mean
+                std_mean_scores[i] = std_scores[i] / np.sqrt(float(n_puzzles))
 
             # Round to significant digits
             std_scores[i] = np.format_float_positional(
                 std_scores[i], precision=1, fractional=False
             )
-            std_mean_scores[i] = np.format_float_positional(
-                std_mean_scores[i], precision=1, fractional=False
-            )
-            mean_precision = len(str(std_mean_scores[i]).split(".")[1])
-            mean_scores[i] = np.format_float_positional(
-                mean_scores[i], precision=mean_precision, fractional=False
+
+            mean_scores[i], std_mean_scores[i] = round_using_std(
+                value=mean_scores[i], std=std_mean_scores[i]
             )
 
             # Describe the score with a string
             score_str = f"\tMean: {mean_scores[i]} ± {std_mean_scores[i]} (1σ)"
-            score_str += f"\n\tPopulation standard deviation: {std_scores[i]}"
+            score_str += f"\n\tSample standard deviation: {std_scores[i]}"
             score_strings[i] = score_str
         else:
             # Round mean to 2 significant digits
@@ -346,6 +352,8 @@ def format_scores(
     n_puzzles: int,
 ) -> str:
     """Format the scores.
+
+    This creates a string describing the overall metrics and the scores of each puzzle.
 
     Args:
         scores_all_types: Tuple of scores as numpy arrays. Each element contains the scores for a specific score type.
