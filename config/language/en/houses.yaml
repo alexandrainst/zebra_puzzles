@@ -162,7 +162,7 @@ red_herring_attributes:
     sister: ['the person with a sister','has a sister']
     mango: ['the person who thinks the second best fruit is mango','thinks the second best fruit is mango']
     sailing: ['the person who often sails','often sails']
-    USA: ['the person who has been to the USA','has been to the USA']
+    Canada: ['the person who has been to Canada','has been to Canada']
     mathematics: ["the person with a master's degree in mathematics","has a master's degree in mathematics"]
     physics: ['the person who loves physics','loves physics']
     old_animal: ['the person with a pet that is old for its species','has a pet that is old for its species']

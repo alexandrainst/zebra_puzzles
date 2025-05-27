@@ -10,6 +10,7 @@ from pydantic import BaseModel
 
 from zebra_puzzles.clue_removal import remove_red_herrings
 from zebra_puzzles.file_utils import save_dataset
+from zebra_puzzles.zebra_utils import capitalize
 
 
 def load_puzzle(
@@ -125,7 +126,7 @@ def load_scores(
 
         for i_score_type, score_type in enumerate(score_types):
             # Get the number after "puzzle score:"
-            score_str = scores_str.split(f"{score_type.capitalize()}:\n\tMean: ")[1]
+            score_str = scores_str.split(f"{capitalize(score_type)}:\n\tMean: ")[1]
             if n_puzzles > 1:
                 mean_str = score_str.split(" ")[0]
                 mean_std_str = score_str.split("± ")[1].split(" ")[0]

@@ -17,6 +17,7 @@ from zebra_puzzles.file_utils import prepare_eval_folders, save_dataset
 from zebra_puzzles.load_data import load_puzzle, load_solution
 from zebra_puzzles.zebra_utils import (
     bernoulli_std,
+    capitalize,
     generate_output_format_class,
     round_using_std,
 )
@@ -375,7 +376,7 @@ def format_scores(
     # Complete the string describing all metrics
     metrics_str = ""
     for score_type in score_types:
-        metrics_str += f"{score_type.capitalize()}:\n"
+        metrics_str += f"{capitalize(score_type)}:\n"
         metrics_str += metrics[score_type][-1]
         metrics_str += "\n\n"
 

@@ -308,3 +308,17 @@ def bernoulli_std(n_trials: int, n_successes: int) -> tuple[float, float]:
     std_p = np.sqrt(p * (1 - p) / n_trials)
 
     return std_one_trial, std_p
+
+
+def capitalize(text: str) -> str:
+    """Capitalize the first letter of a string, while leaving the rest unchanged.
+
+    Args:
+        text: The input string to capitalize.
+
+    Returns:
+        The input string with the first letter capitalized.
+    """
+    if not text:
+        return text
+    return text[0].upper() + text[1:] if len(text) > 1 else text.upper()
