@@ -296,7 +296,7 @@ def prepare_eval_folders(
 
     # Create the score folder if it does not exist
     os.makedirs(str(score_folder), exist_ok=True)
-
+    
     return (
         puzzle_paths,
         solution_paths,

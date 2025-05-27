@@ -27,7 +27,11 @@ def compare_solutions(
             best_permuted_cell_score: The best cell-level score as a float after trying all permutations of the objects in the response.
     """
     # Convert the output and solution to dictionaries
-    output_dict = dict(output)
+    try:
+        output_dict = dict(output)
+    except:
+        print ("Error converting output to dictionary. Output:", output)
+        output_dict = {"error": str(output)}
     solution_dict = dict(solution)
 
     # Compare the full output to the solution

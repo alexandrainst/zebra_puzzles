@@ -3,12 +3,21 @@
 import json
 import logging
 import os
+import time
 from pathlib import Path
-from typing import Type
+from typing import Any, Type
 
 import numpy as np
 from dotenv import load_dotenv
-from openai import BadRequestError, OpenAI
+from openai import (
+    APIConnectionError,
+    APIError,
+    APITimeoutError,
+    BadRequestError,
+    InternalServerError,
+    OpenAI,
+    RateLimitError,
+)
 from pydantic import BaseModel, ValidationError
 from tqdm import tqdm
 
@@ -161,7 +170,7 @@ def evaluate_single_puzzle(
             n_red_herrings_to_keep=n_red_herring_clues_evaluated,
         )
 
-        output = query_llm(prompt=prompt, model=model, response_format=OutputFormat)
+        output = query_llm(prompt=prompt, model=model, response_format=OutputFormat,n_objects=n_objects)
 
     else:
         # Load an existing response
@@ -200,13 +209,14 @@ def evaluate_single_puzzle(
     return puzzle_score, cell_score, best_permuted_cell_score
 
 
-def query_llm(prompt: str, model: str, response_format: Type[BaseModel]) -> BaseModel:
+def query_llm(prompt: str, model: str, response_format: Type[BaseModel],n_objects:int) -> BaseModel:
     """Query an LLM API.
 
     Args:
         prompt: The prompt to use for the evaluation.
         model: The model to use for the evaluation.
         response_format: The response format as a Pydantic model.
+        n_objects: The number of objects in the puzzle.
 
     Returns:
         The output in OutputFormat format.
@@ -223,30 +233,90 @@ def query_llm(prompt: str, model: str, response_format: Type[BaseModel]) -> Base
             temperature=0,
             seed=42,
             response_format=response_format,
+            max_completion_tokens=100_000,
+            reasoning_effort="medium",
         )
     except BadRequestError as e:
-        if "'temperature' is not supported" in str(e):
-            response = client.beta.chat.completions.parse(
-                messages=[{"role": "user", "content": prompt}],
-                model=model,
-                seed=42,
-                response_format=response_format,
-            )
-        else:
-            raise e
+        max_retries = 5
+        wait_time = 5
+        # gpt-4o-mini
+        if "'Unrecognized request argument supplied: reasoning_effort'" in str(e):
+            while retries := 0 < max_retries:
+                try:
+                    response = client.beta.chat.completions.parse(
+                        messages=[{"role": "user", "content": prompt}],
+                        model=model,
+                        temperature=0,
+                        seed=42,
+                        response_format=response_format,
+                        max_completion_tokens=16_384,
+                    )
+                except (InternalServerError,APIError,APIConnectionError,RateLimitError,RateLimitError) as e:
+                    retries += 1
+                    print(f"\nRetrying {retries} time(s) due to:\n{e}")
+                    # Wait before retrying
+                    time.sleep(wait_time)
+                    continue
+                except APITimeoutError as e:
+                    # Timeout error can indicate that the request was too complex, so this is a real failure of the model
+                    print(f"\nTimeout error:\n{e}")
+                    response = e
+                except Exception as e:
+                    print (f"\nAn unexpected error occurred:\n{e}")
+                    response = e
+
+                break
+        # o3-mini
+        elif "'temperature' is not supported" in str(e):
+            while retries := 0 < max_retries:
+                try:
+                    response = client.beta.chat.completions.parse(
+                        messages=[{"role": "user", "content": prompt}],
+                        model=model,
+                        seed=42,
+                        response_format=response_format,
+                        max_completion_tokens=100_000,
+                        reasoning_effort="medium",
+                    )
+                except (InternalServerError,APIError,APIConnectionError,RateLimitError) as e:
+                    retries += 1
+                    print(f"\nRetrying {retries} time(s) due to\n{e}")
+                    # Wait before retrying
+                    time.sleep(wait_time)
+                    continue
+                except APITimeoutError as e:
+                    # Timeout error can indicate that the request was too complex, so this is a real failure of the model
+                    print(f"\nTimeout error:\n{e}")
+                    response = e
+                except Exception as e:
+                    print (f"\nAn unexpected error occurred:\n{e}")
+                    response = e
+
+                break
+        if retries == max_retries:
+            print (f"\nToo many errors occurred:\n{e}")
+            response = f"Error after retrying {max_retries} times:\n{e}"
+
+    except Exception as e:
+        print (f"\nAn unexpected error occurred during first API call:\n{e}")
+        response = e
+        
 
     # Reformat response
     try:
+        # TODO: Figure out why the reponse is sometimes none for large puzzles and o3-mini
         output = response_format.model_validate(response.choices[0].message.parsed)
-    except ValidationError as e:
-        print("response:\n", response)
-        print(
-            "\nresponse.choices[0].message.parsed:\n",
-            response.choices[0].message.parsed,
-        )
+    except (ValidationError,AttributeError):
+        print("\nresponse:\n", response)
         print()
-        raise e
-
+        response_formatted: dict[str, Any] = {
+            f"object_{i + 1}": [''] for i in range(n_objects)
+        }
+        response_formatted["object_1"] = [f"\nresponse:\n{response}"]
+        
+        output = response_format.model_validate(response_formatted)
+        #breakpoint()
+    
     return output
 
 
@@ -307,7 +377,7 @@ def compute_metrics(
 
             # Describe the score with a string
             score_str = f"\tMean: {mean_scores[i]} ± {std_mean_scores[i]} (1σ)"
-            score_str += f"\n\tPopulation standard deviation: {std_scores[i]}"
+            score_str += f"\n\tSample standard deviation: {std_scores[i]}"
             score_strings[i] = score_str
         else:
             # Round mean to 2 significant digits
