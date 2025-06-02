@@ -1,14 +1,112 @@
-"""Module for comparing a response to the solution."""
+"""Module for comparing responses to solutions."""
 
 import itertools
 import logging
 
+import numpy as np
 from pydantic import BaseModel
+
+from zebra_puzzles.zebra_utils import bernoulli_std, round_using_std
 
 # Set up logging
 log = logging.getLogger(__name__)
 log.setLevel(logging.INFO)
 logging.basicConfig(filename="compare_solutions.log", filemode="w", level=logging.INFO)
+
+
+def compute_metrics(
+    scores_all_types: list[np.ndarray], score_types: list[str], n_puzzles: int
+) -> dict[str, tuple[str | float, ...]]:
+    """Compute the metrics.
+
+    For each score type e.g. cell score, a dictionary of metrics is computed. This dictionary includes a string describing the rounded metrics.
+
+    Assumes that the scores are normally distributed, except the puzzle score. Also assumes that the maximum length of the string describing each metric is 100 characters.
+
+    The puzzle score is assumed to follow a Bernoulli distribution.
+
+    Args:
+        scores_all_types: Tuple of scores as numpy arrays. Each element contains the scores for a specific score type.
+        score_types: List of score type names as strings.
+        n_puzzles: Number of puzzles as an integer.
+
+    Returns:
+        Metrics as a dictionary of with the score type as the key, and the values being a tuple of ndarrays. The tuple contains the rounded metrics for the score type and a string describing the metrics for the score type.
+
+    NOTE: More metrics could be added e.g. from sklearn.metrics
+    """
+    # Number of score types
+    n_metrics = len(score_types)
+
+    # Initialize metrics
+    mean_scores = np.zeros(n_metrics, dtype=float)
+    if n_puzzles > 1:
+        std_scores = np.zeros(n_metrics, dtype=float)
+        std_mean_scores = np.zeros(n_metrics, dtype=float)
+
+    # Initialize strings describing metrics for each score type
+    # U100 is a Unicode string with a maximum length of 100 characters
+    score_strings = np.zeros(n_metrics, dtype="U100")
+
+    for i, scores in enumerate(scores_all_types):
+        # Take the mean
+        mean_scores[i] = float(np.mean(scores))
+
+        if n_puzzles > 1:
+            if score_types[i] == "puzzle_score":
+                # Take the standard deviations of the sample and of the mean for a Bernoulli distribution
+                n_successes = int(mean_scores[i] * n_puzzles)
+                std_scores[i], std_mean_scores[i] = bernoulli_std(
+                    n_trials=n_puzzles, n_successes=n_successes
+                )
+            else:
+                # Take the standard deviation
+                std_scores[i] = float(np.std(scores, ddof=1))
+
+                # Take the standard deviation of the mean
+                std_mean_scores[i] = std_scores[i] / np.sqrt(float(n_puzzles))
+
+            # Round to significant digits
+            std_scores[i] = np.format_float_positional(
+                std_scores[i], precision=1, fractional=False
+            )
+
+            mean_scores[i], std_mean_scores[i] = round_using_std(
+                value=mean_scores[i], std=std_mean_scores[i]
+            )
+
+            # Describe the score with a string
+            score_str = f"\tMean: {mean_scores[i]} ± {std_mean_scores[i]} (1σ)"
+            score_str += f"\n\tSample standard deviation: {std_scores[i]}"
+            score_strings[i] = score_str
+        else:
+            # Round mean to 2 significant digits
+            mean_precision = 2
+            mean_scores[i] = np.format_float_positional(
+                mean_scores[i], precision=mean_precision, fractional=False
+            )
+
+            # Describe the score with a string
+            score_strings[i] = f"\tMean: {mean_scores[i]}"
+
+    # Make a dictionary of metrics and score strings for each score type
+    if n_puzzles > 1:
+        metrics: dict[str, tuple[str | float, ...]] = {
+            score_type: (
+                mean_scores[i],
+                std_scores[i],
+                std_mean_scores[i],
+                score_strings[i],
+            )
+            for i, score_type in enumerate(score_types)
+        }
+    else:
+        metrics = {
+            score_type: (mean_scores[i], score_strings[i])
+            for i, score_type in enumerate(score_types)
+        }
+
+    return metrics
 
 
 def compare_solutions(
@@ -151,3 +249,54 @@ def compute_best_permuted_cell_score(
             best_permuted_cell_score = permuted_cell_score
 
     return best_permuted_cell_score
+
+
+def format_scores(
+    scores_all_types: list[np.ndarray],
+    score_types: list[str],
+    metrics: dict[str, tuple],
+    n_puzzles: int,
+) -> str:
+    """Format the scores.
+
+    This creates a string describing the overall metrics and the scores of each puzzle.
+
+    Args:
+        scores_all_types: Tuple of scores as numpy arrays. Each element contains the scores for a specific score type.
+        score_types: List of score type names as strings.
+        n_puzzles: Number of puzzles as an integer.
+        metrics: Metrics as a dictionary of with the score type as the key, and the values being a tuple of ndarrays. The tuple contains the rounded metrics for the score type and a string describing the metrics for the score type.
+
+    Returns:
+        A formatted string of the scores.
+    """
+    # --- Describe overall metrics ---#
+
+    score_str = "Puzzle Scores\n"
+    score_str += "-------------\n"
+    score_str += "Metrics\n\n"
+    if n_puzzles > 1:
+        score_str += "Uncertainty is given as one standard deviation (1σ), corresponding to a 68% confidence interval. The 95% confidence interval is approximately ±2σ.\n\n"
+
+    # Complete the string describing all metrics
+    metrics_str = ""
+    for score_type in score_types:
+        metrics_str += f"{score_type.capitalize()}:\n"
+        metrics_str += metrics[score_type][-1]
+        metrics_str += "\n\n"
+
+    metrics_str = metrics_str[:-1]
+
+    score_str += metrics_str
+
+    # --- Describe scores of individual puzzles ---#
+
+    score_str += "\n-------------\n"
+    score_str += "Single puzzle scores\n"
+
+    for i in range(n_puzzles):
+        score_str += f"\nPuzzle {i}: "
+        for score_type, scores in zip(score_types, scores_all_types):
+            score_str += f"\t{score_type}: {scores[i]:.2f}"
+
+    return score_str
