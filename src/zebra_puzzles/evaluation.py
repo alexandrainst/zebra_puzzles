@@ -253,7 +253,7 @@ def query_llm(
         if "'Unrecognized request argument supplied: reasoning_effort'" in str(
             first_error
         ):
-            while retries < max_retries:
+            for retry in range(max_retries):
                 try:
                     response = client.beta.chat.completions.parse(
                         messages=[{"role": "user", "content": prompt}],
@@ -269,11 +269,11 @@ def query_llm(
                     APIConnectionError,
                     RateLimitError,
                 ) as e:
-                    retries += 1
-                    print(f"\nRetrying {retries} time(s) due to:\n{e}")
+                    print(f"\nRetry no. {retry} due to:\n{e}")
                     # Wait before retrying
                     time.sleep(wait_time)
                     continue
+                # Below are cases where we do not want to retry
                 except APITimeoutError as e:
                     # Timeout error can indicate that the request was too complex, so this is a real failure of the model
                     error_response = str(e)
@@ -281,11 +281,15 @@ def query_llm(
                 except Exception as e:
                     error_response = str(e)
                     print(f"\nAn unexpected error occurred:\n{error_response}")
-
                 break
+            else:  # If we reach this, it means we exhausted all retries
+                print(f"\nToo many errors occurred:\n{error_response}")
+                error_response = (
+                    f"Error after retrying {max_retries} times:\n{error_response}"
+                )
         # o3-mini
         elif "'temperature' is not supported" in str(first_error):
-            while retries < max_retries:
+            for retry in range(max_retries):
                 try:
                     response = client.beta.chat.completions.parse(
                         messages=[{"role": "user", "content": prompt}],
@@ -302,10 +306,11 @@ def query_llm(
                     RateLimitError,
                 ) as e:
                     retries += 1
-                    print(f"\nRetrying {retries} time(s) due to\n{e}")
+                    print(f"\nRetry no. {retry} due to:\n{e}")
                     # Wait before retrying
                     time.sleep(wait_time)
                     continue
+                # Below are cases where we do not want to retry
                 except APITimeoutError as e:
                     # Timeout error can indicate that the request was too complex, so this is a real failure of the model
                     error_response = str(e)
@@ -315,11 +320,11 @@ def query_llm(
                     print(f"\nAn unexpected error occurred:\n{error_response}")
 
                 break
-        if retries == max_retries:
-            print(f"\nToo many errors occurred:\n{error_response}")
-            error_response = (
-                f"Error after retrying {max_retries} times:\n{error_response}"
-            )
+            else:  # If we reach this, it means we exhausted all retries
+                print(f"\nToo many errors occurred:\n{error_response}")
+                error_response = (
+                    f"Error after retrying {max_retries} times:\n{error_response}"
+                )
 
     except Exception as e:
         error_response = str(e)
