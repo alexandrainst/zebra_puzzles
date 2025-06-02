@@ -1,9 +1,8 @@
 """Module for handling files and directories."""
 
 import os
+import re
 from pathlib import Path
-
-from zebra_puzzles.clue_removal import remove_red_herrings
 
 
 def clean_folder(folder_path: Path, keep_files: list[str]) -> None:
@@ -51,72 +50,6 @@ def save_dataset(data: str, filename: str, folder: Path) -> None:
 
     with file_path.open("w", encoding="utf-8") as file:
         file.write(data)
-
-
-def load_puzzle(
-    puzzle_file_path: Path,
-    reduced_puzzle_file_path: Path,
-    reduced_clue_type_file_path: Path,
-    n_red_herrings_to_keep: int,
-) -> str:
-    """Load a puzzle and reduce the number of red herrings.
-
-    This function loads a puzzle from a file, and if n_red_herrings_to_keep us less than the number of red herrings in the puzzle, it removes some of them.
-    It also saves the new puzzle file and clue types.
-
-    Args:
-        puzzle_file_path: Path to the puzzle file.
-        reduced_puzzle_file_path: Path to the folder where the reduced puzzle file will be saved.
-        reduced_clue_type_file_path: Path to the folder where the reduced clue type file will be saved.
-        n_red_herrings_to_keep: Number of red herring clues to be included in the puzzle as an integer.
-
-    Returns:
-        The prompt as a string.
-    """
-    # Load the prompt
-    with puzzle_file_path.open() as file:
-        prompt = file.read()
-
-    # Load the red herring indices
-    red_herring_path = puzzle_file_path.parent.parent.joinpath("red_herrings").joinpath(
-        puzzle_file_path.stem + "_red_herrings.txt"
-    )
-
-    with red_herring_path.open() as file:
-        red_herring_indices_str = file.read()
-
-    # Load the clue types
-    clue_type_path = puzzle_file_path.parent.parent.joinpath("clue_types").joinpath(
-        puzzle_file_path.stem + "_clue_types.txt"
-    )
-    with clue_type_path.open() as file:
-        chosen_clue_types_str = file.read()
-
-    # Remove some red herrings and save the new puzzle file and clue types
-    prompt, chosen_clue_types_str, fewer_red_herrings_flag = remove_red_herrings(
-        prompt=prompt,
-        red_herring_indices_str=red_herring_indices_str,
-        n_red_herrings_to_keep=n_red_herrings_to_keep,
-        chosen_clue_types_str=chosen_clue_types_str,
-    )
-
-    if fewer_red_herrings_flag:
-        # Save the new puzzle and clue types in the right folder e.g. 3rh instead of 5rh
-        reduced_puzzle_filename = reduced_puzzle_file_path.stem + ".txt"
-        reduced_puzzle_folder = reduced_puzzle_file_path.parent
-        save_dataset(
-            data=prompt, filename=reduced_puzzle_filename, folder=reduced_puzzle_folder
-        )
-
-        clue_type_filename = reduced_clue_type_file_path.stem + ".txt"
-        reduced_clue_type_folder = reduced_clue_type_file_path.parent
-        save_dataset(
-            data=chosen_clue_types_str,
-            filename=clue_type_filename,
-            folder=reduced_clue_type_folder,
-        )
-
-    return prompt
 
 
 def prepare_data_folders(
@@ -232,12 +165,26 @@ def prepare_eval_folders(
     puzzle_subfolder = Path(theme) / f"{n_objects}x{n_attributes}"
 
     # Get sorted names of all prompt files in the data folder
-    puzzle_folder = data_folder / puzzle_subfolder / f"{n_red_herring_clues}rh/puzzles"
+    puzzle_folder = (
+        data_folder / puzzle_subfolder / f"{n_red_herring_clues}rh" / "puzzles"
+    )
 
-    puzzle_paths = sorted(list(puzzle_folder.glob("*.txt")))
+    # Load the puzzle paths
+    puzzle_paths = sorted(list(puzzle_folder.glob("zebra_puzzle_*.txt")))
+
+    # Sort the puzzle paths by the puzzle index (the number after zebra_puzzle_ and before .txt)
+    puzzle_indices = [
+        int(file_path.name.split("_")[2].split(".txt")[0]) for file_path in puzzle_paths
+    ]
+    puzzle_paths = [
+        file_path for _, file_path in sorted(zip(puzzle_indices, puzzle_paths))
+    ]
+
+    solution_folder = puzzle_folder.parent / "solutions"
 
     solution_paths = [
-        puzzle_path.parent.parent.joinpath("solutions") for puzzle_path in puzzle_paths
+        solution_folder / f"{puzzle_path.stem}_solution.json"
+        for puzzle_path in puzzle_paths
     ]
 
     # Create reponse file names
@@ -307,3 +254,180 @@ def prepare_eval_folders(
         score_filename,
         score_folder,
     )
+
+
+def get_evaluated_params(data_folder: Path) -> tuple[list[str], list[int]]:
+    """Get the names and number of red herrings of the models used in the evaluation.
+
+    Args:
+        data_folder: Path to the data folder.
+
+    Returns:
+        A tuple (model_names, rh_values) where:
+            model_names: List of model names.
+            rh_values: List of the values of the set of red herring numbers evaluated.
+    """
+    # Define the path to the scores folder
+    scores_path = data_folder / "scores"
+
+    # Get the names of all models in the scores folder
+    model_names = [model.name for model in scores_path.iterdir() if model.is_dir()]
+
+    # Get the set of red herring numbers evaluated
+    # Do this by getting the names of all folders in the scores folder and splitting the folder names by "rh"
+    rh_values = set()
+    for model in model_names:
+        rh_values.update(
+            [
+                int(rh.name.split("rh")[0])
+                for rh in (scores_path / model).iterdir()
+                if rh.is_dir()
+            ]
+        )
+
+    return model_names, list(rh_values)
+
+
+def get_score_file_paths(
+    data_folder: Path,
+    model: str,
+    n_red_herring_clues_evaluated: int,
+    theme: str,
+    n_puzzles: int,
+) -> list[Path]:
+    """Get the paths of the score files.
+
+    Args:
+        data_folder: Path to the data folder.
+        model: LLM model name.
+        n_red_herring_clues_evaluated: Number of red herring clues evaluated.
+        theme: Theme name.
+        n_puzzles: Number of puzzles evaluated.
+
+    Returns:
+        List of score file paths.
+    """
+    scores_path = data_folder / "scores" / model / f"{n_red_herring_clues_evaluated}rh"
+
+    # Get sorted names of all score files in the data folder that are evaluated on the correct number of puzzles
+    score_file_paths = sorted(
+        list(
+            scores_path.glob(
+                f"puzzle_scores_{model}_{theme}*_{n_red_herring_clues_evaluated}rh_{n_puzzles}_puzzles.txt"
+            )
+        )
+    )
+
+    return score_file_paths
+
+
+def get_clue_type_file_paths(
+    data_folder: Path,
+    n_red_herring_clues_evaluated: int,
+    theme: str,
+    n_puzzles: int,
+    reduced_flag: bool,
+) -> dict[str, list[Path]]:
+    """Get the paths of the clue type files.
+
+    The clue type files are stored in the "clue_types" folder for the original puzzles and in the "reduced_clue_types" folder for the reduced puzzles.
+
+    The clue type file paths are sorted by the puzzle indices.
+
+    Args:
+        data_folder: Path to the data folder.
+        model: LLM model name.
+        n_red_herring_clues_evaluated: Number of red herring clues evaluated.
+        theme: Theme name.
+        n_puzzles: Number of puzzles evaluated.
+        reduced_flag: Whether the number of red herrings has been reduced.
+            If True, the clue type files are in the "reduced_clue_types" folder.
+            If False, the clue type files are in the "clue_types" folder.
+
+    Returns:
+        Dictionary of the clue type file paths for each puzzle size.
+    """
+    # Check all size puzzles in the data/theme folder
+
+    clue_type_path = data_folder / theme
+
+    # Get the puzzle size folders
+    puzzle_size_folders = [
+        folder for folder in clue_type_path.iterdir() if folder.is_dir()
+    ]
+
+    # Define the dictionary to store the clue type file paths
+    clue_type_file_paths_all_sizes: dict[str, list[Path]] = {}
+
+    for puzzle_size_folder in puzzle_size_folders:
+        # Get sorted names of all clue type files in the data folder
+        if reduced_flag:
+            clue_type_file_paths = list(
+                puzzle_size_folder.glob(
+                    f"{n_red_herring_clues_evaluated}rh/reduced_clue_types/zebra_puzzle_*_clue_types_reduced.txt"
+                )
+            )
+        else:
+            clue_type_file_paths = list(
+                puzzle_size_folder.glob(
+                    f"{n_red_herring_clues_evaluated}rh/clue_types/zebra_puzzle_*_clue_types.txt"
+                )
+            )
+
+        # Sort the clue type file paths by the puzzle index (the number after zebra_puzzle_)
+        puzzle_indices = [
+            int(file_path.name.split("_")[2]) for file_path in clue_type_file_paths
+        ]
+        clue_type_file_paths = [
+            file_path
+            for _, file_path in sorted(zip(puzzle_indices, clue_type_file_paths))
+        ]
+
+        # Check that the number of clue type files is equal to the number of puzzles
+        if len(clue_type_file_paths) < n_puzzles:
+            raise ValueError(
+                f"Not enough clue type files found in {clue_type_path}. Found {len(clue_type_file_paths)}, expected {n_puzzles}."
+            )
+        if len(clue_type_file_paths) > n_puzzles:
+            raise ValueError(
+                f"Too many clue type files found in {clue_type_path}. Found {len(clue_type_file_paths)}, expected {n_puzzles}."
+            )
+
+        # Add the clue type file paths to the dictionary
+        clue_type_file_paths_all_sizes[puzzle_size_folder.name] = clue_type_file_paths
+
+    return clue_type_file_paths_all_sizes
+
+
+def get_puzzle_dimensions_from_filename(
+    score_file_paths: list[Path],
+) -> tuple[list[int], list[int]]:
+    """Get the dimensions of the puzzles from the score file paths.
+
+    Args:
+        score_file_paths: List of score file paths.
+
+    Returns:
+        A tuple (n_objects_list, n_attributes_list) where:
+            n_objects_list: List of the number of objects in the puzzles evaluated in each score file.
+            n_attributes_list: List of the number of attributes in the puzzles evaluated in each score file.
+    """
+    # Get the dimensions of the puzzles
+    n_objects_list = []
+    n_attributes_list = []
+
+    for score_file_path in score_file_paths:
+        file_name = score_file_path.name
+
+        # Get the numbers on each side of the "x" in the filename
+        match = re.search(r"_(\d+)x(\d+)_", file_name)
+        if match:
+            n_objects = int(match.group(1))
+            n_attributes = int(match.group(2))
+        else:
+            raise ValueError(f"Could not find dimensions in {file_name}")
+
+        n_objects_list.append(n_objects)
+        n_attributes_list.append(n_attributes)
+
+    return n_objects_list, n_attributes_list

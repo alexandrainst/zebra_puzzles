@@ -15,6 +15,8 @@ Run `uv run src/scripts/build_dataset.py` to generate puzzles.
 
 Run `uv run src/scripts/evaluate.py` to evaluate puzzles.
 
+Run `uv run src/scripts/plot_performance.py` to plot and compare puzzle evaluation performance.
+
 Use the configuration in `config/config.yaml` to specify:
 - number of puzzles to generate
 - puzzle dimensions
@@ -54,7 +56,7 @@ o3-mini:
 GitHub Copilot has been used for this project.
 
 ______________________________________________________________________
-[![Code Coverage](https://img.shields.io/badge/Coverage-84%25-yellowgreen.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
+[![Code Coverage](https://img.shields.io/badge/Coverage-83%25-yellowgreen.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
 [![Documentation](https://img.shields.io/badge/docs-passing-green)](https://alexandrainst.github.io/zebra_puzzles)
 [![License](https://img.shields.io/github/license/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/blob/main/LICENSE)
 [![LastCommit](https://img.shields.io/github/last-commit/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/commits/main)

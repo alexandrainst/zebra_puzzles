@@ -12,6 +12,7 @@ from omegaconf import DictConfig
 
 from zebra_puzzles.evaluation import evaluate_all
 from zebra_puzzles.pipeline import build_dataset
+from zebra_puzzles.plot_pipeline import plot_results
 
 initialize(config_path="../config", version_base=None)
 
@@ -19,7 +20,7 @@ initialize(config_path="../config", version_base=None)
 # Test configurations for pytest
 # Each set of parameters represents a different configuration for the tests.
 @pytest.fixture(
-    scope="session", params=[(1, 2, 0), (2, 2, 0), (1, 2, 2), (2, 2, 2), (2, 0, 0)]
+    scope="session", params=[(1, 2, 0), (2, 2, 0), (1, 2, 2), (2, 2, 2), (3, 0, 0)]
 )
 def config(request) -> Generator[DictConfig, None, None]:
     """Hydra configuration.
@@ -42,12 +43,13 @@ def config(request) -> Generator[DictConfig, None, None]:
             f"n_red_herring_clues_evaluated={n_red_herring_clues_evaluated}",
             "data_folder=tests/test_data",
             "model=gpt-4o-mini",
+            "generate_new_responses=True",
         ],
     )
 
 
 @pytest.fixture(scope="session")
-def data_paths(config) -> Generator[tuple[Path, Path, Path], None, None]:
+def data_paths_fixture(config) -> Generator[tuple[Path, Path, Path], None, None]:
     """Fixture to generate a small dataset of zebra puzzles."""
     build_dataset(
         attributes=config.language.attributes,
@@ -105,7 +107,9 @@ def data_paths(config) -> Generator[tuple[Path, Path, Path], None, None]:
 
 
 @pytest.fixture(scope="session")
-def eval_paths(data_paths, config) -> Generator[tuple[Path, Path], None, None]:
+def eval_paths_fixture(
+    data_paths_fixture, config
+) -> Generator[tuple[Path, Path], None, None]:
     """Fixture to evaluate puzzles after generating them by the data_paths fixture."""
     # Evaluate the dataset
     evaluate_all(
@@ -145,3 +149,46 @@ def eval_paths(data_paths, config) -> Generator[tuple[Path, Path], None, None]:
     # Cleanup
     rmtree(scores_path, ignore_errors=True)
     rmtree(responses_path, ignore_errors=True)
+
+
+@pytest.fixture(scope="session")
+def plot_paths_fixture(
+    eval_paths_fixture, config
+) -> Generator[tuple[Path, list, Path, Path], None, None]:
+    """Fixture to generate plots after evaluating puzzles by the eval_paths fixture."""
+    # Run the plotting script
+    n_puzzles = config.n_puzzles
+    theme = config.language.theme
+    data_folder = config.data_folder
+    clue_types = list(config.clue_weights.keys())
+    red_herring_clue_types = list(config.red_herring_clue_weights.keys())
+    n_red_herring_clues = config.n_red_herring_clues
+    model = config.model
+    n_red_herring_clues_evaluated = config.n_red_herring_clues_evaluated
+
+    plot_results(
+        n_puzzles=n_puzzles,
+        theme=theme,
+        data_folder_str=data_folder,
+        clue_types=clue_types,
+        red_herring_clue_types=red_herring_clue_types,
+        n_red_herring_clues_generated=n_red_herring_clues,
+    )
+
+    plots_path = Path(data_folder) / "plots" / theme
+
+    # Get the folder names in the plots path (corresponding to the model names and comparisons)
+    plots_model_paths = [
+        p
+        for p in plots_path.iterdir()
+        if p.is_dir() and p.name != "clue_type_frequencies"
+    ]
+
+    model_folder = plots_path / model
+
+    red_herring_folder = model_folder / f"{n_red_herring_clues_evaluated}rh"
+
+    yield plots_path, plots_model_paths, model_folder, red_herring_folder
+
+    # Cleanup
+    rmtree(plots_path, ignore_errors=True)

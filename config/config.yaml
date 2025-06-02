@@ -15,19 +15,19 @@ defaults:
 model : o3-mini
 
 # Whether to generate new LLM responses or only evaluate existing ones when running evaluate.py
-generate_new_responses: True
+generate_new_responses: False
 
 # The folder where data is stored
-data_folder: data
+data_folder: data_backup
 
 # Number of puzzles to generate
 n_puzzles: 100
 
 # Objects e.g. houses
-n_objects: 3
+n_objects: 2
 
 # Attributes e.g. pets
-n_attributes: 3
+n_attributes: 1
 
 # Weights for the clue types
 # The weights are used to determine the probability of generating each type of clue. The distribution of accepted clue types will be different, as redundant clues are removed.
@@ -52,7 +52,7 @@ n_red_herring_clues: 5
 
 # Number of red herrings clues evaluated
 # This must be less than or equal to n_red_herring_clues, as clues can be removed but not added during evaluation.
-n_red_herring_clues_evaluated: 5
+n_red_herring_clues_evaluated: 0
 
 # Weights for the red herring clues
 # The weights are used to determine the probability of generating each type of red herring clue.
