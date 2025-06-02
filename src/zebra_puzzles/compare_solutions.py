@@ -29,8 +29,10 @@ def compare_solutions(
     # Convert the output and solution to dictionaries
     try:
         output_dict = dict(output)
-    except:
-        print ("Error converting output to dictionary. Output:", output)
+    except Exception as output_error:
+        print(
+            f"Error converting output to dictionary. Output: {output}\nError: {output_error}"
+        )
         output_dict = {"error": str(output)}
     solution_dict = dict(solution)
 

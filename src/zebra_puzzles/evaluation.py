@@ -179,7 +179,12 @@ def evaluate_single_puzzle(
             n_red_herrings_to_keep=n_red_herring_clues_evaluated,
         )
 
-        output = query_llm(prompt=prompt, model=model, response_format=OutputFormat,n_objects=n_objects)
+        output = query_llm(
+            prompt=prompt,
+            model=model,
+            response_format=OutputFormat,
+            n_objects=n_objects,
+        )
 
     else:
         # Load an existing response
@@ -209,7 +214,9 @@ def evaluate_single_puzzle(
     return puzzle_score, cell_score, best_permuted_cell_score
 
 
-def query_llm(prompt: str, model: str, response_format: Type[BaseModel],n_objects:int) -> BaseModel:
+def query_llm(
+    prompt: str, model: str, response_format: Type[BaseModel], n_objects: int
+) -> BaseModel:
     """Query an LLM API.
 
     Args:
@@ -225,6 +232,8 @@ def query_llm(prompt: str, model: str, response_format: Type[BaseModel],n_object
 
     client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
+    error_response: str = ""
+
     # Generate LLM output
     try:
         response = client.beta.chat.completions.parse(
@@ -236,12 +245,15 @@ def query_llm(prompt: str, model: str, response_format: Type[BaseModel],n_object
             max_completion_tokens=100_000,
             reasoning_effort="medium",
         )
-    except BadRequestError as e:
+    except BadRequestError as first_error:
         max_retries = 5
         wait_time = 5
+        retries: int = 0
         # gpt-4o-mini
-        if "'Unrecognized request argument supplied: reasoning_effort'" in str(e):
-            while retries := 0 < max_retries:
+        if "'Unrecognized request argument supplied: reasoning_effort'" in str(
+            first_error
+        ):
+            while retries < max_retries:
                 try:
                     response = client.beta.chat.completions.parse(
                         messages=[{"role": "user", "content": prompt}],
@@ -251,7 +263,12 @@ def query_llm(prompt: str, model: str, response_format: Type[BaseModel],n_object
                         response_format=response_format,
                         max_completion_tokens=16_384,
                     )
-                except (InternalServerError,APIError,APIConnectionError,RateLimitError) as e:
+                except (
+                    InternalServerError,
+                    APIError,
+                    APIConnectionError,
+                    RateLimitError,
+                ) as e:
                     retries += 1
                     print(f"\nRetrying {retries} time(s) due to:\n{e}")
                     # Wait before retrying
@@ -259,16 +276,16 @@ def query_llm(prompt: str, model: str, response_format: Type[BaseModel],n_object
                     continue
                 except APITimeoutError as e:
                     # Timeout error can indicate that the request was too complex, so this is a real failure of the model
-                    print(f"\nTimeout error:\n{e}")
-                    response = e
+                    error_response = str(e)
+                    print(f"\nTimeout error:\n{error_response}")
                 except Exception as e:
-                    print (f"\nAn unexpected error occurred:\n{e}")
-                    response = e
+                    error_response = str(e)
+                    print(f"\nAn unexpected error occurred:\n{error_response}")
 
                 break
         # o3-mini
-        elif "'temperature' is not supported" in str(e):
-            while retries := 0 < max_retries:
+        elif "'temperature' is not supported" in str(first_error):
+            while retries < max_retries:
                 try:
                     response = client.beta.chat.completions.parse(
                         messages=[{"role": "user", "content": prompt}],
@@ -278,7 +295,12 @@ def query_llm(prompt: str, model: str, response_format: Type[BaseModel],n_object
                         max_completion_tokens=100_000,
                         reasoning_effort="medium",
                     )
-                except (InternalServerError,APIError,APIConnectionError,RateLimitError) as e:
+                except (
+                    InternalServerError,
+                    APIError,
+                    APIConnectionError,
+                    RateLimitError,
+                ) as e:
                     retries += 1
                     print(f"\nRetrying {retries} time(s) due to\n{e}")
                     # Wait before retrying
@@ -286,37 +308,40 @@ def query_llm(prompt: str, model: str, response_format: Type[BaseModel],n_object
                     continue
                 except APITimeoutError as e:
                     # Timeout error can indicate that the request was too complex, so this is a real failure of the model
-                    print(f"\nTimeout error:\n{e}")
-                    response = e
+                    error_response = str(e)
+                    print(f"\nTimeout error:\n{error_response}")
                 except Exception as e:
-                    print (f"\nAn unexpected error occurred:\n{e}")
-                    response = e
+                    error_response = str(e)
+                    print(f"\nAn unexpected error occurred:\n{error_response}")
 
                 break
         if retries == max_retries:
-            print (f"\nToo many errors occurred:\n{e}")
-            response = f"Error after retrying {max_retries} times:\n{e}"
+            print(f"\nToo many errors occurred:\n{error_response}")
+            error_response = (
+                f"Error after retrying {max_retries} times:\n{error_response}"
+            )
 
     except Exception as e:
-        print (f"\nAn unexpected error occurred during first API call:\n{e}")
-        response = e
-        
+        error_response = str(e)
+        print(
+            f"\nAn unexpected error occurred during first API call:\n{error_response}"
+        )
 
     # Reformat response
     try:
         # TODO: Figure out why the reponse is sometimes none for large puzzles and o3-mini
         output = response_format.model_validate(response.choices[0].message.parsed)
-    except (ValidationError,AttributeError):
+    except (ValidationError, AttributeError):
         print("\nresponse:\n", response)
         print()
         response_formatted: dict[str, Any] = {
-            f"object_{i + 1}": [''] for i in range(n_objects)
+            f"object_{i + 1}": [""] for i in range(n_objects)
         }
-        response_formatted["object_1"] = [f"\nresponse:\n{response}"]
-        
+        response_formatted["object_1"] = [f"\nresponse:\n{error_response}"]
+
         output = response_format.model_validate(response_formatted)
-        #breakpoint()
-    
+        # breakpoint()
+
     return output
 
 
