@@ -251,7 +251,7 @@ def query_llm(prompt: str, model: str, response_format: Type[BaseModel],n_object
                         response_format=response_format,
                         max_completion_tokens=16_384,
                     )
-                except (InternalServerError,APIError,APIConnectionError,RateLimitError,RateLimitError) as e:
+                except (InternalServerError,APIError,APIConnectionError,RateLimitError) as e:
                     retries += 1
                     print(f"\nRetrying {retries} time(s) due to:\n{e}")
                     # Wait before retrying
