@@ -33,6 +33,16 @@ from zebra_puzzles.zebra_utils import (
 # Load environment variables to get the API key
 load_dotenv()
 
+# Set up logging
+log = logging.getLogger(__name__)
+log.setLevel(logging.INFO)
+logging.basicConfig(
+    filename="evaluation.log",  # Log to a file
+    filemode="w",  # Overwrite the log file each time
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    level=logging.INFO,
+)  # Set the logging level to INFO
+
 
 def evaluate_all(
     n_puzzles: int,
@@ -269,7 +279,7 @@ def query_llm(
                     APIConnectionError,
                     RateLimitError,
                 ) as e:
-                    print(f"\nRetry no. {retry} due to:\n{e}")
+                    log.warning(f"\nRetry no. {retry} due to:\n{e}")
                     # Wait before retrying
                     time.sleep(wait_time)
                     continue
@@ -277,16 +287,16 @@ def query_llm(
                 except APITimeoutError as e:
                     # Timeout error can indicate that the request was too complex, so this is a real failure of the model
                     error_response = str(e)
-                    print(f"\nTimeout error:\n{error_response}")
+                    log.error(f"\nTimeout error:\n{error_response}")
                 except Exception as e:
                     error_response = str(e)
-                    print(f"\nAn unexpected error occurred:\n{error_response}")
+                    log.error(f"\nAn unexpected error occurred:\n{error_response}")
                 break
             else:  # If we reach this, it means we exhausted all retries
-                print(f"\nToo many errors occurred:\n{error_response}")
                 error_response = (
                     f"Error after retrying {max_retries} times:\n{error_response}"
                 )
+                log.error(f"\nToo many errors occurred:\n{error_response}")
         # o3-mini
         elif "'temperature' is not supported" in str(first_error):
             for retry in range(max_retries):
@@ -306,7 +316,7 @@ def query_llm(
                     RateLimitError,
                 ) as e:
                     retries += 1
-                    print(f"\nRetry no. {retry} due to:\n{e}")
+                    log.info(f"\nRetry no. {retry} due to:\n{e}")
                     # Wait before retrying
                     time.sleep(wait_time)
                     continue
@@ -314,21 +324,21 @@ def query_llm(
                 except APITimeoutError as e:
                     # Timeout error can indicate that the request was too complex, so this is a real failure of the model
                     error_response = str(e)
-                    print(f"\nTimeout error:\n{error_response}")
+                    log.error(f"\nTimeout error:\n{error_response}")
                 except Exception as e:
                     error_response = str(e)
-                    print(f"\nAn unexpected error occurred:\n{error_response}")
+                    log.error(f"\nAn unexpected error occurred:\n{error_response}")
 
                 break
             else:  # If we reach this, it means we exhausted all retries
-                print(f"\nToo many errors occurred:\n{error_response}")
                 error_response = (
                     f"Error after retrying {max_retries} times:\n{error_response}"
                 )
+                log.error(f"\nToo many errors occurred:\n{error_response}")
 
     except Exception as e:
         error_response = str(e)
-        print(
+        log.error(
             f"\nAn unexpected error occurred during first API call:\n{error_response}"
         )
 
@@ -337,15 +347,15 @@ def query_llm(
         # TODO: Figure out why the reponse is sometimes none for large puzzles and o3-mini
         output = response_format.model_validate(response.choices[0].message.parsed)
     except (ValidationError, AttributeError):
-        print("\nresponse:\n", response)
-        print()
+        log.error(
+            f"\nValidation error or attribute error occurred while parsing the response:\n{error_response}\n"
+        )
         response_formatted: dict[str, Any] = {
             f"object_{i + 1}": [""] for i in range(n_objects)
         }
         response_formatted["object_1"] = [f"\nresponse:\n{error_response}"]
 
         output = response_format.model_validate(response_formatted)
-        # breakpoint()
 
     return output
 
