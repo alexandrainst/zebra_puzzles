@@ -7,7 +7,7 @@ import numpy as np
 from dotenv import load_dotenv
 from tqdm import tqdm
 
-from zebra_puzzles.compare_solutions import (
+from zebra_puzzles.evaluation.compare_solutions import (
     compare_solutions,
     compute_metrics,
     format_scores,

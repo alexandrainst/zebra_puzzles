@@ -5,17 +5,17 @@ from pathlib import Path
 
 import numpy as np
 
-from zebra_puzzles.clue_analysis import (
-    estimate_clue_type_difficulty_for_all_puzzle_sizes,
-)
-from zebra_puzzles.eval_comparisons import compare_all_eval_types
 from zebra_puzzles.file_utils import (
     get_evaluated_params,
     get_puzzle_dimensions_from_filename,
     get_score_file_paths,
 )
 from zebra_puzzles.load_data import load_scores
-from zebra_puzzles.plots import (
+from zebra_puzzles.performance.clue_analysis import (
+    estimate_clue_type_difficulty_for_all_puzzle_sizes,
+)
+from zebra_puzzles.performance.eval_comparisons import compare_all_eval_types
+from zebra_puzzles.performance.plots import (
     plot_clue_type_difficulty,
     plot_clue_type_frequencies,
     plot_heatmaps,

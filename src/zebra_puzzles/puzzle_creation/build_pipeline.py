@@ -2,10 +2,10 @@
 
 from tqdm import tqdm
 
-from zebra_puzzles.clue_selection import choose_clues
 from zebra_puzzles.file_utils import prepare_data_folders, save_dataset
-from zebra_puzzles.prompt_completion import complete_prompt
-from zebra_puzzles.red_herring_selection import choose_red_herrings
+from zebra_puzzles.puzzle_creation.clue_selection import choose_clues
+from zebra_puzzles.puzzle_creation.prompt_completion import complete_prompt
+from zebra_puzzles.puzzle_creation.red_herring_selection import choose_red_herrings
 from zebra_puzzles.zebra_utils import (
     format_solution_as_json,
     generate_solution,

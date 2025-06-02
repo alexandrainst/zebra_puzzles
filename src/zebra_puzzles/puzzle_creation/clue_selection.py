@@ -10,7 +10,10 @@ from zebra_puzzles.clue_removal import (
     remove_redundant_clues_with_rules,
     remove_redundant_clues_with_solver,
 )
-from zebra_puzzles.zebra_solver import raise_if_unexpected_solution_found, solver
+from zebra_puzzles.puzzle_creation.zebra_solver import (
+    raise_if_unexpected_solution_found,
+    solver,
+)
 from zebra_puzzles.zebra_utils import describe_random_attributes
 
 # Set up logging

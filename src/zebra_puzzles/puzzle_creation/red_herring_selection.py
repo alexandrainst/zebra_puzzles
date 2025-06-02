@@ -4,7 +4,7 @@ from random import sample
 
 import numpy as np
 
-from zebra_puzzles.clue_selection import (
+from zebra_puzzles.puzzle_creation.clue_selection import (
     describe_random_attributes,
     get_clue_probabilities,
 )
