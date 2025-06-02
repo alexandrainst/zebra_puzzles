@@ -36,12 +36,7 @@ load_dotenv()
 # Set up logging
 log = logging.getLogger(__name__)
 log.setLevel(logging.INFO)
-logging.basicConfig(
-    filename="evaluation.log",  # Log to a file
-    filemode="w",  # Overwrite the log file each time
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    level=logging.INFO,
-)  # Set the logging level to INFO
+logging.basicConfig(filename="evaluation.log", filemode="w", level=logging.INFO)
 
 
 def evaluate_all(

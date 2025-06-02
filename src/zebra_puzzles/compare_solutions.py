@@ -1,8 +1,14 @@
 """Module for comparing a response to the solution."""
 
 import itertools
+import logging
 
 from pydantic import BaseModel
+
+# Set up logging
+log = logging.getLogger(__name__)
+log.setLevel(logging.INFO)
+logging.basicConfig(filename="compare_solutions.log", filemode="w", level=logging.INFO)
 
 
 def compare_solutions(
@@ -30,7 +36,7 @@ def compare_solutions(
     try:
         output_dict = dict(output)
     except Exception as output_error:
-        print(
+        log.error(
             f"Error converting output to dictionary. Output: {output}\nError: {output_error}"
         )
         output_dict = {"error": str(output)}

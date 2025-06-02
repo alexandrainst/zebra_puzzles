@@ -1,8 +1,14 @@
 """Module for handling files and directories."""
 
+import logging
 import os
 import re
 from pathlib import Path
+
+# Set up logging
+log = logging.getLogger(__name__)
+log.setLevel(logging.INFO)
+logging.basicConfig(filename="file_utils.log", filemode="w", level=logging.INFO)
 
 
 def clean_folder(folder_path: Path, keep_files: list[str]) -> None:
@@ -33,9 +39,9 @@ def clean_folder(folder_path: Path, keep_files: list[str]) -> None:
         if useroutput == "y":
             for file in files_to_delete:
                 os.remove(os.path.join(folder, file))
-            print("Old files were deleted.")
+            log.info(f"Deleted outdated files in {folder}:\n{files_to_delete}\n")
         else:
-            print("Old files were not deleted.")
+            log.info(f"Old files were not deleted in {folder}.")
 
 
 def save_dataset(data: str, filename: str, folder: Path) -> None:

@@ -44,8 +44,6 @@ def run_pipeline(
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
         red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
         red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
-        verbose: Option to print the prompt and solution as a boolean.
-        eval: Option to evaluate the prompt as a boolean.
 
     Returns:
         A tuple (prompt, solution_str, red_herring_indices_str, chosen_clue_types_str), where:

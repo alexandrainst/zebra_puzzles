@@ -1,5 +1,6 @@
 """Module for the pipeline of plotting the results of LLM's trying to solve zebra puzzles."""
 
+import logging
 from pathlib import Path
 
 import numpy as np
@@ -19,6 +20,11 @@ from zebra_puzzles.plots import (
     plot_clue_type_frequencies,
     plot_heatmaps,
 )
+
+# Set up logging
+log = logging.getLogger(__name__)
+log.setLevel(logging.INFO)
+logging.basicConfig(filename="plot_pipeline.log", filemode="w", level=logging.INFO)
 
 
 def plot_results(
@@ -239,7 +245,7 @@ def load_scores_and_plot_results_for_each_evaluation(
                         model=model,
                     )
                 else:
-                    print(
+                    log.warning(
                         f"No clue type difficulties found for model {model} with {n_red_herring_clues_evaluated} red herring clues evaluated and theme {theme}."
                     )
 

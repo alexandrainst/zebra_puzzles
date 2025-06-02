@@ -1,5 +1,6 @@
 """Module for analysing the statistics of clue types."""
 
+import logging
 from pathlib import Path
 
 import numpy as np
@@ -9,6 +10,11 @@ from zebra_puzzles.load_data import (
     load_clue_type_frequencies,
     load_individual_puzzle_scores,
 )
+
+# Set up logging
+log = logging.getLogger(__name__)
+log.setLevel(logging.INFO)
+logging.basicConfig(filename="clue_analysis.log", filemode="w", level=logging.INFO)
 
 
 def get_all_clue_type_frequencies(
@@ -317,9 +323,10 @@ def estimate_clue_type_difficulty_for_all_puzzle_sizes(
         # Use the negative of the importances as the difficulty
         clue_type_difficulties_all_sizes[puzzle_size] = clue_difficulties_dict
 
-    print(
+    log.info(
         f"Out of {len(puzzle_sizes)} puzzle sizes for model {model}, clue difficulty estimation has been skipped for {n_identical_frequencies} sizes with identical clue type frequencies, {n_identical_scores} sizes with identical scores, and {n_non_evaluated_puzzles} sizes with no evaluated puzzles."
     )
+
     if (
         len(clue_type_difficulties_all_sizes)
         != len(puzzle_sizes)
@@ -327,6 +334,9 @@ def estimate_clue_type_difficulty_for_all_puzzle_sizes(
         - n_identical_scores
         - n_non_evaluated_puzzles
     ):
+        log.warning(
+            f"The number of puzzle sizes with estimated clue difficulties is not equal to the number of puzzle sizes minus the number of skipped sizes. {len(clue_type_difficulties_all_sizes)} != {len(puzzle_sizes)} - {n_identical_frequencies} - {n_identical_scores} - {n_non_evaluated_puzzles}"
+        )
         raise Warning(
             f"The number of puzzle sizes with estimated clue difficulties is not equal to the number of puzzle sizes minus the number of skipped sizes. {len(clue_type_difficulties_all_sizes)} != {len(puzzle_sizes)} - {n_identical_frequencies} - {n_identical_scores} - {n_non_evaluated_puzzles}"
         )

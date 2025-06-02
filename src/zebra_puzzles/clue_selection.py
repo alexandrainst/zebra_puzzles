@@ -1,5 +1,6 @@
 """Module for selecting clues for a zebra puzzle."""
 
+import logging
 from random import randint, sample, shuffle
 
 import numpy as np
@@ -11,6 +12,11 @@ from zebra_puzzles.clue_removal import (
 )
 from zebra_puzzles.zebra_solver import raise_if_unexpected_solution_found, solver
 from zebra_puzzles.zebra_utils import describe_random_attributes
+
+# Set up logging
+log = logging.getLogger(__name__)
+log.setLevel(logging.INFO)
+logging.basicConfig(filename="clue_selection.log", filemode="w", level=logging.INFO)
 
 
 def choose_clues(
@@ -53,7 +59,6 @@ def choose_clues(
     chosen_attributes_sorted = np.array([sorted(x) for x in chosen_attributes_sorted])
 
     solutions: list[dict[str, int]] = []
-    solved: bool = False
     chosen_clues: list[str] = []
     chosen_constraints: list[tuple] = []
     chosen_clue_parameters: list = []
@@ -116,8 +121,6 @@ def choose_clues(
         # Check if the solution is complete and the clues are non-redundant
 
         if completeness == 1:
-            solved = True
-
             # Check if the solver found an unexpected solution. This should not be possible.
             raise_if_unexpected_solution_found(
                 solutions=solutions,
@@ -140,11 +143,10 @@ def choose_clues(
 
             # Break the loop because the puzzle is solved
             break
-
-    if not solved:
-        print("solution:", solution)
-        print("chosen clues so far:", chosen_clues)
-        print("current_constraints:", current_constraints)
+    else:  # If the loop was not broken, it means the puzzle was not solved
+        log.warning(
+            f"Failed to solve the puzzle after maximum attempts.\nsolution: {solution}\nchosen clues so far: {chosen_clues}\ncurrent_constraints: {current_constraints}"
+        )
         raise StopIteration("Used too many attempts to solve the puzzle.")
 
     return chosen_clues, chosen_clue_types
