@@ -106,7 +106,7 @@ def compute_metrics(
     return metrics
 
 
-def compare_solutions(
+def compare_output_to_solution(
     output: BaseModel, solution: BaseModel, n_objects: int, n_attributes: int
 ) -> tuple[int, float, float]:
     """Compare the output to the solution.

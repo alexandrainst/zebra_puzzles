@@ -12,7 +12,7 @@ from openai import BadRequestError, OpenAI
 from pydantic import BaseModel, ValidationError
 from tqdm import tqdm
 
-from zebra_puzzles.evaluation.compare_solutions import compare_solutions
+from zebra_puzzles.evaluation.compare_solutions import compare_output_to_solution
 from zebra_puzzles.file_utils import prepare_eval_folders, save_dataset
 from zebra_puzzles.load_data import load_puzzle, load_solution
 from zebra_puzzles.zebra_utils import (
@@ -185,7 +185,7 @@ def evaluate_single_puzzle(
         solution_file_path=solution_file_path, OutputFormat=OutputFormat
     )
 
-    puzzle_score, cell_score, best_permuted_cell_score = compare_solutions(
+    puzzle_score, cell_score, best_permuted_cell_score = compare_output_to_solution(
         output=output,
         solution=solution_json,
         n_objects=n_objects,
