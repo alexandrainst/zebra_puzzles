@@ -2,10 +2,10 @@
 
 from tqdm import tqdm
 
-from zebra_puzzles.clue_selection import choose_clues
 from zebra_puzzles.file_utils import prepare_data_folders, save_dataset
-from zebra_puzzles.prompt_completion import complete_prompt
-from zebra_puzzles.red_herring_selection import choose_red_herrings
+from zebra_puzzles.puzzle_creation.clue_selection import choose_clues
+from zebra_puzzles.puzzle_creation.prompt_completion import complete_prompt
+from zebra_puzzles.puzzle_creation.red_herring_selection import choose_red_herrings
 from zebra_puzzles.zebra_utils import (
     format_solution_as_json,
     generate_solution,
@@ -44,8 +44,6 @@ def run_pipeline(
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
         red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
         red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
-        verbose: Option to print the prompt and solution as a boolean.
-        eval: Option to evaluate the prompt as a boolean.
 
     Returns:
         A tuple (prompt, solution_str, red_herring_indices_str, chosen_clue_types_str), where:

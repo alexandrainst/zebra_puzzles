@@ -9,7 +9,7 @@ Usage:
 import hydra
 from omegaconf import DictConfig
 
-from zebra_puzzles.evaluation import evaluate_all
+from zebra_puzzles.evaluation.eval_pipeline import evaluate_all
 
 
 @hydra.main(config_path="../../config", config_name="config", version_base=None)

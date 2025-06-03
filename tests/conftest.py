@@ -10,9 +10,9 @@ import pytest
 from hydra import compose, initialize
 from omegaconf import DictConfig
 
-from zebra_puzzles.evaluation import evaluate_all
-from zebra_puzzles.pipeline import build_dataset
-from zebra_puzzles.plot_pipeline import plot_results
+from zebra_puzzles.evaluation.eval_pipeline import evaluate_all
+from zebra_puzzles.performance.plot_pipeline import plot_results
+from zebra_puzzles.puzzle_creation.build_pipeline import build_dataset
 
 initialize(config_path="../config", version_base=None)
 

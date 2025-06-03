@@ -12,7 +12,7 @@ from openai import BadRequestError, OpenAI
 from pydantic import BaseModel, ValidationError
 from tqdm import tqdm
 
-from zebra_puzzles.compare_solutions import compare_solutions
+from zebra_puzzles.evaluation.compare_solutions import compare_solutions
 from zebra_puzzles.file_utils import prepare_eval_folders, save_dataset
 from zebra_puzzles.load_data import load_puzzle, load_solution
 from zebra_puzzles.zebra_utils import (

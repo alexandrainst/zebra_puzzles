@@ -5,11 +5,11 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-from zebra_puzzles.clue_analysis import (
+from zebra_puzzles.file_utils import get_clue_type_file_paths
+from zebra_puzzles.performance.clue_analysis import (
     get_all_clue_type_frequencies,
     get_all_mean_clue_frequencies_per_puzzle_size,
 )
-from zebra_puzzles.file_utils import get_clue_type_file_paths
 from zebra_puzzles.zebra_utils import capitalize, round_using_std
 
 

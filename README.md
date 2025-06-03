@@ -48,6 +48,7 @@ gpt-4o-mini:
 - 4x5: 2 s
 
 o3-mini:
+- 2x2: 6 s
 - 3x3: 25 s  (35 s with 5 red herrings)
 - 4x4: 2 min
 - 4x5: 8 min
