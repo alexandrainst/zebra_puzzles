@@ -16,10 +16,7 @@ from zebra_puzzles.puzzle_creation.zebra_solver import (
 )
 from zebra_puzzles.zebra_utils import describe_random_attributes
 
-# Set up logging
 log = logging.getLogger(__name__)
-log.setLevel(logging.INFO)
-logging.basicConfig(filename="clue_selection.log", filemode="w", level=logging.INFO)
 
 
 def choose_clues(

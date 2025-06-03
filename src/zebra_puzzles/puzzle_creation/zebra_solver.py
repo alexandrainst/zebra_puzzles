@@ -5,10 +5,7 @@ import logging
 import numpy as np
 from constraint import AllDifferentConstraint, OptimizedBacktrackingSolver, Problem
 
-# Set up logging
 log = logging.getLogger(__name__)
-log.setLevel(logging.INFO)
-logging.basicConfig(filename="zebra_solver.log", filemode="w", level=logging.INFO)
 
 
 def solver(

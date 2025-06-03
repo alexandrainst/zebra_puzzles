@@ -11,10 +11,7 @@ from zebra_puzzles.load_data import (
     load_individual_puzzle_scores,
 )
 
-# Set up logging
 log = logging.getLogger(__name__)
-log.setLevel(logging.INFO)
-logging.basicConfig(filename="clue_analysis.log", filemode="w", level=logging.INFO)
 
 
 def get_all_clue_type_frequencies(

@@ -21,10 +21,7 @@ from zebra_puzzles.performance.plots import (
     plot_heatmaps,
 )
 
-# Set up logging
 log = logging.getLogger(__name__)
-log.setLevel(logging.INFO)
-logging.basicConfig(filename="plot_pipeline.log", filemode="w", level=logging.INFO)
 
 
 def plot_results(

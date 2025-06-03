@@ -8,10 +8,7 @@ from pydantic import BaseModel
 
 from zebra_puzzles.zebra_utils import bernoulli_std, round_using_std
 
-# Set up logging
 log = logging.getLogger(__name__)
-log.setLevel(logging.INFO)
-logging.basicConfig(filename="compare_solutions.log", filemode="w", level=logging.INFO)
 
 
 def compute_metrics(

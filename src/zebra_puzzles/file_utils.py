@@ -5,10 +5,7 @@ import os
 import re
 from pathlib import Path
 
-# Set up logging
 log = logging.getLogger(__name__)
-log.setLevel(logging.INFO)
-logging.basicConfig(filename="file_utils.log", filemode="w", level=logging.INFO)
 
 
 def clean_folder(folder_path: Path, keep_files: list[str]) -> None:

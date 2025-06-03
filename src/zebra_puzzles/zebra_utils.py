@@ -19,10 +19,7 @@ from openai import (
 )
 from pydantic import BaseModel, ValidationError, create_model
 
-# Set up logging
 log = logging.getLogger(__name__)
-log.setLevel(logging.INFO)
-logging.basicConfig(filename="zebra_utils.log", filemode="w", level=logging.INFO)
 
 
 def generate_solution(
