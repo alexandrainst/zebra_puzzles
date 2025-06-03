@@ -1,24 +1,27 @@
 """Module for the pipeline of plotting the results of LLM's trying to solve zebra puzzles."""
 
+import logging
 from pathlib import Path
 
 import numpy as np
 
-from zebra_puzzles.clue_analysis import (
-    estimate_clue_type_difficulty_for_all_puzzle_sizes,
-)
-from zebra_puzzles.eval_comparisons import compare_all_eval_types
 from zebra_puzzles.file_utils import (
     get_evaluated_params,
     get_puzzle_dimensions_from_filename,
     get_score_file_paths,
 )
 from zebra_puzzles.load_data import load_scores
-from zebra_puzzles.plots import (
+from zebra_puzzles.performance.clue_analysis import (
+    estimate_clue_type_difficulty_for_all_puzzle_sizes,
+)
+from zebra_puzzles.performance.eval_comparisons import compare_all_eval_types
+from zebra_puzzles.performance.plots import (
     plot_clue_type_difficulty,
     plot_clue_type_frequencies,
     plot_heatmaps,
 )
+
+log = logging.getLogger(__name__)
 
 
 def plot_results(
@@ -239,7 +242,7 @@ def load_scores_and_plot_results_for_each_evaluation(
                         model=model,
                     )
                 else:
-                    print(
+                    log.warning(
                         f"No clue type difficulties found for model {model} with {n_red_herring_clues_evaluated} red herring clues evaluated and theme {theme}."
                     )
 

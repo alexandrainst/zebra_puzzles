@@ -5,7 +5,7 @@ from random import sample
 
 import numpy as np
 
-from zebra_puzzles.zebra_solver import solver
+from zebra_puzzles.puzzle_creation.zebra_solver import solver
 
 
 def remove_redundant_clues_with_rules(

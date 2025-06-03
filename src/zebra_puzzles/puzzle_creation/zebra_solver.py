@@ -1,7 +1,11 @@
 """Module for solving a zebra puzzle."""
 
+import logging
+
 import numpy as np
 from constraint import AllDifferentConstraint, OptimizedBacktrackingSolver, Problem
+
+log = logging.getLogger(__name__)
 
 
 def solver(
@@ -47,8 +51,9 @@ def solver(
     if len(solutions) > 0:
         completeness = 1.0 / float(len(solutions))
     else:
-        print("solutions:", solutions)
-        print("constraints:", constraints)
+        log.error(
+            f"The solver found no solutions for the zebra puzzle.\nsolutions: {solutions}\nconstraints: {constraints}"
+        )
         raise ValueError("This puzzle has no solution")
 
     return solutions, completeness

@@ -9,7 +9,7 @@ Usage:
 import hydra
 from omegaconf import DictConfig
 
-from zebra_puzzles.plot_pipeline import plot_results
+from zebra_puzzles.performance.plot_pipeline import plot_results
 
 
 @hydra.main(config_path="../../config", config_name="config", version_base=None)

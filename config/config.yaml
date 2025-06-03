@@ -6,7 +6,7 @@
 # en/houses
 
 defaults:
-  - language: da/smoerrebroed
+  - language: en/houses
   - override hydra/job_logging: custom
   - _self_
 
@@ -15,10 +15,10 @@ defaults:
 model : o3-mini
 
 # Whether to generate new LLM responses or only evaluate existing ones when running evaluate.py
-generate_new_responses: False
+generate_new_responses: True
 
 # The folder where data is stored
-data_folder: data_backup
+data_folder: data
 
 # Number of puzzles to generate
 n_puzzles: 100
@@ -27,7 +27,7 @@ n_puzzles: 100
 n_objects: 2
 
 # Attributes e.g. pets
-n_attributes: 1
+n_attributes: 3
 
 # Weights for the clue types
 # The weights are used to determine the probability of generating each type of clue. The distribution of accepted clue types will be different, as redundant clues are removed.

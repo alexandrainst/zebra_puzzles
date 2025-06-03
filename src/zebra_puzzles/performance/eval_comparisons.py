@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 
 from zebra_puzzles.file_utils import save_dataset
-from zebra_puzzles.plots import plot_heatmaps
+from zebra_puzzles.performance.plots import plot_heatmaps
 from zebra_puzzles.zebra_utils import round_using_std
 
 

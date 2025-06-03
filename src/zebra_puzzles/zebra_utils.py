@@ -1,11 +1,25 @@
 """Utility module for generating and evaluating zebra puzzles."""
 
 import json
+import logging
+import os
+import time
 from random import choices, sample, shuffle
 from typing import Any, Type
 
 import numpy as np
-from pydantic import BaseModel, create_model
+from openai import (
+    APIConnectionError,
+    APIError,
+    APITimeoutError,
+    BadRequestError,
+    InternalServerError,
+    OpenAI,
+    RateLimitError,
+)
+from pydantic import BaseModel, ValidationError, create_model
+
+log = logging.getLogger(__name__)
 
 
 def generate_solution(
@@ -308,3 +322,139 @@ def bernoulli_std(n_trials: int, n_successes: int) -> tuple[float, float]:
     std_p = np.sqrt(p * (1 - p) / n_trials)
 
     return std_one_trial, std_p
+
+
+def query_llm(
+    prompt: str, model: str, response_format: Type[BaseModel], n_objects: int
+) -> BaseModel:
+    """Query an LLM API.
+
+    Args:
+        prompt: The prompt to use for the evaluation.
+        model: The model to use for the evaluation.
+        response_format: The response format as a Pydantic model.
+        n_objects: The number of objects in the puzzle.
+
+    Returns:
+        The output in OutputFormat format.
+    """
+    logging.getLogger("httpx").setLevel(logging.ERROR)
+
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+
+    error_response: str = ""
+
+    # Generate LLM output
+    try:
+        response = client.beta.chat.completions.parse(
+            messages=[{"role": "user", "content": prompt}],
+            model=model,
+            temperature=0,
+            seed=42,
+            response_format=response_format,
+            max_completion_tokens=100_000,
+            reasoning_effort="medium",
+        )
+    except BadRequestError as first_error:
+        max_retries = 5
+        wait_time = 5
+        retries: int = 0
+        # gpt-4o-mini
+        if "'Unrecognized request argument supplied: reasoning_effort'" in str(
+            first_error
+        ):
+            for retry in range(max_retries):
+                try:
+                    response = client.beta.chat.completions.parse(
+                        messages=[{"role": "user", "content": prompt}],
+                        model=model,
+                        temperature=0,
+                        seed=42,
+                        response_format=response_format,
+                        max_completion_tokens=16_384,
+                    )
+                except (
+                    InternalServerError,
+                    APIError,
+                    APIConnectionError,
+                    RateLimitError,
+                ) as e:
+                    log.warning(f"\nRetry no. {retry} due to:\n{e}")
+                    # Wait before retrying
+                    time.sleep(wait_time)
+                    continue
+                # Below are cases where we do not want to retry
+                except APITimeoutError as e:
+                    # Timeout error can indicate that the request was too complex, so this is a real failure of the model
+                    error_response = str(e)
+                    log.error(f"\nTimeout error:\n{error_response}")
+                except Exception as e:
+                    error_response = str(e)
+                    log.error(f"\nAn unexpected error occurred:\n{error_response}")
+                break
+            else:  # If we reach this, it means we exhausted all retries
+                error_response = (
+                    f"Error after retrying {max_retries} times:\n{error_response}"
+                )
+                log.error(f"\nToo many errors occurred:\n{error_response}")
+        # o3-mini
+        elif "'temperature' is not supported" in str(first_error):
+            for retry in range(max_retries):
+                try:
+                    response = client.beta.chat.completions.parse(
+                        messages=[{"role": "user", "content": prompt}],
+                        model=model,
+                        seed=42,
+                        response_format=response_format,
+                        max_completion_tokens=100_000,
+                        reasoning_effort="medium",
+                    )
+                except (
+                    InternalServerError,
+                    APIError,
+                    APIConnectionError,
+                    RateLimitError,
+                ) as e:
+                    retries += 1
+                    log.info(f"\nRetry no. {retry} due to:\n{e}")
+                    # Wait before retrying
+                    time.sleep(wait_time)
+                    continue
+                # Below are cases where we do not want to retry
+                except APITimeoutError as e:
+                    # Timeout error can indicate that the request was too complex, so this is a real failure of the model
+                    error_response = str(e)
+                    log.error(f"\nTimeout error:\n{error_response}")
+                except Exception as e:
+                    error_response = str(e)
+                    log.error(f"\nAn unexpected error occurred:\n{error_response}")
+
+                break
+            else:  # If we reach this, it means we exhausted all retries
+                error_response = (
+                    f"Error after retrying {max_retries} times:\n{error_response}"
+                )
+                log.error(f"\nToo many errors occurred:\n{error_response}")
+
+    except Exception as e:
+        error_response = str(e)
+        log.error(
+            f"\nAn unexpected error occurred during first API call:\n{error_response}"
+        )
+
+    # Reformat response
+    try:
+        # TODO: Figure out why the reponse is sometimes none for large puzzles and o3-mini
+        output = response_format.model_validate(response.choices[0].message.parsed)
+    except (ValidationError, AttributeError):
+        log.error(
+            f"\nValidation error or attribute error occurred while parsing the response:\n{error_response}\n"
+        )
+        response_formatted: dict[str, Any] = {
+            f"object_{i + 1}": [""] for i in range(n_objects)
+        }
+        response_formatted["object_1"] = [f"\nresponse:\n{error_response}"]
+
+        output = response_format.model_validate(response_formatted)
+
+    return output
