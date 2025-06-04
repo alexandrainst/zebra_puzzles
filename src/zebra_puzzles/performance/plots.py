@@ -10,7 +10,7 @@ from zebra_puzzles.performance.clue_analysis import (
     get_all_clue_type_frequencies,
     get_all_mean_clue_frequencies_per_puzzle_size,
 )
-from zebra_puzzles.zebra_utils import round_using_std
+from zebra_puzzles.zebra_utils import capitalize, round_using_std
 
 
 def plot_heatmaps(
@@ -131,9 +131,9 @@ def choose_heatmap_title(
     """
     if single_model:
         if not score_type == "puzzle score":
-            title = f"{score_type.capitalize()}s w. {n_red_herring_clues_evaluated_str} red herrings incl. sample std. dev. for model {model}"
+            title = f"{capitalize(score_type)}s w. {n_red_herring_clues_evaluated_str} red herrings incl. sample std. dev. for model {model}"
         else:
-            title = f"{score_type.capitalize()}s w. {n_red_herring_clues_evaluated_str} red herrings for model {model}"
+            title = f"{capitalize(score_type)}s w. {n_red_herring_clues_evaluated_str} red herrings for model {model}"
     else:
         title = f"Difference in mean {score_type} w. {n_red_herring_clues_evaluated_str.replace('vs', '-')} red herrings for model {model.replace('vs', '-')} incl. std. err."
     return title

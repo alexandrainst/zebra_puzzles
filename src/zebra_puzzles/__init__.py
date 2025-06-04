@@ -1,1 +1,1 @@
-"""Generation of zebra puzzles."""
+"""Generation zebra puzzles and evaluation of LLM solutions."""

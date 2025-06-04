@@ -21,7 +21,7 @@ generate_new_responses: True
 data_folder: data
 
 # Number of puzzles to generate
-n_puzzles: 100
+n_puzzles: 10
 
 # Objects e.g. houses
 n_objects: 2
@@ -48,7 +48,7 @@ clue_weights:
     one_between: 1
 
 # Number of red herring clues generated
-n_red_herring_clues: 5
+n_red_herring_clues: 2
 
 # Number of red herrings clues evaluated
 # This must be less than or equal to n_red_herring_clues, as clues can be removed but not added during evaluation.

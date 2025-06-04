@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from zebra_puzzles.zebra_utils import create_solution_template
+from zebra_puzzles.zebra_utils import capitalize, create_solution_template
 
 
 def complete_prompt(
@@ -37,10 +37,10 @@ def complete_prompt(
     if len(chosen_clues) > 1:
         # Format chosen_clues as a numbered list
         chosen_clues = [
-            f"{i + 1}. {clue.capitalize()}" for i, clue in enumerate(chosen_clues)
+            f"{i + 1}. {capitalize(clue)}" for i, clue in enumerate(chosen_clues)
         ]
     else:
-        chosen_clues = [f"{clue.capitalize()}" for clue in chosen_clues]
+        chosen_clues = [f"{capitalize(clue)}" for clue in chosen_clues]
 
     if len(chosen_clues) > 1:
         chosen_clues_str = "\n".join(chosen_clues)
@@ -66,7 +66,7 @@ def complete_prompt(
 
     if n_attributes > 1:
         # Use uppercase for the first letter of each attribute string
-        chosen_attributes_strs = [f"{x.capitalize()}." for x in chosen_attributes_strs]
+        chosen_attributes_strs = [f"{capitalize(x)}." for x in chosen_attributes_strs]
 
     # Combine the attribute strings
     chosen_attributes_str = "\n".join(chosen_attributes_strs)
