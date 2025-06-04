@@ -324,6 +324,20 @@ def bernoulli_std(n_trials: int, n_successes: int) -> tuple[float, float]:
     return std_one_trial, std_p
 
 
+def capitalize(text: str) -> str:
+    """Capitalize the first letter of a string, while leaving the rest unchanged.
+
+    Args:
+        text: The input string to capitalize.
+
+    Returns:
+        The input string with the first letter capitalized.
+    """
+    if not text:
+        return text
+    return text[0].upper() + text[1:] if len(text) > 1 else text.upper()
+
+
 def query_llm(
     prompt: str, model: str, response_format: Type[BaseModel], n_objects: int
 ) -> BaseModel:

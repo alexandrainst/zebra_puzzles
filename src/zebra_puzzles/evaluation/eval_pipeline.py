@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from tqdm import tqdm
 
 from zebra_puzzles.evaluation.compare_solutions import (
-    compare_solutions,
+    compare_output_to_solution,
     compute_metrics,
     format_scores,
 )
@@ -184,7 +184,7 @@ def evaluate_single_puzzle(
         solution_file_path=solution_file_path, OutputFormat=OutputFormat
     )
 
-    puzzle_score, cell_score, best_permuted_cell_score = compare_solutions(
+    puzzle_score, cell_score, best_permuted_cell_score = compare_output_to_solution(
         output=output,
         solution=solution_json,
         n_objects=n_objects,
