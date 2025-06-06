@@ -460,7 +460,9 @@ def query_llm(
     try:
         # TODO: Figure out why the reponse is sometimes none for large puzzles and o3-mini
         output = response_format.model_validate(response.choices[0].message.parsed)
-    except (ValidationError, AttributeError):
+    except (ValidationError, AttributeError) as e:
+        if error_response == "":
+            error_response = f"{response}\nError message:{str(e)}"
         log.error(
             f"\nValidation error or attribute error occurred while parsing the response:\n{error_response}\n"
         )
