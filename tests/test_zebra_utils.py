@@ -27,6 +27,8 @@ from zebra_puzzles.zebra_utils import round_using_std
         (0.40, 0, "0.40", "0"),
         # Test rounding of a number much smaller than the standard deviation
         (0.0002, 0.3, "0.0", "0.3"),
+        # Test rounding of a number where a trailing zero should be re-added
+        (0.4, 0.05, "0.40", "0.05"),
     ],
 )
 def test_rounding(value, std, value_rounded, std_rounded) -> None:

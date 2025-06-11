@@ -6,7 +6,7 @@
 # en/houses
 
 defaults:
-  - language: da/huse
+  - language: en/houses
   - override hydra/job_logging: custom
   - _self_
 
@@ -15,7 +15,7 @@ defaults:
 model : o3-mini
 
 # Whether to generate new LLM responses or only evaluate existing ones when running evaluate.py
-generate_new_responses: True
+generate_new_responses: False
 
 # The folder where data is stored
 data_folder: data
