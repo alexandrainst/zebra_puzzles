@@ -142,21 +142,37 @@ def fix_puzzle_indices(
             log.info(f"Folder {folder} does not exist. Skipping.")
             continue
         files = list(folder.glob("*"))
+
         # Check if a file contains '-' and raise an error if number_to_add is not zero
         if any("-" in file.name for file in files) and number_to_add != 0:
-            log.error(
-                f"Files in {folder} contain '-' in their names. Please remove this before using number_to_add={number_to_add} to avoid unexpected results."
-            )
+            confirm = input(
+                f"Files in {folder} contain '-' in their names. This may lead to unexpected results when adding {number_to_add} to the indices. Do you want to continue? (y/n): "
+            ).strip().lower()
+            if confirm != "y":
+                log.info("Aborting renaming of files.")
+                return
+            else:
+                log.warning(
+                    f"Continuing with renaming files in {folder} even though it may lead to unexpected results."
+                )
             return
-        # Sort the files descendingly by the number in their names if number_to_add is positive
-        # Otherwise, sort ascendingly
-        if number_to_add > 0:
-            files.sort(
-                key=lambda x: int("".join(filter(str.isdigit, x.name))), reverse=True
-            )
-        else:
-            files.sort(key=lambda x: int("".join(filter(str.isdigit, x.name))))
 
+        # Sort the files descendingly by the number in their names if number_to_add is positive
+        files, lowest_index = sort_files_by_index(files=files, number_to_add=number_to_add)
+        # Check if indices would be negative
+        if lowest_index + number_to_add < 0:
+            # Give a warning and ask for confirmation
+            confirm = input(
+                f"The lowest index in {folder} is {lowest_index}. Adding {number_to_add} would result in negative indices. Do you want to continue? (y/n): "
+            ).strip().lower()
+            if confirm != "y":
+                log.info("Aborting renaming of files.")
+                return
+            else:
+                log.warning(
+                    f"Continuing with renaming files in {folder} even though it will result in negative indices."
+                )
+            
         for file in folder.glob("*"):
             if not file.is_file():
                 continue
@@ -186,6 +202,36 @@ def fix_puzzle_indices(
         f"Fixed puzzle indices in files in {data_folder} by adding {number_to_add} to the indices."
     )
 
+
+def sort_files_by_index(
+    files: list[Path], number_to_add: int = 0
+) -> tuple[list[Path], int]:
+    """Sort files to avoid overwriting files.
+    
+    Sort descendingly by the number in their names if number_to_add is positive,
+    otherwise sort ascendingly.
+    
+    Args:
+        files: List of files to sort.
+        number_to_add: Number to add to the puzzle indices in file names.
+    Returns:
+        A tuple (files, lowest_index) where:
+            files: Sorted list of files.
+            lowest_index: The lowest index in the sorted files.
+    """
+    if number_to_add > 0:
+        files.sort(
+            key=lambda x: int("".join(filter(str.isdigit, x.name))), reverse=True
+        )
+        lowest_index = int(
+            "".join(filter(str.isdigit, files[-1].name))
+        )
+    else:
+        files.sort(key=lambda x: int("".join(filter(str.isdigit, x.name))))
+        lowest_index = int(
+            "".join(filter(str.isdigit, files[0].name))
+        )
+    return files, lowest_index
 
 if __name__ == "__main__":
     main()
