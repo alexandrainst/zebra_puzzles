@@ -72,8 +72,11 @@ def compute_metrics(
                 value=mean_scores[i], std=std_mean_scores[i]
             )
             # Rarely, the floats will still remove a trailing zero, so we use the strings as well
-            # TODO: If the other parts of 'metrics' are used, we should check their rounding 
-            mean_scores[i], std_mean_scores[i] = mean_scores_str_i, std_mean_scores_str_i
+            # TODO: If the other parts of 'metrics' are used, we should check their rounding
+            mean_scores[i], std_mean_scores[i] = (
+                mean_scores_str_i,
+                std_mean_scores_str_i,
+            )
 
             # Describe the score with a string
             score_str = f"\tMean: {mean_scores_str_i} ± {std_mean_scores_str_i} (1σ)"
