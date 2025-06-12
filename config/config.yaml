@@ -6,7 +6,7 @@
 # en/houses
 
 defaults:
-  - language: en/houses
+  - language: da/huse
   - override hydra/job_logging: custom
   - _self_
 
@@ -18,10 +18,10 @@ model : o3-mini
 generate_new_responses: False
 
 # The folder where data is stored
-data_folder: data
+data_folder: data_test
 
 # Number of puzzles to generate
-n_puzzles: 100
+n_puzzles: 64
 
 # Objects e.g. houses
 n_objects: 4
