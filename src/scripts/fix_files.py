@@ -1,7 +1,7 @@
 """Script to combine datasets or fix puzzle indices in file names.
 
 Example usage:
-        uv run src/scripts/fix_files.py --data_folder="data/da_huse/4x5/5rh" --number_to_add=900
+        uv run src/scripts/fix_files.py
 """
 
 import logging
@@ -66,6 +66,7 @@ def copy_files(source_folder: str, destination_folder: str) -> None:
             f"Destination folder {destination_folder} does not exist. Creating it."
         )
         destination_path.mkdir(parents=True, exist_ok=True)
+
     for file in source_path.glob("*"):
         if file.is_file():
             destination_file = destination_path / file.name
