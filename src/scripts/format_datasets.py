@@ -36,7 +36,7 @@ def main(config: DictConfig) -> None:
 
     # Set number of puzzles for training and testing datasets and the data folder to save the datasets in
     n_puzzles_train = 128
-    n_puzzles_test  = 1024
+    n_puzzles_test = 1024
     data_folder_current = "data"
 
     format_datasets_pipeline(
@@ -100,9 +100,7 @@ def format_datasets_pipeline(
 
     # Save datasets
     dataset_name = f"dataset_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues}rh"
-    split_dataset.save_to_disk(
-        Path(data_folder_current) / dataset_name
-    )
+    split_dataset.save_to_disk(Path(data_folder_current) / dataset_name)
 
 
 def format_a_dataset(
@@ -175,9 +173,9 @@ def load_dataset(full_data_path: Path, n_puzzles: int) -> dict[str, list]:
     # Format red herrings
     red_herring_files_formatted: list[list[int]] = []
     for i, red_herring_str in enumerate(red_herring_files):
-        red_herring_files_formatted.append([
-            int(idx.strip()) for idx in red_herring_str.split(",")
-        ])
+        red_herring_files_formatted.append(
+            [int(idx.strip()) for idx in red_herring_str.split(",")]
+        )
 
     # Format solutions
     solution_files_formatted: list[dict[str, list[str]]] = []
