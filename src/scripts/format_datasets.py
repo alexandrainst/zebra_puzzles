@@ -26,10 +26,10 @@ def main(config: DictConfig) -> None:
     Args:
         config: Config file.
     """
-    data_folder_current = config.data_folder
+    #data_folder_current = config.data_folder
     data_folder_train = config.data_folder_train
     data_folder_test = config.data_folder_test
-    n_puzzles = config.n_puzzles
+    #n_puzzles = config.n_puzzles
 
     theme = config.language.theme
     n_red_herring_clues = config.n_red_herring_clues
@@ -37,13 +37,16 @@ def main(config: DictConfig) -> None:
     n_objects = config.n_objects
 
     # For testing purposes, change to the desired number of puzzles. TODO: Remove this line.
-    n_puzzles = 3
+    n_puzzles_train = 128
+    n_puzzles_test  = 1024
+    data_folder_current = "data"
 
     format_datasets_pipeline(
         data_folder_current=data_folder_current,
         data_folder_train=data_folder_train,
         data_folder_test=data_folder_test,
-        n_puzzles=n_puzzles,
+        n_puzzles_train=n_puzzles_train,
+        n_puzzles_test=n_puzzles_test,
         theme=theme,
         n_red_herring_clues=n_red_herring_clues,
         n_attributes=n_attributes,
@@ -55,7 +58,8 @@ def format_datasets_pipeline(
     data_folder_current: str,
     data_folder_train: str,
     data_folder_test: str,
-    n_puzzles: int,
+    n_puzzles_train: int,
+    n_puzzles_test: int,
     theme: str,
     n_red_herring_clues: int,
     n_attributes: int,
@@ -67,7 +71,8 @@ def format_datasets_pipeline(
         data_folder_current: Path to the current data folder.
         data_folder_train: Path to the training data folder.
         data_folder_test: Path to the testing data folder.
-        n_puzzles: Number of puzzles to load.
+        n_puzzles_train: Number of puzzles in the training dataset.
+        n_puzzles_test: Number of puzzles in the testing dataset.
         theme: Theme of the puzzles.
         n_red_herring_clues: Number of red herring clues in the puzzles.
         n_attributes: Number of attributes in the puzzles.
@@ -79,7 +84,7 @@ def format_datasets_pipeline(
     train_dataset = format_a_dataset(
         data_folder=data_folder_train,
         theme=theme,
-        n_puzzles=n_puzzles,
+        n_puzzles=n_puzzles_train,
         n_red_herring_clues=n_red_herring_clues,
         n_attributes=n_attributes,
         n_objects=n_objects,
@@ -87,7 +92,7 @@ def format_datasets_pipeline(
     test_dataset = format_a_dataset(
         data_folder=data_folder_test,
         theme=theme,
-        n_puzzles=n_puzzles,
+        n_puzzles=n_puzzles_test,
         n_red_herring_clues=n_red_herring_clues,
         n_attributes=n_attributes,
         n_objects=n_objects,
