@@ -34,7 +34,7 @@ def main(config: DictConfig) -> None:
     n_attributes = config.n_attributes
     n_objects = config.n_objects
 
-    # For testing purposes, change to the desired number of puzzles. TODO: Remove this line.
+    # Set number of puzzles for training and testing datasets and the data folder to save the datasets in
     n_puzzles_train = 128
     n_puzzles_test  = 1024
     data_folder_current = "data"
