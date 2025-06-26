@@ -17,8 +17,14 @@ model : o3-mini
 # Whether to generate new LLM responses or only evaluate existing ones when running evaluate.py
 generate_new_responses: False
 
-# The folder where data is stored
+# The current data folder used for generating, evaluating, and plotting
 data_folder: data_train
+
+# Folder for loading training data
+data_folder_train: data_train
+
+# Folder for loading test data
+data_folder_test: data_test
 
 # Number of puzzles to generate
 n_puzzles: 128
