@@ -6,12 +6,12 @@ Usage:
     uv run src/scripts/format_datasets.py <config_key>=<config_value> ...
 """
 
-import logging
 import json
+import logging
 from pathlib import Path
-from datasets import Dataset, DatasetDict
 
 import hydra
+from datasets import Dataset, DatasetDict
 from omegaconf import DictConfig
 
 log = logging.getLogger(__name__)
@@ -26,6 +26,7 @@ def main(config: DictConfig) -> None:
     Args:
         config: Config file.
     """
+    data_folder_current = config.data_folder
     data_folder_train = config.data_folder_train
     data_folder_test = config.data_folder_test
     n_puzzles = config.n_puzzles
@@ -36,23 +37,34 @@ def main(config: DictConfig) -> None:
     n_objects = config.n_objects
 
     # For testing purposes, change to the desired number of puzzles. TODO: Remove this line.
-    n_puzzles = 3 
+    n_puzzles = 3
 
-    format_datasets_pipeline(data_folder_train=data_folder_train,
-                            data_folder_test=data_folder_test,
-                            n_puzzles=n_puzzles,
-                            theme=theme,
-                            n_red_herring_clues=n_red_herring_clues,
-                            n_attributes=n_attributes,
-                            n_objects=n_objects
-                            )
+    format_datasets_pipeline(
+        data_folder_current=data_folder_current,
+        data_folder_train=data_folder_train,
+        data_folder_test=data_folder_test,
+        n_puzzles=n_puzzles,
+        theme=theme,
+        n_red_herring_clues=n_red_herring_clues,
+        n_attributes=n_attributes,
+        n_objects=n_objects,
+    )
 
 
-def format_datasets_pipeline(data_folder_train:str,data_folder_test:str, n_puzzles: int, theme: str, n_red_herring_clues: int, n_attributes: int, n_objects: int
+def format_datasets_pipeline(
+    data_folder_current: str,
+    data_folder_train: str,
+    data_folder_test: str,
+    n_puzzles: int,
+    theme: str,
+    n_red_herring_clues: int,
+    n_attributes: int,
+    n_objects: int,
 ) -> None:
     """Formats datasets.
 
     Args:
+        data_folder_current: Path to the current data folder.
         data_folder_train: Path to the training data folder.
         data_folder_test: Path to the testing data folder.
         n_puzzles: Number of puzzles to load.
@@ -64,27 +76,31 @@ def format_datasets_pipeline(data_folder_train:str,data_folder_test:str, n_puzzl
     Returns:
         None
     """
-    train_dataset =  format_a_dataset(
+    train_dataset = format_a_dataset(
         data_folder=data_folder_train,
         theme=theme,
         n_puzzles=n_puzzles,
         n_red_herring_clues=n_red_herring_clues,
         n_attributes=n_attributes,
-        n_objects=n_objects
+        n_objects=n_objects,
     )
-    test_dataset  =  format_a_dataset(
+    test_dataset = format_a_dataset(
         data_folder=data_folder_test,
         theme=theme,
         n_puzzles=n_puzzles,
         n_red_herring_clues=n_red_herring_clues,
         n_attributes=n_attributes,
-        n_objects=n_objects
+        n_objects=n_objects,
     )
 
-    split_dataset = DatasetDict({"train":train_dataset,"test":test_dataset})
-    
+    split_dataset = DatasetDict({"train": train_dataset, "test": test_dataset})
+
     # Save datasets
-    # TODO
+    dataset_name = f"dataset_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues}rh"
+    split_dataset.save_to_disk(
+        Path(data_folder_current) / dataset_name
+    )
+
 
 def format_a_dataset(
     data_folder: str,
@@ -92,9 +108,10 @@ def format_a_dataset(
     n_puzzles: int,
     n_red_herring_clues: int,
     n_attributes: int,
-    n_objects: int
-    ) -> Dataset:
-    """ Format a dataset in a specific folder.
+    n_objects: int,
+) -> Dataset:
+    """Format a dataset in a specific folder.
+
     Args:
         data_folder: Path to the folder containing the dataset files.
         theme: Theme of the puzzles.
@@ -102,17 +119,23 @@ def format_a_dataset(
         n_red_herring_clues: Number of red herring clues in the puzzles.
         n_attributes: Number of attributes in the puzzles.
         n_objects: Number of objects in the puzzles.
+
     Returns:
         Dataset: Formatted dataset.
     """
     # Get the full path to the data folder
-    full_data_path = Path(data_folder) / theme / f"{n_objects}x{n_attributes}" / f"{n_red_herring_clues}rh"
+    full_data_path = (
+        Path(data_folder)
+        / theme
+        / f"{n_objects}x{n_attributes}"
+        / f"{n_red_herring_clues}rh"
+    )
 
     # Load dataset
-    data_dict = load_dataset(full_data_path=full_data_path,n_puzzles=n_puzzles)
+    data_dict = load_dataset(full_data_path=full_data_path, n_puzzles=n_puzzles)
 
     # Format the dataset
-    dataset =  Dataset.from_dict(data_dict)
+    dataset = Dataset.from_dict(data_dict)
     return dataset
 
 
@@ -124,40 +147,41 @@ def load_dataset(full_data_path: Path, n_puzzles: int) -> dict[str, list]:
     * clue_types: list[list[str]]
     * red_herrings: list[list[int]]
     * solutions: list[dict[str,list[str]]]
-    
+
     Args:
         full_data_path: Path to the folder containing the dataset files.
         n_puzzles: Expected number of puzzles in the folder.
     """
-
     puzzles_path = full_data_path / "puzzles"
-    puzzles = load_files(data_path = puzzles_path, n_puzzles=n_puzzles)
+    puzzles = load_files(data_path=puzzles_path, n_puzzles=n_puzzles)
 
     clue_types_path = full_data_path / "clue_types"
-    clue_files = load_files(data_path = clue_types_path, n_puzzles=n_puzzles)
+    clue_files = load_files(data_path=clue_types_path, n_puzzles=n_puzzles)
 
     red_herrings_path = full_data_path / "red_herrings"
-    red_herring_files = load_files(data_path = red_herrings_path, n_puzzles=n_puzzles)
+    red_herring_files = load_files(data_path=red_herrings_path, n_puzzles=n_puzzles)
 
     solutions_path = full_data_path / "solutions"
-    solution_files = load_files(data_path = solutions_path, n_puzzles=n_puzzles)
+    solution_files = load_files(data_path=solutions_path, n_puzzles=n_puzzles)
 
     # Format clue types
-    clue_files_formatted: list[list[str]] = [None] * len(clue_files)
+    clue_files_formatted: list[list[str]] = []
     for i, clue_str in enumerate(clue_files):
-        clue_files_formatted[i] = [clue.strip() for clue in clue_str.split(",")]
+        clue_files_formatted.append([clue.strip() for clue in clue_str.split(",")])
 
     # Format red herrings
-    red_herring_files_formatted: list[list[int]] = [None] * len(red_herring_files)
+    red_herring_files_formatted: list[list[int]] = []
     for i, red_herring_str in enumerate(red_herring_files):
-        red_herring_files_formatted[i] = [int(idx.strip()) for idx in red_herring_str.split(",")]
+        red_herring_files_formatted.append([
+            int(idx.strip()) for idx in red_herring_str.split(",")
+        ])
 
     # Format solutions
-    solution_files_formatted: list[dict[str, list[str]]] = [None] * len(solution_files)
+    solution_files_formatted: list[dict[str, list[str]]] = []
     for i, solution_str in enumerate(solution_files):
-        solution_files_formatted[i]  = json.loads(solution_str)
+        solution_files_formatted.append(json.loads(solution_str))
         # TODO: Consider validating the solution format
-    
+
     return {
         "clue_types": clue_files_formatted,
         "puzzles": puzzles,
@@ -165,9 +189,10 @@ def load_dataset(full_data_path: Path, n_puzzles: int) -> dict[str, list]:
         "solutions": solution_files_formatted,
     }
 
-def load_files(data_path: Path, n_puzzles: int)-> list[str]:
+
+def load_files(data_path: Path, n_puzzles: int) -> list[str]:
     """Load n_puzzles files in a folder as strings.
-    
+
     Args:
         data_path: Path to the folder containing files.
         n_puzzles: Expected number of puzzles in the folder.
@@ -178,7 +203,7 @@ def load_files(data_path: Path, n_puzzles: int)-> list[str]:
     filenames = list(data_path.glob("*"))
 
     files_list = []
-    for i,filename in enumerate(filenames):
+    for i, filename in enumerate(filenames):
         with filename.open() as file:
             file_content = file.read()
             files_list.append(file_content)
@@ -187,9 +212,13 @@ def load_files(data_path: Path, n_puzzles: int)-> list[str]:
 
     # Check if the number of puzzles matches
     if len(files_list) != n_puzzles:
-        raise ValueError(f"Expected {n_puzzles} puzzles, but only found {len(files_list)} in {data_path}.")
+        raise ValueError(
+            f"Expected {n_puzzles} puzzles, but only found {len(files_list)} in {data_path}."
+        )
     if len(filenames) > n_puzzles:
-        log.warning(f"Found more files than expected ({len(filenames)}), only the first {n_puzzles} will be used.")
+        log.warning(
+            f"Found more files than expected ({len(filenames)}), only the first {n_puzzles} will be used."
+        )
 
     return files_list
 
