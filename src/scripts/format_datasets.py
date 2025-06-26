@@ -26,10 +26,8 @@ def main(config: DictConfig) -> None:
     Args:
         config: Config file.
     """
-    #data_folder_current = config.data_folder
     data_folder_train = config.data_folder_train
     data_folder_test = config.data_folder_test
-    #n_puzzles = config.n_puzzles
 
     theme = config.language.theme
     n_red_herring_clues = config.n_red_herring_clues
