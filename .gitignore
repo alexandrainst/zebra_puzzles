@@ -93,12 +93,6 @@ multirun/
 # Data
 data/*
 !data/.gitkeep
-!data/dataset_da_huse_2x3_5rh
-!data/dataset_en_houses_2x3_5rh
-!data/dataset_da_smoerrebroed_2x3_5rh
-!data/dataset_da_huse_4x5_5rh
-!data/dataset_en_houses_4x5_5rh
-!data/dataset_da_smoerrebroed_4x5_5rh
 
 data_train/*
 !data_train/.gitkeep
