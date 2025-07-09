@@ -17,15 +17,21 @@ Run `uv run src/scripts/evaluate.py` to evaluate puzzles.
 
 Run `uv run src/scripts/plot_performance.py` to plot and compare puzzle evaluation performance.
 
+Run `uv run src/scripts/fix_files.py` to combine datasets. Use the script to edit many filenames at once and/or move files to another folder.
+
+Run `uv run src/scripts/format_dataets.py` to push a dataset to Hugging Face.
+
 Use the configuration in `config/config.yaml` to specify:
+- language and theme of puzzles
+- model for evaluation (e.g. gpt-4o-mini, gpt-4o, o3-mini, o3)
+- whether to generate new LLM responses
+- data folders
 - number of puzzles to generate
 - puzzle dimensions
-- language and theme
+- clue type weights
 - number of red herrings to include
-- model for evaluation (e.g. gpt-4o-mini, gpt-4o, o3-mini, o3)
-- weights for clue types
 
-The 'data' folder contains puzzles, their solutions, LLM reponses, chosen clue types and the indices to red herring clues in each puzzle. The LLM scores are saved in the 'scores' folder.
+The chosen main data folder contains puzzles, their solutions, LLM reponses, chosen clue types and the indices to red herring clues in each puzzle. LLM scores are saved in the 'scores' subfolder. Plots and cross-model comparisons are saved in the 'plots' subfolder.
 
 Puzzles can be evaluated using fewer red herrings than they were generated with. This allows for measuring the impact of red herrings. If the number of red herrings is reduced, the new version of the puzzle is saved in a 'reduced_puzzles' folder, and the clue types are saved in a 'reduced_clue_types' folder.
 
