@@ -88,7 +88,6 @@ def format_datasets_pipeline(
         )
         log.info(f"Dataset {dataset_name} loaded from {data_folder_current}.")
     else:
-
         train_dataset = format_a_dataset(
             data_folder=data_folder_train,
             theme=theme,
@@ -110,14 +109,23 @@ def format_datasets_pipeline(
 
         # Save datasets
         split_dataset.save_to_disk(Path(data_folder_current) / dataset_name)
-        log.info(f"Dataset {dataset_name} formatted and saved to {data_folder_current}.")
+        log.info(
+            f"Dataset {dataset_name} formatted and saved to {data_folder_current}."
+        )
 
     # Ask user if they want to push the dataset to Hugging Face Hub
-    push_to_hub = input(
-        "Do you want to push the dataset to Hugging Face Hub? (y/n): "
-    ).strip().lower()
+    push_to_hub = (
+        input("Do you want to push the dataset to Hugging Face Hub? (y/n): ")
+        .strip()
+        .lower()
+    )
     if push_to_hub == "y":
-        split_dataset.push_to_hub("alexandrainst/zebra_puzzles" , dataset_name, private=True, embed_external_files=True)
+        split_dataset.push_to_hub(
+            "alexandrainst/zebra_puzzles",
+            dataset_name,
+            private=True,
+            embed_external_files=True,
+        )
 
 
 def format_a_dataset(

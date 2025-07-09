@@ -19,7 +19,7 @@ Run `uv run src/scripts/plot_performance.py` to plot and compare puzzle evaluati
 
 Run `uv run src/scripts/fix_files.py` to combine datasets. Use the script to edit many filenames at once and/or move files to another folder.
 
-Run `uv run src/scripts/format_dataets.py` to push a dataset to Hugging Face.
+Run `uv run src/scripts/format_dataets.py` to format and push a dataset to Hugging Face.
 
 Use the configuration in `config/config.yaml` to specify:
 - language and theme of puzzles
