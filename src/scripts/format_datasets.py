@@ -79,28 +79,45 @@ def format_datasets_pipeline(
     Returns:
         None
     """
-    train_dataset = format_a_dataset(
-        data_folder=data_folder_train,
-        theme=theme,
-        n_puzzles=n_puzzles_train,
-        n_red_herring_clues=n_red_herring_clues,
-        n_attributes=n_attributes,
-        n_objects=n_objects,
-    )
-    test_dataset = format_a_dataset(
-        data_folder=data_folder_test,
-        theme=theme,
-        n_puzzles=n_puzzles_test,
-        n_red_herring_clues=n_red_herring_clues,
-        n_attributes=n_attributes,
-        n_objects=n_objects,
-    )
-
-    split_dataset = DatasetDict({"train": train_dataset, "test": test_dataset})
-
-    # Save datasets
+    # Check if dataset already exists
     dataset_name = f"dataset_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues}rh"
-    split_dataset.save_to_disk(Path(data_folder_current) / dataset_name)
+    if (Path(data_folder_current) / dataset_name).exists():
+        log.info(f"Dataset {dataset_name} already exists. Skipping formatting.")
+        split_dataset = DatasetDict.load_from_disk(
+            Path(data_folder_current) / dataset_name, keep_in_memory=True
+        )
+        log.info(f"Dataset {dataset_name} loaded from {data_folder_current}.")
+    else:
+
+        train_dataset = format_a_dataset(
+            data_folder=data_folder_train,
+            theme=theme,
+            n_puzzles=n_puzzles_train,
+            n_red_herring_clues=n_red_herring_clues,
+            n_attributes=n_attributes,
+            n_objects=n_objects,
+        )
+        test_dataset = format_a_dataset(
+            data_folder=data_folder_test,
+            theme=theme,
+            n_puzzles=n_puzzles_test,
+            n_red_herring_clues=n_red_herring_clues,
+            n_attributes=n_attributes,
+            n_objects=n_objects,
+        )
+
+        split_dataset = DatasetDict({"train": train_dataset, "test": test_dataset})
+
+        # Save datasets
+        split_dataset.save_to_disk(Path(data_folder_current) / dataset_name)
+        log.info(f"Dataset {dataset_name} formatted and saved to {data_folder_current}.")
+
+    # Ask user if they want to push the dataset to Hugging Face Hub
+    push_to_hub = input(
+        "Do you want to push the dataset to Hugging Face Hub? (y/n): "
+    ).strip().lower()
+    if push_to_hub == "y":
+        split_dataset.push_to_hub("alexandrainst/zebra_puzzles" , dataset_name, private=True, embed_external_files=True)
 
 
 def format_a_dataset(
