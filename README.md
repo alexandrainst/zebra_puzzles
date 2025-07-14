@@ -11,6 +11,8 @@
 
 Generation and LLM evaluation of zebra puzzles in multiple languages and themes.
 
+## Usage
+
 Run `uv run src/scripts/build_dataset.py` to generate puzzles.
 
 Run `uv run src/scripts/evaluate.py` to evaluate puzzles.
@@ -34,6 +36,47 @@ Use the configuration in `config/config.yaml` to specify:
 The chosen main data folder contains puzzles, their solutions, LLM reponses, chosen clue types and the indices to red herring clues in each puzzle. LLM scores are saved in the 'scores' subfolder. Plots and cross-model comparisons are saved in the 'plots' subfolder.
 
 Puzzles can be evaluated using fewer red herrings than they were generated with. This allows for measuring the impact of red herrings. If the number of red herrings is reduced, the new version of the puzzle is saved in a 'reduced_puzzles' folder, and the clue types are saved in a 'reduced_clue_types' folder.
+
+## Example
+
+The following is an example of a 2x3 puzzle with 5 red herrings. The theme is houses and the language is English.
+```
+A row of houses have numbers 1 to 2 from left to right.
+
+In each house lives a person with unique attributes in each of the following categories:
+
+Nationalities: Faroe Islands and United Kingdom.
+Drinks: cocoa and coffee.
+Hobbies: handball and painting.
+
+We also know the following:
+
+1. The Faroese thinks the second best fruit is mango.
+2. The coffee drinker plays handball.
+3. The Brit lives in house no. 2.
+4. The person who paints does not live in house no. 1.
+5. The person with a sister plays video games.
+6. The person who paints lives next to the person who often sails.
+7. The person who owns a cactus does not live in house no. 1.
+8. The person who paints wears glasses.
+
+Who has which attributes and lives in which house?
+
+Please submit your answer as a JSON dictionary in the format below. Each row must begin with object_X where X is the house number. Each column represents a category, and they should be in the same order as in the list of categories above.
+
+{
+    "object_1": [
+        "nationalities_1",
+        "drinks_1",
+        "hobbies_1"
+    ],
+    "object_2": [
+        "nationalities_2",
+        "drinks_2",
+        "hobbies_2"
+    ]
+}
+```
 
 ## Typical runtimes
 

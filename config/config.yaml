@@ -6,7 +6,7 @@
 # en/houses
 
 defaults:
-  - language: en/houses
+  - language: da/smoerrebroed
   - override hydra/job_logging: custom
   - _self_
 
