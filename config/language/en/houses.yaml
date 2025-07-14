@@ -108,7 +108,7 @@ prompt_templates:
     - |
         A row of houses have numbers 1 to {n_objects} from left to right.
 
-        In each house lives a person unique attributes in each of the following categories:
+        In each house lives a person with unique attributes in each of the following categories:
 
         {chosen_attributes_str}
 
