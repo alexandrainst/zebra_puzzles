@@ -196,19 +196,20 @@ def load_dataset(full_data_path: Path, n_puzzles: int) -> dict[str, list]:
     clues: list[list[str]] = []
     format_instructions: list[str] = []
     for puzzle in puzzles:
-
         # The introduction is everything before the first clue
         introductions.append(puzzle.split("1.")[0])
 
         # Clues are all lines starting with a number
-        clues.append([
-            line.strip() for line in puzzle.split("\n") if line.strip() and line[0].isdigit()
-        ]) 
-
-        #Format instructions are everything after the last clue
-        format_instructions.append(
-            puzzle.split(clues[-1][-1])[-1].strip()
+        clues.append(
+            [
+                line.strip()
+                for line in puzzle.split("\n")
+                if line.strip() and line[0].isdigit()
+            ]
         )
+
+        # Format instructions are everything after the last clue
+        format_instructions.append(puzzle.split(clues[-1][-1])[-1].strip())
     # Format clue types
     clue_files_formatted: list[list[str]] = []
     for i, clue_str in enumerate(clue_files):
