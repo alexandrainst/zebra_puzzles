@@ -190,6 +190,25 @@ def load_dataset(full_data_path: Path, n_puzzles: int) -> dict[str, list]:
     solutions_path = full_data_path / "solutions"
     solution_files = load_files(data_path=solutions_path, n_puzzles=n_puzzles)
 
+    # Format puzzles
+    # Split them into introduction, clues and format_instructions
+    introductions: list[str] = []
+    clues: list[list[str]] = []
+    format_instructions: list[str] = []
+    for puzzle in puzzles:
+
+        # The introduction is everything before the first clue
+        introductions.append(puzzle.split("1.")[0])
+
+        # Clues are all lines starting with a number
+        clues.append([
+            line.strip() for line in puzzle.split("\n") if line.strip() and line[0].isdigit()
+        ]) 
+
+        #Format instructions are everything after the last clue
+        format_instructions.append(
+            puzzle.split(clues[-1][-1])[-1].strip()
+        )
     # Format clue types
     clue_files_formatted: list[list[str]] = []
     for i, clue_str in enumerate(clue_files):
@@ -209,10 +228,12 @@ def load_dataset(full_data_path: Path, n_puzzles: int) -> dict[str, list]:
         # TODO: Consider validating the solution format
 
     return {
-        "clue_types": clue_files_formatted,
-        "puzzles": puzzles,
-        "red_herrings": red_herring_files_formatted,
+        "introductions": introductions,
+        "clues": clues,
+        "format_instructions": format_instructions,
         "solutions": solution_files_formatted,
+        "clue_types": clue_files_formatted,
+        "red_herrings": red_herring_files_formatted,
     }
 
 
