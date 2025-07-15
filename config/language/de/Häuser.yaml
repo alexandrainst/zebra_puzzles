@@ -11,16 +11,13 @@ theme: de_häuser
 attributes:
 
     Nationalitäten:
-        Dänemark: []
-        Danmark: ['der Däne', 'ist dänisch', 'ist nicht dänisch']
+        Dänemark: ['der Däne', 'ist dänisch', 'ist nicht dänisch']
         Schweden: ['der Schwede', 'ist schwedisch', 'ist nicht schwedisch']
-        Norwegen: ['der Norweger', 'ist norwegisch', 'ist nicht norwegisch']
-        Finnland: ['der Finne', 'ist finnisch', 'ist nicht finnisch']
-        Deutschland: ['der Deutsche', 'ist deutsch', 'ist nicht deutsch']
         Lettland: ['der Lette', 'ist lettisch', 'ist nicht lettisch']
         Frankreich: ['der Franzose', 'ist französisch', 'ist nicht französisch']
         Spanien: ['der Spanier', 'ist spanisch', 'ist nicht spanisch']
         Italien: ['der Italiener', 'ist italienisch', 'ist nicht italienisch']
+        Norwegen: ['der Norweger', 'ist norwegisch', 'ist nicht norwegisch']
         Färöer Inseln: ['der Färinger', 'ist färöisch', 'ist nicht färöisch']
         Niederlande: ['der Niederländer', 'ist niederländisch', 'ist nicht niederländisch']
         Island: ['der Isländer', 'ist isländisch', 'ist nicht isländisch']
@@ -144,7 +141,7 @@ prompt_templates:
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
 # NOTE: More types could be added such as "The person with a cactus is not the baker"
 
-red_herring_attributes_dict:
+red_herring_clues_dict:
     same_herring: "{attribute_desc} {attribute_desc_herring}."
     next_to_herring: "{attribute_desc} wohnt neben {attribute_desc_herring}."
     double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."

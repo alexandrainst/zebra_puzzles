@@ -4,9 +4,10 @@
 # da/huse
 # da/smoerrebroed
 # en/houses
+# de/Häuser
 
 defaults:
-  - language: da/smoerrebroed
+  - language: de/Häuser
   - override hydra/job_logging: custom
   - _self_
 
@@ -18,7 +19,7 @@ model : o3-mini
 generate_new_responses: False
 
 # The current data folder used for generating, evaluating, and plotting
-data_folder: data_test
+data_folder: data_train
 
 # Folder for loading training data
 data_folder_train: data_train
