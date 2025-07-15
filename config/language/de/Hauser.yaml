@@ -1,7 +1,7 @@
 # Config file for generating zebra puzzles in German with the classic "houses" theme.
 
 # Theme
-theme: de_häuser
+theme: de_hauser
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
