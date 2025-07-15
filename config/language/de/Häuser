@@ -1,0 +1,185 @@
+# Config file for generating zebra puzzles in German with the classic "houses" theme.
+
+# Theme
+theme: de_häuser
+
+# Attributes
+# The attributes are defined as a dictionary of dictionaries.
+# The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
+# The attributes below should be in the preferred order of categories in the clues.
+
+attributes:
+
+    Nationalitäten:
+        Dänemark: []
+        Danmark: ['der Däne', 'ist dänisch', 'ist nicht dänisch']
+        Schweden: ['der Schwede', 'ist schwedisch', 'ist nicht schwedisch']
+        Norwegen: ['der Norweger', 'ist norwegisch', 'ist nicht norwegisch']
+        Finnland: ['der Finne', 'ist finnisch', 'ist nicht finnisch']
+        Deutschland: ['der Deutsche', 'ist deutsch', 'ist nicht deutsch']
+        Lettland: ['der Lette', 'ist lettisch', 'ist nicht lettisch']
+        Frankreich: ['der Franzose', 'ist französisch', 'ist nicht französisch']
+        Spanien: ['der Spanier', 'ist spanisch', 'ist nicht spanisch']
+        Italien: ['der Italiener', 'ist italienisch', 'ist nicht italienisch']
+        Färöer Inseln: ['der Färinger', 'ist färöisch', 'ist nicht färöisch']
+        Niederlande: ['der Niederländer', 'ist niederländisch', 'ist nicht niederländisch']
+        Island: ['der Isländer', 'ist isländisch', 'ist nicht isländisch']
+        Großbritannien: ['der Brite', 'ist britisch', 'ist nicht britisch']
+
+    Jobs:
+        Bäcker: ['der Bäcker', 'ist Bäcker', 'ist kein Bäcker']
+        Minister: ['der Minister', 'ist Minister', 'ist kein Minister']
+        Polizist: ['der Polizist', 'ist Polizist', 'ist kein Polizist']
+        Krankenpfleger: ['der Krankenpfleger', 'ist Krankenpfleger', 'ist kein Krankenpfleger']
+        Lehrer: ['der Lehrer', 'ist Lehrer', 'ist kein Lehrer']
+        Softwareentwickler: ['der Softwareentwickler', 'ist Softwareentwickler', 'ist kein Softwareentwickler']
+        Verkäufer: ['der Verkäufer', 'ist Verkäufer', 'ist kein Verkäufer']
+
+    Haustiere:
+        Katze: ['der Katzenbesitzer', 'hat eine Katze', 'hat keine Katze']
+        Hund: ['der Hundebesitzer', 'hat einen Hund', 'hat keinen Hund']
+        Kaninchen: ['der Kaninchenbesitzer', 'hat ein Kaninchen', 'hat kein Kaninchen']
+        Zebra: ['der Zebrabesitzer', 'hat ein Zebra', 'hat kein Zebra']
+        Wellensittich: ['der Wellensittichbesitzer', 'hat einen Wellensittich', 'hat keinen Wellensittich']
+        Schnecke: ['der Schneckenbesitzer', 'hat eine Schnecke', 'hat keine Schnecke']
+        Gespenstschrecke: ['der Besitzer eines Gespenstschreckens', 'hat eine Gespenstschrecke', 'hat keine Gespenstschrecke']
+
+    Getränke:
+        Saft: ['der Safttrinker', 'trinkt Saft', 'trinkt keinen Saft']
+        Kaffee: ['der Kaffeetrinker', 'trinkt Kaffee', 'trinkt keinen Kaffee']
+        Milch: ['der Milchtrinker', 'trinkt Milch', 'trinkt keine Milch']
+        Smoothie: ['der Smoothietrinker', 'trinkt Smoothies', 'trinkt keinen Smoothie']
+        Kakao: ['der Kakaotrinker', 'trinkt Kakao', 'trinkt keinen Kakao']
+        Tee: ['der Teetrinker', 'trinkt Tee', 'trinkt keinen Tee']
+        Sodawasser: ['der Sodawassertrinker', 'trinkt Sodawasser', 'trinkt kein Sodawasser']
+
+    Lieblingsliteratur:
+        Sachbuch: ['der Sachbuchleser', 'liest Sachbücher', 'liest keine Sachbücher']
+        Krimi: ['der Krimileser', 'liest Krimis', 'liest keine Krimis']
+        Fantasy: ['der Fantasyleser', 'liest Fantasy', 'liest keine Fantasy']
+        Science Fiction: ['der Science-Fiction-Leser', 'liest Science Fiction', 'liest keine Science Fiction']
+        Horror: ['der Horrorliteraturleser', 'liest Horrorliteratur', 'liest keine Horrorliteratur']
+        Poesie: ['der Poesieleser', 'liest Poesie', 'liest keine Poesie']
+        Liebesromane: ['der Liebesromanleser', 'liest Liebesromane', 'liest keine Liebesromane']
+
+    Hobbys:
+        Klettern: ['der Kletterer', 'klettert', 'klettert nicht']
+        Malen: ['der Maler', 'malt', 'malt nicht']
+        Brettspiele: ['der Brettspielspieler', 'spielt Brettspiele', 'spielt keine Brettspiele']
+        Tennis: ['der Tennisspieler', 'spielt Tennis', 'spielt kein Tennis']
+        Häkeln: ['der Häkler', 'häkelt', 'häkelt nicht']
+        Fußball: ['der Fußballspieler', 'spielt Fußball', 'spielt keinen Fußball']
+        Handball: ['der Handballspieler', 'spielt Handball', 'spielt keinen Handball']
+
+    Lieblingsfrüchte:
+        Apfel: ['der Apfele Liebhaber', 'liebt Äpfel', 'mag keine Äpfel']
+        Birne: ['der Birnenliebhaber', 'liebt Birnen', 'mag keine Birnen']
+        Orange: ['der Orangenliebhaber', 'liebt Orangen', 'mag keine Orangen']
+        Banane: ['der Bananenliebhaber', 'liebt Bananen', 'mag keine Bananen']
+        Erdbeere: ['der Erdbeerliebhaber', 'liebt Erdbeeren', 'mag keine Erdbeeren']
+        Johannisbeere: ['der Johannisbeerliebhaber', 'liebt Johannisbeeren', 'mag keine Johannisbeeren']
+        Walderdbeere: ['der Walderdbeerliebhaber', 'liebt Walderdbeeren', 'mag keine Walderdbeeren']
+
+# Clues
+# Clue names and text for the prompt depending on the clue type.
+# Clue names should not be edited, but they can be a subset of the full list of implemented clues.
+# NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
+clues_dict:
+    found_at: "{attribute_desc} wohnt in Haus Nummer {i_object}."
+    not_at: "{attribute_desc} wohnt nicht in Haus Nummer {i_object}."
+    next_to: "{attribute_desc_1} wohnt neben {attribute_desc_2}."                                                                              # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: "{attribute_desc_1} wohnt nicht neben {attribute_desc_2}, und sie sind nicht dieselbe Person."                                # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: "{attribute_desc_1} wohnt direkt links von {attribute_desc_2}."                                                              # Requires n_objects > 2, otherwise use left_of
+    just_right_of: "{attribute_desc_1} wohnt direkt rechts von {attribute_desc_2}."                                                            # Requires n_objects > 2, otherwise use right_of
+    left_of: "{attribute_desc_1} wohnt links von {attribute_desc_2}."
+    right_of: "{attribute_desc_1} wohnt rechts von {attribute_desc_2}."
+    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                      # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                  # Requires n_attributes > 1, otherwise it cannot be used
+    between: "{attribute_desc_2} wohnt zwischen {attribute_desc_1} und {attribute_desc_3}."                                                    # Requires n_objects > 2, otherwise it cannot be used
+    not_between: "{attribute_desc_1} wohnt nicht zwischen {attribute_desc_2} und {attribute_desc_3}, und sie sind drei verschiedene Personen." # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: "{attribute_desc_1} und {attribute_desc_2} wohnen mit {n_between} Häusern dazwischen."                                   # Requires n_objects > 3, otherwise it cannot be used
+    one_between: "Es gibt ein Haus zwischen {attribute_desc_1} und {attribute_desc_2}."                                                        # Requires n_objects > 2, otherwise it cannot be used
+
+
+# Prompt
+# We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
+# prompt_and is the word used for separating the last two attributes in a list of attributes.
+
+prompt_and: und
+
+prompt_templates:
+    - |
+        Eine Reihe von Häusern wird von 1 bis {n_objects} von links nach rechts nummeriert.
+
+        In jedem Haus wohnt eine Person mit einzigartigen Eigenschaften in jeder der folgenden Kategorien:
+
+        {chosen_attributes_str}
+
+        Darüber hinaus wissen wir folgendes:
+
+        {chosen_clues_str}
+
+        Wer hat welche Eigenschaften und wohnt in welchem Haus?
+
+        Bitte geben Sie Ihre Antwort als JSON-Dictionary im untenstehenden Format an. Jede Zeile sollte mit object_X beginnen, wobei X die Hausnummer ist. Jede Spalte repräsentiert eine Kategorie, und sie sollten in der gleichen Reihenfolge stehen wie die Kategorien oben aufgelistet.
+
+        {solution_template}
+    - |
+        Eine Reihe von Häusern wird von 1 bis {n_objects} von links nach rechts nummeriert.
+
+        In jedem Haus wohnt eine Person mit einer einzigartigen Eigenschaft in der Kategorie {chosen_attributes_str}.
+
+        Darüber hinaus wissen wir folgendes:
+
+        {chosen_clues_str}
+
+        Wer hat welche Eigenschaften und wohnt in welchem Haus?
+
+        Bitte geben Sie Ihre Antwort als JSON-Dictionary im untenstehenden Format an. Jede Zeile sollte mit object_X beginnen, wobei X die Hausnummer ist. Danach folgt eine Spalte mit den Eigenschaften in der oben genannten Kategorie.
+
+        {solution_template}
+
+
+# Red herrings
+# The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
+# NOTE: More types could be added such as "The person with a cactus is not the baker"
+
+red_herring_attributes_dict:
+    same_herring: "{attribute_desc} {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} wohnt neben {attribute_desc_herring}."
+    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
+    fact: "{fact}."
+    object_fact: "{attribute_desc} weiß, dass {fact}."
+    friends: "{attribute_desc} ist gut befreundet mit {attribute_desc_herring}."
+    herring_found_at: "{attribute_desc_herring} wohnt in Haus Nummer {i_object}."
+    herring_not_at: "{attribute_desc_herring} wohnt nicht in Haus Nummer {i_object}."
+
+red_herring_attributes:
+    rotes_Haar: ['die Person mit den roten Haaren', 'hat rote Haare']
+    Brille: ['die Person mit der Brille', 'trägt eine Brille']
+    Tattoo: ['die Person mit einem Tattoo', 'hat ein Tattoo']
+    Gitarre: ['die Person, die Gitarre spielt', 'spielt Gitarre']
+    Fahrrad: ['die Person mit dem Fahrrad', 'hat ein Fahrrad']
+    Meerschweinchen: ['die Person mit einem Meerschweinchen', 'hat ein Meerschweinchen']
+    Kaktus: ['die Person, die keinen Kaktus besitzt', 'hat keinen Kaktus']
+    Computerspiel: ['die Person, die Computerspiele spielt', 'spielt Computerspiele']
+    Schwester: ['die Person mit einer Schwester', 'hat eine Schwester']
+    Mango: ['die Person, die denkt, dass Mango die zweitbeste Frucht ist', 'denkt, dass Mango die zweitbeste Frucht ist']
+    Segeln: ['die Person, die oft segelt', 'segelt oft']
+    Kanada: ['die Person, die in Kanada war', 'war in Kanada']
+    Mathematik: ['die Person mit einem Masterabschluss in Mathematik', 'hat einen Masterabschluss in Mathematik']
+    Physik: ['die Person, die Physik liebt', 'liebt Physik']
+    altes_Tier: ['die Person mit einem Haustier, das für seine Art alt ist', 'hat ein Haustier, das für seine Art alt ist']
+    Fußball: ['die Person, die Fußball schaut', 'schaut Fußball']
+
+red_herring_facts:
+    Hering: "Hering ist ein Fisch"
+    Sonnensystem: "das Sonnensystem bewegt sich mit einem Tempo von etwa 200 km/s um das Zentrum der Galaxie"
+    Rätsel: "es macht Spaß, Rätsel zu lösen"
+    Häuser: "alle Häuser in der Straße haben schöne Gärten"
+    Türen: "mehrere Häuser haben eine grüne Tür"
+    Fenster: "alle Häuser haben große Fenster"
+    Autos: "es gibt viele Autos auf der Straße"
+    Gurke: "Gurke ist eine Beere"
+    Schnecke: "Schnecken sind Weichtiere"
+    Kaffee: "Kaffee enthält Koffein"
