@@ -1,0 +1,179 @@
+# Config file for generating zebra puzzles in Icelandic with the classic "houses" theme.
+
+# Theme
+theme: is_husum
+
+# Attributes
+# The attributes are defined as a dictionary of dictionaries.
+# The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
+# The attributes below should be in the preferred order of categories in the clues.
+
+attributes:
+
+    þjóðernum:
+        Lettland: ['Lettinn', 'er lettneskur', 'er ekki lettneskur']
+        Frakkland: ['Frakkinn', 'er franskur', 'er ekki franskur']
+        Spánn: ['Spánverjinn', 'er spænskur', 'er ekki spænskur']
+        Ítalía: ['Ítalinn', 'er ítalskur', 'er ekki ítalskur']
+        Noregur: ['Norðmaðurinn', 'er norskur', 'er ekki norskur']
+        Færeyjar: ['Færeyingurinn', 'er færeyskur', 'er ekki færeyskur']
+        Holland: ['Hollendingurinn', 'er hollenskur', 'er ekki hollenskur']
+        Ísland: ['Íslendingurinn', 'er íslenskur', 'er ekki íslenskur']
+        Stóra-Bretland: ['Bretinn', 'er breskur', 'er ekki breskur']
+
+    starf:
+        bakari: ['bakarinn', 'er bakari', 'er ekki bakari']
+        ráðherra: ['ráðherrann', 'er ráðherra', 'er ekki ráðherra']
+        lögreglumaður: ['lögreglumaðurinn', 'er lögreglumaður', 'er ekki lögreglumaður']
+        hjúkrunarfræðingur: ['hjúkrunarfræðingurinn', 'er hjúkrunarfræðingur', 'er ekki hjúkrunarfræðingur']
+        kennari: ['kennarinn', 'er kennari', 'er ekki kennari']
+        hugbúnaðarframleiðandi: ['hugbúnaðarframleiðandinn', 'er hugbúnaðarframleiðandi', 'er ekki hugbúnaðarframleiðandi']
+        verslunarstarfsmaður: ['verslunarstarfsmaðurinn', 'er verslunarstarfsmaður', 'er ekki verslunarstarfsmaður']
+
+    gæludýr:
+        köttur: ['kattareigandinn','á kött','á ekki kött']
+        hundur: ['hundaeigandinn','á hund','á ekki hund']
+        kanína: ['kanínueigandinn','á kanínu','á ekki kanínu']
+        sebra: ['sebraeigandinn','á sebra','á ekki sebra']
+        undulat: ['undulaeigandinn','á undulat','á ekki undulat']
+        snigill: ['snigilseigandinn','á snigil','á ekki snigil']
+        förustafir: ['eigandi förustafs','á förustaf','á ekki förustaf']
+
+    drykkir:
+        safi: ['safadrekkarinn', 'drekkur safi','drekkur ekki safi']
+        kaffi: ['kaffidrekkarinn', 'drekkur kaffi','drekkur ekki kaffi']
+        mjólk: ['mjólkudrekkarinn', 'drekkur mjólk','drekkur ekki mjólk']
+        smoothie: ['smoothiedrekkarinn', 'drekkur smoothie','drekkur ekki smoothie']
+        kakó: ['kakódrekkarinn', 'drekkur kakó','drekkur ekki kakó']
+        te: ['tedrekkarinn', 'drekkur te','drekkur ekki te']
+        gos: ['gosdrykkjandinn', 'drekkur gos','drekkur ekki gos']
+
+    uppáhalds bókategundir:
+        fræðibækur: ['fræðibókalæsarinn', 'les fræðibækur', 'les ekki fræðibækur']
+        glæpasögur: ['glæpasagnalesarinn', 'les glæpasögur', 'les ekki glæpasögur']
+        fantasía: ['fantasíulesarinn', 'les fantasíusögur', 'les ekki fantasíusögur']
+        vísindaskáldskapur: ['vísindaskáldskaparlesarinn', 'les vísindaskáldskap', 'les ekki vísindaskáldskap']
+        hryllingssögur: ['hryllingssögulesarinn', 'les hryllingssögur', 'les ekki hryllingssögur']
+        ljóð: ['ljóðalesarinn', 'les ljóð', 'les ekki ljóð']
+        ástarsögur: ['persónan sem les ástarsögur', 'les ástarsögur', 'les ekki ástarsögur']
+
+    áhugamál:
+        klifur: ['persónan sem klifrar', 'klifrar', 'klifrar ekki']
+        málun: ['persónan sem málar', 'málar', 'málar ekki']
+        borðspil: ['persónan sem spilar borðspil', 'spilar borðspil', 'spilar ekki borðspil']
+        tennis: ['persónan sem spilar tennis', 'spilar tennis', 'spilar ekki tennis']
+        hekl: ['persónan sem heklar', 'heklar', 'heklar ekki']
+        fótbolti: ['persónan sem spilar fótbolta', 'spilar fótbolta', 'spilar ekki fótbolta']
+        handbolti: ['persónan sem spilar handbolta', 'spilar handbolta', 'spilar ekki handbolta']
+
+    uppáhaldsávextir:
+        epli: ['persónan sem elskar epli', 'elskar epli', 'líkar ekki epli']
+        pera: ['persónan sem elskar perur', 'elskar perur', 'líkar ekki perur']
+        appelsína: ['persónan sem elskar appelsínur', 'elskar appelsínur', 'líkar ekki appelsínur']
+        banani: ['persónan sem elskar banana', 'elskar banana', 'líkar ekki banana']
+        jarðarber: ['persónan sem elskar jarðarber', 'elskar jarðarber', 'líkar ekki jarðarber']
+        sólber: ['persónan sem elskar sólber', 'elskar sólber', 'líkar ekki sólber']
+        villijarðarber: ['persónan sem elskar villijarðarber', 'elskar villijarðarber', 'líkar ekki villijarðarber']
+
+# Clues
+# Clue names and text for the prompt depending on the clue type.
+# Clue names should not be edited, but they can be a subset of the full list of implemented clues.
+# NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
+clues_dict:
+    found_at: "{attribute_desc} býr í húsi númer {i_object}."
+    not_at: "{attribute_desc} býr ekki í húsi númer {i_object}}."
+    next_to: "{attribute_desc_1} býr við hliðina á {attribute_desc_2}."                                                                  # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: "{attribute_desc_1} býr ekki við hliðina á {attribute_desc_2}, og þau eru ekki sama manneskjan."                        # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: "{attribute_desc_1} býr rétt vinstra megin við {attribute_desc_2}."                                                   # Requires n_objects > 2, otherwise use left_of
+    just_right_of: "{attribute_desc_1} býr rétt hægra megin við {attribute_desc_2}."                                                    # Requires n_objects > 2, otherwise use right_of
+    left_of: "{attribute_desc_1} býr vinstra megin við {attribute_desc_2}."
+    right_of: "{attribute_desc_1} býr hægra megin við {attribute_desc_2}."
+    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                            # Requires n_attributes > 1, otherwise it cannot be used
+    between: "{attribute_desc_2} býr á milli {attribute_desc_1} og {attribute_desc_3}."                                                  # Requires n_objects > 2, otherwise it cannot be used
+    not_between: "{attribute_desc_1} býr ekki á milli {attribute_desc_2} og {attribute_desc_3}, og þau eru þrjár mismunandi manneskjur." # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: "{attribute_desc_1} og {attribute_desc_2} búa með {n_between} húsum á milli sín."                                  # Requires n_objects > 3, otherwise it cannot be used
+    one_between: "Það er eitt hús á milli {attribute_desc_1} og {attribute_desc_2}."                                                     # Requires n_objects > 2, otherwise it cannot be used
+
+# Prompt
+# We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
+# prompt_and is the word used for separating the last two attributes in a list of attributes.
+
+prompt_and: og
+
+prompt_templates:
+    - |
+        Röð af húsum er númeruð frá 1 til {n_objects} frá vinstri til hægri.
+
+        Í hverju húsi býr einstaklingur með einstaka eiginleika í hverjum af eftirfarandi flokkum:
+
+        {chosen_attributes_str}
+
+        Að auki vitum við eftirfarandi:
+
+        {chosen_clues_str}
+
+        Hver hefur hvaða eiginleika og býr í hvaða húsi?
+
+        Vinsamlegast gefðu svarið þitt sem JSON dictionary í eftirfarandi sniði. Hver röð ætti að byrja á object_X þar sem X er húsnúmerið. Hver dálkur táknar flokk, og þeir ættu að vera í sama röð og flokkar eru taldir upp hér að ofan.
+
+        {solution_template}
+
+    - |
+        Röð af húsum er númeruð frá 1 til {n_objects} frá vinstri til hægri.
+
+        Í hverju húsi býr einstaklingur með einstakan eiginleika í flokkum {chosen_attributes_str}.
+
+        Að auki vitum við eftirfarandi:
+
+        {chosen_clues_str}
+
+        Hver hefur hvaða eiginleika og býr í hvaða húsi?
+    
+        Vinsamlegast gefðu svarið þitt sem JSON dictionary í eftirfarandi sniði. Hver röð ætti að byrja á object_X þar sem X er húsnúmerið. Þessu fylgir dálkur með eiginleikum í áðurnefndum flokki.
+
+        {solution_template}
+
+# Red herrings
+# The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
+# NOTE: More types could be added such as "The person with a cactus is not the baker"
+
+red_herring_clues_dict:
+    same_herring: "{attribute_desc} {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} býr við hliðina á {attribute_desc_herring}."
+    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
+    fact: "{fact}."
+    object_fact: "{attribute_desc} veit að {fact}."
+    friends: "{attribute_desc} er góður vinur við {attribute_desc_herring}."
+    herring_found_at: "{attribute_desc_herring} býr í húsi númer {i_object}."
+    herring_not_at: "{attribute_desc_herring} býr ekki í húsi númer {i_object}."
+
+red_herring_attributes:
+    rautt_hár: ['persónan með rautt hár','hefur rautt hár']
+    gleraugu: ['persónan með gleraugu','gengur með gleraugu']
+    tattoo: ['persónan með húðflúr','hefur húðflúr']
+    gítar: ['persónan sem spilar á gítar','spilar á gítar']
+    reiðhjól: ['persónan með reiðhjól','á reiðhjól']
+    marsvín: ['persónan með naggrís','á naggrís']
+    kaktus: ['persónan sem á ekki kaktus','á ekki kaktus']
+    tölvuleikir: ['persónan sem spilar tölvuleiki','spilar tölvuleiki']
+    systir: ['persónan með systur','á systur']
+    mangó: ['persónan sem heldur að næstbesti ávöxturinn sé mangó','heldur að næstbesti ávöxturinn sé mangó']
+    siglingar: ['persónan sem siglir oft','siglir oft']
+    Kanada: ['persónan sem hefur verið til Kanada','hefur verið til Kanada']
+    stærðfræði: ['persónan með meistaragráðu í stærðfræði','meistaragráða í stærðfræði']
+    eðlisfræði: ['persónan sem elskar eðlisfræði','elskar eðlisfræði']
+    gamalt_dýr: ['persónan með gæludýr sem er gamalt fyrir tegund sína','á gæludýr sem er gamalt fyrir tegund sína']
+    skíðastökk: ['persónan sem horfir á skíðastökk','horfir á skíðastökk']
+
+red_herring_facts:
+    síld: "síldin er fiskur"
+    sólkerfinu: "sólkerfið ferðast á um 200 km/s hraða umhverfis miðju vetrarbrautarinnar"
+    gátur: "gátur eru skemmtilegt að leysa"
+    hús: "öll húsin við veginn eru með fallega garða"
+    hurðir: "nokkur húsanna eru með græna hurð"
+    gluggar: "öll húsin eru með stóra glugga"
+    bílar: "það eru margir bílar á veginum"
+    agúrka: "agúrka er ber"
+    snigill: "sniglar eru lindýr"
+    kaffi: "kaffi inniheldur koffín"

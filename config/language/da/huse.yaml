@@ -169,7 +169,7 @@ red_herring_attributes:
 
 red_herring_facts:
     sild: "sild er fisk"
-    sol_systemet: "solsystemet bevæger sig med en fart på ca. 200 km/s rundt om galaksens centrum"
+    solsystemet: "solsystemet bevæger sig med en fart på ca. 200 km/s rundt om galaksens centrum"
     puzzle: "det er sjovt at løse gåder"
     huse: "alle vejens huse har flotte haver"
     døre: "flere af husene har en grøn dør"

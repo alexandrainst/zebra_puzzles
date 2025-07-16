@@ -1,4 +1,4 @@
-# Config file for generating zebra puzzles in Danish with the classic "houses" theme.
+# Config file for generating zebra puzzles in Faroese with the classic "houses" theme.
 
 # Theme
 theme: fo_hus
@@ -21,7 +21,7 @@ attributes:
         Føroyar: ['føroyingurin', 'er føroyskt', 'er ikki føroyskt']
         Niðurlond: ['hollendingurin', 'er hollendskur', 'er ikki hollendskur']
         Ísland: ['íslendingurin', 'er íslendskur', 'er ikki íslendskur']
-        Bretland: ['bretskt', 'er bretskt', 'er ikki bretskt']
+        Bretland: ['bretin', 'er bretskt', 'er ikki bretskt']
 
     arbeiði:
         bakari: ['bakarin', 'er bakari', 'er ikki bakari']
