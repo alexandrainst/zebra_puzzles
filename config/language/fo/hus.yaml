@@ -12,15 +12,15 @@ attributes:
 
     tjóðskapir:
         Danmark: ['danin', 'er dani', 'er ikki dani']
-        Svøríki: ['svenskur', 'er svenskur', 'er ikki svenskur']
-        Lettland: ['lettiskt', 'er lettiskt', 'er ikki lettiskt']
-        Frakland: ['franskmaður', 'er franskur', 'er ikki franskur']
-        Spania: ['spanskur', 'er spanskur', 'er ikki spanskur']
-        Italia: ['italskt', 'er italskt', 'er ikki italskt']
-        Noreg: ['norsk', 'er norsk', 'er ikki norsk']
-        Føroyar: ['føroyskt', 'er føroyskt', 'er ikki føroyskt']
-        Niðurlond: ['hollendingur', 'er hollendskur', 'er ikki hollendskur']
-        Ísland: ['íslendskur', 'er íslendskur', 'er ikki íslendskur']
+        Svøríki: ['svenskarin', 'er svenskur', 'er ikki svenskur']
+        Lettland: ['lettin', 'er lettiskt', 'er ikki lettiskt']
+        Frakland: ['fraklendingurin', 'er franskur', 'er ikki franskur']
+        Spania: ['spaniólin', 'er spanskur', 'er ikki spanskur']
+        Italia: ['italiumaðurin', 'er italskt', 'er ikki italskt']
+        Noreg: ['norðmaðurin', 'er norsk', 'er ikki norsk']
+        Føroyar: ['føroyingurin', 'er føroyskt', 'er ikki føroyskt']
+        Niðurlond: ['hollendingurin', 'er hollendskur', 'er ikki hollendskur']
+        Ísland: ['íslendingurin', 'er íslendskur', 'er ikki íslendskur']
         Bretland: ['bretskt', 'er bretskt', 'er ikki bretskt']
 
     arbeiði:
@@ -57,25 +57,25 @@ attributes:
         vísindaskaldsøgur: ['vísindaskaldsøgurlesarin', 'lesur vísindaskaldsøgur', 'lesur ikki vísindaskaldsøgur']
         ræðslusøgur: ['ræðslusøgurlesarin', 'lesur ræðslusøgur', 'lesur ikki ræðslusøgur']
         skaldskap: ['skaldskaplesarin', 'lesur skaldskap', 'lesur ikki skaldskap']
-        romantiskar skaldsøgur: ['tann, sum lesur romantiskar skaldsøgur', 'lesur romantiskar skaldsøgur', 'lesur ikki romantiskar skaldsøgur']
+        romantiskar skaldsøgur: ['persónurin, sum lesur romantiskar skaldsøgur', 'lesur romantiskar skaldsøgur', 'lesur ikki romantiskar skaldsøgur']
 
     frítíðarítriv:
-        klintring: ['tann, sum klintrar', 'klintrar', 'klintrar ikki']
-        máling: ['tann, sum malar', 'malar', 'malar ikki']
-        borðspæl: ['tann, sum spælir borðspæl', 'spælir borðspæl', 'spælir ikki borðspæl']
-        tennis: ['tann, sum spælir tennis', 'spælir tennis', 'spælir ikki tennis']
-        hekla: ['tann, sum heklar', 'heklar', 'heklar ikki']
-        fóbóltur: ['tann, sum spælir fótbólt', 'spælir fótbólt', 'spælir ikki fótbólt']
-        hondbóltur: ['tann, sum spælir hondbólt', 'spælir hondbólt', 'spælir ikki hondbólt']
+        klintring: ['persónurin, sum klintrar', 'klintrar', 'klintrar ikki']
+        máling: ['persónurin, sum malar', 'malar', 'malar ikki']
+        borðspæl: ['persónurin, sum spælir borðspæl', 'spælir borðspæl', 'spælir ikki borðspæl']
+        tennis: ['persónurin, sum spælir tennis', 'spælir tennis', 'spælir ikki tennis']
+        hekla: ['persónurin, sum heklar', 'heklar', 'heklar ikki']
+        fóbóltur: ['persónurin, sum spælir fótbólt', 'spælir fótbólt', 'spælir ikki fótbólt']
+        hondbóltur: ['persónurin, sum spælir hondbólt', 'spælir hondbólt', 'spælir ikki hondbólt']
 
     yndisfruktir:
-        súrepli: ['tann, sum elskar súrepli', 'elskar súrepli', 'líkar ikki súrepli']
-        pera: ['tann, sum elskar perur', 'elskar perur', 'líkar ikki perur']
-        appilsin: ['tann, sum elskar appelsinir', 'elskar appelsinir', 'líkar ikki appelsinir']
-        banan: ['tann, sum elskar bananir', 'elskar bananir', 'líkar ikki bananir']
-        jarðber: ['tann, sum elskar jarðber', 'elskar jarðber', 'líkar ikki jarðber']
-        solber: ['tann, sum elskar solber', 'elskar solber', 'líkar ikki solber']
-        skógajarðber: ['tann, sum elskar skógajarðber', 'elskar skógajarðber', 'líkar ikki skógajarðber']
+        súrepli: ['persónurin, sum elskar súrepli', 'elskar súrepli', 'líkar ikki súrepli']
+        pera: ['persónurin, sum elskar perur', 'elskar perur', 'líkar ikki perur']
+        appilsin: ['persónurin, sum elskar appelsinir', 'elskar appelsinir', 'líkar ikki appelsinir']
+        banan: ['persónurin, sum elskar bananir', 'elskar bananir', 'líkar ikki bananir']
+        jarðber: ['persónurin, sum elskar jarðber', 'elskar jarðber', 'líkar ikki jarðber']
+        solber: ['persónurin, sum elskar solber', 'elskar solber', 'líkar ikki solber']
+        skógajarðber: ['persónurin, sum elskar skógajarðber', 'elskar skógajarðber', 'líkar ikki skógajarðber']
 
 # Clues
 # Clue names and text for the prompt depending on the clue type.
