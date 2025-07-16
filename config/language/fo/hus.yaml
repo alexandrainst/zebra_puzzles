@@ -1,0 +1,183 @@
+# Config file for generating zebra puzzles in Danish with the classic "houses" theme.
+
+# Theme
+theme: fo_hus
+
+# Attributes
+# The attributes are defined as a dictionary of dictionaries.
+# The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
+# The attributes below should be in the preferred order of categories in the clues.
+
+attributes:
+
+    tjóðskapir:
+        Danmark: ['danin', 'er dani', 'er ikki dani']
+        Svøríki: ['svenskur', 'er svenskur', 'er ikki svenskur']
+        Lettland: ['lettiskt', 'er lettiskt', 'er ikki lettiskt']
+        Frakland: ['franskmaður', 'er franskur', 'er ikki franskur']
+        Spania: ['spanskur', 'er spanskur', 'er ikki spanskur']
+        Italia: ['italskt', 'er italskt', 'er ikki italskt']
+        Noreg: ['norsk', 'er norsk', 'er ikki norsk']
+        Føroyar: ['føroyskt', 'er føroyskt', 'er ikki føroyskt']
+        Niðurlond: ['hollendingur', 'er hollendskur', 'er ikki hollendskur']
+        Ísland: ['íslendskur', 'er íslendskur', 'er ikki íslendskur']
+        Bretland: ['bretskt', 'er bretskt', 'er ikki bretskt']
+
+    arbeiði:
+        bakari: ['bakarin', 'er bakari', 'er ikki bakari']
+        kirkjutænari: ['kirkjutænarin', 'er kirkjutænari', 'er ikki kirkjutænari']
+        løgreglumaður: ['løgreglumaðurin', 'er løgreglumaður', 'er ikki løgreglumaður']
+        sjúkrasystrir: ['sjúkrasystrin', 'er sjúkrasystr', 'er ikki sjúkrasystr']
+        lærari: ['lærarin', 'er lærari', 'er ikki lærari']
+        ritbúnaðarmennari: ['ritbúnaðarmennarin', 'er ritbúnaðarmennari', 'er ikki ritbúnaðarmennari']
+        handilshjálpari: ['handilshjálparin', 'er handilshjálpari', 'er ikki handilshjálpari']
+
+    kelidjór:
+        ketta: ['kettueigarin', 'hevur kettu', 'hevur ikki kettu']
+        hundur: ['hundaeigarin', 'hevur hund', 'hevur ikki hund']
+        kanin: ['kanineigarin', 'hevur kanin', 'hevur ikki kanin']
+        sebra: ['sebraeigarin', 'hevur sebra', 'hevur ikki sebra']
+        budgie: ['budgieeigarin', 'hevur budgie', 'hevur ikki budgie']
+        snigil: ['snigileigarin', 'hevur snigil', 'hevur ikki snigil']
+        vandrandi pinna: ['eigarin av einum vandrandi pinna', 'hevur vandrandi pinna', 'hevur ikki vandrandi pinna']
+
+    drikkur:
+        djus: ['djusdrekkarin', 'drekkur djus', 'drekkur ikki djus']
+        kaffi: ['kaffidrekkarin', 'drekkur kaffi', 'drekkur ikki kaffi']
+        mjólk: ['mjólkadrekkarin', 'drekkur mjólk', 'drekkur ikki mjólk']
+        smoothie: ['smoothiedrekkarinn', 'drekkur smoothie', 'drekkur ikki smoothie']
+        kakao: ['kakaodrekkarinn', 'drekkur kakao', 'drekkur ikki kakao']
+        te: ['tedrekkarinn', 'drekkur te', 'drekkur ikki te']
+        sodavatn: ['sodavatnsdrekkarinn', 'drekkur sodavatn', 'drekkur ikki sodavatn']
+
+    yndisbókasjangrur:
+        yrkisbókmentir: ['yrkisbókmentalesarin', 'lesur yrkisbókmentir', 'lesur ikki yrkisbókmentir']
+        brotsskaldsøgu: ['brotsskaldsøguelskarin', 'lesur brotsskaldsøgu', 'lesur ikki brotsskaldsøgu']
+        fantasi: ['fantasilesarin', 'lesur fantasi', 'lesur ikki fantasi']
+        vísindaskaldsøgur: ['vísindaskaldsøgurlesarin', 'lesur vísindaskaldsøgur', 'lesur ikki vísindaskaldsøgur']
+        ræðslusøgur: ['ræðslusøgurlesarin', 'lesur ræðslusøgur', 'lesur ikki ræðslusøgur']
+        skaldskap: ['skaldskaplesarin', 'lesur skaldskap', 'lesur ikki skaldskap']
+        romantiskar skaldsøgur: ['tann, sum lesur romantiskar skaldsøgur', 'lesur romantiskar skaldsøgur', 'lesur ikki romantiskar skaldsøgur']
+
+    frítíðarítriv:
+        klintring: ['tann, sum klintrar', 'klintrar', 'klintrar ikki']
+        máling: ['tann, sum malar', 'malar', 'malar ikki']
+        borðspæl: ['tann, sum spælir borðspæl', 'spælir borðspæl', 'spælir ikki borðspæl']
+        tennis: ['tann, sum spælir tennis', 'spælir tennis', 'spælir ikki tennis']
+        hekla: ['tann, sum heklar', 'heklar', 'heklar ikki']
+        fóbóltur: ['tann, sum spælir fótbólt', 'spælir fótbólt', 'spælir ikki fótbólt']
+        hondbóltur: ['tann, sum spælir hondbólt', 'spælir hondbólt', 'spælir ikki hondbólt']
+
+    yndisfruktir:
+        súrepli: ['tann, sum elskar súrepli', 'elskar súrepli', 'líkar ikki súrepli']
+        pera: ['tann, sum elskar perur', 'elskar perur', 'líkar ikki perur']
+        appilsin: ['tann, sum elskar appelsinir', 'elskar appelsinir', 'líkar ikki appelsinir']
+        banan: ['tann, sum elskar bananir', 'elskar bananir', 'líkar ikki bananir']
+        jarðber: ['tann, sum elskar jarðber', 'elskar jarðber', 'líkar ikki jarðber']
+        solber: ['tann, sum elskar solber', 'elskar solber', 'líkar ikki solber']
+        skógajarðber: ['tann, sum elskar skógajarðber', 'elskar skógajarðber', 'líkar ikki skógajarðber']
+
+# Clues
+# Clue names and text for the prompt depending on the clue type.
+# Clue names should not be edited, but they can be a subset of the full list of implemented clues.
+# NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
+clues_dict:
+    found_at: "{attribute_desc} býr í húsi nummar {i_object}."
+    not_at: "{attribute_desc} býr ikki í húsi nummar {i_object}."
+    next_to: "{attribute_desc_1} býr við síðuna av {attribute_desc_2}."
+    not_next_to: "{attribute_desc_1} býr ikki við síðuna av {attribute_desc_2}, og tey eru ikki sami persónur."
+    just_left_of: "{attribute_desc_1} býr beint til vinstru fyri {attribute_desc_2}."
+    just_right_of: "{attribute_desc_1} býr beint til høgru fyri {attribute_desc_2}."
+    left_of: "{attribute_desc_1} býr til vinstru fyri {attribute_desc_2}."
+    right_of: "{attribute_desc_1} býr til høgru fyri {attribute_desc_2}."
+    same_object: "{attribute_desc_1} {attribute_desc_2}."
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."
+    between: "{attribute_desc_2} býr millum {attribute_desc_1} og {attribute_desc_3}."
+    not_between: "{attribute_desc_1} býr ikki millum {attribute_desc_2} og {attribute_desc_3}, og tey eru trý ymisk fólk."
+    multiple_between: "{attribute_desc_1} og {attribute_desc_2} búgva við {n_between} húsum ímillum sín."
+    one_between: "Tað er eitt hús millum {attribute_desc_1} og {attribute_desc_2}."
+
+# Prompt
+# We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
+# prompt_and is the word used for separating the last two attributes in a list of attributes.
+
+prompt_and: og
+
+prompt_templates:
+    - |
+        Ein røð av húsum er nummerað frá 1 til {n_objects} frá vinstru til høgru.
+
+        Í hvørjum húsi býr ein persónur við serligum eginleikum í hvørjum av hesum flokkum:
+
+        {chosen_attributes_str}
+
+        Harumframt vita vit fylgjandi:
+
+        {chosen_clues_str}
+
+        Hvør hevur hvørjar eginleikar og býr í hvørjum húsi?
+
+        Vinarliga gev títt svar sum JSON dictionary í sniðinum niðanfyri. Hvør røð skal byrja við object_X har X er húsanummarið. Hvør súla umboðar ein flokk, og teir skulu vera í somu raðfylgju, sum flokkarnir eru nevndir omanfyri.
+
+        {solution_template}
+
+    - |
+        Ein røð av húsum er nummerað frá 1 til {n_objects} frá vinstru til høgru.
+
+        Í hvørjum húsi býr ein persónur við einum serligum eginleika í flokkinum {chosen_attributes_str}.
+
+        Harumframt vita vit fylgjandi:
+
+        {chosen_clues_str}
+
+        Hvør hevur hvørjar eginleikar og býr í hvørjum húsi?
+
+        Vinarliga gev títt svar sum JSON orðabók í sniðinum niðanfyri. Hvør røð skal byrja við object_X har X er húsanummarið. Aftaná kemur ein súla við eginleikunum í áðurnevnda flokki.
+
+        {solution_template}
+
+
+# Red herrings
+# The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
+# NOTE: More types could be added such as "The person with a cactus is not the baker"
+
+red_herring_clues_dict:
+    same_herring: "{attribute_desc} {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} bor við síðuna av {attribute_desc_herring}."
+    double_herring: "{attribute_desc_herring_1} og {attribute_desc_herring_2}."
+    fact: "{fact}."
+    object_fact: "{attribute_desc} veit, at {fact}."
+    friends: "{attribute_desc} er góður vinur við {attribute_desc_herring}."
+    herring_found_at: "{attribute_desc_herring} býr í húsi nummar {i_object}."
+    herring_not_at: "{attribute_desc_herring} býr ikki í húsi nummar {i_object}."
+
+
+red_herring_attributes:
+    reytt hár: ['persónurin við reyðum hári','hevur reytt hár']
+    brillur: ['persónurin við brillum','brúkar brillur']
+    tatovering: ['persónurin við tatovering','hevur eina tatovering']
+    gittar: ['persónurin, sum spælir gittar','spælir gittar']
+    súkkla: ['persónurin við súkklu','hevur súkklu']
+    marsvín: ['persónurin við einum marsvini','hevur eitt marsvín']
+    kaktus: ['persónurin, sum ikki eigur ein kaktus','eigur ikki kaktus']
+    telduspæl: ['persónurin, sum spælir telduspøl','spælir telduspøl']
+    systir: ['persónurin við systur','hevur eina systur']
+    mango: ['persónurin, sum heldur, at næstbesta fruktin er mango','heldur, at tann næstbesta fruktin er mango']
+    siglur: ['persónurin, sum ofta siglir','siglir ofta']
+    Kanada: ['persónurin, sum hevur verið í Kanada','hevur verið í Kanada']
+    støddfrøði: ['persónurin, sum hevur masterútbúgving í støddfrøði','hevur masterútbúgving í støddfrøði']
+    alisfrøði: ['persónurin, sum elskar alisfrøði','elskar alisfrøði']
+    gammalt dýr: ['persónurin við einum kelidjóri, sum er gamalt fyri sítt slag',' hevur eitt kelidjór, sum er gamalt fyri sítt slag']
+    skíðhopp: ['persónurin, sum hyggur at skíðhoppi.','hyggur at skíðhoppi']
+
+red_herring_facts:
+    sild: "sild er fiskur"
+    sólskipaninar: "sólskipanin flytur seg við eini ferð á umleið 200 km/s um miðjuna á stjørnubreytini" 
+    gáta: "tað er stuttligt at loysa gátur"
+    hús: "øll húsini á vegnum hava snøggar garðar"
+    hurðar: "fleiri av húsunum hava grøna hurð"
+    vindeygu: "øll húsini hava stór vindeygu"
+    bilar: "tað eru nógvir bilar á vegnum"
+    agurk: "agurk er eitt ber"
+    snigil: "sniglar eru lindýr"
+    kaffi: "kaffi inniheldur koffein"
