@@ -29,7 +29,7 @@ attributes:
         politibetjent: ['politibetjenten', 'er politibetjent', 'er ikke politibetjent']
         sygeplejerske: ['sygeplejersken', 'er sygeplejerske', 'er ikke sygeplejerske']
         lærer: ['læreren', 'er lærer', 'er ikke lærer']
-        software developer: ['software developeren', 'er software developer', 'er ikke software developer']
+        softwareudvikler: ['softwareudvikleren', 'er softwareudvikler', 'er ikke softwareudvikler']
         butiksassistent: ['butiksassistenten', 'er butiksassistent', 'er ikke butiksassistent']
 
     kæledyr:
@@ -165,7 +165,7 @@ red_herring_attributes:
     matematik: ['personen har en kandidatgrad i matematik','har en kandidatgrad i matematik']
     fysik: ['personen der elsker fysik','elsker fysik']
     gammelt_dyr: ['personen med et kæledyr som er gammelt for sin art','har et kæledyr som er gammelt for sin art']
-    fodbold: ['personen der ser fodbold','ser fodbold']
+    skihop: ['personen der ser skihop','ser skihop']
 
 red_herring_facts:
     sild: "sild er fisk"
