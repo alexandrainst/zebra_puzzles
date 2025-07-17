@@ -39,7 +39,7 @@ attributes:
         sebra: ['sebraeigarin', 'hevur sebra', 'hevur ikki sebra']
         budgie: ['budgieeigarin', 'hevur budgie', 'hevur ikki budgie']
         snigil: ['snigileigarin', 'hevur snigil', 'hevur ikki snigil']
-        skordýr: ['eigarin av einum skordýri', 'hevur skordýr', 'hevur ikki skordýr']
+        reikandi kvistur: ['eigarin av einum reikandi kvisti', 'hevur reikandi kvistur', 'hevur ikki reikandi kvistur']
 
     drikkur:
         djus: ['djusdrekkarin', 'drekkur djus', 'drekkur ikki djus']

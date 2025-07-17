@@ -32,7 +32,7 @@ attributes:
         Softwareentwickler: ['der Softwareentwickler', 'ist Softwareentwickler', 'ist kein Softwareentwickler']
         Verkäufer: ['der Verkäufer', 'ist Verkäufer', 'ist kein Verkäufer']
 
-    Haustiere:
+    Heimtiere:
         Katze: ['der Katzenbesitzer', 'hat eine Katze', 'hat keine Katze']
         Hund: ['der Hundebesitzer', 'hat einen Hund', 'hat keinen Hund']
         Kaninchen: ['der Kaninchenbesitzer', 'hat ein Kaninchen', 'hat kein Kaninchen']
