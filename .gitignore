@@ -94,6 +94,13 @@ multirun/
 data/*
 !data/.gitkeep
 
+data_train/*
+!data_train/.gitkeep
+
+data_test/*
+!data_test/.gitkeep
+
+
 # Data backup
 data_backup/*
 !data_backup/.gitkeep

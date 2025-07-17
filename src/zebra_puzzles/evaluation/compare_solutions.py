@@ -50,7 +50,7 @@ def compute_metrics(
         mean_scores[i] = float(np.mean(scores))
 
         if n_puzzles > 1:
-            if score_types[i] == "puzzle_score":
+            if score_types[i] == "puzzle score":
                 # Take the standard deviations of the sample and of the mean for a Bernoulli distribution
                 n_successes = int(mean_scores[i] * n_puzzles)
                 std_scores[i], std_mean_scores[i] = bernoulli_std(
@@ -68,12 +68,18 @@ def compute_metrics(
                 std_scores[i], precision=1, fractional=False
             )
 
-            mean_scores[i], std_mean_scores[i] = round_using_std(
+            mean_scores_str_i, std_mean_scores_str_i = round_using_std(
                 value=mean_scores[i], std=std_mean_scores[i]
+            )
+            # Rarely, the floats will still remove a trailing zero, so we use the strings as well
+            # TODO: If the other parts of 'metrics' are used, we should check their rounding
+            mean_scores[i], std_mean_scores[i] = (
+                mean_scores_str_i,
+                std_mean_scores_str_i,
             )
 
             # Describe the score with a string
-            score_str = f"\tMean: {mean_scores[i]} ± {std_mean_scores[i]} (1σ)"
+            score_str = f"\tMean: {mean_scores_str_i} ± {std_mean_scores_str_i} (1σ)"
             score_str += f"\n\tSample standard deviation: {std_scores[i]}"
             score_strings[i] = score_str
         else:
