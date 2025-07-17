@@ -37,7 +37,7 @@ attributes:
         hund: ['hundeeieren','har en hund','har ikke en hund']
         kanin: ['kanineieren','har en kanin','har ikke en kanin']
         sebra: ['sebraeieren','har en sebra','har ikke en sebra']
-        undulat: ['undulateeieren','har en undulat','har ikke en undulat']
+        undulat: ['undulateieren','har en undulat','har ikke en undulat']
         snegle: ['snegleeieren','har en snegle','har ikke en snegle']
         vandrende pinne: ['eieren av en vandrende pinne','har en vandrende pinne','har ikke en vandrende pinne']
 
@@ -46,7 +46,7 @@ attributes:
         kaffe: ['kaffedrikkeren', 'drikker kaffe','drikker ikke kaffe']
         melk: ['melkedrikkeren', 'drikker melk','drikker ikke melk']
         smoothie: ['smoothiedrikkeren', 'drikker smoothie','drikker ikke smoothie']
-        cocoa: ['kakaodrikkeren', 'drikker kakao','drikker ikke kakao']
+        kakao: ['kakaodrikkeren', 'drikker kakao','drikker ikke kakao']
         te: ['tedrikkeren', 'drikker te','drikker ikke te']
         brus: ['brusdrikkeren', 'drikker brus','drikker ikke brus']
 
@@ -133,7 +133,7 @@ prompt_templates:
 
         Hvem har hvilke egenskaper og bor i hvilket hus?
 
-        Vennligst oppgi svaret ditt som en JSON-ordbok i formatet nedenfor. Hver rad skal starte med object_X der X er husnummeret. Dette etterfølges av en kolonne med egenskaperne i den nevnte kategorien.
+        Vennligst oppgi svaret ditt som et JSON dictionary i formatet nedenfor. Hver rad skal starte med object_X der X er husnummeret. Dette etterfølges av en kolonne med egenskaperne i den nevnte kategorien.
 
         {solution_template}
 
