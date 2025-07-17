@@ -1,0 +1,183 @@
+# Config file for generating zebra puzzles in Norwegian Bokmål with the classic "houses" theme.
+
+# Theme
+theme: nb_hus
+
+# Attributes
+# The attributes are defined as a dictionary of dictionaries.
+# The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
+# The attributes below should be in the preferred order of categories in the clues.
+
+attributes:
+    nasjonaliteter:
+        Danmark: ['dansken', 'er dansk', 'er ikke dansk']
+        Sverige: ['svensken', 'er svensk', 'er ikke svensk']
+        Latvia: ['latvien', 'er latvisk', 'er ikke latvisk']
+        Frankrike: ['franskmannen', 'er fransk', 'er ikke fransk']
+        Spania: ['spanjolen', 'er spansk', 'er ikke spansk']
+        Italia: ['italieneren', 'er italiensk', 'er ikke italiensk']
+        Norge: ['nordmannen', 'er norsk', 'er ikke norsk']
+        Færøyene: ['færøyingen', 'er færøysk', 'er ikke færøysk']
+        Nederland: ['nederlenderen', 'er nederlandsk', 'er ikke nederlandsk']
+        Island: ['islendingen', 'er islandsk', 'er ikke islandsk']
+        Storbritannia: ['briten', 'er britisk', 'er ikke britisk']
+
+
+    jobber:
+        baker: ['bakeren', 'er en baker', 'er ikke en baker']
+        minister: ['ministeren', 'er en minister', 'er ikke en minister']
+        politibetjent: ['politibetjenten', 'er en politibetjent', 'er ikke en politibetjent']
+        sykepleier: ['sykepleieren', 'er en sykepleier', 'er ikke en sykepleier']
+        lærer: ['læreren', 'er en lærer', 'er ikke en lærer']
+        programvareutvikler: ['programvareutvikleren', 'er en programvareutvikler', 'er ikke en programvareutvikler']
+        butikkmedarbeider: ['butikkmedarbeideren', 'er en butikkmedarbeider', 'er ikke en butikkmedarbeider']
+
+    kjæledyr:
+        katt: ['katteeieren','har en katt','har ikke en katt']
+        hund: ['hundeeieren','har en hund','har ikke en hund']
+        kanin: ['kanineieren','har en kanin','har ikke en kanin']
+        sebra: ['sebraeieren','har en sebra','har ikke en sebra']
+        undulat: ['undulateeieren','har en undulat','har ikke en undulat']
+        snegle: ['snegleeieren','har en snegle','har ikke en snegle']
+        vandrende pinne: ['eieren av en vandrende pinne','har en vandrende pinne','har ikke en vandrende pinne']
+
+    drink:
+        juice: ['juicedrikkeren', 'drikker juice','drikker ikke juice']
+        kaffe: ['kaffedrikkeren', 'drikker kaffe','drikker ikke kaffe']
+        melk: ['melkedrikkeren', 'drikker melk','drikker ikke melk']
+        smoothie: ['smoothiedrikkeren', 'drikker smoothie','drikker ikke smoothie']
+        cocoa: ['kakaodrikkeren', 'drikker kakao','drikker ikke kakao']
+        te: ['tedrikkeren', 'drikker te','drikker ikke te']
+        brus: ['brusdrikkeren', 'drikker brus','drikker ikke brus']
+
+    favorittboksjangere:
+        sakprosa: ['personen som leser sakprosa', 'leser sakprosa', 'leser ikke sakprosa']
+        krim: ['krimleseren', 'leser krim', 'leser ikke krim']
+        fantasy: ['fantasyleseren', 'leser fantasy', 'leser ikke fantasy']
+        science fiction: ['personen som leser science fiction', 'leser science fiction', 'leser ikke science fiction']
+        skrekk: ['skrekkeleseren', 'leser skrekk', 'leser ikke skrekk']
+        poesi: ['poesileseren', 'leser poesi', 'leser ikke poesi']
+        romantikk: ['personen som leser romantikkromaner', 'leser romantikkromaner', 'leser ikke romantikkromaner']
+
+    hobbyer:
+        klatring: ['personen som klatrer', 'klatrer', 'klatrer ikke']
+        maleri: ['personen som maler', 'maler', 'maler ikke']
+        brettspill: ['personen som spiller brettspill', 'spiller brettspill', 'spiller ikke brettspill']
+        tennis: ['personen som spiller tennis', 'spiller tennis', 'spiller ikke tennis']
+        hekling: ['personen som hekler', 'hekler', 'hekler ikke']
+        fotball: ['personen som spiller fotball', 'spiller fotball', 'spiller ikke fotball']
+        håndball: ['personen som spiller håndball', 'spiller håndball', 'spiller ikke håndball']
+
+    favorittfrukter:
+        eple: ['personen som elsker epler', 'elsker epler', 'liker ikke epler']
+        pære: ['personen som elsker pærer', 'elsker pærer', 'liker ikke pærer']
+        appelsin: ['personen som elsker appelsiner', 'elsker appelsiner', 'liker ikke appelsiner']
+        banan: ['personen som elsker bananer', 'elsker bananer', 'liker ikke bananer']
+        jordbær: ['personen som elsker jordbær', 'elsker jordbær', 'liker ikke jordbær']
+        solbær: ['personen som elsker solbær', 'elsker solbær', 'liker ikke solbær']
+        markjordbær: ['personen som elsker markjordbær', 'elsker markjordbær', 'liker ikke markjordbær']
+
+# Clues
+# Clue names and text for the prompt depending on the clue type.
+# Clue names should not be edited, but they can be a subset of the full list of implemented clues.
+# NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
+clues_dict:
+    found_at: "{attribute_desc} bor i hus nummer {i_object}."
+    not_at: "{attribute_desc} bor ikke i hus nummer {i_object}."
+    next_to: "{attribute_desc_1} bor ved siden av {attribute_desc_2}."                                                             # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: "{attribute_desc_1} bor ikke ved siden av {attribute_desc_2}, og de er ikke den samme personen."                    # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: "{attribute_desc_1} bor rett til venstre for {attribute_desc_2}."                                                # Requires n_objects > 2, otherwise use left_of
+    just_right_of: "{attribute_desc_1} bor rett til høyre for {attribute_desc_2}."                                                 # Requires n_objects > 2, otherwise use right_of
+    left_of: "{attribute_desc_1} bor til venstre for {attribute_desc_2}."
+    right_of: "{attribute_desc_1} bor til høyre for {attribute_desc_2}."
+    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                          # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                      # Requires n_attributes > 1, otherwise it cannot be used
+    between: "{attribute_desc_2} bor mellom {attribute_desc_1} og {attribute_desc_3}."                                             # Requires n_objects > 2, otherwise it cannot be used
+    not_between: "{attribute_desc_1} bor ikke mellom {attribute_desc_2} og {attribute_desc_3}, og de er tre forskjellige personer." # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: "{attribute_desc_1} og {attribute_desc_2} bor med {n_between} hus mellom seg."                              # Requires n_objects > 3, otherwise it cannot be used
+    one_between: "Det er ett hus mellom {attribute_desc_1} og {attribute_desc_2}."                                                  # Requires n_objects > 2, otherwise it cannot be used
+
+# Prompt
+# We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
+# prompt_and is the word used for separating the last two attributes in a list of attributes.
+
+prompt_and: og
+
+prompt_templates:
+    - |
+        En rekke med hus er nummerert fra 1 til {n_objects} fra venstre mod høyre.
+
+        I hvert hus bor en person med unike egenskaper i hver av følgende kategorier:
+
+        {chosen_attributes_str}
+
+        I tillegg vet vi følgende:
+
+        {chosen_clues_str}
+
+        Hvem har hvilke egenskaper og bor i hvilket hus?
+
+        Vennligst oppgi svaret ditt som et JSON dictionary i formatet nedenfor. Hver rad skal starte med object_X der X er husnummeret. Hver kolonne representerer en kategori, og de skal være i samme rekkefølge som kategoriene som er oppført ovenfor.
+
+        {solution_template}
+
+
+    - |
+        En rekke med hus er nummerert fra 1 til {n_objects} fra venstre til høyre.
+
+        I hvert hus bor en person med en unik egenskap i kategorien {chosen_attributes_str}.
+
+        I tillegg vet vi følgende:
+
+        {chosen_clues_str}
+
+        Hvem har hvilke egenskaper og bor i hvilket hus?
+
+        Vennligst oppgi svaret ditt som en JSON-ordbok i formatet nedenfor. Hver rad skal starte med object_X der X er husnummeret. Dette etterfølges av en kolonne med egenskaperne i den nevnte kategorien.
+
+        {solution_template}
+
+# Red herrings
+# The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
+# NOTE: More types could be added such as "The person with a cactus is not the baker"
+
+red_herring_clues_dict:
+    same_herring: "{attribute_desc} {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} bor ved siden av {attribute_desc_herring}."
+    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
+    fact: "{fact}."
+    object_fact: "{attribute_desc} vet at {fact}."
+    friends: "{attribute_desc} er god venn med {attribute_desc_herring}."
+    herring_found_at: "{attribute_desc_herring} bor i hus nummer {i_object}."
+    herring_not_at: "{attribute_desc_herring} bor ikke i hus nummer {i_object}."
+
+red_herring_attributes:
+    rødt_hår: ['personen med rødt hår','har rødt hår']
+    briller: ['personen med briller','bruker briller']
+    tatovering: ['personen med tatovering','har tatovering']
+    gitar: ['personen som spiller gitar','spiller gitar']
+    sykkel: ['personen med sykkel','har sykkel']
+    marsvin: ['personen med marsvin','har marsvin']
+    kaktus: ['personen som ikke eier en kaktus','har ikke en kaktus']
+    dataspill: ['personen som spiller dataspill','spiller dataspill']
+    søster: ['personen med en søster','har en søster']
+    mango: ['personen som mener den nest beste frukten er mango','mener den nest beste frukten er mango']
+    seiling: ['personen som ofte seiler','seiler ofte']
+    Canada: ['personen som har vært i Canada','har vært i Canada']
+    matematikk: ['personen som har en mastergrad i matematikk','har en mastergrad i matematikk']
+    fysikk: ['personen som elsker fysikk','elsker fysikk']
+    gammelt_dyr: ['personen med et kjæledyr som er gammelt for sitt slag','har et kjæledyr som er gammelt for sitt slag']
+    skihopping: ['personen som ser på skihopping','ser på skihopping']
+
+red_herring_facts:
+    sild: "sild er en fisk"
+    solsystem: «solsystemet beveger seg med en fart på omtrent 200 km/s rundt galaksens sentrum»
+    gåte: «det er gøy å løse gåter»
+    hus: «alle husene på veien har fine hager»
+    dører: «flere av husene har en grønn dør»
+    vinduer: «alle husene har store vinduer»
+    biler: «det er mange biler på veien»
+    agurk: «agurk er et bær»
+    snegle: «snegler er bløtdyr»
+    kaffe: «kaffe inneholder koffein»
+
