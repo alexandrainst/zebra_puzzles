@@ -1,0 +1,183 @@
+# Config file for generating zebra puzzles in Dutch with the classic "houses" theme.
+
+# Theme
+theme: nl_huizen
+
+# Attributes
+# The attributes are defined as a dictionary of dictionaries.
+# The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
+# The attributes below should be in the preferred order of categories in the clues.
+
+attributes:
+
+    nationaliteiten:
+        Denemarken: ['de Deen', 'is Deens', 'is niet Deens']
+        Zweden: ['de Zweed', 'is Zweeds', 'is niet Zweeds']
+        Letland: ['de Let', 'is Lets', 'is niet Lets']
+        Frankrijk: ['de Fransman', 'is Frans', 'is niet Frans']
+        Spanje: ['de Spanjaard', 'is Spaans', 'is niet Spaans']
+        Italië: ['de Italiaan', 'is Italiaans', 'is niet Italiaans']
+        Noorwegen: ['de Noor', 'is Noors', 'is niet Noors']
+        Faeröer: ['de Faeröer', 'is Faeröers', 'is niet Faeröers']
+        Nederland: ['de Nederlander', 'is Nederlands', 'is niet Nederlands']
+        IJsland: ['de IJslander', 'is IJslands', 'is niet IJslands']
+        Groot-Brittannië: ['de Brit', 'is Brits', 'is niet Brits']
+
+    banen:
+        bakker: ['de bakker', 'is bakker', 'is geen bakker']
+        minister: ['de minister', 'is minister', 'is geen minister']
+        politieagent: ['de politieagent', 'is politieagent', 'is geen politieagent']
+        verpleegkundige: ['de verpleegkundige', 'is verpleegkundige', 'is geen verpleegkundige']
+        leraar: ['de leraar', 'is leraar', 'is geen leraar']
+        softwareontwikkelaar: ['de softwareontwikkelaar', 'is softwareontwikkelaar', 'is geen softwareontwikkelaar']
+        winkelbediende: ['de winkelbediende', 'is winkelbediende', 'is geen winkelbediende']
+
+
+    gezelschapsdier:
+        kat: ['de katteneigenaar','heeft een kat','heeft geen kat']
+        hond: ['de hondeneigenaar','heeft een hond','heeft geen hond']
+        konijn: ['de konijneneigenaar','heeft een konijn','heeft geen konijn']
+        zebra: ['de zebraeigenaar','heeft een zebra','heeft geen zebra']
+        parkiet: ['de parkieteneigenaar','heeft een parkiet','heeft geen parkiet']
+        slak: ['de slakkeneigenaar','heeft een slak','heeft geen slak']
+        wandelende tak: ['de eigenaar van een wandelende tak','heeft een wandelende tak','heeft geen wandelende tak']
+
+    dranken:
+        sap: ['de sapdrinker', 'drinkt sap','drinkt geen sap']
+        koffie: ['de koffiedrinker', 'drinkt koffie','drinkt geen koffie']
+        melk: ['de melkdrinker', 'drinkt melk','drinkt geen melk']
+        smoothie: ['de smoothiedrinker', 'drinkt smoothie','drinkt geen smoothie']
+        cacao: ['de cacaodrinker', 'drinkt cacao','drinkt geen cacao']
+        thee: ['de theedrinker', 'drinkt thee','drinkt geen thee']
+        frisdrank: ['de frisdrankdrinker', 'drinkt frisdrank','drinkt geen frisdrank']
+
+    favoriete boekgenres:
+        non-fictie: ['de persoon die non-fictie leest', 'leest non-fictie', 'leest geen non-fictie']
+        krimi: ['de krimilezer', 'leest krimi', 'leest geen krimi']
+        fantasy: ['de fantasylezer', 'leest fantasy', 'leest geen fantasy']
+        sciencefiction: ['de persoon die sciencefiction leest', 'leest sciencefiction', 'leest geen sciencefiction']
+        horror: ['de horrorlezer', 'leest horror', 'leest geen horror']
+        poëzie: ['de poëzielezer', 'leest poëzie', 'leest geen poëzie']
+        liefdesverhaal: ['de persoon die liefdesverhalen leest', 'leest liefdesverhalen', 'leest geen liefdesverhalen']
+
+    hobby's:
+        klimmen: ['de persoon die klimt', 'klimt', 'klimt niet']
+        schilderen: ['de persoon die schildert', 'schildert', 'schildert niet']
+        bordspellen: ['de persoon die bordspellen speelt', 'speelt bordspellen', 'speelt geen bordspellen']
+        tennis: ['de persoon die tennist', 'speelt tennis', 'speelt geen tennis']
+        haken: ['de persoon die haakt', 'haakt', 'haakt niet']
+        voetbal: ['de persoon die voetbalt', 'voetbalt', 'speelt geen voetbal']
+        handbal: ['de persoon die handbalt', 'speelt handbal', 'speelt geen handbal']
+
+    favoriete fruitsoorten:
+        appel: ['de persoon die van appels houdt', 'houdt van appels', 'houdt niet van appels']
+        peer: ['de persoon die van peren houdt', 'houdt van peren', 'houdt niet van peren']
+        sinaasappel: ['de persoon die van sinaasappels houdt', 'houdt van sinaasappels', 'houdt niet van sinaasappels']
+        banaan: ['de persoon die van bananen houdt', 'houdt van bananen', 'houdt niet van bananen']
+        aardbei: ['de persoon die van aardbeien houdt', 'houdt van aardbeien', 'houdt niet van aardbeien']
+        zwarte bes: ['de persoon die van zwarte bessen houdt', 'houdt van zwarte bessen', 'houdt niet van zwarte bessen']
+        bosaardbei: ['de persoon die van bosaardbeien houdt', 'houdt van bosaardbeien', 'houdt niet van bosaardbeien']
+
+# Clues
+# Clue names and text for the prompt depending on the clue type.
+# Clue names should not be edited, but they can be a subset of the full list of implemented clues.
+# NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
+clues_dict:
+    found_at: "{attribute_desc} woont in huisnummer {i_object}."
+    not_at: "{attribute_desc} woont niet in huisnummer {i_object}."
+    next_to: "{attribute_desc_1} woont naast {attribute_desc_2}."                                                             # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: "{attribute_desc_1} woont niet naast {attribute_desc_2}, en ze zijn niet dezelfde persoon."                    # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: "{attribute_desc_1} woont net links van {attribute_desc_2}."                                                # Requires n_objects > 2, otherwise use left_of
+    just_right_of: "{attribute_desc_1} woont net rechts van {attribute_desc_2}."                                                 # Requires n_objects > 2, otherwise use right_of
+    left_of: "{attribute_desc_1} woont links van {attribute_desc_2}."
+    right_of: "{attribute_desc_1} woont rechts van {attribute_desc_2}."
+    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                          # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                      # Requires n_attributes > 1, otherwise it cannot be used
+    between: "{attribute_desc_2} woont tussen {attribute_desc_1} en {attribute_desc_3}."                                             # Requires n_objects > 2, otherwise it cannot be used
+    not_between: "{attribute_desc_1} woont niet tussen {attribute_desc_2} en {attribute_desc_3}, en het zijn drie verschillende personen." # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: "{attribute_desc_1} en {attribute_desc_2} woont met {n_between} huizen tussen zich."                              # Requires n_objects > 3, otherwise it cannot be used
+    one_between: "Er staat één huis tussen {attribute_desc_1} en {attribute_desc_2}."                                                  # Requires n_objects > 2, otherwise it cannot be used
+
+# Prompt
+# We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
+# prompt_and is the word used for separating the last two attributes in a list of attributes.
+
+prompt_and: en
+
+prompt_templates:
+    - |
+        Een rij huizen is van links naar rechts genummerd van 1 tot {n_objects}.
+
+        In elk huis woont een persoon met unieke eigenschappen in elk van de volgende categorieën:
+
+        {chosen_attributes_str}
+
+        Daarnaast weten we het volgende:
+
+        {chosen_clues_str}
+
+        Wie heeft welke eigenschappen en woont in welk huis?
+
+        Geef je antwoord als een JSON dictionary in de onderstaande indeling. Elke rij moet beginnen met object_X, waarbij X het huisnummer is. Elke kolom vertegenwoordigt een categorie en ze moeten in dezelfde volgorde staan als de categorieën hierboven.
+
+        {solution_template}
+
+
+    - |
+        Een rij huizen is van links naar rechts genummerd van 1 tot {n_objects}.
+
+        In elk huis woont een persoon met een unieke eigenschap in de categorie {chosen_attributes_str}.
+        
+        Daarnaast weten we het volgende:
+
+        {chosen_clues_str}
+
+        Wie heeft welke eigenschappen en woont in welk huis?
+
+        Geef je antwoord in de vorm van een JSON dictionary in de onderstaande notatie. Elke rij moet beginnen met object_X, waarbij X het huisnummer is. Dit wordt gevolgd door een kolom met de eigenschappen in de bovengenoemde categorie.
+        
+        {solution_template}
+
+# Red herrings
+# The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
+# NOTE: More types could be added such as "The person with a cactus is not the baker"
+
+red_herring_clues_dict:
+    same_herring: "{attribute_desc} {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} woont naast {attribute_desc_herring}."
+    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
+    fact: "{fact}."
+    object_fact: "{attribute_desc} weet dat {fact}."
+    friends: "{attribute_desc} is goede vrienden met {attribute_desc_herring}."
+    herring_found_at: "{attribute_desc_herring} woont in huisnummer {i_object}."
+    herring_not_at: "{attribute_desc_herring} woont niet in huisnummer {i_object}."
+
+red_herring_attributes:
+    rood_haar: ['de persoon met rood haar','heeft rood haar']
+    bril: ['de persoon met een bril','draagt een bril']
+    tatoeage: ['de persoon met een tatoeage','heeft een tatoeage']
+    gitaar: ['de persoon die gitaar speelt','speelt gitaar']
+    fiets: ['de persoon met een fiets','heeft een fiets']
+    cavia: ['de persoon met een cavia','heeft een cavia']
+    cactus: ['de persoon die geen cactus heeft','heeft geen cactus']
+    computerspellen: ['de persoon die computerspellen speelt','speelt computerspellen']
+    zus: ['de persoon met een zus','heeft een zus']
+    mango: ['de persoon die denkt dat mango het op één na beste fruit is','denkt dat mango het op één na beste fruit is']
+    zeilen: ['de persoon die vaak zeilen','zeilt vaak']
+    Canada: ['de persoon die in Canada is geweest','is in Canada geweest']
+    wiskunde: ['de persoon heeft een masterdiploma in wiskunde','heeft een masterdiploma in wiskunde']
+    natuurkunde: ['de persoon die van natuurkunde houdt','houdt van natuurkunde']
+    oud_dier: ['de persoon met een huisdier dat oud is voor zijn soort','heeft een huisdier dat oud is voor zijn soort']
+    schansspringen: ['de persoon die naar schansspringen kijkt','kijkt naar schansspringen']
+
+red_herring_facts:
+    haring: "haring is een vis"
+    zonnestelsel: "het zonnestelsel beweegt met een vaart van ongeveer 200 km/s rond het centrum van de Melkweg"
+    raadsels: "het is leuk om raadsels op te lossen"
+    huizen: "alle huizen aan de weg hebben mooie tuinen"
+    deuren: "een aantal huizen heeft een groene deur"
+    ramen: "alle huizen hebben grote ramen"
+    auto's: "er zijn veel auto's op de weg"
+    komkommer: "komkommer is een bes"
+    slak: "slakken zijn weekdieren"
+    koffie: "koffie bevat cafeïne"
