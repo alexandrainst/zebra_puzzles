@@ -122,7 +122,6 @@ prompt_templates:
         Angiv venligst dit svar som et JSON dictionary på nedenstående format. Hver række skal starte med object_X hvor X er smørrebrøddets nummer i rækken. Hver kolonne repræsenterer en kategori, og de skal stå i samme rækkefølge som kategorierne er oplistet ovenfor.
 
         {solution_template}
-
     - |
         {n_objects} kokke præsenterer hvert deres stykke smørrebrød. Stykkerne ligger på række og er nummereret fra 1 til {n_objects} fra venstre mod højre.
 

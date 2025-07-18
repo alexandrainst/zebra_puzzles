@@ -9,6 +9,7 @@ theme: nb_hus
 # The attributes below should be in the preferred order of categories in the clues.
 
 attributes:
+
     nasjonaliteter:
         Danmark: ['dansken', 'er dansk', 'er ikke dansk']
         Sverige: ['svensken', 'er svensk', 'er ikke svensk']
@@ -119,8 +120,6 @@ prompt_templates:
         Vennligst oppgi svaret ditt som et JSON dictionary i formatet nedenfor. Hver rad skal starte med object_X der X er husnummeret. Hver kolonne representerer en kategori, og de skal være i samme rekkefølge som kategoriene som er oppført ovenfor.
 
         {solution_template}
-
-
     - |
         En rekke med hus er nummerert fra 1 til {n_objects} fra venstre til høyre.
 
@@ -179,4 +178,3 @@ red_herring_facts:
     agurk: «agurk er et bær»
     snegle: «snegler er bløtdyr»
     kaffe: «kaffe inneholder koffein»
-

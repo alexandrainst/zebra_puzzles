@@ -11,6 +11,8 @@ theme: is_husum
 attributes:
 
     þjóðernum:
+        Danmörk: ['Daninn', 'er danskur', 'er ekki danskur']
+        Svíþjóð: ['Svíinn', 'er sænskur', 'er ekki sænskur']
         Lettland: ['Lettinn', 'er lettneskur', 'er ekki lettneskur']
         Frakkland: ['Frakkinn', 'er franskur', 'er ekki franskur']
         Spánn: ['Spánverjinn', 'er spænskur', 'er ekki spænskur']
@@ -118,7 +120,6 @@ prompt_templates:
         Vinsamlegast gefðu svarið þitt sem JSON dictionary í eftirfarandi sniði. Hver röð ætti að byrja á object_X þar sem X er húsnúmerið. Hver dálkur táknar flokk, og þeir ættu að vera í sama röð og flokkar eru taldir upp hér að ofan.
 
         {solution_template}
-
     - |
         Röð af húsum er númeruð frá 1 til {n_objects} frá vinstri til hægri.
 

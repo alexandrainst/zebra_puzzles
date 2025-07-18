@@ -120,7 +120,6 @@ prompt_templates:
         Vinarliga gev títt svar sum JSON dictionary í sniðinum niðanfyri. Hvør røð skal byrja við object_X har X er húsanummarið. Hvør súla umboðar ein flokk, og teir skulu vera í somu raðfylgju, sum flokkarnir eru nevndir omanfyri.
 
         {solution_template}
-
     - |
         Ein røð av húsum er nummerað frá 1 til {n_objects} frá vinstru til høgru.
 
@@ -136,7 +135,6 @@ prompt_templates:
 
         {solution_template}
 
-
 # Red herrings
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
 # NOTE: More types could be added such as "The person with a cactus is not the baker"
@@ -150,7 +148,6 @@ red_herring_clues_dict:
     friends: "{attribute_desc} er góður vinur við {attribute_desc_herring}."
     herring_found_at: "{attribute_desc_herring} býr í húsi nummar {i_object}."
     herring_not_at: "{attribute_desc_herring} býr ikki í húsi nummar {i_object}."
-
 
 red_herring_attributes:
     reytt hár: ['persónurin við reyðum hári','hevur reytt hár']

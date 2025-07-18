@@ -32,7 +32,6 @@ attributes:
         softwareontwikkelaar: ['de softwareontwikkelaar', 'is softwareontwikkelaar', 'is geen softwareontwikkelaar']
         winkelbediende: ['de winkelbediende', 'is winkelbediende', 'is geen winkelbediende']
 
-
     gezelschapsdier:
         kat: ['de katteneigenaar','heeft een kat','heeft geen kat']
         hond: ['de hondeneigenaar','heeft een hond','heeft geen hond']
@@ -121,8 +120,6 @@ prompt_templates:
         Geef je antwoord als een JSON dictionary in de onderstaande indeling. Elke rij moet beginnen met object_X, waarbij X het huisnummer is. Elke kolom vertegenwoordigt een categorie en ze moeten in dezelfde volgorde staan als de categorieën hierboven.
 
         {solution_template}
-
-
     - |
         Een rij huizen is van links naar rechts genummerd van 1 tot {n_objects}.
 

@@ -9,6 +9,7 @@ theme: nn_hus
 # The attributes below should be in the preferred order of categories in the clues.
 
 attributes:
+
     nasjonalitetar:
         Danmark: ['dansken', 'er dansk', 'er ikkje dansk']
         Sverige: ['svensken', 'er svensk', 'er ikkje svensk']
@@ -21,7 +22,6 @@ attributes:
         Nederland: ['nederlendaren', 'er nederlandsk', 'er ikkje nederlandsk']
         Island: ['islendingen', 'er islandsk', 'er ikkje islandsk']
         Storbritannia: ['briten', 'er britisk', 'er ikkje britisk']
-
 
     jobbar:
         bakar: ['bakaren', 'er ein bakar', 'er ikkje ein bakar']
@@ -120,8 +120,6 @@ prompt_templates:
         Ver vennleg og oppgi svaret ditt som eit JSON dictionary i formatet nedanfor. Kvar rad skal starta med object_X der X er husnummeret. Kvar kolonne representerer ein kategori, og dei skal vera i same rekkjefølgje som kategoriane som er oppførte ovanfor.
         
         {solution_template}
-
-
     - |
         Ei rekkje med hus er nummerert frå 1 til {n_objects} frå venstre til høgre.
 

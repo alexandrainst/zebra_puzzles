@@ -97,7 +97,6 @@ clues_dict:
     multiple_between: "{attribute_desc_1} und {attribute_desc_2} wohnen mit {n_between} Häusern dazwischen."                                   # Requires n_objects > 3, otherwise it cannot be used
     one_between: "Es gibt ein Haus zwischen {attribute_desc_1} und {attribute_desc_2}."                                                        # Requires n_objects > 2, otherwise it cannot be used
 
-
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
 # prompt_and is the word used for separating the last two attributes in a list of attributes.
@@ -136,7 +135,6 @@ prompt_templates:
 
         {solution_template}
 
-
 # Red herrings
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
 # NOTE: More types could be added such as "The person with a cactus is not the baker"
@@ -167,7 +165,6 @@ red_herring_attributes:
     Mathematik: ['die Person mit einem Masterabschluss in Mathematik', 'hat einen Masterabschluss in Mathematik']
     Physik: ['die Person, die Physik liebt', 'liebt Physik']
     altes_Tier: ['die Person mit einem Haustier, das für seine Art alt ist', 'hat ein Haustier, das für seine Art alt ist']
-    Fußball: ['die Person, die Fußball schaut', 'schaut Fußball']
     Skispringen: ['die Person, die beim Skispringen zuschaut', 'schaut beim Skispringen zu']
 
 red_herring_facts:
@@ -181,3 +178,4 @@ red_herring_facts:
     Gurke: "Gurke ist eine Beere"
     Schnecke: "Schnecken sind Weichtiere"
     Kaffee: "Kaffee enthält Koffein"
+    
