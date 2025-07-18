@@ -29,53 +29,53 @@ attributes:
         løgreglumaður: ['løgreglumaðurin', 'er løgreglumaður', 'er ikki løgreglumaður']
         sjúkrasystrir: ['sjúkrasystrin', 'er sjúkrasystr', 'er ikki sjúkrasystr']
         lærari: ['lærarin', 'er lærari', 'er ikki lærari']
-        ritbúnaðarmennari: ['ritbúnaðarmennarin', 'er ritbúnaðarmennari', 'er ikki ritbúnaðarmennari']
+        ritbúnaðarverkfrøðingur: ['ritbúnaðarverkfrøðingurin', 'er ritbúnaðarverkfrøðingur', 'er ikki ritbúnaðarverkfrøðingur']
         handilshjálpari: ['handilshjálparin', 'er handilshjálpari', 'er ikki handilshjálpari']
 
     kelidjór:
-        ketta: ['kettueigarin', 'hevur kettu', 'hevur ikki kettu']
-        hundur: ['hundaeigarin', 'hevur hund', 'hevur ikki hund']
-        kanin: ['kanineigarin', 'hevur kanin', 'hevur ikki kanin']
-        sebra: ['sebraeigarin', 'hevur sebra', 'hevur ikki sebra']
-        budgie: ['budgieeigarin', 'hevur budgie', 'hevur ikki budgie']
-        snigil: ['snigileigarin', 'hevur snigil', 'hevur ikki snigil']
-        reikandi kvistur: ['eigarin av einum reikandi kvisti', 'hevur reikandi kvistur', 'hevur ikki reikandi kvistur']
+        ketta: ['kettueigarin', 'eigur kettu', 'eigur ikki kettu']
+        hundur: ['hundaeigarin', 'eigur hund', 'eigur ikki hund']
+        kanin: ['kanineigarin', 'eigur kanin', 'eigur ikki kanin']
+        sebra: ['sebraeigarin', 'eigur sebra', 'eigur ikki sebra']
+        undulát: ['unduláteigarin', 'eigur undulát', 'eigur ikki undulát']
+        snigil: ['snigileigarin', 'eigur snigil', 'eigur ikki snigil']
+        reikandi kvistur: ['eigarin av einum reikandi kvisti', 'eigur reikandi kvistur', 'eigur ikki reikandi kvistur']
 
     drikkur:
-        djus: ['djusdrekkarin', 'drekkur djus', 'drekkur ikki djus']
+        djús: ['djúsdrekkarin', 'drekkur djús', 'drekkur ikki djús']
         kaffi: ['kaffidrekkarin', 'drekkur kaffi', 'drekkur ikki kaffi']
         mjólk: ['mjólkadrekkarin', 'drekkur mjólk', 'drekkur ikki mjólk']
-        smoothie: ['smoothiedrekkarinn', 'drekkur smoothie', 'drekkur ikki smoothie']
-        kakao: ['kakaodrekkarinn', 'drekkur kakao', 'drekkur ikki kakao']
-        te: ['tedrekkarinn', 'drekkur te', 'drekkur ikki te']
-        sodavatn: ['sodavatnsdrekkarinn', 'drekkur sodavatn', 'drekkur ikki sodavatn']
+        smoothie: ['smoothiedrekkarin', 'drekkur smoothie', 'drekkur ikki smoothie']
+        kakao: ['kakaodrekkarin', 'drekkur kakao', 'drekkur ikki kakao']
+        te: ['tedrekkarin', 'drekkur te', 'drekkur ikki te']
+        sodavatn: ['sodavatnsdrekkarin', 'drekkur sodavatn', 'drekkur ikki sodavatn']
 
     yndisbókasjangrur:
         yrkisbókmentir: ['yrkisbókmentalesarin', 'lesur yrkisbókmentir', 'lesur ikki yrkisbókmentir']
         brotsskaldsøgu: ['brotsskaldsøguelskarin', 'lesur brotsskaldsøgu', 'lesur ikki brotsskaldsøgu']
         fantasi: ['fantasilesarin', 'lesur fantasi', 'lesur ikki fantasi']
         vísindaskaldsøgur: ['vísindaskaldsøgurlesarin', 'lesur vísindaskaldsøgur', 'lesur ikki vísindaskaldsøgur']
-        ræðslusøgur: ['ræðslusøgurlesarin', 'lesur ræðslusøgur', 'lesur ikki ræðslusøgur']
-        skaldskap: ['skaldskaplesarin', 'lesur skaldskap', 'lesur ikki skaldskap']
+        ræðuskaldsøgur: ['ræðuskaldsøgurlesarin', 'lesur ræðuskaldsøgur', 'lesur ikki ræðuskaldsøgur']
+        yrkingar: ['yrkingalesarin', 'lesur yrkingar', 'lesur ikki yrkingar']
         romantiskar skaldsøgur: ['persónurin, sum lesur romantiskar skaldsøgur', 'lesur romantiskar skaldsøgur', 'lesur ikki romantiskar skaldsøgur']
 
     frítíðarítriv:
         klintring: ['persónurin, sum klintrar', 'klintrar', 'klintrar ikki']
-        máling: ['persónurin, sum malar', 'malar', 'malar ikki']
-        borðspæl: ['persónurin, sum spælir borðspæl', 'spælir borðspæl', 'spælir ikki borðspæl']
+        máling: ['persónurin, sum málar', 'málar', 'málar ikki']
+        borðspøl: ['persónurin, sum spælir borðspøl', 'spælir borðspøl', 'spælir ikki borðspøl']
         tennis: ['persónurin, sum spælir tennis', 'spælir tennis', 'spælir ikki tennis']
         hekla: ['persónurin, sum heklar', 'heklar', 'heklar ikki']
         fóbóltur: ['persónurin, sum spælir fótbólt', 'spælir fótbólt', 'spælir ikki fótbólt']
         hondbóltur: ['persónurin, sum spælir hondbólt', 'spælir hondbólt', 'spælir ikki hondbólt']
 
     yndisfruktir:
-        súrepli: ['persónurin, sum elskar súrepli', 'elskar súrepli', 'líkar ikki súrepli']
-        pera: ['persónurin, sum elskar perur', 'elskar perur', 'líkar ikki perur']
-        appilsin: ['persónurin, sum elskar appelsinir', 'elskar appelsinir', 'líkar ikki appelsinir']
-        banan: ['persónurin, sum elskar bananir', 'elskar bananir', 'líkar ikki bananir']
-        jarðber: ['persónurin, sum elskar jarðber', 'elskar jarðber', 'líkar ikki jarðber']
-        solber: ['persónurin, sum elskar solber', 'elskar solber', 'líkar ikki solber']
-        skógajarðber: ['persónurin, sum elskar skógajarðber', 'elskar skógajarðber', 'líkar ikki skógajarðber']
+        súrepli: ['persónurin, sum elskar súrepli', 'elskar súrepli', 'dámar ikki súrepli']
+        pera: ['persónurin, sum elskar perur', 'elskar perur', 'dámar ikki perur']
+        appilsin: ['persónurin, sum elskar appelsinir', 'elskar appelsinir', 'dámar ikki appelsinir']
+        banan: ['persónurin, sum elskar bananir', 'elskar bananir', 'dámar ikki bananir']
+        jarðber: ['persónurin, sum elskar jarðber', 'elskar jarðber', 'dámar ikki jarðber']
+        sólber: ['persónurin, sum elskar sólber', 'elskar sólber', 'dámar ikki sólber']
+        skógarjarðber: ['persónurin, sum elskar skógarjarðber', 'elskar skógarjarðber', 'dámar ikki skógarjarðber']
 
 # Clues
 # Clue names and text for the prompt depending on the clue type.
@@ -95,7 +95,7 @@ clues_dict:
     between: "{attribute_desc_2} býr millum {attribute_desc_1} og {attribute_desc_3}."
     not_between: "{attribute_desc_1} býr ikki millum {attribute_desc_2} og {attribute_desc_3}, og tey eru trý ymisk fólk."
     multiple_between: "{attribute_desc_1} og {attribute_desc_2} búgva við {n_between} húsum ímillum sín."
-    one_between: "Tað er eitt hús millum {attribute_desc_1} og {attribute_desc_2}."
+    one_between: "Tað eru eini hús millum {attribute_desc_1} og {attribute_desc_2}."
 
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
@@ -107,7 +107,7 @@ prompt_templates:
     - |
         Ein røð av húsum er nummerað frá 1 til {n_objects} frá vinstru til høgru.
 
-        Í hvørjum húsi býr ein persónur við serligum eginleikum í hvørjum av hesum flokkum:
+        Í hvørjum einastu húsum býr ein persónur, sum hevur ein einstakan eginleika úr hvørjum einasta flokki: 
 
         {chosen_attributes_str}
 
@@ -115,15 +115,15 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Hvør hevur hvørjar eginleikar og býr í hvørjum húsi?
+        Hvør hevur hvørjar eginleikar og býr í hvørjum húsum?
 
-        Vinarliga gev títt svar sum JSON dictionary í sniðinum niðanfyri. Hvør røð skal byrja við object_X har X er húsanummarið. Hvør súla umboðar ein flokk, og teir skulu vera í somu raðfylgju, sum flokkarnir eru nevndir omanfyri.
+        Vinarliga gev títt svar sum JSON dictionary í sniðinum niðanfyri. Hvør røð skal byrja við object_X har X er húsanummarið. Hvør teigur umboðar ein flokk, og teir skulu vera í somu raðfylgju, sum flokkarnir ið eru nevndir omanfyri.
 
         {solution_template}
     - |
         Ein røð av húsum er nummerað frá 1 til {n_objects} frá vinstru til høgru.
 
-        Í hvørjum húsi býr ein persónur við einum serligum eginleika í flokkinum {chosen_attributes_str}.
+        Í hvørjum húsum býr ein persónur við einum einstøkum eginleika í flokkinum {chosen_attributes_str}.
 
         Harumframt vita vit fylgjandi:
 
@@ -131,7 +131,7 @@ prompt_templates:
 
         Hvør hevur hvørjar eginleikar og býr í hvørjum húsi?
 
-        Vinarliga gev títt svar sum JSON orðabók í sniðinum niðanfyri. Hvør røð skal byrja við object_X har X er húsanummarið. Aftaná kemur ein súla við eginleikunum í áðurnevnda flokki.
+        Vinarliga gev títt svar sum JSON orðabók í sniðinum niðanfyri. Hvør røð skal byrja við object_X har X er húsanummarið. Aftaná kemur ein teigur við eginleikunum í áðurnevnda flokki.
 
         {solution_template}
 
@@ -141,7 +141,7 @@ prompt_templates:
 
 red_herring_clues_dict:
     same_herring: "{attribute_desc} {attribute_desc_herring}."
-    next_to_herring: "{attribute_desc} bor við síðuna av {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} býr við síðuna av {attribute_desc_herring}."
     double_herring: "{attribute_desc_herring_1} og {attribute_desc_herring_2}."
     fact: "{fact}."
     object_fact: "{attribute_desc} veit, at {fact}."
@@ -155,10 +155,10 @@ red_herring_attributes:
     tatovering: ['persónurin við tatovering','hevur eina tatovering']
     gittar: ['persónurin, sum spælir gittar','spælir gittar']
     súkkla: ['persónurin við súkklu','hevur súkklu']
-    marsvín: ['persónurin við einum marsvini','hevur eitt marsvín']
-    kaktus: ['persónurin, sum ikki eigur ein kaktus','eigur ikki kaktus']
+    marsvín: ['persónurin við einum marsvíni','hevur eitt marsvín']
+    kaktus: ['persónurin, sum ikki eigur ein kaktus','eigur ikki ein kaktus']
     telduspæl: ['persónurin, sum spælir telduspøl','spælir telduspøl']
-    systir: ['persónurin við systur','hevur eina systur']
+    systir: ['persónurin við einari systur','hevur eina systur']
     mango: ['persónurin, sum heldur, at næstbesta fruktin er mango','heldur, at tann næstbesta fruktin er mango']
     siglur: ['persónurin, sum ofta siglir','siglir ofta']
     Kanada: ['persónurin, sum hevur verið í Kanada','hevur verið í Kanada']
@@ -172,7 +172,7 @@ red_herring_facts:
     sólskipaninar: "sólskipanin flytur seg við eini ferð á umleið 200 km/s um miðjuna á stjørnubreytini" 
     gáta: "tað er stuttligt at loysa gátur"
     hús: "øll húsini á vegnum hava snøggar garðar"
-    hurðar: "fleiri av húsunum hava grøna hurð"
+    hurðar: "fleiri av húsunum hava grøna hurðar"
     vindeygu: "øll húsini hava stór vindeygu"
     bilar: "tað eru nógvir bilar á vegnum"
     agurk: "agurk er eitt ber"
