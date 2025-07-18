@@ -3,11 +3,17 @@
 # Possible combinations of languages and themes:
 # da/huse
 # da/smoerrebroed
+# de/Hauser
 # en/houses
-# de/Häuser
+# fo/hus
+# is/husum
+# nb/hus
+# nl/huizen
+# nn/hus
+# sv/hus
 
 defaults:
-  - language: fo/hus
+  - language: nb/hus
   - override hydra/job_logging: custom
   - _self_
 

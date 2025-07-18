@@ -169,12 +169,12 @@ red_herring_attributes:
 
 red_herring_facts:
     sild: "sild er en fisk"
-    solsystem: «solsystemet beveger seg med en fart på omtrent 200 km/s rundt galaksens sentrum»
-    gåte: «det er gøy å løse gåter»
-    hus: «alle husene på veien har fine hager»
-    dører: «flere av husene har en grønn dør»
-    vinduer: «alle husene har store vinduer»
-    biler: «det er mange biler på veien»
-    agurk: «agurk er et bær»
-    snegle: «snegler er bløtdyr»
-    kaffe: «kaffe inneholder koffein»
+    solsystem: "solsystemet beveger seg med en fart på omtrent 200 km/s rundt galaksens sentrum"
+    gåte: "det er gøy å løse gåter"
+    hus: "alle husene på veien har fine hager"
+    dører: "flere av husene har en grønn dør"
+    vinduer: "alle husene har store vinduer"
+    biler: "det er mange biler på veien"
+    agurk: "agurk er et bær"
+    snegle: "snegler er bløtdyr"
+    kaffe: "kaffe inneholder koffein"
