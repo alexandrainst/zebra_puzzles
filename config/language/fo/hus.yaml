@@ -1,5 +1,12 @@
 # Config file for generating zebra puzzles in Faroese with the classic "houses" theme.
 
+# TODO: After 'fyri'/'millum' comes accusative
+#       After 'av' comes dative
+#       After 'við' comes ?
+#       Use accusative and dative, generally, when relevant
+#       Not important: When a list of words are all masculine, use 'teir' instead of 'tey'
+
+
 # Theme
 theme: fo_hus
 
@@ -13,21 +20,21 @@ attributes:
     tjóðskapir:
         Danmark: ['danin', 'er dani', 'er ikki dani']
         Svøríki: ['svenskarin', 'er svenskur', 'er ikki svenskur']
-        Lettland: ['lettin', 'er lettiskt', 'er ikki lettiskt']
+        Lettland: ['lettin', 'er lettiskur', 'er ikki lettiskur']
         Frakland: ['fraklendingurin', 'er franskur', 'er ikki franskur']
         Spania: ['spaniólin', 'er spanskur', 'er ikki spanskur']
-        Italia: ['italiumaðurin', 'er italskt', 'er ikki italskt']
-        Noreg: ['norðmaðurin', 'er norsk', 'er ikki norsk']
-        Føroyar: ['føroyingurin', 'er føroyskt', 'er ikki føroyskt']
+        Italia: ['italiumaðurin', 'er italskur', 'er ikki italskur']
+        Noreg: ['norðmaðurin', 'er norskur', 'er ikki norskur']
+        Føroyar: ['føroyingurin', 'er føroyskur', 'er ikki føroyskur']
         Niðurlond: ['hollendingurin', 'er hollendskur', 'er ikki hollendskur']
         Ísland: ['íslendingurin', 'er íslendskur', 'er ikki íslendskur']
-        Bretland: ['bretin', 'er bretskt', 'er ikki bretskt']
+        Bretland: ['bretin', 'er bretskur', 'er ikki bretskur']
 
     arbeiði:
         bakari: ['bakarin', 'er bakari', 'er ikki bakari']
         kirkjutænari: ['kirkjutænarin', 'er kirkjutænari', 'er ikki kirkjutænari']
         løgreglumaður: ['løgreglumaðurin', 'er løgreglumaður', 'er ikki løgreglumaður']
-        sjúkrasystrir: ['sjúkrasystrin', 'er sjúkrasystr', 'er ikki sjúkrasystr']
+        sjúkrasystir: ['sjúkrasysturin', 'er sjúkrasystir', 'er ikki sjúkrasystir']
         lærari: ['lærarin', 'er lærari', 'er ikki lærari']
         ritbúnaðarverkfrøðingur: ['ritbúnaðarverkfrøðingurin', 'er ritbúnaðarverkfrøðingur', 'er ikki ritbúnaðarverkfrøðingur']
         handilshjálpari: ['handilshjálparin', 'er handilshjálpari', 'er ikki handilshjálpari']
@@ -52,12 +59,12 @@ attributes:
 
     yndisbókasjangrur:
         yrkisbókmentir: ['yrkisbókmentalesarin', 'lesur yrkisbókmentir', 'lesur ikki yrkisbókmentir']
-        brotsskaldsøgu: ['brotsskaldsøguelskarin', 'lesur brotsskaldsøgu', 'lesur ikki brotsskaldsøgu']
+        brotsskaldsøgu: ['brotsskaldsøgulskarin', 'lesur brotsskaldsøgu', 'lesur ikki brotsskaldsøgu']
         fantasi: ['fantasilesarin', 'lesur fantasi', 'lesur ikki fantasi']
-        vísindaskaldsøgur: ['vísindaskaldsøgurlesarin', 'lesur vísindaskaldsøgur', 'lesur ikki vísindaskaldsøgur']
-        ræðuskaldsøgur: ['ræðuskaldsøgurlesarin', 'lesur ræðuskaldsøgur', 'lesur ikki ræðuskaldsøgur']
+        vísindaskaldsøgur: ['vísindaskaldsøgulesarin', 'lesur vísindaskaldsøgu', 'lesur ikki vísindaskaldsøgu']
+        ræðuskaldsøgur: ['ræðuskaldsøgulesarin', 'lesur ræðuskaldsøgu', 'lesur ikki ræðuskaldsøgu']
         yrkingar: ['yrkingalesarin', 'lesur yrkingar', 'lesur ikki yrkingar']
-        romantiskar skaldsøgur: ['persónurin, sum lesur romantiskar skaldsøgur', 'lesur romantiskar skaldsøgur', 'lesur ikki romantiskar skaldsøgur']
+        romantiskar skaldsøgur: ['persónurin, sum lesur romantiskar skaldsøgu', 'lesur romantiskar skaldsøgu', 'lesur ikki romantiskar skaldsøgu']
 
     frítíðarítriv:
         klintring: ['persónurin, sum klintrar', 'klintrar', 'klintrar ikki']
@@ -105,9 +112,9 @@ prompt_and: og
 
 prompt_templates:
     - |
-        Ein røð av húsum er nummerað frá 1 til {n_objects} frá vinstru til høgru.
+        Ein røð av húsum eru talmerkt frá 1 til {n_objects} frá vinstru til høgru.
 
-        Í hvørjum einastu húsum býr ein persónur, sum hevur ein einstakan eginleika úr hvørjum einasta flokki: 
+        Í hvørjum einastu húsum býr ein persónur, sum hevur ein einstakan eginleika úr hvørjum einasta flokki, sum stendur niðanfyri: 
 
         {chosen_attributes_str}
 
@@ -121,7 +128,7 @@ prompt_templates:
 
         {solution_template}
     - |
-        Ein røð av húsum er nummerað frá 1 til {n_objects} frá vinstru til høgru.
+        Ein røð av húsum eru talmerkt frá 1 til {n_objects} frá vinstru til høgru.
 
         Í hvørjum húsum býr ein persónur við einum einstøkum eginleika í flokkinum {chosen_attributes_str}.
 
@@ -175,6 +182,6 @@ red_herring_facts:
     hurðar: "fleiri av húsunum hava grøna hurðar"
     vindeygu: "øll húsini hava stór vindeygu"
     bilar: "tað eru nógvir bilar á vegnum"
-    agurk: "agurk er eitt ber"
+    agurk: "ein agurk er eitt ber"
     snigil: "sniglar eru lindýr"
     kaffi: "kaffi inniheldur koffein"
