@@ -64,7 +64,7 @@ attributes:
         vísindaskaldsøgur: ['vísindaskaldsøgulesarin', 'lesur vísindaskaldsøgu', 'lesur ikki vísindaskaldsøgu', 'vísindaskaldsøgulesaran', 'vísindaskaldsøgulesaranum']
         ræðuskaldsøgur: ['ræðuskaldsøgulesarin', 'lesur ræðuskaldsøgu', 'lesur ikki ræðuskaldsøgu', 'ræðuskaldsøgulesaran', 'ræðuskaldsøgulesaranum']
         yrkingar: ['yrkingalesarin', 'lesur yrkingar', 'lesur ikki yrkingar', 'yrkingalesaran', 'yrkingalesaranum']
-        romantiskar skaldsøgur: ['persónurin, sum lesur romantiskar skaldsøgu', 'lesur romantiskar skaldsøgu', 'lesur ikki romantiskar skaldsøgu','persóninum, sum lesur romantiskar skaldsøgu']
+        romantiskar skaldsøgur: ['persónurin, sum lesur romantiskar skaldsøgu', 'lesur romantiskar skaldsøgu', 'lesur ikki romantiskar skaldsøgu','persónin, sum lesur romantiskar skaldsøgu','persóninum, sum lesur romantiskar skaldsøgu']
 
     frítíðarítriv:
         klintring: ['persónurin, sum klintrar', 'klintrar', 'klintrar ikki','persónin, sum klintrar', 'persóninum, sum klintrar']
@@ -87,6 +87,7 @@ attributes:
 # Clues
 # Clue names and text for the prompt depending on the clue type.
 # Clue names should not be edited, but they can be a subset of the full list of implemented clues.
+# attribute_desc_2 and attribute_desc_3 are always in accusative or dative except in 'multiple_between' clues.
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 clues_dict:
     found_at: "{attribute_desc} býr í húsi nummar {i_object}."
@@ -103,6 +104,23 @@ clues_dict:
     not_between: "{attribute_desc_1} býr ikki millum {attribute_desc_2} og {attribute_desc_3}, og tey eru trý ymisk fólk."
     multiple_between: "{attribute_desc_1} og {attribute_desc_2} búgva við {n_between} húsum ímillum sín."
     one_between: "Tað eru eini hús millum {attribute_desc_1} og {attribute_desc_2}."
+
+# Define a list of grammatical cases for attribute descriptions in the clues.
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom','dat']
+    not_next_to: ['nom','dat']
+    just_left_of: ['nom','acc']
+    just_right_of: ['nom','acc']
+    left_of: ['nom','acc']
+    right_of: ['nom','acc']
+    same_object: ['nom','none']
+    not_same_object: ['nom','none']
+    between: ['nom','acc','acc']
+    not_between: ['nom','acc','acc']
+    multiple_between: ['nom','nom']
+    one_between: ['acc','acc']
 
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
@@ -149,12 +167,22 @@ prompt_templates:
 red_herring_clues_dict:
     same_herring: "{attribute_desc} {attribute_desc_herring}."
     next_to_herring: "{attribute_desc} býr við síðuna av {attribute_desc_herring}."
-    double_herring: "{attribute_desc_herring_1} og {attribute_desc_herring_2}."
+    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
     fact: "{fact}."
     object_fact: "{attribute_desc} veit, at {fact}."
     friends: "{attribute_desc} er góður vinur við {attribute_desc_herring}."
     herring_found_at: "{attribute_desc_herring} býr í húsi nummar {i_object}."
     herring_not_at: "{attribute_desc_herring} býr ikki í húsi nummar {i_object}."
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'dat']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'acc']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
 
 red_herring_attributes:
     reytt hár: ['persónurin við reyðum hári','hevur reytt hár','persónin við reyðum hári', 'persóninum við reyðum hári']

@@ -56,13 +56,16 @@ def generate_solution(
     )
 
     # Find the attribute descriptions for each attribute in each category
-    chosen_attributes_descs = np.array(
-        [
-            [attributes[cat][key] for key in chosen_attributes[i]]
-            for i, cat in enumerate(chosen_categories)
-        ]
-    )
-
+    try:
+        chosen_attributes_descs = np.array(
+            [
+                [attributes[cat][key] for key in chosen_attributes[i]]
+                for i, cat in enumerate(chosen_categories)
+            ]
+        )
+    except:
+        breakpoint()
+        
     # Transpose the attribute matrices
     chosen_attributes = chosen_attributes.T
     chosen_attributes_descs = chosen_attributes_descs.T
@@ -124,8 +127,8 @@ def describe_random_attributes(
     chosen_attributes_descs: np.ndarray,
     i_objects: list[int],
     n_attributes: int,
+    desc_indices: list[int],
     diff_cat: bool = False,
-    desc_index: int = 0,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Get a random attribute description for an object.
 
@@ -141,7 +144,8 @@ def describe_random_attributes(
         i_objects: The index of the object to select an attribute from.
         n_attributes: Number of attributes per object.
         diff_cat: If True, the output attributes must belong to different categories.
-        desc_index: The index of the description to use for the last object in the clue if more than one object is described.
+        desc_indices: A list of indeces of the descriptions to use for each object in the clue.
+            # TODO: Allow setting this index for multiple objects in the clue. Set it depending on clue type and grammatical case.
 
     Returns:
         A tuple (random_attributes, random_attributes_desc), where:
@@ -164,14 +168,11 @@ def describe_random_attributes(
     random_attributes = np.empty((n_clue_objects), dtype="U100")
     random_attributes_desc = np.empty((n_clue_objects), dtype="U100")
 
-    for i, (i_obj, i_attr) in enumerate(zip(i_objects, i_attributes)):
+    for i, (i_obj, i_attr, desc_index) in enumerate(
+        zip(i_objects, i_attributes, desc_indices)
+    ):
         random_attributes[i] = chosen_attributes[i_obj][i_attr]
-        if i == len(i_objects) - 1 and n_clue_objects > 1:
-            random_attributes_desc[i] = chosen_attributes_descs[desc_index][i_obj][
-                i_attr
-            ]
-        else:
-            random_attributes_desc[i] = chosen_attributes_descs[0][i_obj][i_attr]
+        random_attributes_desc[i] = chosen_attributes_descs[desc_index][i_obj][i_attr]
 
     return random_attributes, random_attributes_desc
 

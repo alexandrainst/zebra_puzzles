@@ -26,6 +26,7 @@ def main(config: DictConfig) -> None:
     prompt_templates = config.language.prompt_templates
     prompt_and = config.language.prompt_and
     clues_dict = config.language.clues_dict
+    clue_cases_dict = config.language.clue_cases_dict
     clue_weights = config.clue_weights
     theme = config.language.theme
     data_folder = config.data_folder
@@ -35,15 +36,17 @@ def main(config: DictConfig) -> None:
     red_herring_attributes = config.language.red_herring_attributes
     red_herring_facts = config.language.red_herring_facts
     red_herring_clue_weights = config.red_herring_clue_weights
+    red_herring_cases_dict = config.language.red_herring_cases_dict
 
     build_dataset(
+        n_objects=n_objects,
+        n_attributes=n_attributes,
         attributes=attributes,
         clues_dict=clues_dict,
         clue_weights=clue_weights,
+        clue_cases_dict=clue_cases_dict,
         prompt_templates=prompt_templates,
         prompt_and=prompt_and,
-        n_objects=n_objects,
-        n_attributes=n_attributes,
         n_puzzles=n_puzzles,
         theme=theme,
         n_red_herring_clues=n_red_herring_clues,
@@ -51,6 +54,7 @@ def main(config: DictConfig) -> None:
         red_herring_attributes=red_herring_attributes,
         red_herring_facts=red_herring_facts,
         red_herring_clue_weights=red_herring_clue_weights,
+        red_herring_cases_dict=red_herring_cases_dict,
         data_folder_str=data_folder,
     )
 
