@@ -1,6 +1,6 @@
 # Config file for generating zebra puzzles in German with the classic "houses" theme.
 
-# TODO: Adapt grammatical cases
+# TODO: Consider "von dem" -> "vom". And place verbs at the end of subordinate clauses e.g. after "dass".
 
 # Theme
 theme: de_hauser
@@ -13,71 +13,71 @@ theme: de_hauser
 attributes:
 
     Nationalitäten:
-        Dänemark: ['der Däne', 'ist dänisch', 'ist nicht dänisch']
-        Schweden: ['der Schwede', 'ist schwedisch', 'ist nicht schwedisch']
-        Lettland: ['der Lette', 'ist lettisch', 'ist nicht lettisch']
-        Frankreich: ['der Franzose', 'ist französisch', 'ist nicht französisch']
-        Spanien: ['der Spanier', 'ist spanisch', 'ist nicht spanisch']
-        Italien: ['der Italiener', 'ist italienisch', 'ist nicht italienisch']
-        Norwegen: ['der Norweger', 'ist norwegisch', 'ist nicht norwegisch']
-        Färöer Inseln: ['der Färinger', 'ist färöisch', 'ist nicht färöisch']
-        Niederlande: ['der Niederländer', 'ist niederländisch', 'ist nicht niederländisch']
-        Island: ['der Isländer', 'ist isländisch', 'ist nicht isländisch']
-        Großbritannien: ['der Brite', 'ist britisch', 'ist nicht britisch']
+        Dänemark: ['der Däne', 'ist dänisch', 'ist nicht dänisch','den Dänen','dem Dänen']
+        Schweden: ['der Schwede', 'ist schwedisch', 'ist nicht schwedisch', 'den Schweden', 'dem Schweden']
+        Lettland: ['der Lette', 'ist lettisch', 'ist nicht lettisch', 'den Letten', 'dem Letten']
+        Frankreich: ['der Franzose', 'ist französisch', 'ist nicht französisch', 'den Franzosen', 'dem Franzosen']
+        Spanien: ['der Spanier', 'ist spanisch', 'ist nicht spanisch', 'den Spanier', 'dem Spanier']
+        Italien: ['der Italiener', 'ist italienisch', 'ist nicht italienisch', 'den Italiener', 'dem Italiener']
+        Norwegen: ['der Norweger', 'ist norwegisch', 'ist nicht norwegisch', 'den Norweger', 'dem Norweger']
+        Färöer Inseln: ['der Färinger', 'ist färöisch', 'ist nicht färöisch', 'den Färinger', 'dem Färinger']
+        Niederlande: ['der Niederländer', 'ist niederländisch', 'ist nicht niederländisch', 'den Niederländer', 'dem Niederländer']
+        Island: ['der Isländer', 'ist isländisch', 'ist nicht isländisch', 'den Isländer', 'dem Isländer']
+        Großbritannien: ['der Brite', 'ist britisch', 'ist nicht britisch', 'den Briten', 'dem Briten']
 
     Jobs:
-        Bäcker: ['der Bäcker', 'ist Bäcker', 'ist kein Bäcker']
-        Minister: ['der Minister', 'ist Minister', 'ist kein Minister']
-        Polizist: ['der Polizist', 'ist Polizist', 'ist kein Polizist']
-        Krankenpfleger: ['der Krankenpfleger', 'ist Krankenpfleger', 'ist kein Krankenpfleger']
-        Lehrer: ['der Lehrer', 'ist Lehrer', 'ist kein Lehrer']
-        Softwareentwickler: ['der Softwareentwickler', 'ist Softwareentwickler', 'ist kein Softwareentwickler']
-        Verkäufer: ['der Verkäufer', 'ist Verkäufer', 'ist kein Verkäufer']
+        Bäcker: ['der Bäcker', 'ist Bäcker', 'ist kein Bäcker', 'den Bäcker', 'dem Bäcker']
+        Minister: ['der Minister', 'ist Minister', 'ist kein Minister', 'den Minister', 'dem Minister']
+        Polizist: ['der Polizist', 'ist Polizist', 'ist kein Polizist', 'den Polizisten', 'dem Polizisten']
+        Krankenpfleger: ['der Krankenpfleger', 'ist Krankenpfleger', 'ist kein Krankenpfleger', 'den Krankenpfleger', 'dem Krankenpfleger']
+        Lehrer: ['der Lehrer', 'ist Lehrer', 'ist kein Lehrer', 'den Lehrer', 'dem Lehrer']
+        Softwareentwickler: ['der Softwareentwickler', 'ist Softwareentwickler', 'ist kein Softwareentwickler', 'den Softwareentwickler', 'dem Softwareentwickler']
+        Verkäufer: ['der Verkäufer', 'ist Verkäufer', 'ist kein Verkäufer', 'den Verkäufer', 'dem Verkäufer']
 
     Heimtiere:
-        Katze: ['der Katzenbesitzer', 'hat eine Katze', 'hat keine Katze']
-        Hund: ['der Hundebesitzer', 'hat einen Hund', 'hat keinen Hund']
-        Kaninchen: ['der Kaninchenbesitzer', 'hat ein Kaninchen', 'hat kein Kaninchen']
-        Zebra: ['der Zebrabesitzer', 'hat ein Zebra', 'hat kein Zebra']
-        Wellensittich: ['der Wellensittichbesitzer', 'hat einen Wellensittich', 'hat keinen Wellensittich']
-        Schnecke: ['der Schneckenbesitzer', 'hat eine Schnecke', 'hat keine Schnecke']
-        Gespenstschrecke: ['der Besitzer eines Gespenstschreckens', 'hat eine Gespenstschrecke', 'hat keine Gespenstschrecke']
+        Katze: ['der Katzenbesitzer', 'hat eine Katze', 'hat keine Katze', 'den Katzenbesitzer', 'dem Katzenbesitzer']
+        Hund: ['der Hundebesitzer', 'hat einen Hund', 'hat keinen Hund', 'den Hundebesitzer', 'dem Hundebesitzer']
+        Kaninchen: ['der Kaninchenbesitzer', 'hat ein Kaninchen', 'hat kein Kaninchen', 'den Kaninchenbesitzer', 'dem Kaninchenbesitzer']
+        Zebra: ['der Zebrabesitzer', 'hat ein Zebra', 'hat kein Zebra', 'den Zebrabesitzer', 'dem Zebrabesitzer']
+        Wellensittich: ['der Wellensittichbesitzer', 'hat einen Wellensittich', 'hat keinen Wellensittich', 'den Wellensittichbesitzer', 'dem Wellensittichbesitzer']
+        Schnecke: ['der Schneckenbesitzer', 'hat eine Schnecke', 'hat keine Schnecke', 'den Schneckenbesitzer', 'dem Schneckenbesitzer']
+        Gespenstschrecke: ['der Besitzer eines Gespenstschreckens', 'hat eine Gespenstschrecke', 'hat keine Gespenstschrecke', 'den Besitzer eines Gespenstschreckens', 'dem Besitzer eines Gespenstschreckens']
 
     Getränke:
-        Saft: ['der Safttrinker', 'trinkt Saft', 'trinkt keinen Saft']
-        Kaffee: ['der Kaffeetrinker', 'trinkt Kaffee', 'trinkt keinen Kaffee']
-        Milch: ['der Milchtrinker', 'trinkt Milch', 'trinkt keine Milch']
-        Smoothie: ['der Smoothietrinker', 'trinkt Smoothies', 'trinkt keinen Smoothie']
-        Kakao: ['der Kakaotrinker', 'trinkt Kakao', 'trinkt keinen Kakao']
-        Tee: ['der Teetrinker', 'trinkt Tee', 'trinkt keinen Tee']
-        Limonade: ['der Limonadetrinker', 'trinkt Limonade', 'trinkt kein Limonade']
+        Saft: ['der Safttrinker', 'trinkt Saft', 'trinkt keinen Saft', 'den Safttrinker', 'dem Safttrinker']
+        Kaffee: ['der Kaffeetrinker', 'trinkt Kaffee', 'trinkt keinen Kaffee', 'den Kaffeetrinker', 'dem Kaffeetrinker']
+        Milch: ['der Milchtrinker', 'trinkt Milch', 'trinkt keine Milch', 'den Milchtrinker', 'dem Milchtrinker']
+        Smoothie: ['der Smoothietrinker', 'trinkt Smoothies', 'trinkt keinen Smoothie', 'den Smoothietrinker', 'dem Smoothietrinker']
+        Kakao: ['der Kakaotrinker', 'trinkt Kakao', 'trinkt keinen Kakao', 'den Kakaotrinker', 'dem Kakaotrinker']
+        Tee: ['der Teetrinker', 'trinkt Tee', 'trinkt keinen Tee', 'den Teetrinker', 'dem Teetrinker']
+        Limonade: ['der Limonadentrinker', 'trinkt Limonade', 'trinkt keine Limonade', 'den Limonadentrinker', 'dem Limonadentrinker']
 
     Lieblingsliteratur:
-        Sachbuch: ['der Sachbuchleser', 'liest Sachbücher', 'liest keine Sachbücher']
-        Krimi: ['der Krimileser', 'liest Krimis', 'liest keine Krimis']
-        Fantasy: ['der Fantasyleser', 'liest Fantasy', 'liest keine Fantasy']
-        Science-Fiction: ['der Science-Fiction-Leser', 'liest Science-Fiction', 'liest keine Science-Fiction']
-        Horror: ['der Horrorliteraturleser', 'liest Horrorliteratur', 'liest keine Horrorliteratur']
-        Poesie: ['der Poesieleser', 'liest Poesie', 'liest keine Poesie']
-        Liebesromane: ['der Liebesromanleser', 'liest Liebesromane', 'liest keine Liebesromane']
+        Sachbuch: ['der Sachbuchleser', 'liest Sachbücher', 'liest keine Sachbücher', 'den Sachbuchleser', 'dem Sachbuchleser']
+        Krimi: ['der Krimileser', 'liest Krimis', 'liest keine Krimis', 'den Krimileser', 'dem Krimileser']
+        Fantasy: ['der Fantasyleser', 'liest Fantasy', 'liest keine Fantasy', 'den Fantasyleser', 'dem Fantasyleser']
+        Science-Fiction: ['der Science-Fiction-Leser', 'liest Science-Fiction', 'liest keine Science-Fiction', 'den Science-Fiction-Leser', 'dem Science-Fiction-Leser']
+        Horror: ['der Horrorliteraturleser', 'liest Horrorliteratur', 'liest keine Horrorliteratur', 'den Horrorliteraturleser', 'dem Horrorliteraturleser']
+        Poesie: ['der Poesieleser', 'liest Poesie', 'liest keine Poesie', 'den Poesieleser', 'dem Poesieleser']
+        Liebesromane: ['der Liebesromanleser', 'liest Liebesromane', 'liest keine Liebesromane', 'den Liebesromanleser', 'dem Liebesromanleser']
 
     Hobbys:
-        Klettern: ['der Kletterer', 'klettert', 'klettert nicht']
-        Malen: ['der Maler', 'malt', 'malt nicht']
-        Brettspiele: ['der Brettspielspieler', 'spielt Brettspiele', 'spielt keine Brettspiele']
-        Tennis: ['der Tennisspieler', 'spielt Tennis', 'spielt kein Tennis']
-        Häkeln: ['der Häkler', 'häkelt', 'häkelt nicht']
-        Fußball: ['der Fußballspieler', 'spielt Fußball', 'spielt keinen Fußball']
-        Handball: ['der Handballspieler', 'spielt Handball', 'spielt keinen Handball']
+        Klettern: ['der Kletterer', 'klettert', 'klettert nicht', 'den Kletterer', 'dem Kletterer']
+        Malen: ['der Maler', 'malt', 'malt nicht', 'den Maler', 'dem Maler']
+        Brettspiele: ['der Brettspielspieler', 'spielt Brettspiele', 'spielt keine Brettspiele', 'den Brettspielspieler', 'dem Brettspielspieler']
+        Tennis: ['der Tennisspieler', 'spielt Tennis', 'spielt kein Tennis', 'den Tennisspieler', 'dem Tennisspieler']
+        Häkeln: ['der Häkler', 'häkelt', 'häkelt nicht', 'den Häkler', 'dem Häkler']
+        Fußball: ['der Fußballspieler', 'spielt Fußball', 'spielt keinen Fußball', 'den Fußballspieler', 'dem Fußballspieler']
+        Handball: ['der Handballspieler', 'spielt Handball', 'spielt keinen Handball', 'den Handballspieler', 'dem Handballspieler']
 
     Lieblingsfrüchte:
-        Apfel: ['der Apfelliebhaber', 'liebt Äpfel', 'mag keine Äpfel']
-        Birne: ['der Birnenliebhaber', 'liebt Birnen', 'mag keine Birnen']
-        Orange: ['der Orangenliebhaber', 'liebt Orangen', 'mag keine Orangen']
-        Banane: ['der Bananenliebhaber', 'liebt Bananen', 'mag keine Bananen']
-        Erdbeere: ['der Erdbeerliebhaber', 'liebt Erdbeeren', 'mag keine Erdbeeren']
-        Johannisbeere: ['der Johannisbeerliebhaber', 'liebt Johannisbeeren', 'mag keine Johannisbeeren']
-        Walderdbeere: ['der Walderdbeerliebhaber', 'liebt Walderdbeeren', 'mag keine Walderdbeeren']
+        Apfel: ['der Apfelliebhaber', 'liebt Äpfel', 'mag keine Äpfel', 'den Apfelliebhaber', 'dem Apfelliebhaber']
+        Birne: ['der Birnenliebhaber', 'liebt Birnen', 'mag keine Birnen', 'den Birnenliebhaber', 'dem Birnenliebhaber']
+        Orange: ['der Orangenliebhaber', 'liebt Orangen', 'mag keine Orangen', 'den Orangenliebhaber', 'dem Orangenliebhaber']
+        Banane: ['der Bananenliebhaber', 'liebt Bananen', 'mag keine Bananen', 'den Bananenliebhaber', 'dem Bananenliebhaber']
+        Erdbeere: ['der Erdbeerliebhaber', 'liebt Erdbeeren', 'mag keine Erdbeeren', 'den Erdbeerliebhaber', 'dem Erdbeerliebhaber']
+        Johannisbeere: ['der Johannisbeerliebhaber', 'liebt Johannisbeeren', 'mag keine Johannisbeeren', 'den Johannisbeerliebhaber', 'dem Johannisbeerliebhaber']
+        Walderdbeere: ['der Walderdbeerliebhaber', 'liebt Walderdbeeren', 'mag keine Walderdbeeren', 'den Walderdbeerliebhaber', 'dem Walderdbeerliebhaber']
 
 # Clues
 # Clue names and text for the prompt depending on the clue type.
@@ -104,18 +104,18 @@ clues_dict:
 clue_cases_dict:
     found_at: ['nom']
     not_at: ['nom']
-    next_to: ['nom','nom']
-    not_next_to: ['nom','nom']
-    just_left_of: ['nom','nom']
-    just_right_of: ['nom','nom']
-    left_of: ['nom','nom']
-    right_of: ['nom','nom']
+    next_to: ['nom','acc']
+    not_next_to: ['nom','acc']
+    just_left_of: ['nom','dat']
+    just_right_of: ['nom','dat']
+    left_of: ['nom','dat']
+    right_of: ['nom','dat']
     same_object: ['nom','none']
     not_same_object: ['nom','none']
-    between: ['nom','nom','nom']
-    not_between: ['nom','nom','nom']
+    between: ['nom','acc','acc']
+    not_between: ['nom','acc','acc']
     multiple_between: ['nom','nom']
-    one_between: ['nom','nom']
+    one_between: ['acc','acc']
 
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
@@ -171,31 +171,31 @@ red_herring_clues_dict:
 
 red_herring_cases_dict:
     same_herring: ['nom', 'none']
-    next_to_herring: ['nom', 'nom']
+    next_to_herring: ['nom', 'acc']
     double_herring: ['nom', 'none']
     fact: ['none']
     object_fact: ['nom', 'none']
-    friends: ['nom', 'nom']
+    friends: ['nom', 'dat']
     herring_found_at: ['nom']
     herring_not_at: ['nom']
 
 red_herring_attributes:
-    rotes_Haar: ['die Person mit den roten Haaren', 'hat rote Haare']
-    Brille: ['die Person mit der Brille', 'trägt eine Brille']
-    Tattoo: ['die Person mit einem Tattoo', 'hat ein Tattoo']
-    Gitarre: ['die Person, die Gitarre spielt', 'spielt Gitarre']
-    Fahrrad: ['die Person mit dem Fahrrad', 'hat ein Fahrrad']
-    Meerschweinchen: ['die Person mit einem Meerschweinchen', 'hat ein Meerschweinchen']
-    Kaktus: ['die Person, die keinen Kaktus besitzt', 'hat keinen Kaktus']
-    Computerspiel: ['die Person, die Computerspiele spielt', 'spielt Computerspiele']
-    Schwester: ['die Person mit einer Schwester', 'hat eine Schwester']
-    Mango: ['die Person, die denkt, dass Mango die zweitbeste Frucht ist', 'denkt, dass Mango die zweitbeste Frucht ist']
-    Segeln: ['die Person, die oft segelt', 'segelt oft']
-    Kanada: ['die Person, die in Kanada war', 'war in Kanada']
-    Mathematik: ['die Person mit einem Masterabschluss in Mathematik', 'hat einen Masterabschluss in Mathematik']
-    Physik: ['die Person, die Physik liebt', 'liebt Physik']
-    altes_Tier: ['die Person mit einem Haustier, das für seine Art alt ist', 'hat ein Haustier, das für seine Art alt ist']
-    Skispringen: ['die Person, die beim Skispringen zuschaut', 'schaut beim Skispringen zu']
+    rotes_Haar: ['die Person mit den roten Haaren', 'hat rote Haare','die Person mit den roten Haaren', 'der Person mit den roten Haaren']
+    Brille: ['die Person mit der Brille', 'trägt eine Brille', 'die Person mit der Brille', 'der Person mit der Brille']
+    Tattoo: ['die Person mit einem Tattoo', 'hat ein Tattoo', 'die Person mit einem Tattoo', 'der Person mit einem Tattoo']
+    Gitarre: ['die Person, die Gitarre spielt', 'spielt Gitarre', 'die Person, die Gitarre spielt', 'der Person, die Gitarre spielt']
+    Fahrrad: ['die Person mit dem Fahrrad', 'hat ein Fahrrad', 'die Person mit dem Fahrrad', 'der Person mit dem Fahrrad']
+    Meerschweinchen: ['die Person mit einem Meerschweinchen', 'hat ein Meerschweinchen', 'die Person mit einem Meerschweinchen', 'der Person mit einem Meerschweinchen']
+    Kaktus: ['die Person, die keinen Kaktus besitzt', 'hat keinen Kaktus', 'die Person, die keinen Kaktus besitzt', 'der Person, die keinen Kaktus besitzt']
+    Computerspiel: ['die Person, die Computerspiele spielt', 'spielt Computerspiele', 'die Person, die Computerspiele spielt', 'der Person, die Computerspiele spielt']
+    Schwester: ['die Person mit einer Schwester', 'hat eine Schwester', 'die Person mit einer Schwester', 'der Person mit einer Schwester']
+    Mango: ['die Person, die denkt, dass Mango die zweitbeste Frucht ist', 'denkt, dass Mango die zweitbeste Frucht ist', 'die Person, die denkt, dass Mango die zweitbeste Frucht ist', 'der Person, die denkt, dass Mango die zweitbeste Frucht ist']
+    Segeln: ['die Person, die oft segelt', 'segelt oft', 'die Person, die oft segelt', 'der Person, die oft segelt']
+    Kanada: ['die Person, die in Kanada war', 'war in Kanada', 'die Person, die in Kanada war', 'der Person, die in Kanada war']
+    Mathematik: ['die Person mit einem Masterabschluss in Mathematik', 'hat einen Masterabschluss in Mathematik', 'die Person mit einem Masterabschluss in Mathematik', 'der Person mit einem Masterabschluss in Mathematik']
+    Physik: ['die Person, die Physik liebt', 'liebt Physik', 'die Person, die Physik liebt', 'der Person, die Physik liebt']
+    altes_Tier: ['die Person mit einem Haustier, dass für seine Art alt ist', 'hat ein Haustier, dass für seine Art alt ist', 'die Person mit einem Haustier, dass für seine Art alt ist', 'der Person mit einem Haustier, dass für seine Art alt ist']
+    Skispringen: ['die Person, die beim Skispringen zuschaut', 'schaut beim Skispringen zu', 'die Person, die beim Skispringen zuschaut', 'der Person, die beim Skispringen zuschaut']
 
 red_herring_facts:
     Hering: "Hering ist ein Fisch"
@@ -208,4 +208,6 @@ red_herring_facts:
     Gurke: "Gurke ist eine Beere"
     Schnecke: "Schnecken sind Weichtiere"
     Kaffee: "Kaffee enthält Koffein"
+
+
     
