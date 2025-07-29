@@ -97,6 +97,24 @@ clues_dict:
     multiple_between: "{attribute_desc_1} og {attribute_desc_2} bor med {n_between} huse mellem sig."                              # Requires n_objects > 3, otherwise it cannot be used
     one_between: "Der er ét hus mellem {attribute_desc_1} og {attribute_desc_2}."                                                  # Requires n_objects > 2, otherwise it cannot be used
 
+# Define a list of grammatical cases for attribute descriptions in the clues.
+# When irrelevant in the given language, nominative is set as default indepently of the true grammatical case.
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom','nom']
+    not_next_to: ['nom','nom']
+    just_left_of: ['nom','nom']
+    just_right_of: ['nom','nom']
+    left_of: ['nom','nom']
+    right_of: ['nom','nom']
+    same_object: ['nom','none']
+    not_same_object: ['nom','none']
+    between: ['nom','nom','nom']
+    not_between: ['nom','nom','nom']
+    multiple_between: ['nom','nom']
+    one_between: ['nom','nom']
+
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
 # prompt_and is the word used for separating the last two attributes in a list of attributes.
@@ -148,6 +166,16 @@ red_herring_clues_dict:
     friends: "{attribute_desc} er gode venner med {attribute_desc_herring}."
     herring_found_at: "{attribute_desc_herring} bor i hus nummer {i_object}."
     herring_not_at: "{attribute_desc_herring} bor ikke i hus nummer {i_object}."
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'nom']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
 
 red_herring_attributes:
     rødt_hår: ['personen med rødt hår','har rødt hår']

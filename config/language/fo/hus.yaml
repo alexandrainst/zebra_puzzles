@@ -1,11 +1,6 @@
 # Config file for generating zebra puzzles in Faroese with the classic "houses" theme.
 
-# TODO: After 'fyri'/'millum' comes accusative
-#       After 'av' comes dative
-#       After 'við' comes ?
-#       Use accusative and dative, generally, when relevant
-#       Not important: When a list of words are all masculine, use 'teir' instead of 'tey'
-
+# TODO: Not important: When a list of words are all masculine, use 'teir' instead of 'tey'
 
 # Theme
 theme: fo_hus
