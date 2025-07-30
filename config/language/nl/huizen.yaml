@@ -209,3 +209,8 @@ red_herring_facts:
     komkommer: ["komkommer is een bes", "komkommer een bes is"]
     slak: ["slakken zijn weekdieren", "slakken weekdieren zijn"]
     koffie: ["koffie bevat cafeïne", "koffie cafeïne bevat"]
+
+# Strings to replace in the prompt.
+prompt_replacements:
+    no_replacements: no_replacements
+    

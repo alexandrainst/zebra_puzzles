@@ -205,3 +205,8 @@ red_herring_facts:
     agúrka: ["agúrka er ber"]
     snigill: ["sniglar eru lindýr"]
     kaffi: ["kaffi inniheldur koffín"]
+
+# Strings to replace in the prompt.
+prompt_replacements:
+    no_replacements: no_replacements
+    

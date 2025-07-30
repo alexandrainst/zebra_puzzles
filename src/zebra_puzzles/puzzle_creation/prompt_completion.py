@@ -13,6 +13,7 @@ def complete_prompt(
     chosen_attributes: np.ndarray,
     prompt_templates: list[str],
     prompt_and: str,
+    prompt_replacements: dict[str, str],
 ) -> str:
     """Complete the prompt with the chosen clues.
 
@@ -29,6 +30,7 @@ def complete_prompt(
         chosen_attributes: Attribute values chosen for the solution.
         prompt_templates: List of templates for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
+        prompt_replacements: Dictionary of strings to replace in the prompt.
 
     Returns:
         The full prompt for the zebra puzzle as a string.
@@ -89,6 +91,11 @@ def complete_prompt(
         chosen_clues_str=chosen_clues_str,
         solution_template=solution_template,
     )
+
+    # Replace text in the prompt
+    for key, value in prompt_replacements.items():
+        prompt = prompt.replace(key, value)
+
     return prompt
 
 

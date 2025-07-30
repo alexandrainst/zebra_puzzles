@@ -1,7 +1,5 @@
 # Config file for generating zebra puzzles in German with the classic "houses" theme.
 
-# TODO: Consider "von dem" -> "vom". And place verbs at the end of subordinate clauses e.g. after "dass".
-
 # Theme
 theme: de_hauser
 
@@ -210,3 +208,7 @@ red_herring_facts:
     Gurke: ["Gurke ist eine Beere", "Gurke eine Beere ist"]
     Schnecke: ["Schnecken sind Weichtiere", "Schnecken Weichtiere sind"]
     Kaffee: ["Kaffee enthält Koffein", "Kaffee Koffein enthält"]
+
+# Strings to replace in the prompt.
+prompt_replacements:
+    von dem: vom

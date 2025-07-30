@@ -58,6 +58,7 @@ def data_paths_fixture(config) -> Generator[tuple[Path, Path, Path], None, None]
         clue_cases_dict=config.language.clue_cases_dict,
         prompt_templates=config.language.prompt_templates,
         prompt_and=config.language.prompt_and,
+        prompt_replacements=config.language.prompt_replacements,
         n_objects=config.n_objects,
         n_attributes=config.n_attributes,
         n_puzzles=config.n_puzzles,

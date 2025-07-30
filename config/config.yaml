@@ -13,7 +13,7 @@
 # sv/hus
 
 defaults:
-  - language: nl/huizen
+  - language: da/huse
   - override hydra/job_logging: custom
   - _self_
 

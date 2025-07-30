@@ -208,3 +208,8 @@ red_herring_facts:
     agurk: ["ein agurk er eitt ber"]
     snigil: ["sniglar eru lindýr"]
     kaffi: ["kaffi inniheldur koffein"]
+
+# Strings to replace in the prompt.
+prompt_replacements:
+    no_replacements: no_replacements
+    

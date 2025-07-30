@@ -25,6 +25,7 @@ def main(config: DictConfig) -> None:
     attributes = config.language.attributes
     prompt_templates = config.language.prompt_templates
     prompt_and = config.language.prompt_and
+    prompt_replacements = config.language.prompt_replacements
     clues_dict = config.language.clues_dict
     clue_cases_dict = config.language.clue_cases_dict
     clue_weights = config.clue_weights
@@ -47,6 +48,7 @@ def main(config: DictConfig) -> None:
         clue_cases_dict=clue_cases_dict,
         prompt_templates=prompt_templates,
         prompt_and=prompt_and,
+        prompt_replacements=prompt_replacements,
         n_puzzles=n_puzzles,
         theme=theme,
         n_red_herring_clues=n_red_herring_clues,

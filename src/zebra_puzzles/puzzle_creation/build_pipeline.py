@@ -22,6 +22,7 @@ def run_pipeline(
     clue_cases_dict: dict[str, list[str]],
     prompt_templates: list[str],
     prompt_and: str,
+    prompt_replacements: dict[str, str],
     n_red_herring_clues: int,
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
@@ -42,6 +43,7 @@ def run_pipeline(
         clue_cases_dict: A dictionary containing the clue type as a key and a list of grammatical cases for clue attributes as values.
         prompt_templates: List of templates for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
+        prompt_replacements: Dictionary of strings to replace in the prompt.
         n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
         red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
@@ -103,6 +105,7 @@ def run_pipeline(
         chosen_attributes=chosen_attributes,
         prompt_templates=prompt_templates,
         prompt_and=prompt_and,
+        prompt_replacements=prompt_replacements,
     )
 
     solution_json = format_solution_as_json(solution=solution)
@@ -119,6 +122,7 @@ def build_dataset(
     clue_cases_dict: dict[str, list[str]],
     prompt_templates: list[str],
     prompt_and: str,
+    prompt_replacements: dict[str, str],
     n_puzzles: int,
     theme: str,
     n_red_herring_clues: int,
@@ -142,6 +146,7 @@ def build_dataset(
         clue_cases_dict: A dictionary containing the clue type as a key and a list of grammatical cases for clue attributes as values.
         prompt_templates: List of templates for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
+        prompt_replacements: Dictionary of strings to replace in the prompt.
         n_puzzles: Number of puzzles to generate.
         theme: Theme of the puzzles.
         n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
@@ -188,6 +193,7 @@ def build_dataset(
                 clue_cases_dict=clue_cases_dict,
                 prompt_templates=prompt_templates,
                 prompt_and=prompt_and,
+                prompt_replacements=prompt_replacements,
                 n_red_herring_clues=n_red_herring_clues,
                 red_herring_clues_dict=red_herring_clues_dict,
                 red_herring_attributes=red_herring_attributes,

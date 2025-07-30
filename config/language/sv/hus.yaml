@@ -206,3 +206,8 @@ red_herring_facts:
     gurka: ["gurka är ett bär"]
     snigel: ["sniglar är mollusker"]
     kaffe: ["kaffe innehåller koffein"]
+
+# Strings to replace in the prompt.
+prompt_replacements:
+    no_replacements: no_replacements
+    

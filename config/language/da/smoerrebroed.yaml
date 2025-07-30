@@ -203,3 +203,7 @@ red_herring_facts:
     agurk: ["agurk er et bær"]
     snegl: ["snegle er bløddyr"]
     kaffe: ["kaffe indeholder koffein"]
+
+# Strings to replace in the prompt.
+prompt_replacements:
+    no_replacements: no_replacements
