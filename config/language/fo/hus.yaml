@@ -198,13 +198,13 @@ red_herring_attributes:
     skíðhopp: ['persónurin, sum hyggur at skíðhoppi.','hyggur at skíðhoppi', 'persónin, sum hyggur at skíðhoppi', 'persóninum, sum hyggur at skíðhoppi']
 
 red_herring_facts:
-    sild: "sild er fiskur"
-    sólskipaninar: "sólskipanin flytur seg við eini ferð á umleið 200 km/s um miðjuna á stjørnubreytini" 
-    gáta: "tað er stuttligt at loysa gátur"
-    hús: "øll húsini á vegnum hava snøggar garðar"
-    hurðar: "fleiri av húsunum hava grøna hurðar"
-    vindeygu: "øll húsini hava stór vindeygu"
-    bilar: "tað eru nógvir bilar á vegnum"
-    agurk: "ein agurk er eitt ber"
-    snigil: "sniglar eru lindýr"
-    kaffi: "kaffi inniheldur koffein"
+    sild: ["sild er fiskur"]
+    sólskipaninar: ["sólskipanin flytur seg við eini ferð á umleið 200 km/s um miðjuna á stjørnubreytini"]
+    gáta: ["tað er stuttligt at loysa gátur"]
+    hús: ["øll húsini á vegnum hava snøggar garðar"]
+    hurðar: ["fleiri av húsunum hava grøna hurðar"]
+    vindeygu: ["øll húsini hava stór vindeygu"]
+    bilar: ["tað eru nógvir bilar á vegnum"]
+    agurk: ["ein agurk er eitt ber"]
+    snigil: ["sniglar eru lindýr"]
+    kaffi: ["kaffi inniheldur koffein"]

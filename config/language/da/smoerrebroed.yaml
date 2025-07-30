@@ -177,7 +177,7 @@ red_herring_cases_dict:
     friends: ['nom', 'nom']
     herring_found_at: ['nom']
     herring_not_at: ['nom']
-    
+
 red_herring_attributes:
     kvadratisk: ['det kvadratiske stykke','er kvadratisk']
     langt: ['det længste stykke','er langt']
@@ -193,13 +193,13 @@ red_herring_attributes:
     hurtigt: ['stykket der er lavet meget hurtigt','er lavet meget hurtigt']
 
 red_herring_facts:
-    sild: "sild er fisk"
-    sol_systemet: "solsystemet bevæger sig med en fart på ca. 200 km/s rundt om galaksens centrum"
-    puzzle: "det er sjovt at løse gåder"
-    flotte: "alle smørrebrødene er meget flotte"
-    tørre: "flere af smørrebrødene er blevet en smule tørre"
-    højtbelagt: "alle smørrebrødene er højtbelagte"
-    dommere: "der er tre dommere som vurderer smørrebrødene"
-    agurk: "agurk er et bær"
-    snegl: "snegle er bløddyr"
-    kaffe: "kaffe indeholder koffein"
+    sild: ["sild er fisk"]
+    sol_systemet: ["solsystemet bevæger sig med en fart på ca. 200 km/s rundt om galaksens centrum"]
+    puzzle: ["det er sjovt at løse gåder"]
+    flotte: ["alle smørrebrødene er meget flotte"]
+    tørre: ["flere af smørrebrødene er blevet en smule tørre"]
+    højtbelagt: ["alle smørrebrødene er højtbelagte"]
+    dommere: ["der er tre dommere som vurderer smørrebrødene"]
+    agurk: ["agurk er et bær"]
+    snegl: ["snegle er bløddyr"]
+    kaffe: ["kaffe indeholder koffein"]

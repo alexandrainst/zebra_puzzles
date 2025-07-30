@@ -179,6 +179,7 @@ red_herring_cases_dict:
     herring_found_at: ['nom']
     herring_not_at: ['nom']
 
+# Consider the commas when followed by more words.
 red_herring_attributes:
     rotes_Haar: ['die Person mit den roten Haaren', 'hat rote Haare','die Person mit den roten Haaren', 'der Person mit den roten Haaren']
     Brille: ['die Person mit der Brille', 'trägt eine Brille', 'die Person mit der Brille', 'der Person mit der Brille']
@@ -197,17 +198,15 @@ red_herring_attributes:
     altes_Tier: ['die Person mit einem Haustier, dass für seine Art alt ist', 'hat ein Haustier, dass für seine Art alt ist', 'die Person mit einem Haustier, dass für seine Art alt ist', 'der Person mit einem Haustier, dass für seine Art alt ist']
     Skispringen: ['die Person, die beim Skispringen zuschaut', 'schaut beim Skispringen zu', 'die Person, die beim Skispringen zuschaut', 'der Person, die beim Skispringen zuschaut']
 
+# Facts including a second version of the form "He knows that [fact]" (English example).
 red_herring_facts:
-    Hering: "Hering ist ein Fisch"
-    Sonnensystem: "das Sonnensystem bewegt sich mit einem Tempo von etwa 200 km/s um das Zentrum der Galaxie"
-    Rätsel: "es macht Spaß, Rätsel zu lösen"
-    Häuser: "alle Häuser in der Straße haben schöne Gärten"
-    Türen: "mehrere Häuser haben eine grüne Tür"
-    Fenster: "alle Häuser haben große Fenster"
-    Autos: "es gibt viele Autos auf der Straße"
-    Gurke: "Gurke ist eine Beere"
-    Schnecke: "Schnecken sind Weichtiere"
-    Kaffee: "Kaffee enthält Koffein"
-
-
-    
+    Hering: ["Hering ist ein Fisch","Hering ein Fisch ist"]
+    Sonnensystem: ["das Sonnensystem bewegt sich mit einem Tempo von etwa 200 km/s um das Zentrum der Galaxie", "das Sonnensystem sich mit einem Tempo von etwa 200 km/s um das Zentrum der Galaxie bewegt"]
+    Rätsel: ["es macht Spaß, Rätsel zu lösen", "es Spaß macht, Rätsel zu lösen"]
+    Häuser: ["alle Häuser in der Straße haben schöne Gärten", "alle Häuser in der Straße schöne Gärten haben"]
+    Türen: ["mehrere Häuser haben eine grüne Tür", "mehrere Häuser eine grüne Tür haben"]
+    Fenster: ["alle Häuser haben große Fenster", "alle Häuser große Fenster haben"]
+    Autos: ["es gibt viele Autos auf der Straße", "es viele Autos auf der Straße gibt"]
+    Gurke: ["Gurke ist eine Beere", "Gurke eine Beere ist"]
+    Schnecke: ["Schnecken sind Weichtiere", "Schnecken Weichtiere sind"]
+    Kaffee: ["Kaffee enthält Koffein", "Kaffee Koffein enthält"]

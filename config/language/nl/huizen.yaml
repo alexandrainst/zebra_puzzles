@@ -197,14 +197,15 @@ red_herring_attributes:
     oud_dier: ['de persoon met een huisdier dat oud is voor zijn soort','heeft een huisdier dat oud is voor zijn soort']
     schansspringen: ['de persoon die naar schansspringen kijkt','kijkt naar schansspringen']
 
+# Facts including a second version of the form "He knows that [fact]" (English example).
 red_herring_facts:
-    haring: "haring is een vis"
-    zonnestelsel: "het zonnestelsel beweegt met een vaart van ongeveer 200 km/s rond het centrum van de Melkweg"
-    raadsels: "het is leuk om raadsels op te lossen"
-    huizen: "alle huizen aan de weg hebben mooie tuinen"
-    deuren: "een aantal huizen heeft een groene deur"
-    ramen: "alle huizen hebben grote ramen"
-    auto's: "er zijn veel auto's op de weg"
-    komkommer: "komkommer is een bes"
-    slak: "slakken zijn weekdieren"
-    koffie: "koffie bevat cafeïne"
+    haring: ["haring is een vis","haring een vis is"]
+    zonnestelsel: ["het zonnestelsel beweegt met een vaart van ongeveer 200 km/s rond het centrum van de Melkweg","het zonnestelsel met een vaart van ongeveer 200 km/s rond het centrum van de Melkweg beweegt"]
+    raadsels: ["het is leuk om raadsels op te lossen","het leuk is om raadsels op te lossen"]
+    huizen: ["alle huizen aan de weg hebben mooie tuinen","alle huizen aan de weg mooie tuinen hebben"]
+    deuren: ["een aantal huizen hebben een groene deur","een aantal huizen een groene deur hebben"]
+    ramen: ["alle huizen hebben grote ramen","alle huizen grote ramen hebben"]
+    auto's: ["er zijn veel auto's op de weg", "er veel auto's op de weg zijn"]
+    komkommer: ["komkommer is een bes", "komkommer een bes is"]
+    slak: ["slakken zijn weekdieren", "slakken weekdieren zijn"]
+    koffie: ["koffie bevat cafeïne", "koffie cafeïne bevat"]

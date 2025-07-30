@@ -14,7 +14,7 @@ def choose_red_herrings(
     n_red_herring_clues: int,
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
-    red_herring_facts: dict[str, str],
+    red_herring_facts: dict[str, list[str]],
     red_herring_clue_weights: dict[str, float],
     red_herring_cases_dict: dict[str, list[str]],
     chosen_attributes: np.ndarray,
@@ -28,7 +28,7 @@ def choose_red_herrings(
         n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
         red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
-        red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
+        red_herring_facts: Possible red herring facts to include in the puzzle as a dictionary of fact titles and a list of description strings.
         red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
         red_herring_cases_dict: A dictionary containing the red herring clue type as a key and a list of grammatical cases for clue attributes as values.
         chosen_attributes: Attribute values chosen for the solution as a matrix.
@@ -81,7 +81,7 @@ def choose_red_herrings(
 def create_red_herring(
     clue_type: str,
     red_herring_attributes: dict[str, list[str]],
-    red_herring_facts: dict[str, str],
+    red_herring_facts: dict[str, list[str]],
     used_red_herrings: list[str],
     chosen_attributes: np.ndarray,
     chosen_attributes_descs: np.ndarray,
@@ -97,7 +97,7 @@ def create_red_herring(
     Args:
         clue_type: Type of red herring clue as a string.
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
-        red_herring_facts: Possible red herring facts to include in the clue as a dictionary of fact titles and descriptions.
+        red_herring_facts: Possible red herring facts to include in the clue as a dictionary of fact titles and a list of description strings.
         used_red_herrings: Attributes that have already been used in red herring clues as a list of strings.
         chosen_attributes: Attribute values chosen for the solution as a matrix.
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
@@ -133,7 +133,7 @@ def create_red_herring(
             ],
             1,
         )[0]
-        chosen_fact = red_herring_facts[fact_key]
+        chosen_fact_all_versions = red_herring_facts[fact_key]
 
         if clue_type == "object_fact":
             # Choose an object to describe
@@ -147,6 +147,13 @@ def create_red_herring(
                 n_attributes=n_attributes,
                 desc_indices=desc_indices,
             )
+            if len(chosen_fact_all_versions) > 1:
+                # If the fact has two descriptions, use the second one for object_fact
+                chosen_fact = chosen_fact_all_versions[1]
+            else:
+                chosen_fact = chosen_fact_all_versions[0]
+        else:
+            chosen_fact = chosen_fact_all_versions[0]
 
         used_red_herrings.append(fact_key)
 

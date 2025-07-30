@@ -195,13 +195,13 @@ red_herring_attributes:
     skíðastökk: ['sá sem horfir á skíðastökk','horfir á skíðastökk', 'þann sem horfir á skíðastökk','þeim sem horfir á skíðastökk']
 
 red_herring_facts:
-    síld: "síldin er fiskur"
-    sólkerfinu: "sólkerfið ferðast á um 200 km/s hraða umhverfis miðju vetrarbrautarinnar"
-    gátur: "gátur eru skemmtilegt að leysa"
-    hús: "öll húsin við veginn eru með fallega garða"
-    hurðir: "nokkur húsanna eru með græna hurð"
-    gluggar: "öll húsin eru með stóra glugga"
-    bílar: "það eru margir bílar á veginum"
-    agúrka: "agúrka er ber"
-    snigill: "sniglar eru lindýr"
-    kaffi: "kaffi inniheldur koffín"
+    síld: ["síldin er fiskur"]
+    sólkerfinu: ["sólkerfið ferðast á um 200 km/s hraða umhverfis miðju vetrarbrautarinnar"]
+    gátur: ["gátur eru skemmtilegt að leysa"]
+    hús: ["öll húsin við veginn eru með fallega garða"]
+    hurðir: ["nokkur húsanna eru með græna hurð"]
+    gluggar: ["öll húsin eru með stóra glugga"]
+    bílar: ["það eru margir bílar á veginum"]
+    agúrka: ["agúrka er ber"]
+    snigill: ["sniglar eru lindýr"]
+    kaffi: ["kaffi inniheldur koffín"]

@@ -196,13 +196,13 @@ red_herring_attributes:
     skihopping: ['personen som ser på skihopping','ser på skihopping']
 
 red_herring_facts:
-    sild: 'sild er ein fisk'
-    solsystem: 'solsystemet bevegar seg med ein fart på omtrent 200 km/s rundt sentrumet til galaksen'
-    gåte: 'det er gøy å løysa gåter'
-    hus: 'alle husa på vegen har fine hagar'
-    dører: 'fleire av husa har ei grøn dør'
-    vindauge: 'alle husa har store vindauge'
-    bilar: 'det er mange bilar på vegen'
-    agurk: 'agurk er eit bær'
-    snigel: 'sniglar er blautdyr'
-    kaffi: 'kaffi inneheld koffein'
+    sild: ['sild er ein fisk']
+    solsystem: ['solsystemet bevegar seg med ein fart på omtrent 200 km/s rundt sentrumet til galaksen']
+    gåte: ['det er gøy å løysa gåter']
+    hus: ['alle husa på vegen har fine hagar']
+    dører: ['fleire av husa har ei grøn dør']
+    vindauge: ['alle husa har store vindauge']
+    bilar: ['det er mange bilar på vegen']
+    agurk: ['agurk er eit bær']
+    snigel: ['sniglar er blautdyr']
+    kaffi: ['kaffi inneheld koffein']

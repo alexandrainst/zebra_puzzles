@@ -114,7 +114,7 @@ clue_cases_dict:
     not_between: ['nom','nom','nom']
     multiple_between: ['nom','nom']
     one_between: ['nom','nom']
-    
+
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
 # prompt_and is the word used for separating the last two attributes in a list of attributes.
@@ -196,13 +196,13 @@ red_herring_attributes:
     backhoppning: ['personen som tittar på backhoppning','tittar på backhoppning']
 
 red_herring_facts:
-    sill: "sill är en fisk"
-    solsystem: "solsystemet rör sig med en fart av cirka 200 km/s runt galaxens centrum"
-    pussel: "det är roligt att lösa pussel"
-    hus: "alla hus på vägen har fina trädgårdar"
-    dörrar: "flera av husen har en grön dörr"
-    fönster: "alla hus har stora fönster"
-    bilar: "det finns många bilar på vägen"
-    gurka: "gurka är ett bär"
-    snigel: "sniglar är mollusker"
-    kaffe: "kaffe innehåller koffein"
+    sill: ["sill är en fisk"]
+    solsystem: ["solsystemet rör sig med en fart av cirka 200 km/s runt galaxens centrum"]
+    pussel: ["det är roligt att lösa pussel"]
+    hus: ["alla hus på vägen har fina trädgårdar"]
+    dörrar: ["flera av husen har en grön dörr"]
+    fönster: ["alla hus har stora fönster"]
+    bilar: ["det finns många bilar på vägen"]
+    gurka: ["gurka är ett bär"]
+    snigel: ["sniglar är mollusker"]
+    kaffe: ["kaffe innehåller koffein"]

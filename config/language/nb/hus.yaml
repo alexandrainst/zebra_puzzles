@@ -114,7 +114,7 @@ clue_cases_dict:
     not_between: ['nom','nom','nom']
     multiple_between: ['nom','nom']
     one_between: ['nom','nom']
-    
+
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
 # prompt_and is the word used for separating the last two attributes in a list of attributes.
@@ -196,13 +196,13 @@ red_herring_attributes:
     skihopping: ['personen som ser på skihopping','ser på skihopping']
 
 red_herring_facts:
-    sild: "sild er en fisk"
-    solsystem: "solsystemet beveger seg med en fart på omtrent 200 km/s rundt galaksens sentrum"
-    gåte: "det er gøy å løse gåter"
-    hus: "alle husene på veien har fine hager"
-    dører: "flere av husene har en grønn dør"
-    vinduer: "alle husene har store vinduer"
-    biler: "det er mange biler på veien"
-    agurk: "agurk er et bær"
-    snegle: "snegler er bløtdyr"
-    kaffe: "kaffe inneholder koffein"
+    sild: ["sild er en fisk"]
+    solsystem: ["solsystemet beveger seg med en fart på omtrent 200 km/s rundt galaksens sentrum"]
+    gåte: ["det er gøy å løse gåter"]
+    hus: ["alle husene på veien har fine hager"]
+    dører: ["flere av husene har en grønn dør"]
+    vinduer: ["alle husene har store vinduer"]
+    biler: ["det er mange biler på veien"]
+    agurk: ["agurk er et bær"]
+    snegle: ["snegler er bløtdyr"]
+    kaffe: ["kaffe inneholder koffein"]

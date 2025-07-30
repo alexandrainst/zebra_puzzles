@@ -56,16 +56,13 @@ def generate_solution(
     )
 
     # Find the attribute descriptions for each attribute in each category
-    try:
-        chosen_attributes_descs = np.array(
-            [
-                [attributes[cat][key] for key in chosen_attributes[i]]
-                for i, cat in enumerate(chosen_categories)
-            ]
-        )
-    except:
-        breakpoint()
-        
+    chosen_attributes_descs = np.array(
+        [
+            [attributes[cat][key] for key in chosen_attributes[i]]
+            for i, cat in enumerate(chosen_categories)
+        ]
+    )
+
     # Transpose the attribute matrices
     chosen_attributes = chosen_attributes.T
     chosen_attributes_descs = chosen_attributes_descs.T

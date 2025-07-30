@@ -115,7 +115,7 @@ clue_cases_dict:
     not_between: ['nom','nom','nom']
     multiple_between: ['nom','nom']
     one_between: ['nom','nom']
-    
+
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
 # prompt_and is the word used for separating the last two attributes in a list of attributes.
@@ -196,13 +196,13 @@ red_herring_attributes:
     football: ['the person who watches football','watches football']
 
 red_herring_facts:
-    herring: "herrings are fish"
-    solar_system: "the solar system moves at a speed of about 200 km/s around the center of the galaxy"
-    puzzle: "it is fun to solve puzzles"
-    houses: "all the houses on the street have beautiful gardens"
-    doors: "several of the houses have a green door"
-    windows: "all the houses have large windows"
-    cars: "there are many cars on the street"
-    cucumber: "cucumber is a berry"
-    snail: "snails are molluscs"
-    coffee: "coffee contains caffeine"
+    herring: ["herrings are fish"]
+    solar_system: ["the solar system moves at a speed of about 200 km/s around the center of the galaxy"]
+    puzzle: ["it is fun to solve puzzles"]
+    houses: ["all the houses on the street have beautiful gardens"]
+    doors: ["several of the houses have a green door"]
+    windows: ["all the houses have large windows"]
+    cars: ["there are many cars on the street"]
+    cucumber: ["cucumber is a berry"]
+    snail: ["snails are molluscs"]
+    coffee: ["coffee contains caffeine"]

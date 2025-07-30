@@ -25,7 +25,7 @@ def run_pipeline(
     n_red_herring_clues: int,
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
-    red_herring_facts: dict[str, str],
+    red_herring_facts: dict[str, list[str]],
     red_herring_clue_weights: dict[str, float],
     red_herring_cases_dict: dict[str, list[str]],
 ) -> tuple[str, str, str, str]:
@@ -45,7 +45,7 @@ def run_pipeline(
         n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
         red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
-        red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
+        red_herring_facts: Possible red herring facts to include in the puzzle as a dictionary of fact titles and a list of description strings.
         red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
         red_herring_cases_dict: A dictionary containing the red herring clue type as a key and a list of grammatical cases for clue attributes as values.
 
@@ -124,7 +124,7 @@ def build_dataset(
     n_red_herring_clues: int,
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
-    red_herring_facts: dict[str, str],
+    red_herring_facts: dict[str, list[str]],
     red_herring_clue_weights: dict[str, float],
     red_herring_cases_dict: dict[str, list[str]],
     data_folder_str: str,
@@ -147,7 +147,7 @@ def build_dataset(
         n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
         red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
-        red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
+        red_herring_facts: Possible red herring facts to include in the puzzle as a dictionary of fact titles and a list of description strings.
         red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
         red_herring_cases_dict: A dictionary containing the red herring clue type as a key and a list of grammatical cases for clue attributes as values.
         data_folder_str: Folder to save the dataset in as a string.
