@@ -16,12 +16,12 @@ attributes:
         Danmark: ['danin', 'er dani', 'er ikki dani','danan','dananum']
         Svøríki: ['svenskarin', 'er svenskur', 'er ikki svenskur','svenskaran','svenskaranum']
         Lettland: ['lettin', 'er lettiskur', 'er ikki lettiskur','lettan','lettanum']
-        Frakland: ['fraklendingurin', 'er franskur', 'er ikki franskur','fraklendinginum','fraklendinginum']
+        Frakland: ['fraklendingurin', 'er franskur', 'er ikki franskur','fraklendingin','fraklendinginum']
         Spania: ['spaniólin', 'er spanskur', 'er ikki spanskur','spaniólan','spaniólanum']
         Italia: ['italiumaðurin', 'er italskur', 'er ikki italskur','italiumannin','italiumanninum']
         Noreg: ['norðmaðurin', 'er norskur', 'er ikki norskur','norðmannin','norðmanninum']
         Føroyar: ['føroyingurin', 'er føroyskur', 'er ikki føroyskur','føroyingin','føroyinginum']
-        Niðurlond: ['hollendingurin', 'er hollendskur', 'er ikki hollendskur','hollendingin','niðurlendinginum']
+        Niðurlond: ['niðurlendingurin', 'er niðurlendskur', 'er ikki niðurlendskur','niðurlendingin','niðurlendinginum']
         Ísland: ['íslendingurin', 'er íslendskur', 'er ikki íslendskur','íslendingin', 'íslendinginum']
         Bretland: ['bretin', 'er bretskur', 'er ikki bretskur','bretan','bretanum']
 
@@ -175,7 +175,7 @@ red_herring_cases_dict:
     double_herring: ['nom', 'none']
     fact: ['none']
     object_fact: ['nom', 'none']
-    friends: ['nom', 'dat']
+    friends: ['nom', 'acc']
     herring_found_at: ['nom']
     herring_not_at: ['nom']
 
