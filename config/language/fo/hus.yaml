@@ -14,24 +14,24 @@ attributes:
 
     tjóðskapir:
         Danmark: ['danin', 'er dani', 'er ikki dani','danan','dananum']
-        Svøríki: ['svenskarin', 'er svenskur', 'er ikki svenskur','svenskaran','svenskanum']
-        Lettland: ['lettin', 'er lettiskur', 'er ikki lettiskur','lettan','lettinum']
-        Frakland: ['fraklendingurin', 'er franskur', 'er ikki franskur','fraklendinguran','fraklendinginum']
+        Svøríki: ['svenskarin', 'er svenskur', 'er ikki svenskur','svenskaran','svenskaranum']
+        Lettland: ['lettin', 'er lettiskur', 'er ikki lettiskur','lettan','lettanum']
+        Frakland: ['fraklendingurin', 'er franskur', 'er ikki franskur','fraklendinginum','fraklendinginum']
         Spania: ['spaniólin', 'er spanskur', 'er ikki spanskur','spaniólan','spaniólanum']
-        Italia: ['italiumaðurin', 'er italskur', 'er ikki italskur','italiumaðuran','italiumanninum']
+        Italia: ['italiumaðurin', 'er italskur', 'er ikki italskur','italiumannin','italiumanninum']
         Noreg: ['norðmaðurin', 'er norskur', 'er ikki norskur','norðmannin','norðmanninum']
-        Føroyar: ['føroyingurin', 'er føroyskur', 'er ikki føroyskur','føroyinguran','føroyinginum']
-        Niðurlond: ['hollendingurin', 'er hollendskur', 'er ikki hollendskur','hollendinguran','niðurlendinginum']
-        Ísland: ['íslendingurin', 'er íslendskur', 'er ikki íslendskur','íslendinguran', 'íslendinginum']
+        Føroyar: ['føroyingurin', 'er føroyskur', 'er ikki føroyskur','føroyingin','føroyinginum']
+        Niðurlond: ['hollendingurin', 'er hollendskur', 'er ikki hollendskur','hollendingin','niðurlendinginum']
+        Ísland: ['íslendingurin', 'er íslendskur', 'er ikki íslendskur','íslendingin', 'íslendinginum']
         Bretland: ['bretin', 'er bretskur', 'er ikki bretskur','bretan','bretanum']
 
     arbeiði:
         bakari: ['bakarin', 'er bakari', 'er ikki bakari','bakaran','bakaranum']
         kirkjutænari: ['kirkjutænarin', 'er kirkjutænari', 'er ikki kirkjutænari','kirkjutænaran','kirkjutænaranum']
-        løgreglumaður: ['løgreglumaðurin', 'er løgreglumaður', 'er ikki løgreglumaður','løgreglumaðuran','løgreglumanninum']
-        sjúkrasystir: ['sjúkrasysturin', 'er sjúkrasystir', 'er ikki sjúkrasystir','sjúkrasysturan','sjúkrarøktarfrøðinginum']
+        løgreglumaður: ['løgreglumaðurin', 'er løgreglumaður', 'er ikki løgreglumaður','løgreglumannin','løgreglumanninum']
+        sjúkrasystir: ['sjúkrasysturin', 'er sjúkrasystir', 'er ikki sjúkrasystir','sjúkrasysturin','sjúkrarøktarfrøðinginum']
         lærari: ['lærarin', 'er lærari', 'er ikki lærari','læraran','læraranum']
-        ritbúnaðarverkfrøðingur: ['ritbúnaðarverkfrøðingurin', 'er ritbúnaðarverkfrøðingur', 'er ikki ritbúnaðarverkfrøðingur','ritbúnaðarverkfrøðingin','ritbúnaðarmennaranum']
+        ritbúnaðarverkfrøðingur: ['ritbúnaðarverkfrøðingurin', 'er ritbúnaðarverkfrøðingur', 'er ikki ritbúnaðarverkfrøðingur','ritbúnaðarverkfrøðingin','ritbúnaðarverkfrøðinginum']
         handilshjálpari: ['handilshjálparin', 'er handilshjálpari', 'er ikki handilshjálpari','handilshjálparan','handilshjálparanum']
 
     kelidjór:
@@ -40,17 +40,17 @@ attributes:
         kanin: ['kanineigarin', 'eigur kanin', 'eigur ikki kanin', 'kanineigaran', 'kanineigaranum']
         sebra: ['sebraeigarin', 'eigur sebra', 'eigur ikki sebra', 'sebraeigaran', 'sebraeigaranum']
         undulát: ['unduláteigarin', 'eigur undulát', 'eigur ikki undulát', 'unduláteigaran', 'unduláteigaranum']
-        snigil: ['snigileigarin', 'eigur snigil', 'eigur ikki snigil', 'snigileigaran', 'snigileigaranum']
+        snigil: ['snigileigarin', 'eigur snigil', 'eigur ikki snigil', 'snigilseigaran', 'snigilseigaranum']
         reikandi kvistur: ['eigarin av einum reikandi kvisti', 'eigur reikandi kvistur', 'eigur ikki reikandi kvistur', 'eigaran av einum reikandi kvisti', 'eigaranum av einum reikandi kvisti']
 
     drikkur:
-        djús: ['djúsdrekkarin', 'drekkur djús', 'drekkur ikki djús','djúsdrekkaran', 'djúsdrekkarum']
-        kaffi: ['kaffidrekkarin', 'drekkur kaffi', 'drekkur ikki kaffi','kaffidrekkaran', 'kaffidrekkarum']
-        mjólk: ['mjólkadrekkarin', 'drekkur mjólk', 'drekkur ikki mjólk','mjólkadrekkaran', 'mjólkadrekkarum']
-        smoothie: ['smoothiedrekkarin', 'drekkur smoothie', 'drekkur ikki smoothie','smoothiedrekkaran', 'smoothiedrekkarum']
-        kakao: ['kakaodrekkarin', 'drekkur kakao', 'drekkur ikki kakao','kakaodrekkaran', 'kakaodrekkarum']
-        te: ['tedrekkarin', 'drekkur te', 'drekkur ikki te','tedrekkaran', 'tedrekkarum']
-        sodavatn: ['sodavatnsdrekkarin', 'drekkur sodavatn', 'drekkur ikki sodavatn','sodavatnsdrekkaran', 'sodavatnsdrekkarum']
+        djús: ['djúsdrekkarin', 'drekkur djús', 'drekkur ikki djús','djúsdrekkaran', 'djúsdrekkaranum']
+        kaffi: ['kaffidrekkarin', 'drekkur kaffi', 'drekkur ikki kaffi','kaffidrekkaran', 'kaffidrekkaranum']
+        mjólk: ['mjólkardrekkarin', 'drekkur mjólk', 'drekkur ikki mjólk','mjólkardrekkaran', 'mjólkardrekkaranum']
+        smoothie: ['smoothiedrekkarin', 'drekkur smoothie', 'drekkur ikki smoothie','smoothiedrekkaran', 'smoothiedrekkaranum']
+        kakao: ['kakaodrekkarin', 'drekkur kakao', 'drekkur ikki kakao','kakaodrekkaran', 'kakaodrekkaranum']
+        te: ['tedrekkarin', 'drekkur te', 'drekkur ikki te','tedrekkaran', 'tedrekkaranum']
+        sodavatn: ['sodavatnsdrekkarin', 'drekkur sodavatn', 'drekkur ikki sodavatn','sodavatnsdrekkaran', 'sodavatnsdrekkaranum']
 
     yndisbókasjangrur:
         yrkisbókmentir: ['yrkisbókmentalesarin', 'lesur yrkisbókmentir', 'lesur ikki yrkisbókmentir', 'yrkisbókmentalesaran', 'yrkisbókmentalesaranum']
@@ -67,13 +67,13 @@ attributes:
         borðspøl: ['persónurin, sum spælir borðspøl,', 'spælir borðspøl', 'spælir ikki borðspøl','persónin, sum spælir borðspøl', 'persóninum, sum spælir borðspøl']
         tennis: ['persónurin, sum spælir tennis,', 'spælir tennis', 'spælir ikki tennis','persónin, sum spælir tennis', 'persóninum, sum spælir tennis']
         hekla: ['persónurin, sum heklar,', 'heklar', 'heklar ikki','persónin, sum heklar', 'persóninum, sum heklar']
-        fóbóltur: ['persónurin, sum spælir fótbólt,', 'spælir fótbólt', 'spælir ikki fótbólt','persónin, sum spælir fótbólt', 'persóninum, sum spælir fótbólt']
+        fótbóltur: ['persónurin, sum spælir fótbólt,', 'spælir fótbólt', 'spælir ikki fótbólt','persónin, sum spælir fótbólt', 'persóninum, sum spælir fótbólt']
         hondbóltur: ['persónurin, sum spælir hondbólt,', 'spælir hondbólt', 'spælir ikki hondbólt','persónin, sum spælir hondbólt', 'persóninum, sum spælir hondbólt']
 
     yndisfruktir:
         súrepli: ['persónurin, sum elskar súrepli,', 'elskar súrepli', 'dámar ikki súrepli', 'persónin, sum elskar súrepli,', 'persóninum, sum elskar súrepli,']
         pera: ['persónurin, sum elskar perur,', 'elskar perur', 'dámar ikki perur', 'persónin, sum elskar perur,', 'persóninum, sum elskar perur,']
-        appilsin: ['persónurin, sum elskar appelsinir,', 'elskar appelsinir', 'dámar ikki appelsinir', 'persónin, sum elskar appelsinir,', 'persóninum, sum elskar appelsinir,']
+        appilsin: ['persónurin, sum elskar appilsinir,', 'elskar appilsinir', 'dámar ikki appilsinir', 'persónin, sum elskar appilsinir,', 'persóninum, sum elskar appilsinir,']
         banan: ['persónurin, sum elskar bananir,', 'elskar bananir', 'dámar ikki bananir', 'persónin, sum elskar bananir,', 'persóninum, sum elskar bananir,']
         jarðber: ['persónurin, sum elskar jarðber,', 'elskar jarðber', 'dámar ikki jarðber', 'persónin, sum elskar jarðber,', 'persóninum, sum elskar jarðber,']
         sólber: ['persónurin, sum elskar sólber,', 'elskar sólber', 'dámar ikki sólber', 'persónin, sum elskar sólber,', 'persóninum, sum elskar sólber,']
@@ -175,7 +175,7 @@ red_herring_cases_dict:
     double_herring: ['nom', 'none']
     fact: ['none']
     object_fact: ['nom', 'none']
-    friends: ['nom', 'acc']
+    friends: ['nom', 'dat']
     herring_found_at: ['nom']
     herring_not_at: ['nom']
 
