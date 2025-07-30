@@ -13,7 +13,7 @@
 # sv/hus
 
 defaults:
-  - language: fo/hus
+  - language: is/husum
   - override hydra/job_logging: custom
   - _self_
 

@@ -33,22 +33,22 @@ attributes:
         butikkmedarbeidar: ['butikkmedarbeidaren', 'er ein butikkmedarbeidar', 'er ikkje ein butikkmedarbeidar']
 
     kjæledyr:
-        katt: ['katteeigaren','har ein katt','har ikkje ein katt']
-        hund: ['hundeeigaren','har ein hund','har ikkje ein hund']
-        kanin: ['kanineigaren','har ein kanin','har ikkje ein kanin']
-        sebra: ['sebraeigaren','har ein sebra','har ikkje ein sebra']
-        undulat: ['undulateigen','har ein undulat','har ikkje ein undulat']
-        snigel: ['snigeleigaren','har ein snigel','har ikkje ein snigel']
-        vandrande pinne: ['eigaren av ein vandrande pinne','har ein vandrande pinne','har ikkje ein vandrande pinne']
+        katt: ['katteeigaren', 'har ein katt', 'har ikkje ein katt']
+        hund: ['hundeeigaren', 'har ein hund', 'har ikkje ein hund']
+        kanin: ['kanineigaren', 'har ein kanin', 'har ikkje ein kanin']
+        sebra: ['sebraeigaren', 'har ein sebra', 'har ikkje ein sebra']
+        undulat: ['undulateigaren', 'har ein undulat', 'har ikkje ein undulat']
+        snigel: ['snigeleigaren', 'har ein snigel', 'har ikkje ein snigel']
+        vandrande pinne: ['eigaren av ein vandrande pinne', 'har ein vandrande pinne', 'har ikkje ein vandrande pinne']
 
     drink:
-        jus: ['jusdrikkaren', 'drikk jus','drikk ikkje jus']
-        kaffi: ['kaffidrikkaren', 'drikk kaffi','drikk ikkje kaffi']
-        mjølk: ['mjølkedrikkaren', 'drikk mjølk','drikk ikkje mjølk']
-        smoothie: ['smoothiedrikkaren', 'drikk smoothie','drikk ikkje smoothie']
-        kakao: ['kakaodrikkaren', 'drikk kakao','drikk ikkje kakao']
-        te: ['tedrikkaren', 'drikk te','drikk ikkje te']
-        brus: ['brusdrikkaren', 'drikk brus','drikk ikkje brus']
+        jus: ['jusdrikkaren', 'drikk jus', 'drikk ikkje jus']
+        kaffi: ['kaffidrikkaren', 'drikk kaffi', 'drikk ikkje kaffi']
+        mjølk: ['mjølkedrikkaren', 'drikk mjølk', 'drikk ikkje mjølk']
+        smoothie: ['smoothiedrikkaren', 'drikk smoothie', 'drikk ikkje smoothie']
+        kakao: ['kakaodrikkaren', 'drikk kakao', 'drikk ikkje kakao']
+        te: ['tedrikkaren', 'drikk te', 'drikk ikkje te']
+        brus: ['brusdrikkaren', 'drikk brus', 'drikk ikkje brus']
 
     favorittboksjangrar:
         sakprosa: ['personen som les sakprosa', 'les sakprosa', 'les ikkje sakprosa']
@@ -98,22 +98,22 @@ clues_dict:
     one_between: "Det er eitt hus mellom {attribute_desc_1} og {attribute_desc_2}."                                                  # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
-# When irrelevant in the given language, nominative is set as default indepently of the true grammatical case.
+# When irrelevant in the given language, nominative is set as default independently of the true grammatical case.
 clue_cases_dict:
     found_at: ['nom']
     not_at: ['nom']
-    next_to: ['nom','nom']
-    not_next_to: ['nom','nom']
-    just_left_of: ['nom','nom']
-    just_right_of: ['nom','nom']
-    left_of: ['nom','nom']
-    right_of: ['nom','nom']
-    same_object: ['nom','none']
-    not_same_object: ['nom','none']
-    between: ['nom','nom','nom']
-    not_between: ['nom','nom','nom']
-    multiple_between: ['nom','nom']
-    one_between: ['nom','nom']
+    next_to: ['nom', 'nom']
+    not_next_to: ['nom', 'nom']
+    just_left_of: ['nom', 'nom']
+    just_right_of: ['nom', 'nom']
+    left_of: ['nom', 'nom']
+    right_of: ['nom', 'nom']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['nom', 'nom', 'nom']
+    not_between: ['nom', 'nom', 'nom']
+    multiple_between: ['nom', 'nom']
+    one_between: ['nom', 'nom']
 
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
@@ -178,22 +178,22 @@ red_herring_cases_dict:
     herring_not_at: ['nom']
 
 red_herring_attributes:
-    raudt_hår: ['personen med raudt hår','har raudt hår']
-    briller: ['personen med briller','bruker briller']
-    tatovering: ['personen med tatovering','har tatovering']
-    gitar: ['personen som speler gitar','speler gitar']
-    sykkel: ['personen med sykkel','har sykkel']
-    marsvin: ['personen med marsvin','har marsvin']
-    kaktus: ['personen som ikkje eig ein kaktus','har ikkje ein kaktus']
-    dataspel: ['personen som speler dataspel','speler dataspel']
-    søster: ['personen med ei søster','har ei søster']
-    mango: ['personen som meiner den nest beste frukta er mango','meiner den nest beste frukta er mango']
-    segling: ['personen som ofte seglar','seglar ofte']
-    Canada: ['personen som har vore i Canada','har vore i Canada']
-    matematikk: ['personen som har ei kandidatgrad i matematikk','har ei kandidatgrad i matematikk']
-    fysikk: ['personen som elskar fysikk','elskar fysikk']
-    gammalt_dyr: ['personen med eit kjæledyr som er gammalt for slaget sitt','har eit kjæledyr som er gammalt for slaget sitt']
-    skihopping: ['personen som ser på skihopping','ser på skihopping']
+    raudt_hår: ['personen med raudt hår', 'har raudt hår']
+    briller: ['personen med briller', 'bruker briller']
+    tatovering: ['personen med tatovering', 'har tatovering']
+    gitar: ['personen som speler gitar', 'speler gitar']
+    sykkel: ['personen med sykkel', 'har sykkel']
+    marsvin: ['personen med marsvin', 'har marsvin']
+    kaktus: ['personen som ikkje eig ein kaktus', 'har ikkje ein kaktus']
+    dataspel: ['personen som speler dataspel', 'speler dataspel']
+    søster: ['personen med ei søster', 'har ei søster']
+    mango: ['personen som meiner den nest beste frukta er mango', 'meiner den nest beste frukta er mango']
+    segling: ['personen som ofte seglar', 'seglar ofte']
+    Canada: ['personen som har vore i Canada', 'har vore i Canada']
+    matematikk: ['personen som har ei kandidatgrad i matematikk', 'har ei kandidatgrad i matematikk']
+    fysikk: ['personen som elskar fysikk', 'elskar fysikk']
+    gammalt_dyr: ['personen med eit kjæledyr som er gammalt for slaget sitt', 'har eit kjæledyr som er gammalt for slaget sitt']
+    skihopping: ['personen som ser på skihopping', 'ser på skihopping']
 
 red_herring_facts:
     sild: ['sild er ein fisk']
@@ -210,4 +210,3 @@ red_herring_facts:
 # Strings to replace in the prompt.
 prompt_replacements:
     no_replacements: no_replacements
-    

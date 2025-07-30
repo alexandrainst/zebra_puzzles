@@ -11,14 +11,14 @@ theme: de_hauser
 attributes:
 
     Nationalitäten:
-        Dänemark: ['der Däne', 'ist dänisch', 'ist nicht dänisch','den Dänen','dem Dänen']
+        Dänemark: ['der Däne', 'ist dänisch', 'ist nicht dänisch', 'den Dänen', 'dem Dänen']
         Schweden: ['der Schwede', 'ist schwedisch', 'ist nicht schwedisch', 'den Schweden', 'dem Schweden']
         Lettland: ['der Lette', 'ist lettisch', 'ist nicht lettisch', 'den Letten', 'dem Letten']
         Frankreich: ['der Franzose', 'ist französisch', 'ist nicht französisch', 'den Franzosen', 'dem Franzosen']
         Spanien: ['der Spanier', 'ist spanisch', 'ist nicht spanisch', 'den Spanier', 'dem Spanier']
         Italien: ['der Italiener', 'ist italienisch', 'ist nicht italienisch', 'den Italiener', 'dem Italiener']
         Norwegen: ['der Norweger', 'ist norwegisch', 'ist nicht norwegisch', 'den Norweger', 'dem Norweger']
-        Färöer Inseln: ['der Färinger', 'ist färöisch', 'ist nicht färöisch', 'den Färinger', 'dem Färinger']
+        Färöer-Inseln: ['der Färinger', 'ist färöisch', 'ist nicht färöisch', 'den Färinger', 'dem Färinger']
         Niederlande: ['der Niederländer', 'ist niederländisch', 'ist nicht niederländisch', 'den Niederländer', 'dem Niederländer']
         Island: ['der Isländer', 'ist isländisch', 'ist nicht isländisch', 'den Isländer', 'dem Isländer']
         Großbritannien: ['der Brite', 'ist britisch', 'ist nicht britisch', 'den Briten', 'dem Briten']
@@ -98,22 +98,22 @@ clues_dict:
     one_between: "Es gibt ein Haus zwischen {attribute_desc_1} und {attribute_desc_2}."                                                        # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
-# When irrelevant in the given language, nominative is set as default indepently of the true grammatical case.
+# When irrelevant in the given language, nominative is set as default independently of the true grammatical case.
 clue_cases_dict:
     found_at: ['nom']
     not_at: ['nom']
-    next_to: ['nom','acc']
-    not_next_to: ['nom','acc']
-    just_left_of: ['nom','dat']
-    just_right_of: ['nom','dat']
-    left_of: ['nom','dat']
-    right_of: ['nom','dat']
-    same_object: ['nom','none']
-    not_same_object: ['nom','none']
-    between: ['nom','acc','acc']
-    not_between: ['nom','acc','acc']
-    multiple_between: ['nom','nom']
-    one_between: ['acc','acc']
+    next_to: ['nom', 'acc']
+    not_next_to: ['nom', 'acc']
+    just_left_of: ['nom', 'dat']
+    just_right_of: ['nom', 'dat']
+    left_of: ['nom', 'dat']
+    right_of: ['nom', 'dat']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['dat', 'nom', 'dat'] # Note that second argument corresponds the first object in this clue.
+    not_between: ['nom', 'dat', 'dat']
+    multiple_between: ['nom', 'nom']
+    one_between: ['dat', 'dat']
 
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
@@ -179,26 +179,26 @@ red_herring_cases_dict:
 
 # Consider the commas when followed by more words.
 red_herring_attributes:
-    rotes_Haar: ['die Person mit den roten Haaren', 'hat rote Haare','die Person mit den roten Haaren', 'der Person mit den roten Haaren']
+    rotes_Haar: ['die Person mit den roten Haaren', 'hat rote Haare', 'die Person mit den roten Haaren', 'der Person mit den roten Haaren']
     Brille: ['die Person mit der Brille', 'trägt eine Brille', 'die Person mit der Brille', 'der Person mit der Brille']
     Tattoo: ['die Person mit einem Tattoo', 'hat ein Tattoo', 'die Person mit einem Tattoo', 'der Person mit einem Tattoo']
-    Gitarre: ['die Person, die Gitarre spielt,', 'spielt Gitarre', 'die Person, die Gitarre spielt,', 'der Person, die Gitarre spielt,']
+    Gitarre: ['die Person, die Gitarre spielt, ', 'spielt Gitarre', 'die Person, die Gitarre spielt, ', 'der Person, die Gitarre spielt, ']
     Fahrrad: ['die Person mit dem Fahrrad', 'hat ein Fahrrad', 'die Person mit dem Fahrrad', 'der Person mit dem Fahrrad']
     Meerschweinchen: ['die Person mit einem Meerschweinchen', 'hat ein Meerschweinchen', 'die Person mit einem Meerschweinchen', 'der Person mit einem Meerschweinchen']
-    Kaktus: ['die Person, die keinen Kaktus besitzt,', 'hat keinen Kaktus', 'die Person, die keinen Kaktus besitzt,', 'der Person, die keinen Kaktus besitzt,']
-    Computerspiel: ['die Person, die Computerspiele spielt,', 'spielt Computerspiele', 'die Person, die Computerspiele spielt,', 'der Person, die Computerspiele spielt,']
+    Kaktus: ['die Person, die keinen Kaktus besitzt, ', 'hat keinen Kaktus', 'die Person, die keinen Kaktus besitzt, ', 'der Person, die keinen Kaktus besitzt, ']
+    Computerspiel: ['die Person, die Computerspiele spielt, ', 'spielt Computerspiele', 'die Person, die Computerspiele spielt, ', 'der Person, die Computerspiele spielt, ']
     Schwester: ['die Person mit einer Schwester', 'hat eine Schwester', 'die Person mit einer Schwester', 'der Person mit einer Schwester']
-    Mango: ['die Person, die denkt, dass Mango die zweitbeste Frucht ist,', 'denkt, dass Mango die zweitbeste Frucht ist', 'die Person, die denkt, dass Mango die zweitbeste Frucht ist,', 'der Person, die denkt, dass Mango die zweitbeste Frucht ist,']
-    Segeln: ['die Person, die oft segelt,', 'segelt oft', 'die Person, die oft segelt,', 'der Person, die oft segelt,']
-    Kanada: ['die Person, die in Kanada war,', 'war in Kanada', 'die Person, die in Kanada war,', 'der Person, die in Kanada war,']
+    Mango: ['die Person, die denkt, dass Mango die zweitbeste Frucht ist, ', 'denkt, dass Mango die zweitbeste Frucht ist', 'die Person, die denkt, dass Mango die zweitbeste Frucht ist, ', 'der Person, die denkt, dass Mango die zweitbeste Frucht ist, ']
+    Segeln: ['die Person, die oft segelt, ', 'segelt oft', 'die Person, die oft segelt, ', 'der Person, die oft segelt, ']
+    Kanada: ['die Person, die in Kanada war, ', 'war in Kanada', 'die Person, die in Kanada war, ', 'der Person, die in Kanada war, ']
     Mathematik: ['die Person mit einem Masterabschluss in Mathematik', 'hat einen Masterabschluss in Mathematik', 'die Person mit einem Masterabschluss in Mathematik', 'der Person mit einem Masterabschluss in Mathematik']
-    Physik: ['die Person, die Physik liebt,', 'liebt Physik', 'die Person, die Physik liebt,', 'der Person, die Physik liebt,']
-    altes_Tier: ['die Person mit einem Haustier, dass für seine Art alt ist,', 'hat ein Haustier, dass für seine Art alt ist', 'die Person mit einem Haustier, dass für seine Art alt ist,', 'der Person mit einem Haustier, dass für seine Art alt ist,']
-    Skispringen: ['die Person, die beim Skispringen zuschaut,', 'schaut beim Skispringen zu', 'die Person, die beim Skispringen zuschaut,', 'der Person, die beim Skispringen zuschaut,']
+    Physik: ['die Person, die Physik liebt, ', 'liebt Physik', 'die Person, die Physik liebt, ', 'der Person, die Physik liebt, ']
+    altes_Tier: ['die Person mit einem Haustier, dass für seine Art alt ist, ', 'hat ein Haustier, dass für seine Art alt ist', 'die Person mit einem Haustier, dass für seine Art alt ist, ', 'der Person mit einem Haustier, dass für seine Art alt ist, ']
+    Skispringen: ['die Person, die beim Skispringen zuschaut, ', 'schaut beim Skispringen zu', 'die Person, die beim Skispringen zuschaut, ', 'der Person, die beim Skispringen zuschaut, ']
 
 # Facts including a second version of the form "He knows that [fact]" (English example).
 red_herring_facts:
-    Hering: ["Hering ist ein Fisch","Hering ein Fisch ist"]
+    Hering: ["Hering ist ein Fisch", "Hering ein Fisch ist"]
     Sonnensystem: ["das Sonnensystem bewegt sich mit einem Tempo von etwa 200 km/s um das Zentrum der Galaxie", "das Sonnensystem sich mit einem Tempo von etwa 200 km/s um das Zentrum der Galaxie bewegt"]
     Rätsel: ["es macht Spaß, Rätsel zu lösen", "es Spaß macht, Rätsel zu lösen"]
     Häuser: ["alle Häuser in der Straße haben schöne Gärten", "alle Häuser in der Straße schöne Gärten haben"]
