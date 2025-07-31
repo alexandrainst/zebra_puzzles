@@ -13,15 +13,15 @@ attributes:
     nationaliteter:
         Danmark: ['dansken', 'är dansk', 'är inte dansk']
         Sverige: ['svensken', 'är svensk', 'är inte svensk']
-        Lettland: ['letten', 'är lettisk', 'är inte lettisk']
-        Frankrike: ['fransmannen', 'är fransk', 'är inte fransk']
-        Spanien: ['spanjoren', 'är spansk', 'är inte spansk']
-        Italien: ['italienaren', 'är italiensk', 'är inte italiensk']
-        Norge: ['norrmannen', 'är norsk', 'är inte norsk']
-        Färöarna: ['färöingen', 'är färöisk', 'är inte färöisk']
-        Nederländerna: ['neder­ländaren', 'är nederländsk', 'är inte nederländsk']
-        Island: ['isländaren', 'är isländsk', 'är inte isländsk']
-        Storbritannien: ['britten', 'är brittisk', 'är inte brittisk']
+        Lettland: ['letten', 'är lett', 'är inte lett']
+        Frankrike: ['fransosen', 'är fransos', 'är inte fransos']
+        Spanien: ['spanjoren', 'är spanjor', 'är inte spanjor']
+        Italien: ['italienaren', 'är italienare', 'är inte italienare']
+        Norge: ['norrmannen', 'är norrman', 'är inte norrman']
+        Färöarna: ['färöingen', 'är färöing', 'är inte färöing']
+        Nederländerna: ['neder­ländaren', 'är nederländare', 'är inte nederländare']
+        Island: ['isländaren', 'är islänning', 'är inte islänning']
+        Storbritannien: ['britten', 'är britt', 'är inte britt']
 
     jobb:
         bagare: ['bagaren', 'är en bagare', 'är inte en bagare']
@@ -29,8 +29,8 @@ attributes:
         polis: ['polisen', 'är en polis', 'är inte en polis']
         sjuksköterska: ['sjuksköterskan', 'är en sjuksköterska', 'är inte en sjuksköterska']
         lärare: ['läraren', 'är en lärare', 'är inte en lärare']
-        programvaruutvecklare: ['programvaruutvecklaren', 'är en programvaruutvecklare', 'är inte en programvaruutvecklare']
-        butiksbiträde: ['butiksbiträdet', 'är en butiksbiträde', 'är inte en butiksbiträde']
+        mjukvaruutvecklare: ['mjukvaruutvecklaren', 'är en mjukvaruutvecklare', 'är inte en mjukvaruutvecklare']
+        butiksbiträde: ['butiksbiträdet', 'är ett butiksbiträde', 'är inte ett butiksbiträde']
 
     husdjur:
         katt: ['kattägaren', 'har en katt', 'har ingen katt']
@@ -39,21 +39,21 @@ attributes:
         zebra: ['zebraägaren', 'har en zebra', 'har ingen zebra']
         undulat: ['undulatägaren', 'har en undulat', 'har ingen undulat']
         snigel: ['snigelägaren', 'har en snigel', 'har ingen snigel']
-        vandrande pinne: ['ägare av en vandrande pinne', 'har en vandrande pinne', 'har ingen vandrande pinne']
+        vandrande pinne: ['ägaren av en vandrande pinne', 'har en vandrande pinne', 'har ingen vandrande pinne']
         
     drycker:
         juice: ['juicedrickaren', 'dricker juice', 'dricker inte juice']
         kaffe: ['kaffedrickaren', 'dricker kaffe', 'dricker inte kaffe']
         mjölk: ['mjölkdrickaren', 'dricker mjölk', 'dricker inte mjölk']
         smoothie: ['smoothiedrickaren', 'dricker smoothie', 'dricker inte smoothie']
-        kakao: ['kakaodrickaren', 'dricker kakao', 'dricker inte kakao']
+        varm choklad: ['personen som dricker varm choklad', 'dricker varm choklad', 'dricker inte varm choklad']
         te: ['tedrickaren', 'dricker te', 'dricker inte te']
         läsk: ['läskdrickaren', 'dricker läsk', 'dricker inte läsk']
 
     favoritboksgenrer:
-        facklitteratur: ['personen som läser facklitteratur bor här.', 'läser facklitteratur', 'läser inte facklitteratur']
-        deckare: ['deckarromanläsaren', 'läser deckare', 'läser inte deckare']
-        fantasy: ['fantasyläsaren', 'läser fantasy', 'läser inte fantasy']
+        facklitteratur: ['personen som läser facklitteratur bor här', 'läser facklitteratur', 'läser inte facklitteratur']
+        deckare: ['personen som läser deckare', 'läser deckare', 'läser inte deckare']
+        fantasy: ['personen som läser fantasy', 'läser fantasy', 'läser inte fantasy']
         science fiction: ['personen som läser science fiction', 'läser science fiction', 'läser inte science fiction']
         skräck: ['skräckläsaren', 'läser skräck', 'läser inte skräck']
         poesi: ['poesiläsaren', 'läser poesi', 'läser inte poesi']
@@ -74,7 +74,7 @@ attributes:
         apelsin: ['personen som älskar apelsiner', 'älskar apelsiner', 'gillar inte apelsiner']
         banan: ['personen som älskar bananer', 'älskar bananer', 'gillar inte bananer']
         jordgubbe: ['personen som älskar jordgubbar', 'älskar jordgubbar', 'gillar inte jordgubbar']
-        svartvinbär: ['personen som älskar svarta vinbär', 'älskar svarta vinbär', 'gillar inte svarta vinbär']
+        svartvinbär: ['personen som älskar svartvinbär', 'älskar svartvinbär', 'gillar inte svartvinbär']
         smultron: ['personen som älskar smultron', 'älskar smultron', 'gillar inte smultron']
 
 # Clues
@@ -135,7 +135,7 @@ prompt_templates:
 
         Vem har vilka egenskaper och bor i vilket hus?
 
-        Vänligen ange ditt svar som ett JSON dictionary i formatet nedan. Varje rad ska börja med object_X där X är husnumret. Varje kolumn representerar en kategori, och de ska vara i samma ordning som kategorierna listas ovan.
+        Vänligen ange ditt svar som en JSON dictionary i formatet nedan. Varje rad ska börja med object_X där X är husnumret. Varje kolumn representerar en kategori, och de ska vara i samma ordning som kategorierna listas ovan.
         
         {solution_template}
     - |
@@ -197,14 +197,14 @@ red_herring_attributes:
 
 red_herring_facts:
     sill: ["sill är en fisk"]
-    solsystem: ["solsystemet rör sig med en fart av cirka 200 km/s runt galaxens centrum"]
+    solsystem: ["solsystemet rör sig med en fart av cirka 200 km/s runt galaxens mittpunkt"]
     pussel: ["det är roligt att lösa pussel"]
     hus: ["alla hus på vägen har fina trädgårdar"]
-    dörrar: ["flera av husen har en grön dörr"]
+    dörrar: ["flera av husen har gröna dörrar"]
     fönster: ["alla hus har stora fönster"]
     bilar: ["det finns många bilar på vägen"]
     gurka: ["gurka är ett bär"]
-    snigel: ["sniglar är mollusker"]
+    snigel: ["sniglar är blötdjur"]
     kaffe: ["kaffe innehåller koffein"]
 
 # Strings to replace in the prompt.
