@@ -155,7 +155,7 @@ prompt_templates:
 
 # Red herrings
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
-# NOTE: More types could be added such as "The person with a cactus is not the baker"
+# NOTE: More types could be added such as "The person with a cactus is not a baker"
 
 red_herring_clues_dict:
     same_herring: "{attribute_desc} {attribute_desc_herring}."
