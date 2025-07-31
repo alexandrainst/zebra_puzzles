@@ -84,18 +84,18 @@ attributes:
 clues_dict:
     found_at: "{attribute_desc} woont in huisnummer {i_object}."
     not_at: "{attribute_desc} woont niet in huisnummer {i_object}."
-    next_to: "{attribute_desc_1} woont naast {attribute_desc_2}."                                                             # Requires n_objects > 2, otherwise use not_same_object
-    not_next_to: "{attribute_desc_1} woont niet naast {attribute_desc_2}, en ze zijn niet dezelfde persoon."                    # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} woont net links van {attribute_desc_2}."                                                # Requires n_objects > 2, otherwise use left_of
-    just_right_of: "{attribute_desc_1} woont net rechts van {attribute_desc_2}."                                                 # Requires n_objects > 2, otherwise use right_of
+    next_to: "{attribute_desc_1} woont naast {attribute_desc_2}."                                                                          # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: "{attribute_desc_1} woont niet naast {attribute_desc_2}, en ze zijn niet dezelfde persoon."                               # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: "{attribute_desc_1} woont net links van {attribute_desc_2}."                                                             # Requires n_objects > 2, otherwise use left_of
+    just_right_of: "{attribute_desc_1} woont net rechts van {attribute_desc_2}."                                                           # Requires n_objects > 2, otherwise use right_of
     left_of: "{attribute_desc_1} woont links van {attribute_desc_2}."
     right_of: "{attribute_desc_1} woont rechts van {attribute_desc_2}."
-    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                          # Requires n_attributes > 1, otherwise it cannot be used
-    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                      # Requires n_attributes > 1, otherwise it cannot be used
-    between: "{attribute_desc_2} woont tussen {attribute_desc_1} en {attribute_desc_3}."                                             # Requires n_objects > 2, otherwise it cannot be used
+    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                  # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                              # Requires n_attributes > 1, otherwise it cannot be used
+    between: "{attribute_desc_2} woont tussen {attribute_desc_1} en {attribute_desc_3}."                                                   # Requires n_objects > 2, otherwise it cannot be used
     not_between: "{attribute_desc_1} woont niet tussen {attribute_desc_2} en {attribute_desc_3}, en het zijn drie verschillende personen." # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: "{attribute_desc_1} en {attribute_desc_2} woont met {n_between} huizen tussen zich."                              # Requires n_objects > 3, otherwise it cannot be used
-    one_between: "Er staat één huis tussen {attribute_desc_1} en {attribute_desc_2}."                                                  # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: "{attribute_desc_1} en {attribute_desc_2} woont met {n_between} huizen tussen zich."                                 # Requires n_objects > 3, otherwise it cannot be used
+    one_between: "Er staat één huis tussen {attribute_desc_1} en {attribute_desc_2}."                                                      # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
 # When irrelevant in the given language, nominative is set as default independently of the true grammatical case.

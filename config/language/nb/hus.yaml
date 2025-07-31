@@ -84,17 +84,17 @@ attributes:
 clues_dict:
     found_at: "{attribute_desc} bor i hus nummer {i_object}."
     not_at: "{attribute_desc} bor ikke i hus nummer {i_object}."
-    next_to: "{attribute_desc_1} bor ved siden av {attribute_desc_2}."                                                             # Requires n_objects > 2, otherwise use not_same_object
-    not_next_to: "{attribute_desc_1} bor ikke ved siden av {attribute_desc_2}, og de er ikke den samme personen."                    # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} bor rett til venstre for {attribute_desc_2}."                                                # Requires n_objects > 2, otherwise use left_of
-    just_right_of: "{attribute_desc_1} bor rett til høyre for {attribute_desc_2}."                                                 # Requires n_objects > 2, otherwise use right_of
+    next_to: "{attribute_desc_1} bor ved siden av {attribute_desc_2}."                                                              # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: "{attribute_desc_1} bor ikke ved siden av {attribute_desc_2}, og de er ikke den samme personen."                   # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: "{attribute_desc_1} bor rett til venstre for {attribute_desc_2}."                                                 # Requires n_objects > 2, otherwise use left_of
+    just_right_of: "{attribute_desc_1} bor rett til høyre for {attribute_desc_2}."                                                  # Requires n_objects > 2, otherwise use right_of
     left_of: "{attribute_desc_1} bor til venstre for {attribute_desc_2}."
     right_of: "{attribute_desc_1} bor til høyre for {attribute_desc_2}."
-    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                          # Requires n_attributes > 1, otherwise it cannot be used
-    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                      # Requires n_attributes > 1, otherwise it cannot be used
-    between: "{attribute_desc_2} bor mellom {attribute_desc_1} og {attribute_desc_3}."                                             # Requires n_objects > 2, otherwise it cannot be used
+    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                           # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                       # Requires n_attributes > 1, otherwise it cannot be used
+    between: "{attribute_desc_2} bor mellom {attribute_desc_1} og {attribute_desc_3}."                                              # Requires n_objects > 2, otherwise it cannot be used
     not_between: "{attribute_desc_1} bor ikke mellom {attribute_desc_2} og {attribute_desc_3}, og de er tre forskjellige personer." # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: "{attribute_desc_1} og {attribute_desc_2} bor med {n_between} hus mellom seg."                              # Requires n_objects > 3, otherwise it cannot be used
+    multiple_between: "{attribute_desc_1} og {attribute_desc_2} bor med {n_between} hus mellom seg."                                # Requires n_objects > 3, otherwise it cannot be used
     one_between: "Det er ett hus mellom {attribute_desc_1} og {attribute_desc_2}."                                                  # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.

@@ -86,8 +86,8 @@ clues_dict:
     not_at: "{attribute_desc} býr ekki í húsi númer {i_object}."
     next_to: "{attribute_desc_1} býr við hliðina á {attribute_desc_2}."                                                                  # Requires n_objects > 2, otherwise use not_same_object
     not_next_to: "{attribute_desc_1} býr ekki við hliðina á {attribute_desc_2}, og þau eru ekki sama manneskjan."                        # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} býr rétt vinstra megin við {attribute_desc_2}."                                                   # Requires n_objects > 2, otherwise use left_of
-    just_right_of: "{attribute_desc_1} býr rétt hægra megin við {attribute_desc_2}."                                                    # Requires n_objects > 2, otherwise use right_of
+    just_left_of: "{attribute_desc_1} býr rétt vinstra megin við {attribute_desc_2}."                                                    # Requires n_objects > 2, otherwise use left_of
+    just_right_of: "{attribute_desc_1} býr rétt hægra megin við {attribute_desc_2}."                                                     # Requires n_objects > 2, otherwise use right_of
     left_of: "{attribute_desc_1} býr vinstra megin við {attribute_desc_2}."
     right_of: "{attribute_desc_1} býr hægra megin við {attribute_desc_2}."
     same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                # Requires n_attributes > 1, otherwise it cannot be used
