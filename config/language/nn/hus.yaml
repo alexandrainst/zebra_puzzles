@@ -58,7 +58,7 @@ attributes:
         skrekk: ['skrekkeleseren', 'les skrekk', 'les ikkje skrekk']
         poesi: ['poesilesaren', 'les poesi', 'les ikkje poesi']
         romantikk: ['personen som les romantikkromanar', 'les romantikkromanar', 'les ikkje romantikkromanar']
-    
+
     hobbyar:
         klatring: ['personen som klatrar', 'klatrar', 'klatrar ikkje']
         måleri: ['personen som målar', 'målar', 'målar ikkje']
@@ -136,7 +136,7 @@ prompt_templates:
         Kven har kva eigenskapar og bur i kva hus?
 
         Ver vennleg og oppgi svaret ditt som eit JSON dictionary i formatet nedanfor. Kvar rad skal starta med object_X der X er husnummeret. Kvar kolonne representerer ein kategori, og dei skal vera i same rekkjefølgje som kategoriane som er oppførte ovanfor.
-        
+
         {solution_template}
     - |
         Ei rekkje med hus er nummerert frå 1 til {n_objects} frå venstre til høgre.

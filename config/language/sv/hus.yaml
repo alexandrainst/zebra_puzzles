@@ -40,7 +40,7 @@ attributes:
         undulat: ['undulatägaren', 'har en undulat', 'har ingen undulat']
         snigel: ['snigelägaren', 'har en snigel', 'har ingen snigel']
         vandrande pinne: ['ägaren av en vandrande pinne', 'har en vandrande pinne', 'har ingen vandrande pinne']
-        
+
     drycker:
         juice: ['juicedrickaren', 'dricker juice', 'dricker inte juice']
         kaffe: ['kaffedrickaren', 'dricker kaffe', 'dricker inte kaffe']
@@ -136,7 +136,7 @@ prompt_templates:
         Vem har vilka egenskaper och bor i vilket hus?
 
         Vänligen ange ditt svar som en JSON dictionary i formatet nedan. Varje rad ska börja med object_X där X är husnumret. Varje kolumn representerar en kategori, och de ska vara i samma ordning som kategorierna listas ovan.
-        
+
         {solution_template}
     - |
         En rad med hus är numrerade från 1 till {n_objects} från vänster till höger.
@@ -150,7 +150,7 @@ prompt_templates:
         Vem har vilka egenskaper och bor i vilket hus?
 
         Vänligen ange ditt svar som en JSON dictionary i formatet nedan. Varje rad ska börja med object_X där X är husnumret. Detta följs av en kolumn med egenskaperna i den ovannämnda kategorin.
-        
+
         {solution_template}
 
 # Red herrings

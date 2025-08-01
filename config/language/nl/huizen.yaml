@@ -142,7 +142,7 @@ prompt_templates:
         Een rij huizen is van links naar rechts genummerd van 1 tot {n_objects}.
 
         In elk huis woont een persoon met een unieke eigenschap in de categorie {chosen_attributes_str}.
-        
+
         Daarnaast weten we het volgende:
 
         {chosen_clues_str}
@@ -150,7 +150,7 @@ prompt_templates:
         Wie heeft welke eigenschappen en woont in welk huis?
 
         Geef je antwoord in de vorm van een JSON dictionary in de onderstaande notatie. Elke rij moet beginnen met object_X, waarbij X het huisnummer is. Dit wordt gevolgd door een kolom met de eigenschappen in de bovengenoemde categorie.
-        
+
         {solution_template}
 
 # Red herrings

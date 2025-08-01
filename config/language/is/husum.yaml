@@ -147,7 +147,7 @@ prompt_templates:
         {chosen_clues_str}
 
         Hver hefur hvaða eiginleika og býr í hvaða húsi?
-    
+
         Vinsamlegast gefðu svarið þitt sem JSON dictionary í eftirfarandi sniði. Hver röð ætti að byrja á object_X þar sem X er húsnúmerið. Þessu fylgir dálkur með eiginleikum í áðurnefndum flokki.
 
         {solution_template}
