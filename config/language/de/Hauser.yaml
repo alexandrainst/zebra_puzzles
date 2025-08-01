@@ -135,7 +135,7 @@ prompt_templates:
 
         Wer hat welche Eigenschaften und wohnt in welchem Haus?
 
-        Bitte geben Sie Ihre Antwort als JSON-Dictionary im untenstehenden Format an. Jede Zeile sollte mit object_X beginnen, wobei X die Hausnummer ist. Jede Spalte repräsentiert eine Kategorie. Die Kategorien sollten in der gleichen Reihenfolge stehen wie die Kategorien oben aufgelistet.
+        Bitte geben Sie Ihre Antwort als JSON-Dictionary im untenstehenden Format an. Jede Zeile sollte mit object_X beginnen, wobei X die Hausnummer ist. Jede Spalte repräsentiert eine Kategorie. Die Kategorien sollten in der gleichen Reihenfolge stehen wie die oben aufgelisteten Kategorien.
 
         {solution_template}
     - |
