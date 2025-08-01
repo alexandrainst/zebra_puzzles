@@ -211,5 +211,6 @@ red_herring_facts:
 
 # Strings to replace in the prompt.
 prompt_replacements:
+    weiß, dass es Spaß macht: findet es lustig,
     von dem: vom
     ',.': .

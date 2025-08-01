@@ -209,4 +209,4 @@ red_herring_facts:
 
 # Strings to replace in the prompt.
 prompt_replacements:
-    no_replacements: no_replacements
+    knows that it is fun to solve: enjoys solving
