@@ -14,7 +14,7 @@ attributes:
         Danmark: ['danskeren', 'er dansk', 'er ikke dansk']
         Sverige: ['svenskeren', 'er svensk', 'er ikke svensk']
         Letland: ['letteren', 'er lettisk', 'er ikke lettisk']
-        Frankrig: ['franskmanden', 'er fransk','er ikke fransk']
+        Frankrig: ['franskmanden', 'er fransk', 'er ikke fransk']
         Spanien: ['spanieren', 'er spansk', 'er ikke spansk']
         Italien: ['italieneren', 'er italiensk', 'er ikke italiensk']
         Norge: ['nordmanden', 'er norsk', 'er ikke norsk']
@@ -29,32 +29,32 @@ attributes:
         politibetjent: ['politibetjenten', 'er politibetjent', 'er ikke politibetjent']
         sygeplejerske: ['sygeplejersken', 'er sygeplejerske', 'er ikke sygeplejerske']
         lærer: ['læreren', 'er lærer', 'er ikke lærer']
-        software developer: ['software developeren', 'er software developer', 'er ikke software developer']
+        softwareudvikler: ['softwareudvikleren', 'er softwareudvikler', 'er ikke softwareudvikler']
         butiksassistent: ['butiksassistenten', 'er butiksassistent', 'er ikke butiksassistent']
 
     kæledyr:
-        kat: ['katteejeren','har en kat','har ikke en kat']
-        hund: ['hundeejeren','har en hund','har ikke en hund']
-        kanin: ['kaninejeren','har en kanin','har ikke en kanin']
-        zebra: ['zebraejeren','har en zebra','har ikke en zebra']
-        undulat: ['undulatejeren','har en undulat','har ikke en undulat']
-        snegl: ['snegleejeren','har en snegl','har ikke en snegl']
-        vandrende pind: ['ejeren af en vandrende pind','har en vandrende pind','har ikke en vandrende pind']
+        kat: ['katteejeren', 'har en kat', 'har ikke en kat']
+        hund: ['hundeejeren', 'har en hund', 'har ikke en hund']
+        kanin: ['kaninejeren', 'har en kanin', 'har ikke en kanin']
+        zebra: ['zebraejeren', 'har en zebra', 'har ikke en zebra']
+        undulat: ['undulatejeren', 'har en undulat', 'har ikke en undulat']
+        snegl: ['snegleejeren', 'har en snegl', 'har ikke en snegl']
+        vandrende pind: ['ejeren af en vandrende pind', 'har en vandrende pind', 'har ikke en vandrende pind']
 
     drikke:
-        juice: ['juicedrikkeren', 'drikker juice','drikker ikke juice']
-        kaffe: ['kaffedrikkeren', 'drikker kaffe','drikker ikke kaffe']
-        mælk: ['mælkedrikkeren', 'drikker mælk','drikker ikke mælk']
-        smoothie: ['smoothiedrikkeren', 'drikker smoothie','drikker ikke smoothie']
-        kakao: ['kakaodrikkeren', 'drikker kakao','drikker ikke kakao']
-        te: ['tedrikkeren', 'drikker te','drikker ikke te']
-        sodavand: ['sodavandsdrikkeren', 'drikker sodavand','drikker ikke sodavand']
+        juice: ['juicedrikkeren', 'drikker juice', 'drikker ikke juice']
+        kaffe: ['kaffedrikkeren', 'drikker kaffe', 'drikker ikke kaffe']
+        mælk: ['mælkedrikkeren', 'drikker mælk', 'drikker ikke mælk']
+        smoothie: ['smoothiedrikkeren', 'drikker smoothie', 'drikker ikke smoothie']
+        kakao: ['kakaodrikkeren', 'drikker kakao', 'drikker ikke kakao']
+        te: ['tedrikkeren', 'drikker te', 'drikker ikke te']
+        sodavand: ['sodavandsdrikkeren', 'drikker sodavand', 'drikker ikke sodavand']
 
     yndlingsboggenrer:
         faglitteratur: ['personen der læser faglitteratur', 'læser faglitteratur', 'læser ikke faglitteratur']
         krimi: ['krimilæseren', 'læser krimier', 'læser ikke krimier']
         fantasy: ['fantasylæseren', 'læser fantasy', 'læser ikke fantasy']
-        science fiction: ['personen der læser science fiction', 'læser science fiction','læser ikke science fiction']
+        science fiction: ['personen der læser science fiction', 'læser science fiction', 'læser ikke science fiction']
         gyser: ['gyserlæseren', 'læser gysere', 'læser ikke gysere']
         poesi: ['poesilæseren', 'læser poesi', 'læser ikke poesi']
         kærlighedsromaner: ['personen der læser kærlighedsromaner', 'læser kærlighedsromaner', 'læser ikke kærlighedsromaner']
@@ -97,6 +97,24 @@ clues_dict:
     multiple_between: "{attribute_desc_1} og {attribute_desc_2} bor med {n_between} huse mellem sig."                              # Requires n_objects > 3, otherwise it cannot be used
     one_between: "Der er ét hus mellem {attribute_desc_1} og {attribute_desc_2}."                                                  # Requires n_objects > 2, otherwise it cannot be used
 
+# Define a list of grammatical cases for attribute descriptions in the clues.
+# When irrelevant in the given language, nominative is set as default independently of the true grammatical case.
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'nom']
+    not_next_to: ['nom', 'nom']
+    just_left_of: ['nom', 'nom']
+    just_right_of: ['nom', 'nom']
+    left_of: ['nom', 'nom']
+    right_of: ['nom', 'nom']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['nom', 'nom', 'nom']
+    not_between: ['nom', 'nom', 'nom']
+    multiple_between: ['nom', 'nom']
+    one_between: ['nom', 'nom']
+
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
 # prompt_and is the word used for separating the last two attributes in a list of attributes.
@@ -137,7 +155,7 @@ prompt_templates:
 
 # Red herrings
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
-# NOTE: More types could be added such as "The person with a cactus is not the baker"
+# NOTE: More types could be added such as "The person with a cactus is not a baker"
 
 red_herring_clues_dict:
     same_herring: "{attribute_desc} {attribute_desc_herring}."
@@ -149,32 +167,46 @@ red_herring_clues_dict:
     herring_found_at: "{attribute_desc_herring} bor i hus nummer {i_object}."
     herring_not_at: "{attribute_desc_herring} bor ikke i hus nummer {i_object}."
 
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'nom']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
 red_herring_attributes:
-    rødt_hår: ['personen med rødt hår','har rødt hår']
-    briller: ['personen med briller','bruger briller']
-    tatovering: ['personen med en tatovering','har en tatovering']
-    guitar: ['personen der spiller guitar','spiller guitar']
-    cykel: ['personen med en cykel','har en cykel']
-    marsvin: ['personen med et marsvin','har et marsvin']
-    kaktus: ['personen der ikke ejer en kaktus','har ikke en kaktus']
-    computerspil: ['personen der spiller computerspil','spiller computerspil']
-    søster: ['personen med en søster','har en søster']
-    mango: ['personen der synes den næstbedste frugt er mango','synes den næstbedste frugt er mango']
-    sejlads: ['personen der ofte sejler','sejler ofte']
-    Canada: ['personen der har været i Canada','har været i Canada']
-    matematik: ['personen har en kandidatgrad i matematik','har en kandidatgrad i matematik']
-    fysik: ['personen der elsker fysik','elsker fysik']
-    gammelt_dyr: ['personen med et kæledyr som er gammelt for sin art','har et kæledyr som er gammelt for sin art']
-    fodbold: ['personen der ser fodbold','ser fodbold']
+    rødt_hår: ['personen med rødt hår', 'har rødt hår']
+    briller: ['personen med briller', 'bruger briller']
+    tatovering: ['personen med en tatovering', 'har en tatovering']
+    guitar: ['personen der spiller guitar', 'spiller guitar']
+    cykel: ['personen med en cykel', 'har en cykel']
+    marsvin: ['personen med et marsvin', 'har et marsvin']
+    kaktus: ['personen der ikke ejer en kaktus', 'har ikke en kaktus']
+    computerspil: ['personen der spiller computerspil', 'spiller computerspil']
+    søster: ['personen med en søster', 'har en søster']
+    mango: ['personen der synes den næstbedste frugt er mango', 'synes den næstbedste frugt er mango']
+    sejlads: ['personen der ofte sejler', 'sejler ofte']
+    Canada: ['personen der har været i Canada', 'har været i Canada']
+    matematik: ['personen har en kandidatgrad i matematik', 'har en kandidatgrad i matematik']
+    fysik: ['personen der elsker fysik', 'elsker fysik']
+    gammelt_dyr: ['personen med et kæledyr som er gammelt for sin art', 'har et kæledyr som er gammelt for sin art']
+    skihop: ['personen der ser skihop', 'ser skihop']
 
 red_herring_facts:
-    sild: "sild er fisk"
-    sol_systemet: "solsystemet bevæger sig med en fart på ca. 200 km/s rundt om galaksens centrum"
-    puzzle: "det er sjovt at løse gåder"
-    huse: "alle vejens huse har flotte haver"
-    døre: "flere af husene har en grøn dør"
-    vinduer: "alle husene har store vinduer"
-    biler: "der er mange biler på vejen"
-    agurk: "agurk er et bær"
-    snegl: "snegle er bløddyr"
-    kaffe: "kaffe indeholder koffein"
+    sild: ["sild er fisk"]
+    solsystemet: ["solsystemet bevæger sig med en fart på ca. 200 km/s rundt om galaksens centrum"]
+    puzzle: ["det er sjovt at løse gåder"]
+    huse: ["alle vejens huse har flotte haver"]
+    døre: ["flere af husene har en grøn dør"]
+    vinduer: ["alle husene har store vinduer"]
+    biler: ["der er mange biler på vejen"]
+    agurk: ["agurk er et bær"]
+    snegl: ["snegle er bløddyr"]
+    kaffe: ["kaffe indeholder koffein"]
+
+# Strings to replace in the prompt.
+prompt_replacements:
+    ved at det er sjovt: synes det er sjovt

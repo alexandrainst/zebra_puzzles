@@ -3,10 +3,17 @@
 # Possible combinations of languages and themes:
 # da/huse
 # da/smoerrebroed
+# de/Hauser
 # en/houses
+# fo/hus
+# is/husum
+# nb/hus
+# nl/huizen
+# nn/hus
+# sv/hus
 
 defaults:
-  - language: da/smoerrebroed
+  - language: en/houses
   - override hydra/job_logging: custom
   - _self_
 
@@ -18,7 +25,8 @@ model : o3-mini
 generate_new_responses: False
 
 # The current data folder used for generating, evaluating, and plotting
-data_folder: data_test
+
+data_folder: data
 
 # Folder for loading training data
 data_folder_train: data_train

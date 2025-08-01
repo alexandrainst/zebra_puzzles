@@ -19,31 +19,37 @@ def run_pipeline(
     attributes: dict[str, dict[str, list[str]]],
     clues_dict: dict[str, str],
     clue_weights: dict[str, float],
+    clue_cases_dict: dict[str, list[str]],
     prompt_templates: list[str],
     prompt_and: str,
+    prompt_replacements: dict[str, str],
     n_red_herring_clues: int,
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
-    red_herring_facts: dict[str, str],
+    red_herring_facts: dict[str, list[str]],
     red_herring_clue_weights: dict[str, float],
+    red_herring_cases_dict: dict[str, list[str]],
 ) -> tuple[str, str, str, str]:
     """Run the pipeline to generate one zebra puzzle.
 
     Generates a solution, chooses clues, and creates a prompt for the zebra puzzle.
 
     Args:
-        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
-        clue_weights: Weights for clue selection as a dictionary containing a title and a weight for each clue type.
         n_objects: Number of objects in the puzzle as an integer.
         n_attributes: Number of attributes of each object as an integer.
         attributes: Possible attributes as a dictionary of dictionaries.
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
+        clue_weights: Weights for clue selection as a dictionary containing a title and a weight for each clue type.
+        clue_cases_dict: A dictionary containing the clue type as a key and a list of grammatical cases for clue attributes as values.
         prompt_templates: List of templates for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
+        prompt_replacements: Dictionary of strings to replace in the prompt.
         n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
         red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
-        red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
+        red_herring_facts: Possible red herring facts to include in the puzzle as a dictionary of fact titles and a list of description strings.
         red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
+        red_herring_cases_dict: A dictionary containing the red herring clue type as a key and a list of grammatical cases for clue attributes as values.
 
     Returns:
         A tuple (prompt, solution_str, red_herring_indices_str, chosen_clue_types_str), where:
@@ -68,6 +74,7 @@ def run_pipeline(
         n_attributes=n_attributes,
         clues_dict=clues_dict,
         clue_weights=clue_weights,
+        clue_cases_dict=clue_cases_dict,
     )
 
     chosen_red_herring_clues, chosen_red_herring_clue_types = choose_red_herrings(
@@ -76,6 +83,7 @@ def run_pipeline(
         red_herring_attributes=red_herring_attributes,
         red_herring_facts=red_herring_facts,
         red_herring_clue_weights=red_herring_clue_weights,
+        red_herring_cases_dict=red_herring_cases_dict,
         chosen_attributes=chosen_attributes,
         chosen_attributes_descs=chosen_attributes_descs,
         n_objects=n_objects,
@@ -97,6 +105,7 @@ def run_pipeline(
         chosen_attributes=chosen_attributes,
         prompt_templates=prompt_templates,
         prompt_and=prompt_and,
+        prompt_replacements=prompt_replacements,
     )
 
     solution_json = format_solution_as_json(solution=solution)
@@ -110,15 +119,18 @@ def build_dataset(
     attributes: dict[str, dict[str, list[str]]],
     clues_dict: dict[str, str],
     clue_weights: dict[str, float],
+    clue_cases_dict: dict[str, list[str]],
     prompt_templates: list[str],
     prompt_and: str,
+    prompt_replacements: dict[str, str],
     n_puzzles: int,
     theme: str,
     n_red_herring_clues: int,
     red_herring_clues_dict: dict[str, str],
     red_herring_attributes: dict[str, list[str]],
-    red_herring_facts: dict[str, str],
+    red_herring_facts: dict[str, list[str]],
     red_herring_clue_weights: dict[str, float],
+    red_herring_cases_dict: dict[str, list[str]],
     data_folder_str: str,
 ) -> None:
     """Build a dataset of zebra puzzles.
@@ -126,20 +138,23 @@ def build_dataset(
     Generates a specified number of zebra puzzles. Saves prompts, solutions, indices to the red herring clues and clue types in separate files in the data folder.
 
     Args:
-        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
-        clue_weights: Weights for clue selection as a dictionary containing a title and a weight for each clue type.
         n_objects: Number of objects in the puzzle.
         n_attributes: Number of attributes of each object.
         attributes: Possible attributes as a dictionary of dictionaries.
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
+        clue_weights: Weights for clue selection as a dictionary containing a title and a weight for each clue type.
+        clue_cases_dict: A dictionary containing the clue type as a key and a list of grammatical cases for clue attributes as values.
         prompt_templates: List of templates for the prompt.
         prompt_and: String to use for separating the last two elements in a list, e.g. "and".
+        prompt_replacements: Dictionary of strings to replace in the prompt.
         n_puzzles: Number of puzzles to generate.
         theme: Theme of the puzzles.
         n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
         red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings.
         red_herring_attributes: Possible red herring attributes as a dictionary of dictionaries.
-        red_herring_facts: Possible red herring facts to include in the puzzle as a list of strings.
+        red_herring_facts: Possible red herring facts to include in the puzzle as a dictionary of fact titles and a list of description strings.
         red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
+        red_herring_cases_dict: A dictionary containing the red herring clue type as a key and a list of grammatical cases for clue attributes as values.
         data_folder_str: Folder to save the dataset in as a string.
     """
     (
@@ -175,13 +190,16 @@ def build_dataset(
                 attributes=attributes,
                 clues_dict=clues_dict,
                 clue_weights=clue_weights,
+                clue_cases_dict=clue_cases_dict,
                 prompt_templates=prompt_templates,
                 prompt_and=prompt_and,
+                prompt_replacements=prompt_replacements,
                 n_red_herring_clues=n_red_herring_clues,
                 red_herring_clues_dict=red_herring_clues_dict,
                 red_herring_attributes=red_herring_attributes,
                 red_herring_facts=red_herring_facts,
                 red_herring_clue_weights=red_herring_clue_weights,
+                red_herring_cases_dict=red_herring_cases_dict,
             )
         )
         save_dataset(data=prompt, filename=prompt_filenames[i], folder=puzzle_folder)

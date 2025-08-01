@@ -18,7 +18,7 @@ attributes:
         Spain: ['the Spaniard', 'is Spanish', 'is not Spanish']
         Italy: ['the Italian', 'is Italian', 'is not Italian']
         Norway: ['the Norwegian', 'is Norwegian', 'is not Norwegian']
-        Faroe Islands: ['the Faroese', 'is Faroese','is not Faroese']
+        Faroe Islands: ['the Faroese', 'is Faroese', 'is not Faroese']
         Netherlands: ['the Dutchman', 'is Dutch', 'is not Dutch']
         Iceland: ['the Icelander', 'is Icelandic', 'is not Icelandic']
         United Kingdom: ['the Brit', 'is British', 'is not British']
@@ -33,13 +33,13 @@ attributes:
         shop assistant: ['the shop assistant', 'is a shop assistant', 'is not a shop assistant']
 
     pets:
-        cat: ['the cat owner','has a cat','does not have a cat']
-        dog: ['the dog owner','has a dog','does not have a dog']
-        rabbit: ['the rabbit owner','has a rabbit','does not have a rabbit']
-        zebra: ['the zebra owner','has a zebra','does not have a zebra']
-        budgerigar: ['the budgie owner','has a budgie','does not have a budgie']
-        snail: ['the snail owner','has a snail','does not have a snail']
-        stick insect: ['the stick insect owner','has a stick insect','does not have a stick insect']
+        cat: ['the cat owner', 'has a cat', 'does not have a cat']
+        dog: ['the dog owner', 'has a dog', 'does not have a dog']
+        rabbit: ['the rabbit owner', 'has a rabbit', 'does not have a rabbit']
+        zebra: ['the zebra owner', 'has a zebra', 'does not have a zebra']
+        budgerigar: ['the budgie owner', 'has a budgie', 'does not have a budgie']
+        snail: ['the snail owner', 'has a snail', 'does not have a snail']
+        stick insect: ['the stick insect owner', 'has a stick insect', 'does not have a stick insect']
 
     drinks:
         juice: ['the juice drinker', 'drinks juice', 'does not drink juice']
@@ -50,7 +50,7 @@ attributes:
         tea: ['the tea drinker', 'drinks tea', 'does not drink tea']
         soda: ['the soda drinker', 'drinks soda', 'does not drink soda']
 
-    favorite book genres:
+    favourite book genres:
         non-fiction: ['the non-fiction reader', 'reads non-fiction', 'does not read non-fiction']
         crime: ['the crime reader', 'reads crime novels', 'does not read crime novels']
         fantasy: ['the fantasy reader', 'reads fantasy', 'does not read fantasy']
@@ -68,7 +68,7 @@ attributes:
         soccer: ['the person who plays football', 'plays football', 'does not play football']
         handball: ['the person who plays handball', 'plays handball', 'does not play handball']
 
-    favorite fruits:
+    favourite fruits:
         apple: ['the person who loves apples', 'loves apples', 'does not like apples']
         pear: ['the person who loves pears', 'loves pears', 'does not like pears']
         orange: ['the person who loves oranges', 'loves oranges', 'does not like oranges']
@@ -98,6 +98,24 @@ clues_dict:
     multiple_between: "There are {n_between} houses between {attribute_desc_1} and {attribute_desc_2}."                                     # Requires n_objects > 3, otherwise it cannot be used
     one_between: "There is one house between {attribute_desc_1} and {attribute_desc_2}."                                                    # Requires n_objects > 2, otherwise it cannot be used
 
+# Define a list of grammatical cases for attribute descriptions in the clues.
+# When irrelevant in the given language, nominative is set as default independently of the true grammatical case.
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'nom']
+    not_next_to: ['nom', 'nom']
+    just_left_of: ['nom', 'nom']
+    just_right_of: ['nom', 'nom']
+    left_of: ['nom', 'nom']
+    right_of: ['nom', 'nom']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['nom', 'nom', 'nom']
+    not_between: ['nom', 'nom', 'nom']
+    multiple_between: ['nom', 'nom']
+    one_between: ['nom', 'nom']
+
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
 # prompt_and is the word used for separating the last two attributes in a list of attributes.
@@ -121,7 +139,6 @@ prompt_templates:
         Please submit your answer as a JSON dictionary in the format below. Each row must begin with object_X where X is the house number. Each column represents a category, and they should be in the same order as in the list of categories above.
 
         {solution_template}
-
     - |
         A row of houses have numbers 1 to {n_objects} from left to right.
 
@@ -150,32 +167,46 @@ red_herring_clues_dict:
     herring_found_at: "{attribute_desc_herring} lives in house no. {i_object}."
     herring_not_at: "{attribute_desc_herring} does not live in house no. {i_object}."
 
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'nom']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
 red_herring_attributes:
-    red_hair: ['the person with red hair','has red hair']
-    glasses: ['the person with glasses','wears glasses']
-    tattoo: ['the person with a tattoo','has a tattoo']
-    guitar: ['the person who plays the guitar','plays the guitar']
-    bike: ['the person with a bike','has a bike']
-    guinea pig: ['the person with a guinea pig','has a guinea pig']
-    cactus: ['the person who owns a cactus','does not own a cactus']
-    video games: ['the person who plays video games','plays video games']
-    sister: ['the person with a sister','has a sister']
-    mango: ['the person who thinks the second best fruit is mango','thinks the second best fruit is mango']
-    sailing: ['the person who often sails','often sails']
-    Canada: ['the person who has been to Canada','has been to Canada']
-    mathematics: ["the person with a master's degree in mathematics","has a master's degree in mathematics"]
-    physics: ['the person who loves physics','loves physics']
-    old_animal: ['the person with a pet that is old for its species','has a pet that is old for its species']
-    football: ['the person who watches football','watches football']
+    red_hair: ['the person with red hair', 'has red hair']
+    glasses: ['the person with glasses', 'wears glasses']
+    tattoo: ['the person with a tattoo', 'has a tattoo']
+    guitar: ['the person who plays the guitar', 'plays the guitar']
+    bike: ['the person with a bike', 'has a bike']
+    guinea pig: ['the person with a guinea pig', 'has a guinea pig']
+    cactus: ['the person who owns a cactus', 'does not own a cactus']
+    video games: ['the person who plays video games', 'plays video games']
+    sister: ['the person with a sister', 'has a sister']
+    mango: ['the person who thinks the second-best fruit is mango', 'thinks the second-best fruit is mango']
+    sailing: ['the person who often sails', 'often sails']
+    Canada: ['the person who has been to Canada', 'has been to Canada']
+    mathematics: ["the person with a master's degree in mathematics", "has a master's degree in mathematics"]
+    physics: ['the person who loves physics', 'loves physics']
+    old_animal: ['the person with a pet that is old for its species', 'has a pet that is old for its species']
+    football: ['the person who watches football', 'watches football']
 
 red_herring_facts:
-    herring: "herrings are fish"
-    solar_system: "the solar system moves at a speed of about 200 km/s around the center of the galaxy"
-    puzzle: "it is fun to solve puzzles"
-    houses: "all the houses on the street have beautiful gardens"
-    doors: "several of the houses have a green door"
-    windows: "all the houses have large windows"
-    cars: "there are many cars on the street"
-    cucumber: "cucumber is a berry"
-    snail: "snails are molluscs"
-    coffee: "coffee contains caffeine"
+    herring: ["herrings are fish"]
+    solar_system: ["the solar system moves at a speed of about 200 km/s around the centre of the galaxy"]
+    puzzle: ["it is fun to solve puzzles"]
+    houses: ["all the houses on the street have beautiful gardens"]
+    doors: ["several of the houses have a green door"]
+    windows: ["all the houses have large windows"]
+    cars: ["there are many cars on the street"]
+    cucumber: ["cucumber is a berry"]
+    snail: ["snails are molluscs"]
+    coffee: ["coffee contains caffeine"]
+
+# Strings to replace in the prompt.
+prompt_replacements:
+    knows that it is fun to solve: enjoys solving

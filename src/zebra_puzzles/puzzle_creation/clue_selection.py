@@ -27,6 +27,7 @@ def choose_clues(
     n_attributes: int,
     clues_dict: dict[str, str],
     clue_weights: dict[str, float],
+    clue_cases_dict: dict[str, list[str]],
 ) -> tuple[list[str], list[str]]:
     """Choose clues for a zebra puzzle.
 
@@ -34,12 +35,13 @@ def choose_clues(
 
     Args:
         solution: Solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x (n_attributes + 1).
-        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
-        clue_weights: Weights for clue selection as a dictionary containing a title and a weight for each clue type.
         chosen_attributes: Attribute values chosen for the solution as a matrix.
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
         n_objects: Number of objects in the puzzle as an integer.
         n_attributes: Number of attributes per object as an integer.
+        clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
+        clue_weights: Weights for clue selection as a dictionary containing a title and a weight for each clue type.
+        clue_cases_dict: A dictionary containing the clue type as a key and a list of grammatical cases for clue attributes as values.
 
     Returns:
         A tuple (chosen_clues, chosen_clue_types), where:
@@ -80,6 +82,7 @@ def choose_clues(
             chosen_attributes=chosen_attributes,
             chosen_attributes_descs=chosen_attributes_descs,
             clues_dict=clues_dict,
+            clue_cases_dict=clue_cases_dict,
         )
 
         # Check if the clue is obviously redundant before using the solver to save runtime
@@ -235,6 +238,7 @@ def create_clue(
     chosen_attributes: np.ndarray,
     chosen_attributes_descs: np.ndarray,
     clues_dict: dict[str, str],
+    clue_cases_dict: dict[str, list[str]],
 ) -> tuple[str, tuple, tuple[str, list[int], np.ndarray]]:
     """Create a clue of a chosen type using random parts of the solution.
 
@@ -247,6 +251,7 @@ def create_clue(
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
         chosen_categories: Categories chosen for the solution.
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
+        clue_cases_dict: A dictionary containing the clue type as a key and a list of grammatical cases for clue attributes as values.
 
     Returns:
         A tuple (full_clue, constraint, clue_par), where:
@@ -263,6 +268,13 @@ def create_clue(
     """
     clue_description = clues_dict[clue]
 
+    # Define the order of grammatical cases in clue descriptions
+    case_to_index = {"nom": 0, "acc": 3, "dat": 4, "none": 999}
+
+    # Choose desc indices based on clue type and grammatical case in clue_cases_dict
+    cases = clue_cases_dict[clue]
+    desc_indices: list[int] = [case_to_index[case] for case in cases]
+
     if clue in ("found_at", "not_at"):
         if clue == "found_at":
             # Choose a random object
@@ -278,6 +290,7 @@ def create_clue(
             chosen_attributes_descs=chosen_attributes_descs,
             i_objects=[i_object],
             n_attributes=n_attributes,
+            desc_indices=desc_indices,
         )
 
         # Save the clue object index for the clue_par list
@@ -298,11 +311,14 @@ def create_clue(
             # Choose a random object
             i_object = sample(list(range(n_objects)), 1)[0]
             i_objects = [i_object, i_object]
-            desc_index = 1
+            desc_index_none = 1
         elif clue == "not_same_object":
             # Choose two random objects
             i_objects = sample(list(range(n_objects)), 2)
-            desc_index = 2
+            desc_index_none = 2
+
+        # Replace 'none' in desc_indices with the chosen desc_index_none
+        desc_indices[desc_indices.index(case_to_index["none"])] = desc_index_none
 
         # Choose two unique attributes
         clue_attributes, clue_attribute_descs = describe_random_attributes(
@@ -311,7 +327,7 @@ def create_clue(
             i_objects=i_objects,
             n_attributes=n_attributes,
             diff_cat=True,
-            desc_index=desc_index,
+            desc_indices=desc_indices,
         )
 
         # Create the full clue
@@ -361,6 +377,7 @@ def create_clue(
             chosen_attributes_descs=chosen_attributes_descs,
             i_objects=i_objects,
             n_attributes=n_attributes,
+            desc_indices=desc_indices,
         )
 
         # Create the full clue
@@ -403,6 +420,7 @@ def create_clue(
             chosen_attributes_descs=chosen_attributes_descs,
             i_objects=i_objects,
             n_attributes=n_attributes,
+            desc_indices=desc_indices,
         )
 
         # Create the full clue
@@ -440,6 +458,7 @@ def create_clue(
             chosen_attributes_descs=chosen_attributes_descs,
             i_objects=i_objects,
             n_attributes=n_attributes,
+            desc_indices=desc_indices,
         )
 
         if clue == "one_between":

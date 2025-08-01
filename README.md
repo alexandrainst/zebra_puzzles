@@ -11,6 +11,10 @@
 
 Generation and LLM evaluation of zebra puzzles in multiple languages and themes.
 
+Available languages and themes:
+    - Houses theme: Danish :dk:, Dutch :nl:, English :gb:, Faroese :fo:, German :de:, Icelandic :is:, Norwegian Bokmål :no:, Norwegian Nynorsk :no: and Swedish :sv:.
+    - Smørrebrød theme: Danish :dk:
+
 ## Usage
 
 Run `uv run src/scripts/build_dataset.py` to generate puzzles.
