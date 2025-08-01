@@ -127,7 +127,7 @@ prompt_templates:
     - |
         Ein røð av húsum eru talmerkt frá 1 til {n_objects} frá vinstru til høgru.
 
-        Í hvørjum einastu húsum býr ein persónur, sum hevur ein einstakan eginleika úr hvørjum einasta flokki, sum stendur niðanfyri: 
+        Í hvørjum einastu húsum býr ein persónur, sum hevur ein einstakan eginleika úr hvørjum einasta flokki, sum stendur niðanfyri:
 
         {chosen_attributes_str}
 

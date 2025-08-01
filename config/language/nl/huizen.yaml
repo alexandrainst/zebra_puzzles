@@ -110,7 +110,7 @@ clue_cases_dict:
     right_of: ['nom', 'nom']
     same_object: ['nom', 'none']
     not_same_object: ['nom', 'none']
-    between: ['nom', 'nom', 'nom'] 
+    between: ['nom', 'nom', 'nom']
     not_between: ['nom', 'nom', 'nom']
     multiple_between: ['nom', 'nom']
     one_between: ['nom', 'nom']
