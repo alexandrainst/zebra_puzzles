@@ -39,7 +39,7 @@ attributes:
         Zebra: ['der Zebrabesitzer', 'hat ein Zebra', 'hat kein Zebra', 'den Zebrabesitzer', 'dem Zebrabesitzer']
         Wellensittich: ['der Wellensittichbesitzer', 'hat einen Wellensittich', 'hat keinen Wellensittich', 'den Wellensittichbesitzer', 'dem Wellensittichbesitzer']
         Schnecke: ['der Schneckenbesitzer', 'hat eine Schnecke', 'hat keine Schnecke', 'den Schneckenbesitzer', 'dem Schneckenbesitzer']
-        Gespenstschrecke: ['der Besitzer eines Gespenstschreckens', 'hat eine Gespenstschrecke', 'hat keine Gespenstschrecke', 'den Besitzer eines Gespenstschreckens', 'dem Besitzer eines Gespenstschreckens']
+        Gespenstschrecke: ['der Besitzer einer Gespenstschrecke', 'hat eine Gespenstschrecke', 'hat keine Gespenstschrecke', 'den Besitzer einer Gespenstschrecke', 'dem Besitzer einer Gespenstschrecke']
 
     Getränke:
         Saft: ['der Safttrinker', 'trinkt Saft', 'trinkt keinen Saft', 'den Safttrinker', 'dem Safttrinker']
@@ -84,26 +84,26 @@ attributes:
 clues_dict:
     found_at: "{attribute_desc} wohnt in Haus Nummer {i_object}."
     not_at: "{attribute_desc} wohnt nicht in Haus Nummer {i_object}."
-    next_to: "{attribute_desc_1} wohnt neben {attribute_desc_2}."                                                                              # Requires n_objects > 2, otherwise use not_same_object
-    not_next_to: "{attribute_desc_1} wohnt nicht neben {attribute_desc_2}, und sie sind nicht dieselbe Person."                                # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} wohnt direkt links von {attribute_desc_2}."                                                              # Requires n_objects > 2, otherwise use left_of
-    just_right_of: "{attribute_desc_1} wohnt direkt rechts von {attribute_desc_2}."                                                            # Requires n_objects > 2, otherwise use right_of
+    next_to: "{attribute_desc_1} wohnt neben {attribute_desc_2}."                                                                                        # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: "{attribute_desc_1} wohnt nicht neben {attribute_desc_2}, und die beiden sind nicht dieselbe Person."                                   # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: "{attribute_desc_1} wohnt direkt links neben {attribute_desc_2}."                                                                      # Requires n_objects > 2, otherwise use left_of
+    just_right_of: "{attribute_desc_1} wohnt direkt rechts neben {attribute_desc_2}."                                                                    # Requires n_objects > 2, otherwise use right_of
     left_of: "{attribute_desc_1} wohnt links von {attribute_desc_2}."
     right_of: "{attribute_desc_1} wohnt rechts von {attribute_desc_2}."
-    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                      # Requires n_attributes > 1, otherwise it cannot be used
-    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                  # Requires n_attributes > 1, otherwise it cannot be used
-    between: "{attribute_desc_2} wohnt zwischen {attribute_desc_1} und {attribute_desc_3}."                                                    # Requires n_objects > 2, otherwise it cannot be used
-    not_between: "{attribute_desc_1} wohnt nicht zwischen {attribute_desc_2} und {attribute_desc_3}, und sie sind drei verschiedene Personen." # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: "{attribute_desc_1} und {attribute_desc_2} wohnen mit {n_between} Häusern dazwischen."                                   # Requires n_objects > 3, otherwise it cannot be used
-    one_between: "Es gibt ein Haus zwischen {attribute_desc_1} und {attribute_desc_2}."                                                        # Requires n_objects > 2, otherwise it cannot be used
+    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                                # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                            # Requires n_attributes > 1, otherwise it cannot be used
+    between: "{attribute_desc_2} wohnt zwischen {attribute_desc_1} und {attribute_desc_3}."                                                              # Requires n_objects > 2, otherwise it cannot be used
+    not_between: "{attribute_desc_1} wohnt nicht zwischen {attribute_desc_2} und {attribute_desc_3}, und es handelt sich um drei verschiedene Personen." # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: "Zwischen {attribute_desc_1} und {attribute_desc_2} stehen genau {n_between} Häuser."                                              # Requires n_objects > 3, otherwise it cannot be used
+    one_between: "Es gibt ein Haus zwischen {attribute_desc_1} und {attribute_desc_2}."
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
 # When irrelevant in the given language, nominative is set as default independently of the true grammatical case.
 clue_cases_dict:
     found_at: ['nom']
     not_at: ['nom']
-    next_to: ['nom', 'acc']
-    not_next_to: ['nom', 'acc']
+    next_to: ['nom', 'dat']
+    not_next_to: ['nom', 'dat']
     just_left_of: ['nom', 'dat']
     just_right_of: ['nom', 'dat']
     left_of: ['nom', 'dat']
@@ -125,7 +125,7 @@ prompt_templates:
     - |
         Eine Reihe von Häusern wird von 1 bis {n_objects} von links nach rechts nummeriert.
 
-        In jedem Haus wohnt eine Person mit einzigartigen Eigenschaften in jeder der folgenden Kategorien:
+        In jedem Haus wohnt genau eine Person. Die Bewohner haben jeweils eine Eigenschaft in jeder der folgenden Kategorien, wobei jede Eigenschaft nur einmal vorkommt:
 
         {chosen_attributes_str}
 
@@ -135,13 +135,13 @@ prompt_templates:
 
         Wer hat welche Eigenschaften und wohnt in welchem Haus?
 
-        Bitte geben Sie Ihre Antwort als JSON-Dictionary im untenstehenden Format an. Jede Zeile sollte mit object_X beginnen, wobei X die Hausnummer ist. Jede Spalte repräsentiert eine Kategorie, und sie sollten in der gleichen Reihenfolge stehen wie die Kategorien oben aufgelistet.
+        Bitte geben Sie Ihre Antwort als JSON-Dictionary im untenstehenden Format an. Jede Zeile sollte mit object_X beginnen, wobei X die Hausnummer ist. Jede Spalte repräsentiert eine Kategorie. Die Kategorien sollten in der gleichen Reihenfolge stehen wie die Kategorien oben aufgelistet.
 
         {solution_template}
     - |
         Eine Reihe von Häusern wird von 1 bis {n_objects} von links nach rechts nummeriert.
 
-        In jedem Haus wohnt eine Person mit einer einzigartigen Eigenschaft in der Kategorie {chosen_attributes_str}.
+        In jedem Haus wohnt genau eine Person. Die Bewohner haben jeweils eine Eigenschaft in der Kategorie {chosen_attributes_str}.
 
         Darüber hinaus wissen wir folgendes:
 
@@ -169,7 +169,7 @@ red_herring_clues_dict:
 
 red_herring_cases_dict:
     same_herring: ['nom', 'none']
-    next_to_herring: ['nom', 'acc']
+    next_to_herring: ['nom', 'dat']
     double_herring: ['nom', 'none']
     fact: ['none']
     object_fact: ['nom', 'none']
@@ -205,12 +205,12 @@ red_herring_facts:
     Türen: ["mehrere Häuser haben eine grüne Tür", "mehrere Häuser eine grüne Tür haben"]
     Fenster: ["alle Häuser haben große Fenster", "alle Häuser große Fenster haben"]
     Autos: ["es gibt viele Autos auf der Straße", "es viele Autos auf der Straße gibt"]
-    Gurke: ["Gurke ist eine Beere", "Gurke eine Beere ist"]
+    Gurke: ["Gurken sind Beeren", "Gurken Beeren sind"]
     Schnecke: ["Schnecken sind Weichtiere", "Schnecken Weichtiere sind"]
     Kaffee: ["Kaffee enthält Koffein", "Kaffee Koffein enthält"]
 
 # Strings to replace in the prompt.
 prompt_replacements:
-    weiß, dass es Spaß macht: findet es lustig,
+    weiß, dass es Spaß macht: findet es lustig
     von dem: vom
     ',.': .
