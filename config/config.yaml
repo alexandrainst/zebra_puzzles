@@ -25,6 +25,7 @@ model : o3-mini
 generate_new_responses: False
 
 # The current data folder used for generating, evaluating, and plotting
+
 data_folder: data
 
 # Folder for loading training data
