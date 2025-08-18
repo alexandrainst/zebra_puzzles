@@ -29,7 +29,7 @@ attributes:
         bakari: ['bakarin', 'er bakari', 'er ikki bakari', 'bakaran', 'bakaranum']
         kirkjutænari: ['kirkjutænarin', 'er kirkjutænari', 'er ikki kirkjutænari', 'kirkjutænaran', 'kirkjutænaranum']
         løgreglumaður: ['løgreglumaðurin', 'er løgreglumaður', 'er ikki løgreglumaður', 'løgreglumannin', 'løgreglumanninum']
-        sjúkrasystir: ['sjúkrasysturin', 'er sjúkrasystir', 'er ikki sjúkrasystir', 'sjúkrasysturin', 'sjúkrarøktarfrøðinginum']
+        sjúkrasystir: ['sjúkrasysturin', 'er sjúkrasystir', 'er ikki sjúkrasystir', 'sjúkrasysturin', 'sjúkrasystrini']
         lærari: ['lærarin', 'er lærari', 'er ikki lærari', 'læraran', 'læraranum']
         ritbúnaðarverkfrøðingur: ['ritbúnaðarverkfrøðingurin', 'er ritbúnaðarverkfrøðingur', 'er ikki ritbúnaðarverkfrøðingur', 'ritbúnaðarverkfrøðingin', 'ritbúnaðarverkfrøðinginum']
         handilshjálpari: ['handilshjálparin', 'er handilshjálpari', 'er ikki handilshjálpari', 'handilshjálparan', 'handilshjálparanum']
@@ -54,12 +54,12 @@ attributes:
 
     yndisbókasjangrur:
         yrkisbókmentir: ['yrkisbókmentalesarin', 'lesur yrkisbókmentir', 'lesur ikki yrkisbókmentir', 'yrkisbókmentalesaran', 'yrkisbókmentalesaranum']
-        brotsskaldsøgu: ['brotsskaldsøgulesarin', 'lesur brotsskaldsøgu', 'lesur ikki brotsskaldsøgu', 'brotsskaldsøgulesaran', 'brotsskaldsøgulesaranum']
+        brotsskaldsøgu: ['brotsskaldsøgulesarin', 'lesur brotsskaldsøgur', 'lesur ikki brotsskaldsøgur', 'brotsskaldsøgulesaran', 'brotsskaldsøgulesaranum']
         fantasi: ['fantasilesarin', 'lesur fantasi', 'lesur ikki fantasi', 'fantasilesaran', 'fantasilesaranum']
-        vísindaskaldsøgur: ['vísindaskaldsøgulesarin', 'lesur vísindaskaldsøgu', 'lesur ikki vísindaskaldsøgu', 'vísindaskaldsøgulesaran', 'vísindaskaldsøgulesaranum']
-        ræðuskaldsøgur: ['ræðuskaldsøgulesarin', 'lesur ræðuskaldsøgu', 'lesur ikki ræðuskaldsøgu', 'ræðuskaldsøgulesaran', 'ræðuskaldsøgulesaranum']
+        vísindaskaldsøgur: ['vísindaskaldsøgulesarin', 'lesur vísindaskaldsøgur', 'lesur ikki vísindaskaldsøgur', 'vísindaskaldsøgulesaran', 'vísindaskaldsøgulesaranum']
+        ræðuskaldsøgur: ['ræðuskaldsøgulesarin', 'lesur ræðuskaldsøgur', 'lesur ikki ræðuskaldsøgur', 'ræðuskaldsøgulesaran', 'ræðuskaldsøgulesaranum']
         yrkingar: ['yrkingalesarin', 'lesur yrkingar', 'lesur ikki yrkingar', 'yrkingalesaran', 'yrkingalesaranum']
-        romantiskar skaldsøgur: ['persónurin, sum lesur romantiskar skaldsøgu,', 'lesur romantiskar skaldsøgu', 'lesur ikki romantiskar skaldsøgu', 'persónin, sum lesur romantiskar skaldsøgu,', 'persóninum, sum lesur romantiskar skaldsøgu,']
+        romantiskar skaldsøgur: ['persónurin, sum lesur romantiskar skaldsøgur,', 'lesur romantiskar skaldsøgur', 'lesur ikki romantiskar skaldsøgur', 'persónin, sum lesur romantiskar skaldsøgur,', 'persóninum, sum lesur romantiskar skaldsøgur,']
 
     frítíðarítriv:
         klintring: ['persónurin, sum klintrar,', 'klintrar', 'klintrar ikki', 'persónin, sum klintrar', 'persóninum, sum klintrar']
@@ -185,7 +185,7 @@ red_herring_attributes:
     tatovering: ['persónurin við tatovering', 'hevur eina tatovering', 'persónin við tatovering', 'persóninum við tatovering']
     gittar: ['persónurin, sum spælir gittar,', 'spælir gittar', 'persónin, sum spælir gittar,', 'persóninum, sum spælir gittar,']
     súkkla: ['persónurin við súkklu', 'hevur súkklu', 'persónin við súkklu', 'persóninum við súkklu']
-    marsvín: ['persónurin við einum marsvíni', 'hevur eitt marsvín', 'persónin við einum marsvíni', 'persóninum við einum marsvíni']
+    marsvín: ['persónurin við einum marsvíni', 'eigur eitt marsvín', 'persónin við einum marsvíni', 'persóninum við einum marsvíni']
     kaktus: ['persónurin, sum ikki eigur ein kaktus,', 'eigur ikki ein kaktus', 'persónin, sum ikki eigur ein kaktus,', 'persóninum, sum ikki eigur ein kaktus,']
     telduspæl: ['persónurin, sum spælir telduspøl,', 'spælir telduspøl', 'persónin, sum spælir telduspøl,', 'persóninum, sum spælir telduspøl,']
     systir: ['persónurin við einari systur', 'hevur eina systur', 'persónin við einari systur', 'persóninum við einari systur']
@@ -195,7 +195,7 @@ red_herring_attributes:
     støddfrøði: ['persónurin, sum hevur masterútbúgving í støddfrøði,', 'hevur masterútbúgving í støddfrøði', 'persónin, sum hevur masterútbúgving í støddfrøði,', 'persóninum, sum hevur masterútbúgving í støddfrøði,']
     alisfrøði: ['persónurin, sum elskar alisfrøði,', 'elskar alisfrøði', 'persónin, sum elskar alisfrøði,', 'persóninum, sum elskar alisfrøði,']
     gammalt dýr: ['persónurin við einum kelidjóri, sum er gamalt fyri sítt slag,', 'hevur eitt kelidjór, sum er gamalt fyri sítt slag', 'persónin við einum kelidjóri, sum er gamalt fyri sítt slag,', 'persóninum við einum kelidjóri, sum er gamalt fyri sítt slag,']
-    skíðhopp: ['persónurin, sum hyggur at skíðhoppi,', 'hyggur at skíðhoppi', 'persónin, sum hyggur at skíðhoppi,', 'persóninum, sum hyggur at skíðhoppi,']
+    skíðhopp: ['persónurin, sum hyggur eftir skíðhoppi,', 'hyggur eftir skíðhoppi', 'persónin, sum hyggur eftir skíðhoppi,', 'persóninum, sum hyggur eftir skíðhoppi,']
 
 red_herring_facts:
     sild: ["sild er fiskur"]

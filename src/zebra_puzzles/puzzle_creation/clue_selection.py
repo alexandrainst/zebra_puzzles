@@ -269,7 +269,7 @@ def create_clue(
     clue_description = clues_dict[clue]
 
     # Define the order of grammatical cases in clue descriptions
-    case_to_index = {"nom": 0, "acc": 3, "dat": 4, "none": 999}
+    case_to_index = {"nom": 0, "acc": 3, "dat": 4, "gen": 5, "none": 999}
 
     # Choose desc indices based on clue type and grammatical case in clue_cases_dict
     cases = clue_cases_dict[clue]
