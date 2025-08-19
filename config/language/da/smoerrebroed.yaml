@@ -206,4 +206,4 @@ red_herring_facts:
 
 # Strings to replace in the prompt.
 prompt_replacements:
-    no_replacements: no_replacements
+    ved at det er sjovt: synes det er sjovt

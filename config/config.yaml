@@ -13,7 +13,7 @@
 # sv/hus
 
 defaults:
-  - language: is/husum
+  - language: en/houses
   - override hydra/job_logging: custom
   - _self_
 
@@ -26,7 +26,7 @@ generate_new_responses: False
 
 # The current data folder used for generating, evaluating, and plotting
 
-data_folder: data
+data_folder: data_train
 
 # Folder for loading training data
 data_folder_train: data_train
