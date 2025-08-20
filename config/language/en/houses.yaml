@@ -193,7 +193,7 @@ red_herring_attributes:
     mathematics: ["the person with a master's degree in mathematics", "has a master's degree in mathematics"]
     physics: ['the person who loves physics', 'loves physics']
     old_animal: ['the person with a pet that is old for its species', 'has a pet that is old for its species']
-    football: ['the person who watches football', 'watches football']
+    ski_jumping: ['the person who watches ski jumping', 'watches ski jumping']
 
 red_herring_facts:
     herring: ["herrings are fish"]
