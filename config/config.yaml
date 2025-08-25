@@ -26,7 +26,7 @@ generate_new_responses: False
 
 # The current data folder used for generating, evaluating, and plotting
 
-data_folder: data_test
+data_folder: data
 
 # Folder for loading training data
 data_folder_train: data_train

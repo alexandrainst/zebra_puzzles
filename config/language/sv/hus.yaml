@@ -19,7 +19,7 @@ attributes:
         Italien: ['italienaren', 'är italienare', 'är inte italienare']
         Norge: ['norrmannen', 'är norrman', 'är inte norrman']
         Färöarna: ['färöingen', 'är färöing', 'är inte färöing']
-        Nederländerna: ['neder­ländaren', 'är nederländare', 'är inte nederländare']
+        Nederländerna: ['nederländaren', 'är nederländare', 'är inte nederländare']
         Island: ['islänningen', 'är islänning', 'är inte islänning']
         Storbritannien: ['britten', 'är britt', 'är inte britt']
 
@@ -85,7 +85,7 @@ clues_dict:
     found_at: "{attribute_desc} bor i hus nummer {i_object}."
     not_at: "{attribute_desc} bor inte i hus nummer {i_object}."
     next_to: "{attribute_desc_1} bor bredvid {attribute_desc_2}."                                                              # Requires n_objects > 2, otherwise use not_same_object
-    not_next_to: "{attribute_desc_1} bor inte bredvid {attribute_desc_2}, och de är inte samma person."                  # Requires n_objects > 2, otherwise it cannot be used
+    not_next_to: "{attribute_desc_1} bor inte bredvid {attribute_desc_2}, och de är inte samma person."                        # Requires n_objects > 2, otherwise it cannot be used
     just_left_of: "{attribute_desc_1} bor precis till vänster om {attribute_desc_2}."                                          # Requires n_objects > 2, otherwise use left_of
     just_right_of: "{attribute_desc_1} bor precis till höger om {attribute_desc_2}."                                           # Requires n_objects > 2, otherwise use right_of
     left_of: "{attribute_desc_1} bor till vänster om {attribute_desc_2}."
@@ -210,4 +210,3 @@ red_herring_facts:
 # Strings to replace in the prompt.
 prompt_replacements:
     vet att det är roligt: tycker det är roligt
-    no_replacements: no_replacements

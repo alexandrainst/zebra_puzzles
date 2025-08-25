@@ -12,6 +12,7 @@
 Generation and LLM evaluation of zebra puzzles in multiple languages and themes.
 
 Available languages and themes:
+
 - Houses theme: 
     - Complete versions: Danish 🇩🇰, English 🇬🇧, Faroese 🇫🇴, German 🇩🇪, Icelandic 🇮🇸 and Swedish 🇸🇪.
     - Preliminary versions: Dutch 🇳🇱, Norwegian Bokmål 🇳🇴 and Norwegian Nynorsk 🇳🇴. 
