@@ -132,7 +132,7 @@ prompt_templates:
         Að auki vitum við eftirfarandi:
 
         {chosen_clues_str}
-        
+
         Hver hefur hvaða einkenni og býr í hvaða húsi?
 
         Vinsamlegast gefðu svarið þitt sem JSON dictionary á eftirfarandi sniði. Hver röð ætti að byrja á object_X þar sem X er húsnúmerið. Hver dálkur táknar flokk, og þeir ættu að vera í sömu röð og flokkarnir eru taldir upp hér að ofan.
@@ -148,7 +148,7 @@ prompt_templates:
         {chosen_clues_str}
 
         Hver hefur hvaða einkenni og býr í hvaða húsi?
-    
+
         Vinsamlegast gefðu svarið þitt sem JSON dictionary á eftirfarandi sniði. Hver röð ætti að byrja á object_X þar sem X er húsnúmerið. Þessu fylgir dálkur með einkennum í áðurnefndum flokki.
 
         {solution_template}
