@@ -158,14 +158,14 @@ prompt_templates:
 # NOTE: More types could be added such as "The person with a cactus is not the baker"
 
 red_herring_clues_dict:
-    same_herring: "{attribute_desc} {attribute_desc_herring}."
-    next_to_herring: "{attribute_desc} býr við hliðina á {attribute_desc_herring}."
-    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
-    fact: "{fact}."
-    object_fact: "{attribute_desc} veit að {fact}."
-    friends: "{attribute_desc} er góður vinur {attribute_desc_herring}."
-    herring_found_at: "{attribute_desc_herring} býr í húsi númer {i_object}."
-    herring_not_at: "{attribute_desc_herring} býr ekki í húsi númer {i_object}."
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} býr við hliðina á {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} veit að {fact}.'
+    friends: '{attribute_desc} er góður vinur {attribute_desc_herring}.'
+    herring_found_at: '{attribute_desc_herring} býr í húsi númer {i_object}.'
+    herring_not_at: '{attribute_desc_herring} býr ekki í húsi númer {i_object}.'
 
 red_herring_cases_dict:
     same_herring: ['nom', 'none']
@@ -196,16 +196,16 @@ red_herring_attributes:
     skíðastökk: ['sá sem horfir á skíðastökk', 'horfir á skíðastökk', 'þann sem horfir á skíðastökk', 'þeim sem horfir á skíðastökk', 'þess sem horfir á skíðastökk']
 
 red_herring_facts:
-    síld: ["síld er fiskur"]
-    sólkerfi: ["sólkerfið ferðast á um 200 km/s hraða umhverfis miðju vetrarbrautarinnar"]
-    gátur: ["það er skemmtilegt að leysa gátur"]
-    hús: ["öll húsin við veginn eru með fallega garða"]
-    hurðir: ["nokkur húsanna eru með græna hurð"]
-    gluggar: ["öll húsin eru með stóra glugga"]
-    bílar: ["það eru margir bílar á veginum"]
-    agúrka: ["agúrka er ber"]
-    snigill: ["sniglar eru lindýr"]
-    kaffi: ["kaffi inniheldur koffín"]
+    síld: ['síld er fiskur']
+    sólkerfi: ['sólkerfið ferðast á um 200 km/s hraða umhverfis miðju vetrarbrautarinnar']
+    gátur: ['það er skemmtilegt að leysa gátur']
+    hús: ['öll húsin við veginn eru með fallega garða']
+    hurðir: ['nokkur húsanna eru með græna hurð']
+    gluggar: ['öll húsin eru með stóra glugga']
+    bílar: ['það eru margir bílar á veginum']
+    agúrka: ['agúrka er ber']
+    snigill: ['sniglar eru lindýr']
+    kaffi: ['kaffi inniheldur koffín']
 
 # Strings to replace in the prompt.
 prompt_replacements:

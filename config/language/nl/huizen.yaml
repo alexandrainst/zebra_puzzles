@@ -82,20 +82,20 @@ attributes:
 # Clue names should not be edited, but they can be a subset of the full list of implemented clues.
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 clues_dict:
-    found_at: "{attribute_desc} woont in huisnummer {i_object}."
-    not_at: "{attribute_desc} woont niet in huisnummer {i_object}."
-    next_to: "{attribute_desc_1} woont naast {attribute_desc_2}."                                                                          # Requires n_objects > 2, otherwise use not_same_object
-    not_next_to: "{attribute_desc_1} woont niet naast {attribute_desc_2}, en ze zijn niet dezelfde persoon."                               # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} woont net links van {attribute_desc_2}."                                                             # Requires n_objects > 2, otherwise use left_of
-    just_right_of: "{attribute_desc_1} woont net rechts van {attribute_desc_2}."                                                           # Requires n_objects > 2, otherwise use right_of
-    left_of: "{attribute_desc_1} woont links van {attribute_desc_2}."
-    right_of: "{attribute_desc_1} woont rechts van {attribute_desc_2}."
-    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                  # Requires n_attributes > 1, otherwise it cannot be used
-    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                              # Requires n_attributes > 1, otherwise it cannot be used
-    between: "{attribute_desc_2} woont tussen {attribute_desc_1} en {attribute_desc_3}."                                                   # Requires n_objects > 2, otherwise it cannot be used
-    not_between: "{attribute_desc_1} woont niet tussen {attribute_desc_2} en {attribute_desc_3}, en het zijn drie verschillende personen." # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: "{attribute_desc_1} en {attribute_desc_2} woont met {n_between} huizen tussen zich."                                 # Requires n_objects > 3, otherwise it cannot be used
-    one_between: "Er staat één huis tussen {attribute_desc_1} en {attribute_desc_2}."                                                      # Requires n_objects > 2, otherwise it cannot be used
+    found_at: '{attribute_desc} woont in huisnummer {i_object}.'
+    not_at: '{attribute_desc} woont niet in huisnummer {i_object}.'
+    next_to: '{attribute_desc_1} woont naast {attribute_desc_2}.'                                                                          # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} woont niet naast {attribute_desc_2}, en ze zijn niet dezelfde persoon.'                               # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} woont net links van {attribute_desc_2}.'                                                             # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} woont net rechts van {attribute_desc_2}.'                                                           # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} woont links van {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} woont rechts van {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                                  # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                              # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} woont tussen {attribute_desc_1} en {attribute_desc_3}.'                                                   # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} woont niet tussen {attribute_desc_2} en {attribute_desc_3}, en het zijn drie verschillende personen.' # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1} en {attribute_desc_2} woont met {n_between} huizen tussen zich.'                                 # Requires n_objects > 3, otherwise it cannot be used
+    one_between: 'Er staat één huis tussen {attribute_desc_1} en {attribute_desc_2}.'                                                      # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
 # When irrelevant in the given language, nominative is set as default independently of the true grammatical case.
@@ -158,14 +158,14 @@ prompt_templates:
 # NOTE: More types could be added such as "The person with a cactus is not the baker"
 
 red_herring_clues_dict:
-    same_herring: "{attribute_desc} {attribute_desc_herring}."
-    next_to_herring: "{attribute_desc} woont naast {attribute_desc_herring}."
-    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
-    fact: "{fact}."
-    object_fact: "{attribute_desc} weet dat {fact}."
-    friends: "{attribute_desc} is goede vrienden met {attribute_desc_herring}."
-    herring_found_at: "{attribute_desc_herring} woont in huisnummer {i_object}."
-    herring_not_at: "{attribute_desc_herring} woont niet in huisnummer {i_object}."
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} woont naast {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} weet dat {fact}.'
+    friends: '{attribute_desc} is goede vrienden met {attribute_desc_herring}.'
+    herring_found_at: '{attribute_desc_herring} woont in huisnummer {i_object}.'
+    herring_not_at: '{attribute_desc_herring} woont niet in huisnummer {i_object}.'
 
 red_herring_cases_dict:
     same_herring: ['nom', 'none']
@@ -195,18 +195,18 @@ red_herring_attributes:
     oud_dier: ['de persoon met een huisdier dat oud is voor zijn soort', 'heeft een huisdier dat oud is voor zijn soort']
     schansspringen: ['de persoon die naar schansspringen kijkt', 'kijkt naar schansspringen']
 
-# Facts including a second version of the form "He knows that [fact]" (English example).
+# Facts including a second version of the form 'He knows that [fact]' (English example).
 red_herring_facts:
-    haring: ["haring is een vis", "haring een vis is"]
-    zonnestelsel: ["het zonnestelsel beweegt met een vaart van ongeveer 200 km/s rond het centrum van de Melkweg", "het zonnestelsel met een vaart van ongeveer 200 km/s rond het centrum van de Melkweg beweegt"]
-    raadsels: ["het is leuk om raadsels op te lossen", "het leuk is om raadsels op te lossen"]
-    huizen: ["alle huizen aan de weg hebben mooie tuinen", "alle huizen aan de weg mooie tuinen hebben"]
-    deuren: ["een aantal huizen hebben een groene deur", "een aantal huizen een groene deur hebben"]
-    ramen: ["alle huizen hebben grote ramen", "alle huizen grote ramen hebben"]
+    haring: ['haring is een vis', 'haring een vis is']
+    zonnestelsel: ['het zonnestelsel beweegt met een vaart van ongeveer 200 km/s rond het centrum van de Melkweg', 'het zonnestelsel met een vaart van ongeveer 200 km/s rond het centrum van de Melkweg beweegt']
+    raadsels: ['het is leuk om raadsels op te lossen', 'het leuk is om raadsels op te lossen']
+    huizen: ['alle huizen aan de weg hebben mooie tuinen', 'alle huizen aan de weg mooie tuinen hebben']
+    deuren: ['een aantal huizen hebben een groene deur', 'een aantal huizen een groene deur hebben']
+    ramen: ['alle huizen hebben grote ramen', 'alle huizen grote ramen hebben']
     auto's: ["er zijn veel auto's op de weg", "er veel auto's op de weg zijn"]
-    komkommer: ["komkommer is een bes", "komkommer een bes is"]
-    slak: ["slakken zijn weekdieren", "slakken weekdieren zijn"]
-    koffie: ["koffie bevat cafeïne", "koffie cafeïne bevat"]
+    komkommer: ['komkommer is een bes', 'komkommer een bes is']
+    slak: ['slakken zijn weekdieren', 'slakken weekdieren zijn']
+    koffie: ['koffie bevat cafeïne', 'koffie cafeïne bevat']
 
 # Strings to replace in the prompt.
 prompt_replacements:

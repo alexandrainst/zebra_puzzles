@@ -82,20 +82,20 @@ attributes:
 # Clue names should not be edited, but they can be a subset of the full list of implemented clues.
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 clues_dict:
-    found_at: "{attribute_desc} wohnt in Haus Nummer {i_object}."
-    not_at: "{attribute_desc} wohnt nicht in Haus Nummer {i_object}."
-    next_to: "{attribute_desc_1} wohnt neben {attribute_desc_2}."                                                                                        # Requires n_objects > 2, otherwise use not_same_object
-    not_next_to: "{attribute_desc_1} wohnt nicht neben {attribute_desc_2}, und die beiden sind nicht dieselbe Person."                                   # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} wohnt direkt links neben {attribute_desc_2}."                                                                      # Requires n_objects > 2, otherwise use left_of
-    just_right_of: "{attribute_desc_1} wohnt direkt rechts neben {attribute_desc_2}."                                                                    # Requires n_objects > 2, otherwise use right_of
-    left_of: "{attribute_desc_1} wohnt links von {attribute_desc_2}."
-    right_of: "{attribute_desc_1} wohnt rechts von {attribute_desc_2}."
-    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                                # Requires n_attributes > 1, otherwise it cannot be used
-    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                            # Requires n_attributes > 1, otherwise it cannot be used
-    between: "{attribute_desc_2} wohnt zwischen {attribute_desc_1} und {attribute_desc_3}."                                                              # Requires n_objects > 2, otherwise it cannot be used
-    not_between: "{attribute_desc_1} wohnt nicht zwischen {attribute_desc_2} und {attribute_desc_3}, und es handelt sich um drei verschiedene Personen." # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: "Zwischen {attribute_desc_1} und {attribute_desc_2} stehen genau {n_between} Häuser."                                              # Requires n_objects > 3, otherwise it cannot be used
-    one_between: "Es gibt ein Haus zwischen {attribute_desc_1} und {attribute_desc_2}."
+    found_at: '{attribute_desc} wohnt in Haus Nummer {i_object}.'
+    not_at: '{attribute_desc} wohnt nicht in Haus Nummer {i_object}.'
+    next_to: '{attribute_desc_1} wohnt neben {attribute_desc_2}.'                                                                                        # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} wohnt nicht neben {attribute_desc_2}, und die beiden sind nicht dieselbe Person.'                                   # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} wohnt direkt links neben {attribute_desc_2}.'                                                                      # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} wohnt direkt rechts neben {attribute_desc_2}.'                                                                    # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} wohnt links von {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} wohnt rechts von {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                                                # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                                            # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} wohnt zwischen {attribute_desc_1} und {attribute_desc_3}.'                                                              # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} wohnt nicht zwischen {attribute_desc_2} und {attribute_desc_3}, und es handelt sich um drei verschiedene Personen.' # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: 'Zwischen {attribute_desc_1} und {attribute_desc_2} stehen genau {n_between} Häuser.'                                              # Requires n_objects > 3, otherwise it cannot be used
+    one_between: 'Es gibt ein Haus zwischen {attribute_desc_1} und {attribute_desc_2}.'
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
 # When irrelevant in the given language, nominative is set as default independently of the true grammatical case.
@@ -158,14 +158,14 @@ prompt_templates:
 # NOTE: More types could be added such as "The person with a cactus is not the baker"
 
 red_herring_clues_dict:
-    same_herring: "{attribute_desc} {attribute_desc_herring}."
-    next_to_herring: "{attribute_desc} wohnt neben {attribute_desc_herring}."
-    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
-    fact: "{fact}."
-    object_fact: "{attribute_desc} weiß, dass {fact}."
-    friends: "{attribute_desc} ist gut befreundet mit {attribute_desc_herring}."
-    herring_found_at: "{attribute_desc_herring} wohnt in Haus Nummer {i_object}."
-    herring_not_at: "{attribute_desc_herring} wohnt nicht in Haus Nummer {i_object}."
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} wohnt neben {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} weiß, dass {fact}.'
+    friends: '{attribute_desc} ist gut befreundet mit {attribute_desc_herring}.'
+    herring_found_at: '{attribute_desc_herring} wohnt in Haus Nummer {i_object}.'
+    herring_not_at: '{attribute_desc_herring} wohnt nicht in Haus Nummer {i_object}.'
 
 red_herring_cases_dict:
     same_herring: ['nom', 'none']
@@ -198,16 +198,16 @@ red_herring_attributes:
 
 # Facts including a second version of the form "He knows that [fact]" (English example).
 red_herring_facts:
-    Hering: ["Hering ist ein Fisch", "Hering ein Fisch ist"]
-    Sonnensystem: ["das Sonnensystem bewegt sich mit einem Tempo von etwa 200 km/s um das Zentrum der Galaxie", "das Sonnensystem sich mit einem Tempo von etwa 200 km/s um das Zentrum der Galaxie bewegt"]
-    Rätsel: ["es macht Spaß, Rätsel zu lösen", "es Spaß macht, Rätsel zu lösen"]
-    Häuser: ["alle Häuser in der Straße haben schöne Gärten", "alle Häuser in der Straße schöne Gärten haben"]
-    Türen: ["mehrere Häuser haben eine grüne Tür", "mehrere Häuser eine grüne Tür haben"]
-    Fenster: ["alle Häuser haben große Fenster", "alle Häuser große Fenster haben"]
-    Autos: ["es gibt viele Autos auf der Straße", "es viele Autos auf der Straße gibt"]
-    Gurke: ["Gurken sind Beeren", "Gurken Beeren sind"]
-    Schnecke: ["Schnecken sind Weichtiere", "Schnecken Weichtiere sind"]
-    Kaffee: ["Kaffee enthält Koffein", "Kaffee Koffein enthält"]
+    Hering: ['Hering ist ein Fisch', 'Hering ein Fisch ist']
+    Sonnensystem: ['das Sonnensystem bewegt sich mit einem Tempo von etwa 200 km/s um das Zentrum der Galaxie', 'das Sonnensystem sich mit einem Tempo von etwa 200 km/s um das Zentrum der Galaxie bewegt']
+    Rätsel: ['es macht Spaß, Rätsel zu lösen', 'es Spaß macht, Rätsel zu lösen']
+    Häuser: ['alle Häuser in der Straße haben schöne Gärten', 'alle Häuser in der Straße schöne Gärten haben']
+    Türen: ['mehrere Häuser haben eine grüne Tür', 'mehrere Häuser eine grüne Tür haben']
+    Fenster: ['alle Häuser haben große Fenster', 'alle Häuser große Fenster haben']
+    Autos: ['es gibt viele Autos auf der Straße', 'es viele Autos auf der Straße gibt']
+    Gurke: ['Gurken sind Beeren', 'Gurken Beeren sind']
+    Schnecke: ['Schnecken sind Weichtiere', 'Schnecken Weichtiere sind']
+    Kaffee: ['Kaffee enthält Koffein', 'Kaffee Koffein enthält']
 
 # Strings to replace in the prompt.
 prompt_replacements:

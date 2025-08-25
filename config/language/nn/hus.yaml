@@ -82,20 +82,20 @@ attributes:
 # Clue names should not be edited, but they can be a subset of the full list of implemented clues.
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 clues_dict:
-    found_at: "{attribute_desc} bur i hus nummer {i_object}."
-    not_at: "{attribute_desc} bur ikkje i hus nummer {i_object}."
-    next_to: "{attribute_desc_1} bur ved sida av {attribute_desc_2}."                                                          # Requires n_objects > 2, otherwise use not_same_object
-    not_next_to: "{attribute_desc_1} bur ikkje ved sida av {attribute_desc_2}, og dei er ikkje den same personen."             # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} bur rett til venstre for {attribute_desc_2}."                                            # Requires n_objects > 2, otherwise use left_of
-    just_right_of: "{attribute_desc_1} bur rett til høgre for {attribute_desc_2}."                                             # Requires n_objects > 2, otherwise use right_of
-    left_of: "{attribute_desc_1} bur til venstre for {attribute_desc_2}."
-    right_of: "{attribute_desc_1} bur til høgre for {attribute_desc_2}."
-    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                      # Requires n_attributes > 1, otherwise it cannot be used
-    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                  # Requires n_attributes > 1, otherwise it cannot be used
-    between: "{attribute_desc_2} bur mellom {attribute_desc_1} og {attribute_desc_3}."                                         # Requires n_objects > 2, otherwise it cannot be used
-    not_between: "{attribute_desc_1} bur ikkje mellom {attribute_desc_2} og {attribute_desc_3}, og dei er tre ulike personar." # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: "{attribute_desc_1} og {attribute_desc_2} bur med {n_between} hus mellom seg."                           # Requires n_objects > 3, otherwise it cannot be used
-    one_between: "Det er eitt hus mellom {attribute_desc_1} og {attribute_desc_2}."                                            # Requires n_objects > 2, otherwise it cannot be used
+    found_at: '{attribute_desc} bur i hus nummer {i_object}.'
+    not_at: '{attribute_desc} bur ikkje i hus nummer {i_object}.'
+    next_to: '{attribute_desc_1} bur ved sida av {attribute_desc_2}.'                                                          # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} bur ikkje ved sida av {attribute_desc_2}, og dei er ikkje den same personen.'             # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} bur rett til venstre for {attribute_desc_2}.'                                            # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} bur rett til høgre for {attribute_desc_2}.'                                             # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} bur til venstre for {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} bur til høgre for {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                      # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                  # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} bur mellom {attribute_desc_1} og {attribute_desc_3}.'                                         # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} bur ikkje mellom {attribute_desc_2} og {attribute_desc_3}, og dei er tre ulike personar.' # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1} og {attribute_desc_2} bur med {n_between} hus mellom seg.'                           # Requires n_objects > 3, otherwise it cannot be used
+    one_between: 'Det er eitt hus mellom {attribute_desc_1} og {attribute_desc_2}.'                                            # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
 # When irrelevant in the given language, nominative is set as default independently of the true grammatical case.
@@ -158,14 +158,14 @@ prompt_templates:
 # NOTE: More types could be added such as "The person with a cactus is not the baker"
 
 red_herring_clues_dict:
-    same_herring: "{attribute_desc} {attribute_desc_herring}."
-    next_to_herring: "{attribute_desc} bur ved sida av {attribute_desc_herring}."
-    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
-    fact: "{fact}."
-    object_fact: "{attribute_desc} veit at {fact}."
-    friends: "{attribute_desc} er god venn med {attribute_desc_herring}."
-    herring_found_at: "{attribute_desc_herring} bur i hus nummer {i_object}."
-    herring_not_at: "{attribute_desc_herring} bur ikkje i hus nummer {i_object}."
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} bur ved sida av {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} veit at {fact}.'
+    friends: '{attribute_desc} er god venn med {attribute_desc_herring}.'
+    herring_found_at: '{attribute_desc_herring} bur i hus nummer {i_object}.'
+    herring_not_at: '{attribute_desc_herring} bur ikkje i hus nummer {i_object}.'
 
 red_herring_cases_dict:
     same_herring: ['nom', 'none']

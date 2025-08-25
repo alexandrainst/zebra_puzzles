@@ -82,20 +82,20 @@ attributes:
 # Clue names should not be edited, but they can be a subset of the full list of implemented clues.
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 clues_dict:
-    found_at: "{attribute_desc} bor i hus nummer {i_object}."
-    not_at: "{attribute_desc} bor inte i hus nummer {i_object}."
-    next_to: "{attribute_desc_1} bor bredvid {attribute_desc_2}."                                                              # Requires n_objects > 2, otherwise use not_same_object
-    not_next_to: "{attribute_desc_1} bor inte bredvid {attribute_desc_2}, och de är inte samma person."                        # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} bor precis till vänster om {attribute_desc_2}."                                          # Requires n_objects > 2, otherwise use left_of
-    just_right_of: "{attribute_desc_1} bor precis till höger om {attribute_desc_2}."                                           # Requires n_objects > 2, otherwise use right_of
-    left_of: "{attribute_desc_1} bor till vänster om {attribute_desc_2}."
-    right_of: "{attribute_desc_1} bor till höger om {attribute_desc_2}."
-    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                      # Requires n_attributes > 1, otherwise it cannot be used
-    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                  # Requires n_attributes > 1, otherwise it cannot be used
-    between: "{attribute_desc_2} bor mellan {attribute_desc_1} och {attribute_desc_3}."                                        # Requires n_objects > 2, otherwise it cannot be used
-    not_between: "{attribute_desc_1} bor inte mellan {attribute_desc_2} och {attribute_desc_3}, och de är tre olika personer." # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: "{attribute_desc_1} och {attribute_desc_2} bor med {n_between} hus mellan sig."                          # Requires n_objects > 3, otherwise it cannot be used
-    one_between: "Det finns ett hus mellan {attribute_desc_1} och {attribute_desc_2}."                                         # Requires n_objects > 2, otherwise it cannot be used
+    found_at: '{attribute_desc} bor i hus nummer {i_object}.'
+    not_at: '{attribute_desc} bor inte i hus nummer {i_object}.'
+    next_to: '{attribute_desc_1} bor bredvid {attribute_desc_2}.'                                                              # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} bor inte bredvid {attribute_desc_2}, och de är inte samma person.'                        # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} bor precis till vänster om {attribute_desc_2}.'                                          # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} bor precis till höger om {attribute_desc_2}.'                                           # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} bor till vänster om {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} bor till höger om {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                      # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                  # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} bor mellan {attribute_desc_1} och {attribute_desc_3}.'                                        # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} bor inte mellan {attribute_desc_2} och {attribute_desc_3}, och de är tre olika personer.' # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1} och {attribute_desc_2} bor med {n_between} hus mellan sig.'                          # Requires n_objects > 3, otherwise it cannot be used
+    one_between: 'Det finns ett hus mellan {attribute_desc_1} och {attribute_desc_2}.'                                         # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
 # When irrelevant in the given language, nominative is set as default independently of the true grammatical case.
@@ -158,14 +158,14 @@ prompt_templates:
 # NOTE: More types could be added such as "The person with a cactus is not the baker"
 
 red_herring_clues_dict:
-    same_herring: "{attribute_desc} {attribute_desc_herring}."
-    next_to_herring: "{attribute_desc} bor bredvid {attribute_desc_herring}."
-    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
-    fact: "{fact}."
-    object_fact: "{attribute_desc} vet att {fact}."
-    friends: "{attribute_desc} är god vän med {attribute_desc_herring}."
-    herring_found_at: "{attribute_desc_herring} bor i hus nummer {i_object}."
-    herring_not_at: "{attribute_desc_herring} bor inte i hus nummer {i_object}."
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} bor bredvid {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} vet att {fact}.'
+    friends: '{attribute_desc} är god vän med {attribute_desc_herring}.'
+    herring_found_at: '{attribute_desc_herring} bor i hus nummer {i_object}.'
+    herring_not_at: '{attribute_desc_herring} bor inte i hus nummer {i_object}.'
 
 red_herring_cases_dict:
     same_herring: ['nom', 'none']
@@ -196,16 +196,16 @@ red_herring_attributes:
     backhoppning: ['personen som tittar på backhoppning', 'tittar på backhoppning']
 
 red_herring_facts:
-    sill: ["sill är en fisk"]
-    solsystem: ["solsystemet rör sig med en fart av cirka 200 km/s runt galaxens mittpunkt"]
-    pussel: ["det är roligt att lösa pussel"]
-    hus: ["alla hus på vägen har fina trädgårdar"]
-    dörrar: ["flera av husen har gröna dörrar"]
-    fönster: ["alla hus har stora fönster"]
-    bilar: ["det finns många bilar på vägen"]
-    gurka: ["gurka är ett bär"]
-    snigel: ["sniglar är blötdjur"]
-    kaffe: ["kaffe innehåller koffein"]
+    sill: ['sill är en fisk']
+    solsystem: ['solsystemet rör sig med en fart av cirka 200 km/s runt galaxens mittpunkt']
+    pussel: ['det är roligt att lösa pussel']
+    hus: ['alla hus på vägen har fina trädgårdar']
+    dörrar: ['flera av husen har gröna dörrar']
+    fönster: ['alla hus har stora fönster']
+    bilar: ['det finns många bilar på vägen']
+    gurka: ['gurka är ett bär']
+    snigel: ['sniglar är blötdjur']
+    kaffe: ['kaffe innehåller koffein']
 
 # Strings to replace in the prompt.
 prompt_replacements:

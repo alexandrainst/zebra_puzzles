@@ -84,20 +84,20 @@ attributes:
 # Clue names should not be edited, but they can be a subset of the full list of implemented clues.
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 clues_dict:
-    found_at: "{attribute_desc} er nummer {i_object}."
-    not_at: "{attribute_desc} er ikke nummer {i_object}."
-    next_to: "{attribute_desc_1} ligger ved siden af {attribute_desc_2}."                                                                       # Requires n_objects > 2, otherwise use not_same_object
-    not_next_to: "{attribute_desc_1} ligger ikke ved siden af {attribute_desc_2}, og de er ikke det samme stykke smørrebrød."                   # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} ligger lige til venstre for {attribute_desc_2}."                                                          # Requires n_objects > 2, otherwise use left_of
-    just_right_of: "{attribute_desc_1} ligger lige til højre for {attribute_desc_2}."                                                           # Requires n_objects > 2, otherwise use right_of
-    left_of: "{attribute_desc_1} ligger til venstre for {attribute_desc_2}."
-    right_of: "{attribute_desc_1} ligger til højre for {attribute_desc_2}."
-    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                       # Requires n_attributes > 1, otherwise it cannot be used
-    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                   # Requires n_attributes > 1, otherwise it cannot be used
-    between: "{attribute_desc_2} ligger mellem {attribute_desc_1} og {attribute_desc_3}."                                                       # Requires n_objects > 2, otherwise it cannot be used
-    not_between: "{attribute_desc_1} ligger ikke mellem {attribute_desc_2} og {attribute_desc_3}, og de er tre forskellige stykker smørrebrød." # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: "{attribute_desc_1} og {attribute_desc_2} ligger med {n_between} stykker smørrebrød mellem sig."                          # Requires n_objects > 3, otherwise it cannot be used
-    one_between: "Der er ét stykke smørrebrød mellem {attribute_desc_1} og {attribute_desc_2}."                                                 # Requires n_objects > 2, otherwise it cannot be used
+    found_at: '{attribute_desc} er nummer {i_object}.'
+    not_at: '{attribute_desc} er ikke nummer {i_object}.'
+    next_to: '{attribute_desc_1} ligger ved siden af {attribute_desc_2}.'                                                                       # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} ligger ikke ved siden af {attribute_desc_2}, og de er ikke det samme stykke smørrebrød.'                   # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} ligger lige til venstre for {attribute_desc_2}.'                                                          # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} ligger lige til højre for {attribute_desc_2}.'                                                           # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} ligger til venstre for {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} ligger til højre for {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                                       # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                                   # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} ligger mellem {attribute_desc_1} og {attribute_desc_3}.'                                                       # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} ligger ikke mellem {attribute_desc_2} og {attribute_desc_3}, og de er tre forskellige stykker smørrebrød.' # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1} og {attribute_desc_2} ligger med {n_between} stykker smørrebrød mellem sig.'                          # Requires n_objects > 3, otherwise it cannot be used
+    one_between: 'Der er ét stykke smørrebrød mellem {attribute_desc_1} og {attribute_desc_2}.'                                                 # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
 # When irrelevant in the given language, nominative is set as default independently of the true grammatical case.
@@ -159,14 +159,14 @@ prompt_templates:
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
 
 red_herring_clues_dict:
-    same_herring: "{attribute_desc} {attribute_desc_herring}."
-    next_to_herring: "{attribute_desc} ligger ved siden af {attribute_desc_herring}."
-    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
-    fact: "{fact}."
-    object_fact: "Kokken der lavede {attribute_desc} ved at {fact}."
-    friends: "Kokkene der lavede henholdsvis {attribute_desc_herring} og {attribute_desc} er gode venner."
-    herring_found_at: "{attribute_desc_herring} er nummer {i_object}."
-    herring_not_at: "{attribute_desc_herring} er ikke nummer {i_object}."
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} ligger ved siden af {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: 'Kokken der lavede {attribute_desc} ved at {fact}.'
+    friends: 'Kokkene der lavede henholdsvis {attribute_desc_herring} og {attribute_desc} er gode venner.'
+    herring_found_at: '{attribute_desc_herring} er nummer {i_object}.'
+    herring_not_at: '{attribute_desc_herring} er ikke nummer {i_object}.'
 
 red_herring_cases_dict:
     same_herring: ['nom', 'none']
@@ -193,16 +193,16 @@ red_herring_attributes:
     hurtigt: ['stykket der er lavet meget hurtigt', 'er lavet meget hurtigt']
 
 red_herring_facts:
-    sild: ["sild er fisk"]
-    sol_systemet: ["solsystemet bevæger sig med en fart på ca. 200 km/s rundt om galaksens centrum"]
-    puzzle: ["det er sjovt at løse gåder"]
-    flotte: ["alle smørrebrødene er meget flotte"]
-    tørre: ["flere af smørrebrødene er blevet en smule tørre"]
-    højtbelagt: ["alle smørrebrødene er højtbelagte"]
-    dommere: ["der er tre dommere som vurderer smørrebrødene"]
-    agurk: ["agurk er et bær"]
-    snegl: ["snegle er bløddyr"]
-    kaffe: ["kaffe indeholder koffein"]
+    sild: ['sild er fisk']
+    sol_systemet: ['solsystemet bevæger sig med en fart på ca. 200 km/s rundt om galaksens centrum']
+    puzzle: ['det er sjovt at løse gåder']
+    flotte: ['alle smørrebrødene er meget flotte']
+    tørre: ['flere af smørrebrødene er blevet en smule tørre']
+    højtbelagt: ['alle smørrebrødene er højtbelagte']
+    dommere: ['der er tre dommere som vurderer smørrebrødene']
+    agurk: ['agurk er et bær']
+    snegl: ['snegle er bløddyr']
+    kaffe: ['kaffe indeholder koffein']
 
 # Strings to replace in the prompt.
 prompt_replacements:
