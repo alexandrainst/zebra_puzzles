@@ -83,20 +83,20 @@ attributes:
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 
 clues_dict:
-    found_at: "{attribute_desc} lives in house no. {i_object}."
-    not_at: "{attribute_desc} does not live in house no. {i_object}."
-    next_to: "{attribute_desc_1} lives next to {attribute_desc_2}."                                                                         # Requires n_objects > 2, otherwise use not_same_object
-    not_next_to: "{attribute_desc_1} does not live next to {attribute_desc_2}, and they are different people."                              # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} lives to the immediate left of {attribute_desc_2}, on their left."                                    # Requires n_objects > 2, otherwise use left_of
-    just_right_of: "{attribute_desc_1} lives to the immediate right of {attribute_desc_2}."                                                 # Requires n_objects > 2, otherwise use right_of
-    left_of: "{attribute_desc_1} lives to the left of {attribute_desc_2}."
-    right_of: "{attribute_desc_1} lives to the right of {attribute_desc_2}."
-    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                                   # Requires n_attributes > 1, otherwise it cannot be used
-    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                               # Requires n_attributes > 1, otherwise it cannot be used
-    between: "{attribute_desc_2} lives between {attribute_desc_1} and {attribute_desc_3}."                                                  # Requires n_objects > 2, otherwise it cannot be used
-    not_between: "{attribute_desc_1} does not live between {attribute_desc_2} and {attribute_desc_3}, and they are three different people." # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: "There are {n_between} houses between {attribute_desc_1} and {attribute_desc_2}."                                     # Requires n_objects > 3, otherwise it cannot be used
-    one_between: "There is one house between {attribute_desc_1} and {attribute_desc_2}."                                                    # Requires n_objects > 2, otherwise it cannot be used
+    found_at: '{attribute_desc} lives in house no. {i_object}.'
+    not_at: '{attribute_desc} does not live in house no. {i_object}.'
+    next_to: '{attribute_desc_1} lives next to {attribute_desc_2}.'                                                                         # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} does not live next to {attribute_desc_2}, and they are different people.'                              # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} lives to the immediate left of {attribute_desc_2}, on their left.'                                    # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} lives to the immediate right of {attribute_desc_2}.'                                                 # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} lives to the left of {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} lives to the right of {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                                   # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                               # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} lives between {attribute_desc_1} and {attribute_desc_3}.'                                                  # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} does not live between {attribute_desc_2} and {attribute_desc_3}, and they are three different people.' # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: 'There are {n_between} houses between {attribute_desc_1} and {attribute_desc_2}.'                                     # Requires n_objects > 3, otherwise it cannot be used
+    one_between: 'There is one house between {attribute_desc_1} and {attribute_desc_2}.'                                                    # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
 # When irrelevant in the given language, nominative is set as default independently of the true grammatical case.
@@ -158,14 +158,14 @@ prompt_templates:
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
 
 red_herring_clues_dict:
-    same_herring: "{attribute_desc} {attribute_desc_herring}."
-    next_to_herring: "{attribute_desc} lives next to {attribute_desc_herring}."
-    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
-    fact: "{fact}."
-    object_fact: "{attribute_desc} knows that {fact}."
-    friends: "{attribute_desc} is good friends with {attribute_desc_herring}."
-    herring_found_at: "{attribute_desc_herring} lives in house no. {i_object}."
-    herring_not_at: "{attribute_desc_herring} does not live in house no. {i_object}."
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} lives next to {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} knows that {fact}.'
+    friends: '{attribute_desc} is good friends with {attribute_desc_herring}.'
+    herring_found_at: '{attribute_desc_herring} lives in house no. {i_object}.'
+    herring_not_at: '{attribute_desc_herring} does not live in house no. {i_object}.'
 
 red_herring_cases_dict:
     same_herring: ['nom', 'none']
@@ -193,19 +193,19 @@ red_herring_attributes:
     mathematics: ["the person with a master's degree in mathematics", "has a master's degree in mathematics"]
     physics: ['the person who loves physics', 'loves physics']
     old_animal: ['the person with a pet that is old for its species', 'has a pet that is old for its species']
-    football: ['the person who watches football', 'watches football']
+    ski_jumping: ['the person who watches ski jumping', 'watches ski jumping']
 
 red_herring_facts:
-    herring: ["herrings are fish"]
-    solar_system: ["the solar system moves at a speed of about 200 km/s around the centre of the galaxy"]
-    puzzle: ["it is fun to solve puzzles"]
-    houses: ["all the houses on the street have beautiful gardens"]
-    doors: ["several of the houses have a green door"]
-    windows: ["all the houses have large windows"]
-    cars: ["there are many cars on the street"]
-    cucumber: ["cucumber is a berry"]
-    snail: ["snails are molluscs"]
-    coffee: ["coffee contains caffeine"]
+    herring: ['herrings are fish']
+    solar_system: ['the solar system moves at a speed of about 200 km/s around the centre of the galaxy']
+    puzzle: ['it is fun to solve puzzles']
+    houses: ['all the houses on the street have beautiful gardens']
+    doors: ['several of the houses have a green door']
+    windows: ['all the houses have large windows']
+    cars: ['there are many cars on the street']
+    cucumber: ['cucumber is a berry']
+    snail: ['snails are molluscs']
+    coffee: ['coffee contains caffeine']
 
 # Strings to replace in the prompt.
 prompt_replacements:

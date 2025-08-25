@@ -117,7 +117,7 @@ def create_red_herring(
 
     # Define the order of grammatical cases in clue descriptions
     # TODO: Save this somewhere else e.g. config
-    case_to_index = {"nom": 0, "acc": 2, "dat": 3, "none": 999}
+    case_to_index = {"nom": 0, "acc": 2, "dat": 3, "gen": 4, "none": 999}
 
     # Choose desc indices based on clue type and grammatical case in clue_cases_dict
     cases = red_herring_cases_dict[clue_type]

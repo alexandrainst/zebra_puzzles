@@ -29,7 +29,7 @@ attributes:
         bakari: ['bakarin', 'er bakari', 'er ikki bakari', 'bakaran', 'bakaranum']
         kirkjutænari: ['kirkjutænarin', 'er kirkjutænari', 'er ikki kirkjutænari', 'kirkjutænaran', 'kirkjutænaranum']
         løgreglumaður: ['løgreglumaðurin', 'er løgreglumaður', 'er ikki løgreglumaður', 'løgreglumannin', 'løgreglumanninum']
-        sjúkrasystir: ['sjúkrasysturin', 'er sjúkrasystir', 'er ikki sjúkrasystir', 'sjúkrasysturin', 'sjúkrarøktarfrøðinginum']
+        sjúkrasystir: ['sjúkrasysturin', 'er sjúkrasystir', 'er ikki sjúkrasystir', 'sjúkrasysturin', 'sjúkrasystrini']
         lærari: ['lærarin', 'er lærari', 'er ikki lærari', 'læraran', 'læraranum']
         ritbúnaðarverkfrøðingur: ['ritbúnaðarverkfrøðingurin', 'er ritbúnaðarverkfrøðingur', 'er ikki ritbúnaðarverkfrøðingur', 'ritbúnaðarverkfrøðingin', 'ritbúnaðarverkfrøðinginum']
         handilshjálpari: ['handilshjálparin', 'er handilshjálpari', 'er ikki handilshjálpari', 'handilshjálparan', 'handilshjálparanum']
@@ -54,12 +54,12 @@ attributes:
 
     yndisbókasjangrur:
         yrkisbókmentir: ['yrkisbókmentalesarin', 'lesur yrkisbókmentir', 'lesur ikki yrkisbókmentir', 'yrkisbókmentalesaran', 'yrkisbókmentalesaranum']
-        brotsskaldsøgu: ['brotsskaldsøgulesarin', 'lesur brotsskaldsøgu', 'lesur ikki brotsskaldsøgu', 'brotsskaldsøgulesaran', 'brotsskaldsøgulesaranum']
+        brotsskaldsøgu: ['brotsskaldsøgulesarin', 'lesur brotsskaldsøgur', 'lesur ikki brotsskaldsøgur', 'brotsskaldsøgulesaran', 'brotsskaldsøgulesaranum']
         fantasi: ['fantasilesarin', 'lesur fantasi', 'lesur ikki fantasi', 'fantasilesaran', 'fantasilesaranum']
-        vísindaskaldsøgur: ['vísindaskaldsøgulesarin', 'lesur vísindaskaldsøgu', 'lesur ikki vísindaskaldsøgu', 'vísindaskaldsøgulesaran', 'vísindaskaldsøgulesaranum']
-        ræðuskaldsøgur: ['ræðuskaldsøgulesarin', 'lesur ræðuskaldsøgu', 'lesur ikki ræðuskaldsøgu', 'ræðuskaldsøgulesaran', 'ræðuskaldsøgulesaranum']
+        vísindaskaldsøgur: ['vísindaskaldsøgulesarin', 'lesur vísindaskaldsøgur', 'lesur ikki vísindaskaldsøgur', 'vísindaskaldsøgulesaran', 'vísindaskaldsøgulesaranum']
+        ræðuskaldsøgur: ['ræðuskaldsøgulesarin', 'lesur ræðuskaldsøgur', 'lesur ikki ræðuskaldsøgur', 'ræðuskaldsøgulesaran', 'ræðuskaldsøgulesaranum']
         yrkingar: ['yrkingalesarin', 'lesur yrkingar', 'lesur ikki yrkingar', 'yrkingalesaran', 'yrkingalesaranum']
-        romantiskar skaldsøgur: ['persónurin, sum lesur romantiskar skaldsøgu,', 'lesur romantiskar skaldsøgu', 'lesur ikki romantiskar skaldsøgu', 'persónin, sum lesur romantiskar skaldsøgu,', 'persóninum, sum lesur romantiskar skaldsøgu,']
+        romantiskar skaldsøgur: ['persónurin, sum lesur romantiskar skaldsøgur,', 'lesur romantiskar skaldsøgur', 'lesur ikki romantiskar skaldsøgur', 'persónin, sum lesur romantiskar skaldsøgur,', 'persóninum, sum lesur romantiskar skaldsøgur,']
 
     frítíðarítriv:
         klintring: ['persónurin, sum klintrar,', 'klintrar', 'klintrar ikki', 'persónin, sum klintrar', 'persóninum, sum klintrar']
@@ -85,20 +85,20 @@ attributes:
 # attribute_desc_2 and attribute_desc_3 are always in accusative or dative except in 'multiple_between' clues.
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 clues_dict:
-    found_at: "{attribute_desc} býr í húsi nummar {i_object}."
-    not_at: "{attribute_desc} býr ikki í húsi nummar {i_object}."
-    next_to: "{attribute_desc_1} býr við síðuna av {attribute_desc_2}."                                                    # Requires n_objects > 2, otherwise use not_same_object
-    not_next_to: "{attribute_desc_1} býr ikki við síðuna av {attribute_desc_2}, og tey eru ikki sami persónur."            # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} býr beint til vinstru fyri {attribute_desc_2}."                                      # Requires n_objects > 2, otherwise use left_of
-    just_right_of: "{attribute_desc_1} býr beint til høgru fyri {attribute_desc_2}."                                       # Requires n_objects > 2, otherwise use right_of
-    left_of: "{attribute_desc_1} býr til vinstru fyri {attribute_desc_2}."
-    right_of: "{attribute_desc_1} býr til høgru fyri {attribute_desc_2}."
-    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                  # Requires n_attributes > 1, otherwise it cannot be used
-    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                              # Requires n_attributes > 1, otherwise it cannot be used
-    between: "{attribute_desc_2} býr millum {attribute_desc_1} og {attribute_desc_3}."                                     # Requires n_objects > 2, otherwise it cannot be used
-    not_between: "{attribute_desc_1} býr ikki millum {attribute_desc_2} og {attribute_desc_3}, og tey eru trý ymisk fólk." # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: "{attribute_desc_1} og {attribute_desc_2} búgva við {n_between} húsum ímillum sín."                  # Requires n_objects > 3, otherwise it cannot be used
-    one_between: "Tað eru eini hús millum {attribute_desc_1} og {attribute_desc_2}."                                       # Requires n_objects > 2, otherwise it cannot be used
+    found_at: '{attribute_desc} býr í húsi nummar {i_object}.'
+    not_at: '{attribute_desc} býr ikki í húsi nummar {i_object}.'
+    next_to: '{attribute_desc_1} býr við síðuna av {attribute_desc_2}.'                                                    # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} býr ikki við síðuna av {attribute_desc_2}, og tey eru ikki sami persónur.'            # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} býr beint til vinstru fyri {attribute_desc_2}.'                                      # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} býr beint til høgru fyri {attribute_desc_2}.'                                       # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} býr til vinstru fyri {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} býr til høgru fyri {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                  # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                              # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} býr millum {attribute_desc_1} og {attribute_desc_3}.'                                     # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} býr ikki millum {attribute_desc_2} og {attribute_desc_3}, og tey eru trý ymisk fólk.' # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1} og {attribute_desc_2} búgva við {n_between} húsum ímillum sín.'                  # Requires n_objects > 3, otherwise it cannot be used
+    one_between: 'Tað eru eini hús millum {attribute_desc_1} og {attribute_desc_2}.'                                       # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
 clue_cases_dict:
@@ -160,14 +160,14 @@ prompt_templates:
 # NOTE: More types could be added such as "The person with a cactus is not the baker"
 
 red_herring_clues_dict:
-    same_herring: "{attribute_desc} {attribute_desc_herring}."
-    next_to_herring: "{attribute_desc} býr við síðuna av {attribute_desc_herring}."
-    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
-    fact: "{fact}."
-    object_fact: "{attribute_desc} veit, at {fact}."
-    friends: "{attribute_desc} er góður vinur við {attribute_desc_herring}."
-    herring_found_at: "{attribute_desc_herring} býr í húsi nummar {i_object}."
-    herring_not_at: "{attribute_desc_herring} býr ikki í húsi nummar {i_object}."
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} býr við síðuna av {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} veit, at {fact}.'
+    friends: '{attribute_desc} er góður vinur við {attribute_desc_herring}.'
+    herring_found_at: '{attribute_desc_herring} býr í húsi nummar {i_object}.'
+    herring_not_at: '{attribute_desc_herring} býr ikki í húsi nummar {i_object}.'
 
 red_herring_cases_dict:
     same_herring: ['nom', 'none']
@@ -185,7 +185,7 @@ red_herring_attributes:
     tatovering: ['persónurin við tatovering', 'hevur eina tatovering', 'persónin við tatovering', 'persóninum við tatovering']
     gittar: ['persónurin, sum spælir gittar,', 'spælir gittar', 'persónin, sum spælir gittar,', 'persóninum, sum spælir gittar,']
     súkkla: ['persónurin við súkklu', 'hevur súkklu', 'persónin við súkklu', 'persóninum við súkklu']
-    marsvín: ['persónurin við einum marsvíni', 'hevur eitt marsvín', 'persónin við einum marsvíni', 'persóninum við einum marsvíni']
+    marsvín: ['persónurin við einum marsvíni', 'eigur eitt marsvín', 'persónin við einum marsvíni', 'persóninum við einum marsvíni']
     kaktus: ['persónurin, sum ikki eigur ein kaktus,', 'eigur ikki ein kaktus', 'persónin, sum ikki eigur ein kaktus,', 'persóninum, sum ikki eigur ein kaktus,']
     telduspæl: ['persónurin, sum spælir telduspøl,', 'spælir telduspøl', 'persónin, sum spælir telduspøl,', 'persóninum, sum spælir telduspøl,']
     systir: ['persónurin við einari systur', 'hevur eina systur', 'persónin við einari systur', 'persóninum við einari systur']
@@ -195,19 +195,19 @@ red_herring_attributes:
     støddfrøði: ['persónurin, sum hevur masterútbúgving í støddfrøði,', 'hevur masterútbúgving í støddfrøði', 'persónin, sum hevur masterútbúgving í støddfrøði,', 'persóninum, sum hevur masterútbúgving í støddfrøði,']
     alisfrøði: ['persónurin, sum elskar alisfrøði,', 'elskar alisfrøði', 'persónin, sum elskar alisfrøði,', 'persóninum, sum elskar alisfrøði,']
     gammalt dýr: ['persónurin við einum kelidjóri, sum er gamalt fyri sítt slag,', 'hevur eitt kelidjór, sum er gamalt fyri sítt slag', 'persónin við einum kelidjóri, sum er gamalt fyri sítt slag,', 'persóninum við einum kelidjóri, sum er gamalt fyri sítt slag,']
-    skíðhopp: ['persónurin, sum hyggur at skíðhoppi,', 'hyggur at skíðhoppi', 'persónin, sum hyggur at skíðhoppi,', 'persóninum, sum hyggur at skíðhoppi,']
+    skíðhopp: ['persónurin, sum hyggur eftir skíðhoppi,', 'hyggur eftir skíðhoppi', 'persónin, sum hyggur eftir skíðhoppi,', 'persóninum, sum hyggur eftir skíðhoppi,']
 
 red_herring_facts:
-    sild: ["sild er fiskur"]
-    sólskipaninar: ["sólskipanin flytur seg við eini ferð á umleið 200 km/s um miðjuna á stjørnubreytini"]
-    gáta: ["tað er stuttligt at loysa gátur"]
-    hús: ["øll húsini á vegnum hava snøggar garðar"]
-    hurðar: ["fleiri av húsunum hava grøna hurðar"]
-    vindeygu: ["øll húsini hava stór vindeygu"]
-    bilar: ["tað eru nógvir bilar á vegnum"]
-    agurk: ["ein agurk er eitt ber"]
-    snigil: ["sniglar eru lindýr"]
-    kaffi: ["kaffi inniheldur koffein"]
+    sild: ['sild er fiskur']
+    sólskipaninar: ['sólskipanin flytur seg við eini ferð á umleið 200 km/s um miðjuna á stjørnubreytini']
+    gáta: ['tað er stuttligt at loysa gátur']
+    hús: ['øll húsini á vegnum hava snøggar garðar']
+    hurðar: ['fleiri av húsunum hava grøna hurðar']
+    vindeygu: ['øll húsini hava stór vindeygu']
+    bilar: ['tað eru nógvir bilar á vegnum']
+    agurk: ['ein agurk er eitt ber']
+    snigil: ['sniglar eru lindýr']
+    kaffi: ['kaffi inniheldur koffein']
 
 # Strings to replace in the prompt.
 prompt_replacements:

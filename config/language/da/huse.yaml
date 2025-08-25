@@ -82,20 +82,20 @@ attributes:
 # Clue names should not be edited, but they can be a subset of the full list of implemented clues.
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 clues_dict:
-    found_at: "{attribute_desc} bor i hus nummer {i_object}."
-    not_at: "{attribute_desc} bor ikke i hus nummer {i_object}."
-    next_to: "{attribute_desc_1} bor ved siden af {attribute_desc_2}."                                                             # Requires n_objects > 2, otherwise use not_same_object
-    not_next_to: "{attribute_desc_1} bor ikke ved siden af {attribute_desc_2}, og de er ikke den samme person."                    # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: "{attribute_desc_1} bor lige til venstre for {attribute_desc_2}."                                                # Requires n_objects > 2, otherwise use left_of
-    just_right_of: "{attribute_desc_1} bor lige til højre for {attribute_desc_2}."                                                 # Requires n_objects > 2, otherwise use right_of
-    left_of: "{attribute_desc_1} bor til venstre for {attribute_desc_2}."
-    right_of: "{attribute_desc_1} bor til højre for {attribute_desc_2}."
-    same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                          # Requires n_attributes > 1, otherwise it cannot be used
-    not_same_object: "{attribute_desc_1} {attribute_desc_2}."                                                                      # Requires n_attributes > 1, otherwise it cannot be used
-    between: "{attribute_desc_2} bor mellem {attribute_desc_1} og {attribute_desc_3}."                                             # Requires n_objects > 2, otherwise it cannot be used
-    not_between: "{attribute_desc_1} bor ikke mellem {attribute_desc_2} og {attribute_desc_3}, og de er tre forskellige personer." # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: "{attribute_desc_1} og {attribute_desc_2} bor med {n_between} huse mellem sig."                              # Requires n_objects > 3, otherwise it cannot be used
-    one_between: "Der er ét hus mellem {attribute_desc_1} og {attribute_desc_2}."                                                  # Requires n_objects > 2, otherwise it cannot be used
+    found_at: '{attribute_desc} bor i hus nummer {i_object}.'
+    not_at: '{attribute_desc} bor ikke i hus nummer {i_object}.'
+    next_to: '{attribute_desc_1} bor ved siden af {attribute_desc_2}.'                                                             # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} bor ikke ved siden af {attribute_desc_2}, og de er ikke den samme person.'                    # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} bor lige til venstre for {attribute_desc_2}.'                                                # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} bor lige til højre for {attribute_desc_2}.'                                                 # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} bor til venstre for {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} bor til højre for {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                          # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                      # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} bor mellem {attribute_desc_1} og {attribute_desc_3}.'                                             # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} bor ikke mellem {attribute_desc_2} og {attribute_desc_3}, og de er tre forskellige personer.' # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1} og {attribute_desc_2} bor med {n_between} huse mellem sig.'                              # Requires n_objects > 3, otherwise it cannot be used
+    one_between: 'Der er ét hus mellem {attribute_desc_1} og {attribute_desc_2}.'                                                  # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
 # When irrelevant in the given language, nominative is set as default independently of the true grammatical case.
@@ -158,14 +158,14 @@ prompt_templates:
 # NOTE: More types could be added such as "The person with a cactus is not a baker"
 
 red_herring_clues_dict:
-    same_herring: "{attribute_desc} {attribute_desc_herring}."
-    next_to_herring: "{attribute_desc} bor ved siden af {attribute_desc_herring}."
-    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
-    fact: "{fact}."
-    object_fact: "{attribute_desc} ved at {fact}."
-    friends: "{attribute_desc} er gode venner med {attribute_desc_herring}."
-    herring_found_at: "{attribute_desc_herring} bor i hus nummer {i_object}."
-    herring_not_at: "{attribute_desc_herring} bor ikke i hus nummer {i_object}."
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} bor ved siden af {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} ved at {fact}.'
+    friends: '{attribute_desc} er gode venner med {attribute_desc_herring}.'
+    herring_found_at: '{attribute_desc_herring} bor i hus nummer {i_object}.'
+    herring_not_at: '{attribute_desc_herring} bor ikke i hus nummer {i_object}.'
 
 red_herring_cases_dict:
     same_herring: ['nom', 'none']
@@ -196,16 +196,16 @@ red_herring_attributes:
     skihop: ['personen der ser skihop', 'ser skihop']
 
 red_herring_facts:
-    sild: ["sild er fisk"]
-    solsystemet: ["solsystemet bevæger sig med en fart på ca. 200 km/s rundt om galaksens centrum"]
-    puzzle: ["det er sjovt at løse gåder"]
-    huse: ["alle vejens huse har flotte haver"]
-    døre: ["flere af husene har en grøn dør"]
-    vinduer: ["alle husene har store vinduer"]
-    biler: ["der er mange biler på vejen"]
-    agurk: ["agurk er et bær"]
-    snegl: ["snegle er bløddyr"]
-    kaffe: ["kaffe indeholder koffein"]
+    sild: ['sild er fisk']
+    solsystemet: ['solsystemet bevæger sig med en fart på ca. 200 km/s rundt om galaksens centrum']
+    puzzle: ['det er sjovt at løse gåder']
+    huse: ['alle vejens huse har flotte haver']
+    døre: ['flere af husene har en grøn dør']
+    vinduer: ['alle husene har store vinduer']
+    biler: ['der er mange biler på vejen']
+    agurk: ['agurk er et bær']
+    snegl: ['snegle er bløddyr']
+    kaffe: ['kaffe indeholder koffein']
 
 # Strings to replace in the prompt.
 prompt_replacements:
