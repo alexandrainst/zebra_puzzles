@@ -17,7 +17,7 @@ Available languages and themes:
     - Complete versions: Danish 🇩🇰, English 🇬🇧, Faroese 🇫🇴, German 🇩🇪, Icelandic 🇮🇸 and Swedish 🇸🇪.
     - Preliminary versions: Dutch 🇳🇱, Norwegian Bokmål 🇳🇴 and Norwegian Nynorsk 🇳🇴.
 - Smørrebrød theme:
-    - Complete versions: Danish 🇩🇰
+    - Complete versions: Danish 🇩🇰.
 
 ## Usage
 
@@ -29,7 +29,7 @@ Run `uv run src/scripts/plot_performance.py` to plot and compare puzzle evaluati
 
 Run `uv run src/scripts/fix_files.py` to combine datasets. Use the script to edit many filenames at once and/or move files to another folder.
 
-Run `uv run src/scripts/format_dataets.py` to format and push a dataset to Hugging Face.
+Run `uv run src/scripts/format_datasets.py` to format and push a dataset to Hugging Face.
 
 Use the configuration in `config/config.yaml` to specify:
 - language and theme of puzzles
