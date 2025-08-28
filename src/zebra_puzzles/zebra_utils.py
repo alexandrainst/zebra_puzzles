@@ -142,7 +142,6 @@ def describe_random_attributes(
         n_attributes: Number of attributes per object.
         diff_cat: If True, the output attributes must belong to different categories.
         desc_indices: A list of indeces of the descriptions to use for each object in the clue.
-            # TODO: Allow setting this index for multiple objects in the clue. Set it depending on clue type and grammatical case.
 
     Returns:
         A tuple (random_attributes, random_attributes_desc), where:
