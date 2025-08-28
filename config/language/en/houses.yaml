@@ -87,7 +87,7 @@ clues_dict:
     not_at: '{attribute_desc} does not live in house no. {i_object}.'
     next_to: '{attribute_desc_1} lives next to {attribute_desc_2}.'                                                                         # Requires n_objects > 2, otherwise use not_same_object
     not_next_to: '{attribute_desc_1} does not live next to {attribute_desc_2}, and they are different people.'                              # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: '{attribute_desc_1} lives to the immediate left of {attribute_desc_2}, on their left.'                                    # Requires n_objects > 2, otherwise use left_of
+    just_left_of: '{attribute_desc_1} lives to the immediate left of {attribute_desc_2}.'                                                   # Requires n_objects > 2, otherwise use left_of
     just_right_of: '{attribute_desc_1} lives to the immediate right of {attribute_desc_2}.'                                                 # Requires n_objects > 2, otherwise use right_of
     left_of: '{attribute_desc_1} lives to the left of {attribute_desc_2}.'
     right_of: '{attribute_desc_1} lives to the right of {attribute_desc_2}.'

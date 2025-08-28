@@ -1,4 +1,4 @@
-"""Script to format datasets.
+"""Script to format datasets and push them to Hugging Face.
 
 This script should run after build_dataset.py.
 
@@ -110,7 +110,7 @@ def format_datasets_pipeline(
         # Save datasets
         split_dataset.save_to_disk(Path(data_folder_current) / dataset_name)
         log.info(
-            f"Dataset {dataset_name} formatted and saved to {data_folder_current}."
+            f"Dataset {dataset_name} formatted and saved to {data_folder_current}/."
         )
 
     # Ask user if they want to push the dataset to Hugging Face Hub
