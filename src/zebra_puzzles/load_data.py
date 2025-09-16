@@ -130,7 +130,7 @@ def load_scores(
             if n_puzzles > 1:
                 mean_str = score_str.split(" ")[0]
                 mean_std_str = score_str.split("± ")[1].split(" ")[0]
-                std_str = scores_str.split("Sample standard deviation: ")[1]
+                std_str = score_str.split("Sample standard deviation: ")[1]
                 std_str = std_str.split("\n")[0]
             else:
                 mean_str = score_str.split("\n")[0]
