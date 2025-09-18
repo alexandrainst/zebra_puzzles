@@ -88,7 +88,7 @@ def format_datasets_pipeline(
         )
         log.info(f"Dataset {dataset_name} loaded from {data_folder_current}.")
     else:
-        train_dataset = format_a_dataset(
+        train_dataset = load_and_format_a_dataset(
             data_folder=data_folder_train,
             theme=theme,
             n_puzzles=n_puzzles_train,
@@ -96,7 +96,7 @@ def format_datasets_pipeline(
             n_attributes=n_attributes,
             n_objects=n_objects,
         )
-        test_dataset = format_a_dataset(
+        test_dataset = load_and_format_a_dataset(
             data_folder=data_folder_test,
             theme=theme,
             n_puzzles=n_puzzles_test,
@@ -128,7 +128,7 @@ def format_datasets_pipeline(
         )
 
 
-def format_a_dataset(
+def load_and_format_a_dataset(
     data_folder: str,
     theme: str,
     n_puzzles: int,
@@ -158,25 +158,34 @@ def format_a_dataset(
     )
 
     # Load dataset
-    data_dict = load_dataset(full_data_path=full_data_path, n_puzzles=n_puzzles)
+    puzzles, clue_files, red_herring_files, solution_files = load_dataset(full_data_path=full_data_path, n_puzzles=n_puzzles)
 
     # Format the dataset
+    data_dict = format_a_dataset(
+        puzzles=puzzles,
+        clue_files=clue_files,
+        red_herring_files=red_herring_files,
+        solution_files=solution_files,
+    )
     dataset = Dataset.from_dict(data_dict)
     return dataset
 
 
-def load_dataset(full_data_path: Path, n_puzzles: int) -> dict[str, list]:
+def load_dataset(full_data_path: Path, n_puzzles: int) -> tuple[list[str], list[str], list[str], list[str]]:
     """Load dataset from a folder.
 
-    Combines data from multiple files into a dictionary with the following structure:
-    * puzzles: list[str]
-    * clue_types: list[list[str]]
-    * red_herrings: list[list[int]]
-    * solutions: list[dict[str,list[str]]]
+    Each dataset is loaded as a list of strings.
 
     Args:
         full_data_path: Path to the folder containing the dataset files.
         n_puzzles: Expected number of puzzles in the folder.
+
+    Returns:
+        A tuple (puzzles, clue_files, red_herring_files, solution_files), where:
+            puzzles: List of puzzle strings.
+            clue_files: List of clue type strings.
+            red_herring_files: List of red herring indices strings.
+            solution_files: List of solution strings.
     """
     puzzles_path = full_data_path / "puzzles"
     puzzles = load_files(data_path=puzzles_path, n_puzzles=n_puzzles)
@@ -189,6 +198,28 @@ def load_dataset(full_data_path: Path, n_puzzles: int) -> dict[str, list]:
 
     solutions_path = full_data_path / "solutions"
     solution_files = load_files(data_path=solutions_path, n_puzzles=n_puzzles)
+
+    return puzzles, clue_files, red_herring_files, solution_files
+
+
+def format_a_dataset(puzzles: list[str], clue_files: list[str], red_herring_files: list[str], solution_files: list[str]) -> dict[str, list]:
+    """Format a dataset.
+
+    Combines data from multiple files into a dictionary. The input lists of strings correspond to the following contents:
+        * puzzles: list[str]
+        * clue_types: list[list[str]]
+        * red_herrings: list[list[int]]
+        * solutions: list[dict[str,list[str]]]
+
+    Args:
+        puzzles: List of puzzle strings.
+        clue_files: List of clue type strings.
+        red_herring_files: List of red herring indices strings.
+        solution_files: List of solution strings.
+
+    Returns:
+        Dictionary containing a formatted dataset.
+    """
 
     # Format puzzles
     # Split them into introduction, clues and format_instructions
@@ -210,6 +241,7 @@ def load_dataset(full_data_path: Path, n_puzzles: int) -> dict[str, list]:
 
         # Format instructions are everything after the last clue
         format_instructions.append(puzzle.split(clues[-1][-1])[-1].strip())
+
     # Format clue types
     clue_files_formatted: list[list[str]] = []
     for i, clue_str in enumerate(clue_files):
