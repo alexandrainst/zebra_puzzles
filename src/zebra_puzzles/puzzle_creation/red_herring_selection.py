@@ -48,6 +48,8 @@ def choose_red_herrings(
         n_objects=n_objects,
         n_attributes=n_attributes,
     )
+    red_herring_clues_dict_keys = sorted(red_herring_clues_dict)
+    clue_probabilities_values = [clue_probabilities[clue] for clue in red_herring_clues_dict_keys]
 
     chosen_clues: list[str] = []
     chosen_clue_types: list[str] = []
@@ -55,7 +57,7 @@ def choose_red_herrings(
     for _ in range(n_red_herring_clues):
         # Choose a red herring clue type
         clue_type = str(
-            np.random.choice(sorted(red_herring_clues_dict), p=clue_probabilities)
+            np.random.choice(red_herring_clues_dict_keys, p=clue_probabilities_values)
         )
 
         # Create a red herring clue

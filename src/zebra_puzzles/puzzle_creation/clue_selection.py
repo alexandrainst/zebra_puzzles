@@ -55,6 +55,8 @@ def choose_clues(
         n_objects=n_objects,
         n_attributes=n_attributes,
     )
+    applicable_clues_keys = sorted(applicable_clues_dict)
+    clue_probabilities_values = [clue_probabilities[clue] for clue in applicable_clues_keys]
 
     # Transpose and sort the attributes
     chosen_attributes_sorted = chosen_attributes.T
@@ -72,8 +74,9 @@ def choose_clues(
     # Add clues until the puzzle is solved or the maximum number of attempts is reached
     for _ in range(max_iter):
         # Generate a random clue
+        
         new_clue_type = str(
-            np.random.choice(sorted(applicable_clues_dict), p=clue_probabilities)
+            np.random.choice(applicable_clues_keys, p=clue_probabilities_values)
         )
         new_clue, new_constraint, new_clue_parameters = create_clue(
             clue=new_clue_type,
@@ -160,7 +163,7 @@ def get_clue_probabilities(
     clues_dict: dict[str, str],
     n_objects: int,
     n_attributes: int,
-) -> tuple[dict[str, str], np.ndarray]:
+) -> tuple[dict[str, str], dict[str, float]]:
     """Get the applicable clues and their probabilities.
 
     Args:
@@ -172,7 +175,7 @@ def get_clue_probabilities(
     Returns:
         A tuple (applicable_clues_dict, clue_probabilities), where:
             applicable_clues_dict: Clue types that can be used for this puzzle as a dictionary containing a title and a description of each clue.
-            clue_probabilities: Probabilities of selecting each applicable clue type as a numpy array.
+            clue_probabilities: Probabilities of selecting each applicable clue type as a numpy array as a dictionary with clue types as keys and probabilities as values.
 
     NOTE: Consider setting p=0 for excluded clue types instead of defining applicable_clues_dict
     """
@@ -188,8 +191,12 @@ def get_clue_probabilities(
     }
 
     # Normalise the clue weights
-    clue_probabilities = np.array(list(applicable_clue_weights.values()))
-    clue_probabilities = clue_probabilities / np.sum(clue_probabilities)
+    clue_probability_sum: float = np.sum(list(applicable_clue_weights.values()))
+
+    clue_probabilities = {
+        clue_type: float(weight / clue_probability_sum)
+        for clue_type, weight in applicable_clue_weights.items()
+    }
 
     return applicable_clues_dict, clue_probabilities
 
