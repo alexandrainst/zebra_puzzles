@@ -125,7 +125,7 @@ prompt_templates:
     - |
         En række huse er nummereret fra 1 til {n_objects} fra venstre mod højre.
 
-        I hvert hus bor en person med unikke egenskaber i hver af de følgende kategorier:
+        I hvert hus bor en person med en unik egenskab i hver af de følgende kategorier:
 
         {chosen_attributes_str}
 
@@ -135,7 +135,9 @@ prompt_templates:
 
         Hvem har hvilke egenskaber og bor i hvilket hus?
 
-        Angiv venligst dit svar som et JSON dictionary på nedenstående format. Hver række skal starte med object_X hvor X er husnummeret. Hver kolonne repræsenterer en kategori, og de skal stå i samme rækkefølge som kategorierne er oplistet ovenfor.
+        Angiv venligst dit svar som et JSON dictionary. Hver key skal være object_X hvor X er husnummeret. Hver value skal være en liste med de egenskaber fra kategorierne ovenfor som tilhører personen i hus nr. X.
+
+        Følgende er et eksempel på svarformatet:
 
         {solution_template}
     - |
@@ -149,9 +151,12 @@ prompt_templates:
 
         Hvem har hvilke egenskaber og bor i hvilket hus?
 
-        Angiv venligst dit svar som et JSON dictionary på nedenstående format. Hver række skal starte med object_X hvor X er husnummeret. Derefter følger en kolonne med egenskaberne i førnævnte kategori.
+        Angiv venligst dit svar som et JSON dictionary. Hver key skal være object_X hvor X er husnummeret. Hver value skal være en liste med det element fra den nævnte kategori som tilhører personen i hus nr. X.
+
+        Følgende er et eksempel på svarformatet:     
 
         {solution_template}
+
 
 # Red herrings
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
