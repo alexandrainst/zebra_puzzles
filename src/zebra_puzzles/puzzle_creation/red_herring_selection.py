@@ -49,7 +49,9 @@ def choose_red_herrings(
         n_attributes=n_attributes,
     )
     red_herring_clues_dict_keys = sorted(red_herring_clues_dict)
-    clue_probabilities_values = [clue_probabilities[clue] for clue in red_herring_clues_dict_keys]
+    clue_probabilities_values = [
+        clue_probabilities[clue] for clue in red_herring_clues_dict_keys
+    ]
 
     chosen_clues: list[str] = []
     chosen_clue_types: list[str] = []

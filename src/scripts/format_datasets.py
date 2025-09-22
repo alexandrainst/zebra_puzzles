@@ -158,7 +158,9 @@ def load_and_format_a_dataset(
     )
 
     # Load dataset
-    puzzles, clue_files, red_herring_files, solution_files = load_dataset(full_data_path=full_data_path, n_puzzles=n_puzzles)
+    puzzles, clue_files, red_herring_files, solution_files = load_dataset(
+        full_data_path=full_data_path, n_puzzles=n_puzzles
+    )
 
     # Format the dataset
     data_dict = format_a_dataset(
@@ -171,7 +173,9 @@ def load_and_format_a_dataset(
     return dataset
 
 
-def load_dataset(full_data_path: Path, n_puzzles: int) -> tuple[list[str], list[str], list[str], list[str]]:
+def load_dataset(
+    full_data_path: Path, n_puzzles: int
+) -> tuple[list[str], list[str], list[str], list[str]]:
     """Load dataset from a folder.
 
     Each dataset is loaded as a list of strings.
@@ -202,7 +206,12 @@ def load_dataset(full_data_path: Path, n_puzzles: int) -> tuple[list[str], list[
     return puzzles, clue_files, red_herring_files, solution_files
 
 
-def format_a_dataset(puzzles: list[str], clue_files: list[str], red_herring_files: list[str], solution_files: list[str]) -> dict[str, list]:
+def format_a_dataset(
+    puzzles: list[str],
+    clue_files: list[str],
+    red_herring_files: list[str],
+    solution_files: list[str],
+) -> dict[str, list]:
     """Format a dataset.
 
     Combines data from multiple files into a dictionary. The input lists of strings correspond to the following contents:
@@ -220,12 +229,14 @@ def format_a_dataset(puzzles: list[str], clue_files: list[str], red_herring_file
     Returns:
         Dictionary containing a formatted dataset.
     """
-
     # Format puzzles
     # Split them into introduction, clues and format_instructions
     introductions: list[str] = []
     clues: list[list[str]] = []
+    questions: list[str] = []
     format_instructions: list[str] = []
+    format_examples: list[str] = []
+
     for puzzle in puzzles:
         # The introduction is everything before the first clue
         introductions.append(puzzle.split("1.")[0])
@@ -239,8 +250,25 @@ def format_a_dataset(puzzles: list[str], clue_files: list[str], red_herring_file
             ]
         )
 
-        # Format instructions are everything after the last clue
-        format_instructions.append(puzzle.split(clues[-1][-1])[-1].strip())
+        # Question is the line after the clues ending with a question mark
+        text_after_clues = puzzle.split(clues[-1][-1])[-1].strip()
+        questions.append(
+            [
+                line.strip()
+                for line in text_after_clues.split("\n")
+                if line.strip().endswith("?")
+            ][0]
+        )
+
+        # Format instructions is the following line
+        format_instructions.append(
+            text_after_clues.split(questions[-1])[-1].strip().split("\n")[0]
+        )
+
+        # Format example is everything after the format instructions
+        format_examples.append(
+            text_after_clues.split(format_instructions[-1])[-1].strip()
+        )
 
     # Format clue types
     clue_files_formatted: list[list[str]] = []
@@ -260,10 +288,29 @@ def format_a_dataset(puzzles: list[str], clue_files: list[str], red_herring_file
         solution_files_formatted.append(json.loads(solution_str))
         # TODO: Consider validating the solution format
 
+    if (
+        len(format_instructions) != len(clue_files_formatted)
+        or len(questions) != len(solution_files_formatted)
+        or len(format_examples) != len(introductions)
+    ):
+        print(
+            "Mismatch in columns:"
+            f"\n  Introductions: {introductions[0]}"
+            f"\n  Clues: {clues[0]}"
+            f"\n  Questions: {questions[0]}"
+            f"\n  Format Instructions: {format_instructions[0]}"
+            f"\n  Format Examples: {format_examples[0]}"
+            f"\n  Solutions: {solution_files_formatted[0]}"
+            f"\n  Clue Types: {clue_files_formatted[0]}"
+        )
+        raise ValueError("Mismatch in columns.")
+
     return {
         "introductions": introductions,
         "clues": clues,
+        "questions": questions,
         "format_instructions": format_instructions,
+        "format_examples": format_examples,
         "solutions": solution_files_formatted,
         "clue_types": clue_files_formatted,
         "red_herrings": red_herring_files_formatted,

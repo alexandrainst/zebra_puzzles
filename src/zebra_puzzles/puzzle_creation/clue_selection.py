@@ -56,7 +56,9 @@ def choose_clues(
         n_attributes=n_attributes,
     )
     applicable_clues_keys = sorted(applicable_clues_dict)
-    clue_probabilities_values = [clue_probabilities[clue] for clue in applicable_clues_keys]
+    clue_probabilities_values = [
+        clue_probabilities[clue] for clue in applicable_clues_keys
+    ]
 
     # Transpose and sort the attributes
     chosen_attributes_sorted = chosen_attributes.T
@@ -74,7 +76,7 @@ def choose_clues(
     # Add clues until the puzzle is solved or the maximum number of attempts is reached
     for _ in range(max_iter):
         # Generate a random clue
-        
+
         new_clue_type = str(
             np.random.choice(applicable_clues_keys, p=clue_probabilities_values)
         )
