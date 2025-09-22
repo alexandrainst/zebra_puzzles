@@ -38,8 +38,8 @@ attributes:
         kanin: ['kanineigaren', 'har kanin', 'har ikkje kanin']
         sebra: ['sebraeigaren', 'har sebra', 'har ikkje sebra']
         undulat: ['undulateigaren', 'har undulat', 'har ikkje undulat']
-        snigel: ['snigeleigaren', 'har snigel', 'har ikkje snigel']
-        vandrande pinne: ['eigaren av ein vandrande pinne', 'har vandrande pinne', 'har ikkje vandrande pinne']
+        snigel: ['snigeleigaren', 'har ein snigel', 'har ikkje ein snigel']
+        vandrande pinne: ['eigaren av ein vandrande pinne', 'har ein vandrande pinne', 'har ikkje ein vandrande pinne']
 
     drink:
         jus: ['jusdrikkaren', 'drikk jus', 'drikk ikkje jus']
@@ -55,7 +55,7 @@ attributes:
         krim: ['krimlesaren', 'les krim', 'les ikkje krim']
         fantasy: ['fantasylesaren', 'les fantasy', 'les ikkje fantasy']
         science fiction: ['personen som les science fiction', 'les science fiction', 'les ikkje science fiction']
-        skrekk: ['skrekkeleseren', 'les skrekk', 'les ikkje skrekk']
+        skrekk: ['skrekkleseren', 'les skrekkbøker', 'les ikkje skrekkbøker']
         poesi: ['poesilesaren', 'les poesi', 'les ikkje poesi']
         romantikk: ['personen som les romantikkromanar', 'les romantikkromanar', 'les ikkje romantikkromanar']
 

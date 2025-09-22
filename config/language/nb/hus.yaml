@@ -38,8 +38,8 @@ attributes:
         kanin: ['kanineieren', 'har kanin', 'har ikke kanin']
         sebra: ['sebraeieren', 'har sebra', 'har ikke sebra']
         undulat: ['undulateieren', 'har undulat', 'har ikke undulat']
-        snegle: ['snegleeieren', 'har snegle', 'har ikke snegle']
-        vandrende pinne: ['eieren av en vandrende pinne', 'har vandrende pinne', 'har ikke vandrende pinne']
+        snegle: ['snegleeieren', 'har en snegle', 'har ikke en snegle']
+        vandrende pinne: ['eieren av en vandrende pinne', 'har en vandrende pinne', 'har ikke en vandrende pinne']
 
     drikke:
         juice: ['juicedrikkeren', 'drikker juice', 'drikker ikke juice']
@@ -55,7 +55,7 @@ attributes:
         krim: ['krimleseren', 'leser krim', 'leser ikke krim']
         fantasy: ['fantasyleseren', 'leser fantasy', 'leser ikke fantasy']
         science fiction: ['personen som leser science fiction', 'leser science fiction', 'leser ikke science fiction']
-        skrekk: ['skrekkeleseren', 'leser skrekk', 'leser ikke skrekk']
+        skrekk: ['skrekkleseren', 'leser skrekkbøker', 'leser ikke skrekkbøker']
         poesi: ['poesileseren', 'leser poesi', 'leser ikke poesi']
         romantikk: ['personen som leser romantikkromaner', 'leser romantikkromaner', 'leser ikke romantikkromaner']
 
