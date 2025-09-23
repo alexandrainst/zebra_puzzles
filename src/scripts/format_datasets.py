@@ -295,23 +295,24 @@ def format_a_dataset(
     ):
         print(
             "Mismatch in columns:"
-            f"\n  Introductions: {introductions[0]}"
+            f"\n  Introduction: {introductions[0]}"
             f"\n  Clues: {clues[0]}"
-            f"\n  Questions: {questions[0]}"
-            f"\n  Format Instructions: {format_instructions[0]}"
-            f"\n  Format Examples: {format_examples[0]}"
-            f"\n  Solutions: {solution_files_formatted[0]}"
+            f"\n  Question: {questions[0]}"
+            f"\n  Format instructions: {format_instructions[0]}"
+            f"\n  Format example: {format_examples[0]}"
+            f"\n  Solution: {solution_files_formatted[0]}"
             f"\n  Clue Types: {clue_files_formatted[0]}"
+            f"\n  Red Herrings: {red_herring_files_formatted[0]}"
         )
         raise ValueError("Mismatch in columns.")
 
     return {
-        "introductions": introductions,
+        "introduction": introductions,
         "clues": clues,
-        "questions": questions,
+        "question": questions,
         "format_instructions": format_instructions,
-        "format_examples": format_examples,
-        "solutions": solution_files_formatted,
+        "format_example": format_examples,
+        "solution": solution_files_formatted,
         "clue_types": clue_files_formatted,
         "red_herrings": red_herring_files_formatted,
     }
