@@ -169,6 +169,7 @@ def load_and_format_a_dataset(
         clue_files=clue_files,
         red_herring_files=red_herring_files,
         solution_files=solution_files,
+        n_puzzles=n_puzzles,
     )
     dataset = Dataset.from_dict(data_dict)
     return dataset
@@ -212,6 +213,7 @@ def format_a_dataset(
     clue_files: list[str],
     red_herring_files: list[str],
     solution_files: list[str],
+    n_puzzles: int,
 ) -> dict[str, list]:
     """Format a dataset.
 
@@ -226,6 +228,7 @@ def format_a_dataset(
         clue_files: List of clue type strings.
         red_herring_files: List of red herring indices strings.
         solution_files: List of solution strings.
+        n_puzzles: Expected number of puzzles in the dataset.
 
     Returns:
         Dictionary containing a formatted dataset.
@@ -291,10 +294,16 @@ def format_a_dataset(
 
     # Check that all lists have the same length
 
-    if (
-        len(format_instructions) != len(clue_files_formatted)
-        or len(questions) != len(solution_files_formatted)
-        or len(format_examples) != len(introductions)
+    if not (
+        len(introductions)
+        == len(clues)
+        == len(questions)
+        == len(format_instructions)
+        == len(format_examples)
+        == len(solution_files_formatted)
+        == len(clue_files_formatted)
+        == len(red_herring_files_formatted)
+        == n_puzzles
     ):
         print(
             "Mismatch in columns:"
