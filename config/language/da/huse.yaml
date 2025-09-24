@@ -153,7 +153,7 @@ prompt_templates:
 
         Angiv venligst dit svar som et JSON dictionary. Hver key skal være object_X hvor X er husnummeret. Hver value skal være en liste med det element fra den nævnte kategori som tilhører personen i hus nr. X.
 
-        Følgende er et eksempel på svarformatet:     
+        Følgende er et eksempel på svarformatet:
 
         {solution_template}
 
