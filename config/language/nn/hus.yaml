@@ -41,7 +41,7 @@ attributes:
         snigel: ['snigeleigaren', 'har ein snigel', 'har ikkje ein snigel']
         vandrande pinne: ['eigaren av ein vandrande pinne', 'har ein vandrande pinne', 'har ikkje ein vandrande pinne']
 
-    drink:
+    drikk:
         jus: ['jusdrikkaren', 'drikk jus', 'drikk ikkje jus']
         kaffi: ['kaffidrikkaren', 'drikk kaffi', 'drikk ikkje kaffi']
         mjølk: ['mjølkedrikkaren', 'drikk mjølk', 'drikk ikkje mjølk']
