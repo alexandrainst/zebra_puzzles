@@ -8,6 +8,7 @@ Usage:
 
 import json
 import logging
+import re
 from pathlib import Path
 
 import hydra
@@ -237,7 +238,7 @@ def format_a_dataset(
     format_instructions: list[str] = []
     format_examples: list[str] = []
 
-    for puzzle in puzzles:
+    for i, puzzle in enumerate(puzzles):
         # The introduction is everything before the first clue
         introductions.append(puzzle.split("1.")[0])
 
@@ -288,6 +289,8 @@ def format_a_dataset(
         solution_files_formatted.append(json.loads(solution_str))
         # TODO: Consider validating the solution format
 
+    # Check that all lists have the same length
+
     if (
         len(format_instructions) != len(clue_files_formatted)
         or len(questions) != len(solution_files_formatted)
@@ -327,9 +330,22 @@ def load_files(data_path: Path, n_puzzles: int) -> list[str]:
 
     Returns:
         List of file contents as strings.
+
     """
     filenames = list(data_path.glob("*"))
 
+    # Sort by the number in the filename
+    filenames.sort(key=lambda x: int(re.findall(r"\d+", x.name)[0]))
+
+    # Validate that the puzzle numbers are as expected
+    puzzle_numbers = [int(re.findall(r"\d+", x.name)[0]) for x in filenames]
+    if puzzle_numbers != list(range(n_puzzles)):
+        raise ValueError(
+            f"Puzzle numbers in {data_path} are not as expected."
+            f"Number in first file: {puzzle_numbers[0]}, last file: {puzzle_numbers[-1]},"
+        )
+
+    # Load files
     files_list = []
     for i, filename in enumerate(filenames):
         with filename.open() as file:
