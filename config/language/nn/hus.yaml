@@ -191,7 +191,7 @@ red_herring_attributes:
     mango: ['personen som meiner den nest beste frukta er mango', 'meiner den nest beste frukta er mango']
     segling: ['personen som ofte seglar', 'seglar ofte']
     Canada: ['personen som har vore i Canada', 'har vore i Canada']
-    matematikk: ['personen som har ein akademisk grad i matematikk', 'har ein akademisk grad i matematikk']
+    matematikk: ['personen som har ein mastergrad i matematikk', 'har ein mastergrad i matematikk']
     fysikk: ['personen som elskar fysikk', 'elskar fysikk']
     gammalt_dyr: ['personen med eit kjæledyr som er gamalt for arten', 'har eit kjæledyr som er gamalt for arten']
     skihopping: ['personen som ser på skihopping', 'ser på skihopping']
