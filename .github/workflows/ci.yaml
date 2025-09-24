@@ -39,10 +39,10 @@ jobs:
 
       - name: Install Dependencies
         run: uv sync --all-extras
-      
+
       - name: Install Tcl/Tk on Windows
         if: runner.os == 'Windows'
-        run: choco install tcltk --version=8.6.10
+        run: choco install tcltk
 
       - name: Test with pytest
         run: uv run --no-cache pytest
