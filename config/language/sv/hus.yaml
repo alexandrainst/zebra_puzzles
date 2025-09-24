@@ -24,13 +24,13 @@ attributes:
         Storbritannien: ['britten', 'är britt', 'är inte britt']
 
     jobb:
-        bagare: ['bagaren', 'är en bagare', 'är inte en bagare']
-        minister: ['ministern', 'är en minister', 'är inte en minister']
-        polis: ['polisen', 'är en polis', 'är inte en polis']
-        sjuksköterska: ['sjuksköterskan', 'är en sjuksköterska', 'är inte en sjuksköterska']
-        lärare: ['läraren', 'är en lärare', 'är inte en lärare']
-        mjukvaruutvecklare: ['mjukvaruutvecklaren', 'är en mjukvaruutvecklare', 'är inte en mjukvaruutvecklare']
-        butiksbiträde: ['butiksbiträdet', 'är ett butiksbiträde', 'är inte ett butiksbiträde']
+        bagare: ['bagaren', 'är bagare', 'är inte bagare']
+        minister: ['ministern', 'är minister', 'är inte minister']
+        polis: ['polisen', 'är polis', 'är inte polis']
+        sjuksköterska: ['sjuksköterskan', 'är sjuksköterska', 'är inte sjuksköterska']
+        lärare: ['läraren', 'är lärare', 'är inte lärare']
+        mjukvaruutvecklare: ['mjukvaruutvecklaren', 'är mjukvaruutvecklare', 'är inte mjukvaruutvecklare']
+        butiksbiträde: ['butiksbiträdet', 'är butiksbiträde', 'är inte butiksbiträde']
 
     husdjur:
         katt: ['kattägaren', 'har en katt', 'har ingen katt']

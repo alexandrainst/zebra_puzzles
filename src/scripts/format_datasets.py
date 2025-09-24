@@ -1,4 +1,4 @@
-"""Script to format datasets.
+"""Script to format datasets and push them to Hugging Face.
 
 This script should run after build_dataset.py.
 
@@ -8,6 +8,7 @@ Usage:
 
 import json
 import logging
+import re
 from pathlib import Path
 
 import hydra
@@ -88,7 +89,7 @@ def format_datasets_pipeline(
         )
         log.info(f"Dataset {dataset_name} loaded from {data_folder_current}.")
     else:
-        train_dataset = format_a_dataset(
+        train_dataset = load_and_format_a_dataset(
             data_folder=data_folder_train,
             theme=theme,
             n_puzzles=n_puzzles_train,
@@ -96,7 +97,7 @@ def format_datasets_pipeline(
             n_attributes=n_attributes,
             n_objects=n_objects,
         )
-        test_dataset = format_a_dataset(
+        test_dataset = load_and_format_a_dataset(
             data_folder=data_folder_test,
             theme=theme,
             n_puzzles=n_puzzles_test,
@@ -128,7 +129,7 @@ def format_datasets_pipeline(
         )
 
 
-def format_a_dataset(
+def load_and_format_a_dataset(
     data_folder: str,
     theme: str,
     n_puzzles: int,
@@ -158,25 +159,39 @@ def format_a_dataset(
     )
 
     # Load dataset
-    data_dict = load_dataset(full_data_path=full_data_path, n_puzzles=n_puzzles)
+    puzzles, clue_files, red_herring_files, solution_files = load_dataset(
+        full_data_path=full_data_path, n_puzzles=n_puzzles
+    )
 
     # Format the dataset
+    data_dict = format_a_dataset(
+        puzzles=puzzles,
+        clue_files=clue_files,
+        red_herring_files=red_herring_files,
+        solution_files=solution_files,
+        n_puzzles=n_puzzles,
+    )
     dataset = Dataset.from_dict(data_dict)
     return dataset
 
 
-def load_dataset(full_data_path: Path, n_puzzles: int) -> dict[str, list]:
+def load_dataset(
+    full_data_path: Path, n_puzzles: int
+) -> tuple[list[str], list[str], list[str], list[str]]:
     """Load dataset from a folder.
 
-    Combines data from multiple files into a dictionary with the following structure:
-    * puzzles: list[str]
-    * clue_types: list[list[str]]
-    * red_herrings: list[list[int]]
-    * solutions: list[dict[str,list[str]]]
+    Each dataset is loaded as a list of strings.
 
     Args:
         full_data_path: Path to the folder containing the dataset files.
         n_puzzles: Expected number of puzzles in the folder.
+
+    Returns:
+        A tuple (puzzles, clue_files, red_herring_files, solution_files), where:
+            puzzles: List of puzzle strings.
+            clue_files: List of clue type strings.
+            red_herring_files: List of red herring indices strings.
+            solution_files: List of solution strings.
     """
     puzzles_path = full_data_path / "puzzles"
     puzzles = load_files(data_path=puzzles_path, n_puzzles=n_puzzles)
@@ -190,12 +205,43 @@ def load_dataset(full_data_path: Path, n_puzzles: int) -> dict[str, list]:
     solutions_path = full_data_path / "solutions"
     solution_files = load_files(data_path=solutions_path, n_puzzles=n_puzzles)
 
+    return puzzles, clue_files, red_herring_files, solution_files
+
+
+def format_a_dataset(
+    puzzles: list[str],
+    clue_files: list[str],
+    red_herring_files: list[str],
+    solution_files: list[str],
+    n_puzzles: int,
+) -> dict[str, list]:
+    """Format a dataset.
+
+    Combines data from multiple files into a dictionary. The input lists of strings correspond to the following contents:
+        * puzzles: list[str]
+        * clue_types: list[list[str]]
+        * red_herrings: list[list[int]]
+        * solutions: list[dict[str,list[str]]]
+
+    Args:
+        puzzles: List of puzzle strings.
+        clue_files: List of clue type strings.
+        red_herring_files: List of red herring indices strings.
+        solution_files: List of solution strings.
+        n_puzzles: Expected number of puzzles in the dataset.
+
+    Returns:
+        Dictionary containing a formatted dataset.
+    """
     # Format puzzles
     # Split them into introduction, clues and format_instructions
     introductions: list[str] = []
     clues: list[list[str]] = []
+    questions: list[str] = []
     format_instructions: list[str] = []
-    for puzzle in puzzles:
+    format_examples: list[str] = []
+
+    for i, puzzle in enumerate(puzzles):
         # The introduction is everything before the first clue
         introductions.append(puzzle.split("1.")[0])
 
@@ -208,8 +254,26 @@ def load_dataset(full_data_path: Path, n_puzzles: int) -> dict[str, list]:
             ]
         )
 
-        # Format instructions are everything after the last clue
-        format_instructions.append(puzzle.split(clues[-1][-1])[-1].strip())
+        # Question is the line after the clues ending with a question mark
+        text_after_clues = puzzle.split(clues[-1][-1])[-1].strip()
+        questions.append(
+            [
+                line.strip()
+                for line in text_after_clues.split("\n")
+                if line.strip().endswith("?")
+            ][0]
+        )
+
+        # Format instructions is the following line
+        format_instructions.append(
+            text_after_clues.split(questions[-1])[-1].strip().split("\n")[0]
+        )
+
+        # Format example is everything after the format instructions
+        format_examples.append(
+            text_after_clues.split(format_instructions[-1])[-1].strip()
+        )
+
     # Format clue types
     clue_files_formatted: list[list[str]] = []
     for i, clue_str in enumerate(clue_files):
@@ -228,11 +292,39 @@ def load_dataset(full_data_path: Path, n_puzzles: int) -> dict[str, list]:
         solution_files_formatted.append(json.loads(solution_str))
         # TODO: Consider validating the solution format
 
+    # Check that all lists have the same length
+
+    if not (
+        len(introductions)
+        == len(clues)
+        == len(questions)
+        == len(format_instructions)
+        == len(format_examples)
+        == len(solution_files_formatted)
+        == len(clue_files_formatted)
+        == len(red_herring_files_formatted)
+        == n_puzzles
+    ):
+        print(
+            "Mismatch in columns:"
+            f"\n  Introduction: {introductions[0]}"
+            f"\n  Clues: {clues[0]}"
+            f"\n  Question: {questions[0]}"
+            f"\n  Format instructions: {format_instructions[0]}"
+            f"\n  Format example: {format_examples[0]}"
+            f"\n  Solution: {solution_files_formatted[0]}"
+            f"\n  Clue Types: {clue_files_formatted[0]}"
+            f"\n  Red Herrings: {red_herring_files_formatted[0]}"
+        )
+        raise ValueError("Mismatch in columns.")
+
     return {
-        "introductions": introductions,
+        "introduction": introductions,
         "clues": clues,
+        "question": questions,
         "format_instructions": format_instructions,
-        "solutions": solution_files_formatted,
+        "format_example": format_examples,
+        "solution": solution_files_formatted,
         "clue_types": clue_files_formatted,
         "red_herrings": red_herring_files_formatted,
     }
@@ -247,9 +339,22 @@ def load_files(data_path: Path, n_puzzles: int) -> list[str]:
 
     Returns:
         List of file contents as strings.
+
     """
     filenames = list(data_path.glob("*"))
 
+    # Sort by the number in the filename
+    filenames.sort(key=lambda x: int(re.findall(r"\d+", x.name)[0]))
+
+    # Validate that the puzzle numbers are as expected
+    puzzle_numbers = [int(re.findall(r"\d+", x.name)[0]) for x in filenames]
+    if puzzle_numbers != list(range(n_puzzles)):
+        raise ValueError(
+            f"Puzzle numbers in {data_path} are not as expected."
+            f"Number in first file: {puzzle_numbers[0]}, last file: {puzzle_numbers[-1]},"
+        )
+
+    # Load files
     files_list = []
     for i, filename in enumerate(filenames):
         with filename.open() as file:

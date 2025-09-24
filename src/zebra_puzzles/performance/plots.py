@@ -247,7 +247,7 @@ def plot_clue_type_frequencies(
     )
 
     # Compute the mean of the normalised frequencies of each clue type for all puzzle sizes
-    # and make a list of all clue types and get the maximum frequency for each clue type acreoss all puzzle sizes
+    # and make a list of all clue types and get the maximum frequency for each clue type across all puzzle sizes
     (
         clue_type_frequencies_normalised_mean_all_sizes,
         all_clue_types,

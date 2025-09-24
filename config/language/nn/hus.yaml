@@ -13,7 +13,7 @@ attributes:
     nasjonalitetar:
         Danmark: ['dansken', 'er dansk', 'er ikkje dansk']
         Sverige: ['svensken', 'er svensk', 'er ikkje svensk']
-        Latvia: ['latvien', 'er latvisk', 'er ikkje latvisk']
+        Latvia: ['latviaren', 'er latvisk', 'er ikkje latvisk']
         Frankrike: ['franskmannen', 'er fransk', 'er ikkje fransk']
         Spania: ['spanjolen', 'er spansk', 'er ikkje spansk']
         Italia: ['italienaren', 'er italiensk', 'er ikkje italiensk']
@@ -24,24 +24,24 @@ attributes:
         Storbritannia: ['briten', 'er britisk', 'er ikkje britisk']
 
     jobbar:
-        bakar: ['bakaren', 'er ein bakar', 'er ikkje ein bakar']
-        minister: ['ministeren', 'er ein minister', 'er ikkje ein minister']
-        politibetjent: ['politibetjenten', 'er ein politibetjent', 'er ikkje ein politibetjent']
-        sjukepleiar: ['sjukepleiaren', 'er ein sjukepleiar', 'er ikkje ein sjukepleiar']
-        lærar: ['læraren', 'er ein lærar', 'er ikkje ein lærar']
-        programvareutviklar: ['programvareutviklaren', 'er ein programvareutviklar', 'er ikkje ein programvareutviklar']
-        butikkmedarbeidar: ['butikkmedarbeidaren', 'er ein butikkmedarbeidar', 'er ikkje ein butikkmedarbeidar']
+        bakar: ['bakaren', 'er bakar', 'er ikkje bakar']
+        minister: ['ministeren', 'er minister', 'er ikkje minister']
+        politibetjent: ['politibetjenten', 'er politibetjent', 'er ikkje politibetjent']
+        sjukepleiar: ['sjukepleiaren', 'er sjukepleiar', 'er ikkje sjukepleiar']
+        lærar: ['læraren', 'er lærar', 'er ikkje lærar']
+        programvareutviklar: ['programvareutviklaren', 'er programvareutviklar', 'er ikkje programvareutviklar']
+        butikkmedarbeidar: ['butikkmedarbeidaren', 'er butikkmedarbeidar', 'er ikkje butikkmedarbeidar']
 
     kjæledyr:
-        katt: ['katteeigaren', 'har ein katt', 'har ikkje ein katt']
-        hund: ['hundeeigaren', 'har ein hund', 'har ikkje ein hund']
-        kanin: ['kanineigaren', 'har ein kanin', 'har ikkje ein kanin']
-        sebra: ['sebraeigaren', 'har ein sebra', 'har ikkje ein sebra']
-        undulat: ['undulateigaren', 'har ein undulat', 'har ikkje ein undulat']
+        katt: ['katteeigaren', 'har katt', 'har ikkje katt']
+        hund: ['hundeeigaren', 'har hund', 'har ikkje hund']
+        kanin: ['kanineigaren', 'har kanin', 'har ikkje kanin']
+        sebra: ['sebraeigaren', 'har sebra', 'har ikkje sebra']
+        undulat: ['undulateigaren', 'har undulat', 'har ikkje undulat']
         snigel: ['snigeleigaren', 'har ein snigel', 'har ikkje ein snigel']
         vandrande pinne: ['eigaren av ein vandrande pinne', 'har ein vandrande pinne', 'har ikkje ein vandrande pinne']
 
-    drink:
+    drikk:
         jus: ['jusdrikkaren', 'drikk jus', 'drikk ikkje jus']
         kaffi: ['kaffidrikkaren', 'drikk kaffi', 'drikk ikkje kaffi']
         mjølk: ['mjølkedrikkaren', 'drikk mjølk', 'drikk ikkje mjølk']
@@ -55,13 +55,13 @@ attributes:
         krim: ['krimlesaren', 'les krim', 'les ikkje krim']
         fantasy: ['fantasylesaren', 'les fantasy', 'les ikkje fantasy']
         science fiction: ['personen som les science fiction', 'les science fiction', 'les ikkje science fiction']
-        skrekk: ['skrekkeleseren', 'les skrekk', 'les ikkje skrekk']
+        skrekk: ['skrekkleseren', 'les skrekkbøker', 'les ikkje skrekkbøker']
         poesi: ['poesilesaren', 'les poesi', 'les ikkje poesi']
         romantikk: ['personen som les romantikkromanar', 'les romantikkromanar', 'les ikkje romantikkromanar']
 
     hobbyar:
         klatring: ['personen som klatrar', 'klatrar', 'klatrar ikkje']
-        måleri: ['personen som målar', 'målar', 'målar ikkje']
+        måling: ['personen som målar', 'målar', 'målar ikkje']
         brettspel: ['personen som speler brettspel', 'speler brettspel', 'speler ikkje brettspel']
         tennis: ['personen som speler tennis', 'speler tennis', 'speler ikkje tennis']
         hekling: ['personen som heklar', 'heklar', 'heklar ikkje']
@@ -85,7 +85,7 @@ clues_dict:
     found_at: '{attribute_desc} bur i hus nummer {i_object}.'
     not_at: '{attribute_desc} bur ikkje i hus nummer {i_object}.'
     next_to: '{attribute_desc_1} bur ved sida av {attribute_desc_2}.'                                                          # Requires n_objects > 2, otherwise use not_same_object
-    not_next_to: '{attribute_desc_1} bur ikkje ved sida av {attribute_desc_2}, og dei er ikkje den same personen.'             # Requires n_objects > 2, otherwise it cannot be used
+    not_next_to: '{attribute_desc_1} bur ikkje ved sida av {attribute_desc_2}, og dei er ikkje same person.'                   # Requires n_objects > 2, otherwise it cannot be used
     just_left_of: '{attribute_desc_1} bur rett til venstre for {attribute_desc_2}.'                                            # Requires n_objects > 2, otherwise use left_of
     just_right_of: '{attribute_desc_1} bur rett til høgre for {attribute_desc_2}.'                                             # Requires n_objects > 2, otherwise use right_of
     left_of: '{attribute_desc_1} bur til venstre for {attribute_desc_2}.'
@@ -123,7 +123,7 @@ prompt_and: og
 
 prompt_templates:
     - |
-        Ei rekkje med hus er nummerert frå 1 til {n_objects} frå venstre mod høgre.
+        Ei husrekkje er nummerert frå 1 til {n_objects} frå venstre mot høgre.
 
         I kvart hus bur ein person med unike eigenskapar i kvar av følgjande kategoriar:
 
@@ -133,13 +133,13 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Kven har kva eigenskapar og bur i kva hus?
+        Kven har kva eigenskapar og bur i kva for eit hus?
 
-        Ver vennleg og oppgi svaret ditt som eit JSON dictionary i formatet nedanfor. Kvar rad skal starta med object_X der X er husnummeret. Kvar kolonne representerer ein kategori, og dei skal vera i same rekkjefølgje som kategoriane som er oppførte ovanfor.
+        Gjer vel å oppgi svaret ditt som ein JSON-dictionary i formatet under. Kvar rad skal starta med object_X der X er husnummeret. Kvar kolonne representerer ein kategori, og dei skal vera i same rekkjefølgje som kategoriane som er oppførte over.
 
         {solution_template}
     - |
-        Ei rekkje med hus er nummerert frå 1 til {n_objects} frå venstre til høgre.
+        Ei husrekkje er nummerert frå 1 til {n_objects} frå venstre til høgre.
 
         I kvart hus bur ein person med ein unik eigenskap i kategorien {chosen_attributes_str}.
 
@@ -147,11 +147,12 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Kven har kva eigenskapar og bur i kva hus?
+        Kven har kva eigenskapar og bur i kva for eit hus?
 
-        Ver vennleg og oppgi svaret ditt som eit JSON dictionary i formatet nedanfor. Kvar rad skal starta med object_X der X er husnummeret. Dette blir følgt av ein kolonne med eigenskaparane i den nemnde kategorien.
+        Gjer vel å oppgi svaret ditt som ein JSON-dictionary i formatet under. Kvar rad skal starta med object_X der X er husnummeret. Dette blir følgt av ein kolonne med eigenskapane i nemnde kategori.
 
         {solution_template}
+
 
 # Red herrings
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
@@ -163,7 +164,7 @@ red_herring_clues_dict:
     double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
     fact: '{fact}.'
     object_fact: '{attribute_desc} veit at {fact}.'
-    friends: '{attribute_desc} er god venn med {attribute_desc_herring}.'
+    friends: '{attribute_desc} er god venn av {attribute_desc_herring}.'
     herring_found_at: '{attribute_desc_herring} bur i hus nummer {i_object}.'
     herring_not_at: '{attribute_desc_herring} bur ikkje i hus nummer {i_object}.'
 
@@ -190,9 +191,9 @@ red_herring_attributes:
     mango: ['personen som meiner den nest beste frukta er mango', 'meiner den nest beste frukta er mango']
     segling: ['personen som ofte seglar', 'seglar ofte']
     Canada: ['personen som har vore i Canada', 'har vore i Canada']
-    matematikk: ['personen som har ei kandidatgrad i matematikk', 'har ei kandidatgrad i matematikk']
+    matematikk: ['personen som har ein mastergrad i matematikk', 'har ein mastergrad i matematikk']
     fysikk: ['personen som elskar fysikk', 'elskar fysikk']
-    gammalt_dyr: ['personen med eit kjæledyr som er gammalt for slaget sitt', 'har eit kjæledyr som er gammalt for slaget sitt']
+    gammalt_dyr: ['personen med eit kjæledyr som er gamalt for arten', 'har eit kjæledyr som er gamalt for arten']
     skihopping: ['personen som ser på skihopping', 'ser på skihopping']
 
 red_herring_facts:
@@ -203,7 +204,7 @@ red_herring_facts:
     dører: ['fleire av husa har ei grøn dør']
     vindauge: ['alle husa har store vindauge']
     bilar: ['det er mange bilar på vegen']
-    agurk: ['agurk er eit bær']
+    agurk: ['agurk er bær']
     snigel: ['sniglar er blautdyr']
     kaffi: ['kaffi inneheld koffein']
 
