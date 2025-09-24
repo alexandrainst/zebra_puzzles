@@ -61,7 +61,7 @@ attributes:
 
     hobbyer:
         klatring: ['personen som klatrer', 'klatrer', 'klatrer ikke']
-        maleri: ['personen som maler', 'maler', 'maler ikke']
+        maling: ['personen som maler', 'maler', 'maler ikke']
         brettspill: ['personen som spiller brettspill', 'spiller brettspill', 'spiller ikke brettspill']
         tennis: ['personen som spiller tennis', 'spiller tennis', 'spiller ikke tennis']
         hekling: ['personen som hekler', 'hekler', 'hekler ikke']
