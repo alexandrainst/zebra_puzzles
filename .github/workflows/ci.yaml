@@ -39,6 +39,11 @@ jobs:
 
       - name: Install Dependencies
         run: uv sync --all-extras
+      
+      - name: Ensure Tcl/Tk is available
+        run: |
+          choco install tcltk --version=8.6.10
+          dir "C:\tools\tcltk"
 
       - name: Test with pytest
         run: uv run --no-cache pytest
