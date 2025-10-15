@@ -43,7 +43,7 @@ def plot_heatmaps(
         score_types, scores_array, std_scores_array
     ):
         # Set the figure size
-        fig, ax = plt.subplots(figsize=(10, 8))
+        fig, ax = plt.subplots(figsize=(6, 4.5))
 
         # Fill untested cells with grey
         empty_cells = np.ones_like(score_type_array)
@@ -129,13 +129,27 @@ def choose_heatmap_title(
     Returns:
         title: Title for the heatmap.
     """
+    # Correct the score type title
+    if score_type == "puzzle score":
+        score_type_latex = "$\overline{A_{\mathrm{puzzle}}}$"
+    elif score_type == "cell score":
+        score_type_latex = "$\overline{A_{\mathrm{cell}}}$"
+    elif score_type == "best permuted cell score":
+        score_type_latex = "$\overline{A_{\mathrm{best\ cell}}}$"
+    else:
+        score_type_latex = capitalize(score_type)
+
+    # Correct the model name
+    if model == "gpt-4o-mini":
+        model = "GPT-4o mini"
+
     if single_model:
         if not score_type == "puzzle score":
-            title = f"{capitalize(score_type)}s w. {n_red_herring_clues_evaluated_str} red herrings incl. sample std. dev. for model {model}"
+            title = rf"{score_type_latex} & sample std. dev., {model} w. {n_red_herring_clues_evaluated_str} red herrings"
         else:
-            title = f"{capitalize(score_type)}s w. {n_red_herring_clues_evaluated_str} red herrings for model {model}"
+            title = rf"{score_type_latex}, {model} w. {n_red_herring_clues_evaluated_str} red herrings"
     else:
-        title = f"Difference in mean {score_type} w. {n_red_herring_clues_evaluated_str.replace('vs', '-')} red herrings for model {model.replace('vs', '-')} incl. std. err."
+        title = rf"$\Delta${score_type_latex} incl. std. err., {model.replace('vs', '-')} w. {n_red_herring_clues_evaluated_str.replace('vs', '-')} red herrings"
     return title
 
 
@@ -165,12 +179,13 @@ def annotate_heatmap(
     for i in range(n_y_max):
         for j in range(n_x_max):
             if data[i, j] != -999:
-                if data[i, j] > 0.6:
-                    text_color = "white"
-                else:
-                    text_color = "black"
+                white_text_threshold = 0.6
                 # If we are showing puzzle scores for a single evaluation, do not show the standard deviations, as the Bernoulli standard deviations can appear confusing
                 if score_type == "puzzle score" and single_model:
+                    if data[i, j] > white_text_threshold:
+                        text_color = "white"
+                    else:
+                        text_color = "black"
                     ax.text(
                         j,
                         i,
@@ -184,10 +199,14 @@ def annotate_heatmap(
                     score_rounded, std_rounded = round_using_std(
                         value=data[i, j], std=std_data[i, j]
                     )
+                    if data[i, j] > white_text_threshold:
+                        text_color = "white"
+                    else:
+                        text_color = "black"
                     ax.text(
                         j,
                         i,
-                        f"{score_rounded} ± {std_rounded}",
+                        f"{score_rounded}\n± {std_rounded}",
                         ha="center",
                         va="center",
                         color=text_color,
