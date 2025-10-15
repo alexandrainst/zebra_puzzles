@@ -165,6 +165,10 @@ def annotate_heatmap(
     for i in range(n_y_max):
         for j in range(n_x_max):
             if data[i, j] != -999:
+                if data[i, j] > 0.6:
+                    text_color = "white"
+                else:
+                    text_color = "black"
                 # If we are showing puzzle scores for a single evaluation, do not show the standard deviations, as the Bernoulli standard deviations can appear confusing
                 if score_type == "puzzle score" and single_model:
                     ax.text(
@@ -173,7 +177,7 @@ def annotate_heatmap(
                         f"{data[i, j]:.2f}",
                         ha="center",
                         va="center",
-                        color="black",
+                        color=text_color,
                     )
                 else:
                     # Round to the correct number significant digits
@@ -186,7 +190,7 @@ def annotate_heatmap(
                         f"{score_rounded} ± {std_rounded}",
                         ha="center",
                         va="center",
-                        color="black",
+                        color=text_color,
                     )
     return ax
 
