@@ -108,7 +108,7 @@ def plot_heatmaps(
         plot_path.mkdir(parents=True, exist_ok=True)
         plot_filename = f"mean_{score_type}_{model}_{n_red_herring_clues_evaluated_str}rh_{n_puzzles}_puzzles.png"
         plot_filename = plot_filename.replace(" ", "_")
-        plt.savefig(plot_path / plot_filename, dpi=300, bbox_inches="tight")
+        plt.savefig(plot_path / plot_filename, dpi=150, bbox_inches="tight")
         plt.close(fig)
 
 
@@ -505,5 +505,5 @@ def plot_bar_grid(
     # Save the plot
     plt.tight_layout()
     plot_path.mkdir(parents=True, exist_ok=True)
-    plt.savefig(plot_path / plot_filename, dpi=300, bbox_inches="tight")
+    plt.savefig(plot_path / plot_filename, dpi=150, bbox_inches="tight")
     plt.close(fig)

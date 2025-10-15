@@ -108,6 +108,12 @@ data_backup/*
 data_backup_2/*
 !data_backup_2/.gitkeep
 
+data_backup_3/*
+!data_backup_3/.gitkeep
+
+data_smoer_v2/*
+!data_smoer_v2/.gitkeep
+
 # Scores
 scores/*
 !scores/.gitkeep
