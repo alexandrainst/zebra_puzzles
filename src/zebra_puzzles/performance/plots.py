@@ -42,8 +42,8 @@ def plot_heatmaps(
     for score_type, score_type_array, std_score_type_array in zip(
         score_types, scores_array, std_scores_array
     ):
-        # Set the figure size
-        fig, ax = plt.subplots(figsize=(6, 4.5))
+        # Set the figure size  (4.6 here and 0.9 was good for most plots) (5.2 and 0.94 for model comparison)
+        fig, ax = plt.subplots(figsize=(5.2, 3.5))
 
         # Fill untested cells with grey
         empty_cells = np.ones_like(score_type_array)
@@ -54,7 +54,7 @@ def plot_heatmaps(
         score_type_array_not_empty = np.ma.masked_where(
             score_type_array == -999, score_type_array
         )
-        image = ax.imshow(
+        ax.imshow(
             score_type_array_not_empty,
             cmap="Greens",
             aspect="equal",
@@ -63,7 +63,7 @@ def plot_heatmaps(
             vmax=1,
         )
         # Make a colorbar
-        fig.colorbar(mappable=image, orientation="vertical", fraction=0.037, pad=0.04)
+        # fig.colorbar(mappable=image, orientation="vertical", fraction=0.037, pad=0.04)
 
         # Set the title and labels
         title = choose_heatmap_title(
@@ -103,12 +103,13 @@ def plot_heatmaps(
 
         # Adjust the layout
         fig.tight_layout()
+        plt.subplots_adjust(right=0.94)
 
         # Save the plot
         plot_path.mkdir(parents=True, exist_ok=True)
         plot_filename = f"mean_{score_type}_{model}_{n_red_herring_clues_evaluated_str}rh_{n_puzzles}_puzzles.png"
         plot_filename = plot_filename.replace(" ", "_")
-        plt.savefig(plot_path / plot_filename, dpi=150, bbox_inches="tight")
+        plt.savefig(plot_path / plot_filename, dpi=150)  # , bbox_inches="tight")
         plt.close(fig)
 
 
@@ -140,8 +141,7 @@ def choose_heatmap_title(
         score_type_latex = capitalize(score_type)
 
     # Correct the model name
-    if model == "gpt-4o-mini":
-        model = "GPT-4o mini"
+    model = model.replace("gpt-4o-mini", "GPT-4o mini")
 
     if single_model:
         if not score_type == "puzzle score":
