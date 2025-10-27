@@ -42,7 +42,9 @@ def plot_heatmaps(
     for score_type, score_type_array, std_score_type_array in zip(
         score_types, scores_array, std_scores_array
     ):
-        # Set the figure size  (4.6 here and 0.9 was good for most plots) (5.2 and 0.94 for model comparison)
+        # Set the figure size
+        # (4.6, 3.5) here and 0.9 in subplots_adjust is good for most plots
+        # (5.2, 3.5) and 0.94 for model comparison
         fig, ax = plt.subplots(figsize=(5.2, 3.5))
 
         # Fill untested cells with grey
