@@ -43,7 +43,9 @@ def plot_heatmaps(
         score_types, scores_array, std_scores_array
     ):
         # Set the figure size
-        fig, ax = plt.subplots(figsize=(10, 8))
+        # (4.6, 3.5) here and 0.9 in subplots_adjust is good for most plots
+        # (5.2, 3.5) and 0.94 for model comparison
+        fig, ax = plt.subplots(figsize=(5.2, 3.5))
 
         # Fill untested cells with grey
         empty_cells = np.ones_like(score_type_array)
@@ -54,7 +56,7 @@ def plot_heatmaps(
         score_type_array_not_empty = np.ma.masked_where(
             score_type_array == -999, score_type_array
         )
-        image = ax.imshow(
+        ax.imshow(
             score_type_array_not_empty,
             cmap="Greens",
             aspect="equal",
@@ -63,7 +65,7 @@ def plot_heatmaps(
             vmax=1,
         )
         # Make a colorbar
-        fig.colorbar(mappable=image, orientation="vertical", fraction=0.037, pad=0.04)
+        # fig.colorbar(mappable=image, orientation="vertical", fraction=0.037, pad=0.04)
 
         # Set the title and labels
         title = choose_heatmap_title(
@@ -103,12 +105,13 @@ def plot_heatmaps(
 
         # Adjust the layout
         fig.tight_layout()
+        plt.subplots_adjust(right=0.94)
 
         # Save the plot
         plot_path.mkdir(parents=True, exist_ok=True)
         plot_filename = f"mean_{score_type}_{model}_{n_red_herring_clues_evaluated_str}rh_{n_puzzles}_puzzles.png"
         plot_filename = plot_filename.replace(" ", "_")
-        plt.savefig(plot_path / plot_filename, dpi=300, bbox_inches="tight")
+        plt.savefig(plot_path / plot_filename, dpi=150)  # , bbox_inches="tight")
         plt.close(fig)
 
 
@@ -129,13 +132,26 @@ def choose_heatmap_title(
     Returns:
         title: Title for the heatmap.
     """
+    # Correct the score type title
+    if score_type == "puzzle score":
+        score_type_latex = r"$\overline{A_{\mathrm{puzzle}}}$"
+    elif score_type == "cell score":
+        score_type_latex = r"$\overline{A_{\mathrm{cell}}}$"
+    elif score_type == "best permuted cell score":
+        score_type_latex = r"$\overline{A_{\mathrm{best\ cell}}}$"
+    else:
+        score_type_latex = capitalize(score_type)
+
+    # Correct the model name
+    model = model.replace("gpt-4o-mini", "GPT-4o mini")
+
     if single_model:
         if not score_type == "puzzle score":
-            title = f"{capitalize(score_type)}s w. {n_red_herring_clues_evaluated_str} red herrings incl. sample std. dev. for model {model}"
+            title = rf"{score_type_latex} & sample std. dev., {model} w. {n_red_herring_clues_evaluated_str} red herrings"
         else:
-            title = f"{capitalize(score_type)}s w. {n_red_herring_clues_evaluated_str} red herrings for model {model}"
+            title = rf"{score_type_latex}, {model} w. {n_red_herring_clues_evaluated_str} red herrings"
     else:
-        title = f"Difference in mean {score_type} w. {n_red_herring_clues_evaluated_str.replace('vs', '-')} red herrings for model {model.replace('vs', '-')} incl. std. err."
+        title = rf"$\Delta${score_type_latex} incl. std. err., {model.replace('vs', '-')} w. {n_red_herring_clues_evaluated_str.replace('vs', '-')} red herrings"
     return title
 
 
@@ -165,28 +181,37 @@ def annotate_heatmap(
     for i in range(n_y_max):
         for j in range(n_x_max):
             if data[i, j] != -999:
+                white_text_threshold = 0.6
                 # If we are showing puzzle scores for a single evaluation, do not show the standard deviations, as the Bernoulli standard deviations can appear confusing
                 if score_type == "puzzle score" and single_model:
+                    if data[i, j] > white_text_threshold:
+                        text_color = "white"
+                    else:
+                        text_color = "black"
                     ax.text(
                         j,
                         i,
                         f"{data[i, j]:.2f}",
                         ha="center",
                         va="center",
-                        color="black",
+                        color=text_color,
                     )
                 else:
                     # Round to the correct number significant digits
                     score_rounded, std_rounded = round_using_std(
                         value=data[i, j], std=std_data[i, j]
                     )
+                    if data[i, j] > white_text_threshold:
+                        text_color = "white"
+                    else:
+                        text_color = "black"
                     ax.text(
                         j,
                         i,
-                        f"{score_rounded} ± {std_rounded}",
+                        f"{score_rounded}\n± {std_rounded}",
                         ha="center",
                         va="center",
-                        color="black",
+                        color=text_color,
                     )
     return ax
 
@@ -505,5 +530,5 @@ def plot_bar_grid(
     # Save the plot
     plt.tight_layout()
     plot_path.mkdir(parents=True, exist_ok=True)
-    plt.savefig(plot_path / plot_filename, dpi=300, bbox_inches="tight")
+    plt.savefig(plot_path / plot_filename, dpi=150, bbox_inches="tight")
     plt.close(fig)

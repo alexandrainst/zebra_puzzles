@@ -65,7 +65,7 @@ attributes:
         board games: ['the person who plays board games', 'plays board games', 'does not play board games']
         tennis: ['the person who plays tennis', 'plays tennis', 'does not play tennis']
         crocheting: ['the person who crochets', 'crochets', 'does not crochet']
-        soccer: ['the person who plays football', 'plays football', 'does not play football']
+        football: ['the person who plays football', 'plays football', 'does not play football']
         handball: ['the person who plays handball', 'plays handball', 'does not play handball']
 
     favourite fruits:
