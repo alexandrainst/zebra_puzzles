@@ -134,11 +134,11 @@ def choose_heatmap_title(
     """
     # Correct the score type title
     if score_type == "puzzle score":
-        score_type_latex = "$\overline{A_{\mathrm{puzzle}}}$"
+        score_type_latex = r"$\overline{A_{\mathrm{puzzle}}}$"
     elif score_type == "cell score":
-        score_type_latex = "$\overline{A_{\mathrm{cell}}}$"
+        score_type_latex = r"$\overline{A_{\mathrm{cell}}}$"
     elif score_type == "best permuted cell score":
-        score_type_latex = "$\overline{A_{\mathrm{best\ cell}}}$"
+        score_type_latex = r"$\overline{A_{\mathrm{best\ cell}}}$"
     else:
         score_type_latex = capitalize(score_type)
 
