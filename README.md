@@ -18,7 +18,7 @@ Available languages and themes:
     - Preliminary versions: Dutch 🇳🇱.
 - Smørrebrød theme:
     - Complete versions: Danish 🇩🇰.
- 
+
 Dataset on the Hugging Face Hub: https://huggingface.co/datasets/alexandrainst/zebra_puzzles
 
 Paper: In progress.
