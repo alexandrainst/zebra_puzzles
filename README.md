@@ -7,9 +7,9 @@
 />
 </a>
 
-# Zebra Puzzles
+# MultiZebraLogic
 
-Generation and LLM evaluation of zebra puzzles in multiple languages and themes.
+Generation and LLM evaluation of zebra puzzles in multiple languages and themes including red herrings.
 
 Available languages and themes:
 
@@ -18,6 +18,10 @@ Available languages and themes:
     - Preliminary versions: Dutch 🇳🇱.
 - Smørrebrød theme:
     - Complete versions: Danish 🇩🇰.
+ 
+Dataset on the Hugging Face Hub: https://huggingface.co/datasets/alexandrainst/zebra_puzzles
+
+Paper: In progress.
 
 ## Usage
 
