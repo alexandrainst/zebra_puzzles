@@ -127,31 +127,35 @@ Developer:
 
 - Sofie Helene Bruun (sofie.bruun@alexandra.dk)
 
-## Adding new languages
+## Adding a new language or theme
 
 To add a new language or theme:
 
-1. Create a new folder in config/language
-2. Copy an existing language config file such as config/language/en/houses.yaml
-3. Translate/replace words and phrases to fit your language/theme
-    - No attributes, categories or clues should have identical names
-    - Please make sure the templates and clue types are unambigious and that no attributes can be confused with the red herring attributes
+1. For a new language, create a folder in `config/language`.
+2. Copy an existing config file such as `config/language/en/houses.yaml`.
+3. Translate/replace words and phrases to fit your language/theme.
+    - No attributes, categories or clues should have identical keys.
+    - Please make sure the templates and clue types are unambigious and that no attributes can be confused with the red herring attributes.
     - Attribute versions should be presented in the following order:
-        0. Nominative
-        1. Phrase connecting it to the subject
-        2. Phrase disconnecting it to the subject
-        3. Accusative
-        4. Dative
-        5. Genitive
+        1. Nominative
+        2. Phrase connecting it to the subject
+        3. Phrase disconnecting it to the subject
+        4. Accusative
+        5. Dative
+        6. Genitive
+
         Only the first 3 are mandatory. See Icelandic (is) for an example of using all 6 versions.
         For red herring attributes, we skip the disconnecting phrase.
-        If more versions are needed, please edit 'case_to_index' in src/zebra_puzzles/puzzle_creation/clue_selection.py and src/zebra_puzzles/puzzle_creation/red_herring_selection.py.
-    - The number of attributes, red herring attributes and red herring facts can be changed in new themes without adapting other files
-    - If you do not wish to include all red herring or clue types, remember to change the settings in config/config.yaml during puzzle generation
-    - If a specific combination of words should be replaced, add it to prompt_replacements. E.g. 'von dem: vom' in German.
-    - If the language uses commas around relative clauses, remember to add "',.': ." to prompt_replacements.
-4. All language- or theme-specific settings should be included in the config file, but if necessary, grammatical rules can be adapted in src/zebra_puzzles/puzzle_creation/clue_selection.py and src/zebra_puzzles/puzzle_creation/red_herring_selection.py. Please make sure the code will still run as expected for other languages and themes, and please try to make any new rules as general as possible.
-5. Edit README to mention the new language/theme.
+
+        If more versions are needed, please edit `case_to_index` in `src/zebra_puzzles/puzzle_creation/clue_selection.py` and `src/zebra_puzzles/puzzle_creation/red_herring_selection.py`.
+    - For new themes, the number of attributes, red herring attributes and red herring facts can be changed without adapting other files.
+    - For translations of existing themes, please prioritize keeping the meaning consistent unless this would sound unnatural or be difficult to implement.
+    - If you do not wish to include all red herring or clue types, remember to change the settings in `config/config.yaml` during puzzle generation.
+    - If a specific combination of words should be replaced, add it to prompt_replacements. E.g. `von dem: vom` in German.
+    - If the language uses commas around relative clauses, remember to add `',.': .` to prompt_replacements.
+4. All language- or theme-specific settings should be included in the config file, but if necessary, grammatical rules can be adapted in `src/zebra_puzzles/puzzle_creation/clue_selection.py` and `src/zebra_puzzles/puzzle_creation/red_herring_selection.py`. Please make sure the code will still run as expected for other languages and themes, and please try to make any new rules as general as possible.
+5. Edit `README.md` to mention the new language/theme.
+6. Generate some puzzles to test then language/theme. We recommend using large puzzles, so all clue types are applicable. Set the new theme with `language` in `config/config.yaml` and run e.g. `uv run src/scripts/build_dataset.py n_objects=4 n_attributes=5 n_red_herring_clues=5 n_puzzles=10`.
 
 
 ## Setup
