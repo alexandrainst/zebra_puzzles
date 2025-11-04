@@ -143,17 +143,26 @@ def compare_output_to_solution(
         output_dict = {"error": str(output)}
     solution_dict = dict(solution)
 
-    # Compare the full output to the solution
+    # Convert each row to a set of values so the order within the row does not matter
+    output_dict_sets = {
+        obj: set(row_attributes)
+        for obj, row_attributes in zip(output_dict.keys(), output_dict.values())
+    }
+    solution_dict_sets = {
+        obj: set(row_attributes)
+        for obj, row_attributes in zip(solution_dict.keys(), solution_dict.values())
+    }
 
-    if output_dict == solution_dict:
+    # Compare the full output to the solution
+    if output_dict_sets == solution_dict_sets:
         puzzle_score = 1
         cell_score = 1.0
         best_permuted_cell_score = 1.0
     else:
         # Compare all cells
         cell_score = compute_cell_score(
-            output=output_dict,
-            solution=solution_dict,
+            output=output_dict_sets,
+            solution=solution_dict_sets,
             n_objects=n_objects,
             n_attributes=n_attributes,
         )
@@ -167,8 +176,8 @@ def compare_output_to_solution(
 
             # Evaluate every permutation of the objects in the response
             best_permuted_cell_score = compute_best_permuted_cell_score(
-                output=output_dict,
-                solution=solution_dict,
+                output=output_dict_sets,
+                solution=solution_dict_sets,
                 n_objects=n_objects,
                 n_attributes=n_attributes,
             )
@@ -177,10 +186,7 @@ def compare_output_to_solution(
 
 
 def compute_cell_score(
-    output: dict[str, list],
-    solution: dict[str, list],
-    n_objects: int,
-    n_attributes: int,
+    output: dict[str, set], solution: dict[str, set], n_objects: int, n_attributes: int
 ) -> float:
     """Compute the cell score.
 
@@ -193,28 +199,30 @@ def compute_cell_score(
     Returns:
         The cell score as a float.
     """
+    # Sort the output and solution by object keys to ensure consistent order
+    output = dict(sorted(output.items()))
+    solution = dict(sorted(solution.items()))
+
     # Compare each cell
-    cell_score: float = 0.0
+    n_correct_attributes: int = 0
     for attributes_output, attributes_solution in zip(
         output.values(), solution.values()
     ):
-        for attribute_output, attribute_solution in zip(
-            attributes_output, attributes_solution
-        ):
-            if attribute_output.strip() == attribute_solution.strip():
-                cell_score += 1.0
+        # strip whitespace
+        attributes_output = {attr.strip() for attr in attributes_output}
+        attributes_solution = {attr.strip() for attr in attributes_solution}
+
+        # Count the number of correct attributes
+        n_correct_attributes += len(attributes_output.intersection(attributes_solution))
 
     # Normalise the cell score
-    cell_score /= float(n_objects * n_attributes)
+    cell_score = n_correct_attributes / float(n_objects * n_attributes)
 
     return cell_score
 
 
 def compute_best_permuted_cell_score(
-    output: dict[str, list],
-    solution: dict[str, list],
-    n_objects: int,
-    n_attributes: int,
+    output: dict[str, set], solution: dict[str, set], n_objects: int, n_attributes: int
 ) -> float:
     """Compute the best permuted cell score.
 
@@ -237,7 +245,9 @@ def compute_best_permuted_cell_score(
     # Evaluate each permutation
     for object_permutation in object_permutations:
         # Create a new output with the objects permuted
-        output_permuted = {object: output[object] for object in object_permutation}
+        output_permuted = {
+            obj: output[perm_obj] for obj, perm_obj in zip(objects, object_permutation)
+        }
 
         # Compare the permuted output to the solution
         permuted_cell_score = compute_cell_score(
