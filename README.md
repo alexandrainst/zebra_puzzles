@@ -23,6 +23,20 @@ Dataset on the Hugging Face Hub: https://huggingface.co/datasets/alexandrainst/z
 
 Paper: In progress.
 
+GitHub Copilot has been used for this project.
+
+______________________________________________________________________
+[![Code Coverage](https://img.shields.io/badge/Coverage-81%25-yellowgreen.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
+[![Documentation](https://img.shields.io/badge/docs-passing-green)](https://alexandrainst.github.io/zebra_puzzles)
+[![License](https://img.shields.io/github/license/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/blob/main/LICENSE)
+[![LastCommit](https://img.shields.io/github/last-commit/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/commits/main)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](https://github.com/alexandrainst/zebra_puzzles/blob/main/CODE_OF_CONDUCT.md)
+
+Developers:
+
+- Sofie Helene Bruun (sofie.bruun@alexandra.dk)
+- Dan Saattrup Smart (dan.smart@alexandra.dk)
+
 ## Usage
 
 Run `uv run src/scripts/build_dataset.py` to generate puzzles.
@@ -114,18 +128,6 @@ o3-mini:
 - 4x4: 2 min
 - 4x5: 8 min
 
-GitHub Copilot has been used for this project.
-
-______________________________________________________________________
-[![Code Coverage](https://img.shields.io/badge/Coverage-81%25-yellowgreen.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
-[![Documentation](https://img.shields.io/badge/docs-passing-green)](https://alexandrainst.github.io/zebra_puzzles)
-[![License](https://img.shields.io/github/license/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/blob/main/LICENSE)
-[![LastCommit](https://img.shields.io/github/last-commit/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/commits/main)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](https://github.com/alexandrainst/zebra_puzzles/blob/main/CODE_OF_CONDUCT.md)
-
-Developer:
-
-- Sofie Helene Bruun (sofie.bruun@alexandra.dk)
 
 ## Adding a new language or theme
 
