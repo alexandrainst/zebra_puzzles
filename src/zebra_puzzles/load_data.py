@@ -34,7 +34,7 @@ def load_puzzle(
         The prompt as a string.
     """
     # Load the prompt
-    with puzzle_file_path.open(encoding="utf-8") as file:
+    with puzzle_file_path.open(encoding="utf-16") as file:
         prompt = file.read()
 
     # Load the red herring indices
@@ -256,7 +256,7 @@ def load_solution(solution_file_path: Path, OutputFormat: Type[BaseModel]) -> Ba
     Returns:
         The solution in OutputFormat format.
     """
-    with solution_file_path.open(encoding="utf-8") as file:
+    with solution_file_path.open(encoding="utf-16") as file:
         solution = file.read()
 
     # Change the format of solution to OutputFormat

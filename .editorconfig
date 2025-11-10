@@ -1,7 +1,7 @@
 # https://editorconfig.org
 
 [*]
-charset = utf-8
+charset = utf-16
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
