@@ -141,7 +141,7 @@ To add a new language or theme:
     - Attribute versions should be presented in the following order:
         1. Nominative
         2. Phrase connecting it to the subject
-        3. Phrase disconnecting it to the subject
+        3. Phrase disconnecting from to the subject
         4. Accusative
         5. Dative
         6. Genitive
