@@ -59,7 +59,7 @@ Use the configuration in `config/config.yaml` to specify:
 - clue type weights
 - number of red herrings to include
 
-The chosen main data folder contains puzzles, their solutions, LLM reponses, chosen clue types and the indices to red herring clues in each puzzle. LLM scores are saved in the 'scores' subfolder. Plots and cross-model comparisons are saved in the 'plots' subfolder.
+The chosen main data folder contains puzzles, their solutions, LLM responses, chosen clue types and the indices to red herring clues in each puzzle. LLM scores are saved in the 'scores' subfolder. Plots and cross-model comparisons are saved in the 'plots' subfolder.
 
 Puzzles can be evaluated using fewer red herrings than they were generated with. This allows for measuring the impact of red herrings. If the number of red herrings is reduced, the new version of the puzzle is saved in a 'reduced_puzzles' folder, and the clue types are saved in a 'reduced_clue_types' folder.
 
@@ -137,7 +137,7 @@ To add a new language or theme:
 2. Copy an existing config file such as `config/language/en/houses.yaml`.
 3. Translate/replace words and phrases to fit your language/theme.
     - No attributes, categories or clues should have identical keys.
-    - Please make sure the templates and clue types are unambigious and that no attributes can be confused with the red herring attributes.
+    - Please make sure the templates and clue types are unambiguous and that no attributes can be confused with the red herring attributes.
     - Attribute versions should be presented in the following order:
         1. Nominative
         2. Phrase connecting it to the subject
@@ -157,7 +157,7 @@ To add a new language or theme:
     - If the language uses commas around relative clauses, remember to add `',.': .` to prompt_replacements.
 4. All language- or theme-specific settings should be included in the config file, but if necessary, grammatical rules can be adapted in `src/zebra_puzzles/puzzle_creation/clue_selection.py` and `src/zebra_puzzles/puzzle_creation/red_herring_selection.py`. Please make sure the code will still run as expected for other languages and themes, and please try to make any new rules as general as possible.
 5. Edit `README.md` to mention the new language/theme.
-6. Generate some puzzles to test then language/theme. We recommend using large puzzles, so all clue types are applicable. Set the new theme with `language` in `config/config.yaml` and run e.g. `uv run src/scripts/build_dataset.py n_objects=4 n_attributes=5 n_red_herring_clues=5 n_puzzles=10`.
+6. Generate some puzzles to test the language/theme. We recommend using large puzzles, so all clue types are applicable. Set the new theme with `language` in `config/config.yaml` and run e.g. `uv run src/scripts/build_dataset.py n_objects=4 n_attributes=5 n_red_herring_clues=5 n_puzzles=10`.
 
 
 ## Setup
