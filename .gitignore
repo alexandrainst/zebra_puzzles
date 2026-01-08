@@ -97,6 +97,9 @@ data/*
 data_train/*
 !data_train/.gitkeep
 
+data_val/*
+!data_val/.gitkeep
+
 data_test/*
 !data_test/.gitkeep
 
@@ -121,6 +124,9 @@ scores/*
 # Test data
 tests/test_data/*
 !tests/test_data/.gitkeep
+
+# Test script
+src/scripts/test_script.py
 
 # Models
 models/*
