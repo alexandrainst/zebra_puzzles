@@ -21,7 +21,7 @@ Available languages and themes:
 
 Dataset on the Hugging Face Hub: https://huggingface.co/datasets/alexandrainst/zebra_puzzles
 
-Paper: [In progress.](https://arxiv.org/abs/2511.03553)
+Paper: [ArXiv preprint](https://arxiv.org/abs/2511.03553)
 
 GitHub Copilot has been used for this project.
 
