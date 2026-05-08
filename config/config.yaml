@@ -31,6 +31,9 @@ data_folder: data
 # Folder for loading training data
 data_folder_train: data_train
 
+# Folder for loading validation data
+data_folder_val: data_val
+
 # Folder for loading test data
 data_folder_test: data_test
 
