@@ -122,7 +122,9 @@ def format_datasets_pipeline(
             n_objects=n_objects,
         )
 
-        split_dataset = DatasetDict({"train": train_dataset, "val": val_dataset, "test": test_dataset})
+        split_dataset = DatasetDict(
+            {"train": train_dataset, "val": val_dataset, "test": test_dataset}
+        )
 
         # Save datasets
         split_dataset.save_to_disk(Path(data_folder_current) / dataset_name)
