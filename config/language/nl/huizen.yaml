@@ -46,7 +46,7 @@ attributes:
         koffie: ['de koffiedrinker', 'drinkt koffie', 'drinkt geen koffie']
         melk: ['de melkdrinker', 'drinkt melk', 'drinkt geen melk']
         smoothie: ['de smoothiedrinker', 'drinkt smoothie', 'drinkt geen smoothie']
-        chocomelk: ['de chocomelkdinker', 'drinkt chocomelk', 'drinkt geen chocomelk']
+        chocolademelk: ['de chocolademelkdrinker', 'drinkt chocolademelk', 'drinkt geen chocolademelk']
         thee: ['de theedrinker', 'drinkt thee', 'drinkt geen thee']
         frisdrank: ['de frisdrankdrinker', 'drinkt frisdrank', 'drinkt geen frisdrank']
 
