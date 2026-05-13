@@ -95,13 +95,26 @@ def format_datasets_pipeline(
     """
     # Check if dataset already exists
     dataset_name = f"dataset_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues}rh"
+    format_flag = "y"
     if (Path(data_folder_current) / dataset_name).exists():
-        log.info(f"Dataset {dataset_name} already exists. Skipping formatting.")
-        split_dataset = DatasetDict.load_from_disk(
-            Path(data_folder_current) / dataset_name, keep_in_memory=True
+        # Ask user if they want to overwrite previous the dataset
+        format_flag = (
+            input(
+                f"Dataset {dataset_name} already exists. Do you want to overwrite the existing dataset? (y/n): "
+            )
+            .strip()
+            .lower()
         )
-        log.info(f"Dataset {dataset_name} loaded from {data_folder_current}.")
-    else:
+        if format_flag != "y":
+            log.info(
+                f"The previous dataset {dataset_name} will be used. Skipping formatting."
+            )
+            split_dataset = DatasetDict.load_from_disk(
+                Path(data_folder_current) / dataset_name, keep_in_memory=True
+            )
+            log.info(f"Dataset {dataset_name} loaded from {data_folder_current}.")
+
+    if format_flag == "y":
         train_dataset = load_and_format_a_dataset(
             data_folder=data_folder_train,
             theme=theme,
