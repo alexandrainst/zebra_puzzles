@@ -112,12 +112,25 @@ def create_solution_template(n_objects: int, chosen_categories: np.ndarray) -> s
     for i in range(n_objects):
         example_solution[i, 0] = f"{i + 1}"
         for j, cat in enumerate(chosen_categories):
+            cat = clean_string(cat)
             example_solution[i, j + 1] = f"{cat}_{i + 1}"
 
     solution_template = format_solution_as_json(example_solution)
 
     return solution_template
 
+def clean_text(text: str) -> str:
+    """Clean a string by replacing spaces with underscores and removing special characters.
+    
+    Args:
+        text: The input string to clean.
+
+    Returns:
+        The cleaned string.
+    """
+    text = text.replace(" ", "_")
+    text = "".join(c for c in text if c.isalnum() or c == "_")
+    return text
 
 def describe_random_attributes(
     chosen_attributes: np.ndarray,
