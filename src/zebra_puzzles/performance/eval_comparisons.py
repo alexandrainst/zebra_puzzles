@@ -1,5 +1,6 @@
 """Module for comparing the performance of different evaluation configurations on zebra puzzles."""
 
+import logging
 from pathlib import Path
 
 import numpy as np
@@ -7,6 +8,8 @@ import numpy as np
 from zebra_puzzles.file_utils import save_dataset
 from zebra_puzzles.performance.plots import plot_heatmaps
 from zebra_puzzles.zebra_utils import round_using_std
+
+log = logging.getLogger(__name__)
 
 
 def compare_all_eval_types(
@@ -220,7 +223,7 @@ def choose_eval_pairs(
     # Check if we are comparing models or red herring clues
     if len(model_names) == 1:
         if len(n_red_herring_values) < 2:
-            raise Warning(
+            log.warning(
                 "At least two models or two different n_red_herring_values are required for comparison."
             )
         # Choose each combination of two models

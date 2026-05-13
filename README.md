@@ -21,7 +21,21 @@ Available languages and themes:
 
 Dataset on the Hugging Face Hub: https://huggingface.co/datasets/alexandrainst/zebra_puzzles
 
-Paper: In progress.
+Paper: [ArXiv preprint](https://arxiv.org/abs/2511.03553)
+
+GitHub Copilot has been used for this project.
+
+______________________________________________________________________
+[![Code Coverage](https://img.shields.io/badge/Coverage-81%25-yellowgreen.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
+[![Documentation](https://img.shields.io/badge/docs-passing-green)](https://alexandrainst.github.io/zebra_puzzles)
+[![License](https://img.shields.io/github/license/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/blob/main/LICENSE)
+[![LastCommit](https://img.shields.io/github/last-commit/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/commits/main)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](https://github.com/alexandrainst/zebra_puzzles/blob/main/CODE_OF_CONDUCT.md)
+
+Developers:
+
+- Sofie Helene Bruun (sofie.bruun@alexandra.dk)
+- Dan Saattrup Smart (dan.smart@alexandra.dk)
 
 ## Usage
 
@@ -45,7 +59,7 @@ Use the configuration in `config/config.yaml` to specify:
 - clue type weights
 - number of red herrings to include
 
-The chosen main data folder contains puzzles, their solutions, LLM reponses, chosen clue types and the indices to red herring clues in each puzzle. LLM scores are saved in the 'scores' subfolder. Plots and cross-model comparisons are saved in the 'plots' subfolder.
+The chosen main data folder contains puzzles, their solutions, LLM responses, chosen clue types and the indices to red herring clues in each puzzle. LLM scores are saved in the 'scores' subfolder. Plots and cross-model comparisons are saved in the 'plots' subfolder.
 
 Puzzles can be evaluated using fewer red herrings than they were generated with. This allows for measuring the impact of red herrings. If the number of red herrings is reduced, the new version of the puzzle is saved in a 'reduced_puzzles' folder, and the clue types are saved in a 'reduced_clue_types' folder.
 
@@ -114,18 +128,36 @@ o3-mini:
 - 4x4: 2 min
 - 4x5: 8 min
 
-GitHub Copilot has been used for this project.
 
-______________________________________________________________________
-[![Code Coverage](https://img.shields.io/badge/Coverage-81%25-yellowgreen.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
-[![Documentation](https://img.shields.io/badge/docs-passing-green)](https://alexandrainst.github.io/zebra_puzzles)
-[![License](https://img.shields.io/github/license/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/blob/main/LICENSE)
-[![LastCommit](https://img.shields.io/github/last-commit/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/commits/main)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](https://github.com/alexandrainst/zebra_puzzles/blob/main/CODE_OF_CONDUCT.md)
+## Adding a new language or theme
 
-Developer:
+To add a new language or theme:
 
-- Sofie Helene Bruun (sofie.bruun@alexandra.dk)
+1. For a new language, create a folder in `config/language`.
+2. Copy an existing config file such as `config/language/en/houses.yaml`.
+3. Translate/replace words and phrases to fit your language/theme.
+    - No attributes, categories or clues should have identical keys.
+    - Please make sure the templates and clue types are unambiguous and that no attributes can be confused with the red herring attributes.
+    - Attribute versions should be presented in the following order:
+        1. Nominative
+        2. Phrase connecting it to the subject
+        3. Phrase disconnecting from to the subject
+        4. Accusative
+        5. Dative
+        6. Genitive
+
+        Only the first 3 are mandatory. See Icelandic (is) for an example of using all 6 versions.
+        For red herring attributes, we skip the disconnecting phrase.
+
+        If more versions are needed, please edit `case_to_index` in `src/zebra_puzzles/puzzle_creation/clue_selection.py` and `src/zebra_puzzles/puzzle_creation/red_herring_selection.py`.
+    - For new themes, the number of attributes, red herring attributes and red herring facts can be changed without adapting other files.
+    - For translations of existing themes, please prioritize keeping the meaning consistent unless this would sound unnatural or be difficult to implement.
+    - If you do not wish to include all red herring or clue types, remember to change the settings in `config/config.yaml` during puzzle generation.
+    - If a specific combination of words should be replaced, add it to prompt_replacements. E.g. `von dem: vom` in German.
+    - If the language uses commas around relative clauses, remember to add `',.': .` to prompt_replacements.
+4. All language- or theme-specific settings should be included in the config file, but if necessary, grammatical rules can be adapted in `src/zebra_puzzles/puzzle_creation/clue_selection.py` and `src/zebra_puzzles/puzzle_creation/red_herring_selection.py`. Please make sure the code will still run as expected for other languages and themes, and please try to make any new rules as general as possible.
+5. Edit `README.md` to mention the new language/theme.
+6. Generate some puzzles to test the language/theme. We recommend using large puzzles, so all clue types are applicable. Set the new theme with `language` in `config/config.yaml` and run e.g. `uv run src/scripts/build_dataset.py n_objects=4 n_attributes=5 n_red_herring_clues=5 n_puzzles=10`.
 
 
 ## Setup
