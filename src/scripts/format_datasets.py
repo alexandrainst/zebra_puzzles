@@ -27,6 +27,8 @@ def main(config: DictConfig) -> None:
     Args:
         config: Config file.
     """
+    huggingface_id = config.huggingface_id
+
     data_folder_train = config.data_folder_train
     data_folder_val = config.data_folder_val
     data_folder_test = config.data_folder_test
@@ -43,6 +45,7 @@ def main(config: DictConfig) -> None:
     data_folder_current = "data"
 
     format_datasets_pipeline(
+        huggingface_id=huggingface_id,
         data_folder_current=data_folder_current,
         data_folder_train=data_folder_train,
         data_folder_val=data_folder_val,
@@ -58,6 +61,7 @@ def main(config: DictConfig) -> None:
 
 
 def format_datasets_pipeline(
+    huggingface_id: str,
     data_folder_current: str,
     data_folder_train: str,
     data_folder_val: str,
@@ -73,6 +77,7 @@ def format_datasets_pipeline(
     """Formats datasets.
 
     Args:
+        huggingface_id: Hugging Face Hub ID to push the dataset to.
         data_folder_current: Path to the current data folder.
         data_folder_train: Path to the training data folder.
         data_folder_val: Path to the validation data folder.
@@ -140,10 +145,7 @@ def format_datasets_pipeline(
     )
     if push_to_hub == "y":
         split_dataset.push_to_hub(
-            "alexandrainst/zebra_puzzles",
-            dataset_name,
-            private=True,
-            embed_external_files=True,
+            huggingface_id, dataset_name, private=True, embed_external_files=True
         )
 
 

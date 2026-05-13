@@ -82,3 +82,6 @@ red_herring_clue_weights:
     friends: 1
     herring_found_at: 1
     herring_not_at: 1
+
+# Name of the full dataset on Hugging Face Hub that might contain multiple subsets of different languages or themes.
+huggingface_id: alexandrainst/zebra_puzzles
