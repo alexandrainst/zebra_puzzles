@@ -384,7 +384,7 @@ def load_files(data_path: Path, n_puzzles: int) -> list[str]:
     if puzzle_numbers != list(range(n_puzzles)):
         raise ValueError(
             f"Puzzle numbers in {data_path} are not as expected."
-            f"Number in first file: {puzzle_numbers[0]}, last file: {puzzle_numbers[-1]},"
+            f" Number in first file: {puzzle_numbers[0]}, last file: {puzzle_numbers[-1]},"
         )
 
     # Load files
