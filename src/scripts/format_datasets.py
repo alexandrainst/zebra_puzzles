@@ -97,7 +97,7 @@ def format_datasets_pipeline(
     dataset_name = f"dataset_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues}rh"
     format_flag = "y"
     if (Path(data_folder_current) / dataset_name).exists():
-        # Ask user if they want to overwrite previous the dataset
+        # Ask the user if they want to overwrite the previous dataset
         format_flag = (
             input(
                 f"Dataset {dataset_name} already exists. Do you want to overwrite the existing dataset? (y/n): "
