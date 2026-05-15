@@ -21,7 +21,7 @@ def test_prompt(data_paths_fixture, config) -> None:
     puzzle_file_path_str = puzzle_path / puzzle_filename
 
     # Load a generated puzzle
-    with open(puzzle_file_path_str, "r") as f:
+    with open(puzzle_file_path_str, "r", encoding="utf-8") as f:
         prompt = f.read()
 
     prompt_templates = config.language.prompt_templates
@@ -38,7 +38,7 @@ def test_solution(data_paths_fixture, config) -> None:
 
     # Load a generated solution
     solution_file_path = solution_path / "zebra_puzzle_0_solution.json"
-    with open(solution_file_path, "r") as f:
+    with open(solution_file_path, "r", encoding="utf-8") as f:
         solution = f.read()
 
     # Check the dimensions of the solution
