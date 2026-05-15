@@ -109,10 +109,10 @@ def create_solution_template(n_objects: int, chosen_categories: np.ndarray) -> s
     """
     # U100 is a Unicode string with a maximum length of 100 characters
     example_solution = np.zeros((n_objects, len(chosen_categories) + 1), dtype="U100")
+    cleaned_categories = [clean_text(cat) for cat in chosen_categories]
     for i in range(n_objects):
         example_solution[i, 0] = f"{i + 1}"
-        for j, cat in enumerate(chosen_categories):
-            cat = clean_text(cat)
+        for j, cat in enumerate(cleaned_categories):
             example_solution[i, j + 1] = f"{cat}_{i + 1}"
 
     solution_template = format_solution_as_json(example_solution)
