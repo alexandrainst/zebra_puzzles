@@ -94,7 +94,7 @@ clues_dict:
     not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                              # Requires n_attributes > 1, otherwise it cannot be used
     between: '{attribute_desc_2} woont tussen {attribute_desc_1} en {attribute_desc_3}.'                                                   # Requires n_objects > 2, otherwise it cannot be used
     not_between: '{attribute_desc_1} woont niet tussen {attribute_desc_2} en {attribute_desc_3}, en het zijn drie verschillende personen.' # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: '{attribute_desc_1} en {attribute_desc_2} woont met {n_between} huizen tussen zich.'                                 # Requires n_objects > 3, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1} en {attribute_desc_2} wonen met {n_between} huizen tussen zich.'                                 # Requires n_objects > 3, otherwise it cannot be used
     one_between: 'Er staat één huis tussen {attribute_desc_1} en {attribute_desc_2}.'                                                      # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
