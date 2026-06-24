@@ -288,7 +288,8 @@ def remove_red_herrings(
     # Check that any red herrings should be removed
     if red_herring_indices_str != "" and n_red_herrings_to_keep < n_red_herrings:
         # Select clues in prompt based on them following a number and a "." with regex
-        clues = re.findall(r"\d+\.\s.*", prompt)
+        # Only check after the first : to avoid interpreting e.g. "numbered 1 to 3." as a clue
+        clues = re.findall(r"\d+\.\s.*", prompt.split(":", 1)[1])
 
         # Randomly select red herring clues to remove
         n_red_herrings_to_remove = n_red_herrings - n_red_herrings_to_keep
