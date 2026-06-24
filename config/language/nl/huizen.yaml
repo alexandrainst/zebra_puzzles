@@ -32,7 +32,7 @@ attributes:
         softwareontwikkelaar: ['de softwareontwikkelaar', 'is softwareontwikkelaar', 'is geen softwareontwikkelaar']
         winkelbediende: ['de winkelbediende', 'is winkelbediende', 'is geen winkelbediende']
 
-    gezelschapsdier:
+    huisdier:
         kat: ['de katteneigenaar', 'heeft een kat', 'heeft geen kat']
         hond: ['de hondeneigenaar', 'heeft een hond', 'heeft geen hond']
         konijn: ['de konijneneigenaar', 'heeft een konijn', 'heeft geen konijn']
@@ -46,7 +46,7 @@ attributes:
         koffie: ['de koffiedrinker', 'drinkt koffie', 'drinkt geen koffie']
         melk: ['de melkdrinker', 'drinkt melk', 'drinkt geen melk']
         smoothie: ['de smoothiedrinker', 'drinkt smoothie', 'drinkt geen smoothie']
-        cacao: ['de cacaodrinker', 'drinkt cacao', 'drinkt geen cacao']
+        chocolademelk: ['de chocolademelkdrinker', 'drinkt chocolademelk', 'drinkt geen chocolademelk']
         thee: ['de theedrinker', 'drinkt thee', 'drinkt geen thee']
         frisdrank: ['de frisdrankdrinker', 'drinkt frisdrank', 'drinkt geen frisdrank']
 
@@ -57,16 +57,16 @@ attributes:
         sciencefiction: ['de persoon die sciencefiction leest', 'leest sciencefiction', 'leest geen sciencefiction']
         horror: ['de horrorlezer', 'leest horror', 'leest geen horror']
         poëzie: ['de poëzielezer', 'leest poëzie', 'leest geen poëzie']
-        liefdesverhaal: ['de persoon die liefdesverhalen leest', 'leest liefdesverhalen', 'leest geen liefdesverhalen']
+        romantiek: ['de persoon die liefdesromans leest', 'leest liefdesromans', 'leest geen liefdesromans']
 
     hobby's:
         klimmen: ['de persoon die klimt', 'klimt', 'klimt niet']
         schilderen: ['de persoon die schildert', 'schildert', 'schildert niet']
         bordspellen: ['de persoon die bordspellen speelt', 'speelt bordspellen', 'speelt geen bordspellen']
-        tennis: ['de persoon die tennist', 'speelt tennis', 'speelt geen tennis']
+        tennis: ['de persoon die tennist', 'tennist', 'tennist niet']
         haken: ['de persoon die haakt', 'haakt', 'haakt niet']
-        voetbal: ['de persoon die voetbalt', 'voetbalt', 'speelt geen voetbal']
-        handbal: ['de persoon die handbalt', 'speelt handbal', 'speelt geen handbal']
+        voetbal: ['de persoon die voetbalt', 'voetbalt', 'voetbalt niet']
+        handbal: ['de persoon die handbalt', 'handbalt', 'handbalt niet']
 
     favoriete fruitsoorten:
         appel: ['de persoon die van appels houdt', 'houdt van appels', 'houdt niet van appels']
@@ -82,19 +82,19 @@ attributes:
 # Clue names should not be edited, but they can be a subset of the full list of implemented clues.
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 clues_dict:
-    found_at: '{attribute_desc} woont in huisnummer {i_object}.'
-    not_at: '{attribute_desc} woont niet in huisnummer {i_object}.'
+    found_at: '{attribute_desc} woont op huisnummer {i_object}.'
+    not_at: '{attribute_desc} woont niet op huisnummer {i_object}.'
     next_to: '{attribute_desc_1} woont naast {attribute_desc_2}.'                                                                          # Requires n_objects > 2, otherwise use not_same_object
     not_next_to: '{attribute_desc_1} woont niet naast {attribute_desc_2}, en ze zijn niet dezelfde persoon.'                               # Requires n_objects > 2, otherwise it cannot be used
-    just_left_of: '{attribute_desc_1} woont net links van {attribute_desc_2}.'                                                             # Requires n_objects > 2, otherwise use left_of
-    just_right_of: '{attribute_desc_1} woont net rechts van {attribute_desc_2}.'                                                           # Requires n_objects > 2, otherwise use right_of
+    just_left_of: '{attribute_desc_1} woont direct links van {attribute_desc_2}.'                                                             # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} woont direct rechts van {attribute_desc_2}.'                                                           # Requires n_objects > 2, otherwise use right_of
     left_of: '{attribute_desc_1} woont links van {attribute_desc_2}.'
     right_of: '{attribute_desc_1} woont rechts van {attribute_desc_2}.'
     same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                                  # Requires n_attributes > 1, otherwise it cannot be used
     not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                              # Requires n_attributes > 1, otherwise it cannot be used
     between: '{attribute_desc_2} woont tussen {attribute_desc_1} en {attribute_desc_3}.'                                                   # Requires n_objects > 2, otherwise it cannot be used
     not_between: '{attribute_desc_1} woont niet tussen {attribute_desc_2} en {attribute_desc_3}, en het zijn drie verschillende personen.' # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: '{attribute_desc_1} en {attribute_desc_2} woont met {n_between} huizen tussen zich.'                                 # Requires n_objects > 3, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1} en {attribute_desc_2} wonen met {n_between} huizen tussen zich.'                                 # Requires n_objects > 3, otherwise it cannot be used
     one_between: 'Er staat één huis tussen {attribute_desc_1} en {attribute_desc_2}.'                                                      # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
@@ -164,8 +164,8 @@ red_herring_clues_dict:
     fact: '{fact}.'
     object_fact: '{attribute_desc} weet dat {fact}.'
     friends: '{attribute_desc} is goede vrienden met {attribute_desc_herring}.'
-    herring_found_at: '{attribute_desc_herring} woont in huisnummer {i_object}.'
-    herring_not_at: '{attribute_desc_herring} woont niet in huisnummer {i_object}.'
+    herring_found_at: '{attribute_desc_herring} woont op huisnummer {i_object}.'
+    herring_not_at: '{attribute_desc_herring} woont niet op huisnummer {i_object}.'
 
 red_herring_cases_dict:
     same_herring: ['nom', 'none']
@@ -188,7 +188,7 @@ red_herring_attributes:
     computerspellen: ['de persoon die computerspellen speelt', 'speelt computerspellen']
     zus: ['de persoon met een zus', 'heeft een zus']
     mango: ['de persoon die denkt dat mango het op één na beste fruit is', 'denkt dat mango het op één na beste fruit is']
-    zeilen: ['de persoon die vaak zeilen', 'zeilt vaak']
+    zeilen: ['de persoon die vaak zeilt', 'zeilt vaak']
     Canada: ['de persoon die in Canada is geweest', 'is in Canada geweest']
     wiskunde: ['de persoon heeft een masterdiploma in wiskunde', 'heeft een masterdiploma in wiskunde']
     natuurkunde: ['de persoon die van natuurkunde houdt', 'houdt van natuurkunde']
