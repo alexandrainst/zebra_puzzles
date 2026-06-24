@@ -125,7 +125,7 @@ prompt_templates:
     - |
         Röð húsa er númeruð frá 1 til {n_objects} frá vinstri til hægri.
 
-        Í hverju húsi býr einstaklingur með einstakt einkenni í sérhverjum eftirfarandi flokka:
+        Í hverju húsi býr einstaklingur með einu einstakt einkenni í sérhverjum eftirfarandi flokka:
 
         {chosen_attributes_str}
 
@@ -141,7 +141,7 @@ prompt_templates:
     - |
         Röð húsa er númeruð frá 1 til {n_objects} frá vinstri til hægri.
 
-        Í hverju húsi býr einstaklingur með einstakt einkenni í flokknum {chosen_attributes_str}.
+        Í hverju húsi býr einstaklingur með einu einstakt einkenni í flokknum {chosen_attributes_str}.
 
         Að auki vitum við eftirfarandi:
 
