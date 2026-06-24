@@ -127,7 +127,7 @@ prompt_templates:
     - |
         {n_objects} kokke præsenterer hvert deres bud på en ny type smørrebrød. Stykkerne ligger på række og er nummereret fra 1 til {n_objects} fra venstre mod højre.
 
-        Hvert stykke har unikke ingredienser i hver af de følgende kategorier:
+        Hvert stykke har en unik ingrediens i hver af de følgende kategorier:
 
         {chosen_attributes_str}
 
@@ -137,7 +137,7 @@ prompt_templates:
 
         Hvilke ingredienser indgår i hvilke smørrebrød?
 
-        Angiv venligst dit svar som et JSON dictionary på nedenstående format. Hver række skal starte med object_X hvor X er smørrebrøddets nummer i rækken. Hver kolonne repræsenterer en kategori, og de skal stå i samme rækkefølge som kategorierne er oplistet ovenfor.
+        Angiv venligst dit svar som et JSON dictionary. Hver key skal være object_X hvor X er smørrebrøddets nummer i rækken. Hver value skal være en liste over ingredienserne fra førnævnte kategorier, som tilhører smørrebrød nr. X.
 
         {solution_template}
     - |
@@ -151,7 +151,7 @@ prompt_templates:
 
         Hvilken ingrediens indgår i hvilke smørrebrød?
 
-        Angiv venligst dit svar som et JSON dictionary på nedenstående format. Hver række skal starte med object_X hvor X er smørrebrøddets nummer i rækken. Derefter følger en kolonne med ingredienserne i førnævnte kategori.
+        Angiv venligst dit svar som et JSON dictionary. Hver key skal være object_X hvor X er smørrebrøddets nummer i rækken. Hver value skal være en liste med ingrediensen fra førnævnte kategori, som tilhører smørrebrød nr. X.
 
         {solution_template}
 
