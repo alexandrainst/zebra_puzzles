@@ -125,7 +125,7 @@ prompt_templates:
     - |
         Een rij huizen is van links naar rechts genummerd van 1 tot {n_objects}.
 
-        In elk huis woont een persoon met unieke eigenschappen in elk van de volgende categorieën:
+        In elk huis woont een persoon met een unieke eigenschap in elk van de volgende categorieën:
 
         {chosen_attributes_str}
 
@@ -135,7 +135,7 @@ prompt_templates:
 
         Wie heeft welke eigenschappen en woont in welk huis?
 
-        Geef je antwoord als een JSON dictionary in de onderstaande indeling. Elke rij moet beginnen met object_X, waarbij X het huisnummer is. Elke kolom vertegenwoordigt een categorie en ze moeten in dezelfde volgorde staan als de categorieën hierboven.
+        Geef je antwoord als een JSON dictionary. Elke key moet object_X zijn, waarbij X het huisnummer is. Elke value moet een lijst zijn van de eigenschappen uit de bovengenoemde categorieën die horen bij de persoon in huis nr. X.
 
         {solution_template}
     - |
@@ -149,7 +149,7 @@ prompt_templates:
 
         Wie heeft welke eigenschappen en woont in welk huis?
 
-        Geef je antwoord in de vorm van een JSON dictionary in de onderstaande notatie. Elke rij moet beginnen met object_X, waarbij X het huisnummer is. Dit wordt gevolgd door een kolom met de eigenschappen in de bovengenoemde categorie.
+        Geef je antwoord als een JSON dictionary. Elke key moet object_X zijn, waarbij X het huisnummer is. Elke value moet een lijst zijn met de eigenschap uit de bovengenoemde categorie die hoort bij de persoon in huis nr. X.
 
         {solution_template}
 
