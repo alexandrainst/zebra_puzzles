@@ -39,7 +39,9 @@ def main(config: DictConfig) -> None:
         log.info("You chose to fix puzzle indices.")
         # Call fix_filenames_pipeline function with user input
         fix_filenames_pipeline(
-            data_folder=input("Enter the path to the dataset folder: "),
+            data_folder=input(
+                "Enter the path to the dataset top folder (e.g. data/en_houses/2x3/5rh): "
+            ),
             number_to_add=int(input("Enter the number to add to the puzzle indices: ")),
             text_to_remove=input(
                 "Enter the text to remove from the file names (leave empty if none): "
@@ -137,7 +139,7 @@ def fix_filenames_pipeline(
         )
     # Log the changes
     log.info(
-        f"Fixed filenames in {data_folder} by removing {text_to_remove} and adding {number_to_add} to the indices."
+        f'Fixed filenames in {data_folder} by removing "{text_to_remove}" and adding {number_to_add} to the indices.'
     )
 
 

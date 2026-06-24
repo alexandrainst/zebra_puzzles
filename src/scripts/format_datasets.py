@@ -27,6 +27,8 @@ def main(config: DictConfig) -> None:
     Args:
         config: Config file.
     """
+    huggingface_id = config.huggingface_id
+
     data_folder_train = config.data_folder_train
     data_folder_val = config.data_folder_val
     data_folder_test = config.data_folder_test
@@ -43,6 +45,7 @@ def main(config: DictConfig) -> None:
     data_folder_current = "data"
 
     format_datasets_pipeline(
+        huggingface_id=huggingface_id,
         data_folder_current=data_folder_current,
         data_folder_train=data_folder_train,
         data_folder_val=data_folder_val,
@@ -58,6 +61,7 @@ def main(config: DictConfig) -> None:
 
 
 def format_datasets_pipeline(
+    huggingface_id: str,
     data_folder_current: str,
     data_folder_train: str,
     data_folder_val: str,
@@ -73,6 +77,7 @@ def format_datasets_pipeline(
     """Formats datasets.
 
     Args:
+        huggingface_id: Hugging Face Hub ID to push the dataset to.
         data_folder_current: Path to the current data folder.
         data_folder_train: Path to the training data folder.
         data_folder_val: Path to the validation data folder.
@@ -90,13 +95,26 @@ def format_datasets_pipeline(
     """
     # Check if dataset already exists
     dataset_name = f"dataset_{theme}_{n_objects}x{n_attributes}_{n_red_herring_clues}rh"
+    format_flag = "y"
     if (Path(data_folder_current) / dataset_name).exists():
-        log.info(f"Dataset {dataset_name} already exists. Skipping formatting.")
-        split_dataset = DatasetDict.load_from_disk(
-            Path(data_folder_current) / dataset_name, keep_in_memory=True
+        # Ask the user if they want to overwrite the previous dataset
+        format_flag = (
+            input(
+                f"Dataset {dataset_name} already exists. Do you want to overwrite the existing dataset? (y/n): "
+            )
+            .strip()
+            .lower()
         )
-        log.info(f"Dataset {dataset_name} loaded from {data_folder_current}.")
-    else:
+        if format_flag != "y":
+            log.info(
+                f"The previous dataset {dataset_name} will be used. Skipping formatting."
+            )
+            split_dataset = DatasetDict.load_from_disk(
+                Path(data_folder_current) / dataset_name, keep_in_memory=True
+            )
+            log.info(f"Dataset {dataset_name} loaded from {data_folder_current}.")
+
+    if format_flag == "y":
         train_dataset = load_and_format_a_dataset(
             data_folder=data_folder_train,
             theme=theme,
@@ -140,10 +158,7 @@ def format_datasets_pipeline(
     )
     if push_to_hub == "y":
         split_dataset.push_to_hub(
-            "alexandrainst/zebra_puzzles",
-            dataset_name,
-            private=True,
-            embed_external_files=True,
+            huggingface_id, dataset_name, private=True, embed_external_files=True
         )
 
 
@@ -369,7 +384,7 @@ def load_files(data_path: Path, n_puzzles: int) -> list[str]:
     if puzzle_numbers != list(range(n_puzzles)):
         raise ValueError(
             f"Puzzle numbers in {data_path} are not as expected."
-            f"Number in first file: {puzzle_numbers[0]}, last file: {puzzle_numbers[-1]},"
+            f" Number in first file: {puzzle_numbers[0]}, last file: {puzzle_numbers[-1]},"
         )
 
     # Load files

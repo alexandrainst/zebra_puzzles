@@ -46,7 +46,7 @@ def test_responses(eval_paths_fixture, config) -> None:
     responses_path = eval_paths_fixture[1]
     responses_file_path = responses_path / "zebra_puzzle_0_response.json"
 
-    with open(responses_file_path, "r") as f:
+    with open(responses_file_path, "r", encoding="utf-8") as f:
         response = f.read()
 
     # Check the dimensions of the solution
