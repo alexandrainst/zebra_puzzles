@@ -135,7 +135,7 @@ prompt_templates:
 
         Hver hefur hvaða einkenni og býr í hvaða húsi?
 
-        Vinsamlegast gefðu svarið þitt sem JSON dictionary á eftirfarandi sniði. Hver röð ætti að byrja á object_X þar sem X er húsnúmerið. Hver dálkur táknar flokk, og þeir ættu að vera í sömu röð og flokkarnir eru taldir upp hér að ofan.
+        Vinsamlegast gefðu svarið þitt sem JSON dictionary. Hvert key ætti að vera object_X þar sem X er húsnúmerið. Hvert value ætti að vera listi með einkennum úr áðurnefndum flokkum sem tilheyra einstaklingnum í húsi nr. X.
 
         {solution_template}
     - |
@@ -149,7 +149,7 @@ prompt_templates:
 
         Hver hefur hvaða einkenni og býr í hvaða húsi?
 
-        Vinsamlegast gefðu svarið þitt sem JSON dictionary á eftirfarandi sniði. Hver röð ætti að byrja á object_X þar sem X er húsnúmerið. Þessu fylgir dálkur með einkennum í áðurnefndum flokki.
+        Vinsamlegast gefðu svarið þitt sem JSON dictionary. Hvert key ætti að vera object_X þar sem X er húsnúmerið. Hvert value ætti að vera listi með einkenni úr áðurnefndum flokki sem tilheyrir einstaklingnum í húsi nr. X.
 
         {solution_template}
 
