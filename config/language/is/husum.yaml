@@ -137,6 +137,8 @@ prompt_templates:
 
         Vinsamlegast gefðu svarið þitt sem JSON dictionary. Hvert key ætti að vera object_X þar sem X er húsnúmerið. Hvert value ætti að vera listi með einkennum úr áðurnefndum flokkum sem tilheyra einstaklingnum í húsi nr. X.
 
+        Eftirfarandi er dæmi um sniðið á svarinu:
+
         {solution_template}
     - |
         Röð húsa er númeruð frá 1 til {n_objects} frá vinstri til hægri.
@@ -150,6 +152,8 @@ prompt_templates:
         Hver hefur hvaða einkenni og býr í hvaða húsi?
 
         Vinsamlegast gefðu svarið þitt sem JSON dictionary. Hvert key ætti að vera object_X þar sem X er húsnúmerið. Hvert value ætti að vera listi með einkenni úr áðurnefndum flokki sem tilheyrir einstaklingnum í húsi nr. X.
+
+        Eftirfarandi er dæmi um sniðið á svarinu:
 
         {solution_template}
 

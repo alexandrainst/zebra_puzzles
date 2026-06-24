@@ -137,6 +137,8 @@ prompt_templates:
 
         Geef je antwoord als een JSON dictionary. Elke key moet object_X zijn, waarbij X het huisnummer is. Elke value moet een lijst zijn van de eigenschappen uit de bovengenoemde categorieën die horen bij de persoon in huis nr. X.
 
+        Het volgende is een voorbeeld van het antwoordformaat:
+
         {solution_template}
     - |
         Een rij huizen is van links naar rechts genummerd van 1 tot {n_objects}.
@@ -150,6 +152,8 @@ prompt_templates:
         Wie heeft welke eigenschappen en woont in welk huis?
 
         Geef je antwoord als een JSON dictionary. Elke key moet object_X zijn, waarbij X het huisnummer is. Elke value moet een lijst zijn met de eigenschap uit de bovengenoemde categorie die hoort bij de persoon in huis nr. X.
+
+        Het volgende is een voorbeeld van het antwoordformaat:
 
         {solution_template}
 

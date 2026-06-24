@@ -137,6 +137,8 @@ prompt_templates:
 
         Vennligst oppgi svaret ditt som en JSON dictionary. Hver key skal være object_X der X er husnummeret. Hver value skal være en liste over egenskapene fra nevnte kategorier som tilhører personen i hus nr. X.
 
+        Følgende er et eksempel på svarformatet:
+
         {solution_template}
     - |
         En husrekke er nummerert fra 1 til {n_objects} fra venstre til høyre.
@@ -150,6 +152,8 @@ prompt_templates:
         Hvem har hvilke egenskaper og bor i hvilket hus?
 
         Vennligst oppgi svaret ditt som en JSON dictionary. Hver key skal være object_X der X er husnummeret. Hver value skal være en liste med egenskapen fra nevnte kategori som tilhører personen i hus nr. X.
+
+        Følgende er et eksempel på svarformatet:
 
         {solution_template}
 

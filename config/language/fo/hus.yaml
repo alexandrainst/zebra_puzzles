@@ -139,6 +139,8 @@ prompt_templates:
 
         Vinarliga gev títt svar sum JSON dictionary. Hvør key skal vera object_X har X er húsanummarið. Hvør value skal vera ein listi við eginleikum úr áðurnevndu flokkunum, sum tilhoyra persóninum í húsi nr. X.
 
+        Herundir er eitt dømi á svarssniðinum:
+
         {solution_template}
     - |
         Ein røð av húsum eru talmerkt frá 1 til {n_objects} frá vinstru til høgru.
@@ -152,6 +154,8 @@ prompt_templates:
         Hvør hevur hvørjar eginleikar og býr í hvørjum húsi?
 
         Vinarliga gev títt svar sum JSON dictionary. Hvør key skal vera object_X har X er húsanummarið. Hvør value skal vera ein listi við ein eiginleika úr áðurnevnda flokkinum, sum tilhoyra persóninum í húsi nr. X.
+
+        Herundir er eitt dømi á svarssniðinum:
 
         {solution_template}
 

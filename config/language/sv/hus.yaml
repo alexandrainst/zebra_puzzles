@@ -137,11 +137,13 @@ prompt_templates:
 
         Vänligen ange ditt svar som en JSON dictionary. Varje key ska vara object_X där X är husnumret. Varje value ska vara en lista över egenskaperna från ovannämnda kategorier som tillhör personen i hus nr. X.
 
+        Följande är ett exempel på svarsformatet:
+
         {solution_template}
     - |
         En rad med hus är numrerade från 1 till {n_objects} från vänster till höger.
 
-        I varje hus bor en person med en unikt egenskap i kategorin {chosen_attributes_str}.
+        I varje hus bor en person med en unik egenskap i kategorin {chosen_attributes_str}.
 
         Dessutom vet vi följande:
 
@@ -150,6 +152,8 @@ prompt_templates:
         Vem har vilka egenskaper och bor i vilket hus?
 
         Vänligen ange ditt svar som en JSON dictionary. Varje key ska vara object_X där X är husnumret. Varje value ska vara en lista med egenskapen från den ovannämnda kategorin som tillhör personen i hus nr. X.
+
+        Följande är ett exempel på svarsformatet:
 
         {solution_template}
 

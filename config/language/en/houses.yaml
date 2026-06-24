@@ -138,6 +138,8 @@ prompt_templates:
 
         Please submit your answer as a JSON dictionary. Each key must be object_X where X is the house number. Each value must be a list of the attributes from the aforementioned categories that belong to the person in house no. X.
 
+        The following is an example of the answer format:
+
         {solution_template}
     - |
         A row of houses have numbers 1 to {n_objects} from left to right.
@@ -151,6 +153,8 @@ prompt_templates:
         Which attributes belong to the person living in each house?
 
         Please submit your answer as a JSON dictionary. Each key must be object_X where X is the house number. Each value must be a list containing the attribute from the aforementioned category that belongs to the person in house no. X.
+
+        The following is an example of the answer format:
 
         {solution_template}
 

@@ -139,6 +139,8 @@ prompt_templates:
 
         Angiv venligst dit svar som et JSON dictionary. Hver key skal være object_X hvor X er smørrebrøddets nummer i rækken. Hver value skal være en liste over ingredienserne fra førnævnte kategorier, som tilhører smørrebrød nr. X.
 
+        Følgende er et eksempel på svarformatet:
+
         {solution_template}
     - |
         {n_objects} kokke præsenterer hvert deres stykke smørrebrød. Stykkerne ligger på række og er nummereret fra 1 til {n_objects} fra venstre mod højre.
@@ -152,6 +154,8 @@ prompt_templates:
         Hvilken ingrediens indgår i hvilke smørrebrød?
 
         Angiv venligst dit svar som et JSON dictionary. Hver key skal være object_X hvor X er smørrebrøddets nummer i rækken. Hver value skal være en liste med ingrediensen fra førnævnte kategori, som tilhører smørrebrød nr. X.
+
+        Følgende er et eksempel på svarformatet:
 
         {solution_template}
 
