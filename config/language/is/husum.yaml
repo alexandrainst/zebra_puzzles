@@ -125,7 +125,7 @@ prompt_templates:
     - |
         Röð húsa er númeruð frá 1 til {n_objects} frá vinstri til hægri.
 
-        Í hverju húsi býr einstaklingur með einstakt einkenni í sérhverjum eftirfarandi flokka:
+        Í hverju húsi býr einstaklingur með einu einstakt einkenni í sérhverjum eftirfarandi flokka:
 
         {chosen_attributes_str}
 
@@ -135,13 +135,15 @@ prompt_templates:
 
         Hver hefur hvaða einkenni og býr í hvaða húsi?
 
-        Vinsamlegast gefðu svarið þitt sem JSON dictionary á eftirfarandi sniði. Hver röð ætti að byrja á object_X þar sem X er húsnúmerið. Hver dálkur táknar flokk, og þeir ættu að vera í sömu röð og flokkarnir eru taldir upp hér að ofan.
+        Vinsamlegast gefðu svarið þitt sem JSON dictionary. Hvert key ætti að vera object_X þar sem X er húsnúmerið. Hvert value ætti að vera listi með einkennum úr áðurnefndum flokkum sem tilheyra einstaklingnum í húsi nr. X.
+
+        Eftirfarandi er dæmi um sniðið á svarinu:
 
         {solution_template}
     - |
         Röð húsa er númeruð frá 1 til {n_objects} frá vinstri til hægri.
 
-        Í hverju húsi býr einstaklingur með einstakt einkenni í flokknum {chosen_attributes_str}.
+        Í hverju húsi býr einstaklingur með einu einstakt einkenni í flokknum {chosen_attributes_str}.
 
         Að auki vitum við eftirfarandi:
 
@@ -149,7 +151,9 @@ prompt_templates:
 
         Hver hefur hvaða einkenni og býr í hvaða húsi?
 
-        Vinsamlegast gefðu svarið þitt sem JSON dictionary á eftirfarandi sniði. Hver röð ætti að byrja á object_X þar sem X er húsnúmerið. Þessu fylgir dálkur með einkennum í áðurnefndum flokki.
+        Vinsamlegast gefðu svarið þitt sem JSON dictionary. Hvert key ætti að vera object_X þar sem X er húsnúmerið. Hvert value ætti að vera listi með einkenni úr áðurnefndum flokki sem tilheyrir einstaklingnum í húsi nr. X.
+
+        Eftirfarandi er dæmi um sniðið á svarinu:
 
         {solution_template}
 

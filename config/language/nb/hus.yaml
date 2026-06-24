@@ -125,7 +125,7 @@ prompt_templates:
     - |
         En husrekke er nummerert fra 1 til {n_objects} fra venstre mot høyre.
 
-        I hvert hus bor en person med unike egenskaper i hver av følgende kategorier:
+        I hvert hus bor en person med en unik egenskap i hver av følgende kategorier:
 
         {chosen_attributes_str}
 
@@ -135,7 +135,9 @@ prompt_templates:
 
         Hvem har hvilke egenskaper og bor i hvilket hus?
 
-        Vennligst oppgi svaret ditt som en JSON-dictionary i formatet under. Hver rad skal starte med object_X der X er husnummeret. Hver kolonne representerer en kategori, og de skal være i samme rekkefølge som kategoriene som er oppført over.
+        Vennligst oppgi svaret ditt som en JSON-dictionary. Hver key skal være object_X der X er husnummeret. Hver value skal være en liste over egenskapene fra nevnte kategorier som tilhører personen i hus nr. X.
+
+        Følgende er et eksempel på svarformatet:
 
         {solution_template}
     - |
@@ -149,7 +151,9 @@ prompt_templates:
 
         Hvem har hvilke egenskaper og bor i hvilket hus?
 
-        Vennligst oppgi svaret ditt som en JSON-dictionary i formatet under. Hver rad skal starte med object_X der X er husnummeret. Dette etterfølges av en kolonne med egenskapene i nevnte kategori.
+        Vennligst oppgi svaret ditt som en JSON-dictionary. Hver key skal være object_X der X er husnummeret. Hver value skal være en liste med egenskapen fra nevnte kategori som tilhører personen i hus nr. X.
+
+        Følgende er et eksempel på svarformatet:
 
         {solution_template}
 

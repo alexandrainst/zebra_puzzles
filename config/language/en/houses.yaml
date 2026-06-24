@@ -126,7 +126,7 @@ prompt_templates:
     - |
         A row of houses have numbers 1 to {n_objects} from left to right.
 
-        In each house lives a person with unique attributes in each of the following categories:
+        In each house lives a person with a unique attribute in each of the following categories:
 
         {chosen_attributes_str}
 
@@ -136,7 +136,9 @@ prompt_templates:
 
         Who has which attributes and lives in which house?
 
-        Please submit your answer as a JSON dictionary in the format below. Each row must begin with object_X where X is the house number. Each column represents a category, and they should be in the same order as in the list of categories above.
+        Please submit your answer as a JSON dictionary. Each key must be object_X where X is the house number. Each value must be a list of the attributes from the aforementioned categories that belong to the person in house no. X.
+
+        The following is an example of the answer format:
 
         {solution_template}
     - |
@@ -150,7 +152,9 @@ prompt_templates:
 
         Which attributes belong to the person living in each house?
 
-        Please submit your answer as a JSON dictionary in the format below. Each row must begin with object_X where X is the house number. This is followed by a column with the attributes in the aforementioned category.
+        Please submit your answer as a JSON dictionary. Each key must be object_X where X is the house number. Each value must be a list containing the attribute from the aforementioned category that belongs to the person in house no. X.
+
+        The following is an example of the answer format:
 
         {solution_template}
 
