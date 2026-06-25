@@ -149,7 +149,6 @@ To add a new language or theme:
         Only the first 3 are mandatory. See Icelandic (is) for an example of using all 6 versions.
         For red herring attributes, we skip the disconnecting phrase.
 
-        If more versions are needed, please edit `case_to_index` in `src/zebra_puzzles/puzzle_creation/clue_selection.py` and `src/zebra_puzzles/puzzle_creation/red_herring_selection.py`.
     - For new themes, the number of attributes, red herring attributes and red herring facts can be changed without adapting other files.
     - For translations of existing themes, please prioritize keeping the meaning consistent unless this would sound unnatural or be difficult to implement.
     - If you do not wish to include all red herring or clue types, remember to change the settings in `config/config.yaml` during puzzle generation.

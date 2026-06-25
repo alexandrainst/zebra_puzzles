@@ -29,6 +29,8 @@ def run_pipeline(
     red_herring_facts: dict[str, list[str]],
     red_herring_clue_weights: dict[str, float],
     red_herring_cases_dict: dict[str, list[str]],
+    case_to_index: dict[str, int],
+    red_herring_case_to_index: dict[str, int],
 ) -> tuple[str, str, str, str]:
     """Run the pipeline to generate one zebra puzzle.
 
@@ -50,6 +52,8 @@ def run_pipeline(
         red_herring_facts: Possible red herring facts to include in the puzzle as a dictionary of fact titles and a list of description strings.
         red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
         red_herring_cases_dict: A dictionary containing the red herring clue type as a key and a list of grammatical cases for clue attributes as values.
+        case_to_index: Mapping from grammatical case names to attribute description list indices.
+        red_herring_case_to_index: Mapping from grammatical case names to red herring attribute description list indices.
 
     Returns:
         A tuple (prompt, solution_str, red_herring_indices_str, chosen_clue_types_str), where:
@@ -75,6 +79,7 @@ def run_pipeline(
         clues_dict=clues_dict,
         clue_weights=clue_weights,
         clue_cases_dict=clue_cases_dict,
+        case_to_index=case_to_index,
     )
 
     chosen_red_herring_clues, chosen_red_herring_clue_types = choose_red_herrings(
@@ -88,6 +93,7 @@ def run_pipeline(
         chosen_attributes_descs=chosen_attributes_descs,
         n_objects=n_objects,
         n_attributes=n_attributes,
+        case_to_index=red_herring_case_to_index,
     )
 
     chosen_clues, red_herring_indices_str, chosen_clue_types_str = shuffle_clues(
@@ -132,6 +138,8 @@ def build_dataset(
     red_herring_clue_weights: dict[str, float],
     red_herring_cases_dict: dict[str, list[str]],
     data_folder_str: str,
+    case_to_index: dict[str, int],
+    red_herring_case_to_index: dict[str, int],
 ) -> None:
     """Build a dataset of zebra puzzles.
 
@@ -156,6 +164,8 @@ def build_dataset(
         red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
         red_herring_cases_dict: A dictionary containing the red herring clue type as a key and a list of grammatical cases for clue attributes as values.
         data_folder_str: Folder to save the dataset in as a string.
+        case_to_index: Mapping from grammatical case names to attribute description list indices.
+        red_herring_case_to_index: Mapping from grammatical case names to red herring attribute description list indices.
     """
     (
         prompt_filenames,
@@ -200,6 +210,8 @@ def build_dataset(
                 red_herring_facts=red_herring_facts,
                 red_herring_clue_weights=red_herring_clue_weights,
                 red_herring_cases_dict=red_herring_cases_dict,
+                case_to_index=case_to_index,
+                red_herring_case_to_index=red_herring_case_to_index,
             )
         )
         save_dataset(data=prompt, filename=prompt_filenames[i], folder=puzzle_folder)

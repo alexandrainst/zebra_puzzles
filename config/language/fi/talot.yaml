@@ -3,12 +3,25 @@
 # Theme
 theme: fi_talot
 
+# Case-to-index mapping of attributes for this language.
+# Finnish only uses nominative and genitive.
+case_to_index:
+    nom: 0
+    gen: 3
+    none: 999
+
+# Red herring attribute format: [nominative, predicate "is/does X", genitive]
+red_herring_case_to_index:
+    nom: 0
+    gen: 2
+    none: 999
+
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
 # The attributes below should be in the preferred order of categories in the clues.
 # Attribute format: [nominative, predicate "is X", predicate "is not X", genitive]
-# The genitive form is stored at index 3 (mapped to 'acc' in clue_cases_dict).
+# The genitive form is stored at index 3, mapped via case_to_index below.
 
 attributes:
 
@@ -82,7 +95,7 @@ attributes:
 # Clues
 # Clue names and text for the prompt depending on the clue type.
 # Clue names should not be edited, but they can be a subset of the full list of implemented clues.
-# attribute_desc_2 and attribute_desc_3 are always in genitive (stored at 'acc' index 3).
+# attribute_desc_2 and attribute_desc_3 use genitive case; attribute_desc_1 uses nominative.
 # NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
 clues_dict:
     found_at: '{attribute_desc} asuu talossa numero {i_object}.'
@@ -101,22 +114,22 @@ clues_dict:
     one_between: '{attribute_desc_1} ja {attribute_desc_2} välissä on yksi talo.'                                                     # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
-# Finnish only uses nominative and genitive. Genitive is stored at index 3, aliased as 'acc'.
+# Finnish only uses nominative and genitive.
 clue_cases_dict:
     found_at: ['nom']
     not_at: ['nom']
-    next_to: ['nom', 'acc']
-    not_next_to: ['nom', 'acc']
-    just_left_of: ['nom', 'acc']
-    just_right_of: ['nom', 'acc']
-    left_of: ['nom', 'acc']
-    right_of: ['nom', 'acc']
+    next_to: ['nom', 'gen']
+    not_next_to: ['nom', 'gen']
+    just_left_of: ['nom', 'gen']
+    just_right_of: ['nom', 'gen']
+    left_of: ['nom', 'gen']
+    right_of: ['nom', 'gen']
     same_object: ['nom', 'none']
     not_same_object: ['nom', 'none']
-    between: ['acc', 'nom', 'acc'] # Note that second argument corresponds to the first object in this clue.
-    not_between: ['nom', 'acc', 'acc']
+    between: ['gen', 'nom', 'gen'] # Note that second argument corresponds to the first object in this clue.
+    not_between: ['nom', 'gen', 'gen']
     multiple_between: ['nom', 'nom']
-    one_between: ['acc', 'acc']
+    one_between: ['gen', 'gen']
 
 # Prompt
 # We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
@@ -164,7 +177,7 @@ prompt_templates:
 # The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
 # NOTE: More types could be added such as "The person with a cactus is not the baker"
 # Red herring attribute format: [nominative, predicate "is/does X", genitive]
-# Genitive is stored at index 2 (aliased as 'acc' in red_herring_cases_dict).
+# Genitive is stored at index 2, mapped via red_herring_case_to_index above.
 
 red_herring_clues_dict:
     same_herring: '{attribute_desc} {attribute_desc_herring}.'
@@ -178,11 +191,11 @@ red_herring_clues_dict:
 
 red_herring_cases_dict:
     same_herring: ['nom', 'none']
-    next_to_herring: ['nom', 'acc']
+    next_to_herring: ['nom', 'gen']
     double_herring: ['nom', 'none']
     fact: ['none']
     object_fact: ['nom', 'none']
-    friends: ['nom', 'acc']
+    friends: ['nom', 'gen']
     herring_found_at: ['nom']
     herring_not_at: ['nom']
 

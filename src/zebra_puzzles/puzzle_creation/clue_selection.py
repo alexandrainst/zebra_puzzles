@@ -28,6 +28,7 @@ def choose_clues(
     clues_dict: dict[str, str],
     clue_weights: dict[str, float],
     clue_cases_dict: dict[str, list[str]],
+    case_to_index: dict[str, int],
 ) -> tuple[list[str], list[str]]:
     """Choose clues for a zebra puzzle.
 
@@ -42,6 +43,7 @@ def choose_clues(
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and descriptions of each clue type.
         clue_weights: Weights for clue selection as a dictionary containing a title and a weight for each clue type.
         clue_cases_dict: A dictionary containing the clue type as a key and a list of grammatical cases for clue attributes as values.
+        case_to_index: Mapping from grammatical case names to attribute description list indices.
 
     Returns:
         A tuple (chosen_clues, chosen_clue_types), where:
@@ -88,6 +90,7 @@ def choose_clues(
             chosen_attributes_descs=chosen_attributes_descs,
             clues_dict=clues_dict,
             clue_cases_dict=clue_cases_dict,
+            case_to_index=case_to_index,
         )
 
         # Check if the clue is obviously redundant before using the solver to save runtime
@@ -248,6 +251,7 @@ def create_clue(
     chosen_attributes_descs: np.ndarray,
     clues_dict: dict[str, str],
     clue_cases_dict: dict[str, list[str]],
+    case_to_index: dict[str, int],
 ) -> tuple[str, tuple, tuple[str, list[int], np.ndarray]]:
     """Create a clue of a chosen type using random parts of the solution.
 
@@ -261,6 +265,7 @@ def create_clue(
         chosen_categories: Categories chosen for the solution.
         clues_dict: Possible clue types to include in the puzzle as a dictionary containing a title and a description of each clue.
         clue_cases_dict: A dictionary containing the clue type as a key and a list of grammatical cases for clue attributes as values.
+        case_to_index: Mapping from grammatical case names to attribute description list indices.
 
     Returns:
         A tuple (full_clue, constraint, clue_par), where:
@@ -278,7 +283,6 @@ def create_clue(
     clue_description = clues_dict[clue]
 
     # Define the order of grammatical cases in clue descriptions
-    case_to_index = {"nom": 0, "acc": 3, "dat": 4, "gen": 5, "none": 999}
 
     # Choose desc indices based on clue type and grammatical case in clue_cases_dict
     cases = clue_cases_dict[clue]

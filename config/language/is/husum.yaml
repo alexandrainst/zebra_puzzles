@@ -3,6 +3,21 @@
 # Theme
 theme: is_husum
 
+# Case-to-index mapping of attributes for this language.
+case_to_index:
+    nom: 0
+    acc: 3
+    dat: 4
+    gen: 5
+    none: 999
+
+red_herring_case_to_index:
+    nom: 0
+    acc: 2
+    dat: 3
+    gen: 4
+    none: 999
+
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.

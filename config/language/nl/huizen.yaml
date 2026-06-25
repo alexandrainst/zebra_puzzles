@@ -3,6 +3,15 @@
 # Theme
 theme: nl_huizen
 
+# Case-to-index mapping of attributes for this language.
+case_to_index:
+    nom: 0
+    none: 999
+
+red_herring_case_to_index:
+    nom: 0
+    none: 999
+
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
