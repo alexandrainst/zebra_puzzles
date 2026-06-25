@@ -205,7 +205,7 @@ def create_red_herring(
 
         # Choose a red herring description based on the sentence structure in the clue type
         if clue_type == "same_herring":
-            red_herring_desc_index = 1
+            red_herring_desc_index = case_to_index["is"]
         elif clue_type in ("herring_found_at", "herring_not_at"):
             red_herring_desc_index = desc_indices[0]
         else:
@@ -244,7 +244,7 @@ def create_red_herring(
         ][desc_indices[0]]
         attribute_desc_herring_2 = red_herring_attributes[
             red_herring_attribute_keys[1]
-        ][1]
+        ][case_to_index["is"]]
 
         for herring in red_herring_attribute_keys:
             used_red_herrings.append(herring)

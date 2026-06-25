@@ -13,6 +13,7 @@ from omegaconf import DictConfig
 from zebra_puzzles.evaluation.eval_pipeline import evaluate_all
 from zebra_puzzles.performance.plot_pipeline import plot_results
 from zebra_puzzles.puzzle_creation.build_pipeline import build_dataset
+from zebra_puzzles.zebra_utils import build_case_to_index
 
 initialize(config_path="../config", version_base=None)
 
@@ -70,8 +71,10 @@ def data_paths_fixture(config) -> Generator[tuple[Path, Path, Path], None, None]
         red_herring_clue_weights=config.red_herring_clue_weights,
         red_herring_cases_dict=config.language.red_herring_cases_dict,
         data_folder_str=config.data_folder,
-        case_to_index=config.language.case_to_index,
-        red_herring_case_to_index=config.language.red_herring_case_to_index,
+        case_to_index=build_case_to_index(list(config.language.attribute_cases)),
+        red_herring_case_to_index=build_case_to_index(
+            list(config.language.red_herring_attribute_cases)
+        ),
     )
 
     # Load the generated puzzle

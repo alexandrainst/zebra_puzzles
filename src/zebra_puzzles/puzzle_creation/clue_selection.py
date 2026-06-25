@@ -324,11 +324,11 @@ def create_clue(
             # Choose a random object
             i_object = sample(list(range(n_objects)), 1)[0]
             i_objects = [i_object, i_object]
-            desc_index_none = 1
+            desc_index_none = case_to_index["is"]
         elif clue == "not_same_object":
             # Choose two random objects
             i_objects = sample(list(range(n_objects)), 2)
-            desc_index_none = 2
+            desc_index_none = case_to_index["is_not"]
 
         # Replace 'none' in desc_indices with the chosen desc_index_none
         desc_indices[desc_indices.index(case_to_index["none"])] = desc_index_none

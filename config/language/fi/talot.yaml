@@ -3,25 +3,16 @@
 # Theme
 theme: fi_talot
 
-# Case-to-index mapping of attributes for this language.
-# Finnish only uses nominative and genitive.
-case_to_index:
-    nom: 0
-    gen: 3
-    none: 999
-
-# Red herring attribute format: [nominative, predicate "is/does X", genitive]
-red_herring_case_to_index:
-    nom: 0
-    gen: 2
-    none: 999
+# Order of grammatical cases in attribute descriptions for this language.
+# Finnish uses nominative, predicate forms, and genitive.
+attribute_cases: [nom, is, is_not, gen]
+red_herring_attribute_cases: [nom, is, gen]
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
 # The attributes below should be in the preferred order of categories in the clues.
 # Attribute format: [nominative, predicate "is X", predicate "is not X", genitive]
-# The genitive form is stored at index 3, mapped via case_to_index below.
 
 attributes:
 

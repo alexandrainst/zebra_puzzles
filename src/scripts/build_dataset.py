@@ -8,6 +8,7 @@ import hydra
 from omegaconf import DictConfig
 
 from zebra_puzzles.puzzle_creation.build_pipeline import build_dataset
+from zebra_puzzles.zebra_utils import build_case_to_index, validate_language_config
 
 
 @hydra.main(config_path="../../config", config_name="config", version_base=None)
@@ -38,8 +39,18 @@ def main(config: DictConfig) -> None:
     red_herring_facts = config.language.red_herring_facts
     red_herring_clue_weights = config.red_herring_clue_weights
     red_herring_cases_dict = config.language.red_herring_cases_dict
-    case_to_index = config.language.case_to_index
-    red_herring_case_to_index = config.language.red_herring_case_to_index
+    attribute_cases = list(config.language.attribute_cases)
+    red_herring_attribute_cases = list(config.language.red_herring_attribute_cases)
+
+    validate_language_config(
+        attribute_cases=attribute_cases,
+        red_herring_attribute_cases=red_herring_attribute_cases,
+        clue_cases_dict=clue_cases_dict,
+        red_herring_cases_dict=red_herring_cases_dict,
+    )
+
+    case_to_index = build_case_to_index(attribute_cases)
+    red_herring_case_to_index = build_case_to_index(red_herring_attribute_cases)
 
     build_dataset(
         n_objects=n_objects,

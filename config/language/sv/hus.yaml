@@ -3,14 +3,9 @@
 # Theme
 theme: sv_hus
 
-# Case-to-index mapping of attributes for this language.
-case_to_index:
-    nom: 0
-    none: 999
-
-red_herring_case_to_index:
-    nom: 0
-    none: 999
+# Order of grammatical cases in attribute descriptions for this language.
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.

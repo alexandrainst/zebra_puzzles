@@ -120,6 +120,18 @@ def create_solution_template(n_objects: int, chosen_categories: np.ndarray) -> s
     return solution_template
 
 
+def build_case_to_index(attribute_cases: list[str]) -> dict[str, int]:
+    """Build a case-to-index mapping from the ordered attribute cases list.
+
+    Args:
+        attribute_cases: Ordered list of grammatical case names matching the attribute value list positions, e.g. ['nom', 'is', 'is_not', 'gen'].
+
+    Returns:
+        Mapping from case name to index. 'none' is always added as 999 (sentinel for the is/is_not position resolved at clue-generation time).
+    """
+    return {case: i for i, case in enumerate(attribute_cases)} | {"none": 999}
+
+
 def clean_text(text: str) -> str:
     """Clean a string by replacing spaces with underscores and removing special characters.
 
@@ -486,3 +498,43 @@ def query_llm(
         output = response_format.model_validate(response_formatted)
 
     return output
+
+
+def validate_language_config(
+    attribute_cases: list[str],
+    red_herring_attribute_cases: list[str],
+    clue_cases_dict: dict[str, list[str]],
+    red_herring_cases_dict: dict[str, list[str]],
+) -> None:
+    """Validate that the language config is internally consistent.
+
+    Args:
+        attribute_cases: Ordered list of case names for regular attributes.
+        red_herring_attribute_cases: Ordered list of case names for red herring attributes.
+        clue_cases_dict: Mapping from clue type to list of grammatical cases used.
+        red_herring_cases_dict: Mapping from red herring clue type to list of grammatical cases used.
+
+    Raises:
+        ValueError: If required case names are missing or clue cases reference unknown cases.
+    """
+    missing_attr = {"is", "is_not"} - set(attribute_cases)
+    if missing_attr:
+        raise ValueError(f"attribute_cases is missing required entries: {missing_attr}")
+    if "is" not in red_herring_attribute_cases:
+        raise ValueError("red_herring_attribute_cases must contain 'is'")
+
+    known_cases = set(attribute_cases) | {"none"}
+    for clue_type, cases in clue_cases_dict.items():
+        unknown = set(cases) - known_cases
+        if unknown:
+            raise ValueError(
+                f"clue_cases_dict['{clue_type}'] references unknown cases: {unknown}"
+            )
+
+    known_rh_cases = set(red_herring_attribute_cases) | {"none"}
+    for clue_type, cases in red_herring_cases_dict.items():
+        unknown = set(cases) - known_rh_cases
+        if unknown:
+            raise ValueError(
+                f"red_herring_cases_dict['{clue_type}'] references unknown cases: {unknown}"
+            )

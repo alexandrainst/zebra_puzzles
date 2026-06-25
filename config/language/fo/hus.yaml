@@ -5,18 +5,9 @@
 # Theme
 theme: fo_hus
 
-# Case-to-index mapping of attributes for this language.
-case_to_index:
-    nom: 0
-    acc: 3
-    dat: 4
-    none: 999
-
-red_herring_case_to_index:
-    nom: 0
-    acc: 2
-    dat: 3
-    none: 999
+# Order of grammatical cases in attribute descriptions for this language.
+attribute_cases: [nom, is, is_not, acc, dat]
+red_herring_attribute_cases: [nom, is, acc, dat]
 
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
