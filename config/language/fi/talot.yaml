@@ -110,7 +110,7 @@ clues_dict:
     not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                         # Requires n_attributes > 1, otherwise it cannot be used
     between: '{attribute_desc_2} asuu {attribute_desc_1} ja {attribute_desc_3} välissä.'                                              # Requires n_objects > 2, otherwise it cannot be used
     not_between: '{attribute_desc_1} ei asu {attribute_desc_2} ja {attribute_desc_3} välissä, ja he ovat kolme eri henkilöä.'          # Requires n_objects > 2, otherwise it cannot be used
-    multiple_between: '{attribute_desc_1} ja {attribute_desc_2} asuvat {n_between} talon päässä toisistaan.'                          # Requires n_objects > 3, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1} ja {attribute_desc_2} välissä on {n_between} taloa.'                                      # Requires n_objects > 3, otherwise it cannot be used
     one_between: '{attribute_desc_1} ja {attribute_desc_2} välissä on yksi talo.'                                                     # Requires n_objects > 2, otherwise it cannot be used
 
 # Define a list of grammatical cases for attribute descriptions in the clues.
@@ -128,7 +128,7 @@ clue_cases_dict:
     not_same_object: ['nom', 'none']
     between: ['gen', 'nom', 'gen'] # Note that second argument corresponds to the first object in this clue.
     not_between: ['nom', 'gen', 'gen']
-    multiple_between: ['nom', 'nom']
+    multiple_between: ['gen', 'gen']
     one_between: ['gen', 'gen']
 
 # Prompt

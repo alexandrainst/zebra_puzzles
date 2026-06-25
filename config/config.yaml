@@ -11,9 +11,10 @@
 # nl/huizen
 # nn/hus
 # sv/hus
+# fi/talot
 
 defaults:
-  - language: en/houses
+  - language: fi/talot.yaml
   - override hydra/job_logging: custom
   - _self_
 
