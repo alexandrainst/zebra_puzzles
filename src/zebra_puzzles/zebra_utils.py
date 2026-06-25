@@ -505,6 +505,8 @@ def validate_language_config(
     red_herring_attribute_cases: list[str],
     clue_cases_dict: dict[str, list[str]],
     red_herring_cases_dict: dict[str, list[str]],
+    attributes: dict[str, dict[str, list[str]]],
+    red_herring_attributes: dict[str, list[str]],
 ) -> None:
     """Validate that the language config is internally consistent.
 
@@ -513,9 +515,12 @@ def validate_language_config(
         red_herring_attribute_cases: Ordered list of case names for red herring attributes.
         clue_cases_dict: Mapping from clue type to list of grammatical cases used.
         red_herring_cases_dict: Mapping from red herring clue type to list of grammatical cases used.
+        attributes: Attribute descriptions grouped by category and value.
+        red_herring_attributes: Red herring attribute descriptions keyed by attribute name.
 
     Raises:
-        ValueError: If required case names are missing or clue cases reference unknown cases.
+        ValueError: If required case names are missing, clue cases reference unknown cases,
+            or any attribute description list has the wrong number of entries.
     """
     missing_attr = {"is", "is_not"} - set(attribute_cases)
     if missing_attr:
@@ -537,4 +542,21 @@ def validate_language_config(
         if unknown:
             raise ValueError(
                 f"red_herring_cases_dict['{clue_type}'] references unknown cases: {unknown}"
+            )
+
+    expected = len(attribute_cases)
+    for category, values in attributes.items():
+        for value, descs in values.items():
+            if len(descs) != expected:
+                raise ValueError(
+                    f"attributes['{category}']['{value}'] has {len(descs)} description(s),"
+                    f" expected {expected} (one per attribute_cases entry)"
+                )
+
+    expected_rh = len(red_herring_attribute_cases)
+    for key, descs in red_herring_attributes.items():
+        if len(descs) != expected_rh:
+            raise ValueError(
+                f"red_herring_attributes['{key}'] has {len(descs)} description(s),"
+                f" expected {expected_rh} (one per red_herring_attribute_cases entry)"
             )

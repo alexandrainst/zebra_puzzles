@@ -174,6 +174,8 @@ def build_dataset(
         red_herring_attribute_cases=red_herring_attribute_cases,
         clue_cases_dict=clue_cases_dict,
         red_herring_cases_dict=red_herring_cases_dict,
+        attributes=attributes,
+        red_herring_attributes=red_herring_attributes,
     )
     case_to_index = build_case_to_index(attribute_cases)
     red_herring_case_to_index = build_case_to_index(red_herring_attribute_cases)
