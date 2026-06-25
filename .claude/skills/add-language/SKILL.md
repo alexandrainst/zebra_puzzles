@@ -1,6 +1,8 @@
 ---
 name: add-language
 description: Add a new language and theme to the zebra puzzle generator. Creates the YAML config, updates README and config.yaml, validates the config, generates sample puzzles, and asks for a grammar review.
+context:
+  - config/language/en/houses.yaml
 ---
 
 From the conversation, identify:
@@ -12,17 +14,16 @@ From the conversation, identify:
 ## Steps
 
 ### 1. Choose a template config
-Pick the existing config that best matches the target language's case system:
+`config/language/en/houses.yaml` is already loaded as a structural reference showing all required keys. For languages with no grammatical case inflection (e.g. French, Italian, Spanish), it is also the right content template.
+
+For languages that inflect attributes by case, additionally read the matching template:
 
 | Case system | Template |
 |---|---|
-| No inflection (e.g. French, Italian, Spanish) | `config/language/en/houses.yaml` |
 | Dative only (e.g. German) | `config/language/de/Hauser.yaml` |
 | Accusative + dative (e.g. Faroese) | `config/language/fo/hus.yaml` |
 | Accusative + dative + genitive (e.g. Icelandic) | `config/language/is/husum.yaml` |
 | Genitive only (e.g. Finnish) | `config/language/fi/talot.yaml` |
-
-Read the chosen template in full so you know the complete required structure.
 
 ### 2. Create the config file
 Create `config/language/<lang_code>/` directory if needed, then write `<theme_name>.yaml`.
@@ -41,7 +42,7 @@ Required top-level keys (in this order):
 11. `red_herring_cases_dict:` — red herring clue type → list of case names (must only use cases from `red_herring_attribute_cases` plus `none`)
 12. `prompt_templates:` — list of prompt section strings
 13. `prompt_and:` — word for "and" in lists (e.g. "and", "und", "et")
-14. `prompt_replacements:` — dict of string substitutions applied to the final prompt
+14. `prompt_replacements:` — dict of literal string substitutions applied to the entire generated prompt after all templates are filled in. Use it to fix awkward phrasings that arise when attribute descriptions combine with clue or fact templates in unexpected ways. Example in English: `knows that it is fun to solve: enjoys solving`. Can be empty (`{}`) if no fixups are needed. If the language uses commas after relative clauses, you can add a comma at the end of some attribute descriptions and then remove it at the end of sentences with a replacement rule, e.g. `',.': .`.
 
 The meaning should be consistent across languages, unless this would compromise grammar, unambiguity or make puzzles too complicated to generate.
 
@@ -80,6 +81,9 @@ Good (unambiguous): "X ja Y välissä on N taloa" (explicitly N houses between)
 **Unambiguous templates**
 - `prompt_templates` must be unambiguous. It must be clear that each object has exactly one value from each category and that each value is assigned to exactly one object.
 
+**Unambiguous attributes**
+Each attribute must be unambiguous. It should not be easy to confuse one attribute with another or a red herring attribute. Warn the user if this requires changing the meaning in the new language.
+
 ### 4. Check if code changes are needed
 
 Code changes are needed when:
@@ -110,14 +114,19 @@ uv run src/scripts/build_dataset.py \
 If the build fails with a `ValueError`, read the message — it will point to the exact config key and entry that is wrong (wrong list length, unknown case name, etc.).
 
 ### 7. Show and review the puzzles
-Read and display `data/<lang_code>_<theme_name>/4x5/5rh/puzzles/zebra_puzzle_0.txt`.
+Read and display all three generated puzzles:
+- `data/<lang_code>_<theme_name>/4x5/5rh/puzzles/zebra_puzzle_0.txt`
+- `data/<lang_code>_<theme_name>/4x5/5rh/puzzles/zebra_puzzle_1.txt`
+- `data/<lang_code>_<theme_name>/4x5/5rh/puzzles/zebra_puzzle_2.txt`
+
+Checking multiple puzzles increases the chance of seeing rare clue types (such as `multiple_between`) that may not appear in puzzle 0.
 
 First self-review:
 1. Does the grammar look correct?
 2. Are all clue templates natural in the language?
 3. Is the puzzle unambiguous and looks solvable?
 
-Then show the puzzle to the user and ask if the puzzle looks correct. Wait for feedback, make any corrections to the config, and re-run puzzle generation to verify the fixes.
+Then show the first puzzle to the user and ask if the puzzle looks correct. Wait for feedback, make any corrections to the config, and re-run puzzle generation to verify the fixes.
 
 ### 8. Update README.md
 Add the new language to the language/theme list under the relevant theme. Use the same format as existing entries:
