@@ -23,7 +23,7 @@ Dataset on the Hugging Face Hub: https://huggingface.co/datasets/alexandrainst/z
 
 Paper: [ArXiv preprint](https://arxiv.org/abs/2511.03553)
 
-GitHub Copilot has been used for this project.
+Contributions are welcome! Please read the [contributing guide](CONTRIBUTING.md) before submitting a PR. There are many ways to contribute, including opening issues for linguistic errors, adding new languages or themes, and adding new clue types.
 
 ______________________________________________________________________
 [![Code Coverage](https://img.shields.io/badge/Coverage-82%25-yellowgreen.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
@@ -141,13 +141,16 @@ To add a new language or theme:
     - Attribute versions should be presented in the following order:
         1. Nominative
         2. Phrase connecting it to the subject
-        3. Phrase disconnecting from to the subject
+        3. Phrase disconnecting it from the subject
         4. Accusative
         5. Dative
         6. Genitive
+        ...
 
         Only the first 3 are mandatory. See Icelandic (is) for an example of using all 6 versions.
         For red herring attributes, we skip the disconnecting phrase.
+
+        Map the order of cases using `attribute_cases` and `red_herring_attribute_cases`.
 
     - For new themes, the number of attributes, red herring attributes and red herring facts can be changed without adapting other files.
     - For translations of existing themes, please prioritize keeping the meaning consistent unless this would sound unnatural or be difficult to implement.

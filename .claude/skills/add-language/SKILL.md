@@ -81,6 +81,8 @@ Good (unambiguous): "X ja Y välissä on N taloa" (explicitly N houses between)
 **Unambiguous templates**
 - `prompt_templates` must be unambiguous. It must be clear that each object has exactly one value from each category and that each value is assigned to exactly one object.
 
+The technical terms "JSON dictionary", "key" and "value" should not be translated, but they can be formatted differently if that would look natural in the language.
+
 **Unambiguous attributes**
 Each attribute must be unambiguous. It should not be easy to confuse one attribute with another or a red herring attribute. Warn the user if this requires changing the meaning in the new language.
 

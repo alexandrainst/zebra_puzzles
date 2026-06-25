@@ -14,7 +14,7 @@
 # fi/talot
 
 defaults:
-  - language: fi/talot.yaml
+  - language: en/houses
   - override hydra/job_logging: custom
   - _self_
 
