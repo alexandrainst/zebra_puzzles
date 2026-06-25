@@ -3,6 +3,10 @@
 # Theme
 theme: nn_hus
 
+# Order of grammatical cases in attribute descriptions for this language.
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
+
 # Attributes
 # The attributes are defined as a dictionary of dictionaries.
 # The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.

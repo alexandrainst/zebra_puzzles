@@ -31,6 +31,7 @@ def main(config: DictConfig) -> None:
     clue_weights = config.clue_weights
     theme = config.language.theme
     data_folder = config.data_folder
+    attribute_cases = list(config.language.attribute_cases)
 
     n_red_herring_clues = config.n_red_herring_clues
     red_herring_clues_dict = config.language.red_herring_clues_dict
@@ -38,7 +39,7 @@ def main(config: DictConfig) -> None:
     red_herring_facts = config.language.red_herring_facts
     red_herring_clue_weights = config.red_herring_clue_weights
     red_herring_cases_dict = config.language.red_herring_cases_dict
-
+    red_herring_attribute_cases = list(config.language.red_herring_attribute_cases)
     build_dataset(
         n_objects=n_objects,
         n_attributes=n_attributes,
@@ -58,6 +59,8 @@ def main(config: DictConfig) -> None:
         red_herring_clue_weights=red_herring_clue_weights,
         red_herring_cases_dict=red_herring_cases_dict,
         data_folder_str=data_folder,
+        attribute_cases=attribute_cases,
+        red_herring_attribute_cases=red_herring_attribute_cases,
     )
 
 

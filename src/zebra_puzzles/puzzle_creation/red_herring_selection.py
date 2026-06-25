@@ -21,6 +21,7 @@ def choose_red_herrings(
     chosen_attributes_descs: np.ndarray,
     n_objects: int,
     n_attributes: int,
+    case_to_index: dict[str, int],
 ) -> tuple[list[str], list[str]]:
     """Choose red herrings for a zebra puzzle.
 
@@ -35,6 +36,7 @@ def choose_red_herrings(
         chosen_attributes_descs: Attribute descriptions for the chosen attributes as a matrix.
         n_objects: Number of objects in the puzzle.
         n_attributes: Number of attributes of each object.
+        case_to_index: Mapping from grammatical case names to red herring attribute description list indices.
 
     Returns:
         A tuple (chosen_clues, chosen_clue_types), where:
@@ -74,6 +76,7 @@ def choose_red_herrings(
             n_attributes=n_attributes,
             red_herring_clues_dict=red_herring_clues_dict,
             red_herring_cases_dict=red_herring_cases_dict,
+            case_to_index=case_to_index,
         )
 
         chosen_clues.append(clue)
@@ -93,6 +96,7 @@ def create_red_herring(
     n_attributes: int,
     red_herring_clues_dict: dict[str, str],
     red_herring_cases_dict: dict[str, list[str]],
+    case_to_index: dict[str, int],
 ) -> tuple[str, list[str]]:
     """Complete a red herring clue.
 
@@ -109,6 +113,7 @@ def create_red_herring(
         n_attributes: Number of attributes of each object.
         red_herring_clues_dict: Possible red herring clue types to include in the puzzle as a list of strings
         red_herring_cases_dict: A dictionary containing the red herring clue type as a key and a list of grammatical cases for clue attributes as values.
+        case_to_index: Mapping from grammatical case names to attribute description list indices.
 
     Returns:
         A tuple (full_clue, used_red_herring_attributes), where:
@@ -120,8 +125,6 @@ def create_red_herring(
     clue_description = red_herring_clues_dict[clue_type]
 
     # Define the order of grammatical cases in clue descriptions
-    # TODO: Save this somewhere else e.g. config
-    case_to_index = {"nom": 0, "acc": 2, "dat": 3, "gen": 4, "none": 999}
 
     # Choose desc indices based on clue type and grammatical case in clue_cases_dict
     cases = red_herring_cases_dict[clue_type]
@@ -202,7 +205,7 @@ def create_red_herring(
 
         # Choose a red herring description based on the sentence structure in the clue type
         if clue_type == "same_herring":
-            red_herring_desc_index = 1
+            red_herring_desc_index = case_to_index["is"]
         elif clue_type in ("herring_found_at", "herring_not_at"):
             red_herring_desc_index = desc_indices[0]
         else:
@@ -241,7 +244,7 @@ def create_red_herring(
         ][desc_indices[0]]
         attribute_desc_herring_2 = red_herring_attributes[
             red_herring_attribute_keys[1]
-        ][1]
+        ][case_to_index["is"]]
 
         for herring in red_herring_attribute_keys:
             used_red_herrings.append(herring)

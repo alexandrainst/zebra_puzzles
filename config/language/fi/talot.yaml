@@ -1,0 +1,225 @@
+# Config file for generating zebra puzzles in Finnish with the classic "houses" theme.
+
+# Theme
+theme: fi_talot
+
+# Order of grammatical cases in attribute descriptions for this language.
+# Finnish uses nominative, predicate forms, and genitive.
+attribute_cases: [nom, is, is_not, gen]
+red_herring_attribute_cases: [nom, is, gen]
+
+# Attributes
+# The attributes are defined as a dictionary of dictionaries.
+# The outer dictionary has the attribute category as key, and the inner dictionary has the attribute value as key and the attribute description as value.
+# The attributes below should be in the preferred order of categories in the clues.
+# Attribute format: [nominative, predicate "is X", predicate "is not X", genitive]
+
+attributes:
+
+    kansallisuudet:
+        Tanska: ['tanskalainen', 'on tanskalainen', 'ei ole tanskalainen', 'tanskalaisen']
+        Ruotsi: ['ruotsalainen', 'on ruotsalainen', 'ei ole ruotsalainen', 'ruotsalaisen']
+        Latvia: ['latvialainen', 'on latvialainen', 'ei ole latvialainen', 'latvialaisen']
+        Ranska: ['ranskalainen', 'on ranskalainen', 'ei ole ranskalainen', 'ranskalaisen']
+        Espanja: ['espanjalainen', 'on espanjalainen', 'ei ole espanjalainen', 'espanjalaisen']
+        Italia: ['italialainen', 'on italialainen', 'ei ole italialainen', 'italialaisen']
+        Norja: ['norjalainen', 'on norjalainen', 'ei ole norjalainen', 'norjalaisen']
+        Färsaaret: ['färsaarelainen', 'on färsaarelainen', 'ei ole färsaarelainen', 'färsaarelaisen']
+        Alankomaat: ['alankomaalainen', 'on alankomaalainen', 'ei ole alankomaalainen', 'alankomaalaisen']
+        Islanti: ['islantilainen', 'on islantilainen', 'ei ole islantilainen', 'islantilaisen']
+        Iso-Britannia: ['brittiläinen', 'on brittiläinen', 'ei ole brittiläinen', 'brittiläisen']
+
+    ammatit:
+        leipuri: ['leipuri', 'on leipuri', 'ei ole leipuri', 'leipurin']
+        ministeri: ['ministeri', 'on ministeri', 'ei ole ministeri', 'ministerin']
+        poliisi: ['poliisi', 'on poliisi', 'ei ole poliisi', 'poliisin']
+        sairaanhoitaja: ['sairaanhoitaja', 'on sairaanhoitaja', 'ei ole sairaanhoitaja', 'sairaanhoitajan']
+        opettaja: ['opettaja', 'on opettaja', 'ei ole opettaja', 'opettajan']
+        ohjelmistokehittäjä: ['ohjelmistokehittäjä', 'on ohjelmistokehittäjä', 'ei ole ohjelmistokehittäjä', 'ohjelmistokehittäjän']
+        myyjä: ['myyjä', 'on myyjä', 'ei ole myyjä', 'myyjän']
+
+    lemmikkieläimet:
+        kissa: ['kissanomistaja', 'omistaa kissan', 'ei omista kissaa', 'kissanomistajan']
+        koira: ['koiranomistaja', 'omistaa koiran', 'ei omista koiraa', 'koiranomistajan']
+        kani: ['kaninomistaja', 'omistaa kanin', 'ei omista kania', 'kaninomistajan']
+        seepra: ['seepranomistaja', 'omistaa seepran', 'ei omista seepraa', 'seepranomistajan']
+        undulaatti: ['undulaatinomistaja', 'omistaa undulaatin', 'ei omista undulaattia', 'undulaatinomistajan']
+        etana: ['etananomistaja', 'omistaa etanan', 'ei omista etanaa', 'etananomistajan']
+        tikku-ukko: ['tikku-ukon omistaja', 'omistaa tikku-ukon', 'ei omista tikku-ukkoa', 'tikku-ukon omistajan']
+
+    juomat:
+        mehu: ['mehunjuoja', 'juo mehua', 'ei juo mehua', 'mehunjuojan']
+        kahvi: ['kahvinjuoja', 'juo kahvia', 'ei juo kahvia', 'kahvinjuojan']
+        maito: ['maidonjuoja', 'juo maitoa', 'ei juo maitoa', 'maidonjuojan']
+        smoothie: ['smoothienjuoja', 'juo smoothieta', 'ei juo smoothieta', 'smoothienjuojan']
+        kaakao: ['kaakaojuoja', 'juo kaakaota', 'ei juo kaakaota', 'kaakaojuojan']
+        tee: ['teenjuoja', 'juo teetä', 'ei juo teetä', 'teenjuojan']
+        limonaadi: ['limonaadinjuoja', 'juo limonaadia', 'ei juo limonaadia', 'limonaadinjuojan']
+
+    lempikirjallisuus:
+        tietokirjallisuus: ['tietokirjallisuuden lukija', 'lukee tietokirjallisuutta', 'ei lue tietokirjallisuutta', 'tietokirjallisuuden lukijan']
+        dekkarit: ['dekkarinlukija', 'lukee dekkareita', 'ei lue dekkareita', 'dekkarinlukijan']
+        fantasia: ['fantasianlukija', 'lukee fantasiaa', 'ei lue fantasiaa', 'fantasianlukijan']
+        tieteiskirjallisuus: ['tieteiskirjallisuuden lukija', 'lukee tieteiskirjallisuutta', 'ei lue tieteiskirjallisuutta', 'tieteiskirjallisuuden lukijan']
+        kauhukirjallisuus: ['kauhukirjallisuuden lukija', 'lukee kauhukirjallisuutta', 'ei lue kauhukirjallisuutta', 'kauhukirjallisuuden lukijan']
+        runous: ['runonlukija', 'lukee runoutta', 'ei lue runoutta', 'runonlukijan']
+        romantiikka: ['romantiikanlukija', 'lukee romanttisia romaaneja', 'ei lue romanttisia romaaneja', 'romantiikanlukijan']
+
+    harrastukset:
+        kiipeily: ['kiipeilijä', 'kiipeilee', 'ei kiipeile', 'kiipeilijän']
+        maalaus: ['maalaaja', 'maalaa', 'ei maalaa', 'maalaajan']
+        lautapelit: ['lautapelien pelaaja', 'pelaa lautapelejä', 'ei pelaa lautapelejä', 'lautapelien pelaajan']
+        tennis: ['tennispelaaja', 'pelaa tennistä', 'ei pelaa tennistä', 'tennispelaajan']
+        virkkaus: ['virkkaaja', 'virkkaa', 'ei virkkaa', 'virkkaajan']
+        jalkapallo: ['jalkapalloilija', 'pelaa jalkapalloa', 'ei pelaa jalkapalloa', 'jalkapalloilijan']
+        käsipallo: ['käsipalloilija', 'pelaa käsipalloa', 'ei pelaa käsipalloa', 'käsipalloilijan']
+
+    lempihedelmät:
+        omena: ['henkilö, joka pitää omenoista,', 'pitää omenoista', 'ei pidä omenoista', 'henkilön, joka pitää omenoista,']
+        päärynä: ['henkilö, joka pitää päärynöistä,', 'pitää päärynöistä', 'ei pidä päärynöistä', 'henkilön, joka pitää päärynöistä,']
+        appelsiini: ['henkilö, joka pitää appelsiineista,', 'pitää appelsiineista', 'ei pidä appelsiineista', 'henkilön, joka pitää appelsiineista,']
+        banaani: ['henkilö, joka pitää banaaneista,', 'pitää banaaneista', 'ei pidä banaaneista', 'henkilön, joka pitää banaaneista,']
+        mansikka: ['henkilö, joka pitää mansikoista,', 'pitää mansikoista', 'ei pidä mansikoista', 'henkilön, joka pitää mansikoista,']
+        mustaherukka: ['henkilö, joka pitää mustaherukoista,', 'pitää mustaherukoista', 'ei pidä mustaherukoista', 'henkilön, joka pitää mustaherukoista,']
+        ahomansikka: ['henkilö, joka pitää ahomansikasta,', 'pitää ahomansikasta', 'ei pidä ahomansikasta', 'henkilön, joka pitää ahomansikasta,']
+
+# Clues
+# Clue names and text for the prompt depending on the clue type.
+# Clue names should not be edited, but they can be a subset of the full list of implemented clues.
+# attribute_desc_2 and attribute_desc_3 use genitive case; attribute_desc_1 uses nominative.
+# NOTE: The list of clues could be extended by adding non-unique attributes, superattributes (e.g. large animal), ordinal attributes, objects on a grid etc.
+clues_dict:
+    found_at: '{attribute_desc} asuu talossa numero {i_object}.'
+    not_at: '{attribute_desc} ei asu talossa numero {i_object}.'
+    next_to: '{attribute_desc_1} asuu {attribute_desc_2} vieressä.'                                                                    # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} ei asu {attribute_desc_2} vieressä, eivätkä he ole sama henkilö.'                                 # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} asuu heti {attribute_desc_2} vasemmalla puolella.'                                               # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} asuu heti {attribute_desc_2} oikealla puolella.'                                                # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} asuu {attribute_desc_2} vasemmalla puolella.'
+    right_of: '{attribute_desc_1} asuu {attribute_desc_2} oikealla puolella.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                              # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                         # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} asuu {attribute_desc_1} ja {attribute_desc_3} välissä.'                                              # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} ei asu {attribute_desc_2} ja {attribute_desc_3} välissä, ja he ovat kolme eri henkilöä.'          # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1} ja {attribute_desc_2} välissä on {n_between} taloa.'                                      # Requires n_objects > 3, otherwise it cannot be used
+    one_between: '{attribute_desc_1} ja {attribute_desc_2} välissä on yksi talo.'                                                     # Requires n_objects > 2, otherwise it cannot be used
+
+# Define a list of grammatical cases for attribute descriptions in the clues.
+# Finnish only uses nominative and genitive.
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'gen']
+    not_next_to: ['nom', 'gen']
+    just_left_of: ['nom', 'gen']
+    just_right_of: ['nom', 'gen']
+    left_of: ['nom', 'gen']
+    right_of: ['nom', 'gen']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['gen', 'nom', 'gen'] # Note that second argument corresponds to the first object in this clue.
+    not_between: ['nom', 'gen', 'gen']
+    multiple_between: ['gen', 'gen']
+    one_between: ['gen', 'gen']
+
+# Prompt
+# We use two different prompt templates depending on whether we have multiple attributes in each category or just one.
+# prompt_and is the word used for separating the last two attributes in a list of attributes.
+
+prompt_and: ja
+
+prompt_templates:
+    - |
+        Talorivistö on numeroitu 1:stä {n_objects}:een vasemmalta oikealle.
+
+        Jokaisessa talossa asuu henkilö, jolla on ainutlaatuinen ominaisuus kussakin seuraavista kategorioista:
+
+        {chosen_attributes_str}
+
+        Lisäksi tiedämme seuraavaa:
+
+        {chosen_clues_str}
+
+        Kuka asuu missä talossa, ja mitkä ominaisuudet hänellä on?
+
+        Ole hyvä ja anna vastauksesi JSON dictionary -muodossa. Jokainen key on object_X, missä X on talon numero. Jokainen value on lista kyseisen talon asukkaan ominaisuuksista edellä mainituista kategorioista.
+
+        Seuraava on esimerkki vastausmuodosta:
+
+        {solution_template}
+    - |
+        Talorivistö on numeroitu 1:stä {n_objects}:een vasemmalta oikealle.
+
+        Jokaisessa talossa asuu henkilö, jolla on ainutlaatuinen ominaisuus kategorian {chosen_attributes_str} osalta.
+
+        Lisäksi tiedämme seuraavaa:
+
+        {chosen_clues_str}
+
+        Mikä ominaisuus on kullakin talon asukkaalla?
+
+        Ole hyvä ja anna vastauksesi JSON dictionary -muodossa. Jokainen key on object_X, missä X on talon numero. Jokainen value on lista, joka sisältää kyseisen kategorian ominaisuuden, joka kuuluu talon numero X asukkaalle.
+
+        Seuraava on esimerkki vastausmuodosta:
+
+        {solution_template}
+
+# Red herrings
+# The red herring attributes that are not used in the main clues, but are included in the prompt to make the puzzle more challenging.
+# NOTE: More types could be added such as "The person with a cactus is not the baker"
+# Red herring attribute format: [nominative, predicate "is/does X", genitive]
+# Genitive is stored at index 2, mapped via red_herring_case_to_index above.
+
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} asuu {attribute_desc_herring} vieressä.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} tietää, että {fact}.'
+    friends: '{attribute_desc} on hyvä ystävä {attribute_desc_herring} kanssa.'
+    herring_found_at: '{attribute_desc_herring} asuu talossa numero {i_object}.'
+    herring_not_at: '{attribute_desc_herring} ei asu talossa numero {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'gen']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'gen']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+red_herring_attributes:
+    punainen_tukka: ['punatukkainen henkilö', 'on punatukkainen', 'punatukkaisen henkilön']
+    silmälasit: ['silmälasien käyttäjä', 'käyttää silmälaseja', 'silmälasien käyttäjän']
+    tatuointi: ['tatuoitu henkilö', 'on tatuoitu', 'tatuoidun henkilön']
+    kitara: ['henkilö, joka soittaa kitaraa,', 'soittaa kitaraa', 'henkilön, joka soittaa kitaraa,']
+    polkupyörä: ['henkilö, jolla on polkupyörä,', 'omistaa polkupyörän', 'henkilön, jolla on polkupyörä,']
+    marsu: ['marsunomistaja', 'omistaa marsun', 'marsunomistajan']
+    kaktus: ['henkilö, joka ei omista kaktusta,', 'ei omista kaktusta', 'henkilön, joka ei omista kaktusta,']
+    tietokonepelit: ['tietokonepelaaja', 'pelaa tietokonepelejä', 'tietokonepelaajan']
+    sisar: ['henkilö, jolla on sisar,', 'on sisar', 'henkilön, jolla on sisar,']
+    mango: ['henkilö, jonka mielestä toiseksi paras hedelmä on mango,', 'ajattelee, että toiseksi paras hedelmä on mango', 'henkilön, jonka mielestä toiseksi paras hedelmä on mango,']
+    purjehdus: ['henkilö, joka purjehtii usein,', 'purjehtii usein', 'henkilön, joka purjehtii usein,']
+    Kanada: ['henkilö, joka on käynyt Kanadassa,', 'on käynyt Kanadassa', 'henkilön, joka on käynyt Kanadassa,']
+    matematiikka: ['henkilö, jolla on matematiikan maisterin tutkinto,', 'on matematiikan maisterin tutkinto', 'henkilön, jolla on matematiikan maisterin tutkinto,']
+    fysiikka: ['henkilö, joka rakastaa fysiikkaa,', 'rakastaa fysiikkaa', 'henkilön, joka rakastaa fysiikkaa,']
+    vanha_lemmikki: ['henkilö, jonka lemmikki on vanha lajilleen,', 'omistaa lajilleen vanhan lemmikin', 'henkilön, jonka lemmikki on vanha lajilleen,']
+    mäkihyppy: ['henkilö, joka seuraa mäkihyppyä,', 'seuraa mäkihyppyä', 'henkilön, joka seuraa mäkihyppyä,']
+
+red_herring_facts:
+    silli: ['silli on kala']
+    aurinkokunta: ['aurinkokunta liikkuu noin 200 km/s nopeudella galaksin keskipisteen ympäri']
+    arvoitus: ['arvoitusten ratkaiseminen on hauskaa']
+    talot: ['kaikilla kadun taloilla on kauniit puutarhat']
+    ovet: ['useilla taloista on vihreä ovi']
+    ikkunat: ['kaikissa taloissa on suuret ikkunat']
+    autot: ['kadulla on paljon autoja']
+    kurkku: ['kurkku on marja']
+    etana: ['etanat ovat nilviäisiä']
+    kahvi: ['kahvi sisältää kofeiinia']
+
+# Strings to replace in the prompt.
+prompt_replacements:
+    tietää, että arvoitusten ratkaiseminen on hauskaa: pitää arvoitusten ratkaisemista hauskana

@@ -11,6 +11,7 @@
 # nl/huizen
 # nn/hus
 # sv/hus
+# fi/talot
 
 defaults:
   - language: en/houses

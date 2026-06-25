@@ -70,6 +70,8 @@ def data_paths_fixture(config) -> Generator[tuple[Path, Path, Path], None, None]
         red_herring_clue_weights=config.red_herring_clue_weights,
         red_herring_cases_dict=config.language.red_herring_cases_dict,
         data_folder_str=config.data_folder,
+        attribute_cases=list(config.language.attribute_cases),
+        red_herring_attribute_cases=list(config.language.red_herring_attribute_cases),
     )
 
     # Load the generated puzzle
