@@ -50,7 +50,7 @@ The meaning should be consistent across languages, unless this would compromise 
 Check every item below and fix any problems found:
 
 **Config validation**
-- You can use `tests/validate_config.py` to check automatically.
+- You can use `validate_language_config` in `src/zebra_puzzles/zebra_utils.py` to check automatically.
 
 **"is" form of red herring attributes**
 The `same_herring` and `double_herring` templates use the red herring's `is` form as a direct predicate after a nominative subject:
@@ -96,7 +96,13 @@ Code changes are needed when:
 
 If changes are needed, explain what they are before implementing.
 
-### 7. Generate puzzles
+Run tests with `make test` to verify that any code changes are correct and don't break existing languages.
+
+### 7. Run make check
+
+Check formatting by running `make check`. Fix any issues found.
+
+### 8. Generate puzzles
 Run the following to generate 3 puzzles with 4 objects, 5 attributes and 5 red herrings:
 
 ```bash
@@ -110,7 +116,7 @@ uv run src/scripts/build_dataset.py \
 
 If the build fails with a `ValueError`, read the message — it will point to the exact config key and entry that is wrong (wrong list length, unknown case name, etc.).
 
-### 8. Show and review the puzzles
+### 9. Show and review the puzzles
 Read and display `data/<lang_code>_<theme_name>/4x5/5rh/puzzles/zebra_puzzle_0.txt`.
 
 Ask yourself:
