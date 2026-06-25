@@ -191,11 +191,11 @@ red_herring_cases_dict:
     herring_not_at: ['nom']
 
 red_herring_attributes:
-    punainen_tukka: ['punatukkainen henkilö', 'on punainen tukka', 'punatukkaisen henkilön']
+    punainen_tukka: ['punatukkainen henkilö', 'on punatukkainen', 'punatukkaisen henkilön']
     silmälasit: ['silmälasien käyttäjä', 'käyttää silmälaseja', 'silmälasien käyttäjän']
-    tatuointi: ['tatuoitu henkilö', 'on tatuointi', 'tatuoidun henkilön']
+    tatuointi: ['tatuoitu henkilö', 'on tatuoitu', 'tatuoidun henkilön']
     kitara: ['henkilö, joka soittaa kitaraa,', 'soittaa kitaraa', 'henkilön, joka soittaa kitaraa,']
-    polkupyörä: ['henkilö, jolla on polkupyörä,', 'on polkupyörä', 'henkilön, jolla on polkupyörä,']
+    polkupyörä: ['henkilö, jolla on polkupyörä,', 'omistaa polkupyörän', 'henkilön, jolla on polkupyörä,']
     marsu: ['marsunomistaja', 'omistaa marsun', 'marsunomistajan']
     kaktus: ['henkilö, joka ei omista kaktusta,', 'ei omista kaktusta', 'henkilön, joka ei omista kaktusta,']
     tietokonepelit: ['tietokonepelaaja', 'pelaa tietokonepelejä', 'tietokonepelaajan']
