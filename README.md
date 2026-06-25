@@ -15,7 +15,7 @@ Available languages and themes:
 
 - Houses theme:
     - Complete versions: Danish 🇩🇰, Dutch 🇳🇱, English 🇬🇧, Faroese 🇫🇴, German 🇩🇪, Icelandic 🇮🇸, Norwegian Bokmål 🇳🇴, Norwegian Nynorsk 🇳🇴 and Swedish 🇸🇪.
-    - Preliminary versions: Finnish 🇫🇮 and French 🇫🇷.
+    - Preliminary versions: Finnish 🇫🇮, French 🇫🇷 and Hungarian 🇭🇺.
 - Smørrebrød theme:
     - Complete versions: Danish 🇩🇰.
 

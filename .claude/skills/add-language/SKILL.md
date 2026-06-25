@@ -146,4 +146,4 @@ Add the new language to the language/theme list under the relevant theme. Use th
 Add `<lang_code>/<theme_name>` to the comment block listing all valid language/theme combinations near the top of the file.
 
 ### 10. Consider improving this skill
-If you found any part of this process confusing or error-prone, suggest improvements to this skill.
+If you found any part of this process confusing or error-prone, suggest improvements to this skill. Did you have to make decisions or look up information that could be included in the skill? Did you have to read the code to understand how it works? If so, consider adding that information to this skill.

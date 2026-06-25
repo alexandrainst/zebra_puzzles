@@ -1,0 +1,202 @@
+# Config file for generating zebra puzzles in Hungarian with the houses theme.
+
+theme: hu_hazak
+
+# Hungarian postpositions (mellett, között, bal/jobb oldalán) all take nominative,
+# so only three forms are needed: nominative, predicate "is X", predicate "is not X".
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
+
+attributes:
+
+    nemzetiségek:
+        Dánia: ['a dán', 'dán', 'nem dán']
+        Svédország: ['a svéd', 'svéd', 'nem svéd']
+        Lettország: ['a lett', 'lett', 'nem lett']
+        Franciaország: ['a francia', 'francia', 'nem francia']
+        Spanyolország: ['a spanyol', 'spanyol', 'nem spanyol']
+        Olaszország: ['az olasz', 'olasz', 'nem olasz']
+        Norvégia: ['a norvég', 'norvég', 'nem norvég']
+        Feröer-szigetek: ['a feröeri', 'feröeri', 'nem feröeri']
+        Hollandia: ['a holland', 'holland', 'nem holland']
+        Izland: ['az izlandi', 'izlandi', 'nem izlandi']
+        Egyesült Királyság: ['a brit', 'brit', 'nem brit']
+
+    foglalkozások:
+        pék: ['a pék', 'pék', 'nem pék']
+        miniszter: ['a miniszter', 'miniszter', 'nem miniszter']
+        rendőr: ['a rendőr', 'rendőr', 'nem rendőr']
+        ápoló: ['az ápoló', 'ápoló', 'nem ápoló']
+        tanár: ['a tanár', 'tanár', 'nem tanár']
+        szoftverfejlesztő: ['a szoftverfejlesztő', 'szoftverfejlesztő', 'nem szoftverfejlesztő']
+        eladó: ['az eladó', 'eladó', 'nem eladó']
+
+    háziállatok:
+        macska: ['a macska gazdája', 'macskát tart', 'nem tart macskát']
+        kutya: ['a kutya gazdája', 'kutyát tart', 'nem tart kutyát']
+        nyúl: ['a nyúl gazdája', 'nyulat tart', 'nem tart nyulat']
+        zebra: ['a zebra gazdája', 'zebrát tart', 'nem tart zebrát']
+        papagáj: ['a papagáj gazdája', 'papagájt tart', 'nem tart papagájt']
+        csiga: ['a csiga gazdája', 'csigát tart', 'nem tart csigát']
+        botsáska: ['a botsáska gazdája', 'botsáskát tart', 'nem tart botsáskát']
+
+    italok:
+        gyümölcslé: ['a gyümölcsléivó', 'gyümölcslevet iszik', 'nem iszik gyümölcslevet']
+        kávé: ['a kávéivó', 'kávét iszik', 'nem iszik kávét']
+        tej: ['a tejivó', 'tejet iszik', 'nem iszik tejet']
+        turmix: ['a turmixivó', 'turmixot iszik', 'nem iszik turmixot']
+        kakaó: ['a kakaóivó', 'kakaót iszik', 'nem iszik kakaót']
+        tea: ['a teaivó', 'teát iszik', 'nem iszik teát']
+        szóda: ['a szódaivó', 'szódát iszik', 'nem iszik szódát']
+
+    kedvenc könyvműfajok:
+        ismeretterjesztő: ['az ismeretterjesztő-olvasó', 'ismeretterjesztőt olvas', 'nem olvas ismeretterjesztőt']
+        krimi: ['a krimiolvasó', 'krimit olvas', 'nem olvas krimit']
+        fantasy: ['a fantasyolvasó', 'fantasyt olvas', 'nem olvas fantasyt']
+        sci-fi: ['a sci-fi-olvasó', 'sci-fit olvas', 'nem olvas sci-fit']
+        horror: ['a horrorolvasó', 'horrorregényt olvas', 'nem olvas horrorregényt']
+        költészet: ['a verskedvelő', 'verset olvas', 'nem olvas verset']
+        romantikus regény: ['a romantikusregény-olvasó', 'romantikus regényt olvas', 'nem olvas romantikus regényt']
+
+    hobbik:
+        bouldering: ['a boulderező', 'boulderezik', 'nem boulderezik']
+        festés: ['a festő', 'fest', 'nem fest']
+        társasjáték: ['a társasjátékos', 'társasjátékot játszik', 'nem játszik társasjátékot']
+        tenisz: ['a teniszező', 'teniszezik', 'nem teniszezik']
+        horgolás: ['a horgolásrajongó', 'horgol', 'nem horgol']
+        foci: ['a focista', 'focizik', 'nem focizik']
+        kézilabda: ['a kézilabdázó', 'kézilabdázik', 'nem kézilabdázik']
+
+    kedvenc gyümölcsök:
+        alma: ['az almakedvelő', 'szereti az almát', 'nem szereti az almát']
+        körte: ['a körtekedvelő', 'szereti a körtét', 'nem szereti a körtét']
+        narancs: ['a narancskedvelő', 'szereti a narancsot', 'nem szereti a narancsot']
+        banán: ['a banánkedvelő', 'szereti a banánt', 'nem szereti a banánt']
+        eper: ['az eperkedvelő', 'szereti az epret', 'nem szereti az epret']
+        fekete ribizli: ['a feketeribizli-kedvelő', 'szereti a fekete ribizlit', 'nem szereti a fekete ribizlit']
+        szamóca: ['a szamócakedvelő', 'szereti a szamócát', 'nem szereti a szamócát']
+
+red_herring_attributes:
+    vörös_haj: ['a vörös hajú', 'vörös hajú']
+    szemüveg: ['a szemüveges', 'szemüveget visel']
+    tetoválás: ['a tetovált', 'tetovált']
+    gitár: ['a gitáros', 'gitározik']
+    kerékpár: ['a kerékpáros', 'kerékpárja van']
+    tengerimalac: ['a tengerimalac gazdája', 'tengerimalacot tart']
+    kaktusz: ['a kaktuszos', 'nem tart kaktuszt']
+    videójátékok: ['a videojátékos', 'videójátékot játszik']
+    # "nővér" (sister) also means "nurse" in Hungarian, so fivér (brother) is used instead.
+    fivér: ['a fivéres', 'fivére van']
+    mangó: ['az, aki szerint a mangó a második legjobb gyümölcs,', 'szerint a mangó a második legjobb gyümölcs']
+    vitorlázás: ['az, aki gyakran vitorlázik,', 'gyakran vitorlázik']
+    Kanada: ['az, aki járt Kanadában,', 'járt Kanadában']
+    matematika: ['az, aki matematikaból mesterfokozatot szerzett,', 'matematikaból mesterfokozatot szerzett']
+    fizika: ['a fizikarajongó', 'szereti a fizikát']
+    vén_állat: ['az, akinek háziállata öreg a fajtájához képest,', 'háziállata öreg a fajtájához képest']
+    síugrás: ['a síugrásrajongó', 'síugrást néz']
+
+red_herring_facts:
+    hering: ['a heringek halak']
+    naprendszer: ['a naprendszer kb. 200 km/s sebességgel kering a galaxis középpontja körül']
+    rejtvény: ['a rejtvényfejtés szórakoztató']
+    házak: ['az utca összes háza szép kerttel rendelkezik']
+    ajtók: ['több háznak is zöld ajtaja van']
+    ablakok: ['minden házban nagy ablakok vannak']
+    autók: ['az utcán sok autó van']
+    uborka: ['az uborka egy bogyó']
+    csiga: ['a csigák puhatestűek']
+    kávé: ['a kávé koffeint tartalmaz']
+
+clues_dict:
+    found_at: '{attribute_desc} a {i_object}. számú házban lakik.'
+    not_at: '{attribute_desc} nem lakik a {i_object}. számú házban.'
+    next_to: '{attribute_desc_1} {attribute_desc_2} mellett lakik.'
+    not_next_to: '{attribute_desc_1} nem lakik {attribute_desc_2} mellett, és különböző személyek.'
+    just_left_of: '{attribute_desc_1} közvetlenül {attribute_desc_2} bal oldalán lakik.'
+    just_right_of: '{attribute_desc_1} közvetlenül {attribute_desc_2} jobb oldalán lakik.'
+    left_of: '{attribute_desc_1} {attribute_desc_2} bal oldalán lakik.'
+    right_of: '{attribute_desc_1} {attribute_desc_2} jobb oldalán lakik.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    between: '{attribute_desc_2} {attribute_desc_1} és {attribute_desc_3} között lakik.'
+    not_between: '{attribute_desc_1} nem lakik {attribute_desc_2} és {attribute_desc_3} között, és ők hárman különböző személyek.'
+    multiple_between: '{attribute_desc_1} és {attribute_desc_2} között {n_between} ház van.'
+    one_between: '{attribute_desc_1} és {attribute_desc_2} között egy ház van.'
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'nom']
+    not_next_to: ['nom', 'nom']
+    just_left_of: ['nom', 'nom']
+    just_right_of: ['nom', 'nom']
+    left_of: ['nom', 'nom']
+    right_of: ['nom', 'nom']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['nom', 'nom', 'nom']
+    not_between: ['nom', 'nom', 'nom']
+    multiple_between: ['nom', 'nom']
+    one_between: ['nom', 'nom']
+
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} {attribute_desc_herring} mellett lakik.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} tudja, hogy {fact}.'
+    friends: '{attribute_desc} és {attribute_desc_herring} nagyon jóban vannak.'
+    herring_found_at: '{attribute_desc_herring} a {i_object}. számú házban lakik.'
+    herring_not_at: '{attribute_desc_herring} nem lakik a {i_object}. számú házban.'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'nom']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+prompt_and: és
+
+prompt_templates:
+    - |
+        Egy sor ház 1-től {n_objects}-ig van számozva balról jobbra.
+
+        Minden házban egy személy él, akinek egyedi jellemzője van a következő kategóriák mindegyikében:
+
+        {chosen_attributes_str}
+
+        Ezenkívül a következőket tudjuk:
+
+        {chosen_clues_str}
+
+        Kinek milyen jellemzői vannak, és melyik házban lakik?
+
+        Kérjük, adja meg a választ JSON dictionary formájában. Minden key object_X legyen, ahol X a ház száma. Minden value az adott kategóriákból az X. számú házban lakó személyhez tartozó jellemzők listája legyen.
+
+        A következő egy példa a válasz formátumára:
+
+        {solution_template}
+    - |
+        Egy sor ház 1-től {n_objects}-ig van számozva balról jobbra.
+
+        Minden házban egy személy él, akinek egyedi jellemzője van ebben a kategóriában: {chosen_attributes_str}.
+
+        Ezenkívül a következőket tudjuk:
+
+        {chosen_clues_str}
+
+        Milyen jellemzője van az egyes házakban lakó személyeknek?
+
+        Kérjük, adja meg a választ JSON dictionary formájában. Minden key object_X legyen, ahol X a ház száma. Minden value egy lista, amely az adott kategória X. számú házban lakó személyhez tartozó jellemzőjét tartalmazza.
+
+        A következő egy példa a válasz formátumára:
+
+        {solution_template}
+
+prompt_replacements:
+    'a 1. számú': 'az 1. számú'
+    ',.': .

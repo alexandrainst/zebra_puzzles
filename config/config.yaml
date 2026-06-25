@@ -13,6 +13,7 @@
 # sv/hus
 # fi/talot
 # fr/maisons
+# hu/hazak
 
 defaults:
   - language: en/houses
