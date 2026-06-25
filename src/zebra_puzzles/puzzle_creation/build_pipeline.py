@@ -7,9 +7,11 @@ from zebra_puzzles.puzzle_creation.clue_selection import choose_clues
 from zebra_puzzles.puzzle_creation.prompt_completion import complete_prompt
 from zebra_puzzles.puzzle_creation.red_herring_selection import choose_red_herrings
 from zebra_puzzles.zebra_utils import (
+    build_case_to_index,
     format_solution_as_json,
     generate_solution,
     shuffle_clues,
+    validate_language_config,
 )
 
 
@@ -138,8 +140,8 @@ def build_dataset(
     red_herring_clue_weights: dict[str, float],
     red_herring_cases_dict: dict[str, list[str]],
     data_folder_str: str,
-    case_to_index: dict[str, int],
-    red_herring_case_to_index: dict[str, int],
+    attribute_cases: list[str],
+    red_herring_attribute_cases: list[str],
 ) -> None:
     """Build a dataset of zebra puzzles.
 
@@ -164,9 +166,18 @@ def build_dataset(
         red_herring_clue_weights: Weights for red herring clue selection as a dictionary containing a title and a weight for each clue type.
         red_herring_cases_dict: A dictionary containing the red herring clue type as a key and a list of grammatical cases for clue attributes as values.
         data_folder_str: Folder to save the dataset in as a string.
-        case_to_index: Mapping from grammatical case names to attribute description list indices.
-        red_herring_case_to_index: Mapping from grammatical case names to red herring attribute description list indices.
+        attribute_cases: Ordered list of case names for regular attribute descriptions.
+        red_herring_attribute_cases: Ordered list of case names for red herring attribute descriptions.
     """
+    validate_language_config(
+        attribute_cases=attribute_cases,
+        red_herring_attribute_cases=red_herring_attribute_cases,
+        clue_cases_dict=clue_cases_dict,
+        red_herring_cases_dict=red_herring_cases_dict,
+    )
+    case_to_index = build_case_to_index(attribute_cases)
+    red_herring_case_to_index = build_case_to_index(red_herring_attribute_cases)
+
     (
         prompt_filenames,
         clue_type_filenames,
