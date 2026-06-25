@@ -50,7 +50,10 @@ The meaning should be consistent across languages, unless this would compromise 
 Check every item below and fix any problems found:
 
 **Config validation**
-- You can use `validate_language_config` in `src/zebra_puzzles/zebra_utils.py` to check automatically.
+Run the validation tool — it checks list lengths, unknown case references, and required `is`/`is_not` entries:
+```bash
+uv run .claude/skills/add-language/validate_config.py language=<lang_code>/<theme_name>
+```
 
 **"is" form of red herring attributes**
 The `same_herring` and `double_herring` templates use the red herring's `is` form as a direct predicate after a nominative subject:
@@ -75,7 +78,7 @@ Good (unambiguous): "X ja Y välissä on N taloa" (explicitly N houses between)
 `none` is a sentinel: in a positive clue it resolves to the `is` form; in a negative clue it resolves to the `is_not` form. Use `none` in `clue_cases_dict` wherever the clue template uses the predicate form of an attribute.
 
 **Unambiguous templates**
-- `prompt_templates` must be unambiguous. It must be clear that each object has exactly one value from each category.
+- `prompt_templates` must be unambiguous. It must be clear that each object has exactly one value from each category and that each value is assigned to exactly one object.
 
 ### 4. Update README.md
 Add the new language to the language/theme list under the relevant theme. Use the same format as existing entries:
@@ -92,7 +95,7 @@ Add `<lang_code>/<theme_name>` to the comment block listing all valid language/t
 Code changes are needed when:
 - A new grammatical feature requires a new clue type (rare)
 - Number agreement rules require special handling beyond what templates support (e.g. Finnish partitive after numbers 2+, which was solved via the template directly)
-- Major changes are required to clue templates to make them unambiguous or grammatically correctin the new language
+- Major changes are required to clue templates to make them unambiguous or grammatically correct in the new language
 
 If changes are needed, explain what they are before implementing.
 
@@ -119,12 +122,12 @@ If the build fails with a `ValueError`, read the message — it will point to th
 ### 9. Show and review the puzzles
 Read and display `data/<lang_code>_<theme_name>/4x5/5rh/puzzles/zebra_puzzle_0.txt`.
 
-Ask yourself:
+First self-review:
 1. Does the grammar look correct?
 2. Are all clue templates natural in the language?
-3. Are the `multiple_between` / `one_between` clues unambiguous?
+3. Is the puzzle unambiguous and looks solvable?
 
-Make any corrections to the config before the language is considered complete. Then re-run the puzzle generation to verify the fixes.
+Then show the puzzle to the user and ask if the puzzle looks correct. Wait for feedback, make any corrections to the config, and re-run puzzle generation to verify the fixes.
 
-### 9. Consider improving this skill
-If you found any part of this process confusing or error-prone, please suggest improvements to this skill.
+### 10. Consider improving this skill
+If you found any part of this process confusing or error-prone, suggest improvements to this skill.
