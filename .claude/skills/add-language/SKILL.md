@@ -91,7 +91,7 @@ Each attribute must be unambiguous. It should not be easy to confuse one attribu
 Code changes are needed when:
 - A new grammatical feature requires a new clue type (rare)
 - Number agreement rules require special handling beyond what templates support (e.g. Finnish partitive after numbers 2+, which was solved via the template directly)
-- Major changes are required to clue templates to make them unambiguous or grammatically correct in the new language
+- Major changes are required to clue templates to make them unambiguous or grammatically correct in the new language. For example if word order in the new language is very different and cannot be handled by existing templates or a few prompt_replacements.
 
 If changes are needed, explain what they are before implementing.
 
