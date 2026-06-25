@@ -80,17 +80,7 @@ Good (unambiguous): "X ja Y välissä on N taloa" (explicitly N houses between)
 **Unambiguous templates**
 - `prompt_templates` must be unambiguous. It must be clear that each object has exactly one value from each category and that each value is assigned to exactly one object.
 
-### 4. Update README.md
-Add the new language to the language/theme list under the relevant theme. Use the same format as existing entries:
-```
-- <Theme> theme:
-    - Preliminary versions: ... and <LanguageName> 🏳️.
-```
-
-### 5. Update config/config.yaml
-Add `<lang_code>/<theme_name>` to the comment block listing all valid language/theme combinations near the top of the file.
-
-### 6. Check if code changes are needed
+### 4. Check if code changes are needed
 
 Code changes are needed when:
 - A new grammatical feature requires a new clue type (rare)
@@ -101,11 +91,11 @@ If changes are needed, explain what they are before implementing.
 
 Run tests with `make test` to verify that any code changes are correct and don't break existing languages.
 
-### 7. Run make check
+### 5. Run make check
 
 Check formatting by running `make check`. Fix any issues found.
 
-### 8. Generate puzzles
+### 6. Generate puzzles
 Run the following to generate 3 puzzles with 4 objects, 5 attributes and 5 red herrings:
 
 ```bash
@@ -119,7 +109,7 @@ uv run src/scripts/build_dataset.py \
 
 If the build fails with a `ValueError`, read the message — it will point to the exact config key and entry that is wrong (wrong list length, unknown case name, etc.).
 
-### 9. Show and review the puzzles
+### 7. Show and review the puzzles
 Read and display `data/<lang_code>_<theme_name>/4x5/5rh/puzzles/zebra_puzzle_0.txt`.
 
 First self-review:
@@ -128,6 +118,16 @@ First self-review:
 3. Is the puzzle unambiguous and looks solvable?
 
 Then show the puzzle to the user and ask if the puzzle looks correct. Wait for feedback, make any corrections to the config, and re-run puzzle generation to verify the fixes.
+
+### 8. Update README.md
+Add the new language to the language/theme list under the relevant theme. Use the same format as existing entries:
+```
+- <Theme> theme:
+    - Preliminary versions: ... and <LanguageName> 🏳️.
+```
+
+### 9. Update config/config.yaml
+Add `<lang_code>/<theme_name>` to the comment block listing all valid language/theme combinations near the top of the file.
 
 ### 10. Consider improving this skill
 If you found any part of this process confusing or error-prone, suggest improvements to this skill.
