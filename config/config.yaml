@@ -12,6 +12,7 @@
 # nn/hus
 # sv/hus
 # fi/talot
+# fr/maisons
 
 defaults:
   - language: en/houses

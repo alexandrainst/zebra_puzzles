@@ -42,9 +42,11 @@ Required top-level keys (in this order):
 11. `red_herring_cases_dict:` — red herring clue type → list of case names (must only use cases from `red_herring_attribute_cases` plus `none`)
 12. `prompt_templates:` — list of prompt section strings
 13. `prompt_and:` — word for "and" in lists (e.g. "and", "und", "et")
-14. `prompt_replacements:` — dict of literal string substitutions applied to the entire generated prompt after all templates are filled in. Use it to fix awkward phrasings that arise when attribute descriptions combine with clue or fact templates in unexpected ways. Example in English: `knows that it is fun to solve: enjoys solving`. Can be empty (`{}`) if no fixups are needed. If the language uses commas after relative clauses, you can add a comma at the end of some attribute descriptions and then remove it at the end of sentences with a replacement rule, e.g. `',.': .`.
+14. `prompt_replacements:` — dict of literal string substitutions applied to the entire generated prompt after all templates are filled in. Use it to fix awkward phrasings that arise when attribute descriptions combine with clue or fact templates in unexpected ways. Example in English: `knows that it is fun to solve: enjoys solving`. Can be empty (`{}`) if no fixups are needed. If the language uses commas after relative clauses, you can add a comma at the end of some attribute descriptions and then remove it at the end of sentences with a replacement rule, e.g. `',.': .`. You can also use this for contractions.
 
 The meaning should be consistent across languages, unless this would compromise grammar, unambiguity or make puzzles too complicated to generate.
+
+If the language requires specifying gender for each attribute, use the one that would sound the most natural when this is unknown and be consistent across all attributes and red herring attributes.
 
 ### 3. Validate the config before generating puzzles
 
@@ -86,6 +88,9 @@ The technical terms "JSON dictionary", "key" and "value" should not be translate
 **Unambiguous attributes**
 Each attribute must be unambiguous. It should not be easy to confuse one attribute with another or a red herring attribute. Warn the user if this requires changing the meaning in the new language.
 
+**Inconsistent gender**
+If the language implies the gender of the object described by attributes and red herring attributes, check that they can consistently be combined in a puzzle to describe the same object of unknown gender.
+
 ### 4. Check if code changes are needed
 
 Code changes are needed when:
@@ -125,7 +130,7 @@ Checking multiple puzzles increases the chance of seeing rare clue types (such a
 
 First self-review:
 1. Does the grammar look correct?
-2. Are all clue templates natural in the language?
+2. Does it sound natural?
 3. Is the puzzle unambiguous and looks solvable?
 
 Then show the first puzzle to the user and ask if the puzzle looks correct. Wait for feedback, make any corrections to the config, and re-run puzzle generation to verify the fixes.
