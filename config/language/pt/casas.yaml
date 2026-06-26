@@ -161,7 +161,7 @@ prompt_templates:
     - |
         Uma fila de casas tem os números 1 a {n_objects} da esquerda para a direita.
 
-        Em cada casa vive uma pessoa com atributos únicos em cada uma das seguintes categorias:
+        Em cada casa vive uma pessoa com um atributo único em cada uma das seguintes categorias:
 
         {chosen_attributes_str}
 

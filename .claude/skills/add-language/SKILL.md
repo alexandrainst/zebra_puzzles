@@ -97,7 +97,7 @@ Good (unambiguous): "X ja Y välissä on N taloa" (explicitly N houses between)
 `none` is a sentinel: in a positive clue it resolves to the `is` form; in a negative clue it resolves to the `is_not` form. Use `none` in `clue_cases_dict` wherever the clue template uses the predicate form of an attribute.
 
 **Unambiguous templates**
-- `prompt_templates` must be unambiguous. It must be clear that each object has exactly one value from each category and that each value is assigned to exactly one object.
+- `prompt_templates` must be unambiguous. It must be clear that each object has exactly one value from each category and that each value is assigned to exactly one object. E.g. "In each house lives a person with a unique attribute in each of the following categories:".
 
 The technical terms "JSON dictionary", "key" and "value" should not be translated, but they can be formatted differently if that would look natural in the language.
 
