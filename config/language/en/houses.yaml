@@ -49,7 +49,7 @@ attributes:
         juice: ['the juice drinker', 'drinks juice', 'does not drink juice']
         coffee: ['the coffee drinker', 'drinks coffee', 'does not drink coffee']
         milk: ['the milk drinker', 'drinks milk', 'does not drink milk']
-        smoothie: ['the smoothie drinker', 'drinks smoothie', 'does not drink smoothie']
+        smoothie: ['the smoothie drinker', 'drinks smoothies', 'does not drink smoothies']
         cocoa: ['the cocoa drinker', 'drinks cocoa', 'does not drink cocoa']
         tea: ['the tea drinker', 'drinks tea', 'does not drink tea']
         soda: ['the soda drinker', 'drinks soda', 'does not drink soda']
