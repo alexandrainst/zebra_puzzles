@@ -15,6 +15,7 @@
 # fr/maisons
 # hu/hazak
 # pt/casas
+# el/spitia
 
 defaults:
   - language: en/houses

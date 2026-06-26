@@ -32,7 +32,7 @@ Create `config/language/<lang_code>/` directory if needed, then write `<theme_na
 
 **Before writing any attribute forms, make three decisions:**
 
-1. **Gender policy**: If the language marks grammatical gender, decide the default now (e.g. "masculine for unknown gender"). Write it as a YAML comment at the top of the file. Apply it to ALL nom/is/is_not forms for both regular attributes AND red herring attributes — they can appear in the same puzzle describing the same person of unknown gender.
+1. **Gender default**: If the language marks grammatical gender, decide the default now (e.g. "masculine for unknown gender"). Write it as a YAML comment at the top of the file. Apply it to ALL nom/is/is_not forms for both regular attributes AND red herring attributes — they can appear in the same puzzle describing the same person of unknown gender.
 
 2. **Case requirements**: Look at the clue templates you will translate and identify which prepositions or postpositions are used for positional clues (`next_to`, `just_left_of`, `between`). The case these prepositions govern determines whether you need extra cases beyond `[nom, is, is_not]`. If all positional prepositions take nominative (as in Hungarian), no extra cases are needed.
 
@@ -107,7 +107,6 @@ Each attribute must be unambiguous. It should not be easy to confuse one attribu
 ### 4. Check if code changes are needed
 
 Code changes are needed when:
-- A new grammatical feature requires a new clue type (rare)
 - Number agreement rules require special handling beyond what templates support (e.g. Finnish partitive after numbers 2+, which was solved via the template directly)
 - Major changes are required to clue templates to make them unambiguous or grammatically correct in the new language. For example if word order in the new language is very different and cannot be handled by existing templates or a few prompt_replacements.
 
@@ -147,6 +146,8 @@ First self-review:
 3. Is the puzzle unambiguous and looks solvable?
 4. Is the punctuation correct?
 
+Make any corrections to the config, delete the generated puzzles for this language, and re-run puzzle generation to verify the fixes.
+
 ### 8. Update README.md
 Add the new language to the language/theme list under the relevant theme. Use the same format as existing entries:
 ```
@@ -162,4 +163,4 @@ If you found any part of this process confusing or error-prone, suggest improvem
 
 ### 11. User-review
 
-Show the first puzzle to the user and ask if the puzzle looks correct. Wait for feedback, make any corrections to the config, delete the generated puzzles for this language, and re-run puzzle generation to verify the fixes.
+Show the first puzzle to the user and ask if the puzzle looks correct.
