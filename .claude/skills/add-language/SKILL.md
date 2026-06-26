@@ -28,6 +28,19 @@ For languages that inflect attributes by case, additionally read the matching te
 ### 2. Create the config file
 Create `config/language/<lang_code>/` directory if needed, then write `<theme_name>.yaml`.
 
+**Before writing any attribute forms, make three decisions:**
+
+1. **Gender policy**: If the language marks grammatical gender, decide the default now (e.g. "masculine for unknown gender"). Write it as a YAML comment at the top of the file. Apply it to ALL nom/is/is_not forms for both regular attributes AND red herring attributes — they can appear in the same puzzle describing the same person of unknown gender.
+
+2. **Case requirements**: Look at the clue templates you will translate and identify which prepositions or postpositions are used for positional clues (`next_to`, `just_left_of`, `between`). The case these prepositions govern determines whether you need extra cases beyond `[nom, is, is_not]`. If all positional prepositions take nominative (as in Hungarian), no extra cases are needed.
+
+3. **Prompt replacements**: Think ahead — will relative clauses leave trailing commas before periods? Will articles contract (`de le` → `du`)? Note these now and add to `prompt_replacements` as you encounter them while writing the config.
+
+**Key clue template grammar** (refer to this when writing `is` forms and clue templates):
+- `same_object`: `{attribute_desc_1} {attribute_desc_2}.` — desc_1 is the subject (nom), desc_2 is a bare predicate (the `is` form used directly). For languages that omit the copula (e.g. Hungarian 3rd-person present), this works as-is.
+- `friends`: `{attribute_desc} {attribute_desc_herring}.` (or your translation) — BOTH descriptions must function as co-subjects. Use nominative for both. If the language would require a different case for the second subject, restructure the template to use "X and Y are friends" with explicit conjunction instead.
+- All positional clues (`found_at`, `next_to`, `just_left_of`, `between`): all desc forms are subjects (nom).
+
 Required top-level keys (in this order):
 1. Header comment: `# Config file for generating zebra puzzles in <LanguageName> with the <theme> theme.`
 2. `theme: <lang_code>_<theme_name>`
@@ -45,8 +58,6 @@ Required top-level keys (in this order):
 14. `prompt_replacements:` — dict of literal string substitutions applied to the entire generated prompt after all templates are filled in. Use it to fix awkward phrasings that arise when attribute descriptions combine with clue or fact templates in unexpected ways. Example in English: `knows that it is fun to solve: enjoys solving`. Can be empty (`{}`) if no fixups are needed. If the language uses commas after relative clauses, you can add a comma at the end of some attribute descriptions and then remove it at the end of sentences with a replacement rule, e.g. `',.': .`. You can also use this for contractions.
 
 The meaning should be consistent across languages, unless this would compromise grammar, unambiguity or make puzzles too complicated to generate.
-
-If the language requires specifying gender for each attribute, use the one that would sound the most natural when this is unknown and be consistent across all attributes and red herring attributes.
 
 ### 3. Validate the config before generating puzzles
 
@@ -86,10 +97,7 @@ Good (unambiguous): "X ja Y välissä on N taloa" (explicitly N houses between)
 The technical terms "JSON dictionary", "key" and "value" should not be translated, but they can be formatted differently if that would look natural in the language.
 
 **Unambiguous attributes**
-Each attribute must be unambiguous. It should not be easy to confuse one attribute with another or a red herring attribute. Warn the user if this requires changing the meaning in the new language.
-
-**Inconsistent gender**
-If the language implies the gender of the object described by attributes and red herring attributes, check that they can consistently be combined in a puzzle to describe the same object of unknown gender.
+Each attribute must be unambiguous. It should not be easy to confuse one attribute with another or a red herring attribute. In particular, check red herring attributes against occupation names in the target language — a word that means both a red herring concept and an occupation (e.g. Hungarian "nővér" = both "sister" and "nurse") should be replaced. Warn the user if avoiding ambiguity requires changing the meaning.
 
 ### 4. Check if code changes are needed
 
@@ -132,6 +140,7 @@ First self-review:
 1. Does the grammar look correct?
 2. Does it sound natural?
 3. Is the puzzle unambiguous and looks solvable?
+4. Is the punctuation correct?
 
 Then show the first puzzle to the user and ask if the puzzle looks correct. Wait for feedback, make any corrections to the config, and re-run puzzle generation to verify the fixes.
 
