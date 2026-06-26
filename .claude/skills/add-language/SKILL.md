@@ -25,6 +25,8 @@ For languages that inflect attributes by case, additionally read the matching te
 | Accusative + dative + genitive (e.g. Icelandic) | `config/language/is/husum.yaml` |
 | Genitive only (e.g. Finnish) | `config/language/fi/talot.yaml` |
 
+Before writing the config, briefly scan whether the language has any feature that clearly cannot be expressed by translating the existing clue templates and attribute forms — for example, a radically different word order, a grammatical category with no analog in existing configs, or a number agreement rule that affects clue templates. Note anything flagged here and address it at step 4.
+
 ### 2. Create the config file
 Create `config/language/<lang_code>/` directory if needed, then write `<theme_name>.yaml`.
 
