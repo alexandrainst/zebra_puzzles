@@ -14,6 +14,7 @@
 # fi/talot
 # fr/maisons
 # hu/hazak
+# pt/casas
 
 defaults:
   - language: en/houses

@@ -36,7 +36,8 @@ Create `config/language/<lang_code>/` directory if needed, then write `<theme_na
 
 2. **Case requirements**: Look at the clue templates you will translate and identify which prepositions or postpositions are used for positional clues (`next_to`, `just_left_of`, `between`). The case these prepositions govern determines whether you need extra cases beyond `[nom, is, is_not]`. If all positional prepositions take nominative (as in Hungarian), no extra cases are needed.
 
-3. **Prompt replacements**: Think ahead — will relative clauses leave trailing commas before periods? Will articles contract (`de le` → `du`)? Note these now and add to `prompt_replacements` as you encounter them while writing the config. If you are considering adding a lot of replacements, it may be better to edit the code to handle the grammar.
+3. **Prompt replacements**: Think ahead — will relative clauses leave trailing commas before periods? Will articles contract? Note these now and add to `prompt_replacements` as you encounter them while writing the config. If you are considering adding a lot of replacements, it may be better to edit the code to handle the grammar.
+   - Romance languages typically contract `de + article`: French `de le → du`, Portuguese `de o → do`, Spanish `de el → del`, Italian `di il → del`. Since nom forms follow positional prepositions in clue templates (e.g. `à esquerda de {attribute_desc}`), these contractions arise naturally. Add the relevant `"de o ": "do "` style rule upfront.
 
 **Key clue template grammar** (refer to this when writing `is` forms and clue templates):
 - `same_object`: `{attribute_desc_1} {attribute_desc_2}.` — desc_1 is the subject (nom), desc_2 is a bare predicate (the `is` form used directly). For languages that omit the copula (e.g. Hungarian 3rd-person present), this works as-is.
@@ -83,6 +84,8 @@ So `is` must be a full predicate phrase that makes sense after a nominative subj
 ✓ Right: `'porte des lunettes'` → gives "X porte des lunettes" = "X wears glasses"
 
 Check every red herring attribute's `is` form. If the form is just a noun or a "has/is + noun" copular phrase that doesn't work standalone, fix it to a verb phrase.
+
+Note: the `cactus` red herring intentionally uses a *negative* `is` form (e.g. "does not own a cactus") as a deliberate puzzle trick. This is the only exception — do not replicate it for other attributes.
 
 **`multiple_between` vs `one_between` ambiguity**
 For `multiple_between` the puzzle description says there are N houses between two people (N > 1). The template must be unambiguous — the solver must be able to tell how many houses are between them, not just that it's more than one.
@@ -144,8 +147,6 @@ First self-review:
 3. Is the puzzle unambiguous and looks solvable?
 4. Is the punctuation correct?
 
-Then show the first puzzle to the user and ask if the puzzle looks correct. Wait for feedback, make any corrections to the config, delete the generated puzzles for this language, and re-run puzzle generation to verify the fixes.
-
 ### 8. Update README.md
 Add the new language to the language/theme list under the relevant theme. Use the same format as existing entries:
 ```
@@ -158,3 +159,7 @@ Add `<lang_code>/<theme_name>` to the comment block listing all valid language/t
 
 ### 10. Consider improving this skill
 If you found any part of this process confusing or error-prone, suggest improvements to this skill. Did you have to make decisions or look up information that could be included in the skill? Did you have to read the code to understand how it works? If so, consider adding that information to this skill.
+
+### 11. User-review
+
+Show the first puzzle to the user and ask if the puzzle looks correct. Wait for feedback, make any corrections to the config, delete the generated puzzles for this language, and re-run puzzle generation to verify the fixes.
