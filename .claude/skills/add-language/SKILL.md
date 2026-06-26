@@ -34,7 +34,7 @@ Create `config/language/<lang_code>/` directory if needed, then write `<theme_na
 
 2. **Case requirements**: Look at the clue templates you will translate and identify which prepositions or postpositions are used for positional clues (`next_to`, `just_left_of`, `between`). The case these prepositions govern determines whether you need extra cases beyond `[nom, is, is_not]`. If all positional prepositions take nominative (as in Hungarian), no extra cases are needed.
 
-3. **Prompt replacements**: Think ahead — will relative clauses leave trailing commas before periods? Will articles contract (`de le` → `du`)? Note these now and add to `prompt_replacements` as you encounter them while writing the config.
+3. **Prompt replacements**: Think ahead — will relative clauses leave trailing commas before periods? Will articles contract (`de le` → `du`)? Note these now and add to `prompt_replacements` as you encounter them while writing the config. If you are considering adding a lot of replacements, it may be better to edit the code to handle the grammar.
 
 **Key clue template grammar** (refer to this when writing `is` forms and clue templates):
 - `same_object`: `{attribute_desc_1} {attribute_desc_2}.` — desc_1 is the subject (nom), desc_2 is a bare predicate (the `is` form used directly). For languages that omit the copula (e.g. Hungarian 3rd-person present), this works as-is.
@@ -142,7 +142,7 @@ First self-review:
 3. Is the puzzle unambiguous and looks solvable?
 4. Is the punctuation correct?
 
-Then show the first puzzle to the user and ask if the puzzle looks correct. Wait for feedback, make any corrections to the config, and re-run puzzle generation to verify the fixes.
+Then show the first puzzle to the user and ask if the puzzle looks correct. Wait for feedback, make any corrections to the config, delete the generated puzzles for this language, and re-run puzzle generation to verify the fixes.
 
 ### 8. Update README.md
 Add the new language to the language/theme list under the relevant theme. Use the same format as existing entries:
