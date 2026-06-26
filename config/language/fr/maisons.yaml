@@ -158,15 +158,16 @@ red_herring_cases_dict:
 
 prompt_and: et
 
+# There should be a space before ':' in French, which we add later with prompt_replacements.
 prompt_templates:
     - |
         Une rangée de maisons porte les numéros 1 à {n_objects} de gauche à droite.
 
-        Dans chaque maison vit une personne ayant un attribut unique dans chacune des catégories suivantes :
+        Dans chaque maison vit une personne ayant un attribut unique dans chacune des catégories suivantes:
 
         {chosen_attributes_str}
 
-        On sait également ce qui suit :
+        On sait également ce qui suit:
 
         {chosen_clues_str}
 
@@ -174,15 +175,15 @@ prompt_templates:
 
         Veuillez soumettre votre réponse sous la forme d'un dictionnaire JSON. Chaque clé doit être object_X, où X est le numéro de la maison. Chaque valeur doit être une liste des attributs des catégories mentionnées ci-dessus appartenant à la personne habitant la maison no. X.
 
-        Voici un exemple du format de réponse :
+        Voici un exemple du format de réponse:
 
         {solution_template}
     - |
         Une rangée de maisons porte les numéros 1 à {n_objects} de gauche à droite.
 
-        Dans chaque maison vit une personne ayant un attribut unique dans la catégorie suivante : {chosen_attributes_str}.
+        Dans chaque maison vit une personne ayant un attribut unique dans la catégorie suivante: {chosen_attributes_str}.
 
-        On sait également ce qui suit :
+        On sait également ce qui suit:
 
         {chosen_clues_str}
 
@@ -190,10 +191,12 @@ prompt_templates:
 
         Veuillez soumettre votre réponse sous la forme d'un dictionnaire JSON. Chaque clé doit être object_X, où X est le numéro de la maison. Chaque valeur doit être une liste contenant l'attribut de la catégorie mentionnée ci-dessus appartenant à la personne habitant la maison no. X.
 
-        Voici un exemple du format de réponse :
+        Voici un exemple du format de réponse:
 
         {solution_template}
 
 prompt_replacements:
     "de le ": "du "
     "que il ": "qu'il "
+    ": ": " : "
+    ":\n": " :\n"
