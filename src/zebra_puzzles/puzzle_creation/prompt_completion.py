@@ -83,18 +83,23 @@ def complete_prompt(
     else:
         prompt_template = prompt_templates[1]
 
-    # Combine the prompt template with puzzle information
+    # Insert a sentinel in place of the solution template so that prompt_replacements
+    # are applied only to the narrative text, not the JSON example.
+    _sentinel = "\x00"
     prompt = prompt_template.format(
         n_objects=n_objects,
         chosen_categories_str=chosen_categories_str,
         chosen_attributes_str=chosen_attributes_str,
         chosen_clues_str=chosen_clues_str,
-        solution_template=solution_template,
+        solution_template=_sentinel,
     )
 
-    # Replace text in the prompt
+    # Replace text in the prompt (solution template excluded)
     for key, value in prompt_replacements.items():
         prompt = prompt.replace(key, value)
+
+    # Insert the solution template
+    prompt = prompt.replace(_sentinel, solution_template)
 
     return prompt
 
