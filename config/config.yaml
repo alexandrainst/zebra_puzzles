@@ -16,6 +16,7 @@
 # hu/hazak
 # pt/casas
 # el/spitia
+# uk/budynky
 
 defaults:
   - language: en/houses

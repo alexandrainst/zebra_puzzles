@@ -32,7 +32,7 @@ Create `config/language/<lang_code>/` directory if needed, then write `<theme_na
 
 **Before writing any attribute forms, make three decisions:**
 
-1. **Gender default**: If the language marks grammatical gender, decide the default now (e.g. "masculine for unknown gender"). Write it as a YAML comment at the top of the file. Apply it to ALL nom/is/is_not forms for both regular attributes AND red herring attributes — they can appear in the same puzzle describing the same person of unknown gender.
+1. **Gender default**: If the language marks grammatical gender, decide the default now. Write it as a YAML comment at the top of the file. Apply it to ALL nom/is/is_not forms for both regular attributes AND red herring attributes — they can appear in the same puzzle describing the same person of unknown gender. Semantic gender neutrality is preferred. In the houses theme, attributes can describe both men and women, but their genders are never mentioned.
 
 2. **Case requirements**: Look at the clue templates you will translate and identify which prepositions or postpositions are used for positional clues (`next_to`, `just_left_of`, `between`). The case these prepositions govern determines whether you need extra cases beyond `[nom, is, is_not]`. If all positional prepositions take nominative (as in Hungarian), no extra cases are needed.
 
