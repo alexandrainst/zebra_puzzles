@@ -19,6 +19,7 @@
 # uk/budynky
 # pl/domy
 # lt/namai
+# ro/case
 
 defaults:
   - language: en/houses
