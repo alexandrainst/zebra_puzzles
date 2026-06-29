@@ -81,6 +81,8 @@ The meaning should be consistent across languages, unless this would compromise 
 - **Mango (red herring)**: The person likes mango but considers some other fruit better — mango is their runner-up. Avoid phrasings like "second favourite fruit" that imply mango is one of their top picks. Frame it as a ranking where something else comes first, e.g. "thinks the second-best fruit is mango".
 - **Soda**: This is a generic carbonated soft drink (cola, fizzy drink).
 - **Bouldering**: This is rope-free climbing on low boulders/walls, **not** general rock-climbing or mountaineering.
+- **Cocoa**: This is the hot chocolate drink made from cocoa powder, not the cocoa bean, powder, or tree.
+- **Stick insect**: This is the insect that looks like a stick, not a general term for any insect or a wooden stick.
 
 ### 3. Validate the config before generating puzzles
 

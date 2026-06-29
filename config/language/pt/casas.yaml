@@ -44,7 +44,7 @@ attributes:
         café: ["o bebedor de café", "bebe café", "não bebe café"]
         leite: ["o bebedor de leite", "bebe leite", "não bebe leite"]
         batido: ["o bebedor de batido", "bebe batido", "não bebe batido"]
-        cacau: ["o bebedor de cacau", "bebe cacau", "não bebe cacau"]
+        chocolate quente: ["o bebedor de chocolate quente", "bebe chocolate quente", "não bebe chocolate quente"]
         chá: ["o bebedor de chá", "bebe chá", "não bebe chá"]
         refrigerante: ["o bebedor de refrigerante", "bebe refrigerante", "não bebe refrigerante"]
 

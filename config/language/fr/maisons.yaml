@@ -43,7 +43,7 @@ attributes:
         café: ["le buveur de café", "boit du café", "ne boit pas de café"]
         lait: ["le buveur de lait", "boit du lait", "ne boit pas de lait"]
         smoothie: ["le buveur de smoothie", "boit du smoothie", "ne boit pas de smoothie"]
-        cacao: ["le buveur de cacao", "boit du cacao", "ne boit pas de cacao"]
+        chocolat chaud: ["le buveur de chocolat chaud", "boit du chocolat chaud", "ne boit pas de chocolat chaud"]
         thé: ["le buveur de thé", "boit du thé", "ne boit pas de thé"]
         soda: ["le buveur de soda", "boit du soda", "ne boit pas de soda"]
 
