@@ -44,6 +44,8 @@ Create `config/language/<lang_code>/` directory if needed, then write `<theme_na
 
    - **Locative/prepositional case** (Polish, Czech, Serbian, Croatian, Lithuanian, Slovenian): many languages have a locative case used after prepositions of location. Check whether the prepositions for `next_to` and `between` govern locative — in most Slavic languages they govern instrumental or genitive instead, so locative is typically not needed for attribute forms.
 
+   - **Number agreement in `multiple_between`** (most Slavic languages): many Slavic languages require different noun forms after different numerals, e.g. Bosnian/Croatian/Serbian: 2–4 → genitive singular ("kuće"), 5+ → genitive plural ("kuća"). Since `multiple_between` only arises for n≥2 and typical puzzle sizes keep n≤4, using the 2–4 form throughout is acceptable for a preliminary config. Note the limitation in a comment in the config file.
+
    - **Animate/inanimate accusative split** (most Slavic languages): animate masculine nouns use the genitive form in accusative position, while inanimates use a distinct form. This does not require any special case name — since every attribute stores its own form list, just supply the correct surface form for each attribute's accusative slot.
 
    - **Case syncretism** (when two grammatical cases always share the same surface form): list them as one entry in `attribute_cases` with a descriptive combined name, e.g. `gen_dat` for Romanian where genitive = dative. Use that single name in `clue_cases_dict` wherever either case is needed.

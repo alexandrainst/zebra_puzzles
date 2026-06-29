@@ -21,6 +21,7 @@
 # lt/namai
 # ro/case
 # bg/kashti
+# bs/kuce
 
 defaults:
   - language: en/houses
