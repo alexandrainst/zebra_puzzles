@@ -144,7 +144,10 @@ Run tests with `make test` to verify that any code changes are correct and don't
 
 Check formatting by running `make check`. Fix any issues found.
 
-### 6. Generate puzzles
+### 6. Check for semantic drift
+Compare the meaning of the new config with the English template. If any attribute or clue meaning has changed, note it here and explain why it was necessary or align the config with the English meaning.
+
+### 7. Generate puzzles
 Run the following to generate 3 puzzles with 4 objects, 5 attributes and 5 red herrings:
 
 ```bash
@@ -158,7 +161,7 @@ uv run src/scripts/build_dataset.py \
 
 If the build fails with a `ValueError`, read the message — it will point to the exact config key and entry that is wrong (wrong list length, unknown case name, etc.).
 
-### 7. Show and review the puzzles
+### 8. Show and review the puzzles
 Read and display all three generated puzzles:
 - `data/<lang_code>_<theme_name>/4x5/5rh/puzzles/zebra_puzzle_0.txt`
 - `data/<lang_code>_<theme_name>/4x5/5rh/puzzles/zebra_puzzle_1.txt`
@@ -174,19 +177,19 @@ First self-review:
 
 Make any corrections to the config, delete the generated puzzles for this language, and re-run puzzle generation to verify the fixes.
 
-### 8. Update README.md
+### 9. Update README.md
 Add the new language to the language/theme list under the relevant theme. Use the same format as existing entries:
 ```
 - <Theme> theme:
     - Preliminary versions: ... and <LanguageName> 🏳️.
 ```
 
-### 9. Update config/config.yaml
+### 10. Update config/config.yaml
 Add `<lang_code>/<theme_name>` to the comment block listing all valid language/theme combinations near the top of the file.
 
-### 10. Consider improving this skill
+### 11. Consider improving this skill
 If you found any part of this process confusing or error-prone, suggest improvements to this skill. Did you have to make decisions or look up information that could be included in the skill? Did you have to read the code to understand how it works? If so, consider adding that information to this skill.
 
-### 11. User-review
+### 12. User-review
 
 Show the first puzzle to the user and ask if the puzzle looks correct.
