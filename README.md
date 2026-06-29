@@ -131,7 +131,9 @@ o3-mini:
 
 ## Adding a new language or theme
 
-To add a new language or theme:
+If you are using an agent, run `/add-language` in the project to use the guided skill, which handles config creation, validation, puzzle generation and review.
+
+To add a new language or theme manually:
 
 1. For a new language, create a folder in `config/language`.
 2. Copy an existing config file such as `config/language/en/houses.yaml`.
