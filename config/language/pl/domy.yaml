@@ -79,7 +79,7 @@ attributes:
         pomarańcza: ['lubiący pomarańcze', 'lubi pomarańcze', 'nie lubi pomarańczy', 'lubiącego pomarańcze', 'lubiącym pomarańcze']
         banan: ['lubiący banany', 'lubi banany', 'nie lubi bananów', 'lubiącego banany', 'lubiącym banany']
         truskawka: ['lubiący truskawki', 'lubi truskawki', 'nie lubi truskawek', 'lubiącego truskawki', 'lubiącym truskawki']
-        porzeczka: ['lubiący porzeczki', 'lubi porzeczki', 'nie lubi porzeczek', 'lubiącego porzeczki', 'lubiącym porzeczki']
+        czarna porzeczka: ['lubiący czarne porzeczki', 'lubi czarne porzeczki', 'nie lubi czarnych porzeczek', 'lubiącego czarne porzeczki', 'lubiącym czarne porzeczki']
         poziomka: ['lubiący poziomki', 'lubi poziomki', 'nie lubi poziomek', 'lubiącego poziomki', 'lubiącym poziomki']
 
 red_herring_attributes:

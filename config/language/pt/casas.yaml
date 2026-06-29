@@ -72,7 +72,7 @@ attributes:
         laranja: ["o apreciador de laranjas", "gosta de laranjas", "não gosta de laranjas"]
         banana: ["o apreciador de bananas", "gosta de bananas", "não gosta de bananas"]
         morango: ["o apreciador de morangos", "gosta de morangos", "não gosta de morangos"]
-        groselha: ["o apreciador de groselhas", "gosta de groselhas", "não gosta de groselhas"]
+        cássis: ["o apreciador de cássis", "gosta de cássis", "não gosta de cássis"]
         morango silvestre: ["o apreciador de morangos silvestres", "gosta de morangos silvestres", "não gosta de morangos silvestres"]
 
 red_herring_attributes:
