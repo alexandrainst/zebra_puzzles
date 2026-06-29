@@ -24,6 +24,9 @@ For languages that inflect attributes by case, additionally read the matching te
 | Accusative + dative (e.g. Faroese) | `config/language/fo/hus.yaml` |
 | Accusative + dative + genitive (e.g. Icelandic) | `config/language/is/husum.yaml` |
 | Genitive only (e.g. Finnish) | `config/language/fi/talot.yaml` |
+| Genitive + instrumental (e.g. Ukrainian) | `config/language/uk/budynky.yaml` |
+
+**Human-validated configs:** da, de, en, fo, is, nb, nl, nn, sv. These are the most reliable translation references.
 
 Before writing the config, briefly scan whether the language has any feature that clearly cannot be expressed by translating the existing clue templates and attribute forms — for example, a radically different word order, a grammatical category with no analog in existing configs, or a number agreement rule that affects clue templates. Note anything flagged here and address it at step 4.
 
@@ -32,9 +35,19 @@ Create `config/language/<lang_code>/` directory if needed, then write `<theme_na
 
 **Before writing any attribute forms, make three decisions:**
 
-1. **Gender default**: If the language marks grammatical gender, decide the default now. Write it as a YAML comment at the top of the file. Apply it to ALL nom/is/is_not forms for both regular attributes AND red herring attributes — they can appear in the same puzzle describing the same person of unknown gender. Semantic gender neutrality is preferred. In the houses theme, attributes can describe both men and women, but their genders are never mentioned.
+1. **Gender default**: If the language marks grammatical gender, decide the default now. Write it as a YAML comment at the top of the file. Apply it to ALL nom/is/is_not forms for both regular attributes AND red herring attributes — they can appear in the same puzzle describing the same person of unknown gender. In the houses theme, attributes can describe both men and women, but their genders are never mentioned. The same attribute string must work for any person regardless of their actual gender — a grammatically gendered form is fine as long as it is used consistently for everyone (e.g. "the cat owner" in a grammatically masculine form is acceptable; using masculine for some persons and feminine for others is not). Prefer short, natural forms over verbose periphrastic constructions.
 
 2. **Case requirements**: Look at the clue templates you will translate and identify which prepositions or postpositions are used for positional clues (`next_to`, `just_left_of`, `between`). The case these prepositions govern determines whether you need extra cases beyond `[nom, is, is_not]`. If all positional prepositions take nominative (as in Hungarian), no extra cases are needed.
+
+   A few patterns that come up across many European languages:
+
+   - **Locative/prepositional case** (Polish, Czech, Serbian, Croatian, Lithuanian, Slovenian): many languages have a locative case used after prepositions of location. Check whether the prepositions for `next_to` and `between` govern locative — in most Slavic languages they govern instrumental or genitive instead, so locative is typically not needed for attribute forms.
+
+   - **Animate/inanimate accusative split** (most Slavic languages): animate masculine nouns use the genitive form in accusative position, while inanimates use a distinct form. This does not require any special case name — since every attribute stores its own form list, just supply the correct surface form for each attribute's accusative slot.
+
+   - **Case syncretism** (when two grammatical cases always share the same surface form): list them as one entry in `attribute_cases` with a descriptive combined name, e.g. `gen_dat` for Romanian where genitive = dative. Use that single name in `clue_cases_dict` wherever either case is needed.
+
+   - **Postpositive (suffixed) definite articles** (Romanian, Bulgarian, Albanian, Macedonian): definiteness is marked by a suffix on the noun rather than a separate word. Store the fully inflected form including the article suffix directly in the YAML — no special handling is needed. Use `prompt_replacements` for any preposition–article interactions.
 
 3. **Prompt replacements**: Think ahead — will relative clauses leave trailing commas before periods? Will articles contract? Note these now and add to `prompt_replacements` as you encounter them while writing the config. If you are considering adding a lot of replacements, it may be better to edit the code to handle the grammar.
    - Romance languages typically contract `de + article`: French `de le → du`, Portuguese `de o → do`, Spanish `de el → del`, Italian `di il → del`. Since nom forms follow positional prepositions in clue templates (e.g. `à esquerda de {attribute_desc}`), these contractions arise naturally. Add the relevant `"de o ": "do "` style rule upfront.
