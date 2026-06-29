@@ -28,7 +28,7 @@ attributes:
         enfermeiro: ["o enfermeiro", "é enfermeiro", "não é enfermeiro"]
         professor: ["o professor", "é professor", "não é professor"]
         programador: ["o programador", "é programador", "não é programador"]
-        vendedor: ["o vendedor", "é vendedor", "não é vendedor"]
+        balconista: ["o balconista", "é balconista", "não é balconista"]
 
     animais de estimação:
         gato: ["o dono de um gato", "tem um gato", "não tem um gato"]
