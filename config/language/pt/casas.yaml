@@ -73,7 +73,7 @@ attributes:
         banana: ["o apreciador de bananas", "gosta de bananas", "não gosta de bananas"]
         morango: ["o apreciador de morangos", "gosta de morangos", "não gosta de morangos"]
         groselha: ["o apreciador de groselhas", "gosta de groselhas", "não gosta de groselhas"]
-        framboesa: ["o apreciador de framboesas", "gosta de framboesas", "não gosta de framboesas"]
+        morango silvestre: ["o apreciador de morangos silvestres", "gosta de morangos silvestres", "não gosta de morangos silvestres"]
 
 red_herring_attributes:
     cabelo_ruivo: ["o ruivo", "tem cabelo ruivo"]
@@ -85,7 +85,7 @@ red_herring_attributes:
     cacto: ["o dono de um cacto", "não tem um cacto"]
     jogos_video: ["o jogador de videojogos", "joga videojogos"]
     irmã: ["o indivíduo com uma irmã", "tem uma irmã"]
-    manga: ["o indivíduo que acha que a manga é a sua segunda fruta preferida", "acha que a manga é a sua segunda fruta preferida"]
+    manga: ["o indivíduo que acha que a segunda melhor fruta é a manga", "acha que a segunda melhor fruta é a manga"]
     vela: ["o amante de vela", "pratica vela com frequência"]
     Canada: ["o indivíduo que visitou o Canadá", "visitou o Canadá"]
     matematica: ["o detentor de um mestrado em matemática", "tem um mestrado em matemática"]

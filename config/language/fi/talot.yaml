@@ -54,7 +54,7 @@ attributes:
         smoothie: ['smoothienjuoja', 'juo smoothieta', 'ei juo smoothieta', 'smoothienjuojan']
         kaakao: ['kaakaojuoja', 'juo kaakaota', 'ei juo kaakaota', 'kaakaojuojan']
         tee: ['teenjuoja', 'juo teetä', 'ei juo teetä', 'teenjuojan']
-        limonaadi: ['limonaadinjuoja', 'juo limonaadia', 'ei juo limonaadia', 'limonaadinjuojan']
+        virvoitusjuoma: ['virvoitusjuomanjuoja', 'juo virvoitusjuomaa', 'ei juo virvoitusjuomaa', 'virvoitusjuomanjuojan']
 
     lempikirjallisuus:
         tietokirjallisuus: ['tietokirjallisuuden lukija', 'lukee tietokirjallisuutta', 'ei lue tietokirjallisuutta', 'tietokirjallisuuden lukijan']
@@ -66,7 +66,7 @@ attributes:
         romantiikka: ['romantiikanlukija', 'lukee romanttisia romaaneja', 'ei lue romanttisia romaaneja', 'romantiikanlukijan']
 
     harrastukset:
-        kiipeily: ['kiipeilijä', 'kiipeilee', 'ei kiipeile', 'kiipeilijän']
+        boulderaus: ['boulderaaja', 'boulderaa', 'ei boulderaa', 'boulderaajan']
         maalaus: ['maalaaja', 'maalaa', 'ei maalaa', 'maalaajan']
         lautapelit: ['lautapelien pelaaja', 'pelaa lautapelejä', 'ei pelaa lautapelejä', 'lautapelien pelaajan']
         tennis: ['tennispelaaja', 'pelaa tennistä', 'ei pelaa tennistä', 'tennispelaajan']

@@ -84,7 +84,7 @@ red_herring_attributes:
     cactus: ["le propriétaire d'un cactus", "ne possède pas de cactus"]
     jeux_video: ["le joueur de jeux vidéo", "joue aux jeux vidéo"]
     soeur: ["l'individu avec une sœur", "a une sœur"]
-    mangue: ["l'individu qui pense que la mangue est son deuxième fruit préféré", "pense que la mangue est son deuxième fruit préféré"]
+    mangue: ["l'individu qui pense que le deuxième meilleur fruit est la mangue", "pense que le deuxième meilleur fruit est la mangue"]
     voile: ["l'amateur de voile", "fait souvent de la voile"]
     Canada: ["l'individu qui est allé au Canada", "est allé au Canada"]
     mathematiques: ["le titulaire d'un master en mathématiques", "a un master en mathématiques"]
