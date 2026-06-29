@@ -14,10 +14,10 @@ Generation and LLM evaluation of zebra puzzles in multiple languages and themes 
 Available languages and themes:
 
 - Houses theme:
-    - Complete versions: Danish 🇩🇰, Dutch 🇳🇱, English 🇬🇧, Faroese 🇫🇴, German 🇩🇪, Icelandic 🇮🇸, Norwegian Bokmål 🇳🇴, Norwegian Nynorsk 🇳🇴 and Swedish 🇸🇪.
-    - Preliminary versions: Finnish 🇫🇮, French 🇫🇷, Greek 🇬🇷, Hungarian 🇭🇺, Polish 🇵🇱, Portuguese 🇵🇹 and Ukrainian 🇺🇦.
+    - Finished versions: Danish 🇩🇰, Dutch 🇳🇱, English 🇬🇧, Faroese 🇫🇴, German 🇩🇪, Icelandic 🇮🇸, Norwegian Bokmål 🇳🇴, Norwegian Nynorsk 🇳🇴 and Swedish 🇸🇪.
+    - Preliminary versions: Finnish 🇫🇮, French 🇫🇷, Greek 🇬🇷, Hungarian 🇭🇺, Lithuanian 🇱🇹, Polish 🇵🇱, Portuguese 🇵🇹 and Ukrainian 🇺🇦.
 - Smørrebrød theme:
-    - Complete versions: Danish 🇩🇰.
+    - Finished versions: Danish 🇩🇰.
 
 Dataset on the Hugging Face Hub: https://huggingface.co/datasets/alexandrainst/zebra_puzzles
 

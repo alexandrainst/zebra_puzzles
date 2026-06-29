@@ -35,7 +35,7 @@ Create `config/language/<lang_code>/` directory if needed, then write `<theme_na
 
 **Before writing any attribute forms, make three decisions:**
 
-1. **Gender default**: If the language marks grammatical gender, decide the default now. Write it as a YAML comment at the top of the file. Apply it to ALL nom/is/is_not forms for both regular attributes AND red herring attributes — they can appear in the same puzzle describing the same person of unknown gender. In the houses theme, attributes can describe both men and women, but their genders are never mentioned. The same attribute string must work for any person regardless of their actual gender — a grammatically gendered form is fine as long as it is used consistently for everyone (e.g. "the cat owner" in a grammatically masculine form is acceptable; using masculine for some persons and feminine for others is not). Prefer short, natural forms over verbose periphrastic constructions.
+1. **Gender default**: If the language marks grammatical gender, decide the default now. Write it as a YAML comment at the top of the file. Apply it to all nom/is/is_not forms for both regular attributes AND red herring attributes — they can appear in the same puzzle describing the same person of unknown gender. But if a neutral form is available and natural, use that instead. In the houses theme, attributes can describe both men and women, but their genders are never mentioned. The same attribute string must work for any person regardless of their actual gender — a grammatically gendered form is fine as long as it is used consistently for everyone (e.g. "the cat owner" in a grammatically masculine form is acceptable; using masculine for some persons and feminine for others is not). Prefer short, natural forms over verbose periphrastic constructions.
 
 2. **Case requirements**: Look at the clue templates you will translate and identify which prepositions or postpositions are used for positional clues (`next_to`, `just_left_of`, `between`). The case these prepositions govern determines whether you need extra cases beyond `[nom, is, is_not]`. If all positional prepositions take nominative (as in Hungarian), no extra cases are needed.
 
@@ -83,6 +83,7 @@ The meaning should be consistent across languages, unless this would compromise 
 - **Bouldering**: This is rope-free climbing on low boulders/walls, **not** general rock-climbing or mountaineering.
 - **Cocoa**: This is the hot chocolate drink made from cocoa powder, not the cocoa bean, powder, or tree.
 - **Stick insect**: This is the insect that looks like a stick, not a general term for any insect or a wooden stick.
+- **Football**: This describes someone who plays football (soccer) as a hobby, not someone who watches it, is a fan or a professional player.
 
 ### 3. Validate the config before generating puzzles
 

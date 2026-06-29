@@ -18,6 +18,7 @@
 # el/spitia
 # uk/budynky
 # pl/domy
+# lt/namai
 
 defaults:
   - language: en/houses

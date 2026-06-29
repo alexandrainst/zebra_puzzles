@@ -1,0 +1,201 @@
+# Config file for generating zebra puzzles in Lithuanian with the houses theme.
+# Gender policy: masculine forms used throughout for unknown-gender persons.
+# Genitive (gen) is used after: šalia (next to), kairėje/dešinėje nuo (left/right of), tarp (between).
+
+theme: lt_namai
+
+attribute_cases: [nom, is, is_not, gen]
+red_herring_attribute_cases: [nom, is, gen]
+
+attributes:
+
+    tautybės:
+        Danija: ['danas', 'yra danas', 'nėra dano', 'dano']
+        Švedija: ['švedas', 'yra švedas', 'nėra švedo', 'švedo']
+        Latvija: ['latvietis', 'yra latvietis', 'nėra latviečio', 'latviečio']
+        Prancūzija: ['prancūzas', 'yra prancūzas', 'nėra prancūzo', 'prancūzo']
+        Ispanija: ['ispanas', 'yra ispanas', 'nėra ispano', 'ispano']
+        Italija: ['italas', 'yra italas', 'nėra italo', 'italo']
+        Norvegija: ['norvegas', 'yra norvegas', 'nėra norvego', 'norvego']
+        Farerai: ['farerietis', 'yra farerietis', 'nėra fareriečio', 'fareriečio']
+        Nyderlandai: ['olandas', 'yra olandas', 'nėra olando', 'olando']
+        Islandija: ['islandietis', 'yra islandietis', 'nėra islandiečio', 'islandiečio']
+        Jungtinė Karalystė: ['britas', 'yra britas', 'nėra brito', 'brito']
+
+    profesijos:
+        kepėjas: ['kepėjas', 'yra kepėjas', 'nėra kepėjo', 'kepėjo']
+        ministras: ['ministras', 'yra ministras', 'nėra ministro', 'ministro']
+        policininkas: ['policininkas', 'yra policininkas', 'nėra policininko', 'policininko']
+        slaugytojas: ['slaugytojas', 'yra slaugytojas', 'nėra slaugytojo', 'slaugytojo']
+        mokytojas: ['mokytojas', 'yra mokytojas', 'nėra mokytojo', 'mokytojo']
+        programuotojas: ['programuotojas', 'yra programuotojas', 'nėra programuotojo', 'programuotojo']
+        pardavėjas: ['pardavėjas', 'yra pardavėjas', 'nėra pardavėjo', 'pardavėjo']
+
+    augintiniai:
+        katė: ['katės savininkas', 'turi katę', 'neturi katės', 'katės savininko']
+        šuo: ['šuns savininkas', 'turi šunį', 'neturi šuns', 'šuns savininko']
+        triušis: ['triušio savininkas', 'turi triušį', 'neturi triušio', 'triušio savininko']
+        zebras: ['zebro savininkas', 'turi zebrą', 'neturi zebro', 'zebro savininko']
+        papūgėlė: ['papūgėlės savininkas', 'turi papūgėlę', 'neturi papūgėlės', 'papūgėlės savininko']
+        sraigė: ['sraigės savininkas', 'turi sraigę', 'neturi sraigės', 'sraigės savininko']
+        vaikščiojantis pagaliukas: ['vaikščiojančio pagaliuko savininkas', 'turi vaikščiojantį pagaliuką', 'neturi vaikščiojančio pagaliuko', 'vaikščiojančio pagaliuko savininko']
+
+    gėrimai:
+        sultys: ['sulčių gėrėjas', 'geria sultis', 'negeria sulčių', 'sulčių gėrėjo']
+        kava: ['kavos gėrėjas', 'geria kavą', 'negeria kavos', 'kavos gėrėjo']
+        pienas: ['pieno gėrėjas', 'geria pieną', 'negeria pieno', 'pieno gėrėjo']
+        smūtis: ['smūčio gėrėjas', 'geria smūtį', 'negeria smūčio', 'smūčio gėrėjo']
+        kakava: ['kakavos gėrėjas', 'geria kakavą', 'negeria kakavos', 'kakavos gėrėjo']
+        arbata: ['arbatos gėrėjas', 'geria arbatą', 'negeria arbatos', 'arbatos gėrėjo']
+        gazuotas gėrimas: ['gazuoto gėrimo gėrėjas', 'geria gazuotą gėrimą', 'negeria gazuoto gėrimo', 'gazuoto gėrimo gėrėjo']
+
+    mėgstamiausias knygų žanras:
+        negrožinė literatūra: ['negrožinės literatūros skaitytojas', 'skaito negrožinę literatūrą', 'neskaito negrožinės literatūros', 'negrožinės literatūros skaitytojo']
+        detektyvai: ['detektyvų skaitytojas', 'skaito detektyvus', 'neskaito detektyvų', 'detektyvų skaitytojo']
+        fantazija: ['fantazijos skaitytojas', 'skaito fantaziją', 'neskaito fantazijos', 'fantazijos skaitytojo']
+        mokslinė fantastika: ['mokslinės fantastikos skaitytojas', 'skaito mokslinę fantastiką', 'neskaito mokslinės fantastikos', 'mokslinės fantastikos skaitytojo']
+        siaubo knygos: ['siaubo knygų skaitytojas', 'skaito siaubo knygas', 'neskaito siaubo knygų', 'siaubo knygų skaitytojo']
+        poezija: ['poezijos skaitytojas', 'skaito poeziją', 'neskaito poezijos', 'poezijos skaitytojo']
+        meilės romanai: ['meilės romanų skaitytojas', 'skaito meilės romanus', 'neskaito meilės romanų', 'meilės romanų skaitytojo']
+
+    hobiai:
+        boulderingas: ['boulderingo mėgėjas', 'užsiima boulderingu', 'neužsiima boulderingu', 'boulderingo mėgėjo']
+        tapyba: ['tapybos mėgėjas', 'mėgsta tapyti', 'nemėgsta tapyti', 'tapybos mėgėjo']
+        stalo žaidimai: ['stalo žaidimų mėgėjas', 'žaidžia stalo žaidimus', 'nežaidžia stalo žaidimų', 'stalo žaidimų mėgėjo']
+        tenisas: ['teniso mėgėjas', 'žaidžia tenisą', 'nežaidžia teniso', 'teniso mėgėjo']
+        nėrimas: ['vąšeliuojantis', 'vąšeliuoja', 'nevąšeliuoja', 'vąšeliuojančio']
+        futbolas: ['futbolą žaidžiantis', 'žaidžia futbolą', 'nežaidžia futbolo', 'futbolą žaidžiančio']
+        rankinis: ['rankinio mėgėjas', 'žaidžia rankinį', 'nežaidžia rankinio', 'rankinio mėgėjo']
+
+    mėgstamiausi vaisiai:
+        obuolys: ['obuolių mėgėjas', 'mėgsta obuolius', 'nemėgsta obuolių', 'obuolių mėgėjo']
+        kriaušė: ['kriaušių mėgėjas', 'mėgsta kriaušes', 'nemėgsta kriaušių', 'kriaušių mėgėjo']
+        apelsinas: ['apelsinų mėgėjas', 'mėgsta apelsinus', 'nemėgsta apelsinų', 'apelsinų mėgėjo']
+        bananas: ['bananų mėgėjas', 'mėgsta bananus', 'nemėgsta bananų', 'bananų mėgėjo']
+        braškė: ['braškių mėgėjas', 'mėgsta braškes', 'nemėgsta braškių', 'braškių mėgėjo']
+        juodieji serbentai: ['juodųjų serbentų mėgėjas', 'mėgsta juoduosius serbentus', 'nemėgsta juodųjų serbentų', 'juodųjų serbentų mėgėjo']
+        žemuogė: ['žemuogių mėgėjas', 'mėgsta žemuoges', 'nemėgsta žemuogių', 'žemuogių mėgėjo']
+
+red_herring_attributes:
+    raudoni_plaukai: ['raudonplaukis', 'yra raudonplaukis', 'raudonplaukio']
+    akiniai: ['akinių nešiotojas', 'nešioja akinius', 'akinių nešiotojo']
+    tatuiruotė: ['turintis tatuiruotę', 'turi tatuiruotę', 'turinčio tatuiruotę']
+    gitara: ['grojantis gitara', 'groja gitara', 'grojančio gitara']
+    dviratis: ['turintis dviratį', 'turi dviratį', 'turinčio dviratį']
+    jūrų_kiaulytė: ['jūrų kiaulytės savininkas', 'turi jūrų kiaulytę', 'jūrų kiaulytės savininko']
+    kaktusas: ['kaktuso savininkas', 'neturi kaktuso', 'kaktuso savininko']
+    vaizdo_žaidimai: ['žaidžiantis vaizdo žaidimus', 'žaidžia vaizdo žaidimus', 'žaidžiančio vaizdo žaidimus']
+    sesuo: ['turintis seserį', 'turi seserį', 'turinčio seserį']
+    mango: ['manantis, kad antrasis geriausias vaisius yra mango,', 'mano, kad antrasis geriausias vaisius yra mango', 'manančio, kad antrasis geriausias vaisius yra mango,']
+    buriavimas: ['dažnai buriuojantis', 'dažnai buriuoja', 'dažnai buriuojančio']
+    Kanada: ['buvęs Kanadoje', 'buvo Kanadoje', 'buvusio Kanadoje']
+    matematika: ['matematikos magistras', 'turi matematikos magistro laipsnį', 'matematikos magistro']
+    fizika: ['fizikos mėgėjas', 'mėgsta fiziką', 'fizikos mėgėjo']
+    senas_gyvūnas: ['turintis savo rūšiai seną gyvūną', 'turi savo rūšiai seną gyvūną', 'turinčio savo rūšiai seną gyvūną']
+    slidinėjimas_nuo_tramplino: ['slidinėjimo nuo tramplino stebėtojas', 'stebi slidinėjimą nuo tramplino', 'slidinėjimo nuo tramplino stebėtojo']
+
+red_herring_facts:
+    silkė: ['silkė yra žuvis']
+    saulės_sistema: ['saulės sistema juda apie 200 km/s greičiu aplink galaktikos centrą']
+    galvosūkis: ['spręsti galvosūkius yra smagu']
+    namai: ['visi gatvės namai turi gražius sodus']
+    durys: ['kai kurie namai turi žalias duris']
+    langai: ['visuose namuose yra dideli langai']
+    automobiliai: ['gatvėje yra daug automobilių']
+    agurkas: ['agurkas yra uoga']
+    sraigė: ['sraigės yra moliuskai']
+    kava: ['kava turi kofeino']
+
+clues_dict:
+    found_at: '{attribute_desc} gyvena name nr. {i_object}.'
+    not_at: '{attribute_desc} negyvena name nr. {i_object}.'
+    next_to: '{attribute_desc_1} gyvena šalia {attribute_desc_2}.'
+    not_next_to: '{attribute_desc_1} negyvena šalia {attribute_desc_2}, ir tai skirtingi žmonės.'
+    just_left_of: '{attribute_desc_1} gyvena tiesiog kairėje nuo {attribute_desc_2}.'
+    just_right_of: '{attribute_desc_1} gyvena tiesiog dešinėje nuo {attribute_desc_2}.'
+    left_of: '{attribute_desc_1} gyvena kairėje nuo {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} gyvena dešinėje nuo {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    between: '{attribute_desc_2} gyvena tarp {attribute_desc_1} ir {attribute_desc_3}.'
+    not_between: '{attribute_desc_1} negyvena tarp {attribute_desc_2} ir {attribute_desc_3}, ir tai trys skirtingi žmonės.'
+    multiple_between: 'Tarp {attribute_desc_1} ir {attribute_desc_2} yra {n_between} namai.'
+    one_between: 'Tarp {attribute_desc_1} ir {attribute_desc_2} yra vienas namas.'
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'gen']
+    not_next_to: ['nom', 'gen']
+    just_left_of: ['nom', 'gen']
+    just_right_of: ['nom', 'gen']
+    left_of: ['nom', 'gen']
+    right_of: ['nom', 'gen']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['gen', 'nom', 'gen']
+    not_between: ['nom', 'gen', 'gen']
+    multiple_between: ['gen', 'gen']
+    one_between: ['gen', 'gen']
+
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} gyvena šalia {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} žino, kad {fact}.'
+    friends: '{attribute_desc} ir {attribute_desc_herring} yra geri draugai.'
+    herring_found_at: '{attribute_desc_herring} gyvena name nr. {i_object}.'
+    herring_not_at: '{attribute_desc_herring} negyvena name nr. {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'gen']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+prompt_and: ir
+
+prompt_templates:
+    - |
+        Namų eilė yra sunumeruota nuo 1 iki {n_objects} iš kairės į dešinę.
+
+        Kiekviename name gyvena žmogus, turintis unikalų požymį kiekvienoje iš šių kategorijų:
+
+        {chosen_attributes_str}
+
+        Taip pat žinome šiuos dalykus:
+
+        {chosen_clues_str}
+
+        Kas turi kokius požymius ir kuriame name gyvena?
+
+        Prašome pateikti atsakymą kaip JSON žodyną. Kiekvienas raktas turi būti object_X, kur X yra namo numeris. Kiekviena reikšmė turi būti aukščiau paminėtų kategorijų požymių, priklausančių name nr. X gyvenančiam žmogui, sąrašas.
+
+        Toliau pateikiamas atsakymo formato pavyzdys:
+
+        {solution_template}
+    - |
+        Namų eilė yra sunumeruota nuo 1 iki {n_objects} iš kairės į dešinę.
+
+        Kiekviename name gyvena žmogus, turintis unikalų požymį kategorijoje {chosen_attributes_str}.
+
+        Taip pat žinome šiuos dalykus:
+
+        {chosen_clues_str}
+
+        Kokie požymiai priklauso kiekviename name gyvenančiam žmogui?
+
+        Prašome pateikti atsakymą kaip JSON žodyną. Kiekvienas raktas turi būti object_X, kur X yra namo numeris. Kiekviena reikšmė turi būti sąrašas, kuriame yra aukščiau paminėtos kategorijos požymis, priklausantis name nr. X gyvenančiam žmogui.
+
+        Toliau pateikiamas atsakymo formato pavyzdys:
+
+        {solution_template}
+
+prompt_replacements:
+    'žino, kad spręsti galvosūkius yra smagu': 'mėgsta spręsti galvosūkius'
+    ',.': '.'
