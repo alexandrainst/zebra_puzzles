@@ -17,6 +17,7 @@
 # pt/casas
 # el/spitia
 # uk/budynky
+# pl/domy
 
 defaults:
   - language: en/houses
