@@ -32,7 +32,7 @@ attributes:
         piekarz: ['piekarz', 'jest piekarzem', 'nie jest piekarzem', 'piekarza', 'piekarzem']
         minister: ['minister', 'jest ministrem', 'nie jest ministrem', 'ministra', 'ministrem']
         policjant: ['policjant', 'jest policjantem', 'nie jest policjantem', 'policjanta', 'policjantem']
-        pielęgniarz: ['pielęgniarz', 'jest pielęgniarzem', 'nie jest pielęgniarzem', 'pielęgniarza', 'pielęgniarzem']
+        medyk: ['medyk', 'jest medykiem', 'nie jest medykiem', 'medyka', 'medykiem']
         nauczyciel: ['nauczyciel', 'jest nauczycielem', 'nie jest nauczycielem', 'nauczyciela', 'nauczycielem']
         programista: ['programista', 'jest programistą', 'nie jest programistą', 'programisty', 'programistą']
         sprzedawca: ['sprzedawca', 'jest sprzedawcą', 'nie jest sprzedawcą', 'sprzedawcy', 'sprzedawcą']
@@ -53,12 +53,12 @@ attributes:
         smoothie: ['pijący smoothie', 'pije smoothie', 'nie pije smoothie', 'pijącego smoothie', 'pijącym smoothie']
         kakao: ['pijący kakao', 'pije kakao', 'nie pije kakao', 'pijącego kakao', 'pijącym kakao']
         herbata: ['pijący herbatę', 'pije herbatę', 'nie pije herbaty', 'pijącego herbatę', 'pijącym herbatę']
-        woda gazowana: ['pijący wodę gazowaną', 'pije wodę gazowaną', 'nie pije wody gazowanej', 'pijącego wodę gazowaną', 'pijącym wodę gazowaną']
+        napój gazowany: ['pijący napoje gazowane', 'pije napoje gazowane', 'nie pije napojów gazowanych', 'pijącego napoje gazowane', 'pijącym napoje gazowane']
 
     Ulubiony gatunek książek:
         literatura faktu: ['czytający literaturę faktu', 'czyta literaturę faktu', 'nie czyta literatury faktu', 'czytającego literaturę faktu', 'czytającym literaturę faktu']
         kryminał: ['czytający kryminały', 'czyta kryminały', 'nie czyta kryminałów', 'czytającego kryminały', 'czytającym kryminały']
-        przygodowe: ['czytający książki przygodowe', 'czyta książki przygodowe', 'nie czyta książek przygodowych', 'czytającego książki przygodowe', 'czytającym książki przygodowe']
+        fantasy: ['czytający fantasy', 'czyta fantasy', 'nie czyta fantasy', 'czytającego fantasy', 'czytającym fantasy']
         fantastyka naukowa: ['czytający fantastykę naukową', 'czyta fantastykę naukową', 'nie czyta fantastyki naukowej', 'czytającego fantastykę naukową', 'czytającym fantastykę naukową']
         horror: ['czytający horrory', 'czyta horrory', 'nie czyta horrorów', 'czytającego horrory', 'czytającym horrory']
         poezja: ['czytający poezję', 'czyta poezję', 'nie czyta poezji', 'czytającego poezję', 'czytającym poezję']
@@ -80,7 +80,7 @@ attributes:
         banan: ['lubiący banany', 'lubi banany', 'nie lubi bananów', 'lubiącego banany', 'lubiącym banany']
         truskawka: ['lubiący truskawki', 'lubi truskawki', 'nie lubi truskawek', 'lubiącego truskawki', 'lubiącym truskawki']
         porzeczka: ['lubiący porzeczki', 'lubi porzeczki', 'nie lubi porzeczek', 'lubiącego porzeczki', 'lubiącym porzeczki']
-        malina: ['lubiący maliny', 'lubi maliny', 'nie lubi malin', 'lubiącego maliny', 'lubiącym maliny']
+        poziomka: ['lubiący poziomki', 'lubi poziomki', 'nie lubi poziomek', 'lubiącego poziomki', 'lubiącym poziomki']
 
 red_herring_attributes:
     rude_wlosy: ['rudowłosy', 'ma rude włosy', 'rudowłosego', 'rudowłosym']
@@ -93,11 +93,11 @@ red_herring_attributes:
     gry_wideo: ['grający w gry wideo', 'gra w gry wideo', 'grającego w gry wideo', 'grającym w gry wideo']
     siostra: ['mający siostrę', 'ma siostrę', 'mającego siostrę', 'mającym siostrę']
     mango: ['uważający mango za drugi najlepszy owoc', 'uważa mango za drugi najlepszy owoc', 'uważającego mango za drugi najlepszy owoc', 'uważającym mango za drugi najlepszy owoc']
-    zeglowanie: ['żeglarz', 'często żegluje', 'żeglarza', 'żeglarzem']
+    zeglowanie: ['często żeglujący', 'często żegluje', 'często żeglującego', 'często żeglującym']
     Kanada: ['odwiedzający Kanadę', 'odwiedza Kanadę', 'odwiedzającego Kanadę', 'odwiedzającym Kanadę']
     matematyka: ['mający dyplom magistra z matematyki', 'ma dyplom magistra z matematyki', 'mającego dyplom magistra z matematyki', 'mającym dyplom magistra z matematyki']
-    fizyka: ['zainteresowany fizyką', 'interesuje się fizyką', 'zainteresowanego fizyką', 'zainteresowanym fizyką']
-    stary_zwierzak: ['właściciel wiekowego zwierzaka', 'ma wiekowego zwierzaka', 'właściciela wiekowego zwierzaka', 'właścicielem wiekowego zwierzaka']
+    fizyka: ['kochający fizykę', 'kocha fizykę', 'kochającego fizykę', 'kochającym fizykę']
+    stary_zwierzak: ['właściciel zwierzaka starego jak na swój gatunek', 'ma zwierzaka starego jak na swój gatunek', 'właściciela zwierzaka starego jak na swój gatunek', 'właścicielem zwierzaka starego jak na swój gatunek']
     skoki_narciarskie: ['oglądający skoki narciarskie', 'ogląda skoki narciarskie', 'oglądającego skoki narciarskie', 'oglądającym skoki narciarskie']
 
 red_herring_facts:
@@ -108,7 +108,7 @@ red_herring_facts:
     drzwi: ['niektóre domy mają zielone drzwi']
     okna: ['wszystkie domy mają duże okna']
     samochody: ['na drodze jest dużo samochodów']
-    ogorek: ['ogórek jest botanicznie owocem']
+    ogorek: ['ogórek jest jagodą']
     slimaki: ['ślimaki to mięczaki']
     kawa_fakt: ['kawa zawiera kofeinę']
 
