@@ -20,6 +20,7 @@
 # pl/domy
 # lt/namai
 # ro/case
+# bg/kashti
 
 defaults:
   - language: en/houses
