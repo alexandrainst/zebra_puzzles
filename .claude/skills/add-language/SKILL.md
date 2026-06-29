@@ -25,6 +25,7 @@ For languages that inflect attributes by case, additionally read the matching te
 | Accusative + dative + genitive (e.g. Icelandic) | `config/language/is/husum.yaml` |
 | Genitive only (e.g. Finnish) | `config/language/fi/talot.yaml` |
 | Genitive + instrumental (e.g. Ukrainian) | `config/language/uk/budynky.yaml` |
+| Masculine definite article split (e.g. Bulgarian) | `config/language/bg/kashti.yaml` |
 
 **Human-validated configs:** da, de, en, fo, is, nb, nl, nn, sv. These are the most reliable translation references.
 
@@ -47,7 +48,7 @@ Create `config/language/<lang_code>/` directory if needed, then write `<theme_na
 
    - **Case syncretism** (when two grammatical cases always share the same surface form): list them as one entry in `attribute_cases` with a descriptive combined name, e.g. `gen_dat` for Romanian where genitive = dative. Use that single name in `clue_cases_dict` wherever either case is needed.
 
-   - **Postpositive (suffixed) definite articles** (Romanian, Bulgarian, Albanian, Macedonian): definiteness is marked by a suffix on the noun rather than a separate word. Store the fully inflected form including the article suffix directly in the YAML — no special handling is needed. Use `prompt_replacements` for any preposition–article interactions.
+   - **Postpositive (suffixed) definite articles** (Romanian, Bulgarian, Albanian, Macedonian): definiteness is marked by a suffix on the noun rather than a separate word. Store the fully inflected form including the article suffix directly in the YAML — no special handling is needed. Use `prompt_replacements` for any preposition–article interactions. **Bulgarian exception**: masculine definite nouns have two forms — a full form (`-ят/-ят`, used in subject/nominative position) and a short form (`-а/-я`, used after prepositions). This split requires `attribute_cases: [nom, is, is_not, prep]` where `prep` is the short masculine form. Feminine and neuter nouns have only one definite form and use the same string for both `nom` and `prep` slots.
 
 3. **Prompt replacements**: Think ahead — will relative clauses leave trailing commas before periods? Will articles contract? Note these now and add to `prompt_replacements` as you encounter them while writing the config. If you are considering adding a lot of replacements, it may be better to edit the code to handle the grammar.
    - Romance languages typically contract `de + article`: French `de le → du`, Portuguese `de o → do`, Spanish `de el → del`, Italian `di il → del`. Since nom forms follow positional prepositions in clue templates (e.g. `à esquerda de {attribute_desc}`), these contractions arise naturally. Add the relevant `"de o ": "do "` style rule upfront.
@@ -55,7 +56,8 @@ Create `config/language/<lang_code>/` directory if needed, then write `<theme_na
 **Key clue template grammar** (refer to this when writing `is` forms and clue templates):
 - `same_object`: `{attribute_desc_1} {attribute_desc_2}.` — desc_1 is the subject (nom), desc_2 is a bare predicate (the `is` form used directly). For languages that omit the copula (e.g. Hungarian 3rd-person present), this works as-is.
 - `friends`: `{attribute_desc} {attribute_desc_herring}.` (or your translation) — BOTH descriptions must function as co-subjects. Use nominative for both. If the language would require a different case for the second subject, restructure the template to use "X and Y are friends" with explicit conjunction instead.
-- All positional clues (`found_at`, `next_to`, `just_left_of`, `between`): all desc forms are subjects (nom).
+- In `found_at`/`not_at`, all desc forms are subjects (nom). In `next_to`, `just_left_of`, `between`, etc., the *first* desc is the grammatical subject (nom), but the *second* desc (and further) appear after prepositions and may require a different case. When `clue_cases_dict['next_to']` uses a non-nominative case for the second argument (e.g. `['nom', 'prep']`), `red_herring_cases_dict['next_to_herring']` must mirror it, and that case must be added to `red_herring_attribute_cases` as a third entry.
+
 
 Required top-level keys (in this order):
 1. Header comment: `# Config file for generating zebra puzzles in <LanguageName> with the <theme> theme.`
