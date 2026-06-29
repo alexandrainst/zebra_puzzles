@@ -75,6 +75,13 @@ Required top-level keys (in this order):
 
 The meaning should be consistent across languages, unless this would compromise grammar, unambiguity or make puzzles too complicated to generate.
 
+**Known content-sensitive attributes** — these have been mistranslated in several past configs. Verify each one before finishing step 2:
+
+- **Wild strawberry** (`ahomansikka` / `fraise des bois` / `szamóca`): This is the small woodland fruit (*Fragaria vesca*), not a regular strawberry and **not a raspberry**. Use the local term for wild/woodland strawberry.
+- **Mango (red herring)**: The person likes mango but considers some other fruit better — mango is their runner-up. Avoid phrasings like "second favourite fruit" that imply mango is one of their top picks. Frame it as a ranking where something else comes first, e.g. "thinks the second-best fruit is mango".
+- **Soda**: This is a generic carbonated soft drink (cola, fizzy drink).
+- **Bouldering**: This is rope-free climbing on low boulders/walls, **not** general rock-climbing or mountaineering.
+
 ### 3. Validate the config before generating puzzles
 
 Check every item below and fix any problems found:
@@ -115,7 +122,10 @@ Good (unambiguous): "X ja Y välissä on N taloa" (explicitly N houses between)
 The technical terms "JSON dictionary", "key" and "value" should not be translated in most languages, but they can be formatted differently if that would look natural in the language when discussing code.
 
 **Unambiguous attributes**
-Each attribute must be unambiguous. It should not be easy to confuse one attribute with another or a red herring attribute. In particular, check red herring attributes against occupation names in the target language — a word that means both a red herring concept and an occupation (e.g. Hungarian "nővér" = both "sister" and "nurse") should be replaced. Warn the user if avoiding ambiguity requires changing the meaning.
+Each attribute must be unambiguous. It should not be easy to confuse an attribute in one category with an attribute in another category. Check every category pair where confusion is plausible:
+
+- **Hobbies vs. occupations**: Hobby attributes must use activity phrases, not occupation nouns. A solver reading "the sailor" cannot tell whether it describes a job or a pastime. Check any hobby that has a corresponding profession in the language (painter, footballer, tennis player, etc.).
+- **Red herring attributes vs. occupations**: A word that means both a red herring concept and an occupation (e.g. Hungarian "nővér" = both "sister" and "nurse") must be replaced. Warn the user if avoiding ambiguity requires changing the meaning.
 
 ### 4. Check if code changes are needed
 
