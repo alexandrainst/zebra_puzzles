@@ -63,7 +63,7 @@ attributes:
         tapyba: ['tapybos mėgėjas', 'mėgsta tapyti', 'nemėgsta tapyti', 'tapybos mėgėjo']
         stalo žaidimai: ['stalo žaidimų mėgėjas', 'žaidžia stalo žaidimus', 'nežaidžia stalo žaidimų', 'stalo žaidimų mėgėjo']
         tenisas: ['teniso mėgėjas', 'žaidžia tenisą', 'nežaidžia teniso', 'teniso mėgėjo']
-        nėrimas: ['vąšeliuojantis', 'vąšeliuoja', 'nevąšeliuoja', 'vąšeliuojančio']
+        vąšeliavimas: ['vąšeliuojantis', 'vąšeliuoja', 'nevąšeliuoja', 'vąšeliuojančio']
         futbolas: ['futbolą žaidžiantis', 'žaidžia futbolą', 'nežaidžia futbolo', 'futbolą žaidžiančio']
         rankinis: ['rankinio mėgėjas', 'žaidžia rankinį', 'nežaidžia rankinio', 'rankinio mėgėjo']
 
@@ -92,7 +92,7 @@ red_herring_attributes:
     matematika: ['matematikos magistras', 'turi matematikos magistro laipsnį', 'matematikos magistro']
     fizika: ['fizikos mėgėjas', 'mėgsta fiziką', 'fizikos mėgėjo']
     senas_gyvūnas: ['turintis savo rūšiai seną gyvūną', 'turi savo rūšiai seną gyvūną', 'turinčio savo rūšiai seną gyvūną']
-    slidinėjimas_nuo_tramplino: ['slidinėjimo nuo tramplino stebėtojas', 'stebi slidinėjimą nuo tramplino', 'slidinėjimo nuo tramplino stebėtojo']
+    šuoliai_su_slidėmis: ['šuolių su slidėmis stebėtojas', 'stebi šuolius su slidėmis', 'šuolių su slidėmis stebėtojo']
 
 red_herring_facts:
     silkė: ['silkė yra žuvis']
