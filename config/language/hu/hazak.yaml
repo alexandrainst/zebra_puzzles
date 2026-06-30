@@ -36,7 +36,7 @@ attributes:
         kutya: ['a kutya gazdája', 'kutyát tart', 'nem tart kutyát']
         nyúl: ['a nyúl gazdája', 'nyulat tart', 'nem tart nyulat']
         zebra: ['a zebra gazdája', 'zebrát tart', 'nem tart zebrát']
-        papagáj: ['a papagáj gazdája', 'papagájt tart', 'nem tart papagájt']
+        hullámos papagáj: ['a hullámos papagáj gazdája', 'hullámos papagájt tart', 'nem tart hullámos papagájt']
         csiga: ['a csiga gazdája', 'csigát tart', 'nem tart csigát']
         botsáska: ['a botsáska gazdája', 'botsáskát tart', 'nem tart botsáskát']
 
