@@ -115,7 +115,7 @@ So `is` must be a full predicate phrase that makes sense after a nominative subj
 
 Check every red herring attribute's `is` form. If the form is just a noun or a "has/is + noun" copular phrase that doesn't work standalone, fix it to a verb phrase.
 
-Note: the `cactus` red herring intentionally uses a *negative* `is` form (e.g. "does not own a cactus") as a deliberate puzzle trick. This is the only exception — do not replicate it for other attributes.
+Note: the `cactus` red herring intentionally uses a *negative* `is` form (e.g. "does not own a cactus"). This is the only exception — do not replicate it for other attributes.
 
 **`multiple_between` vs `one_between` ambiguity**
 For `multiple_between` the puzzle description says there are N houses between two people (N > 1). The template must be unambiguous — the solver must be able to tell how many houses are between them, not just that it's more than one.
