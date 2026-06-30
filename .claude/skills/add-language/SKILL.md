@@ -26,6 +26,7 @@ For languages that inflect attributes by case, additionally read the matching te
 | Genitive only (e.g. Finnish) | `config/language/fi/talot.yaml` |
 | Genitive + instrumental (e.g. Ukrainian) | `config/language/uk/budynky.yaml` |
 | Masculine definite article split (e.g. Bulgarian) | `config/language/bg/kashti.yaml` |
+| Genitive only, postpositive article (e.g. Albanian) | `config/language/sq/shtëpi.yaml` |
 
 **Human-validated configs:** da, de, en, fo, is, nb, nl, nn, sv. These are the most reliable translation references.
 
@@ -88,6 +89,7 @@ The meaning should be consistent across languages, unless this would compromise 
 - **Cocoa**: This is the hot chocolate drink made from cocoa powder, not the cocoa bean, powder, or tree.
 - **Stick insect**: This is the insect that looks like a stick, not a general term for any insect or a wooden stick.
 - **Football**: This describes someone who plays football (soccer) as a hobby, not someone who watches it, is a fan or a professional player.
+- **Budgerigar**: This is the specific small parakeet (*Melopsittacus undulatus*). Do not use a generic word for parrot unless no specific term exists.
 
 ### 3. Validate the config before generating puzzles
 
@@ -98,6 +100,7 @@ Run the validation tool — it checks list lengths, unknown case references, and
 ```bash
 uv run .claude/skills/add-language/validate_config.py language=<lang_code>/<theme_name>
 ```
+If the theme name contains non-ASCII characters (e.g. Albanian `shtëpi`), Hydra's lexer rejects it unquoted. Wrap the override in single quotes: `language='sq/shtëpi'`. Apply the same quoting to the puzzle generation command below.
 
 **"is" form of red herring attributes**
 The `same_herring` and `double_herring` templates use the red herring's `is` form as a direct predicate after a nominative subject:

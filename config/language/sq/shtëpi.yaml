@@ -1,0 +1,201 @@
+# Config file for generating zebra puzzles in Albanian with the houses theme.
+# Gender policy: masculine forms used throughout for unknown-gender persons.
+# Case system: gen_dat (genitive-dative syncretism) — used after positional prepositions
+# (pranë, ndërmjet, në të majtë/djathtë të). Nominative = subject form (with definite article).
+
+theme: sq_shtëpi
+
+attribute_cases: [nom, is, is_not, gen_dat]
+red_herring_attribute_cases: [nom, is, gen_dat]
+
+attributes:
+
+    kombësi:
+        Danimarka: ['danezi', 'është danez', 'nuk është danez', 'danezit']
+        Suedia: ['suedezi', 'është suedez', 'nuk është suedez', 'suedezit']
+        Letonia: ['letoni', 'është leton', 'nuk është leton', 'letonit']
+        Franca: ['francezi', 'është francez', 'nuk është francez', 'francezit']
+        Spanja: ['spanjolli', 'është spanjoll', 'nuk është spanjoll', 'spanjollit']
+        Italia: ['italiani', 'është italian', 'nuk është italian', 'italianit']
+        Norvegjia: ['norvegjezi', 'është norvegjez', 'nuk është norvegjez', 'norvegjezit']
+        Ishujt Faroe: ['feroezi', 'është feroez', 'nuk është feroez', 'feroezit']
+        Holanda: ['holandezi', 'është holandez', 'nuk është holandez', 'holandezit']
+        Islanda: ['islandezi', 'është islandez', 'nuk është islandez', 'islandezit']
+        Mbretëria e Bashkuar: ['britaniku', 'është britanik', 'nuk është britanik', 'britanikut']
+
+    profesione:
+        furrtar: ['furrtari', 'është furrtar', 'nuk është furrtar', 'furrtarit']
+        ministër: ['ministri', 'është ministër', 'nuk është ministër', 'ministrit']
+        oficer policie: ['oficeri i policisë', 'është oficer policie', 'nuk është oficer policie', 'oficerit të policisë']
+        infermier: ['infermieri', 'është infermier', 'nuk është infermier', 'infermierit']
+        mësues: ['mësuesi', 'është mësues', 'nuk është mësues', 'mësuesit']
+        programues: ['programuesi', 'është programues', 'nuk është programues', 'programuesit']
+        shitës: ['shitësi', 'është shitës', 'nuk është shitës', 'shitësit']
+
+    kafshë shtëpie:
+        mace: ['pronari i maces', 'ka mace', 'nuk ka mace', 'pronarit të maces']
+        qen: ['pronari i qenit', 'ka qen', 'nuk ka qen', 'pronarit të qenit']
+        lepur: ['pronari i lepurit', 'ka lepur', 'nuk ka lepur', 'pronarit të lepurit']
+        zebër: ['pronari i zebrës', 'ka zebër', 'nuk ka zebër', 'pronarit të zebrës']
+        papagall bisht gjatë: ['pronari i papagallit bisht gjatë', 'ka papagall bisht gjatë', 'nuk ka papagall bisht gjatë', 'pronarit të papagallit bisht gjatë']
+        kërmill: ['pronari i kërmillit', 'ka kërmill', 'nuk ka kërmill', 'pronarit të kërmillit']
+        insekt-shkop: ['pronari i insektit-shkop', 'ka insekt-shkop', 'nuk ka insekt-shkop', 'pronarit të insektit-shkop']
+
+    pije:
+        lëng: ['ai që pi lëng', 'pi lëng', 'nuk pi lëng', 'atij që pi lëng']
+        kafe: ['ai që pi kafe', 'pi kafe', 'nuk pi kafe', 'atij që pi kafe']
+        qumësht: ['ai që pi qumësht', 'pi qumësht', 'nuk pi qumësht', 'atij që pi qumësht']
+        smoothie: ['ai që pi smoothie', 'pi smoothie', 'nuk pi smoothie', 'atij që pi smoothie']
+        kakao: ['ai që pi kakao', 'pi kakao', 'nuk pi kakao', 'atij që pi kakao']
+        çaj: ['ai që pi çaj', 'pi çaj', 'nuk pi çaj', 'atij që pi çaj']
+        gazozë: ['ai që pi gazozë', 'pi gazozë', 'nuk pi gazozë', 'atij që pi gazozë']
+
+    zhanre të preferuara letrare:
+        jofiksion: ['ai që lexon jofiksion', 'lexon jofiksion', 'nuk lexon jofiksion', 'atij që lexon jofiksion']
+        roman kriminal: ['ai që lexon romane kriminale', 'lexon romane kriminale', 'nuk lexon romane kriminale', 'atij që lexon romane kriminale']
+        fantazi: ['ai që lexon fantazi', 'lexon fantazi', 'nuk lexon fantazi', 'atij që lexon fantazi']
+        fantashkencë: ['ai që lexon fantashkencë', 'lexon fantashkencë', 'nuk lexon fantashkencë', 'atij që lexon fantashkencë']
+        horror: ['ai që lexon horror', 'lexon horror', 'nuk lexon horror', 'atij që lexon horror']
+        poezi: ['ai që lexon poezi', 'lexon poezi', 'nuk lexon poezi', 'atij që lexon poezi']
+        roman dashurie: ['ai që lexon romane dashurie', 'lexon romane dashurie', 'nuk lexon romane dashurie', 'atij që lexon romane dashurie']
+
+    hobi:
+        bouldering: ['ai që bën bouldering', 'bën bouldering', 'nuk bën bouldering', 'atij që bën bouldering']
+        pikturë: ['ai që pikturon', 'pikturon', 'nuk pikturon', 'atij që pikturon']
+        lojëra tavoline: ['ai që luan lojëra tavoline', 'luan lojëra tavoline', 'nuk luan lojëra tavoline', 'atij që luan lojëra tavoline']
+        tenis: ['ai që luan tenis', 'luan tenis', 'nuk luan tenis', 'atij që luan tenis']
+        grep: ['ai që thurr me grep', 'thurr me grep', 'nuk thurr me grep', 'atij që thurr me grep']
+        futboll: ['ai që luan futboll', 'luan futboll', 'nuk luan futboll', 'atij që luan futboll']
+        hendboll: ['ai që luan hendboll', 'luan hendboll', 'nuk luan hendboll', 'atij që luan hendboll']
+
+    fruta të preferuara:
+        mollë: ['ai që do mollët', 'do mollët', 'nuk do mollët', 'atij që do mollët']
+        dardhë: ['ai që do dardhët', 'do dardhët', 'nuk do dardhët', 'atij që do dardhët']
+        portokall: ['ai që do portokallet', 'do portokallet', 'nuk do portokallet', 'atij që do portokallet']
+        banane: ['ai që do bananet', 'do bananet', 'nuk do bananet', 'atij që do bananet']
+        luleshtrydhe: ['ai që do luleshtrydhët', 'do luleshtrydhët', 'nuk do luleshtrydhët', 'atij që do luleshtrydhët']
+        kasis: ['ai që do kasisin', 'do kasisin', 'nuk do kasisin', 'atij që do kasisin']
+        luleshtrydhe e egër: ['ai që do luleshtrydhët e egra', 'do luleshtrydhët e egra', 'nuk do luleshtrydhët e egra', 'atij që do luleshtrydhët e egra']
+
+red_herring_attributes:
+    floke_kuqe: ['ai me flokë të kuqe', 'ka flokë të kuqe', 'atij me flokë të kuqe']
+    syze: ['ai me syze', 'mban syze', 'atij me syze']
+    tatuazh: ['ai me tatuazh', 'ka tatuazh', 'atij me tatuazh']
+    kitare: ['ai që luan kitarë', 'luan kitarë', 'atij që luan kitarë']
+    biciklete: ['ai me biçikletë', 'ka biçikletë', 'atij me biçikletë']
+    gungace: ['ai me gungaçe', 'ka gungaçe', 'atij me gungaçe']
+    kaktus: ['ai me kaktus', 'nuk ka kaktus', 'atij me kaktus']
+    lojera_video: ['ai që luan lojëra video', 'luan lojëra video', 'atij që luan lojëra video']
+    moter: ['ai me motër', 'ka motër', 'atij me motër']
+    mango: ['ai që mendon se fruti i dytë më i mirë është mango', 'mendon se fruti i dytë më i mirë është mango', 'atij që mendon se fruti i dytë më i mirë është mango']
+    lundrim: ['ai që lundron shpesh', 'lundron shpesh', 'atij që lundron shpesh']
+    kanada: ['ai që ka vizituar Kanadanë', 'ka vizituar Kanadanë', 'atij që ka vizituar Kanadanë']
+    matematike: ['ai me master në matematikë', 'ka master në matematikë', 'atij me master në matematikë']
+    fizike: ['ai që do fizikën', 'do fizikën', 'atij që do fizikën']
+    kafsha_plake: ['ai me kafshë shtëpie të vjetër për llojin e saj', 'ka kafshë shtëpie të vjetër për llojin e saj', 'atij me kafshë shtëpie të vjetër për llojin e saj']
+    kendim_me_ski: ['ai që ndjek kërcime me ski', 'ndjek kërcime me ski', 'atij që ndjek kërcime me ski']
+
+red_herring_facts:
+    hering: ['heringet janë peshq']
+    sistemi_diellor: ['sistemi diellor lëviz me rreth 200 km/s rreth qendrës së galaktikës']
+    enigma: ['është argëtuese të zgjidhësh enigma']
+    shtepi: ['të gjitha shtëpitë në rrugë kanë kopshte të bukura']
+    dere: ['disa shtëpi kanë derë të gjelbër']
+    dritare: ['të gjitha shtëpitë kanë dritare të mëdha']
+    makina: ['ka shumë makina në rrugë']
+    kastravec: ['kastraveci klasifikohet si frut']
+    kermilli: ['kërmillenjtë janë molusqe']
+    kafe: ['kafja përmban kafeinë']
+
+clues_dict:
+    found_at: '{attribute_desc} jeton në shtëpinë numër {i_object}.'
+    not_at: '{attribute_desc} nuk jeton në shtëpinë numër {i_object}.'
+    next_to: '{attribute_desc_1} jeton pranë {attribute_desc_2}.'
+    not_next_to: '{attribute_desc_1} nuk jeton pranë {attribute_desc_2}, dhe janë njerëz të ndryshëm.'
+    just_left_of: '{attribute_desc_1} jeton menjëherë në të majtë të {attribute_desc_2}.'
+    just_right_of: '{attribute_desc_1} jeton menjëherë në të djathtë të {attribute_desc_2}.'
+    left_of: '{attribute_desc_1} jeton në të majtë të {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} jeton në të djathtë të {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    between: '{attribute_desc_2} jeton ndërmjet {attribute_desc_1} dhe {attribute_desc_3}.'
+    not_between: '{attribute_desc_1} nuk jeton ndërmjet {attribute_desc_2} dhe {attribute_desc_3}, dhe janë tre njerëz të ndryshëm.'
+    multiple_between: 'Ndërmjet {attribute_desc_1} dhe {attribute_desc_2} ka {n_between} shtëpi.'
+    one_between: 'Ndërmjet {attribute_desc_1} dhe {attribute_desc_2} ka një shtëpi.'
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'gen_dat']
+    not_next_to: ['nom', 'gen_dat']
+    just_left_of: ['nom', 'gen_dat']
+    just_right_of: ['nom', 'gen_dat']
+    left_of: ['nom', 'gen_dat']
+    right_of: ['nom', 'gen_dat']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['gen_dat', 'nom', 'gen_dat']
+    not_between: ['nom', 'gen_dat', 'gen_dat']
+    multiple_between: ['gen_dat', 'gen_dat']
+    one_between: ['gen_dat', 'gen_dat']
+
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} jeton pranë {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} di që {fact}.'
+    friends: '{attribute_desc} dhe {attribute_desc_herring} janë miq të mirë.'
+    herring_found_at: '{attribute_desc_herring} jeton në shtëpinë numër {i_object}.'
+    herring_not_at: '{attribute_desc_herring} nuk jeton në shtëpinë numër {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'gen_dat']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+prompt_and: dhe
+
+prompt_templates:
+    - |
+        Një rresht shtëpish ka numrat 1 deri në {n_objects} nga e majta në të djathtë.
+
+        Në çdo shtëpi jeton një person me atribut unik në secilën nga kategoritë e mëposhtme:
+
+        {chosen_attributes_str}
+
+        Ne gjithashtu dimë sa vijon:
+
+        {chosen_clues_str}
+
+        Kush ka cilat atribute dhe jeton në cilën shtëpi?
+
+        Ju lutemi paraqisni përgjigjen tuaj si fjalor JSON. Çdo çelës duhet të jetë object_X ku X është numri i shtëpisë. Çdo vlerë duhet të jetë listë e atributeve nga kategoritë e sipërpërmendura që i përkasin personit në shtëpinë numër X.
+
+        Shembulli i mëposhtëm tregon formatin e përgjigjes:
+
+        {solution_template}
+    - |
+        Një rresht shtëpish ka numrat 1 deri në {n_objects} nga e majta në të djathtë.
+
+        Në çdo shtëpi jeton një person me atribut unik në kategorinë {chosen_attributes_str}.
+
+        Ne gjithashtu dimë sa vijon:
+
+        {chosen_clues_str}
+
+        Cilat atribute i përkasin personit që jeton në çdo shtëpi?
+
+        Ju lutemi paraqisni përgjigjen tuaj si fjalor JSON. Çdo çelës duhet të jetë object_X ku X është numri i shtëpisë. Çdo vlerë duhet të jetë listë me atributin nga kategoria e sipërpërmendur që i përket personit në shtëpinë numër X.
+
+        Shembulli i mëposhtëm tregon formatin e përgjigjes:
+
+        {solution_template}
+
+prompt_replacements:
+    'di që është argëtuese të zgjidhësh enigma': 'di që enigmat janë argëtuese'
