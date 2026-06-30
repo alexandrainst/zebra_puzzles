@@ -1,0 +1,200 @@
+# Config file for generating zebra puzzles in Spanish with the houses theme.
+# Masculine forms used as common gender throughout (standard Spanish usage for unknown gender).
+# Prompt replacement 'de el ' → 'del ' handles the de+article contraction.
+
+theme: es_casas
+
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
+
+attributes:
+
+    nacionalidades:
+        Dinamarca: ['el danés', 'es danés', 'no es danés']
+        Suecia: ['el sueco', 'es sueco', 'no es sueco']
+        Letonia: ['el letón', 'es letón', 'no es letón']
+        Francia: ['el francés', 'es francés', 'no es francés']
+        España: ['el español', 'es español', 'no es español']
+        Italia: ['el italiano', 'es italiano', 'no es italiano']
+        Noruega: ['el noruego', 'es noruego', 'no es noruego']
+        Islas Feroe: ['el feroés', 'es feroés', 'no es feroés']
+        Países Bajos: ['el holandés', 'es holandés', 'no es holandés']
+        Islandia: ['el islandés', 'es islandés', 'no es islandés']
+        Reino Unido: ['el británico', 'es británico', 'no es británico']
+
+    profesiones:
+        panadero: ['el panadero', 'es panadero', 'no es panadero']
+        ministro: ['el ministro', 'es ministro', 'no es ministro']
+        policía: ['el policía', 'es policía', 'no es policía']
+        enfermero: ['el enfermero', 'es enfermero', 'no es enfermero']
+        profesor: ['el profesor', 'es profesor', 'no es profesor']
+        programador: ['el programador', 'es programador', 'no es programador']
+        dependiente: ['el dependiente', 'es dependiente', 'no es dependiente']
+
+    mascotas:
+        gato: ['el dueño del gato', 'tiene un gato', 'no tiene gato']
+        perro: ['el dueño del perro', 'tiene un perro', 'no tiene perro']
+        conejo: ['el dueño del conejo', 'tiene un conejo', 'no tiene conejo']
+        cebra: ['el dueño de la cebra', 'tiene una cebra', 'no tiene cebra']
+        periquito: ['el dueño del periquito', 'tiene un periquito', 'no tiene periquito']
+        caracol: ['el dueño del caracol', 'tiene un caracol', 'no tiene caracol']
+        insecto palo: ['el dueño del insecto palo', 'tiene un insecto palo', 'no tiene insecto palo']
+
+    bebidas:
+        zumo: ['quien bebe zumo', 'bebe zumo', 'no bebe zumo']
+        café: ['quien bebe café', 'bebe café', 'no bebe café']
+        leche: ['quien bebe leche', 'bebe leche', 'no bebe leche']
+        batido: ['quien bebe batidos', 'bebe batidos', 'no bebe batidos']
+        cacao: ['quien bebe cacao', 'bebe cacao', 'no bebe cacao']
+        té: ['quien bebe té', 'bebe té', 'no bebe té']
+        refresco: ['quien bebe refresco', 'bebe refresco', 'no bebe refresco']
+
+    géneros literarios favoritos:
+        divulgación: ['quien lee divulgación', 'lee divulgación', 'no lee divulgación']
+        novela negra: ['quien lee novela negra', 'lee novela negra', 'no lee novela negra']
+        fantasía: ['quien lee fantasía', 'lee fantasía', 'no lee fantasía']
+        ciencia ficción: ['quien lee ciencia ficción', 'lee ciencia ficción', 'no lee ciencia ficción']
+        terror: ['quien lee terror', 'lee terror', 'no lee terror']
+        poesía: ['quien lee poesía', 'lee poesía', 'no lee poesía']
+        novela romántica: ['quien lee novela romántica', 'lee novela romántica', 'no lee novela romántica']
+
+    aficiones:
+        escalada en bloque: ['quien practica escalada en bloque', 'practica escalada en bloque', 'no practica escalada en bloque']
+        pintura: ['quien pinta', 'pinta', 'no pinta']
+        juegos de mesa: ['quien juega a juegos de mesa', 'juega a juegos de mesa', 'no juega a juegos de mesa']
+        tenis: ['quien juega al tenis', 'juega al tenis', 'no juega al tenis']
+        ganchillo: ['quien hace ganchillo', 'hace ganchillo', 'no hace ganchillo']
+        fútbol: ['quien juega al fútbol', 'juega al fútbol', 'no juega al fútbol']
+        balonmano: ['quien juega al balonmano', 'juega al balonmano', 'no juega al balonmano']
+
+    frutas favoritas:
+        manzana: ['quien ama las manzanas', 'ama las manzanas', 'no ama las manzanas']
+        pera: ['quien ama las peras', 'ama las peras', 'no ama las peras']
+        naranja: ['quien ama las naranjas', 'ama las naranjas', 'no ama las naranjas']
+        plátano: ['quien ama los plátanos', 'ama los plátanos', 'no ama los plátanos']
+        fresa: ['quien ama las fresas', 'ama las fresas', 'no ama las fresas']
+        grosella negra: ['quien ama las grosellas negras', 'ama las grosellas negras', 'no ama las grosellas negras']
+        fresa silvestre: ['quien ama las fresas silvestres', 'ama las fresas silvestres', 'no ama las fresas silvestres']
+
+red_herring_attributes:
+    pelo_rojo: ['quien tiene el pelo rojo', 'tiene el pelo rojo']
+    gafas: ['quien lleva gafas', 'lleva gafas']
+    tatuaje: ['quien tiene un tatuaje', 'tiene un tatuaje']
+    guitarra: ['quien toca la guitarra', 'toca la guitarra']
+    bicicleta: ['quien tiene una bicicleta', 'tiene una bicicleta']
+    cobaya: ['quien tiene un cobaya', 'tiene un cobaya']
+    cactus: ['quien tiene un cactus', 'no tiene cactus']
+    videojuegos: ['quien juega a videojuegos', 'juega a videojuegos']
+    hermana: ['quien tiene una hermana', 'tiene una hermana']
+    mango: ['quien cree que la segunda mejor fruta es el mango', 'cree que la segunda mejor fruta es el mango']
+    vela: ['quien navega a vela con frecuencia', 'navega a vela con frecuencia']
+    Canada: ['quien ha visitado Canadá', 'ha visitado Canadá']
+    matematicas: ['quien tiene un máster en matemáticas', 'tiene un máster en matemáticas']
+    fisica: ['quien ama la física', 'ama la física']
+    mascota_mayor: ['quien tiene una mascota mayor de lo habitual para su especie', 'tiene una mascota mayor de lo habitual para su especie']
+    saltos_de_esqui: ['quien ve saltos de esquí', 've saltos de esquí']
+
+red_herring_facts:
+    arenque: ['los arenques son peces']
+    sistema_solar: ['el sistema solar se mueve a una velocidad de unos 200 km/s alrededor del centro de la galaxia']
+    acertijo: ['resolver acertijos es divertido']
+    casas_fact: ['todas las casas de la calle tienen jardines bonitos']
+    puertas: ['varias casas tienen una puerta verde']
+    ventanas: ['todas las casas tienen ventanas grandes']
+    coches: ['hay muchos coches en la calle']
+    pepino: ['el pepino es una baya']
+    caracol_fact: ['los caracoles son moluscos']
+    cafe_fact: ['el café contiene cafeína']
+
+clues_dict:
+    found_at: '{attribute_desc} vive en la casa número {i_object}.'
+    not_at: '{attribute_desc} no vive en la casa número {i_object}.'
+    next_to: '{attribute_desc_1} vive al lado de {attribute_desc_2}.'
+    not_next_to: '{attribute_desc_1} no vive al lado de {attribute_desc_2}, y son personas distintas.'
+    just_left_of: '{attribute_desc_1} vive inmediatamente a la izquierda de {attribute_desc_2}.'
+    just_right_of: '{attribute_desc_1} vive inmediatamente a la derecha de {attribute_desc_2}.'
+    left_of: '{attribute_desc_1} vive a la izquierda de {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} vive a la derecha de {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    between: '{attribute_desc_2} vive entre {attribute_desc_1} y {attribute_desc_3}.'
+    not_between: '{attribute_desc_1} no vive entre {attribute_desc_2} y {attribute_desc_3}, y son tres personas distintas.'
+    multiple_between: 'Entre {attribute_desc_1} y {attribute_desc_2} hay {n_between} casas.'
+    one_between: 'Entre {attribute_desc_1} y {attribute_desc_2} hay una casa.'
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'nom']
+    not_next_to: ['nom', 'nom']
+    just_left_of: ['nom', 'nom']
+    just_right_of: ['nom', 'nom']
+    left_of: ['nom', 'nom']
+    right_of: ['nom', 'nom']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['nom', 'nom', 'nom']
+    not_between: ['nom', 'nom', 'nom']
+    multiple_between: ['nom', 'nom']
+    one_between: ['nom', 'nom']
+
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} vive al lado de {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} sabe que {fact}.'
+    friends: '{attribute_desc} es muy amigo de {attribute_desc_herring}.'
+    herring_found_at: '{attribute_desc_herring} vive en la casa número {i_object}.'
+    herring_not_at: '{attribute_desc_herring} no vive en la casa número {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'nom']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+prompt_and: y
+
+prompt_templates:
+    - |
+        Una fila de casas está numerada del 1 al {n_objects} de izquierda a derecha.
+
+        En cada casa vive una persona con un atributo único en cada una de las siguientes categorías:
+
+        {chosen_attributes_str}
+
+        También sabemos lo siguiente:
+
+        {chosen_clues_str}
+
+        ¿Quién tiene qué atributos y vive en qué casa?
+
+        Por favor, presenta tu respuesta como un JSON dictionary. Cada key debe ser object_X, donde X es el número de la casa. Cada value debe ser una lista de los atributos de las categorías mencionadas que pertenecen a la persona en la casa número X.
+
+        El siguiente es un ejemplo del formato de respuesta:
+
+        {solution_template}
+    - |
+        Una fila de casas está numerada del 1 al {n_objects} de izquierda a derecha.
+
+        En cada casa vive una persona con un atributo único en la categoría de {chosen_attributes_str}.
+
+        También sabemos lo siguiente:
+
+        {chosen_clues_str}
+
+        ¿Qué atributo tiene la persona que vive en cada casa?
+
+        Por favor, presenta tu respuesta como un JSON dictionary. Cada key debe ser object_X, donde X es el número de la casa. Cada value debe ser una lista que contenga el atributo de la categoría mencionada que pertenece a la persona en la casa número X.
+
+        El siguiente es un ejemplo del formato de respuesta:
+
+        {solution_template}
+
+prompt_replacements:
+    'de el ': 'del '
