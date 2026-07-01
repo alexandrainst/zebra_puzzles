@@ -52,7 +52,7 @@ attributes:
         sok: ["tisti, ki pije sok,", "pije sok", "ne pije soka", "tistega, ki pije sok,", "tistim, ki pije sok,"]
         kava: ["tisti, ki pije kavo,", "pije kavo", "ne pije kave", "tistega, ki pije kavo,", "tistim, ki pije kavo,"]
         mleko: ["tisti, ki pije mleko,", "pije mleko", "ne pije mleka", "tistega, ki pije mleko,", "tistim, ki pije mleko,"]
-        smuti: ["tisti, ki pije smuti,", "pije smuti", "ne pije smutija", "tistega, ki pije smuti,", "tistim, ki pije smuti,"]  # uncertain: smuti declension
+        zméšanček: ["tisti, ki pije zméšanček,", "pije zméšanček", "ne pije zméšančka", "tistega, ki pije zméšanček,", "tistim, ki pije zméšanček,"]
         kakav: ["tisti, ki pije kakav,", "pije kakav", "ne pije kakava", "tistega, ki pije kakav,", "tistim, ki pije kakav,"]
         čaj: ["tisti, ki pije čaj,", "pije čaj", "ne pije čaja", "tistega, ki pije čaj,", "tistim, ki pije čaj,"]
         gazirana pijača: ["tisti, ki pije gazirano pijačo,", "pije gazirano pijačo", "ne pije gazirane pijače", "tistega, ki pije gazirano pijačo,", "tistim, ki pije gazirano pijačo,"]
