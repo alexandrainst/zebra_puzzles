@@ -31,6 +31,7 @@
 # lv/majas
 # sr/kuce
 # sk/domy
+# sl/hise
 
 defaults:
   - language: en/houses
