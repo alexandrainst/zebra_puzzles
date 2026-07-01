@@ -33,6 +33,7 @@
 # sk/domy
 # sl/hise
 # cs/domy
+# it/case
 
 defaults:
   - language: en/houses
