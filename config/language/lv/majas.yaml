@@ -175,7 +175,7 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Kam ir kādas īpašības un kurā mājā viņš dzīvo?
+        Kam ir kādas īpašības un kurā mājā viņš vai viņa dzīvo?
 
         Lūdzu, iesniedziet atbildi kā JSON vārdnīcu. Katrai atslēgai jābūt object_X, kur X ir mājas numurs. Katrai vērtībai jābūt iepriekš minēto kategoriju īpašību sarakstam, kas pieder mājā nr. X dzīvojošajai personai.
 
