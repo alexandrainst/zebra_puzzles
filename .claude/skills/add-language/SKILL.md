@@ -30,12 +30,32 @@ For languages that inflect attributes by case, additionally read the matching te
 
 **Human-validated configs:** da, de, en, fo, is, nb, nl, nn, sv. These are the most reliable translation references.
 
+**Also read the most closely related existing config by language family** — it is usually a better content reference than English for vocabulary and phrasing, and its case structure may be directly reusable:
+
+| Language family | Closest existing config to read |
+|---|---|
+| Baltic (Latvian, Lithuanian) | `config/language/lt/namai.yaml` |
+| South Slavic (Bosnian, Croatian, Serbian) | `config/language/bs/kuce.yaml` |
+| West Slavic (Polish, Czech, Slovak) | `config/language/pl/domy.yaml` |
+| East Slavic (Belarusian, Russian, Ukrainian) | `config/language/uk/budynky.yaml` |
+| North Germanic (Danish, Faroese, Icelandic, Norwegian, Swedish) | nearest validated config |
+| Romance (French, Italian, Portuguese, Romanian, Spanish) | nearest existing Romance config |
+
 Before writing the config, briefly scan whether the language has any feature that clearly cannot be expressed by translating the existing clue templates and attribute forms — for example, a radically different word order, a grammatical category with no analog in existing configs, or a number agreement rule that affects clue templates. Note anything flagged here and address it at step 4.
 
 ### 2. Create the config file
 Create `config/language/<lang_code>/` directory if needed, then write `<theme_name>.yaml`.
 
-**Before writing any attribute forms, make three decisions:**
+**Before writing any attribute forms, make four decisions and write them as a YAML comment block at the top of the config. Commit to these decisions — do not revise them while writing attributes. If you discover a problem mid-way, note it and finish the attributes first.**
+
+0. **Decision table** (write this comment block at the top of the YAML before any content):
+   ```yaml
+   # Cases: attribute_cases = [nom, is, is_not, ...]
+   # Preposition → case: blakus→dat, pa kreisi no→gen, starpā→gen
+   # Word-formation: drinks=compound+verb, pets=possessive+verb, fruits=cienītājs+priekšroku
+   # Uncertain forms (flagged for native speaker review): fērs (Faroese), kūjiņkukainis (stick insect)
+   ```
+   Adapt the fields to the language. The purpose is to force all structural decisions up front so you write attributes in one pass without reconsidering.
 
 1. **Gender default**: If the language marks grammatical gender, decide the default now. Write it as a YAML comment at the top of the file. Apply it to all nom/is/is_not forms for both regular attributes AND red herring attributes — they can appear in the same puzzle describing the same person of unknown gender. But if a neutral form is available and natural, use that instead. In the houses theme, attributes can describe both men and women, but their genders are never mentioned. The same attribute string must work for any person regardless of their actual gender — a grammatically gendered form is fine as long as it is used consistently for everyone (e.g. "the cat owner" in a grammatically masculine form is acceptable; using masculine for some persons and feminine for others is not). Prefer short, natural forms over verbose periphrastic constructions.
 
@@ -53,7 +73,14 @@ Create `config/language/<lang_code>/` directory if needed, then write `<theme_na
 
    - **Postpositive (suffixed) definite articles** (Romanian, Bulgarian, Albanian, Macedonian): definiteness is marked by a suffix on the noun rather than a separate word. Store the fully inflected form including the article suffix directly in the YAML — no special handling is needed. Use `prompt_replacements` for any preposition–article interactions. **Bulgarian exception**: masculine definite nouns have two forms — a full form (`-ят/-ят`, used in subject/nominative position) and a short form (`-а/-я`, used after prepositions). This split requires `attribute_cases: [nom, is, is_not, prep]` where `prep` is the short masculine form. Feminine and neuter nouns have only one definite form and use the same string for both `nom` and `prep` slots.
 
-3. **Prompt replacements**: Think ahead — will relative clauses leave trailing commas before periods? Will articles contract? Note these now and add to `prompt_replacements` as you encounter them while writing the config. If you are considering adding a lot of replacements, it may be better to edit the code to handle the grammar.
+3. **Word-formation pattern per category**: Decide once before writing any attributes how each category will express its nom/is forms (compound noun, possessive phrase, or verb phrase), then apply consistently. Do not switch patterns mid-category unless necessary. Common choices:
+   - Drinks: compound drinker-noun (Finnish "kahvinjuoja") or verb phrase ("dzer kafiju")
+   - Pets: possessive + "owner" compound (Finnish "kissanomistaja") or possessive + saimnieks/savininkas
+   - Fruits: verb phrase ("mīl ābolus") or "fan-of" compound ("ābolu cienītājs") + consistent dative/accusative for is/is_not
+   - Literature: compound reader-noun or possessive + "reader"
+   Pick one per category and apply it to all values in that category without reconsidering.
+
+4. **Prompt replacements**: Think ahead — will relative clauses leave trailing commas before periods? Will articles contract? Note these now and add to `prompt_replacements` as you encounter them while writing the config. If you are considering adding a lot of replacements, it may be better to edit the code to handle the grammar.
    - Romance languages typically contract `de + article`: French `de le → du`, Portuguese `de o → do`, Spanish `de el → del`, Italian `di il → del`. Since nom forms follow positional prepositions in clue templates (e.g. `à esquerda de {attribute_desc}`), these contractions arise naturally. Add the relevant `"de o ": "do "` style rule upfront.
 
 **Key clue template grammar** (refer to this when writing `is` forms and clue templates):
@@ -80,6 +107,8 @@ Required top-level keys (in this order):
 
 The meaning should be consistent across languages, unless this would compromise grammar, unambiguity or make puzzles too complicated to generate.
 
+**Pick and flag rule**: If you are uncertain about a specific word or form (e.g. a rare demonym, a borrowed term, or a morphological edge case), pick your best guess, add an inline YAML comment `# uncertain — verify with native speaker`, and move on immediately without reconsidering. Flag all uncertain items in the user-review step (step 12). Do not let uncertainty about one form block or slow down writing the rest of the config.
+
 **Known content-sensitive attributes** — these have been mistranslated in several past configs. Verify each one before finishing step 2:
 
 - **Wild strawberry** (`ahomansikka` / `fraise des bois` / `szamóca`): This is the small woodland fruit (*Fragaria vesca*), not a regular strawberry and **not a raspberry**. Use the local term for wild/woodland strawberry.
@@ -91,6 +120,8 @@ The meaning should be consistent across languages, unless this would compromise 
 - **Football**: This describes someone who plays football (soccer) as a hobby, not someone who watches it, is a fan or a professional player.
 - **Budgerigar**: This is the specific small parakeet (*Melopsittacus undulatus*). Do not use a generic word for parrot unless no specific term exists.
 - **Netherlands**: Prefer terms that refer to the country as a whole rather than the region of Holland, unless the language has no other natural term.
+- **Nurse/sister ambiguity**: In some languages the words for "nurse" and "sister" are identical or share a root (Estonian "õde", Latvian "māsa", Hungarian "nővér"). Use the compound medical term for nurse (Estonian "meditsiiniõde", Latvian "medmāsa") and the bare word for the sister red herring.
+- **Soda**: Pick a word covering generic carbonated soft drinks, and use most natural option even if it is a specific flavour.
 
 ### 3. Validate the config before generating puzzles
 
