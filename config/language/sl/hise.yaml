@@ -42,11 +42,11 @@ attributes:
     hišne živali:
         mačka: ["lastnik mačke", "ima mačko", "nima mačke", "lastnika mačke", "lastnikom mačke"]
         pes: ["lastnik psa", "ima psa", "nima psa", "lastnika psa", "lastnikom psa"]
-        kunec: ["lastnik kunca", "ima kunca", "nima kunca", "lastnika kunca", "lastnikom kunca"]  # uncertain — verify: kunec = rabbit?
+        kunec: ["lastnik kunca", "ima kunca", "nima kunca", "lastnika kunca", "lastnikom kunca"]
         zebra: ["lastnik zebre", "ima zebro", "nima zebre", "lastnika zebre", "lastnikom zebre"]
-        andulka: ["lastnik andulke", "ima andulko", "nima andulke", "lastnika andulke", "lastnikom andulke"]  # uncertain — verify: andulka = budgerigar?
+        škôbčevka: ["lastnik škôbčevke", "ima škôbčevko", "nima škôbčevke", "lastnika škôbčevke", "lastnikom škôbčevke"]
         polž: ["lastnik polža", "ima polža", "nima polža", "lastnika polža", "lastnikom polža"]
-        hodec: ["lastnik hodca", "ima hodca", "nima hodca", "lastnika hodca", "lastnikom hodca"]  # uncertain — verify: hodec = stick insect?
+        paličnjak: ["lastnik paličnjaka", "ima paličnjaka", "nima paličnjaka", "lastnika paličnjaka", "lastnikom paličnjaka"]
 
     pijače:
         sok: ["tisti, ki pije sok,", "pije sok", "ne pije soka", "tistega, ki pije sok,", "tistim, ki pije sok,"]

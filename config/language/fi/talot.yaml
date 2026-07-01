@@ -45,7 +45,7 @@ attributes:
         seepra: ['seepranomistaja', 'omistaa seepran', 'ei omista seepraa', 'seepranomistajan']
         undulaatti: ['undulaatinomistaja', 'omistaa undulaatin', 'ei omista undulaattia', 'undulaatinomistajan']
         etana: ['etananomistaja', 'omistaa etanan', 'ei omista etanaa', 'etananomistajan']
-        tikku-ukko: ['tikku-ukon omistaja', 'omistaa tikku-ukon', 'ei omista tikku-ukkoa', 'tikku-ukon omistajan']
+        ruskosauvasirkka: ['ruskosauvasirkan omistaja', 'omistaa ruskosauvasirkan', 'ei omista ruskosauvasirkkaa', 'ruskosauvasirkan omistajan']
 
     juomat:
         mehu: ['mehunjuoja', 'juo mehua', 'ei juo mehua', 'mehunjuojan']

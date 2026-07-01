@@ -41,7 +41,7 @@ attributes:
         zebra: ['zebras saimnieks', 'ir zebras saimnieks', 'nav zebras saimnieka', 'zebras saimnieka', 'zebras saimniekam']
         undulāts: ['undulāta saimnieks', 'ir undulāta saimnieks', 'nav undulāta saimnieka', 'undulāta saimnieka', 'undulāta saimniekam']
         gliemezis: ['gliemeža saimnieks', 'ir gliemeža saimnieks', 'nav gliemeža saimnieka', 'gliemeža saimnieka', 'gliemeža saimniekam']
-        kūjiņkukainis: ['kūjiņkukaiņa saimnieks', 'ir kūjiņkukaiņa saimnieks', 'nav kūjiņkukaiņa saimnieka', 'kūjiņkukaiņa saimnieka', 'kūjiņkukaiņa saimniekam']
+        zarkukainis: ['zarkukaiņa saimnieks', 'ir zarkukaiņa saimnieks', 'nav zarkukaiņa saimnieka', 'zarkukaiņa saimnieka', 'zarkukaiņa saimniekam']
 
     dzērieni:
         sula: ['sulas dzērājs', 'dzer sulu', 'nedzer sulas', 'sulas dzērāja', 'sulas dzērājam']

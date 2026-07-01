@@ -18,7 +18,7 @@ attributes:
         Italija: ['italas', 'yra italas', 'nėra italo', 'italo']
         Norvegija: ['norvegas', 'yra norvegas', 'nėra norvego', 'norvego']
         Farerai: ['farerietis', 'yra farerietis', 'nėra fareriečio', 'fareriečio']
-        Nyderlandai: ['olandas', 'yra olandas', 'nėra olando', 'olando']
+        Nyderlandai: ['nyderlandietis', 'yra nyderlandietis', 'nėra nyderlandiečio', 'nyderlandiečio']
         Islandija: ['islandietis', 'yra islandietis', 'nėra islandiečio', 'islandiečio']
         Jungtinė Karalystė: ['britas', 'yra britas', 'nėra brito', 'brito']
 
@@ -38,7 +38,7 @@ attributes:
         zebras: ['zebro savininkas', 'turi zebrą', 'neturi zebro', 'zebro savininko']
         papūgėlė: ['papūgėlės savininkas', 'turi papūgėlę', 'neturi papūgėlės', 'papūgėlės savininko']
         sraigė: ['sraigės savininkas', 'turi sraigę', 'neturi sraigės', 'sraigės savininko']
-        vaikščiojantis pagaliukas: ['vaikščiojančio pagaliuko savininkas', 'turi vaikščiojantį pagaliuką', 'neturi vaikščiojančio pagaliuko', 'vaikščiojančio pagaliuko savininko']
+        gyvalazdė: ['gyvalazdės savininkas', 'turi gyvalazdę', 'neturi gyvalazdės', 'gyvalazdės savininko']
 
     gėrimai:
         sultys: ['sulčių gėrėjas', 'geria sultis', 'negeria sulčių', 'sulčių gėrėjo']
