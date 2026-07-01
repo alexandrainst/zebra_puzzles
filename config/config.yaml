@@ -29,6 +29,7 @@
 # hr/kuce
 # et/majad
 # lv/majas
+# sr/kuce
 
 defaults:
   - language: en/houses
