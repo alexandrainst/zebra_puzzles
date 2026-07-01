@@ -1,0 +1,201 @@
+# Config file for generating zebra puzzles in Catalan with the houses theme.
+# Masculine forms used as common gender throughout (standard Catalan usage for unknown gender).
+# Prompt replacement 'de el ' → 'del ' handles the de+article contraction.
+# Article elision (de + l' for vowel-initial nouns) is written directly in each form.
+
+theme: ca_cases
+
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
+
+attributes:
+
+    nacionalitats:
+        Dinamarca: ['el danès', 'és danès', 'no és danès']
+        Suècia: ['el suec', 'és suec', 'no és suec']
+        Letònia: ['el letó', 'és letó', 'no és letó']
+        França: ['el francès', 'és francès', 'no és francès']
+        Espanya: ["l'espanyol", 'és espanyol', 'no és espanyol']
+        Itàlia: ["l'italià", 'és italià', 'no és italià']
+        Noruega: ['el noruec', 'és noruec', 'no és noruec']
+        Illes Fèroe: ['el feroès', 'és feroès', 'no és feroès']
+        Països Baixos: ["l'holandès", 'és holandès', 'no és holandès']
+        Islàndia: ["l'islandès", 'és islandès', 'no és islandès']
+        Regne Unit: ['el britànic', 'és britànic', 'no és britànic']
+
+    professions:
+        forner: ['el forner', 'és forner', 'no és forner']
+        ministre: ['el ministre', 'és ministre', 'no és ministre']
+        policia: ['el policia', 'és policia', 'no és policia']
+        infermer: ["l'infermer", 'és infermer', 'no és infermer']
+        professor: ['el professor', 'és professor', 'no és professor']
+        programador: ['el programador', 'és programador', 'no és programador']
+        dependent: ['el dependent', 'és dependent', 'no és dependent']
+
+    mascotes:
+        gat: ['el propietari del gat', 'té un gat', 'no té gat']
+        gos: ['el propietari del gos', 'té un gos', 'no té gos']
+        conill: ['el propietari del conill', 'té un conill', 'no té conill']
+        zebra: ['el propietari de la zebra', 'té una zebra', 'no té zebra']
+        periquito: ['el propietari del periquito', 'té un periquito', 'no té periquito']
+        cargol: ['el propietari del cargol', 'té un cargol', 'no té cargol']
+        insecte pal: ["el propietari de l'insecte pal", 'té un insecte pal', 'no té insecte pal']
+
+    begudes:
+        suc: ['qui beu suc', 'beu suc', 'no beu suc']
+        cafè: ['qui beu cafè', 'beu cafè', 'no beu cafè']
+        llet: ['qui beu llet', 'beu llet', 'no beu llet']
+        batut: ['qui beu batuts', 'beu batuts', 'no beu batuts']
+        cacau: ['qui beu cacau', 'beu cacau', 'no beu cacau']
+        te: ['qui beu te', 'beu te', 'no beu te']
+        refresc: ['qui beu refresc', 'beu refresc', 'no beu refresc']
+
+    gèneres literaris favorits:
+        divulgació: ['qui llegeix divulgació', 'llegeix divulgació', 'no llegeix divulgació']
+        novel·la negra: ['qui llegeix novel·la negra', 'llegeix novel·la negra', 'no llegeix novel·la negra']
+        fantasia: ['qui llegeix fantasia', 'llegeix fantasia', 'no llegeix fantasia']
+        ciència-ficció: ['qui llegeix ciència-ficció', 'llegeix ciència-ficció', 'no llegeix ciència-ficció']
+        terror: ['qui llegeix terror', 'llegeix terror', 'no llegeix terror']
+        poesia: ['qui llegeix poesia', 'llegeix poesia', 'no llegeix poesia']
+        novel·la romàntica: ['qui llegeix novel·la romàntica', 'llegeix novel·la romàntica', 'no llegeix novel·la romàntica']
+
+    aficions:
+        escalada en bloc: ['qui practica escalada en bloc', 'practica escalada en bloc', 'no practica escalada en bloc']
+        pintura: ['qui pinta', 'pinta', 'no pinta']
+        jocs de taula: ['qui juga a jocs de taula', 'juga a jocs de taula', 'no juga a jocs de taula']
+        tennis: ['qui juga al tennis', 'juga al tennis', 'no juga al tennis']
+        ganxet: ['qui fa ganxet', 'fa ganxet', 'no fa ganxet']
+        futbol: ['qui juga al futbol', 'juga al futbol', 'no juga al futbol']
+        handbol: ['qui juga a handbol', 'juga a handbol', 'no juga a handbol']
+
+    fruites favorites:
+        poma: ['qui estima les pomes', 'estima les pomes', 'no estima les pomes']
+        pera: ['qui estima les peres', 'estima les peres', 'no estima les peres']
+        taronja: ['qui estima les taronges', 'estima les taronges', 'no estima les taronges']
+        plàtan: ['qui estima els plàtans', 'estima els plàtans', 'no estima els plàtans']
+        maduixa: ['qui estima les maduixes', 'estima les maduixes', 'no estima les maduixes']
+        grosella negra: ['qui estima les groselles negres', 'estima les groselles negres', 'no estima les groselles negres']
+        maduixa de bosc: ['qui estima les maduixes de bosc', 'estima les maduixes de bosc', 'no estima les maduixes de bosc']
+
+red_herring_attributes:
+    cabell_vermell: ['qui té el cabell vermell', 'té el cabell vermell']
+    ulleres: ['qui porta ulleres', 'porta ulleres']
+    tatuatge: ['qui té un tatuatge', 'té un tatuatge']
+    guitarra: ['qui toca la guitarra', 'toca la guitarra']
+    bicicleta: ['qui té una bicicleta', 'té una bicicleta']
+    cobai: ['qui té un cobai', 'té un cobai']
+    cactus: ['qui té un cactus', 'no té cactus']
+    videojocs: ['qui juga a videojocs', 'juga a videojocs']
+    germana: ['qui té una germana', 'té una germana']
+    mango: ['qui creu que la segona millor fruita és el mango', 'creu que la segona millor fruita és el mango']
+    vela: ['qui navega a vela sovint', 'navega a vela sovint']
+    Canada: ['qui ha visitat el Canadà', 'ha visitat el Canadà']
+    matematiques: ['qui té un màster en matemàtiques', 'té un màster en matemàtiques']
+    fisica: ['qui estima la física', 'estima la física']
+    mascota_gran: ['qui té una mascota vella per a la seva espècie', 'té una mascota vella per a la seva espècie']
+    salts_desqui: ["qui veu salts d'esquí", "veu salts d'esquí"]
+
+red_herring_facts:
+    areng: ['els arengs són peixos']
+    sistema_solar: ["el sistema solar es mou a una velocitat d'uns 200 km/s al voltant del centre de la galàxia"]
+    trencaclosques: ['resoldre trencaclosques és divertit']
+    cases_fact: ['totes les cases del carrer tenen jardins bonics']
+    portes: ['diverses cases tenen una porta verda']
+    finestres: ['totes les cases tenen finestres grans']
+    cotxes: ['hi ha molts cotxes al carrer']
+    cogombre: ['el cogombre és una baia']
+    cargol_fact: ['els cargols són mol·luscs']
+    cafe_fact: ['el cafè conté cafeïna']
+
+clues_dict:
+    found_at: '{attribute_desc} viu a la casa número {i_object}.'
+    not_at: '{attribute_desc} no viu a la casa número {i_object}.'
+    next_to: '{attribute_desc_1} viu al costat de {attribute_desc_2}.'
+    not_next_to: "{attribute_desc_1} no viu al costat de {attribute_desc_2}, i són persones diferents."
+    just_left_of: "{attribute_desc_1} viu immediatament a l'esquerra de {attribute_desc_2}."
+    just_right_of: '{attribute_desc_1} viu immediatament a la dreta de {attribute_desc_2}.'
+    left_of: "{attribute_desc_1} viu a l'esquerra de {attribute_desc_2}."
+    right_of: '{attribute_desc_1} viu a la dreta de {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    between: '{attribute_desc_2} viu entre {attribute_desc_1} i {attribute_desc_3}.'
+    not_between: '{attribute_desc_1} no viu entre {attribute_desc_2} i {attribute_desc_3}, i són tres persones diferents.'
+    multiple_between: 'Entre {attribute_desc_1} i {attribute_desc_2} hi ha {n_between} cases.'
+    one_between: 'Entre {attribute_desc_1} i {attribute_desc_2} hi ha una casa.'
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'nom']
+    not_next_to: ['nom', 'nom']
+    just_left_of: ['nom', 'nom']
+    just_right_of: ['nom', 'nom']
+    left_of: ['nom', 'nom']
+    right_of: ['nom', 'nom']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['nom', 'nom', 'nom']
+    not_between: ['nom', 'nom', 'nom']
+    multiple_between: ['nom', 'nom']
+    one_between: ['nom', 'nom']
+
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} viu al costat de {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} sap que {fact}.'
+    friends: '{attribute_desc} és molt amic de {attribute_desc_herring}.'
+    herring_found_at: '{attribute_desc_herring} viu a la casa número {i_object}.'
+    herring_not_at: '{attribute_desc_herring} no viu a la casa número {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'nom']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+prompt_and: i
+
+prompt_templates:
+    - |
+        Una fila de cases està numerada de l'1 al {n_objects} d'esquerra a dreta.
+
+        A cada casa hi viu una persona amb un atribut únic en cadascuna de les categories següents:
+
+        {chosen_attributes_str}
+
+        També sabem el següent:
+
+        {chosen_clues_str}
+
+        Qui té quins atributs i viu a quina casa?
+
+        Sisplau, presenta la teva resposta com un JSON dictionary. Cada key ha de ser object_X, on X és el número de la casa. Cada value ha de ser una llista dels atributs de les categories esmentades que pertanyen a la persona de la casa número X.
+
+        El següent és un exemple del format de resposta:
+
+        {solution_template}
+    - |
+        Una fila de cases està numerada de l'1 al {n_objects} d'esquerra a dreta.
+
+        A cada casa hi viu una persona amb un atribut únic en la categoria de {chosen_attributes_str}.
+
+        També sabem el següent:
+
+        {chosen_clues_str}
+
+        Quin atribut té la persona que viu a cada casa?
+
+        Sisplau, presenta la teva resposta com un JSON dictionary. Cada key ha de ser object_X, on X és el número de la casa. Cada value ha de ser una llista que contingui l'atribut de la categoria esmentada que pertany a la persona de la casa número X.
+
+        El següent és un exemple del format de resposta:
+
+        {solution_template}
+
+prompt_replacements:
+    'de el ': 'del '
