@@ -109,7 +109,7 @@ The meaning should be consistent across languages, unless this would compromise 
 
 **Pick and flag rule**: If you are uncertain about a specific word or form (e.g. a rare demonym, a borrowed term, or a morphological edge case), pick your best guess, add an inline YAML comment `# uncertain — verify with native speaker`, and move on immediately without reconsidering. Flag all uncertain items in the user-review step (step 12). Do not let uncertainty about one form block or slow down writing the rest of the config.
 
-**Known content-sensitive attributes** — these have been mistranslated in several past configs. Verify each one before finishing step 2:
+**Known content-sensitive attributes** — these have been mistranslated in several past configs (for the houses theme). Verify each one before finishing step 2:
 
 - **Wild strawberry** (`ahomansikka` / `fraise des bois` / `szamóca`): This is the small woodland fruit (*Fragaria vesca*), not a regular strawberry and **not a raspberry**. Use the local term for wild/woodland strawberry.
 - **Mango (red herring)**: The person likes mango but considers some other fruit better — mango is their runner-up. Avoid phrasings like "second favourite fruit" that imply mango is one of their top picks. Frame it as a ranking where something else comes first, e.g. "thinks the second-best fruit is mango".

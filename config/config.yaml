@@ -30,6 +30,7 @@
 # et/majad
 # lv/majas
 # sr/kuce
+# sk/domy
 
 defaults:
   - language: en/houses
