@@ -15,7 +15,7 @@ Available languages and themes:
 
 - Houses theme:
     - Finished versions: Danish 🇩🇰, Dutch 🇳🇱, English 🇬🇧, Faroese 🇫🇴, German 🇩🇪, Icelandic 🇮🇸, Norwegian Bokmål 🇳🇴, Norwegian Nynorsk 🇳🇴 and Swedish 🇸🇪.
-    - Preliminary versions: Albanian 🇦🇱, Belarusian 🇧🇾, Bosnian 🇧🇦, Bulgarian 🇧🇬, Catalan 🏴󠁥󠁳󠁣󠁴󠁿, Croatian 🇭🇷, Estonian 🇪🇪, Finnish 🇫🇮, French 🇫🇷, Greek 🇬🇷, Hungarian 🇭🇺, Lithuanian 🇱🇹, Polish 🇵🇱, Portuguese 🇵🇹, Romanian 🇷🇴, Spanish 🇪🇸 and Ukrainian 🇺🇦.
+    - Preliminary versions: Albanian 🇦🇱, Belarusian 🇧🇾, Bosnian 🇧🇦, Bulgarian 🇧🇬, Catalan 🏴󠁥󠁳󠁣󠁴󠁿, Croatian 🇭🇷, Estonian 🇪🇪, Finnish 🇫🇮, French 🇫🇷, Greek 🇬🇷, Hungarian 🇭🇺, Latvian 🇱🇻, Lithuanian 🇱🇹, Polish 🇵🇱, Portuguese 🇵🇹, Romanian 🇷🇴, Spanish 🇪🇸 and Ukrainian 🇺🇦.
 - Smørrebrød theme:
     - Finished versions: Danish 🇩🇰.
 
@@ -163,6 +163,7 @@ To add a new language or theme manually:
 5. Edit `README.md` to mention the new language/theme.
 6. Generate some puzzles to test the language/theme. We recommend using large puzzles, so all clue types are applicable. Set the new theme with `language` in `config/config.yaml` and run e.g. `uv run src/scripts/build_dataset.py n_objects=4 n_attributes=5 n_red_herring_clues=5 n_puzzles=10`.
 
+Read the skill at `.claude/skills/add-language/SKILL.md` for details on common translation issues.
 
 ## Setup
 

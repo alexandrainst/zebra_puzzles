@@ -1,0 +1,203 @@
+# Config file for generating zebra puzzles in Latvian with the houses theme.
+# Gender policy: masculine forms used throughout for persons of unknown gender.
+# Exception: medmāsa (nurse) is a feminine job title with no standard masculine equivalent.
+# Fēru salas demonym: fērietis (pl. fērieši), following the -ietis pattern like latvietis.
+# Genitive (gen) is used after: pa kreisi/labi no (left/right of), starpā postposition (between).
+# Dative (dat) is used after: blakus (next to).
+# Note: multiple_between uses "mājas" (nom pl), correct for n=2-9 in Latvian.
+theme: lv_majas
+
+attribute_cases: [nom, is, is_not, gen, dat]
+red_herring_attribute_cases: [nom, is, gen, dat]
+
+attributes:
+
+    tautības:
+        Dānija: ['dānis', 'ir dānis', 'nav dāņa', 'dāņa', 'dānim']
+        Zviedrija: ['zviedrs', 'ir zviedrs', 'nav zviedra', 'zviedra', 'zviedram']
+        Latvija: ['latvietis', 'ir latvietis', 'nav latvieša', 'latvieša', 'latvietim']
+        Francija: ['francūzis', 'ir francūzis', 'nav francūža', 'francūža', 'francūzim']
+        Spānija: ['spānis', 'ir spānis', 'nav spāņa', 'spāņa', 'spānim']
+        Itālija: ['itālis', 'ir itālis', 'nav itāļa', 'itāļa', 'itālim']
+        Norvēģija: ['norvēģis', 'ir norvēģis', 'nav norvēģa', 'norvēģa', 'norvēģim']
+        Fēru salas: ['fērietis', 'ir fērietis', 'nav fērieša', 'fērieša', 'fērietim']
+        Nīderlande: ['nīderlandietis', 'ir nīderlandietis', 'nav nīderlandieša', 'nīderlandieša', 'nīderlandietim']
+        Islande: ['islandietis', 'ir islandietis', 'nav islandieša', 'islandieša', 'islandietim']
+        Lielbritānija: ['brits', 'ir brits', 'nav brita', 'brita', 'britam']
+
+    profesijas:
+        maiznieks: ['maiznieks', 'ir maiznieks', 'nav maiznieka', 'maiznieka', 'meizniekam']
+        ministrs: ['ministrs', 'ir ministrs', 'nav ministra', 'ministra', 'ministram']
+        policists: ['policists', 'ir policists', 'nav policista', 'policista', 'policistam']
+        medmāsa: ['medmāsa', 'ir medmāsa', 'nav medmāsas', 'medmāsas', 'medmāsai']
+        skolotājs: ['skolotājs', 'ir skolotājs', 'nav skolotāja', 'skolotāja', 'skolotājam']
+        programmētājs: ['programmētājs', 'ir programmētājs', 'nav programmētāja', 'programmētāja', 'programmētājam']
+        pārdevējs: ['pārdevējs', 'ir pārdevējs', 'nav pārdevēja', 'pārdevēja', 'pārdevējam']
+
+    mājdzīvnieki:
+        kaķis: ['kaķa saimnieks', 'ir kaķa saimnieks', 'nav kaķa saimnieka', 'kaķa saimnieka', 'kaķa saimniekam']
+        suns: ['suņa saimnieks', 'ir suņa saimnieks', 'nav suņa saimnieka', 'suņa saimnieka', 'suņa saimniekam']
+        trusis: ['truša saimnieks', 'ir truša saimnieks', 'nav truša saimnieka', 'truša saimnieka', 'truša saimniekam']
+        zebra: ['zebras saimnieks', 'ir zebras saimnieks', 'nav zebras saimnieka', 'zebras saimnieka', 'zebras saimniekam']
+        undulāts: ['undulāta saimnieks', 'ir undulāta saimnieks', 'nav undulāta saimnieka', 'undulāta saimnieka', 'undulāta saimniekam']
+        gliemezis: ['gliemeža saimnieks', 'ir gliemeža saimnieks', 'nav gliemeža saimnieka', 'gliemeža saimnieka', 'gliemeža saimniekam']
+        kūjiņkukainis: ['kūjiņkukaiņa saimnieks', 'ir kūjiņkukaiņa saimnieks', 'nav kūjiņkukaiņa saimnieka', 'kūjiņkukaiņa saimnieka', 'kūjiņkukaiņa saimniekam']
+
+    dzērieni:
+        sula: ['sulas dzērājs', 'dzer sulu', 'nedzer sulas', 'sulas dzērāja', 'sulas dzērājam']
+        kafija: ['kafijas dzērājs', 'dzer kafiju', 'nedzer kafijas', 'kafijas dzērāja', 'kafijas dzērājam']
+        piens: ['piena dzērājs', 'dzer pienu', 'nedzer piena', 'piena dzērāja', 'piena dzērājam']
+        smūtijs: ['smūtija dzērājs', 'dzer smūtiju', 'nedzer smūtija', 'smūtija dzērāja', 'smūtija dzērājam']
+        kakao: ['kakao dzērājs', 'dzer kakao', 'nedzer kakao', 'kakao dzērāja', 'kakao dzērājam']
+        tēja: ['tējas dzērājs', 'dzer tēju', 'nedzer tējas', 'tējas dzērāja', 'tējas dzērājam']
+        limonāde: ['limonādes dzērājs', 'dzer limonādi', 'nedzer limonādes', 'limonādes dzērāja', 'limonādes dzērājam']
+
+    literārie žanri:
+        publicistika: ['publicistikas lasītājs', 'lasa publicistiku', 'nelasa publicistiku', 'publicistikas lasītāja', 'publicistikas lasītājam']
+        detektīvromāns: ['detektīvromānu lasītājs', 'lasa detektīvromānus', 'nelasa detektīvromānu', 'detektīvromānu lasītāja', 'detektīvromānu lasītājam']
+        fantāzija: ['fantāzijas lasītājs', 'lasa fantāziju', 'nelasa fantāzijas', 'fantāzijas lasītāja', 'fantāzijas lasītājam']
+        zinātniskā fantastika: ['zinātniskās fantastikas lasītājs', 'lasa zinātnisko fantastiku', 'nelasa zinātniskās fantastikas', 'zinātniskās fantastikas lasītāja', 'zinātniskās fantastikas lasītājam']
+        šausmu literatūra: ['šausmu literatūras lasītājs', 'lasa šausmu literatūru', 'nelasa šausmu literatūras', 'šausmu literatūras lasītāja', 'šausmu literatūras lasītājam']
+        dzeja: ['dzejas lasītājs', 'lasa dzeju', 'nelasa dzejas', 'dzejas lasītāja', 'dzejas lasītājam']
+        mīlas romāns: ['mīlas romānu lasītājs', 'lasa mīlas romānus', 'nelasa mīlas romānu', 'mīlas romānu lasītāja', 'mīlas romānu lasītājam']
+
+    hobiji:
+        boulderings: ['boulderinga entuziasts', 'nodarbojas ar bouldereringu', 'nenodarbojas ar bouldereringu', 'boulderinga entuziasta', 'boulderinga entuziastam']
+        gleznošana: ['gleznošanas cienītājs', 'glezno', 'neglezno', 'gleznošanas cienītāja', 'gleznošanas cienītājam']
+        galda spēles: ['galda spēļu cienītājs', 'spēlē galda spēles', 'nespēlē galda spēles', 'galda spēļu cienītāja', 'galda spēļu cienītājam']
+        teniss: ['tenisa spēlētājs', 'spēlē tenisu', 'nespēlē tenisu', 'tenisa spēlētāja', 'tenisa spēlētājam']
+        tamborēšana: ['tamborētājs', 'tamborē', 'netamborē', 'tamborētāja', 'tamborētājam']
+        futbols: ['futbola spēlētājs', 'spēlē futbolu', 'nespēlē futbolu', 'futbola spēlētāja', 'futbola spēlētājam']
+        handbols: ['handbolists', 'spēlē handbolu', 'nespēlē handbolu', 'handbolista', 'handbolistam']
+
+    iecienītākie augļi:
+        ābols: ['ābolu cienītājs', 'dod priekšroku āboliem', 'nedod priekšroku āboliem', 'ābolu cienītāja', 'ābolu cienītājam']
+        bumbieris: ['bumbieru cienītājs', 'dod priekšroku bumbieriem', 'nedod priekšroku bumbieriem', 'bumbieru cienītāja', 'bumbieru cienītājam']
+        apelsīns: ['apelsīnu cienītājs', 'dod priekšroku apelsīniem', 'nedod priekšroku apelsīniem', 'apelsīnu cienītāja', 'apelsīnu cienītājam']
+        banāns: ['banānu cienītājs', 'dod priekšroku banāniem', 'nedod priekšroku banāniem', 'banānu cienītāja', 'banānu cienītājam']
+        zemene: ['zemenu cienītājs', 'dod priekšroku zemenēm', 'nedod priekšroku zemenēm', 'zemenu cienītāja', 'zemenu cienītājam']
+        upene: ['upeņu cienītājs', 'dod priekšroku upenēm', 'nedod priekšroku upenēm', 'upeņu cienītāja', 'upeņu cienītājam']
+        meža zemene: ['meža zemenu cienītājs', 'dod priekšroku meža zemenēm', 'nedod priekšroku meža zemenēm', 'meža zemenu cienītāja', 'meža zemenu cienītājam']
+
+red_herring_attributes:
+    sarkani_mati: ['sarkanmatains cilvēks', 'ir sarkanmatains', 'sarkanmataina cilvēka', 'sarkanmatainam cilvēkam']
+    brilles: ['briļļu nēsātājs', 'nēsā brilles', 'briļļu nēsātāja', 'briļļu nēsātājam']
+    tetovējums: ['tetovēts cilvēks', 'ir tetovēts', 'tetovēta cilvēka', 'tetovētam cilvēkam']
+    ģitāra: ['ģitāras spēlētājs', 'spēlē ģitāru', 'ģitāras spēlētāja', 'ģitāras spēlētājam']
+    velosipēds: ['velosipēda īpašnieks', 'ir velosipēda īpašnieks', 'velosipēda īpašnieka', 'velosipēda īpašniekam']
+    jūrascūciņa: ['jūrascūciņas saimnieks', 'ir jūrascūciņas saimnieks', 'jūrascūciņas saimnieka', 'jūrascūciņas saimniekam']
+    kaktuss: ['cilvēks, kuram nav kaktusa,', 'nav kaktusa', 'cilvēka, kuram nav kaktusa,', 'cilvēkam, kuram nav kaktusa,']
+    videospēles: ['videospēļu spēlētājs', 'spēlē videospēles', 'videospēļu spēlētāja', 'videospēļu spēlētājam']
+    māsa: ['cilvēks ar māsu,', 'ir ar māsu', 'cilvēka ar māsu,', 'cilvēkam ar māsu,']
+    mango: ['cilvēks, kurš uzskata, ka mango ir otrais labākais auglis,', 'uzskata, ka mango ir otrais labākais auglis', 'cilvēka, kurš uzskata, ka mango ir otrais labākais auglis,', 'cilvēkam, kurš uzskata, ka mango ir otrais labākais auglis,']
+    burāšana: ['cilvēks, kurš bieži burā,', 'bieži burā', 'cilvēka, kurš bieži burā,', 'cilvēkam, kurš bieži burā,']
+    Kanāda: ['cilvēks, kurš ir bijis Kanādā,', 'ir bijis Kanādā', 'cilvēka, kurš ir bijis Kanādā,', 'cilvēkam, kurš ir bijis Kanādā,']
+    matemātika: ['cilvēks ar matemātikas maģistra grādu,', 'ieguvis matemātikas maģistra grādu', 'cilvēka ar matemātikas maģistra grādu,', 'cilvēkam ar matemātikas maģistra grādu,']
+    fizika: ['fizikas mīļotājs', 'mīl fiziku', 'fizikas mīļotāja', 'fizikas mīļotājam']
+    vecs_mājdzīvnieks: ['cilvēks, kura mājdzīvnieks ir savai sugai vecs,', 'tur savai sugai vecu mājdzīvnieku', 'cilvēka, kura mājdzīvnieks ir savai sugai vecs,', 'cilvēkam, kura mājdzīvnieks ir savai sugai vecs,']
+    tramplīnlēkšana: ['cilvēks, kurš seko tramplīnlēkšanai,', 'seko tramplīnlēkšanai', 'cilvēka, kurš seko tramplīnlēkšanai,', 'cilvēkam, kurš seko tramplīnlēkšanai,']
+
+red_herring_facts:
+    siļķe: ['siļķe ir zivs']
+    saules_sistēma: ['Saules sistēma riņķo ap galaktikas centru ar ātrumu aptuveni 200 km/s']
+    mīkla: ['mīklu risināšana ir jautra']
+    mājas: ['visām ielas mājām ir skaisti dārzi']
+    durvis: ['dažām mājām ir zaļas durvis']
+    logi: ['visās mājās ir lieli logi']
+    automobiļi: ['uz ielas ir daudz automobiļu']
+    gurķis: ['gurķis ir oga']
+    gliemezis: ['gliemeži ir mīkstmiesi']
+    kafija: ['kafija satur kofeīnu']
+
+clues_dict:
+    found_at: '{attribute_desc} dzīvo mājā nr. {i_object}.'
+    not_at: '{attribute_desc} nedzīvo mājā nr. {i_object}.'
+    next_to: '{attribute_desc_1} dzīvo blakus {attribute_desc_2}.'
+    not_next_to: '{attribute_desc_1} nedzīvo blakus {attribute_desc_2} un tās ir dažādas personas.'
+    just_left_of: '{attribute_desc_1} dzīvo tieši pa kreisi no {attribute_desc_2}.'
+    just_right_of: '{attribute_desc_1} dzīvo tieši pa labi no {attribute_desc_2}.'
+    left_of: '{attribute_desc_1} dzīvo pa kreisi no {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} dzīvo pa labi no {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    between: '{attribute_desc_2} dzīvo {attribute_desc_1} un {attribute_desc_3} starpā.'
+    not_between: '{attribute_desc_1} nedzīvo {attribute_desc_2} un {attribute_desc_3} starpā, un tās ir trīs dažādas personas.'
+    multiple_between: '{attribute_desc_1} un {attribute_desc_2} starpā ir {n_between} mājas.'
+    one_between: '{attribute_desc_1} un {attribute_desc_2} starpā ir viena māja.'
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'dat']
+    not_next_to: ['nom', 'dat']
+    just_left_of: ['nom', 'gen']
+    just_right_of: ['nom', 'gen']
+    left_of: ['nom', 'gen']
+    right_of: ['nom', 'gen']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['gen', 'nom', 'gen']
+    not_between: ['nom', 'gen', 'gen']
+    multiple_between: ['gen', 'gen']
+    one_between: ['gen', 'gen']
+
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} dzīvo blakus {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} zina, ka {fact}.'
+    friends: '{attribute_desc} un {attribute_desc_herring} ir labi draugi.'
+    herring_found_at: '{attribute_desc_herring} dzīvo mājā nr. {i_object}.'
+    herring_not_at: '{attribute_desc_herring} nedzīvo mājā nr. {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'dat']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+prompt_and: un
+
+prompt_templates:
+    - |
+        Māju rinda ir numurēta no 1 līdz {n_objects} no kreisās uz labo pusi.
+
+        Katrā mājā dzīvo cilvēks ar unikālu īpašību katrā no šīm kategorijām:
+
+        {chosen_attributes_str}
+
+        Mēs arī zinām sekojošo:
+
+        {chosen_clues_str}
+
+        Kam ir kādas īpašības un kurā mājā viņš dzīvo?
+
+        Lūdzu, iesniedziet atbildi kā JSON vārdnīcu. Katrai atslēgai jābūt object_X, kur X ir mājas numurs. Katrai vērtībai jābūt iepriekš minēto kategoriju īpašību sarakstam, kas pieder mājā nr. X dzīvojošajai personai.
+
+        Zemāk ir atbildes formāta piemērs:
+
+        {solution_template}
+    - |
+        Māju rinda ir numurēta no 1 līdz {n_objects} no kreisās uz labo pusi.
+
+        Katrā mājā dzīvo cilvēks ar unikālu īpašību kategorijā {chosen_attributes_str}.
+
+        Mēs arī zinām sekojošo:
+
+        {chosen_clues_str}
+
+        Kāda īpašība ir katras mājas iedzīvotājam?
+
+        Lūdzu, iesniedziet atbildi kā JSON vārdnīcu. Katrai atslēgai jābūt object_X, kur X ir mājas numurs. Katrai vērtībai jābūt sarakstam, kurā ir mājā nr. X dzīvojošās personas īpašība kategorijā {chosen_attributes_str}.
+
+        Zemāk ir atbildes formāta piemērs:
+
+        {solution_template}
+
+prompt_replacements:
+    ',.': '.'
