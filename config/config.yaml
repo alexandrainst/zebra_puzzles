@@ -27,6 +27,7 @@
 # ca/cases
 # es/casas
 # hr/kuce
+# et/majad
 
 defaults:
   - language: en/houses
