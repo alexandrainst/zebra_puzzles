@@ -47,58 +47,58 @@ attributes:
         pakobylka: ["majiteľ pakobylky", "má pakobylku", "nemá pakobylku", "majiteľa pakobylky", "majiteľom pakobylky"]
 
     nápoje:
-        džús: ["ten, kto pije džús,", "pije džús", "nepije džús", "toho, kto pije džús", "tým, kto pije džús"]
-        káva: ["ten, kto pije kávu,", "pije kávu", "nepije kávu", "toho, kto pije kávu", "tým, kto pije kávu"]
-        mlieko: ["ten, kto pije mlieko,", "pije mlieko", "nepije mlieko", "toho, kto pije mlieko", "tým, kto pije mlieko"]
-        smoothie: ["ten, kto pije smoothie,", "pije smoothie", "nepije smoothie", "toho, kto pije smoothie", "tým, kto pije smoothie"]
-        kakao: ["ten, kto pije kakao,", "pije kakao", "nepije kakao", "toho, kto pije kakao", "tým, kto pije kakao"]
-        čaj: ["ten, kto pije čaj,", "pije čaj", "nepije čaj", "toho, kto pije čaj", "tým, kto pije čaj"]
-        limonáda: ["ten, kto pije limonádu,", "pije limonádu", "nepije limonádu", "toho, kto pije limonádu", "tým, kto pije limonádu"]  # uncertain: limonáda = generic soft drink here
+        džús: ["ten, kto pije džús,", "pije džús", "nepije džús", "toho, kto pije džús,", "tým, kto pije džús,"]
+        káva: ["ten, kto pije kávu,", "pije kávu", "nepije kávu", "toho, kto pije kávu,", "tým, kto pije kávu,"]
+        mlieko: ["ten, kto pije mlieko,", "pije mlieko", "nepije mlieko", "toho, kto pije mlieko,", "tým, kto pije mlieko,"]
+        smoothie: ["ten, kto pije smoothie,", "pije smoothie", "nepije smoothie", "toho, kto pije smoothie,", "tým, kto pije smoothie,"]
+        kakao: ["ten, kto pije kakao,", "pije kakao", "nepije kakao", "toho, kto pije kakao,", "tým, kto pije kakao,"]
+        čaj: ["ten, kto pije čaj,", "pije čaj", "nepije čaj", "toho, kto pije čaj,", "tým, kto pije čaj,"]
+        limonáda: ["ten, kto pije limonádu,", "pije limonádu", "nepije limonádu", "toho, kto pije limonádu,", "tým, kto pije limonádu,"]  # uncertain: limonáda = generic soft drink here
 
     obľúbené literárne žánre:
-        literatúra faktu: ["ten, kto číta literatúru faktu,", "číta literatúru faktu", "nečíta literatúru faktu", "toho, kto číta literatúru faktu", "tým, kto číta literatúru faktu"]
-        detektívky: ["ten, kto číta detektívky,", "číta detektívky", "nečíta detektívky", "toho, kto číta detektívky", "tým, kto číta detektívky"]
-        fantasy: ["ten, kto číta fantasy,", "číta fantasy", "nečíta fantasy", "toho, kto číta fantasy", "tým, kto číta fantasy"]
-        vedecká fantastika: ["ten, kto číta vedeckú fantastiku,", "číta vedeckú fantastiku", "nečíta vedeckú fantastiku", "toho, kto číta vedeckú fantastiku", "tým, kto číta vedeckú fantastiku"]
-        horor: ["ten, kto číta horory,", "číta horory", "nečíta horory", "toho, kto číta horory", "tým, kto číta horory"]
-        poézia: ["ten, kto číta poéziu,", "číta poéziu", "nečíta poéziu", "toho, kto číta poéziu", "tým, kto číta poéziu"]
-        ľúbostný román: ["ten, kto číta ľúbostné romány,", "číta ľúbostné romány", "nečíta ľúbostné romány", "toho, kto číta ľúbostné romány", "tým, kto číta ľúbostné romány"]
+        literatúra faktu: ["ten, kto číta literatúru faktu,", "číta literatúru faktu", "nečíta literatúru faktu", "toho, kto číta literatúru faktu,", "tým, kto číta literatúru faktu,"]
+        detektívky: ["ten, kto číta detektívky,", "číta detektívky", "nečíta detektívky", "toho, kto číta detektívky,", "tým, kto číta detektívky,"]
+        fantasy: ["ten, kto číta fantasy,", "číta fantasy", "nečíta fantasy", "toho, kto číta fantasy,", "tým, kto číta fantasy,"]
+        vedecká fantastika: ["ten, kto číta vedeckú fantastiku,", "číta vedeckú fantastiku", "nečíta vedeckú fantastiku", "toho, kto číta vedeckú fantastiku,", "tým, kto číta vedeckú fantastiku,"]
+        horor: ["ten, kto číta horory,", "číta horory", "nečíta horory", "toho, kto číta horory,", "tým, kto číta horory,"]
+        poézia: ["ten, kto číta poéziu,", "číta poéziu", "nečíta poéziu", "toho, kto číta poéziu,", "tým, kto číta poéziu,"]
+        ľúbostný román: ["ten, kto číta ľúbostné romány,", "číta ľúbostné romány", "nečíta ľúbostné romány", "toho, kto číta ľúbostné romány,", "tým, kto číta ľúbostné romány,"]
 
     záľuby:
-        bouldering: ["ten, kto sa venuje boulderingu,", "venuje sa boulderingu", "nevenuje sa boulderingu", "toho, kto sa venuje boulderingu", "tým, kto sa venuje boulderingu"]
-        maľovanie: ["ten, kto maľuje,", "maľuje", "nemaľuje", "toho, kto maľuje", "tým, kto maľuje"]
-        spoločenské hry: ["ten, kto hrá spoločenské hry,", "hrá spoločenské hry", "nehrá spoločenské hry", "toho, kto hrá spoločenské hry", "tým, kto hrá spoločenské hry"]
-        tenis: ["ten, kto hrá tenis,", "hrá tenis", "nehrá tenis", "toho, kto hrá tenis", "tým, kto hrá tenis"]
-        háčkovanie: ["ten, kto háčkuje,", "háčkuje", "neháčkuje", "toho, kto háčkuje", "tým, kto háčkuje"]
-        futbal: ["ten, kto hrá futbal,", "hrá futbal", "nehrá futbal", "toho, kto hrá futbal", "tým, kto hrá futbal"]
-        hádzaná: ["ten, kto hrá hádzanú,", "hrá hádzanú", "nehrá hádzanú", "toho, kto hrá hádzanú", "tým, kto hrá hádzanú"]
+        bouldering: ["ten, kto sa venuje boulderingu,", "venuje sa boulderingu", "nevenuje sa boulderingu", "toho, kto sa venuje boulderingu,", "tým, kto sa venuje boulderingu,"]
+        maľovanie: ["ten, kto maľuje,", "maľuje", "nemaľuje", "toho, kto maľuje,", "tým, kto maľuje,"]
+        spoločenské hry: ["ten, kto hrá spoločenské hry,", "hrá spoločenské hry", "nehrá spoločenské hry", "toho, kto hrá spoločenské hry,", "tým, kto hrá spoločenské hry,"]
+        tenis: ["ten, kto hrá tenis,", "hrá tenis", "nehrá tenis", "toho, kto hrá tenis,", "tým, kto hrá tenis,"]
+        háčkovanie: ["ten, kto háčkuje,", "háčkuje", "neháčkuje", "toho, kto háčkuje,", "tým, kto háčkuje,"]
+        futbal: ["ten, kto hrá futbal,", "hrá futbal", "nehrá futbal", "toho, kto hrá futbal,", "tým, kto hrá futbal,"]
+        hádzaná: ["ten, kto hrá hádzanú,", "hrá hádzanú", "nehrá hádzanú", "toho, kto hrá hádzanú,", "tým, kto hrá hádzanú,"]
 
     obľúbené ovocie:
-        jablko: ["ten, kto má rád jablká,", "má rád jablká", "nemá rád jablká", "toho, kto má rád jablká", "tým, kto má rád jablká"]
-        hruška: ["ten, kto má rád hrušky,", "má rád hrušky", "nemá rád hrušky", "toho, kto má rád hrušky", "tým, kto má rád hrušky"]
-        pomaranč: ["ten, kto má rád pomaranče,", "má rád pomaranče", "nemá rád pomaranče", "toho, kto má rád pomaranče", "tým, kto má rád pomaranče"]
-        banán: ["ten, kto má rád banány,", "má rád banány", "nemá rád banány", "toho, kto má rád banány", "tým, kto má rád banány"]
-        jahoda: ["ten, kto má rád jahody,", "má rád jahody", "nemá rád jahody", "toho, kto má rád jahody", "tým, kto má rád jahody"]
-        čierna ríbezľa: ["ten, kto má rád čierne ríbezle,", "má rád čierne ríbezle", "nemá rád čierne ríbezle", "toho, kto má rád čierne ríbezle", "tým, kto má rád čierne ríbezle"]
-        lesná jahoda: ["ten, kto má rád lesné jahody,", "má rád lesné jahody", "nemá rád lesné jahody", "toho, kto má rád lesné jahody", "tým, kto má rád lesné jahody"]
+        jablko: ["ten, kto má rád jablká,", "má rád jablká", "nemá rád jablká", "toho, kto má rád jablká,", "tým, kto má rád jablká,"]
+        hruška: ["ten, kto má rád hrušky,", "má rád hrušky", "nemá rád hrušky", "toho, kto má rád hrušky,", "tým, kto má rád hrušky,"]
+        pomaranč: ["ten, kto má rád pomaranče,", "má rád pomaranče", "nemá rád pomaranče", "toho, kto má rád pomaranče,", "tým, kto má rád pomaranče,"]
+        banán: ["ten, kto má rád banány,", "má rád banány", "nemá rád banány", "toho, kto má rád banány,", "tým, kto má rád banány,"]
+        jahoda: ["ten, kto má rád jahody,", "má rád jahody", "nemá rád jahody", "toho, kto má rád jahody,", "tým, kto má rád jahody,"]
+        čierna ríbezľa: ["ten, kto má rád čierne ríbezle,", "má rád čierne ríbezle", "nemá rád čierne ríbezle", "toho, kto má rád čierne ríbezle,", "tým, kto má rád čierne ríbezle,"]
+        lesná jahoda: ["ten, kto má rád lesné jahody,", "má rád lesné jahody", "nemá rád lesné jahody", "toho, kto má rád lesné jahody,", "tým, kto má rád lesné jahody,"]
 
 red_herring_attributes:
     ryšavé_vlasy: ["ryšavý", "má ryšavé vlasy", "ryšavého", "ryšavým"]
-    okuliare: ["ten, kto nosí okuliare,", "nosí okuliare", "toho, kto nosí okuliare", "tým, kto nosí okuliare"]
+    okuliare: ["ten, kto nosí okuliare,", "nosí okuliare", "toho, kto nosí okuliare,", "tým, kto nosí okuliare,"]
     tetovanie: ["vytetovaný", "má tetovanie", "vytetovaného", "vytetovaným"]
-    gitara: ["ten, kto hrá na gitare,", "hrá na gitare", "toho, kto hrá na gitare", "tým, kto hrá na gitare"]
+    gitara: ["ten, kto hrá na gitare,", "hrá na gitare", "toho, kto hrá na gitare,", "tým, kto hrá na gitare,"]
     bicykel: ["majiteľ bicykla", "má bicykel", "majiteľa bicykla", "majiteľom bicykla"]
     morča: ["majiteľ morčaťa", "má morča", "majiteľa morčaťa", "majiteľom morčaťa"]
     kaktus: ["majiteľ kaktusa", "nemá kaktus", "majiteľa kaktusa", "majiteľom kaktusa"]
-    videohry: ["ten, kto hrá videohry,", "hrá videohry", "toho, kto hrá videohry", "tým, kto hrá videohry"]
-    sestra: ["ten, kto má sestru,", "má sestru", "toho, kto má sestru", "tým, kto má sestru"]
+    videohry: ["ten, kto hrá videohry,", "hrá videohry", "toho, kto hrá videohry,", "tým, kto hrá videohry,"]
+    sestra: ["ten, kto má sestru,", "má sestru", "toho, kto má sestru,", "tým, kto má sestru,"]
     mango: ["ten, kto považuje mango za druhé najlepšie ovocie,", "považuje mango za druhé najlepšie ovocie", "toho, kto považuje mango za druhé najlepšie ovocie,", "tým, kto považuje mango za druhé najlepšie ovocie,"]
-    plachtenie: ["ten, kto pravidelne plachí,", "pravidelne plachí", "toho, kto pravidelne plachí", "tým, kto pravidelne plachí"]  # uncertain — verify: plachtiť/plachí
-    Kanada: ["ten, kto navštívil Kanadu,", "navštívil Kanadu", "toho, kto navštívil Kanadu", "tým, kto navštívil Kanadu"]
+    plachtenie: ["ten, kto pravidelne plachí,", "pravidelne plachí", "toho, kto pravidelne plachí,", "tým, kto pravidelne plachí,"]  # uncertain — verify: plachtiť/plachí
+    Kanada: ["ten, kto navštívil Kanadu,", "navštívil Kanadu", "toho, kto navštívil Kanadu,", "tým, kto navštívil Kanadu,"]
     matematika: ["magister matematiky", "má magisterský diplom z matematiky", "magistra matematiky", "magistrom matematiky"]
-    fyzika: ["ten, kto miluje fyziku,", "miluje fyziku", "toho, kto miluje fyziku", "tým, kto miluje fyziku"]
+    fyzika: ["ten, kto miluje fyziku,", "miluje fyziku", "toho, kto miluje fyziku,", "tým, kto miluje fyziku,"]
     staré_zviera: ["majiteľ zvieraťa starého na svoju rasu,", "má zviera staré na svoju rasu", "majiteľa zvieraťa starého na svoju rasu,", "majiteľom zvieraťa starého na svoju rasu,"]
-    skoky_na_lyžiach: ["ten, kto sleduje skoky na lyžiach,", "sleduje skoky na lyžiach", "toho, kto sleduje skoky na lyžiach", "tým, kto sleduje skoky na lyžiach"]
+    skoky_na_lyžiach: ["ten, kto sleduje skoky na lyžiach,", "sleduje skoky na lyžiach", "toho, kto sleduje skoky na lyžiach,", "tým, kto sleduje skoky na lyžiach,"]
 
 red_herring_facts:
     sleď: ["slede sú ryby"]
@@ -204,3 +204,4 @@ prompt_and: "a"
 
 prompt_replacements:
     ',.': '.'
+    ',, a': ', a'
