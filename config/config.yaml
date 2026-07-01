@@ -32,6 +32,7 @@
 # sr/kuce
 # sk/domy
 # sl/hise
+# cs/domy
 
 defaults:
   - language: en/houses
