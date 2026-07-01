@@ -19,7 +19,7 @@ attributes:
         Italia: ['italianul', 'este italian', 'nu este italian', 'italianului']
         Norvegia: ['norvegianul', 'este norvegian', 'nu este norvegian', 'norvegianului']
         Insulele Feroe: ['faroezul', 'este faroez', 'nu este faroez', 'faroezului']
-        Țările de Jos: ['olandezul', 'este olandez', 'nu este olandez', 'olandezului']
+        Țările de Jos: ['neerlandezul', 'este neerlandez', 'nu este neerlandez', 'neerlandezului']
         Islanda: ['islandezul', 'este islandez', 'nu este islandez', 'islandezului']
         Regatul Unit: ['britanicul', 'este britanic', 'nu este britanic', 'britanicului']
 

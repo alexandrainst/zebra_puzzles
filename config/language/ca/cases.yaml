@@ -19,7 +19,7 @@ attributes:
         Itàlia: ["l'italià", 'és italià', 'no és italià']
         Noruega: ['el noruec', 'és noruec', 'no és noruec']
         Illes Fèroe: ['el feroès', 'és feroès', 'no és feroès']
-        Països Baixos: ["l'holandès", 'és holandès', 'no és holandès']
+        Països Baixos: ['el neerlandès', 'és neerlandès', 'no és neerlandès']
         Islàndia: ["l'islandès", 'és islandès', 'no és islandès']
         Regne Unit: ['el britànic', 'és britànic', 'no és britànic']
 

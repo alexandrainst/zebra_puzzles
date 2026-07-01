@@ -23,7 +23,7 @@ attributes:
         Ítalía: ['Ítalinn', 'er ítalskur', 'er ekki ítalskur', 'Ítalann', 'Ítalanum', 'Ítalans']
         Noregur: ['Norðmaðurinn', 'er norskur', 'er ekki norskur', 'Norðmanninn', 'Norðmanninum', 'Norðmannsins']
         Færeyjar: ['Færeyingurinn', 'er færeyskur', 'er ekki færeyskur', 'Færeyinginn', 'Færeyingnum', 'Færeyingsins']
-        Holland: ['Hollendingurinn', 'er hollenskur', 'er ekki hollenskur', 'Hollendinginn', 'Hollendingnum', 'Hollendingsins']
+        Niðurlönd: ['Niðurlendingurinn', 'er niðurlenskur', 'er ekki niðurlenskur', 'Niðurlendinginn', 'Niðurlendingnum', 'Niðurlendingsins']
         Ísland: ['Íslendingurinn', 'er íslenskur', 'er ekki íslenskur', 'Íslendinginn', 'Íslendingnum', 'Íslendingsins']
         Stóra-Bretland: ['Bretinn', 'er breskur', 'er ekki breskur', 'Bretann', 'Bretanum', 'Bretans']
 

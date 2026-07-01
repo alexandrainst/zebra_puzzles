@@ -24,7 +24,7 @@ attributes:
         Włochy: ['osoba z Włoch', 'jest z Włoch', 'nie jest z Włoch', 'osoby z Włoch', 'osobą z Włoch']
         Norwegia: ['osoba z Norwegii', 'jest z Norwegii', 'nie jest z Norwegii', 'osoby z Norwegii', 'osobą z Norwegii']
         Wyspy Owcze: ['osoba z Wysp Owczych', 'jest z Wysp Owczych', 'nie jest z Wysp Owczych', 'osoby z Wysp Owczych', 'osobą z Wysp Owczych']
-        Holandia: ['osoba z Holandii', 'jest z Holandii', 'nie jest z Holandii', 'osoby z Holandii', 'osobą z Holandii']
+        Niderlandy: ['osoba z Niderlandów', 'jest z Niderlandów', 'nie jest z Niderlandów', 'osoby z Niderlandów', 'osobą z Niderlandów']
         Islandia: ['osoba z Islandii', 'jest z Islandii', 'nie jest z Islandii', 'osoby z Islandii', 'osobą z Islandii']
         Wielka Brytania: ['osoba z Wielkiej Brytanii', 'jest z Wielkiej Brytanii', 'nie jest z Wielkiej Brytanii', 'osoby z Wielkiej Brytanii', 'osobą z Wielkiej Brytanii']
 
