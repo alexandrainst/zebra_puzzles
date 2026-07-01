@@ -90,6 +90,7 @@ The meaning should be consistent across languages, unless this would compromise 
 - **Stick insect**: This is the insect that looks like a stick, not a general term for any insect or a wooden stick.
 - **Football**: This describes someone who plays football (soccer) as a hobby, not someone who watches it, is a fan or a professional player.
 - **Budgerigar**: This is the specific small parakeet (*Melopsittacus undulatus*). Do not use a generic word for parrot unless no specific term exists.
+- **Netherlands**: Prefer terms that refer to the country as a whole rather than the region of Holland, unless the language has no other natural term.
 
 ### 3. Validate the config before generating puzzles
 
