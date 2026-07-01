@@ -174,7 +174,7 @@ prompt_templates:
 
         ¿Quién tiene qué atributos y vive en qué casa?
 
-        Por favor, presenta tu respuesta como un JSON dictionary. Cada key debe ser object_X, donde X es el número de la casa. Cada value debe ser una lista de los atributos de las categorías mencionadas que pertenecen a la persona en la casa número X.
+        Por favor, presenta tu respuesta como un diccionario JSON. Cada clave debe ser object_X, donde X es el número de la casa. Cada valor debe ser una lista de los atributos de las categorías mencionadas que pertenecen a la persona en la casa número X.
 
         El siguiente es un ejemplo del formato de respuesta:
 
@@ -190,7 +190,7 @@ prompt_templates:
 
         ¿Qué atributo tiene la persona que vive en cada casa?
 
-        Por favor, presenta tu respuesta como un JSON dictionary. Cada key debe ser object_X, donde X es el número de la casa. Cada value debe ser una lista que contenga el atributo de la categoría mencionada que pertenece a la persona en la casa número X.
+        Por favor, presenta tu respuesta como un diccionario JSON. Cada clave debe ser object_X, donde X es el número de la casa. Cada valor debe ser una lista que contenga el atributo de la categoría mencionada que pertenece a la persona en la casa número X.
 
         El siguiente es un ejemplo del formato de respuesta:
 

@@ -177,7 +177,7 @@ prompt_templates:
 
         Kellel on millised atribuudid ja mis majas ta elab?
 
-        Palun esitage oma vastus JSON sõnaraamatu kujul. Iga võti peab olema object_X, kus X on maja number. Iga väärtus peab olema loend atribuutidest ülaltoodud kategooriatest, mis kuuluvad majas number X elavale inimesele.
+        Palun esitage oma vastus JSON sõnastiku kujul. Iga võti peab olema object_X, kus X on maja number. Iga väärtus peab olema loend atribuutidest ülaltoodud kategooriatest, mis kuuluvad majas number X elavale inimesele.
 
         Järgmine on näide vastuse formaadist:
 
@@ -193,7 +193,7 @@ prompt_templates:
 
         Mis atribuut on igal maja elanikul?
 
-        Palun esitage oma vastus JSON sõnaraamatu kujul. Iga võti peab olema object_X, kus X on maja number. Iga väärtus peab olema loend, mis sisaldab majas number X elava inimese atribuudi kategooriast {chosen_attributes_str}.
+        Palun esitage oma vastus JSON sõnastiku kujul. Iga võti peab olema object_X, kus X on maja number. Iga väärtus peab olema loend, mis sisaldab majas number X elava inimese atribuudi kategooriast {chosen_attributes_str}.
 
         Järgmine on näide vastuse formaadist:
 

@@ -178,7 +178,7 @@ prompt_templates:
 
         Chi ha quali attributi e abita in quale casa?
 
-        Si prega di inviare la risposta come JSON dictionary. Ogni chiave deve essere object_X, dove X è il numero della casa. Ogni valore deve essere un elenco degli attributi delle categorie indicate che appartengono alla persona che abita nella casa numero X.
+        Si prega di inviare la risposta come dizionario JSON. Ogni chiave deve essere object_X, dove X è il numero della casa. Ogni valore deve essere un elenco degli attributi delle categorie indicate che appartengono alla persona che abita nella casa numero X.
 
         Di seguito è riportato un esempio del formato della risposta:
 
@@ -194,7 +194,7 @@ prompt_templates:
 
         Quali attributi ha la persona che abita in ogni casa?
 
-        Si prega di inviare la risposta come JSON dictionary. Ogni chiave deve essere object_X, dove X è il numero della casa. Ogni valore deve essere un elenco contenente l'attributo della categoria indicata che appartiene alla persona che abita nella casa numero X.
+        Si prega di inviare la risposta come dizionario JSON. Ogni chiave deve essere object_X, dove X è il numero della casa. Ogni valore deve essere un elenco contenente l'attributo della categoria indicata che appartiene alla persona che abita nella casa numero X.
 
         Di seguito è riportato un esempio del formato della risposta:
 
