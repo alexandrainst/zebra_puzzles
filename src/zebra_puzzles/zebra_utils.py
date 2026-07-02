@@ -153,6 +153,7 @@ def describe_random_attributes(
     n_attributes: int,
     desc_indices: list[int],
     diff_cat: bool = False,
+    i_attributes_override: list[int] | None = None,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Get a random attribute description for an object.
 
@@ -169,6 +170,7 @@ def describe_random_attributes(
         n_attributes: Number of attributes per object.
         diff_cat: If True, the output attributes must belong to different categories.
         desc_indices: A list of indeces of the descriptions to use for each object in the clue.
+        i_attributes_override: If provided, use these pre-chosen (sorted) attribute indices instead of sampling.
 
     Returns:
         A tuple (random_attributes, random_attributes_desc), where:
@@ -178,13 +180,14 @@ def describe_random_attributes(
     # Number of objects in the clue
     n_clue_objects = len(i_objects)
 
-    if diff_cat:
+    if i_attributes_override is not None:
+        i_attributes = i_attributes_override
+    elif diff_cat:
         i_attributes = sample(list(range(n_attributes)), k=n_clue_objects)
+        i_attributes.sort()
     else:
         i_attributes = choices(list(range(n_attributes)), k=n_clue_objects)
-
-    # Keep the order of the categories
-    i_attributes.sort()
+        i_attributes.sort()
 
     # Initialize the random attributes as type 'object' to avoid setting a maximum string length
     # U100 is a Unicode string with a maximum length of 100 characters
