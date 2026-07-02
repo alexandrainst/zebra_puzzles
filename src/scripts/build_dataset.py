@@ -41,6 +41,10 @@ def main(config: DictConfig) -> None:
     red_herring_cases_dict = config.language.red_herring_cases_dict
     red_herring_attribute_cases = list(config.language.red_herring_attribute_cases)
     attribute_subject_cases = dict(config.language.get("attribute_subject_cases", {}))
+    same_object_templates = dict(config.language.get("same_object_templates", {}))
+    not_same_object_templates = dict(
+        config.language.get("not_same_object_templates", {})
+    )
     build_dataset(
         n_objects=n_objects,
         n_attributes=n_attributes,
@@ -63,6 +67,8 @@ def main(config: DictConfig) -> None:
         attribute_cases=attribute_cases,
         red_herring_attribute_cases=red_herring_attribute_cases,
         attribute_subject_cases=attribute_subject_cases,
+        same_object_templates=same_object_templates,
+        not_same_object_templates=not_same_object_templates,
     )
 
 

@@ -31,6 +31,8 @@ def choose_clues(
     clue_cases_dict: dict[str, list[str]],
     case_to_index: dict[str, int],
     attribute_subject_cases: dict[str, str] | None = None,
+    same_object_templates: dict[str, str] | None = None,
+    not_same_object_templates: dict[str, str] | None = None,
 ) -> tuple[list[str], list[str]]:
     """Choose clues for a zebra puzzle.
 
@@ -48,6 +50,8 @@ def choose_clues(
         clue_cases_dict: A dictionary containing the clue type as a key and a list of grammatical cases for clue attributes as values.
         case_to_index: Mapping from grammatical case names to attribute description list indices.
         attribute_subject_cases: Optional per-category subject case override for same_object/not_same_object clues. Maps category name to the case name to use for the grammatical subject when an attribute from that category is the predicate.
+        same_object_templates: Optional per-category template override for same_object clues. Maps category name to a clue template string to use instead of clues_dict["same_object"] when an attribute from that category is the predicate.
+        not_same_object_templates: Optional per-category template override for not_same_object clues, analogous to same_object_templates.
 
     Returns:
         A tuple (chosen_clues, chosen_clue_types), where:
@@ -97,6 +101,8 @@ def choose_clues(
             clue_cases_dict=clue_cases_dict,
             case_to_index=case_to_index,
             attribute_subject_cases=attribute_subject_cases,
+            same_object_templates=same_object_templates,
+            not_same_object_templates=not_same_object_templates,
         )
 
         # Check if the clue is obviously redundant before using the solver to save runtime
@@ -260,6 +266,8 @@ def create_clue(
     clue_cases_dict: dict[str, list[str]],
     case_to_index: dict[str, int],
     attribute_subject_cases: dict[str, str] | None = None,
+    same_object_templates: dict[str, str] | None = None,
+    not_same_object_templates: dict[str, str] | None = None,
 ) -> tuple[str, tuple, tuple[str, list[int], np.ndarray]]:
     """Create a clue of a chosen type using random parts of the solution.
 
@@ -275,6 +283,8 @@ def create_clue(
         clue_cases_dict: A dictionary containing the clue type as a key and a list of grammatical cases for clue attributes as values.
         case_to_index: Mapping from grammatical case names to attribute description list indices.
         attribute_subject_cases: Optional per-category subject case override for same_object/not_same_object clues. Maps category name to the case name to use for the subject when an attribute from that category is the predicate.
+        same_object_templates: Optional per-category template override for same_object clues. Maps category name to a clue template string to use instead of clues_dict["same_object"] when an attribute from that category is the predicate.
+        not_same_object_templates: Optional per-category template override for not_same_object clues, analogous to same_object_templates.
 
     Returns:
         A tuple (full_clue, constraint, clue_par), where:
@@ -334,23 +344,29 @@ def create_clue(
             i_object = sample(list(range(n_objects)), 1)[0]
             i_objects = [i_object, i_object]
             desc_index_none = case_to_index["is"]
+            predicate_templates = same_object_templates
         elif clue == "not_same_object":
             # Choose two random objects
             i_objects = sample(list(range(n_objects)), 2)
             desc_index_none = case_to_index["is_not"]
+            predicate_templates = not_same_object_templates
 
         # Replace 'none' in desc_indices with the chosen desc_index_none
         desc_indices[desc_indices.index(case_to_index["none"])] = desc_index_none
 
-        # Pre-choose attributes so we can resolve the subject case before fetching descriptions.
-        # desc_indices[0] is the subject; desc_indices[1] is the predicate (is/is_not form).
-        # After sorting, i_attributes[1] is the predicate category — used to override the subject
-        # case when attribute_subject_cases is set (e.g. Basque ABS vs ERG per category).
+        # Pre-choose attributes so we can resolve the subject case and clue template before
+        # fetching descriptions. desc_indices[0] is the subject; desc_indices[1] is the predicate
+        # (is/is_not form). After sorting, i_attributes[1] is the predicate category — used to
+        # override the subject case when attribute_subject_cases is set (e.g. Basque ABS vs ERG
+        # per category), and/or to override the clue template itself when same_object_templates /
+        # not_same_object_templates is set (e.g. Irish verb-initial phrasing for specific
+        # categories, instead of the generic "{attribute_desc_1} {attribute_desc_2}." pattern).
         i_attributes = sorted(sample(list(range(n_attributes)), k=len(i_objects)))
-        if attribute_subject_cases:
-            pred_cat = str(chosen_categories[i_attributes[1]])
-            if pred_cat in attribute_subject_cases:
-                desc_indices[0] = case_to_index[attribute_subject_cases[pred_cat]]
+        pred_cat = str(chosen_categories[i_attributes[1]])
+        if attribute_subject_cases and pred_cat in attribute_subject_cases:
+            desc_indices[0] = case_to_index[attribute_subject_cases[pred_cat]]
+        if predicate_templates and pred_cat in predicate_templates:
+            clue_description = predicate_templates[pred_cat]
 
         # Choose two unique attributes
         clue_attributes, clue_attribute_descs = describe_random_attributes(
