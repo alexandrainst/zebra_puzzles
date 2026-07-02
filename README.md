@@ -15,7 +15,7 @@ Available languages and themes:
 
 - Houses theme:
     - Finished versions: Danish 🇩🇰, Dutch 🇳🇱, English 🇬🇧, Faroese 🇫🇴, German 🇩🇪, Icelandic 🇮🇸, Norwegian Bokmål 🇳🇴, Norwegian Nynorsk 🇳🇴 and Swedish 🇸🇪.
-    - Preliminary versions: Albanian 🇦🇱, Belarusian 🇧🇾, Bosnian 🇧🇦, Bulgarian 🇧🇬, Catalan 🏴󠁥󠁳󠁣󠁴󠁿, Croatian 🇭🇷, Czech 🇨🇿, Estonian 🇪🇪, Finnish 🇫🇮, French 🇫🇷, Greek 🇬🇷, Hungarian 🇭🇺, Italian 🇮🇹, Latvian 🇱🇻, Lithuanian 🇱🇹, Polish 🇵🇱, Portuguese 🇵🇹, Romanian 🇷🇴, Serbian 🇷🇸, Slovak 🇸🇰, Slovenian 🇸🇮, Spanish 🇪🇸 and Ukrainian 🇺🇦.
+    - Preliminary versions: Albanian 🇦🇱, Basque 🏴, Belarusian 🇧🇾, Bosnian 🇧🇦, Bulgarian 🇧🇬, Catalan 🏴󠁥󠁳󠁣󠁴󠁿, Croatian 🇭🇷, Czech 🇨🇿, Estonian 🇪🇪, Finnish 🇫🇮, French 🇫🇷, Greek 🇬🇷, Hungarian 🇭🇺, Italian 🇮🇹, Latvian 🇱🇻, Lithuanian 🇱🇹, Polish 🇵🇱, Portuguese 🇵🇹, Romanian 🇷🇴, Serbian 🇷🇸, Slovak 🇸🇰, Slovenian 🇸🇮, Spanish 🇪🇸 and Ukrainian 🇺🇦.
 - Smørrebrød theme:
     - Finished versions: Danish 🇩🇰.
 

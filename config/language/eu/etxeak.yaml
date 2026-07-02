@@ -1,0 +1,235 @@
+# Config file for generating zebra puzzles in Basque with the "houses" theme.
+#
+# Cases: attribute_cases = [abs, erg, is, is_not, gen]
+# Ergative-absolutive alignment: copular/intransitive subjects → abs; transitive subjects → erg (via attribute_subject_cases)
+# Postpositions: ondoan/ezkerrean/eskuinean/artean all follow genitive → gen case for positional second args
+# Word-formation: nationalities=demonym noun (-ar suffix), jobs=bare noun, pets=compound possessive (X-ren jabea) + edun,
+#                 drinks=compound -edalea + edaten du, literature=compound -irakurlea + irakurtzen du,
+#                 fruits=-zalea compound + maite du, hobbies=compound -egilea/-jokalaria/-zalea + egiten/jokatzen du
+# Uncertain forms flagged for native speaker review: Faroe Islands/Netherlands demonyms, perikito (budgerigar),
+#   hagaxka-intsektu (stick insect), grosella beltza (blackcurrant), gantxoa (crochet),
+#   txerrindel (guinea pig), ski saltoa (ski jumping)
+# Gender: Basque has no grammatical gender — all forms are gender-neutral naturally.
+
+theme: eu_etxeak
+
+# Order of grammatical cases in attribute descriptions.
+# Format: [absolutive, ergative, predicate-is, predicate-is_not, genitive]
+attribute_cases: [abs, erg, is, is_not, gen]
+red_herring_attribute_cases: [abs, erg, is, gen]
+
+# attribute_subject_cases: when a category's attribute is the predicate (desc_2) in same_object/not_same_object,
+# the subject (desc_1) takes the specified case. Copular predicates → abs; transitive predicates → erg.
+attribute_subject_cases:
+    Nazionalitateak: abs
+    Lanbideak: abs
+    Maskotak: erg
+    Edariak: erg
+    Liburu-generoak: erg
+    Zaletasunak: erg
+    Fruta gogokoenak: erg
+
+# Attributes
+# Format: [abs, erg, is, is_not, gen]
+
+attributes:
+
+    Nazionalitateak:
+        Denmark: ['danimarkarra', 'danimarkarrak', 'danimarkarra da', 'ez da danimarkarra', 'danimarkarraren']
+        Sweden: ['sueziarra', 'sueziarrak', 'sueziarra da', 'ez da sueziarra', 'sueziarraren']  # uncertain — verify demonym
+        Latvia: ['letoniarra', 'letoniarrak', 'letoniarra da', 'ez da letoniarra', 'letoniarraren']  # uncertain — verify demonym
+        France: ['frantsesa', 'frantsesak', 'frantsesa da', 'ez da frantsesa', 'frantsesaren']  # uncertain — verify demonym
+        Spain: ['espainiarra', 'espainiarrak', 'espainiarra da', 'ez da espainiarra', 'espainiarraren']
+        Italy: ['italiarra', 'italiarrak', 'italiarra da', 'ez da italiarra', 'italiarraren']
+        Norway: ['norvegiarra', 'norvegiarrak', 'norvegiarra da', 'ez da norvegiarra', 'norvegiarraren']
+        Faroe Islands: ['farotarra', 'farotarrak', 'farotarra da', 'ez da farotarra', 'farotarraren']  # uncertain — verify demonym
+        Netherlands: ['nederlandarra', 'nederlandarrak', 'nederlandarra da', 'ez da nederlandarra', 'nederlandarraren']  # uncertain — verify demonym
+        Iceland: ['islandiarra', 'islandiarrak', 'islandiarra da', 'ez da islandiarra', 'islandiarraren']
+        United Kingdom: ['britainiarra', 'britainiarrak', 'britainiarra da', 'ez da britainiarra', 'britainiarraren']  # uncertain — verify demonym
+
+    Lanbideak:
+        baker: ['okina', 'okinak', 'okina da', 'ez da okina', 'okinaren']
+        minister: ['ministroa', 'ministroak', 'ministroa da', 'ez da ministroa', 'ministroaren']
+        police officer: ['poliziakidea', 'poliziakideak', 'poliziakidea da', 'ez da poliziakidea', 'poliziakidearen']
+        nurse: ['erizaina', 'erizainak', 'erizaina da', 'ez da erizaina', 'erizainaren']
+        teacher: ['irakaslea', 'irakasleak', 'irakaslea da', 'ez da irakaslea', 'irakaslearen']
+        software developer: ['software garatzailea', 'software garatzaileak', 'software garatzailea da', 'ez da software garatzailea', 'software garatzailearen']
+        shop assistant: ['saltzailea', 'saltzaileak', 'saltzailea da', 'ez da saltzailea', 'saltzailearen']
+
+    Maskotak:
+        cat: ['katuaren jabea', 'katuaren jabeak', 'katua du', 'ez du katurik', 'katuaren jabearen']
+        dog: ['txakurraren jabea', 'txakurraren jabeak', 'txakurra du', 'ez du txakurrik', 'txakurraren jabearen']
+        rabbit: ['untxiaren jabea', 'untxiaren jabeak', 'untxia du', 'ez du untxirik', 'untxiaren jabearen']
+        zebra: ['zebraren jabea', 'zebraren jabeak', 'zebra du', 'ez du zebrarik', 'zebraren jabearen']
+        budgerigar: ['perikitoaren jabea', 'perikitoaren jabeak', 'perikitoa du', 'ez du perikitorik', 'perikitoaren jabearen']  # uncertain: perikito = budgerigar?
+        snail: ['barraskiloaren jabea', 'barraskiloaren jabeak', 'barraskiloa du', 'ez du barraskilorik', 'barraskiloaren jabearen']
+        stick insect: ['hagaxka-intsektuaren jabea', 'hagaxka-intsektuaren jabeak', 'hagaxka-intsektua du', 'ez du hagaxka-intsekturik', 'hagaxka-intsektuaren jabearen']  # uncertain: hagaxka-intsektu = stick insect?
+
+    Edariak:
+        juice: ['zuko-edalea', 'zuko-edaleak', 'zukua edaten du', 'ez du zukurik edaten', 'zuko-edalearen']
+        coffee: ['kafe-edalea', 'kafe-edaleak', 'kafea edaten du', 'ez du kaferik edaten', 'kafe-edalearen']
+        milk: ['esne-edalea', 'esne-edaleak', 'esnea edaten du', 'ez du esnerik edaten', 'esne-edalearen']
+        smoothie: ['smoothie-edalea', 'smoothie-edaleak', 'smoothiea edaten du', 'ez du smoothierik edaten', 'smoothie-edalearen']
+        cocoa: ['kakao-edalea', 'kakao-edaleak', 'kakaoa edaten du', 'ez du kakaorik edaten', 'kakao-edalearen']
+        tea: ['te-edalea', 'te-edaleak', 'tea edaten du', 'ez du terik edaten', 'te-edalearen']
+        soda: ['freskagarri-edalea', 'freskagarri-edaleak', 'freskagarria edaten du', 'ez du freskagarririk edaten', 'freskagarri-edalearen']
+
+    Liburu-generoak:
+        non-fiction: ['saiakera-irakurlea', 'saiakera-irakurleak', 'saiakera irakurtzen du', 'ez du saiakerarik irakurtzen', 'saiakera-irakurlearen']
+        crime: ['nobela-beltzen irakurlea', 'nobela-beltzen irakurleak', 'nobela beltza irakurtzen du', 'ez du nobela beltzik irakurtzen', 'nobela-beltzen irakurlearen']
+        fantasy: ['fantasia-irakurlea', 'fantasia-irakurleak', 'fantasia irakurtzen du', 'ez du fantasiarik irakurtzen', 'fantasia-irakurlearen']
+        science fiction: ['zientzia-fikzio-irakurlea', 'zientzia-fikzio-irakurleak', 'zientzia-fikzioa irakurtzen du', 'ez du zientzia-fikziorik irakurtzen', 'zientzia-fikzio-irakurlearen']
+        horror: ['beldur-istorio-irakurlea', 'beldur-istorio-irakurleak', 'beldur-istorioa irakurtzen du', 'ez du beldur-istoriorik irakurtzen', 'beldur-istorio-irakurlearen']  # uncertain: beldur-istorioa = horror?
+        poetry: ['poesia-irakurlea', 'poesia-irakurleak', 'poesia irakurtzen du', 'ez du poesiarik irakurtzen', 'poesia-irakurlearen']
+        romance: ['maitasun-nobela-irakurlea', 'maitasun-nobela-irakurleak', 'maitasun-nobela irakurtzen du', 'ez du maitasun-nobelarik irakurtzen', 'maitasun-nobela-irakurlearen']
+
+    Zaletasunak:
+        bouldering: ['bouldering-egilea', 'bouldering-egileak', 'bouldering egiten du', 'ez du bouldering egiten', 'bouldering-egilearen']
+        painting: ['margolaria', 'margolariak', 'margotzen du', 'ez du margotzen', 'margolariaren']
+        board games: ['mahai-joko-zalea', 'mahai-joko-zaleak', 'mahai-jokoa jokatzen du', 'ez du mahai-jokorik jokatzen', 'mahai-joko-zalearen']
+        tennis: ['tenis-jokalaria', 'tenis-jokalariak', 'tenisa jokatzen du', 'ez du tenisik jokatzen', 'tenis-jokalariaren']
+        crocheting: ['gantxo-egilea', 'gantxo-egileak', 'gantxoa egiten du', 'ez du gantxorik egiten', 'gantxo-egilearen']  # uncertain: gantxoa = crochet?
+        football: ['futbolaria', 'futbolariak', 'futbola jokatzen du', 'ez du futbolik jokatzen', 'futbolariaren']
+        handball: ['eskubaloi-jokalaria', 'eskubaloi-jokalariak', 'eskubaloia jokatzen du', 'ez du eskubaloirik jokatzen', 'eskubaloi-jokalariaren']
+
+    Fruta gogokoenak:
+        apple: ['sagar-zalea', 'sagar-zaleak', 'sagarra maite du', 'ez du sagarra maite', 'sagar-zalearen']
+        pear: ['udare-zalea', 'udare-zaleak', 'udarea maite du', 'ez du udarea maite', 'udare-zalearen']
+        orange: ['laranja-zalea', 'laranja-zaleak', 'laranja maite du', 'ez du laranja maite', 'laranja-zalearen']  # uncertain: laranja definite form
+        banana: ['banana-zalea', 'banana-zaleak', 'banana maite du', 'ez du banana maite', 'banana-zalearen']
+        strawberry: ['marrubi-zalea', 'marrubi-zaleak', 'marrubia maite du', 'ez du marrubia maite', 'marrubi-zalearen']
+        blackcurrant: ['grosella-beltz-zalea', 'grosella-beltz-zaleak', 'grosella beltza maite du', 'ez du grosella beltza maite', 'grosella-beltz-zalearen']  # uncertain: grosella beltza = blackcurrant?
+        wild strawberry: ['baso-marrubi-zalea', 'baso-marrubi-zaleak', 'baso-marrubia maite du', 'ez du baso-marrubia maite', 'baso-marrubi-zalearen']
+
+# Clues (SOV word order; postpositions follow genitive)
+clues_dict:
+    found_at: '{attribute_desc} {i_object}. etxean bizi da.'
+    not_at: '{attribute_desc} ez da {i_object}. etxean bizi.'
+    next_to: '{attribute_desc_1} {attribute_desc_2} ondoan bizi da.'                                                                              # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} ez da {attribute_desc_2} ondoan bizi, eta pertsona desberdinak dira.'                                         # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} {attribute_desc_2} ezkerreko etxean bertan bizi da.'                                                        # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} {attribute_desc_2} eskuineko etxean bertan bizi da.'                                                       # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} {attribute_desc_2} ezkerrean bizi da.'
+    right_of: '{attribute_desc_1} {attribute_desc_2} eskuinean bizi da.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                                         # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                                     # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} {attribute_desc_1} eta {attribute_desc_3} artean bizi da.'                                                       # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} ez da {attribute_desc_2} eta {attribute_desc_3} artean bizi, eta hiru pertsona desberdinak dira.'             # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1} eta {attribute_desc_2} artean {n_between} etxe daude.'                                                  # Requires n_objects > 3, otherwise it cannot be used
+    one_between: '{attribute_desc_1} eta {attribute_desc_2} artean etxe bat dago.'                                                                # Requires n_objects > 2, otherwise it cannot be used
+
+# abs = absolutive (intransitive/copular subject, positional subject)
+# erg = ergative (transitive subject — overridden per category by attribute_subject_cases in same_object/not_same_object)
+# gen = genitive (after postpositions ondoan/ezkerrean/eskuinean/artean)
+# none = is/is_not predicate form (resolved at runtime)
+# Note: between: desc_1 and desc_3 are flanking (gen), desc_2 is the middle person (abs subject)
+clue_cases_dict:
+    found_at: [abs]
+    not_at: [abs]
+    next_to: [abs, gen]
+    not_next_to: [abs, gen]
+    just_left_of: [abs, gen]
+    just_right_of: [abs, gen]
+    left_of: [abs, gen]
+    right_of: [abs, gen]
+    same_object: [abs, none]
+    not_same_object: [abs, none]
+    between: [gen, abs, gen]
+    not_between: [abs, gen, gen]
+    multiple_between: [gen, gen]
+    one_between: [gen, gen]
+
+prompt_and: eta
+
+prompt_templates:
+    - |
+        Etxe-ilara bat 1etik {n_objects}era dago zenbakitua, ezkerretik eskuinera.
+
+        Etxe bakoitzean pertsona bat bizi da, eta honako kategoria bakoitzeko ezaugarri bakarra du:
+
+        {chosen_attributes_str}
+
+        Honako hauek ere badakizkigu:
+
+        {chosen_clues_str}
+
+        Nork zein ezaugarri dituen eta zein etxetan bizi den asmatzen al duzu?
+
+        Erantzuna JSON dictionary gisa bidali mesedez. Key bakoitza object_X da, X etxe-zenbakia delarik. Balio bakoitza aurretik aipatutako kategorietako ezaugarrien zerrenda bat da, X etxean bizi den pertsonari dagozkionak.
+
+        Hona hemen erantzun-formatuaren adibide bat:
+
+        {solution_template}
+    - |
+        Etxe-ilara bat 1etik {n_objects}era dago zenbakitua, ezkerretik eskuinera.
+
+        Etxe bakoitzean pertsona bat bizi da, {chosen_attributes_str} kategorian ezaugarri bakarra duela.
+
+        Honako hauek ere badakizkigu:
+
+        {chosen_clues_str}
+
+        Zein ezaugarri dagokio etxe bakoitzeko pertsonari?
+
+        Erantzuna JSON dictionary gisa bidali mesedez. Key bakoitza object_X da, X etxe-zenbakia delarik. Balio bakoitza zerrenda bat da, {chosen_attributes_str} kategoriari dagokion ezaugarria duena, X etxean bizi den pertsonaren.
+
+        Hona hemen erantzun-formatuaren adibide bat:
+
+        {solution_template}
+
+# Red herrings
+# Format: [abs, erg, is, gen]
+# erg is used for object_fact (badaki is transitive → ergative subject); also keeps index positions aligned with attribute_cases.
+
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} {attribute_desc_herring} ondoan bizi da.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} badaki {fact}.'
+    friends: '{attribute_desc} eta {attribute_desc_herring} lagunak dira.'
+    herring_found_at: '{attribute_desc_herring} {i_object}. etxean bizi da.'
+    herring_not_at: '{attribute_desc_herring} ez da {i_object}. etxean bizi.'
+
+red_herring_cases_dict:
+    same_herring: [abs, none]
+    next_to_herring: [abs, gen]
+    double_herring: [abs, none]
+    fact: [none]
+    object_fact: [erg, none]
+    friends: [abs, abs]
+    herring_found_at: [abs]
+    herring_not_at: [abs]
+
+red_herring_attributes:
+    ile_gorria: ['ile gorriko pertsona', 'ile gorriko pertsonak', 'ilea gorria du', 'ile gorriko pertsonaren']
+    betaurrekoak: ['betaurrekodun pertsona', 'betaurrekodun pertsonak', 'betaurrekoak daramatza', 'betaurrekodun pertsonaren']
+    tatuajea: ['tatuajedun pertsona', 'tatuajedun pertsonak', 'tatuajea du', 'tatuajedun pertsonaren']
+    gitarra: ['gitarra jotzen duen pertsona', 'gitarra jotzen duen pertsonak', 'gitarra jotzen du', 'gitarra jotzen duen pertsonaren']
+    bizikleta: ['bizikletadun pertsona', 'bizikletadun pertsonak', 'bizikleta du', 'bizikletadun pertsonaren']
+    txerrindel: ['txerrindeldun pertsona', 'txerrindeldun pertsonak', 'txerrindela du', 'txerrindeldun pertsonaren']  # uncertain: txerrindel = guinea pig?
+    kaktusa: ['kaktusik ez duen pertsona', 'kaktusik ez duen pertsonak', 'ez du kaktusik', 'kaktusik ez duen pertsonaren']
+    bideo_jokoak: ['bideo-joko-zalea', 'bideo-joko-zaleak', 'bideo-jokoak jokatzen ditu', 'bideo-joko-zalearen']
+    arreba: ['arreba duen pertsona', 'arreba duen pertsonak', 'arreba du', 'arreba duen pertsonaren']
+    mangoa: ['mango bigarren fruitu onena dela uste duena', 'mango bigarren fruitu onena dela uste duenak', 'mango bigarren fruitu onena dela uste du', 'mango bigarren fruitu onena dela uste duenaren']
+    nabigazioa: ['nabigaziozalea', 'nabigaziozaleak', 'maiz nabigatzen du', 'nabigaziozalearen']
+    Kanada: ['Kanadan egon den pertsona', 'Kanadan egon den pertsonak', 'Kanadan egon da', 'Kanadan egon den pertsonaren']
+    matematika: ['matematikako master-gradua duen pertsona', 'matematikako master-gradua duen pertsonak', 'matematikako master-gradua du', 'matematikako master-gradua duen pertsonaren']
+    fisika: ['fisika-zalea', 'fisika-zaleak', 'fisika maite du', 'fisika-zalearen']
+    animalia_zaharra: ['bere lajiarentzat zaharra den animalia duen pertsona', 'bere lajiarentzat zaharra den animalia duen pertsonak', 'bere lajiarentzat zaharra den animalia du', 'bere lajiarentzat zaharra den animalia duen pertsonaren']  # uncertain phrasing
+    ski_saltoa: ['ski-salto-ikuslea', 'ski-salto-ikusleak', 'ski saltoa ikusten du', 'ski-salto-ikuslearen']  # uncertain: ski saltoa = ski jumping?
+
+red_herring_facts:
+    arengak: ['arengak arrainak dira', 'arengak arrainak direla']  # uncertain: arengak = herrings?
+    eguzki_sistema: ['eguzki-sistemak galaxiaren zentroan 200 km/s inguruko abiaduran ibiltzen du', 'eguzki-sistemak galaxiaren zentroan 200 km/s inguruko abiaduran ibiltzen duela']
+    jolasak: ['arrazoi-jolasak ebaztea dibertigarria da', 'arrazoi-jolasak ebaztea dibertigarria dela']
+    etxeak: ['kaleko etxe guztiek lorategi ederrak dituzte', 'kaleko etxe guztiek lorategi ederrak dituztela']
+    ateak: ['etxe batzuek ate berdea dute', 'etxe batzuek ate berdea dutela']
+    leihoak: ['etxe guztiek leiho handiak dituzte', 'etxe guztiek leiho handiak dituztela']
+    autoak: ['kalean auto ugari daude', 'kalean auto ugari daudela']
+    pepinoa: ['pepinoa baia bat da', 'pepinoa baia bat dela']
+    barraskiloa: ['barraskiloak molusku dira', 'barraskiloak molusku direla']
+    kafea: ['kafeak kafeina du', 'kafeak kafeina duela']
+
+# Strings to replace in the generated prompt.
+prompt_replacements: {}

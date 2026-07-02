@@ -34,6 +34,7 @@
 # sl/hise
 # cs/domy
 # it/case
+# eu/etxeak
 
 defaults:
   - language: en/houses
