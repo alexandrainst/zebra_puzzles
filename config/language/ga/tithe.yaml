@@ -16,11 +16,22 @@
 #   "léitheoir X" for is/is_not; hobbies = "duine a Xann" relative clause for BOTH nom and is/is_not, kept
 #   verbal/periphrastic rather than an agent noun like "peileadóir", since several hobby agent nouns are also
 #   real job titles in Irish and would be ambiguous with the jobs category.
-# Simplification (flagged for native speaker review): initial mutation of consonants (séimhiú/urú) and the
-#   article's t-/h-prefixation of vowel-initial nouns, triggered by "ina", "leis an", "den", "i", numerals
-#   etc., are NOT applied throughout this preliminary config — bare dictionary forms are used after these
-#   triggers instead. This is grammatically imperfect but unambiguous and intelligible; a native speaker pass
-#   to add correct mutations would meaningfully improve naturalness.
+# Initial mutation (séimhiú/urú) is implemented via prompt_replacements, not code, since every mutation
+#   trigger ("ar an", "leis an", "ag an", "den", "ina", and the bare article after Tá/Níl/idir/agus) is fixed
+#   literal text already baked into the clue templates. Because prompt_replacements does plain substring
+#   replacement and Irish mutation only changes the first letter of the following word, each rule is keyed on
+#   "<trigger> <first letter>" (e.g. "den D" -> "den Dh") rather than "<trigger> <whole word>" — the rest of
+#   the word is untouched by the replace() call, so one rule per letter covers every attribute sharing that
+#   initial, including ones added later. Mutation type per trigger (best effort, flagged for native speaker
+#   review — the eclipsis assignment for ar/ag/leis an in particular is not certain):
+#     - "ar an", "leis an", "ag an" (contracted prepositions) -> eclipsis (urú)
+#     - "den", "ina" -> lenition (séimhiú)
+#     - bare "an" after Tá/Níl/idir/agus (no contracting preposition) -> t-prefix on vowel-initial nouns only
+#   Only consonants B, C, D, F, G, M and vowels A/I/Í actually occur as the first letter of an attribute
+#   description in this config; L, N, R, and vowels never lenite/eclipse the same way and are left unchanged.
+#   S resists lenition before p/c/m/f/t (Spáinneach), so the S rule is keyed on "Su" (Sualannach) specifically
+#   rather than bare "S", to avoid also matching "Spáinneach". If new attributes starting with P or T are
+#   added later, analogous rules should be added following the same pattern.
 # red_herring_facts use two forms per entry, as for German/Dutch/Basque: Irish's irregular verbs and the
 #   copula take distinct dependent forms when embedded under "go"/"gur(b)" (e.g. tá → go bhfuil, is → gur/gurb).
 #   The second form already includes its own complementizer, so object_fact does not add "go" itself.
@@ -144,7 +155,7 @@ prompt_templates:
     - |
         Tá sraith tithe uimhrithe 1 go {n_objects} ó chlé go deas.
 
-        Tá duine ina chónaí i ngach teach, agus tá saintréith ar leith aige i ngach ceann de na catagóirí seo a leanas:
+        Tá duine ina cónaí i ngach teach, agus tá saintréith ar leith aige i ngach ceann de na catagóirí seo a leanas:
 
         {chosen_attributes_str}
 
@@ -152,17 +163,17 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Cé aige a bhfuil na saintréithe seo, agus cén teach ina bhfuil cónaí air?
+        Cé aige a bhfuil na saintréithe seo, agus cén uimhir tí a bhfuil cónaí air?
 
         Cuir d'fhreagra isteach mar JSON dictionary le do thoil. Caithfidh gach key a bheith ina object_X, áit arb é X uimhir an tí. Caithfidh gach value a bheith ina liosta de na saintréithe ó na catagóirí thuasluaite a bhaineann leis an duine i dteach uimhir X.
 
-        Seo a leanas sampla den fhormáid freagra:
+        Seo a leanas sampla den formáid freagra:
 
         {solution_template}
     - |
         Tá sraith tithe uimhrithe 1 go {n_objects} ó chlé go deas.
 
-        Tá duine ina chónaí i ngach teach, agus tá saintréith ar leith aige i gcatagóir {chosen_attributes_str}.
+        Tá duine ina cónaí i ngach teach, agus tá saintréith ar leith aige i gcatagóir {chosen_attributes_str}.
 
         Tá an méid seo a leanas ar eolas againn freisin:
 
@@ -170,9 +181,9 @@ prompt_templates:
 
         Cén saintréith atá ag an duine i ngach teach?
 
-        Cuir d'fhreagra isteach mar JSON dictionary le do thoil. Caithfidh gach key a bheith ina object_X, áit arb é X uimhir an tí. Caithfidh gach value a bheith ina liosta ina bhfuil an saintréith ón gcatagóir thuasluaite a bhaineann leis an duine i dteach uimhir X.
+        Cuir d'fhreagra isteach mar JSON dictionary le do thoil. Caithfidh gach key a bheith ina object_X, áit arb é X uimhir an tí. Caithfidh gach value a bheith ina liosta a bhfuil an saintréith ón gcatagóir thuasluaite ann, a bhaineann leis an duine i dteach uimhir X.
 
-        Seo a leanas sampla den fhormáid freagra:
+        Seo a leanas sampla den formáid freagra:
 
         {solution_template}
 
@@ -182,7 +193,7 @@ red_herring_clues_dict:
     double_herring: 'Tá an {attribute_desc_herring_1} ina {attribute_desc_herring_2}.'
     fact: '{fact}.'
     object_fact: 'Tá a fhios ag an {attribute_desc} {fact}.'
-    friends: 'Tá an {attribute_desc} agus an {attribute_desc_herring} ina gcairde maithe.'
+    friends: 'Tá caidreamh maith idir an {attribute_desc} agus an {attribute_desc_herring}.'
     herring_found_at: 'Tá cónaí ar an {attribute_desc_herring} i dteach uimhir {i_object}.'
     herring_not_at: 'Níl cónaí ar an {attribute_desc_herring} i dteach uimhir {i_object}.'
 
@@ -226,4 +237,89 @@ red_herring_facts:
     seilidi: ['Is moilisc iad seilidí', 'gur moilisc iad seilidí']
     caife: ['Tá caificín sa chaife', 'go bhfuil caificín sa chaife']
 
-prompt_replacements: {}
+prompt_replacements:
+    # Eclipsis (urú) after the contracted prepositions "ar an", "leis an", "ag an".
+    # Consonants (only D, F, B, C, G occur as an attribute description's first letter in this config).
+    'ar an D': 'ar an nD'
+    'leis an D': 'leis an nD'
+    'ag an D': 'ag an nD'
+    'ar an d': 'ar an nd'
+    'leis an d': 'leis an nd'
+    'ag an d': 'ag an nd'
+    # B and G must be applied before F and C respectively: eclipsed F ("bhF"/"bhf") starts with the letter
+    # that triggers the B rule, and eclipsed C ("gC"/"gc") starts with the letter that triggers the G rule —
+    # applying them in the wrong order would eclipse the same word twice (e.g. "ar an bhforbróir" -> wrongly
+    # "ar an mbhforbróir" if the B rule ran after the F rule).
+    'ar an B': 'ar an mB'
+    'leis an B': 'leis an mB'
+    'ag an B': 'ag an mB'
+    'ar an b': 'ar an mb'
+    'leis an b': 'leis an mb'
+    'ag an b': 'ag an mb'
+    'ar an G': 'ar an nG'
+    'leis an G': 'leis an nG'
+    'ag an G': 'ag an nG'
+    'ar an g': 'ar an ng'
+    'leis an g': 'leis an ng'
+    'ag an g': 'ag an ng'
+    'ar an F': 'ar an bhF'
+    'leis an F': 'leis an bhF'
+    'ag an F': 'ag an bhF'
+    'ar an f': 'ar an bhf'
+    'leis an f': 'leis an bhf'
+    'ag an f': 'ag an bhf'
+    'ar an c': 'ar an gc'
+    'leis an c': 'leis an gc'
+    'ag an c': 'ag an gc'
+    # Eclipsis: vowel-initial words take an "n" prefix (hyphenated before lowercase, unhyphenated before a capital).
+    'ar an A': 'ar an nA'
+    'leis an A': 'leis an nA'
+    'ag an A': 'ag an nA'
+    'ar an a': 'ar an n-a'
+    'leis an a': 'leis an n-a'
+    'ag an a': 'ag an n-a'
+    'ar an I': 'ar an nI'
+    'leis an I': 'leis an nI'
+    'ag an I': 'ag an nI'
+    'ar an Í': 'ar an nÍ'
+    'leis an Í': 'leis an nÍ'
+    'ag an Í': 'ag an nÍ'
+    # Lenition (séimhiú) after "den" and "ina".
+    'den D': 'den Dh'
+    'ina D': 'ina Dh'
+    'den d': 'den dh'
+    'ina d': 'ina dh'
+    'den F': 'den Fh'
+    'ina F': 'ina Fh'
+    'den f': 'den fh'
+    'ina f': 'ina fh'
+    'den B': 'den Bh'
+    'ina B': 'ina Bh'
+    'den b': 'den bh'
+    'ina b': 'ina bh'
+    'den c': 'den ch'
+    'ina c': 'ina ch'
+    'den g': 'den gh'
+    'ina g': 'ina gh'
+    'den m': 'den mh'
+    'ina m': 'ina mh'
+    # S resists lenition before p/c/m/f/t (Spáinneach); keyed on "Su" (Sualannach) to avoid matching "Sp".
+    'den Su': 'den Shu'
+    'ina Su': 'ina Shu'
+    # Bare article after Tá/Níl/idir/agus (no contracting preposition): t-prefix on vowel-initial nouns only.
+    'Tá an A': 'Tá an tA'
+    'Níl an A': 'Níl an tA'
+    'idir an A': 'idir an tA'
+    'agus an A': 'agus an tA'
+    'Tá an a': 'Tá an t-a'
+    'Níl an a': 'Níl an t-a'
+    'idir an a': 'idir an t-a'
+    'agus an a': 'agus an t-a'
+    'Tá an I': 'Tá an tI'
+    'Níl an I': 'Níl an tI'
+    'idir an I': 'idir an tI'
+    'agus an I': 'agus an tI'
+    'Tá an Í': 'Tá an tÍ'
+    'Níl an Í': 'Níl an tÍ'
+    'idir an Í': 'idir an tÍ'
+    'agus an Í': 'agus an tÍ'
