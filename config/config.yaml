@@ -35,6 +35,7 @@
 # cs/domy
 # it/case
 # eu/etxeak
+# ga/tithe
 
 defaults:
   - language: en/houses
