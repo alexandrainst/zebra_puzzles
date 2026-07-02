@@ -6,16 +6,6 @@
 # Word-formation: nationalities=demonym noun (-ar suffix), jobs=bare noun, pets=compound possessive (X-ren jabea) + edun,
 #                 drinks=compound -edalea + edaten du, literature=compound -irakurlea + irakurtzen du,
 #                 fruits=-zalea compound + maite du, hobbies=compound -egilea/-jokalaria/-zalea + egiten/jokatzen du
-# Demonyms verified against Euskaltzaindia (place name + -(t)ar suffix rule, e.g. Lekeitio→lekeitiar,
-#   Santutxu→santutxuar): fixed Suedia→suediar (was sueziar), Faroe uharteak→faroetar (was farotar),
-#   Herbehereak→herbeheretar (was nederlandar, also valid but not derived from the chosen key).
-# Vocabulary checked against eu.wikipedia.org / Elhuyar hiztegia: perikito (budgerigar, confirmed),
-#   makil-intsektu (stick insect, was hagaxka-intsektu), kakorratz (crochet, was gantxo — gantxo means boxing hook),
-#   beldurrezko nobela (horror genre, was beldur-istorio — "beldurrezko" is the standard genre adjective),
-#   akuri (guinea pig, was txerrindel, unattested), eski_jauzi (ski jumping, was ski_saltoa),
-#   andere-mahats beltz (blackcurrant, was grosella beltza — grosella is a generic Spanish loanword),
-#   sardinzarrak (herring, was arengak — arenga is not a Basque word for the fish).
-# Gender: Basque has no grammatical gender — all forms are gender-neutral naturally.
 
 theme: eu_etxeak
 
