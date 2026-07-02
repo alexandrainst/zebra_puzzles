@@ -6,9 +6,15 @@
 # Word-formation: nationalities=demonym noun (-ar suffix), jobs=bare noun, pets=compound possessive (X-ren jabea) + edun,
 #                 drinks=compound -edalea + edaten du, literature=compound -irakurlea + irakurtzen du,
 #                 fruits=-zalea compound + maite du, hobbies=compound -egilea/-jokalaria/-zalea + egiten/jokatzen du
-# Uncertain forms flagged for native speaker review: Faroe Islands/Netherlands demonyms, perikito (budgerigar),
-#   hagaxka-intsektu (stick insect), grosella beltza (blackcurrant), gantxoa (crochet),
-#   txerrindel (guinea pig), ski saltoa (ski jumping)
+# Demonyms verified against Euskaltzaindia (place name + -(t)ar suffix rule, e.g. Lekeitio→lekeitiar,
+#   Santutxu→santutxuar): fixed Suedia→suediar (was sueziar), Faroe uharteak→faroetar (was farotar),
+#   Herbehereak→herbeheretar (was nederlandar, also valid but not derived from the chosen key).
+# Vocabulary checked against eu.wikipedia.org / Elhuyar hiztegia: perikito (budgerigar, confirmed),
+#   makil-intsektu (stick insect, was hagaxka-intsektu), kakorratz (crochet, was gantxo — gantxo means boxing hook),
+#   beldurrezko nobela (horror genre, was beldur-istorio — "beldurrezko" is the standard genre adjective),
+#   akuri (guinea pig, was txerrindel, unattested), eski_jauzi (ski jumping, was ski_saltoa),
+#   andere-mahats beltz (blackcurrant, was grosella beltza — grosella is a generic Spanish loanword),
+#   sardinzarrak (herring, was arengak — arenga is not a Basque word for the fish).
 # Gender: Basque has no grammatical gender — all forms are gender-neutral naturally.
 
 theme: eu_etxeak
@@ -35,71 +41,71 @@ attribute_subject_cases:
 attributes:
 
     Nazionalitateak:
-        Denmark: ['danimarkarra', 'danimarkarrak', 'danimarkarra da', 'ez da danimarkarra', 'danimarkarraren']
-        Sweden: ['sueziarra', 'sueziarrak', 'sueziarra da', 'ez da sueziarra', 'sueziarraren']  # uncertain — verify demonym
-        Latvia: ['letoniarra', 'letoniarrak', 'letoniarra da', 'ez da letoniarra', 'letoniarraren']  # uncertain — verify demonym
-        France: ['frantsesa', 'frantsesak', 'frantsesa da', 'ez da frantsesa', 'frantsesaren']  # uncertain — verify demonym
-        Spain: ['espainiarra', 'espainiarrak', 'espainiarra da', 'ez da espainiarra', 'espainiarraren']
-        Italy: ['italiarra', 'italiarrak', 'italiarra da', 'ez da italiarra', 'italiarraren']
-        Norway: ['norvegiarra', 'norvegiarrak', 'norvegiarra da', 'ez da norvegiarra', 'norvegiarraren']
-        Faroe Islands: ['farotarra', 'farotarrak', 'farotarra da', 'ez da farotarra', 'farotarraren']  # uncertain — verify demonym
-        Netherlands: ['nederlandarra', 'nederlandarrak', 'nederlandarra da', 'ez da nederlandarra', 'nederlandarraren']  # uncertain — verify demonym
-        Iceland: ['islandiarra', 'islandiarrak', 'islandiarra da', 'ez da islandiarra', 'islandiarraren']
-        United Kingdom: ['britainiarra', 'britainiarrak', 'britainiarra da', 'ez da britainiarra', 'britainiarraren']  # uncertain — verify demonym
+        Danimarka: ['danimarkarra', 'danimarkarrak', 'danimarkarra da', 'ez da danimarkarra', 'danimarkarraren']
+        Suedia: ['suediarra', 'suediarrak', 'suediarra da', 'ez da suediarra', 'suediarraren']
+        Letonia: ['letoniarra', 'letoniarrak', 'letoniarra da', 'ez da letoniarra', 'letoniarraren']
+        Frantzia: ['frantsesa', 'frantsesak', 'frantsesa da', 'ez da frantsesa', 'frantsesaren']
+        Espainia: ['espainiarra', 'espainiarrak', 'espainiarra da', 'ez da espainiarra', 'espainiarraren']
+        Italia: ['italiarra', 'italiarrak', 'italiarra da', 'ez da italiarra', 'italiarraren']
+        Norvegia: ['norvegiarra', 'norvegiarrak', 'norvegiarra da', 'ez da norvegiarra', 'norvegiarraren']
+        Faroe uharteak: ['faroetarra', 'faroetarrak', 'faroetarra da', 'ez da faroetarra', 'faroetarraren']
+        Herbehereak: ['herbeheretarra', 'herbeheretarrak', 'herbeheretarra da', 'ez da herbeheretarra', 'herbeheretarraren']
+        Islandia: ['islandiarra', 'islandiarrak', 'islandiarra da', 'ez da islandiarra', 'islandiarraren']
+        Erresuma Batua: ['britainiarra', 'britainiarrak', 'britainiarra da', 'ez da britainiarra', 'britainiarraren']
 
     Lanbideak:
-        baker: ['okina', 'okinak', 'okina da', 'ez da okina', 'okinaren']
-        minister: ['ministroa', 'ministroak', 'ministroa da', 'ez da ministroa', 'ministroaren']
-        police officer: ['poliziakidea', 'poliziakideak', 'poliziakidea da', 'ez da poliziakidea', 'poliziakidearen']
-        nurse: ['erizaina', 'erizainak', 'erizaina da', 'ez da erizaina', 'erizainaren']
-        teacher: ['irakaslea', 'irakasleak', 'irakaslea da', 'ez da irakaslea', 'irakaslearen']
-        software developer: ['software garatzailea', 'software garatzaileak', 'software garatzailea da', 'ez da software garatzailea', 'software garatzailearen']
-        shop assistant: ['saltzailea', 'saltzaileak', 'saltzailea da', 'ez da saltzailea', 'saltzailearen']
+        okin: ['okina', 'okinak', 'okina da', 'ez da okina', 'okinaren']
+        ministro: ['ministroa', 'ministroak', 'ministroa da', 'ez da ministroa', 'ministroaren']
+        poliziakide: ['poliziakidea', 'poliziakideak', 'poliziakidea da', 'ez da poliziakidea', 'poliziakidearen']
+        erizain: ['erizaina', 'erizainak', 'erizaina da', 'ez da erizaina', 'erizainaren']
+        irakasle: ['irakaslea', 'irakasleak', 'irakaslea da', 'ez da irakaslea', 'irakaslearen']
+        software garatzaile: ['software garatzailea', 'software garatzaileak', 'software garatzailea da', 'ez da software garatzailea', 'software garatzailearen']
+        saltzaile: ['saltzailea', 'saltzaileak', 'saltzailea da', 'ez da saltzailea', 'saltzailearen']
 
     Maskotak:
-        cat: ['katuaren jabea', 'katuaren jabeak', 'katua du', 'ez du katurik', 'katuaren jabearen']
-        dog: ['txakurraren jabea', 'txakurraren jabeak', 'txakurra du', 'ez du txakurrik', 'txakurraren jabearen']
-        rabbit: ['untxiaren jabea', 'untxiaren jabeak', 'untxia du', 'ez du untxirik', 'untxiaren jabearen']
+        katu: ['katuaren jabea', 'katuaren jabeak', 'katua du', 'ez du katurik', 'katuaren jabearen']
+        txakur: ['txakurraren jabea', 'txakurraren jabeak', 'txakurra du', 'ez du txakurrik', 'txakurraren jabearen']
+        untxi: ['untxiaren jabea', 'untxiaren jabeak', 'untxia du', 'ez du untxirik', 'untxiaren jabearen']
         zebra: ['zebraren jabea', 'zebraren jabeak', 'zebra du', 'ez du zebrarik', 'zebraren jabearen']
-        budgerigar: ['perikitoaren jabea', 'perikitoaren jabeak', 'perikitoa du', 'ez du perikitorik', 'perikitoaren jabearen']  # uncertain: perikito = budgerigar?
-        snail: ['barraskiloaren jabea', 'barraskiloaren jabeak', 'barraskiloa du', 'ez du barraskilorik', 'barraskiloaren jabearen']
-        stick insect: ['hagaxka-intsektuaren jabea', 'hagaxka-intsektuaren jabeak', 'hagaxka-intsektua du', 'ez du hagaxka-intsekturik', 'hagaxka-intsektuaren jabearen']  # uncertain: hagaxka-intsektu = stick insect?
+        perikito: ['perikitoaren jabea', 'perikitoaren jabeak', 'perikitoa du', 'ez du perikitorik', 'perikitoaren jabearen']  # confirmed via eu.wikipedia.org/Papagaitxo_arrunt (perikito = budgerigar synonym)
+        barraskilo: ['barraskiloaren jabea', 'barraskiloaren jabeak', 'barraskiloa du', 'ez du barraskilorik', 'barraskiloaren jabearen']
+        makil-intsektu: ['makil-intsektuaren jabea', 'makil-intsektuaren jabeak', 'makil-intsektua du', 'ez du makil-intsekturik', 'makil-intsektuaren jabearen']  # fixed (was hagaxka-intsektu): confirmed via eu.wikipedia.org/Fasmido (makil-intsektu = stick insect)
 
     Edariak:
-        juice: ['zuko-edalea', 'zuko-edaleak', 'zukua edaten du', 'ez du zukurik edaten', 'zuko-edalearen']
-        coffee: ['kafe-edalea', 'kafe-edaleak', 'kafea edaten du', 'ez du kaferik edaten', 'kafe-edalearen']
-        milk: ['esne-edalea', 'esne-edaleak', 'esnea edaten du', 'ez du esnerik edaten', 'esne-edalearen']
+        zuku: ['zuko-edalea', 'zuko-edaleak', 'zukua edaten du', 'ez du zukurik edaten', 'zuko-edalearen']
+        kafe: ['kafe-edalea', 'kafe-edaleak', 'kafea edaten du', 'ez du kaferik edaten', 'kafe-edalearen']
+        esne: ['esne-edalea', 'esne-edaleak', 'esnea edaten du', 'ez du esnerik edaten', 'esne-edalearen']
         smoothie: ['smoothie-edalea', 'smoothie-edaleak', 'smoothiea edaten du', 'ez du smoothierik edaten', 'smoothie-edalearen']
-        cocoa: ['kakao-edalea', 'kakao-edaleak', 'kakaoa edaten du', 'ez du kakaorik edaten', 'kakao-edalearen']
-        tea: ['te-edalea', 'te-edaleak', 'tea edaten du', 'ez du terik edaten', 'te-edalearen']
-        soda: ['freskagarri-edalea', 'freskagarri-edaleak', 'freskagarria edaten du', 'ez du freskagarririk edaten', 'freskagarri-edalearen']
+        kakao: ['kakao-edalea', 'kakao-edaleak', 'kakaoa edaten du', 'ez du kakaorik edaten', 'kakao-edalearen']
+        te: ['te-edalea', 'te-edaleak', 'tea edaten du', 'ez du terik edaten', 'te-edalearen']
+        freskagarri: ['freskagarri-edalea', 'freskagarri-edaleak', 'freskagarria edaten du', 'ez du freskagarririk edaten', 'freskagarri-edalearen']
 
     Liburu-generoak:
-        non-fiction: ['saiakera-irakurlea', 'saiakera-irakurleak', 'saiakera irakurtzen du', 'ez du saiakerarik irakurtzen', 'saiakera-irakurlearen']
-        crime: ['nobela-beltzen irakurlea', 'nobela-beltzen irakurleak', 'nobela beltza irakurtzen du', 'ez du nobela beltzik irakurtzen', 'nobela-beltzen irakurlearen']
-        fantasy: ['fantasia-irakurlea', 'fantasia-irakurleak', 'fantasia irakurtzen du', 'ez du fantasiarik irakurtzen', 'fantasia-irakurlearen']
-        science fiction: ['zientzia-fikzio-irakurlea', 'zientzia-fikzio-irakurleak', 'zientzia-fikzioa irakurtzen du', 'ez du zientzia-fikziorik irakurtzen', 'zientzia-fikzio-irakurlearen']
-        horror: ['beldur-istorio-irakurlea', 'beldur-istorio-irakurleak', 'beldur-istorioa irakurtzen du', 'ez du beldur-istoriorik irakurtzen', 'beldur-istorio-irakurlearen']  # uncertain: beldur-istorioa = horror?
-        poetry: ['poesia-irakurlea', 'poesia-irakurleak', 'poesia irakurtzen du', 'ez du poesiarik irakurtzen', 'poesia-irakurlearen']
-        romance: ['maitasun-nobela-irakurlea', 'maitasun-nobela-irakurleak', 'maitasun-nobela irakurtzen du', 'ez du maitasun-nobelarik irakurtzen', 'maitasun-nobela-irakurlearen']
+        saiakera: ['saiakera-irakurlea', 'saiakera-irakurleak', 'saiakera irakurtzen du', 'ez du saiakerarik irakurtzen', 'saiakera-irakurlearen']
+        nobela beltza: ['nobela-beltzen irakurlea', 'nobela-beltzen irakurleak', 'nobela beltza irakurtzen du', 'ez du nobela beltzik irakurtzen', 'nobela-beltzen irakurlearen']
+        fantasia: ['fantasia-irakurlea', 'fantasia-irakurleak', 'fantasia irakurtzen du', 'ez du fantasiarik irakurtzen', 'fantasia-irakurlearen']
+        zientzia-fikzio: ['zientzia-fikzio-irakurlea', 'zientzia-fikzio-irakurleak', 'zientzia-fikzioa irakurtzen du', 'ez du zientzia-fikziorik irakurtzen', 'zientzia-fikzio-irakurlearen']
+        beldurrezko nobela: ['beldurrezko nobelen irakurlea', 'beldurrezko nobelen irakurleak', 'beldurrezko nobela irakurtzen du', 'ez du beldurrezko nobelarik irakurtzen', 'beldurrezko nobelen irakurlearen']  # fixed (was beldur-istorio): "beldurrezko" is the standard genre adjective per eu.wikipedia.org "Beldurrezko literatura"/"Beldurrezko eleberria"; paired with "nobela" to match the nobela beltza / maitasun-nobela pattern
+        poesia: ['poesia-irakurlea', 'poesia-irakurleak', 'poesia irakurtzen du', 'ez du poesiarik irakurtzen', 'poesia-irakurlearen']
+        maitasun-nobela: ['maitasun-nobela-irakurlea', 'maitasun-nobela-irakurleak', 'maitasun-nobela irakurtzen du', 'ez du maitasun-nobelarik irakurtzen', 'maitasun-nobela-irakurlearen']
 
     Zaletasunak:
         bouldering: ['bouldering-egilea', 'bouldering-egileak', 'bouldering egiten du', 'ez du bouldering egiten', 'bouldering-egilearen']
-        painting: ['margolaria', 'margolariak', 'margotzen du', 'ez du margotzen', 'margolariaren']
-        board games: ['mahai-joko-zalea', 'mahai-joko-zaleak', 'mahai-jokoa jokatzen du', 'ez du mahai-jokorik jokatzen', 'mahai-joko-zalearen']
-        tennis: ['tenis-jokalaria', 'tenis-jokalariak', 'tenisa jokatzen du', 'ez du tenisik jokatzen', 'tenis-jokalariaren']
-        crocheting: ['gantxo-egilea', 'gantxo-egileak', 'gantxoa egiten du', 'ez du gantxorik egiten', 'gantxo-egilearen']  # uncertain: gantxoa = crochet?
-        football: ['futbolaria', 'futbolariak', 'futbola jokatzen du', 'ez du futbolik jokatzen', 'futbolariaren']
-        handball: ['eskubaloi-jokalaria', 'eskubaloi-jokalariak', 'eskubaloia jokatzen du', 'ez du eskubaloirik jokatzen', 'eskubaloi-jokalariaren']
+        margotze: ['margolaria', 'margolariak', 'margotzen du', 'ez du margotzen', 'margolariaren']
+        mahai-joko: ['mahai-joko-zalea', 'mahai-joko-zaleak', 'mahai-jokoa jokatzen du', 'ez du mahai-jokorik jokatzen', 'mahai-joko-zalearen']
+        tenis: ['tenis-jokalaria', 'tenis-jokalariak', 'tenisa jokatzen du', 'ez du tenisik jokatzen', 'tenis-jokalariaren']
+        kakorratz: ['kakorratz-egilea', 'kakorratz-egileak', 'kakorratza egiten du', 'ez du kakorratzik egiten', 'kakorratz-egilearen']  # fixed (was gantxo, which means boxing hook per Elhuyar): confirmed via eu.wikipedia.org/Kakorratz-lan (kakorratz = crochet)
+        futbol: ['futbolaria', 'futbolariak', 'futbola jokatzen du', 'ez du futbolik jokatzen', 'futbolariaren']
+        eskubaloi: ['eskubaloi-jokalaria', 'eskubaloi-jokalariak', 'eskubaloia jokatzen du', 'ez du eskubaloirik jokatzen', 'eskubaloi-jokalariaren']
 
     Fruta gogokoenak:
-        apple: ['sagar-zalea', 'sagar-zaleak', 'sagarra maite du', 'ez du sagarra maite', 'sagar-zalearen']
-        pear: ['udare-zalea', 'udare-zaleak', 'udarea maite du', 'ez du udarea maite', 'udare-zalearen']
-        orange: ['laranja-zalea', 'laranja-zaleak', 'laranja maite du', 'ez du laranja maite', 'laranja-zalearen']  # uncertain: laranja definite form
+        sagar: ['sagar-zalea', 'sagar-zaleak', 'sagarra maite du', 'ez du sagarra maite', 'sagar-zalearen']
+        udare: ['udare-zalea', 'udare-zaleak', 'udarea maite du', 'ez du udarea maite', 'udare-zalearen']
+        laranja: ['laranja-zalea', 'laranja-zaleak', 'laranja maite du', 'ez du laranja maite', 'laranja-zalearen']  # uncertain: laranja definite form
         banana: ['banana-zalea', 'banana-zaleak', 'banana maite du', 'ez du banana maite', 'banana-zalearen']
-        strawberry: ['marrubi-zalea', 'marrubi-zaleak', 'marrubia maite du', 'ez du marrubia maite', 'marrubi-zalearen']
-        blackcurrant: ['grosella-beltz-zalea', 'grosella-beltz-zaleak', 'grosella beltza maite du', 'ez du grosella beltza maite', 'grosella-beltz-zalearen']  # uncertain: grosella beltza = blackcurrant?
-        wild strawberry: ['baso-marrubi-zalea', 'baso-marrubi-zaleak', 'baso-marrubia maite du', 'ez du baso-marrubia maite', 'baso-marrubi-zalearen']
+        marrubi: ['marrubi-zalea', 'marrubi-zaleak', 'marrubia maite du', 'ez du marrubia maite', 'marrubi-zalearen']
+        andere-mahats beltz: ['andere-mahats-beltz-zalea', 'andere-mahats-beltz-zaleak', 'andere-mahats beltza maite du', 'ez du andere-mahats beltza maite', 'andere-mahats-beltz-zalearen']  # fixed (was grosella beltza): confirmed via eu.wikipedia.org/Andere-mahats_beltz
+        baso-marrubi: ['baso-marrubi-zalea', 'baso-marrubi-zaleak', 'baso-marrubia maite du', 'ez du baso-marrubia maite', 'baso-marrubi-zalearen']
 
 # Clues (SOV word order; postpositions follow genitive)
 clues_dict:
@@ -207,7 +213,7 @@ red_herring_attributes:
     tatuajea: ['tatuajedun pertsona', 'tatuajedun pertsonak', 'tatuajea du', 'tatuajedun pertsonaren']
     gitarra: ['gitarra jotzen duen pertsona', 'gitarra jotzen duen pertsonak', 'gitarra jotzen du', 'gitarra jotzen duen pertsonaren']
     bizikleta: ['bizikletadun pertsona', 'bizikletadun pertsonak', 'bizikleta du', 'bizikletadun pertsonaren']
-    txerrindel: ['txerrindeldun pertsona', 'txerrindeldun pertsonak', 'txerrindela du', 'txerrindeldun pertsonaren']  # uncertain: txerrindel = guinea pig?
+    akuri: ['akuridun pertsona', 'akuridun pertsonak', 'akuria du', 'akuridun pertsonaren']  # fixed (was txerrindel, unattested): confirmed via Elhuyar hiztegia (akuri = guinea pig)
     kaktusa: ['kaktusik ez duen pertsona', 'kaktusik ez duen pertsonak', 'ez du kaktusik', 'kaktusik ez duen pertsonaren']
     bideo_jokoak: ['bideo-joko-zalea', 'bideo-joko-zaleak', 'bideo-jokoak jokatzen ditu', 'bideo-joko-zalearen']
     arreba: ['arreba duen pertsona', 'arreba duen pertsonak', 'arreba du', 'arreba duen pertsonaren']
@@ -217,10 +223,10 @@ red_herring_attributes:
     matematika: ['matematikako master-gradua duen pertsona', 'matematikako master-gradua duen pertsonak', 'matematikako master-gradua du', 'matematikako master-gradua duen pertsonaren']
     fisika: ['fisika-zalea', 'fisika-zaleak', 'fisika maite du', 'fisika-zalearen']
     animalia_zaharra: ['bere lajiarentzat zaharra den animalia duen pertsona', 'bere lajiarentzat zaharra den animalia duen pertsonak', 'bere lajiarentzat zaharra den animalia du', 'bere lajiarentzat zaharra den animalia duen pertsonaren']  # uncertain phrasing
-    ski_saltoa: ['ski-salto-ikuslea', 'ski-salto-ikusleak', 'ski saltoa ikusten du', 'ski-salto-ikuslearen']  # uncertain: ski saltoa = ski jumping?
+    eski_jauzi: ['eski-jauzi-ikuslea', 'eski-jauzi-ikusleak', 'eski-jauzia ikusten du', 'eski-jauzi-ikuslearen']  # fixed (was ski_saltoa): confirmed via eu.wikipedia.org/Eski-jauzi (eski-jauzi = ski jumping)
 
 red_herring_facts:
-    arengak: ['arengak arrainak dira', 'arengak arrainak direla']  # uncertain: arengak = herrings?
+    sardinzarrak: ['sardinzarrak arrainak dira', 'sardinzarrak arrainak direla']  # fixed (was arengak): confirmed via eu.wikipedia.org/Sardinzar_arrunt (sardinzar = herring)
     eguzki_sistema: ['eguzki-sistemak galaxiaren zentroan 200 km/s inguruko abiaduran ibiltzen du', 'eguzki-sistemak galaxiaren zentroan 200 km/s inguruko abiaduran ibiltzen duela']
     jolasak: ['arrazoi-jolasak ebaztea dibertigarria da', 'arrazoi-jolasak ebaztea dibertigarria dela']
     etxeak: ['kaleko etxe guztiek lorategi ederrak dituzte', 'kaleko etxe guztiek lorategi ederrak dituztela']
