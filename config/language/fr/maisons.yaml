@@ -1,0 +1,202 @@
+# Config file for generating zebra puzzles in French with the houses theme.
+
+theme: fr_maisons
+
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
+
+attributes:
+
+    nationalités:
+        Danemark: ["le Danois", "est Danois", "n'est pas Danois"]
+        Suède: ["le Suédois", "est Suédois", "n'est pas Suédois"]
+        Lettonie: ["le Letton", "est Letton", "n'est pas Letton"]
+        France: ["le Français", "est Français", "n'est pas Français"]
+        Espagne: ["l'Espagnol", "est Espagnol", "n'est pas Espagnol"]
+        Italie: ["l'Italien", "est Italien", "n'est pas Italien"]
+        Norvège: ["le Norvégien", "est Norvégien", "n'est pas Norvégien"]
+        Îles Féroé: ["le Féroïen", "est Féroïen", "n'est pas Féroïen"]
+        Pays-Bas: ["le Néerlandais", "est Néerlandais", "n'est pas Néerlandais"]
+        Islande: ["l'Islandais", "est Islandais", "n'est pas Islandais"]
+        Royaume-Uni: ["le Britannique", "est Britannique", "n'est pas Britannique"]
+
+    métiers:
+        boulanger: ["le boulanger", "est boulanger", "n'est pas boulanger"]
+        ministre: ["le ministre", "est ministre", "n'est pas ministre"]
+        policier: ["le policier", "est policier", "n'est pas policier"]
+        infirmier: ["l'infirmier", "est infirmier", "n'est pas infirmier"]
+        professeur: ["le professeur", "est professeur", "n'est pas professeur"]
+        développeur de logiciels: ["le développeur de logiciels", "est développeur de logiciels", "n'est pas développeur de logiciels"]
+        vendeur: ["le vendeur", "est vendeur", "n'est pas vendeur"]
+
+    animaux de compagnie:
+        chat: ["le propriétaire d'un chat", "a un chat", "n'a pas de chat"]
+        chien: ["le propriétaire d'un chien", "a un chien", "n'a pas de chien"]
+        lapin: ["le propriétaire d'un lapin", "a un lapin", "n'a pas de lapin"]
+        zèbre: ["le propriétaire d'un zèbre", "a un zèbre", "n'a pas de zèbre"]
+        perruche: ["le propriétaire d'une perruche", "a une perruche", "n'a pas de perruche"]
+        escargot: ["le propriétaire d'un escargot", "a un escargot", "n'a pas d'escargot"]
+        phasme: ["le propriétaire d'un phasme", "a un phasme", "n'a pas de phasme"]
+
+    boissons:
+        jus: ["le buveur de jus", "boit du jus", "ne boit pas de jus"]
+        café: ["le buveur de café", "boit du café", "ne boit pas de café"]
+        lait: ["le buveur de lait", "boit du lait", "ne boit pas de lait"]
+        smoothie: ["le buveur de smoothie", "boit du smoothie", "ne boit pas de smoothie"]
+        chocolat chaud: ["le buveur de chocolat chaud", "boit du chocolat chaud", "ne boit pas de chocolat chaud"]
+        thé: ["le buveur de thé", "boit du thé", "ne boit pas de thé"]
+        soda: ["le buveur de soda", "boit du soda", "ne boit pas de soda"]
+
+    genres de livres préférés:
+        non-fiction: ["le lecteur de non-fiction", "lit de la non-fiction", "ne lit pas de non-fiction"]
+        roman policier: ["le lecteur de romans policiers", "lit des romans policiers", "ne lit pas de romans policiers"]
+        fantasy: ["le lecteur de fantasy", "lit de la fantasy", "ne lit pas de fantasy"]
+        science-fiction: ["le lecteur de science-fiction", "lit de la science-fiction", "ne lit pas de science-fiction"]
+        horreur: ["le lecteur de romans d'horreur", "lit des romans d'horreur", "ne lit pas de romans d'horreur"]
+        poésie: ["le lecteur de poésie", "lit de la poésie", "ne lit pas de poésie"]
+        romance: ["le lecteur de romans d'amour", "lit des romans d'amour", "ne lit pas de romans d'amour"]
+
+    loisirs:
+        escalade de bloc: ["le grimpeur de bloc", "fait de l'escalade de bloc", "ne fait pas d'escalade de bloc"]
+        peinture: ["le peintre", "peint", "ne peint pas"]
+        jeux de société: ["le joueur de jeux de société", "joue aux jeux de société", "ne joue pas aux jeux de société"]
+        tennis: ["le joueur de tennis", "joue au tennis", "ne joue pas au tennis"]
+        crochet: ["le crochéteur", "fait du crochet", "ne fait pas de crochet"]
+        football: ["le joueur de football", "joue au football", "ne joue pas au football"]
+        handball: ["le joueur de handball", "joue au handball", "ne joue pas au handball"]
+
+    fruits préférés:
+        pomme: ["l'amateur de pommes", "adore les pommes", "n'aime pas les pommes"]
+        poire: ["l'amateur de poires", "adore les poires", "n'aime pas les poires"]
+        orange: ["l'amateur d'oranges", "adore les oranges", "n'aime pas les oranges"]
+        banane: ["l'amateur de bananes", "adore les bananes", "n'aime pas les bananes"]
+        fraise: ["l'amateur de fraises", "adore les fraises", "n'aime pas les fraises"]
+        cassis: ["l'amateur de cassis", "adore les cassis", "n'aime pas les cassis"]
+        fraise des bois: ["l'amateur de fraises des bois", "adore les fraises des bois", "n'aime pas les fraises des bois"]
+
+red_herring_attributes:
+    cheveux_roux: ["le rouquin", "a les cheveux roux"]
+    lunettes: ["le porteur de lunettes", "porte des lunettes"]
+    tatouage: ["le tatoué", "a un tatouage"]
+    guitare: ["le guitariste", "joue de la guitare"]
+    vélo: ["le propriétaire d'un vélo", "a un vélo"]
+    cochon_d_inde: ["le propriétaire d'un cochon d'Inde", "a un cochon d'Inde"]
+    cactus: ["le propriétaire d'un cactus", "ne possède pas de cactus"]
+    jeux_video: ["le joueur de jeux vidéo", "joue aux jeux vidéo"]
+    soeur: ["l'individu avec une sœur", "a une sœur"]
+    mangue: ["l'individu qui pense que le deuxième meilleur fruit est la mangue", "pense que le deuxième meilleur fruit est la mangue"]
+    voile: ["l'amateur de voile", "fait souvent de la voile"]
+    Canada: ["l'individu qui est allé au Canada", "est allé au Canada"]
+    mathematiques: ["le titulaire d'un master en mathématiques", "a un master en mathématiques"]
+    physique: ["l'amateur de physique", "aime la physique"]
+    vieil_animal: ["l'individu dont l'animal de compagnie est vieux pour son espèce", "a un animal de compagnie vieux pour son espèce"]
+    saut_a_ski: ["l'amateur de saut à ski", "regarde le saut à ski"]
+
+red_herring_facts:
+    hareng: ["les harengs sont des poissons"]
+    systeme_solaire: ["le système solaire se déplace à environ 200 km/s autour du centre de la galaxie"]
+    puzzle: ["il est amusant de résoudre des puzzles"]
+    maisons: ["toutes les maisons de la rue ont de beaux jardins"]
+    portes: ["plusieurs des maisons ont une porte verte"]
+    fenetres: ["toutes les maisons ont de grandes fenêtres"]
+    voitures: ["il y a beaucoup de voitures dans la rue"]
+    concombre: ["le concombre est une baie"]
+    escargot: ["les escargots sont des mollusques"]
+    cafe: ["le café contient de la caféine"]
+
+clues_dict:
+    found_at: "{attribute_desc} habite dans la maison no. {i_object}."
+    not_at: "{attribute_desc} n'habite pas dans la maison no. {i_object}."
+    next_to: "{attribute_desc_1} habite à côté de {attribute_desc_2}."
+    not_next_to: "{attribute_desc_1} n'habite pas à côté de {attribute_desc_2}, et ce sont deux personnes différentes."
+    just_left_of: "{attribute_desc_1} habite juste à gauche de {attribute_desc_2}."
+    just_right_of: "{attribute_desc_1} habite juste à droite de {attribute_desc_2}."
+    left_of: "{attribute_desc_1} habite à gauche de {attribute_desc_2}."
+    right_of: "{attribute_desc_1} habite à droite de {attribute_desc_2}."
+    same_object: "{attribute_desc_1} {attribute_desc_2}."
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."
+    between: "{attribute_desc_2} habite entre {attribute_desc_1} et {attribute_desc_3}."
+    not_between: "{attribute_desc_1} n'habite pas entre {attribute_desc_2} et {attribute_desc_3}, et ce sont trois personnes différentes."
+    multiple_between: "Il y a {n_between} maisons entre {attribute_desc_1} et {attribute_desc_2}."
+    one_between: "Il y a une maison entre {attribute_desc_1} et {attribute_desc_2}."
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'nom']
+    not_next_to: ['nom', 'nom']
+    just_left_of: ['nom', 'nom']
+    just_right_of: ['nom', 'nom']
+    left_of: ['nom', 'nom']
+    right_of: ['nom', 'nom']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['nom', 'nom', 'nom']
+    not_between: ['nom', 'nom', 'nom']
+    multiple_between: ['nom', 'nom']
+    one_between: ['nom', 'nom']
+
+red_herring_clues_dict:
+    same_herring: "{attribute_desc} {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} habite à côté de {attribute_desc_herring}."
+    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
+    fact: "{fact}."
+    object_fact: "{attribute_desc} sait que {fact}."
+    friends: "{attribute_desc} est très proche de {attribute_desc_herring}."
+    herring_found_at: "{attribute_desc_herring} habite dans la maison no. {i_object}."
+    herring_not_at: "{attribute_desc_herring} n'habite pas dans la maison no. {i_object}."
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'nom']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+prompt_and: et
+
+# There should be a space before ':' in French, which we add later with prompt_replacements.
+prompt_templates:
+    - |
+        Une rangée de maisons porte les numéros 1 à {n_objects} de gauche à droite.
+
+        Dans chaque maison vit une personne ayant un attribut unique dans chacune des catégories suivantes:
+
+        {chosen_attributes_str}
+
+        On sait également ce qui suit:
+
+        {chosen_clues_str}
+
+        Qui a quels attributs et habite dans quelle maison ?
+
+        Veuillez soumettre votre réponse sous la forme d'un dictionnaire JSON. Chaque clé doit être object_X, où X est le numéro de la maison. Chaque valeur doit être une liste des attributs des catégories mentionnées ci-dessus appartenant à la personne habitant la maison no. X.
+
+        Voici un exemple du format de réponse:
+
+        {solution_template}
+    - |
+        Une rangée de maisons porte les numéros 1 à {n_objects} de gauche à droite.
+
+        Dans chaque maison vit une personne ayant un attribut unique dans la catégorie suivante: {chosen_attributes_str}.
+
+        On sait également ce qui suit:
+
+        {chosen_clues_str}
+
+        Quels attributs appartiennent à la personne habitant chaque maison ?
+
+        Veuillez soumettre votre réponse sous la forme d'un dictionnaire JSON. Chaque clé doit être object_X, où X est le numéro de la maison. Chaque valeur doit être une liste contenant l'attribut de la catégorie mentionnée ci-dessus appartenant à la personne habitant la maison no. X.
+
+        Voici un exemple du format de réponse:
+
+        {solution_template}
+
+prompt_replacements:
+    "de le ": "du "
+    "que il ": "qu'il "
+    ": ": " : "
+    ":\n": " :\n"

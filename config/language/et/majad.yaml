@@ -1,0 +1,203 @@
+# Config file for generating zebra puzzles in Estonian with the houses theme.
+# No grammatical gender — masculine/feminine distinction not marked.
+# Genitive (gen) is used after postpositions: kõrval (next to), vasakul (left of),
+# paremal (right of), vahel (between).
+# Agent nouns ending in -ja have identical nominative and genitive forms.
+# Note: multiple_between uses "maja" (gen sg), correct for n=2,3,4; n≥5 may need
+# a different numeral agreement form but is unlikely in typical puzzle sizes.
+theme: et_majad
+
+attribute_cases: [nom, is, is_not, gen]
+red_herring_attribute_cases: [nom, is, gen]
+
+attributes:
+
+    rahvused:
+        Taani: ['taanlane', 'on taanlane', 'ei ole taanlane', 'taanlase']
+        Rootsi: ['rootslane', 'on rootslane', 'ei ole rootslane', 'rootslase']
+        Läti: ['lätlane', 'on lätlane', 'ei ole lätlane', 'lätlase']
+        Prantsusmaa: ['prantslane', 'on prantslane', 'ei ole prantslane', 'prantslase']
+        Hispaania: ['hispaanlane', 'on hispaanlane', 'ei ole hispaanlane', 'hispaanlase']
+        Itaalia: ['itaallane', 'on itaallane', 'ei ole itaallane', 'itaallase']
+        Norra: ['norralane', 'on norralane', 'ei ole norralane', 'norralase']
+        Fääri saared: ['fäärlane', 'on fäärlane', 'ei ole fäärlane', 'fäärlase']
+        Madalmaad: ['madalmaalane', 'on madalmaalane', 'ei ole madalmaalane', 'madalmaalase']
+        Island: ['islandlane', 'on islandlane', 'ei ole islandlane', 'islandlase']
+        Ühendkuningriik: ['britlane', 'on britlane', 'ei ole britlane', 'britlase']
+
+    ametid:
+        pagar: ['pagar', 'on pagar', 'ei ole pagar', 'pagari']
+        minister: ['minister', 'on minister', 'ei ole minister', 'ministri']
+        politseinik: ['politseinik', 'on politseinik', 'ei ole politseinik', 'politseiniku']
+        meditsiiniõde: ['meditsiiniõde', 'on meditsiiniõde', 'ei ole meditsiiniõde', 'meditsiiniõe']
+        õpetaja: ['õpetaja', 'on õpetaja', 'ei ole õpetaja', 'õpetaja']
+        tarkvaraarendaja: ['tarkvaraarendaja', 'on tarkvaraarendaja', 'ei ole tarkvaraarendaja', 'tarkvaraarendaja']
+        müüja: ['müüja', 'on müüja', 'ei ole müüja', 'müüja']
+
+    lemmikloomad:
+        kass: ['kassapidaja', 'peab kassi', 'ei pea kassi', 'kassapidaja']
+        koer: ['koerapidaja', 'peab koera', 'ei pea koera', 'koerapidaja']
+        küülik: ['küülikupidaja', 'peab küülikut', 'ei pea küülikut', 'küülikupidaja']
+        sebra: ['sebrapidaja', 'peab sebrat', 'ei pea sebrat', 'sebrapidaja']
+        undulaad: ['undulaadipidaja', 'peab undulaati', 'ei pea undulaati', 'undulaadipidaja']
+        tigu: ['tigupidaja', 'peab tigut', 'ei pea tigut', 'tigupidaja']
+        kepuputukas: ['kepuputukapidaja', 'peab kepuputukat', 'ei pea kepuputukat', 'kepuputukapidaja']
+
+    joogid:
+        mahl: ['mahlajooija', 'joob mahla', 'ei joo mahla', 'mahlajooija']
+        kohv: ['kohvijooija', 'joob kohvi', 'ei joo kohvi', 'kohvijooija']
+        piim: ['piimajooija', 'joob piima', 'ei joo piima', 'piimajooija']
+        smuuti: ['smuutijooija', 'joob smuutit', 'ei joo smuutit', 'smuutijooija']
+        kakao: ['kakaojooija', 'joob kakaod', 'ei joo kakaod', 'kakaojooija']
+        tee: ['teejooija', 'joob teed', 'ei joo teed', 'teejooija']
+        karastusjook: ['karastusjoogijooija', 'joob karastusjooki', 'ei joo karastusjooki', 'karastusjoogijooija']
+
+    lemmikkirjandus:
+        tõsielukirjandus: ['tõsielukirjanduse lugeja', 'loeb tõsielukirjandust', 'ei loe tõsielukirjandust', 'tõsielukirjanduse lugeja']
+        kriminaalromaan: ['kriminaalromaani lugeja', 'loeb kriminaalromaane', 'ei loe kriminaalromaane', 'kriminaalromaani lugeja']
+        fantaasia: ['fantaasialugeja', 'loeb fantaasiat', 'ei loe fantaasiat', 'fantaasialugeja']
+        ulme: ['ulmelugeja', 'loeb ulmet', 'ei loe ulmet', 'ulmelugeja']
+        õuduskirjandus: ['õuduskirjanduse lugeja', 'loeb õuduskirjandust', 'ei loe õuduskirjandust', 'õuduskirjanduse lugeja']
+        luule: ['luulelugeja', 'loeb luulet', 'ei loe luulet', 'luulelugeja']
+        armukirjandus: ['armukirjanduse lugeja', 'loeb armukirjandust', 'ei loe armukirjandust', 'armukirjanduse lugeja']
+
+    hobid:
+        bouldering: ['boulderinguga tegeleja', 'tegeleb boulderinguga', 'ei tegele boulderinguga', 'boulderinguga tegeleja']
+        maalimine: ['maalija', 'maalib', 'ei maali', 'maalija']
+        lauamängud: ['lauamängude mängija', 'mängib lauamänge', 'ei mängi lauamänge', 'lauamängude mängija']
+        tennis: ['tennisemängija', 'mängib tennist', 'ei mängi tennist', 'tennisemängija']
+        heegeldamine: ['heegeldaja', 'heegeldab', 'ei heegelda', 'heegeldaja']
+        jalgpall: ['jalgpallimängija', 'mängib jalgpalli', 'ei mängi jalgpalli', 'jalgpallimängija']
+        käsipall: ['käsipallimängija', 'mängib käsipalli', 'ei mängi käsipalli', 'käsipallimängija']
+
+    lemmikviljad:
+        õun: ['isik, kes eelistab õunu,', 'eelistab õunu', 'ei eelista õunu', 'isiku, kes eelistab õunu,']
+        pirn: ['isik, kes eelistab pirne,', 'eelistab pirne', 'ei eelista pirne', 'isiku, kes eelistab pirne,']
+        apelsin: ['isik, kes eelistab apelsine,', 'eelistab apelsine', 'ei eelista apelsine', 'isiku, kes eelistab apelsine,']
+        banaan: ['isik, kes eelistab banaane,', 'eelistab banaane', 'ei eelista banaane', 'isiku, kes eelistab banaane,']
+        maasikas: ['isik, kes eelistab maasikaid,', 'eelistab maasikaid', 'ei eelista maasikaid', 'isiku, kes eelistab maasikaid,']
+        mustsõstar: ['isik, kes eelistab mustsõstraid,', 'eelistab mustsõstraid', 'ei eelista mustsõstraid', 'isiku, kes eelistab mustsõstraid,']
+        metsmaasikas: ['isik, kes eelistab metsmaasikaid,', 'eelistab metsmaasikaid', 'ei eelista metsmaasikaid', 'isiku, kes eelistab metsmaasikaid,']
+
+clues_dict:
+    found_at: '{attribute_desc} elab majas number {i_object}.'
+    not_at: '{attribute_desc} ei ela majas number {i_object}.'
+    next_to: '{attribute_desc_1} elab {attribute_desc_2} kõrval.'
+    not_next_to: '{attribute_desc_1} ei ela {attribute_desc_2} kõrval ning nad ei ole sama inimene.'
+    just_left_of: '{attribute_desc_1} elab vahetult {attribute_desc_2} vasakul.'
+    just_right_of: '{attribute_desc_1} elab vahetult {attribute_desc_2} paremal.'
+    left_of: '{attribute_desc_1} elab {attribute_desc_2} vasakul.'
+    right_of: '{attribute_desc_1} elab {attribute_desc_2} paremal.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    between: '{attribute_desc_2} elab {attribute_desc_1} ja {attribute_desc_3} vahel.'
+    not_between: '{attribute_desc_1} ei ela {attribute_desc_2} ja {attribute_desc_3} vahel ning nad on kolm eri inimest.'
+    multiple_between: '{attribute_desc_1} ja {attribute_desc_2} vahel on {n_between} maja.'
+    one_between: '{attribute_desc_1} ja {attribute_desc_2} vahel on üks maja.'
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'gen']
+    not_next_to: ['nom', 'gen']
+    just_left_of: ['nom', 'gen']
+    just_right_of: ['nom', 'gen']
+    left_of: ['nom', 'gen']
+    right_of: ['nom', 'gen']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['gen', 'nom', 'gen']
+    not_between: ['nom', 'gen', 'gen']
+    multiple_between: ['gen', 'gen']
+    one_between: ['gen', 'gen']
+
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} elab {attribute_desc_herring} kõrval.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} teab, et {fact}.'
+    friends: '{attribute_desc} ja {attribute_desc_herring} on head sõbrad.'
+    herring_found_at: '{attribute_desc_herring} elab majas number {i_object}.'
+    herring_not_at: '{attribute_desc_herring} ei ela majas number {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'gen']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+red_herring_attributes:
+    punased_juuksed: ['punapäine inimene', 'on punapäine', 'punapäise inimese']
+    prillid: ['prillide kandja', 'kannab prille', 'prillide kandja']
+    tätoveeringud: ['tätoveeritud inimene', 'on tätoveeritud', 'tätoveeritud inimese']
+    kitarr: ['kitarrimängija', 'mängib kitarri', 'kitarrimängija']
+    jalgratas: ['jalgrattaomanik', 'on jalgrattaomanik', 'jalgrattaomaniku']
+    merisiga: ['meriseapidaja', 'peab merisigu', 'meriseapidaja']
+    kaktus: ['isik, kes ei oma kaktust,', 'ei oma kaktust', 'isiku, kes ei oma kaktust,']
+    videomängud: ['videomängude mängija', 'mängib videomänge', 'videomängude mängija']
+    õde: ['isik, kellel on õde,', 'on õde', 'isiku, kellel on õde,']
+    mango: ['isik, kelle arvates on mango teine parim puuvili,', 'arvab, et mango on teine parim puuvili', 'isiku, kelle arvates on mango teine parim puuvili,']
+    purjetamine: ['isik, kes purjetab sageli,', 'purjetab sageli', 'isiku, kes purjetab sageli,']
+    Kanada: ['isik, kes on Kanadas käinud,', 'on Kanadas käinud', 'isiku, kes on Kanadas käinud,']
+    matemaatika: ['isik, kellel on matemaatika magistrikraad,', 'on matemaatika magistrikraad', 'isiku, kellel on matemaatika magistrikraad,']
+    füüsika: ['isik, kes armastab füüsikat,', 'armastab füüsikat', 'isiku, kes armastab füüsikat,']
+    vana_lemmikloom: ['isik, kelle lemmikloom on oma liigi kohta vana,', 'omab oma liigi kohta vana lemmiklooma', 'isiku, kelle lemmikloom on oma liigi kohta vana,']
+    suusahüpped: ['isik, kes jälgib suusahüppeid,', 'jälgib suusahüppeid', 'isiku, kes jälgib suusahüppeid,']
+
+red_herring_facts:
+    heeringas: ['heeringas on kala']
+    päikesesüsteem: ['Päikesesüsteem liigub galaktika keskuse ümber kiirusega umbes 200 km/s']
+    mõistatus: ['mõistatuste lahendamine on lõbus']
+    majad: ['kõikidel tänava majadel on ilusad aiad']
+    uksed: ['mitmel majal on rohelised uksed']
+    aknad: ['kõigis majades on suured aknad']
+    autod: ['tänaval on palju autosid']
+    kurk: ['kurk on mari']
+    tigu: ['tigud on limused']
+    kohv: ['kohv sisaldab kofeiini']
+
+prompt_and: ja
+
+prompt_templates:
+    - |
+        Majad on nummerdatud 1-st {n_objects}-ni vasakult paremale.
+
+        Igas majas elab inimene, kellel on igas järgmises kategoorias unikaalne atribuut:
+
+        {chosen_attributes_str}
+
+        Lisaks teame järgmist:
+
+        {chosen_clues_str}
+
+        Kellel on millised atribuudid ja mis majas ta elab?
+
+        Palun esitage oma vastus JSON sõnastiku kujul. Iga võti peab olema object_X, kus X on maja number. Iga väärtus peab olema loend atribuutidest ülaltoodud kategooriatest, mis kuuluvad majas number X elavale inimesele.
+
+        Järgmine on näide vastuse formaadist:
+
+        {solution_template}
+    - |
+        Majad on nummerdatud 1-st {n_objects}-ni vasakult paremale.
+
+        Igas majas elab inimene, kellel on kategoorias {chosen_attributes_str} unikaalne atribuut.
+
+        Lisaks teame järgmist:
+
+        {chosen_clues_str}
+
+        Mis atribuut on igal maja elanikul?
+
+        Palun esitage oma vastus JSON sõnastiku kujul. Iga võti peab olema object_X, kus X on maja number. Iga väärtus peab olema loend, mis sisaldab majas number X elava inimese atribuudi kategooriast {chosen_attributes_str}.
+
+        Järgmine on näide vastuse formaadist:
+
+        {solution_template}
+
+prompt_replacements:
+    ',.': '.'

@@ -12,6 +12,28 @@
 # nn/hus
 # sv/hus
 # fi/talot
+# fr/maisons
+# hu/hazak
+# pt/casas
+# el/spitia
+# uk/budynky
+# pl/domy
+# lt/namai
+# ro/case
+# bg/kashti
+# bs/kuce
+# sq/shtëpi
+# be/damy
+# ca/cases
+# es/casas
+# hr/kuce
+# et/majad
+# lv/majas
+# sr/kuce
+# sk/domy
+# sl/hise
+# cs/domy
+# it/case
 
 defaults:
   - language: en/houses

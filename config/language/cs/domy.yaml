@@ -1,0 +1,208 @@
+# Config file for generating zebra puzzles in Czech with the houses theme.
+# Gender policy: masculine forms used throughout for unknown-gender persons.
+# Exception: zdravotní sestra (nurse) is a feminine job title used as-is.
+# Cases: attribute_cases = [nom, is, is_not, gen, inst]
+# Preposition → case: vedle→gen, od (vlevo/vpravo od)→gen, mezi→inst
+# Word-formation: nationalities=demonym nouns, pets=majitel+gen / má+acc,
+#   drinks/hobbies/literature/fruits=ten, kdo [verb], / toho, kdo / tím, kdo
+# Negation: accusative used in is_not forms (modern Czech; formal Czech would use genitive).
+# Note: multiple_between uses "domy" (nom pl), correct for n=2,3,4; n≥5 needs "domů" (gen pl).
+
+theme: cs_domy
+
+attribute_cases: [nom, is, is_not, gen, inst]
+red_herring_attribute_cases: [nom, is, gen, inst]
+
+attributes:
+
+    národnosti:
+        Dánsko: ["Dán", "je Dán", "není Dán", "Dána", "Dánem"]
+        Švédsko: ["Švéd", "je Švéd", "není Švéd", "Švéda", "Švédem"]
+        Lotyšsko: ["Lotyš", "je Lotyš", "není Lotyš", "Lotyše", "Lotyšem"]
+        Francie: ["Francouz", "je Francouz", "není Francouz", "Francouze", "Francouzem"]
+        Španělsko: ["Španěl", "je Španěl", "není Španěl", "Španěla", "Španělem"]
+        Itálie: ["Ital", "je Ital", "není Ital", "Itala", "Italem"]
+        Norsko: ["Nor", "je Nor", "není Nor", "Nora", "Norem"]
+        Faerské ostrovy: ["Faeřan", "je Faeřan", "není Faeřan", "Faeřana", "Faeřanem"]
+        Nizozemsko: ["Nizozemec", "je Nizozemec", "není Nizozemec", "Nizozemce", "Nizozemcem"]
+        Island: ["Islanďan", "je Islanďan", "není Islanďan", "Islanďana", "Islanďanem"]
+        Spojené království: ["Brit", "je Brit", "není Brit", "Brita", "Britem"]
+
+    povolání:
+        pekař: ["pekař", "je pekař", "není pekař", "pekaře", "pekařem"]
+        ministr: ["ministr", "je ministr", "není ministr", "ministra", "ministrem"]
+        policista: ["policista", "je policista", "není policista", "policistu", "policistou"]
+        zdravotní sestra: ["zdravotní sestra", "je zdravotní sestra", "není zdravotní sestra", "zdravotní sestry", "zdravotní sestrou"]
+        učitel: ["učitel", "je učitel", "není učitel", "učitele", "učitelem"]
+        programátor: ["programátor", "je programátor", "není programátor", "programátora", "programátorem"]
+        prodavač: ["prodavač", "je prodavač", "není prodavač", "prodavače", "prodavačem"]
+
+    domácí mazlíčci:
+        kočka: ["majitel kočky", "má kočku", "nemá kočku", "majitele kočky", "majitelem kočky"]
+        pes: ["majitel psa", "má psa", "nemá psa", "majitele psa", "majitelem psa"]
+        králík: ["majitel králíka", "má králíka", "nemá králíka", "majitele králíka", "majitelem králíka"]
+        zebra: ["majitel zebry", "má zebru", "nemá zebru", "majitele zebry", "majitelem zebry"]
+        andulka: ["majitel andulky", "má andulku", "nemá andulku", "majitele andulky", "majitelem andulky"]
+        hlemýžď: ["majitel hlemýždě", "má hlemýždě", "nemá hlemýždě", "majitele hlemýždě", "majitelem hlemýždě"]
+        pakobylka: ["majitel pakobylky", "má pakobylku", "nemá pakobylku", "majitele pakobylky", "majitelem pakobylky"]
+
+    oblíbené literární žánry:
+        literatura faktu: ["čtenář literatury faktu", "čte literaturu faktu", "nečte literaturu faktu", "čtenáře literatury faktu", "čtenářem literatury faktu"]
+        detektivka: ["čtenář detektivek", "čte detektivky", "nečte detektivky", "čtenáře detektivek", "čtenářem detektivek"]
+        fantasy: ["čtenář fantasy", "čte fantasy", "nečte fantasy", "čtenáře fantasy", "čtenářem fantasy"]
+        sci-fi: ["čtenář sci-fi", "čte sci-fi", "nečte sci-fi", "čtenáře sci-fi", "čtenářem sci-fi"]
+        horor: ["čtenář hororů", "čte horory", "nečte horory", "čtenáře hororů", "čtenářem hororů"]
+        poezie: ["čtenář poezie", "čte poezii", "nečte poezii", "čtenáře poezie", "čtenářem poezie"]
+        romantický román: ["čtenář romantických románů", "čte romantické romány", "nečte romantické romány", "čtenáře romantických románů", "čtenářem romantických románů"]
+
+    oblíbené ovoce:
+        jablko: ["milovník jablek", "má rád jablka", "nemá rád jablka", "milovníka jablek", "milovníkem jablek"]
+        hruška: ["milovník hrušek", "má rád hrušky", "nemá rád hrušky", "milovníka hrušek", "milovníkem hrušek"]
+        pomeranč: ["milovník pomerančů", "má rád pomeranče", "nemá rád pomeranče", "milovníka pomerančů", "milovníkem pomerančů"]
+        banán: ["milovník banánů", "má rád banány", "nemá rád banány", "milovníka banánů", "milovníkem banánů"]
+        jahoda: ["milovník jahod", "má rád jahody", "nemá rád jahody", "milovníka jahod", "milovníkem jahod"]
+        černý rybíz: ["milovník černého rybízu", "má rád černý rybíz", "nemá rád černý rybíz", "milovníka černého rybízu", "milovníkem černého rybízu"]
+        lesní jahoda: ["milovník lesních jahod", "má rád lesní jahody", "nemá rád lesní jahody", "milovníka lesních jahod", "milovníkem lesních jahod"]
+
+    nápoje:
+        džus: ["ten, kdo pije džus,", "pije džus", "nepije džus", "toho, kdo pije džus,", "tím, kdo pije džus,"]
+        káva: ["ten, kdo pije kávu,", "pije kávu", "nepije kávu", "toho, kdo pije kávu,", "tím, kdo pije kávu,"]
+        mléko: ["ten, kdo pije mléko,", "pije mléko", "nepije mléko", "toho, kdo pije mléko,", "tím, kdo pije mléko,"]
+        smoothie: ["ten, kdo pije smoothie,", "pije smoothie", "nepije smoothie", "toho, kdo pije smoothie,", "tím, kdo pije smoothie,"]
+        kakao: ["ten, kdo pije kakao,", "pije kakao", "nepije kakao", "toho, kdo pije kakao,", "tím, kdo pije kakao,"]
+        čaj: ["ten, kdo pije čaj,", "pije čaj", "nepije čaj", "toho, kdo pije čaj,", "tím, kdo pije čaj,"]
+        limonáda: ["ten, kdo pije limonádu,", "pije limonádu", "nepije limonádu", "toho, kdo pije limonádu,", "tím, kdo pije limonádu,"]
+
+    koníčky:
+        bouldering: ["ten, kdo se věnuje boulderingu,", "věnuje se boulderingu", "nevěnuje se boulderingu", "toho, kdo se věnuje boulderingu,", "tím, kdo se věnuje boulderingu,"]
+        malování: ["ten, kdo maluje,", "maluje", "nemaluje", "toho, kdo maluje,", "tím, kdo maluje,"]
+        společenské hry: ["ten, kdo hraje společenské hry,", "hraje společenské hry", "nehraje společenské hry", "toho, kdo hraje společenské hry,", "tím, kdo hraje společenské hry,"]
+        tenis: ["ten, kdo hraje tenis,", "hraje tenis", "nehraje tenis", "toho, kdo hraje tenis,", "tím, kdo hraje tenis,"]
+        háčkování: ["ten, kdo háčkuje,", "háčkuje", "neháčkuje", "toho, kdo háčkuje,", "tím, kdo háčkuje,"]
+        fotbal: ["ten, kdo hraje fotbal,", "hraje fotbal", "nehraje fotbal", "toho, kdo hraje fotbal,", "tím, kdo hraje fotbal,"]
+        házená: ["ten, kdo hraje házenou,", "hraje házenou", "nehraje házenou", "toho, kdo hraje házenou,", "tím, kdo hraje házenou,"]
+
+
+red_herring_attributes:
+    ryšavé_vlasy: ["ryšavý", "má ryšavé vlasy", "ryšavého", "ryšavým"]
+    brýle: ["ten, kdo nosí brýle,", "nosí brýle", "toho, kdo nosí brýle,", "tím, kdo nosí brýle,"]
+    tetování: ["potetovaný", "má tetování", "potetovaného", "potetovaným"]
+    kytara: ["ten, kdo hraje na kytaru,", "hraje na kytaru", "toho, kdo hraje na kytaru,", "tím, kdo hraje na kytaru,"]
+    kolo: ["majitel kola", "má kolo", "majitele kola", "majitelem kola"]
+    morče: ["majitel morčete", "má morče", "majitele morčete", "majitelem morčete"]
+    kaktus: ["majitel kaktusu", "nemá kaktus", "majitele kaktusu", "majitelem kaktusu"]
+    videohry: ["ten, kdo hraje videohry,", "hraje videohry", "toho, kdo hraje videohry,", "tím, kdo hraje videohry,"]
+    sestra: ["ten, kdo má sestru,", "má sestru", "toho, kdo má sestru,", "tím, kdo má sestru,"]
+    mango: ["ten, kdo si myslí, že mango je druhé nejlepší ovoce,", "myslí si, že mango je druhé nejlepší ovoce", "toho, kdo si myslí, že mango je druhé nejlepší ovoce,", "tím, kdo si myslí, že mango je druhé nejlepší ovoce,"]
+    plachtění: ["ten, kdo pravidelně plachtí,", "pravidelně plachtí", "toho, kdo pravidelně plachtí,", "tím, kdo pravidelně plachtí,"]
+    Kanada: ["ten, kdo navštívil Kanadu,", "navštívil Kanadu", "toho, kdo navštívil Kanadu,", "tím, kdo navštívil Kanadu,"]
+    matematika: ["magistr matematiky", "má magisterský diplom z matematiky", "magistra matematiky", "magistrem matematiky"]
+    fyzika: ["ten, kdo miluje fyziku,", "miluje fyziku", "toho, kdo miluje fyziku,", "tím, kdo miluje fyziku,"]
+    staré_zvíře: ["majitel zvířete, které je staré na svůj druh,", "má zvíře, které je staré na svůj druh", "majitele zvířete, které je staré na svůj druh,", "majitelem zvířete, které je staré na svůj druh,"]
+    skoky_na_lyžích: ["ten, kdo sleduje skoky na lyžích,", "sleduje skoky na lyžích", "toho, kdo sleduje skoky na lyžích,", "tím, kdo sleduje skoky na lyžích,"]
+
+red_herring_facts:
+    sleď: ["sledě jsou ryby"]
+    slunecni_soustava: ["Sluneční soustava se pohybuje rychlostí asi 200 km/s okolo středu galaxie"]
+    hadanky: ["řešení hádanek je zábavné"]
+    domy: ["všechny domy v ulici mají krásné zahrady"]
+    dvere: ["některé domy mají zelené dveře"]
+    okna: ["všechny domy mají velká okna"]
+    auta: ["v ulici je hodně aut"]
+    okurka: ["okurka je botanicky bobule"]
+    šneci: ["šneci jsou měkkýši"]
+    kava_fakt: ["káva obsahuje kofein"]
+
+clues_dict:
+    found_at: "{attribute_desc} bydlí v domě číslo {i_object}."
+    not_at: "{attribute_desc} nebydlí v domě číslo {i_object}."
+    next_to: "{attribute_desc_1} bydlí vedle {attribute_desc_2}."
+    not_next_to: "{attribute_desc_1} nebydlí vedle {attribute_desc_2}, jsou to různé osoby."
+    just_left_of: "{attribute_desc_1} bydlí těsně vlevo od {attribute_desc_2}."
+    just_right_of: "{attribute_desc_1} bydlí těsně vpravo od {attribute_desc_2}."
+    left_of: "{attribute_desc_1} bydlí vlevo od {attribute_desc_2}."
+    right_of: "{attribute_desc_1} bydlí vpravo od {attribute_desc_2}."
+    same_object: "{attribute_desc_1} {attribute_desc_2}."
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."
+    between: "{attribute_desc_2} bydlí mezi {attribute_desc_1} a {attribute_desc_3}."
+    not_between: "{attribute_desc_1} nebydlí mezi {attribute_desc_2} a {attribute_desc_3}, jsou to tři různé osoby."
+    multiple_between: "Mezi {attribute_desc_1} a {attribute_desc_2} jsou {n_between} domy."
+    one_between: "Mezi {attribute_desc_1} a {attribute_desc_2} je jeden dům."
+
+clue_cases_dict:
+    found_at: ["nom"]
+    not_at: ["nom"]
+    next_to: ["nom", "gen"]
+    not_next_to: ["nom", "gen"]
+    just_left_of: ["nom", "gen"]
+    just_right_of: ["nom", "gen"]
+    left_of: ["nom", "gen"]
+    right_of: ["nom", "gen"]
+    same_object: ["nom", "none"]
+    not_same_object: ["nom", "none"]
+    between: ["inst", "nom", "inst"]
+    not_between: ["nom", "inst", "inst"]
+    multiple_between: ["inst", "inst"]
+    one_between: ["inst", "inst"]
+
+red_herring_clues_dict:
+    same_herring: "{attribute_desc} {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} bydlí vedle {attribute_desc_herring}."
+    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
+    fact: "{fact}."
+    object_fact: "{attribute_desc} ví, že {fact}."
+    friends: "{attribute_desc} a {attribute_desc_herring} jsou dobří přátelé."
+    herring_found_at: "{attribute_desc_herring} bydlí v domě číslo {i_object}."
+    herring_not_at: "{attribute_desc_herring} nebydlí v domě číslo {i_object}."
+
+red_herring_cases_dict:
+    same_herring: ["nom", "none"]
+    next_to_herring: ["nom", "gen"]
+    double_herring: ["nom", "none"]
+    fact: ["none"]
+    object_fact: ["nom", "none"]
+    friends: ["nom", "nom"]
+    herring_found_at: ["nom"]
+    herring_not_at: ["nom"]
+
+prompt_templates:
+    - |
+        Řada domů je číslována od 1 do {n_objects} zleva doprava.
+
+        V každém domě žije osoba s jedinečnou vlastností v každé z následujících kategorií:
+
+        {chosen_attributes_str}
+
+        Také víme následující:
+
+        {chosen_clues_str}
+
+        Kdo má jaké vlastnosti a žije v kterém domě?
+
+        Prosím, odešlete odpověď ve formě JSON slovníku. Každý klíč musí být object_X, kde X je číslo domu. Každá hodnota musí být seznam vlastností z výše uvedených kategorií, které patří osobě žijící v domě číslo X.
+
+        Níže je příklad formátu odpovědi:
+
+        {solution_template}
+    - |
+        Řada domů je číslována od 1 do {n_objects} zleva doprava.
+
+        V každém domě žije osoba s jedinečnou vlastností v kategorii {chosen_attributes_str}.
+
+        Také víme následující:
+
+        {chosen_clues_str}
+
+        Jaké vlastnosti má osoba žijící v každém domě?
+
+        Prosím, odešlete odpověď ve formě JSON slovníku. Každý klíč musí být object_X, kde X je číslo domu. Každá hodnota musí být seznam obsahující vlastnost z výše uvedené kategorie, která patří osobě žijící v domě číslo X.
+
+        Níže je příklad formátu odpovědi:
+
+        {solution_template}
+
+prompt_and: "a"
+
+prompt_replacements:
+    ',.': '.'
+    ',, jsou': ', jsou'

@@ -1,0 +1,211 @@
+# Config file for generating zebra puzzles in Slovenian with the houses theme.
+# Gender policy: masculine forms used throughout for unknown-gender persons.
+# Exception: medicinska sestra (nurse) is a feminine job title used as-is.
+# Cases: attribute_cases = [nom, is, is_not, gen, inst]
+# Preposition → case: poleg→gen, od (levo/desno od)→gen, med→inst
+# Word-formation: nationalities=demonym nouns, pets=lastnik+gen / ima+acc,
+#   drinks/hobbies/literature/fruits=tisti, ki [verb], / tistega, ki / tistim, ki
+# Note: multiple_between uses "so {n} hiše" (nom pl, correct for n=3,4);
+#   n=2 should be "sta 2 hiši" (dual), n≥5 needs "hiš" (gen pl).
+# Note: not_next_to uses "sta pa različni osebi" (dual, 2 persons);
+#   not_between uses "so pa tri različne osebe" (pl, 3 persons).
+
+theme: sl_hise
+
+attribute_cases: [nom, is, is_not, gen, inst]
+red_herring_attribute_cases: [nom, is, gen, inst]
+
+attributes:
+
+    narodnosti:
+        Danska: ["Danec", "je Danec", "ni Danec", "Danca", "Dancem"]
+        Švedska: ["Šved", "je Šved", "ni Šved", "Šveda", "Švedom"]
+        Latvija: ["Latvijec", "je Latvijec", "ni Latvijec", "Latvijca", "Latvijcem"]
+        Francija: ["Francoz", "je Francoz", "ni Francoz", "Francoza", "Francozom"]
+        Španija: ["Španec", "je Španec", "ni Španec", "Španca", "Špancem"]
+        Italija: ["Italijan", "je Italijan", "ni Italijan", "Italijana", "Italijanom"]
+        Norveška: ["Norvežan", "je Norvežan", "ni Norvežan", "Norvežana", "Norvežanom"]
+        Ferski otoki: ["Ferjanec", "je Ferjanec", "ni Ferjanec", "Ferjanca", "Ferjancem"]  # uncertain — verify with native speaker
+        Nizozemska: ["Nizozemec", "je Nizozemec", "ni Nizozemec", "Nizozemca", "Nizozemcem"]
+        Islandija: ["Islándec", "je Islándec", "ni Islándec", "Islándca", "Islándcem"]
+        Združeno kraljestvo: ["Britanec", "je Britanec", "ni Britanec", "Britanca", "Britancem"]
+
+    poklici:
+        pek: ["pek", "je pek", "ni pek", "peka", "pekom"]
+        minister: ["minister", "je minister", "ni minister", "ministra", "ministrom"]
+        policist: ["policist", "je policist", "ni policist", "policista", "policistom"]
+        medicinska sestra: ["medicinska sestra", "je medicinska sestra", "ni medicinska sestra", "medicinske sestre", "medicinsko sestro"]
+        učitelj: ["učitelj", "je učitelj", "ni učitelj", "učitelja", "učiteljem"]
+        programer: ["programer", "je programer", "ni programer", "programerja", "programerjem"]
+        prodajalec: ["prodajalec", "je prodajalec", "ni prodajalec", "prodajalca", "prodajalcem"]
+
+    hišne živali:
+        mačka: ["lastnik mačke", "ima mačko", "nima mačke", "lastnika mačke", "lastnikom mačke"]
+        pes: ["lastnik psa", "ima psa", "nima psa", "lastnika psa", "lastnikom psa"]
+        kunec: ["lastnik kunca", "ima kunca", "nima kunca", "lastnika kunca", "lastnikom kunca"]
+        zebra: ["lastnik zebre", "ima zebro", "nima zebre", "lastnika zebre", "lastnikom zebre"]
+        škôbčevka: ["lastnik škôbčevke", "ima škôbčevko", "nima škôbčevke", "lastnika škôbčevke", "lastnikom škôbčevke"]
+        polž: ["lastnik polža", "ima polža", "nima polža", "lastnika polža", "lastnikom polža"]
+        paličnjak: ["lastnik paličnjaka", "ima paličnjaka", "nima paličnjaka", "lastnika paličnjaka", "lastnikom paličnjaka"]
+
+    priljubljeni literarni žanri:
+        neleposlovna literatura: ["bralec neleposlovne literature", "bere neleposlovno literaturo", "ne bere neleposlovne literature", "bralca neleposlovne literature", "bralcem neleposlovne literature"]
+        kriminalni roman: ["bralec kriminalnih romanov", "bere kriminalne romane", "ne bere kriminalnih romanov", "bralca kriminalnih romanov", "bralcem kriminalnih romanov"]
+        fantazija: ["bralec fantazije", "bere fantazijo", "ne bere fantazije", "bralca fantazije", "bralcem fantazije"]
+        znanstvena fantastika: ["bralec znanstvene fantastike", "bere znanstveno fantastiko", "ne bere znanstvene fantastike", "bralca znanstvene fantastike", "bralcem znanstvene fantastike"]
+        grozljivka: ["bralec grozljivk", "bere grozljivke", "ne bere grozljivk", "bralca grozljivk", "bralcem grozljivk"]
+        poezija: ["bralec poezije", "bere poezijo", "ne bere poezije", "bralca poezije", "bralcem poezije"]
+        ljubezenski roman: ["bralec ljubezenskih romanov", "bere ljubezenske romane", "ne bere ljubezenskih romanov", "bralca ljubezenskih romanov", "bralcem ljubezenskih romanov"]
+
+    priljubljeno sadje:
+        jabolko: ["ljubitelj jabolk", "ima rad jabolka", "nima rad jabolk", "ljubitelja jabolk", "ljubiteljem jabolk"]
+        hruška: ["ljubitelj hrušk", "ima rad hruške", "nima rad hrušk", "ljubitelja hrušk", "ljubiteljem hrušk"]
+        pomaranča: ["ljubitelj pomaranč", "ima rad pomaranče", "nima rad pomaranč", "ljubitelja pomaranč", "ljubiteljem pomaranč"]
+        banana: ["ljubitelj banan", "ima rad banane", "nima rad banan", "ljubitelja banan", "ljubiteljem banan"]
+        jagoda: ["ljubitelj jagod", "ima rad jagode", "nima rad jagod", "ljubitelja jagod", "ljubiteljem jagod"]
+        črni ribez: ["ljubitelj črnega ribeza", "ima rad črni ribez", "nima rad črnega ribeza", "ljubitelja črnega ribeza", "ljubiteljem črnega ribeza"]
+        gozdna jagoda: ["ljubitelj gozdnih jagod", "ima rad gozdne jagode", "nima rad gozdnih jagod", "ljubitelja gozdnih jagod", "ljubiteljem gozdnih jagod"]
+
+    pijače:
+        sok: ["tisti, ki pije sok,", "pije sok", "ne pije soka", "tistega, ki pije sok,", "tistim, ki pije sok,"]
+        kava: ["tisti, ki pije kavo,", "pije kavo", "ne pije kave", "tistega, ki pije kavo,", "tistim, ki pije kavo,"]
+        mleko: ["tisti, ki pije mleko,", "pije mleko", "ne pije mleka", "tistega, ki pije mleko,", "tistim, ki pije mleko,"]
+        zméšanček: ["tisti, ki pije zméšanček,", "pije zméšanček", "ne pije zméšančka", "tistega, ki pije zméšanček,", "tistim, ki pije zméšanček,"]
+        kakav: ["tisti, ki pije kakav,", "pije kakav", "ne pije kakava", "tistega, ki pije kakav,", "tistim, ki pije kakav,"]
+        čaj: ["tisti, ki pije čaj,", "pije čaj", "ne pije čaja", "tistega, ki pije čaj,", "tistim, ki pije čaj,"]
+        gazirana pijača: ["tisti, ki pije gazirano pijačo,", "pije gazirano pijačo", "ne pije gazirane pijače", "tistega, ki pije gazirano pijačo,", "tistim, ki pije gazirano pijačo,"]
+
+    hobiji:
+        bouldering: ["tisti, ki se ukvarja z boulderingom,", "ukvarja se z boulderingom", "se ne ukvarja z boulderingom", "tistega, ki se ukvarja z boulderingom,", "tistim, ki se ukvarja z boulderingom,"]
+        slikanje: ["tisti, ki slika,", "slika", "ne slika", "tistega, ki slika,", "tistim, ki slika,"]
+        namizne igre: ["tisti, ki igra namizne igre,", "igra namizne igre", "ne igra namiznih iger", "tistega, ki igra namizne igre,", "tistim, ki igra namizne igre,"]
+        tenis: ["tisti, ki igra tenis,", "igra tenis", "ne igra tenisa", "tistega, ki igra tenis,", "tistim, ki igra tenis,"]
+        kvačkanje: ["tisti, ki kvačka,", "kvačka", "ne kvačka", "tistega, ki kvačka,", "tistim, ki kvačka,"]
+        nogomet: ["tisti, ki igra nogomet,", "igra nogomet", "ne igra nogometa", "tistega, ki igra nogomet,", "tistim, ki igra nogomet,"]
+        rokomet: ["tisti, ki igra rokomet,", "igra rokomet", "ne igra rokometa", "tistega, ki igra rokomet,", "tistim, ki igra rokomet,"]
+
+
+red_herring_attributes:
+    rdeči_lasje: ["rdečelasec", "ima rdeče lase", "rdečelasca", "rdečelascem"]
+    očala: ["tisti, ki nosi očala,", "nosi očala", "tistega, ki nosi očala,", "tistim, ki nosi očala,"]
+    tetoviranje: ["tetoviran", "ima tetovaže", "tetoviranega", "tetoviranim"]
+    kitara: ["tisti, ki igra kitaro,", "igra kitaro", "tistega, ki igra kitaro,", "tistim, ki igra kitaro,"]
+    kolo: ["lastnik kolesa", "ima kolo", "lastnika kolesa", "lastnikom kolesa"]
+    morski_prašiček: ["lastnik morskega prašička", "ima morskega prašička", "lastnika morskega prašička", "lastnikom morskega prašička"]
+    kaktus: ["lastnik kaktusa", "nima kaktusa", "lastnika kaktusa", "lastnikom kaktusa"]
+    video_igre: ["tisti, ki igra video igre,", "igra video igre", "tistega, ki igra video igre,", "tistim, ki igra video igre,"]
+    sestra: ["tisti, ki ima sestro,", "ima sestro", "tistega, ki ima sestro,", "tistim, ki ima sestro,"]
+    mango: ["tisti, ki meni, da je mango drugo najboljše sadje,", "meni, da je mango drugo najboljše sadje", "tistega, ki meni, da je mango drugo najboljše sadje,", "tistim, ki meni, da je mango drugo najboljše sadje,"]
+    jadranje: ["tisti, ki redno jadra,", "redno jadra", "tistega, ki redno jadra,", "tistim, ki redno jadra,"]
+    Kanada: ["tisti, ki je obiskal Kanado,", "je obiskal Kanado", "tistega, ki je obiskal Kanado,", "tistim, ki je obiskal Kanado,"]
+    matematika: ["magister matematike", "ima magisterij iz matematike", "magistra matematike", "magistrom matematike"]
+    fizika: ["tisti, ki ljubi fiziko,", "ljubi fiziko", "tistega, ki ljubi fiziko,", "tistim, ki ljubi fiziko,"]
+    stara_žival: ["lastnik živali, ki je stara za svojo vrsto,", "ima žival, ki je stara za svojo vrsto", "lastnika živali, ki je stara za svojo vrsto,", "lastnikom živali, ki je stara za svojo vrsto,"]
+    smučarski_skoki: ["tisti, ki spremlja smučarske skoke,", "spremlja smučarske skoke", "tistega, ki spremlja smučarske skoke,", "tistim, ki spremlja smučarske skoke,"]
+
+red_herring_facts:
+    sled: ["sledi so ribe"]
+    soncni_sistem: ["Sončev sistem kroži okrog središča galaksije s hitrostjo okoli 200 km/s"]
+    uganke: ["reševanje ugank je zabavno"]
+    hise: ["vse hiše v ulici imajo lepe vrtove"]
+    vrata: ["nekatere hiše imajo zelena vrata"]
+    okna: ["vse hiše imajo velika okna"]
+    avti: ["v ulici je veliko avtomobilov"]
+    kumara: ["kumara je botanično gledano jagodičevje"]
+    polži: ["polži so mehkužci"]
+    kava_dejstvo: ["kava vsebuje kofein"]
+
+clues_dict:
+    found_at: "{attribute_desc} živi v hiši številka {i_object}."
+    not_at: "{attribute_desc} ne živi v hiši številka {i_object}."
+    next_to: "{attribute_desc_1} živi poleg {attribute_desc_2}."
+    not_next_to: "{attribute_desc_1} ne živi poleg {attribute_desc_2}, sta pa različni osebi."
+    just_left_of: "{attribute_desc_1} živi tik levo od {attribute_desc_2}."
+    just_right_of: "{attribute_desc_1} živi tik desno od {attribute_desc_2}."
+    left_of: "{attribute_desc_1} živi levo od {attribute_desc_2}."
+    right_of: "{attribute_desc_1} živi desno od {attribute_desc_2}."
+    same_object: "{attribute_desc_1} {attribute_desc_2}."
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."
+    between: "{attribute_desc_2} živi med {attribute_desc_1} in {attribute_desc_3}."
+    not_between: "{attribute_desc_1} ne živi med {attribute_desc_2} in {attribute_desc_3}, so pa tri različne osebe."
+    multiple_between: "Med {attribute_desc_1} in {attribute_desc_2} so {n_between} hiše."
+    one_between: "Med {attribute_desc_1} in {attribute_desc_2} je ena hiša."
+
+clue_cases_dict:
+    found_at: ["nom"]
+    not_at: ["nom"]
+    next_to: ["nom", "gen"]
+    not_next_to: ["nom", "gen"]
+    just_left_of: ["nom", "gen"]
+    just_right_of: ["nom", "gen"]
+    left_of: ["nom", "gen"]
+    right_of: ["nom", "gen"]
+    same_object: ["nom", "none"]
+    not_same_object: ["nom", "none"]
+    between: ["inst", "nom", "inst"]
+    not_between: ["nom", "inst", "inst"]
+    multiple_between: ["inst", "inst"]
+    one_between: ["inst", "inst"]
+
+red_herring_clues_dict:
+    same_herring: "{attribute_desc} {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} živi poleg {attribute_desc_herring}."
+    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
+    fact: "{fact}."
+    object_fact: "{attribute_desc} ve, da {fact}."
+    friends: "{attribute_desc} in {attribute_desc_herring} sta dobra prijatelja."
+    herring_found_at: "{attribute_desc_herring} živi v hiši številka {i_object}."
+    herring_not_at: "{attribute_desc_herring} ne živi v hiši številka {i_object}."
+
+red_herring_cases_dict:
+    same_herring: ["nom", "none"]
+    next_to_herring: ["nom", "gen"]
+    double_herring: ["nom", "none"]
+    fact: ["none"]
+    object_fact: ["nom", "none"]
+    friends: ["nom", "nom"]
+    herring_found_at: ["nom"]
+    herring_not_at: ["nom"]
+
+prompt_templates:
+    - |
+        Vrsta hiš je oštevilčena od 1 do {n_objects} od leve proti desni.
+
+        V vsaki hiši živi oseba z edinstveno lastnostjo v vsaki od naslednjih kategorij:
+
+        {chosen_attributes_str}
+
+        Prav tako vemo naslednje:
+
+        {chosen_clues_str}
+
+        Kdo ima katere lastnosti in živi v kateri hiši?
+
+        Prosimo, oddajte odgovor v obliki JSON slovarja. Vsak ključ mora biti object_X, kjer je X številka hiše. Vsaka vrednost mora biti seznam lastnosti iz zgoraj navedenih kategorij, ki pripadajo osebi, ki živi v hiši številka X.
+
+        Spodaj je primer formata odgovora:
+
+        {solution_template}
+    - |
+        Vrsta hiš je oštevilčena od 1 do {n_objects} od leve proti desni.
+
+        V vsaki hiši živi oseba z edinstveno lastnostjo v kategoriji {chosen_attributes_str}.
+
+        Prav tako vemo naslednje:
+
+        {chosen_clues_str}
+
+        Katere lastnosti ima oseba, ki živi v vsaki hiši?
+
+        Prosimo, oddajte odgovor v obliki JSON slovarja. Vsak ključ mora biti object_X, kjer je X številka hiše. Vsaka vrednost mora biti seznam, ki vsebuje lastnost iz zgoraj navedene kategorije, ki pripada osebi, ki živi v hiši številka X.
+
+        Spodaj je primer formata odgovora:
+
+        {solution_template}
+
+prompt_and: "in"
+
+prompt_replacements:
+    ',.': '.'
+    ',, sta': ', sta'
+    ',, so': ', so'

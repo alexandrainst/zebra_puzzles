@@ -1,0 +1,201 @@
+# Config file for generating zebra puzzles in Romanian with the houses theme.
+# Gender policy: masculine forms used throughout for unknown-gender persons.
+# Case system: gen_dat (genitive-dative syncretism) — used after la stânga/dreapta de.
+# Nominative = accusative for definite nouns, so next_to/between use nom forms.
+
+theme: ro_case
+
+attribute_cases: [nom, is, is_not, gen_dat]
+red_herring_attribute_cases: [nom, is, gen_dat]
+
+attributes:
+
+    naționalități:
+        Danemarca: ['danezul', 'este danez', 'nu este danez', 'danezului']
+        Suedia: ['suedezul', 'este suedez', 'nu este suedez', 'suedezului']
+        Letonia: ['letonul', 'este leton', 'nu este leton', 'letonului']
+        Franța: ['francezul', 'este francez', 'nu este francez', 'francezului']
+        Spania: ['spaniolul', 'este spaniol', 'nu este spaniol', 'spaniolului']
+        Italia: ['italianul', 'este italian', 'nu este italian', 'italianului']
+        Norvegia: ['norvegianul', 'este norvegian', 'nu este norvegian', 'norvegianului']
+        Insulele Feroe: ['faroezul', 'este faroez', 'nu este faroez', 'faroezului']
+        Țările de Jos: ['neerlandezul', 'este neerlandez', 'nu este neerlandez', 'neerlandezului']
+        Islanda: ['islandezul', 'este islandez', 'nu este islandez', 'islandezului']
+        Regatul Unit: ['britanicul', 'este britanic', 'nu este britanic', 'britanicului']
+
+    meserii:
+        brutar: ['brutarul', 'este brutar', 'nu este brutar', 'brutarului']
+        ministru: ['ministrul', 'este ministru', 'nu este ministru', 'ministrului']
+        polițist: ['polițistul', 'este polițist', 'nu este polițist', 'polițistului']
+        asistent medical: ['asistentul medical', 'este asistent medical', 'nu este asistent medical', 'asistentului medical']
+        profesor: ['profesorul', 'este profesor', 'nu este profesor', 'profesorului']
+        programator: ['programatorul', 'este programator', 'nu este programator', 'programatorului']
+        vânzător: ['vânzătorul', 'este vânzător', 'nu este vânzător', 'vânzătorului']
+
+    animale de companie:
+        pisică: ['proprietarul pisicii', 'are o pisică', 'nu are o pisică', 'proprietarului pisicii']
+        câine: ['proprietarul câinelui', 'are un câine', 'nu are un câine', 'proprietarului câinelui']
+        iepure: ['proprietarul iepurelui', 'are un iepure', 'nu are un iepure', 'proprietarului iepurelui']
+        zebră: ['proprietarul zebrei', 'are o zebră', 'nu are o zebră', 'proprietarului zebrei']
+        peruș: ['proprietarul perușului', 'are un peruș', 'nu are un peruș', 'proprietarului perușului']
+        melc: ['proprietarul melcului', 'are un melc', 'nu are un melc', 'proprietarului melcului']
+        insectă-băț: ['proprietarul insectei-băț', 'are o insectă-băț', 'nu are o insectă-băț', 'proprietarului insectei-băț']
+
+    băuturi:
+        suc: ['băutorul de suc', 'bea suc', 'nu bea suc', 'băutorului de suc']
+        cafea: ['băutorul de cafea', 'bea cafea', 'nu bea cafea', 'băutorului de cafea']
+        lapte: ['băutorul de lapte', 'bea lapte', 'nu bea lapte', 'băutorului de lapte']
+        smoothie: ['băutorul de smoothie', 'bea smoothie', 'nu bea smoothie', 'băutorului de smoothie']
+        cacao caldă: ['băutorul de cacao caldă', 'bea cacao caldă', 'nu bea cacao caldă', 'băutorului de cacao caldă']
+        ceai: ['băutorul de ceai', 'bea ceai', 'nu bea ceai', 'băutorului de ceai']
+        răcoritoare: ['băutorul de răcoritoare', 'bea răcoritoare', 'nu bea răcoritoare', 'băutorului de răcoritoare']
+
+    genuri literare preferate:
+        non-ficțiune: ['cititorul de non-ficțiune', 'citește non-ficțiune', 'nu citește non-ficțiune', 'cititorului de non-ficțiune']
+        romane polițiste: ['cititorul de romane polițiste', 'citește romane polițiste', 'nu citește romane polițiste', 'cititorului de romane polițiste']
+        fantasy: ['cititorul de fantasy', 'citește fantasy', 'nu citește fantasy', 'cititorului de fantasy']
+        science fiction: ['cititorul de science fiction', 'citește science fiction', 'nu citește science fiction', 'cititorului de science fiction']
+        horror: ['cititorul de horror', 'citește horror', 'nu citește horror', 'cititorului de horror']
+        poezie: ['cititorul de poezie', 'citește poezie', 'nu citește poezie', 'cititorului de poezie']
+        romane de dragoste: ['cititorul de romane de dragoste', 'citește romane de dragoste', 'nu citește romane de dragoste', 'cititorului de romane de dragoste']
+
+    hobby-uri:
+        bouldering: ['cel care face bouldering', 'face bouldering', 'nu face bouldering', 'celui care face bouldering']
+        pictură: ['cel care pictează', 'pictează', 'nu pictează', 'celui care pictează']
+        jocuri de societate: ['cel care joacă jocuri de societate', 'joacă jocuri de societate', 'nu joacă jocuri de societate', 'celui care joacă jocuri de societate']
+        tenis: ['cel care joacă tenis', 'joacă tenis', 'nu joacă tenis', 'celui care joacă tenis']
+        croșetă: ['cel care face croșetă', 'face croșetă', 'nu face croșetă', 'celui care face croșetă']
+        fotbal: ['cel care joacă fotbal', 'joacă fotbal', 'nu joacă fotbal', 'celui care joacă fotbal']
+        handbal: ['cel care joacă handbal', 'joacă handbal', 'nu joacă handbal', 'celui care joacă handbal']
+
+    fructe preferate:
+        măr: ['iubitorul de mere', 'iubește merele', 'nu iubește merele', 'iubitorului de mere']
+        pară: ['iubitorul de pere', 'iubește perele', 'nu iubește perele', 'iubitorului de pere']
+        portocală: ['iubitorul de portocale', 'iubește portocalele', 'nu iubește portocalele', 'iubitorului de portocale']
+        banană: ['iubitorul de banane', 'iubește bananele', 'nu iubește bananele', 'iubitorului de banane']
+        căpșună: ['iubitorul de căpșuni', 'iubește căpșunile', 'nu iubește căpșunile', 'iubitorului de căpșuni']
+        coacăz negru: ['iubitorul de coacăze negre', 'iubește coacăzele negre', 'nu iubește coacăzele negre', 'iubitorului de coacăze negre']
+        fragi: ['iubitorul de fragi', 'iubește fragile', 'nu iubește fragile', 'iubitorului de fragi']
+
+red_herring_attributes:
+    par_rosu: ['cel cu păr roșu', 'are păr roșu', 'celui cu păr roșu']
+    ochelari: ['cel care poartă ochelari', 'poartă ochelari', 'celui care poartă ochelari']
+    tatuaj: ['cel cu tatuaj', 'are un tatuaj', 'celui cu tatuaj']
+    chitara: ['cel care cântă la chitară', 'cântă la chitară', 'celui care cântă la chitară']
+    bicicleta: ['cel cu bicicletă', 'are o bicicletă', 'celui cu bicicletă']
+    cobai: ['proprietarul cobaiului', 'are un cobai', 'proprietarului cobaiului']
+    cactus: ['cel cu cactus', 'nu are un cactus', 'celui cu cactus']
+    jocuri_video: ['cel care joacă jocuri video', 'joacă jocuri video', 'celui care joacă jocuri video']
+    sora: ['cel cu o soră', 'are o soră', 'celui cu o soră']
+    mango: ['cel care crede că al doilea cel mai bun fruct este mango', 'crede că al doilea cel mai bun fruct este mango', 'celui care crede că al doilea cel mai bun fruct este mango']
+    navigatie: ['cel care navighează des', 'navighează des', 'celui care navighează des']
+    canada: ['cel care a vizitat Canada', 'a vizitat Canada', 'celui care a vizitat Canada']
+    matematica: ['cel cu masterat în matematică', 'are un masterat în matematică', 'celui cu masterat în matematică']
+    fizica: ['cel care iubește fizica', 'iubește fizica', 'celui care iubește fizica']
+    animal_batran: ['cel al cărui animal de companie este bătrân pentru specia sa', 'are un animal de companie bătrân pentru specia sa', 'celui al cărui animal de companie este bătrân pentru specia sa']
+    sarituri_cu_schiuri: ['cel care urmărește săriturile cu schiuri', 'urmărește săriturile cu schiuri', 'celui care urmărește săriturile cu schiuri']
+
+red_herring_facts:
+    hering: ['heringii sunt pești']
+    sistemul_solar: ['sistemul solar se deplasează cu aproximativ 200 km/s în jurul centrului galaxiei']
+    puzzle: ['este distractiv să rezolvi puzzle-uri']
+    case: ['toate casele de pe stradă au grădini frumoase']
+    usi: ['unele case au o ușă verde']
+    ferestre: ['toate casele au ferestre mari']
+    masini: ['există multe mașini pe stradă']
+    castravete: ['castravetele este o bacă']
+    melc: ['melcii sunt moluște']
+    cafea: ['cafeaua conține cofeină']
+
+clues_dict:
+    found_at: '{attribute_desc} locuiește în casa numărul {i_object}.'
+    not_at: '{attribute_desc} nu locuiește în casa numărul {i_object}.'
+    next_to: '{attribute_desc_1} locuiește lângă {attribute_desc_2}.'
+    not_next_to: '{attribute_desc_1} nu locuiește lângă {attribute_desc_2}, și sunt persoane diferite.'
+    just_left_of: '{attribute_desc_1} locuiește imediat la stânga {attribute_desc_2}.'
+    just_right_of: '{attribute_desc_1} locuiește imediat la dreapta {attribute_desc_2}.'
+    left_of: '{attribute_desc_1} locuiește la stânga {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} locuiește la dreapta {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    between: '{attribute_desc_2} locuiește între {attribute_desc_1} și {attribute_desc_3}.'
+    not_between: '{attribute_desc_1} nu locuiește între {attribute_desc_2} și {attribute_desc_3}, și sunt trei persoane diferite.'
+    multiple_between: 'Sunt {n_between} case între {attribute_desc_1} și {attribute_desc_2}.'
+    one_between: 'Este o casă între {attribute_desc_1} și {attribute_desc_2}.'
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'nom']
+    not_next_to: ['nom', 'nom']
+    just_left_of: ['nom', 'gen_dat']
+    just_right_of: ['nom', 'gen_dat']
+    left_of: ['nom', 'gen_dat']
+    right_of: ['nom', 'gen_dat']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['nom', 'nom', 'nom']
+    not_between: ['nom', 'nom', 'nom']
+    multiple_between: ['nom', 'nom']
+    one_between: ['nom', 'nom']
+
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} locuiește lângă {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} știe că {fact}.'
+    friends: '{attribute_desc} și {attribute_desc_herring} sunt buni prieteni.'
+    herring_found_at: '{attribute_desc_herring} locuiește în casa numărul {i_object}.'
+    herring_not_at: '{attribute_desc_herring} nu locuiește în casa numărul {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'nom']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+prompt_and: și
+
+prompt_templates:
+    - |
+        Un șir de case are numerele 1 până la {n_objects} de la stânga la dreapta.
+
+        În fiecare casă locuiește o persoană cu un atribut unic în fiecare din următoarele categorii:
+
+        {chosen_attributes_str}
+
+        De asemenea, știm următoarele:
+
+        {chosen_clues_str}
+
+        Cine are ce atribute și locuiește în care casă?
+
+        Vă rugăm să trimiteți răspunsul dumneavoastră sub forma unui dicționar JSON. Fiecare cheie trebuie să fie object_X, unde X este numărul casei. Fiecare valoare trebuie să fie o listă cu atributele din categoriile menționate mai sus care aparțin persoanei din casa numărul X.
+
+        Urmează un exemplu al formatului de răspuns:
+
+        {solution_template}
+    - |
+        Un șir de case are numerele 1 până la {n_objects} de la stânga la dreapta.
+
+        În fiecare casă locuiește o persoană cu un atribut unic în categoria {chosen_attributes_str}.
+
+        De asemenea, știm următoarele:
+
+        {chosen_clues_str}
+
+        Ce atribute aparțin persoanei care locuiește în fiecare casă?
+
+        Vă rugăm să trimiteți răspunsul dumneavoastră sub forma unui dicționar JSON. Fiecare cheie trebuie să fie object_X, unde X este numărul casei. Fiecare valoare trebuie să fie o listă care conține atributul din categoria menționată mai sus care aparține persoanei din casa numărul X.
+
+        Urmează un exemplu al formatului de răspuns:
+
+        {solution_template}
+
+prompt_replacements:
+    'știe că este distractiv să rezolvi puzzle-uri': 'se bucură să rezolve puzzle-uri'

@@ -14,10 +14,10 @@ Generation and LLM evaluation of zebra puzzles in multiple languages and themes 
 Available languages and themes:
 
 - Houses theme:
-    - Complete versions: Danish 🇩🇰, Dutch 🇳🇱, English 🇬🇧, Faroese 🇫🇴, German 🇩🇪, Icelandic 🇮🇸, Norwegian Bokmål 🇳🇴, Norwegian Nynorsk 🇳🇴 and Swedish 🇸🇪.
-    - Preliminary versions: Finnish 🇫🇮.
+    - Finished versions: Danish 🇩🇰, Dutch 🇳🇱, English 🇬🇧, Faroese 🇫🇴, German 🇩🇪, Icelandic 🇮🇸, Norwegian Bokmål 🇳🇴, Norwegian Nynorsk 🇳🇴 and Swedish 🇸🇪.
+    - Preliminary versions: Albanian 🇦🇱, Belarusian 🇧🇾, Bosnian 🇧🇦, Bulgarian 🇧🇬, Catalan 🏴󠁥󠁳󠁣󠁴󠁿, Croatian 🇭🇷, Czech 🇨🇿, Estonian 🇪🇪, Finnish 🇫🇮, French 🇫🇷, Greek 🇬🇷, Hungarian 🇭🇺, Italian 🇮🇹, Latvian 🇱🇻, Lithuanian 🇱🇹, Polish 🇵🇱, Portuguese 🇵🇹, Romanian 🇷🇴, Serbian 🇷🇸, Slovak 🇸🇰, Slovenian 🇸🇮, Spanish 🇪🇸 and Ukrainian 🇺🇦.
 - Smørrebrød theme:
-    - Complete versions: Danish 🇩🇰.
+    - Finished versions: Danish 🇩🇰.
 
 Dataset on the Hugging Face Hub: https://huggingface.co/datasets/alexandrainst/zebra_puzzles
 
@@ -131,7 +131,9 @@ o3-mini:
 
 ## Adding a new language or theme
 
-To add a new language or theme:
+If you are using an agent, run `/add-language` in the project to use the guided skill, which handles config creation, validation, puzzle generation and review.
+
+To add a new language or theme manually:
 
 1. For a new language, create a folder in `config/language`.
 2. Copy an existing config file such as `config/language/en/houses.yaml`.
@@ -161,6 +163,7 @@ To add a new language or theme:
 5. Edit `README.md` to mention the new language/theme.
 6. Generate some puzzles to test the language/theme. We recommend using large puzzles, so all clue types are applicable. Set the new theme with `language` in `config/config.yaml` and run e.g. `uv run src/scripts/build_dataset.py n_objects=4 n_attributes=5 n_red_herring_clues=5 n_puzzles=10`.
 
+Read the skill at `.claude/skills/add-language/SKILL.md` for details on common translation issues.
 
 ## Setup
 

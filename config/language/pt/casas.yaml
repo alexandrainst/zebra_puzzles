@@ -1,0 +1,199 @@
+# Config file for generating zebra puzzles in Portuguese with the houses theme.
+# Gender policy: masculine for unknown gender (consistent across all attributes and red herring attributes).
+
+theme: pt_casas
+
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
+
+attributes:
+
+    nacionalidades:
+        Dinamarca: ["o dinamarquês", "é dinamarquês", "não é dinamarquês"]
+        Suécia: ["o sueco", "é sueco", "não é sueco"]
+        Letónia: ["o letão", "é letão", "não é letão"]
+        França: ["o francês", "é francês", "não é francês"]
+        Espanha: ["o espanhol", "é espanhol", "não é espanhol"]
+        Itália: ["o italiano", "é italiano", "não é italiano"]
+        Noruega: ["o norueguês", "é norueguês", "não é norueguês"]
+        Ilhas Faroé: ["o faroês", "é faroês", "não é faroês"]
+        Países Baixos: ["o neerlandês", "é neerlandês", "não é neerlandês"]
+        Islândia: ["o islandês", "é islandês", "não é islandês"]
+        Reino Unido: ["o britânico", "é britânico", "não é britânico"]
+
+    profissões:
+        padeiro: ["o padeiro", "é padeiro", "não é padeiro"]
+        ministro: ["o ministro", "é ministro", "não é ministro"]
+        polícia: ["o polícia", "é polícia", "não é polícia"]
+        enfermeiro: ["o enfermeiro", "é enfermeiro", "não é enfermeiro"]
+        professor: ["o professor", "é professor", "não é professor"]
+        programador: ["o programador", "é programador", "não é programador"]
+        balconista: ["o balconista", "é balconista", "não é balconista"]
+
+    animais de estimação:
+        gato: ["o dono de um gato", "tem um gato", "não tem um gato"]
+        cão: ["o dono de um cão", "tem um cão", "não tem um cão"]
+        coelho: ["o dono de um coelho", "tem um coelho", "não tem um coelho"]
+        zebra: ["o dono de uma zebra", "tem uma zebra", "não tem uma zebra"]
+        periquito: ["o dono de um periquito", "tem um periquito", "não tem um periquito"]
+        caracol: ["o dono de um caracol", "tem um caracol", "não tem um caracol"]
+        inseto-pau: ["o dono de um inseto-pau", "tem um inseto-pau", "não tem um inseto-pau"]
+
+    bebidas:
+        sumo: ["o bebedor de sumo", "bebe sumo", "não bebe sumo"]
+        café: ["o bebedor de café", "bebe café", "não bebe café"]
+        leite: ["o bebedor de leite", "bebe leite", "não bebe leite"]
+        batido: ["o bebedor de batido", "bebe batido", "não bebe batido"]
+        chocolate quente: ["o bebedor de chocolate quente", "bebe chocolate quente", "não bebe chocolate quente"]
+        chá: ["o bebedor de chá", "bebe chá", "não bebe chá"]
+        refrigerante: ["o bebedor de refrigerante", "bebe refrigerante", "não bebe refrigerante"]
+
+    géneros de livros preferidos:
+        não-ficção: ["o leitor de não-ficção", "lê não-ficção", "não lê não-ficção"]
+        romance policial: ["o leitor de romances policiais", "lê romances policiais", "não lê romances policiais"]
+        fantasia: ["o leitor de fantasia", "lê fantasia", "não lê fantasia"]
+        ficção científica: ["o leitor de ficção científica", "lê ficção científica", "não lê ficção científica"]
+        terror: ["o leitor de terror", "lê terror", "não lê terror"]
+        poesia: ["o leitor de poesia", "lê poesia", "não lê poesia"]
+        romance: ["o leitor de romances de amor", "lê romances de amor", "não lê romances de amor"]
+
+    passatempos:
+        escalada de bloc: ["o boulderista", "faz escalada de bloc", "não faz escalada de bloc"]
+        pintura: ["o pintor", "pinta", "não pinta"]
+        jogos de mesa: ["o jogador de jogos de mesa", "joga jogos de mesa", "não joga jogos de mesa"]
+        ténis: ["o tenista", "joga ténis", "não joga ténis"]
+        crochet: ["o praticante de crochet", "pratica crochet", "não pratica crochet"]
+        futebol: ["o jogador de futebol", "joga futebol", "não joga futebol"]
+        andebol: ["o jogador de andebol", "joga andebol", "não joga andebol"]
+
+    frutas preferidas:
+        maçã: ["o apreciador de maçãs", "gosta de maçãs", "não gosta de maçãs"]
+        pera: ["o apreciador de peras", "gosta de peras", "não gosta de peras"]
+        laranja: ["o apreciador de laranjas", "gosta de laranjas", "não gosta de laranjas"]
+        banana: ["o apreciador de bananas", "gosta de bananas", "não gosta de bananas"]
+        morango: ["o apreciador de morangos", "gosta de morangos", "não gosta de morangos"]
+        cássis: ["o apreciador de cássis", "gosta de cássis", "não gosta de cássis"]
+        morango silvestre: ["o apreciador de morangos silvestres", "gosta de morangos silvestres", "não gosta de morangos silvestres"]
+
+red_herring_attributes:
+    cabelo_ruivo: ["o ruivo", "tem cabelo ruivo"]
+    óculos: ["o utilizador de óculos", "usa óculos"]
+    tatuagem: ["o tatuado", "tem uma tatuagem"]
+    guitarra: ["o guitarrista", "toca guitarra"]
+    bicicleta: ["o dono de uma bicicleta", "tem uma bicicleta"]
+    porquinho_da_india: ["o dono de um porquinho-da-índia", "tem um porquinho-da-índia"]
+    cacto: ["o dono de um cacto", "não tem um cacto"]
+    jogos_video: ["o jogador de videojogos", "joga videojogos"]
+    irmã: ["o indivíduo com uma irmã", "tem uma irmã"]
+    manga: ["o indivíduo que acha que a segunda melhor fruta é a manga", "acha que a segunda melhor fruta é a manga"]
+    vela: ["o amante de vela", "pratica vela com frequência"]
+    Canada: ["o indivíduo que visitou o Canadá", "visitou o Canadá"]
+    matematica: ["o detentor de um mestrado em matemática", "tem um mestrado em matemática"]
+    fisica: ["o amante de física", "gosta de física"]
+    animal_velho: ["o indivíduo cujo animal de estimação é velho para a sua espécie", "tem um animal de estimação velho para a sua espécie"]
+    salto_de_esqui: ["o amante de salto de esqui", "vê salto de esqui"]
+
+red_herring_facts:
+    arenque: ["os arenques são peixes"]
+    sistema_solar: ["o sistema solar desloca-se a cerca de 200 km/s em torno do centro da galáxia"]
+    puzzle: ["é divertido resolver puzzles"]
+    casas: ["todas as casas da rua têm jardins bonitos"]
+    portas: ["várias das casas têm uma porta verde"]
+    janelas: ["todas as casas têm janelas grandes"]
+    carros: ["há muitos carros na rua"]
+    pepino: ["o pepino é uma baga"]
+    caracol_mollusco: ["os caracóis são moluscos"]
+    cafe: ["o café tem cafeína"]
+
+clues_dict:
+    found_at: "{attribute_desc} mora na casa número {i_object}."
+    not_at: "{attribute_desc} não mora na casa número {i_object}."
+    next_to: "{attribute_desc_1} mora ao lado de {attribute_desc_2}."
+    not_next_to: "{attribute_desc_1} não mora ao lado de {attribute_desc_2}, e são pessoas diferentes."
+    just_left_of: "{attribute_desc_1} mora imediatamente à esquerda de {attribute_desc_2}."
+    just_right_of: "{attribute_desc_1} mora imediatamente à direita de {attribute_desc_2}."
+    left_of: "{attribute_desc_1} mora à esquerda de {attribute_desc_2}."
+    right_of: "{attribute_desc_1} mora à direita de {attribute_desc_2}."
+    same_object: "{attribute_desc_1} {attribute_desc_2}."
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."
+    between: "{attribute_desc_2} mora entre {attribute_desc_1} e {attribute_desc_3}."
+    not_between: "{attribute_desc_1} não mora entre {attribute_desc_2} e {attribute_desc_3}, e os três são pessoas diferentes."
+    multiple_between: "Há {n_between} casas entre {attribute_desc_1} e {attribute_desc_2}."
+    one_between: "Há uma casa entre {attribute_desc_1} e {attribute_desc_2}."
+
+clue_cases_dict:
+    found_at: ["nom"]
+    not_at: ["nom"]
+    next_to: ["nom", "nom"]
+    not_next_to: ["nom", "nom"]
+    just_left_of: ["nom", "nom"]
+    just_right_of: ["nom", "nom"]
+    left_of: ["nom", "nom"]
+    right_of: ["nom", "nom"]
+    same_object: ["nom", "none"]
+    not_same_object: ["nom", "none"]
+    between: ["nom", "nom", "nom"]
+    not_between: ["nom", "nom", "nom"]
+    multiple_between: ["nom", "nom"]
+    one_between: ["nom", "nom"]
+
+red_herring_clues_dict:
+    same_herring: "{attribute_desc} {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} mora ao lado de {attribute_desc_herring}."
+    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
+    fact: "{fact}."
+    object_fact: "{attribute_desc} sabe que {fact}."
+    friends: "{attribute_desc} e {attribute_desc_herring} são muito próximos."
+    herring_found_at: "{attribute_desc_herring} mora na casa número {i_object}."
+    herring_not_at: "{attribute_desc_herring} não mora na casa número {i_object}."
+
+red_herring_cases_dict:
+    same_herring: ["nom", "none"]
+    next_to_herring: ["nom", "nom"]
+    double_herring: ["nom", "none"]
+    fact: ["none"]
+    object_fact: ["nom", "none"]
+    friends: ["nom", "nom"]
+    herring_found_at: ["nom"]
+    herring_not_at: ["nom"]
+
+prompt_templates:
+    - |
+        Uma fila de casas tem os números 1 a {n_objects} da esquerda para a direita.
+
+        Em cada casa vive uma pessoa com um atributo único em cada uma das seguintes categorias:
+
+        {chosen_attributes_str}
+
+        Também sabemos o seguinte:
+
+        {chosen_clues_str}
+
+        Quem tem quais atributos e vive em qual casa?
+
+        Por favor, submeta a sua resposta na forma de um dicionário JSON. Cada chave deve ser object_X, onde X é o número da casa. Cada valor deve ser uma lista dos atributos das categorias mencionadas acima pertencentes à pessoa que vive na casa número X.
+
+        Aqui está um exemplo do formato da resposta:
+
+        {solution_template}
+    - |
+        Uma fila de casas tem os números 1 a {n_objects} da esquerda para a direita.
+
+        Em cada casa vive uma pessoa com um atributo único na seguinte categoria: {chosen_attributes_str}.
+
+        Também sabemos o seguinte:
+
+        {chosen_clues_str}
+
+        Quais atributos pertencem à pessoa que vive em cada casa?
+
+        Por favor, submeta a sua resposta na forma de um dicionário JSON. Cada chave deve ser object_X, onde X é o número da casa. Cada valor deve ser uma lista contendo o atributo da categoria mencionada acima pertencente à pessoa que vive na casa número X.
+
+        Aqui está um exemplo do formato da resposta:
+
+        {solution_template}
+
+prompt_and: "e"
+
+prompt_replacements:
+    "de o ": "do "

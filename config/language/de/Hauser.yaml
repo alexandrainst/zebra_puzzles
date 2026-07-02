@@ -116,7 +116,7 @@ clue_cases_dict:
     not_same_object: ['nom', 'none']
     between: ['dat', 'nom', 'dat'] # Note that second argument corresponds the first object in this clue.
     not_between: ['nom', 'dat', 'dat']
-    multiple_between: ['nom', 'nom']
+    multiple_between: ['dat', 'dat']
     one_between: ['dat', 'dat']
 
 # Prompt

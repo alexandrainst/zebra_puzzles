@@ -1,0 +1,213 @@
+# Config file for generating zebra puzzles in Italian with the houses theme.
+
+# Cases: attribute_cases = [nom, is, is_not]
+# Prepositions: accanto a → nom (article contractions via prompt_replacements), a sinistra/destra di → nom (contractions), tra → nom (no contractions)
+# Word-formation: nationalities=article+demonym, occupations=article+noun, pets=il proprietario di un/una X, drinks=chi beve X, hobbies=chi [verb], literature=chi legge X, fruits=chi ama X
+# Gender default: masculine throughout
+# Uncertain forms (flagged for native speaker review): gassosa (soda)
+
+theme: it_case
+
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
+
+attributes:
+
+    Nazionalità:
+        Danimarca: ["il danese", "è danese", "non è danese"]
+        Svezia: ["lo svedese", "è svedese", "non è svedese"]
+        Lettonia: ["il lettone", "è lettone", "non è lettone"]
+        Francia: ["il francese", "è francese", "non è francese"]
+        Spagna: ["lo spagnolo", "è spagnolo", "non è spagnolo"]
+        Italia: ["l'italiano", "è italiano", "non è italiano"]
+        Norvegia: ["il norvegese", "è norvegese", "non è norvegese"]
+        Isole Fær Øer: ["il faroense", "è faroense", "non è faroense"]
+        Paesi Bassi: ["il neerlandese", "è neerlandese", "non è neerlandese"]
+        Islanda: ["l'islandese", "è islandese", "non è islandese"]
+        Regno Unito: ["il britannico", "è britannico", "non è britannico"]
+
+    Professioni:
+        panettiere: ["il panettiere", "è panettiere", "non è panettiere"]
+        ministro: ["il ministro", "è ministro", "non è ministro"]
+        poliziotto: ["il poliziotto", "è poliziotto", "non è poliziotto"]
+        infermiere: ["l'infermiere", "è infermiere", "non è infermiere"]
+        insegnante: ["l'insegnante", "è insegnante", "non è insegnante"]
+        programmatore: ["il programmatore", "è programmatore", "non è programmatore"]
+        commesso: ["il commesso", "è commesso", "non è commesso"]
+
+    Animali domestici:
+        gatto: ["il proprietario di un gatto", "ha un gatto", "non ha un gatto"]
+        cane: ["il proprietario di un cane", "ha un cane", "non ha un cane"]
+        coniglio: ["il proprietario di un coniglio", "ha un coniglio", "non ha un coniglio"]
+        zebra: ["il proprietario di una zebra", "ha una zebra", "non ha una zebra"]
+        cocorita: ["il proprietario di una cocorita", "ha una cocorita", "non ha una cocorita"]
+        lumaca: ["il proprietario di una lumaca", "ha una lumaca", "non ha una lumaca"]
+        insetto stecco: ["il proprietario di un insetto stecco", "ha un insetto stecco", "non ha un insetto stecco"]
+
+    Bevande:
+        succo: ["chi beve succo", "beve succo", "non beve succo"]
+        caffè: ["chi beve caffè", "beve caffè", "non beve caffè"]
+        latte: ["chi beve latte", "beve latte", "non beve latte"]
+        smoothie: ["chi beve smoothie", "beve smoothie", "non beve smoothie"]
+        cioccolata calda: ["chi beve cioccolata calda", "beve cioccolata calda", "non beve cioccolata calda"]
+        tè: ["chi beve tè", "beve tè", "non beve tè"]
+        gassosa: ["chi beve gassosa", "beve gassosa", "non beve gassosa"]  # uncertain — "bibita gassata" may be more precise
+
+    Generi letterari preferiti:
+        saggistica: ["chi legge saggistica", "legge saggistica", "non legge saggistica"]
+        giallo: ["chi legge gialli", "legge gialli", "non legge gialli"]
+        fantasy: ["chi legge fantasy", "legge fantasy", "non legge fantasy"]
+        fantascienza: ["chi legge fantascienza", "legge fantascienza", "non legge fantascienza"]
+        horror: ["chi legge horror", "legge horror", "non legge horror"]
+        poesia: ["chi legge poesia", "legge poesia", "non legge poesia"]
+        romanzo d'amore: ["chi legge romanzi d'amore", "legge romanzi d'amore", "non legge romanzi d'amore"]
+
+    Hobby:
+        bouldering: ["chi pratica bouldering", "pratica bouldering", "non pratica bouldering"]
+        pittura: ["chi dipinge", "dipinge", "non dipinge"]
+        giochi da tavolo: ["chi gioca ai giochi da tavolo", "gioca ai giochi da tavolo", "non gioca ai giochi da tavolo"]
+        tennis: ["chi gioca a tennis", "gioca a tennis", "non gioca a tennis"]
+        uncinetto: ["chi fa uncinetto", "fa uncinetto", "non fa uncinetto"]
+        calcio: ["chi gioca a calcio", "gioca a calcio", "non gioca a calcio"]
+        pallamano: ["chi gioca a pallamano", "gioca a pallamano", "non gioca a pallamano"]
+
+    Frutta preferita:
+        mela: ["chi ama le mele", "ama le mele", "non ama le mele"]
+        pera: ["chi ama le pere", "ama le pere", "non ama le pere"]
+        arancia: ["chi ama le arance", "ama le arance", "non ama le arance"]
+        banana: ["chi ama le banane", "ama le banane", "non ama le banane"]
+        fragola: ["chi ama le fragole", "ama le fragole", "non ama le fragole"]
+        ribes nero: ["chi ama il ribes nero", "ama il ribes nero", "non ama il ribes nero"]
+        fragola di bosco: ["chi ama le fragole di bosco", "ama le fragole di bosco", "non ama le fragole di bosco"]
+
+red_herring_attributes:
+    capelli_rossi: ["chi ha i capelli rossi", "ha i capelli rossi"]
+    occhiali: ["chi porta gli occhiali", "porta gli occhiali"]
+    tatuaggio: ["il tatuato", "ha un tatuaggio"]
+    chitarra: ["chi suona la chitarra", "suona la chitarra"]
+    bicicletta: ["il proprietario di una bicicletta", "ha una bicicletta"]
+    porcellino_d_india: ["il proprietario di un porcellino d'India", "ha un porcellino d'India"]
+    cactus: ["il proprietario di un cactus", "non ha un cactus"]
+    videogiochi: ["chi gioca ai videogiochi", "gioca ai videogiochi"]
+    sorella: ["chi ha una sorella", "ha una sorella"]
+    mango: ["chi pensa che il secondo miglior frutto sia il mango", "pensa che il secondo miglior frutto sia il mango"]
+    vela: ["chi naviga spesso a vela", "naviga spesso a vela"]
+    Canada: ["chi ha visitato il Canada", "ha visitato il Canada"]
+    matematica: ["il laureato in matematica", "ha una laurea magistrale in matematica"]
+    fisica: ["chi ama la fisica", "ama la fisica"]
+    animale_vecchio: ["il proprietario di un animale vecchio per la sua specie", "ha un animale vecchio per la sua specie"]
+    salto_con_gli_sci: ["chi guarda il salto con gli sci", "guarda il salto con gli sci"]
+
+red_herring_facts:
+    aringa: ["le aringhe sono pesci"]
+    sistema_solare: ["il sistema solare si muove a circa 200 km/s intorno al centro della galassia"]
+    enigma: ["risolvere enigmi è divertente"]
+    case: ["tutte le case nella strada hanno bei giardini"]
+    porte: ["alcune case hanno una porta verde"]
+    finestre: ["tutte le case hanno grandi finestre"]
+    automobili: ["ci sono molte automobili nella strada"]
+    cetriolo: ["il cetriolo è una bacca"]
+    lumache: ["le lumache sono molluschi"]
+    caffè_fatto: ["il caffè contiene caffeina"]
+
+clues_dict:
+    found_at: "{attribute_desc} abita nella casa numero {i_object}."
+    not_at: "{attribute_desc} non abita nella casa numero {i_object}."
+    next_to: "{attribute_desc_1} abita accanto a {attribute_desc_2}."
+    not_next_to: "{attribute_desc_1} non abita accanto a {attribute_desc_2}, e sono persone diverse."
+    just_left_of: "{attribute_desc_1} abita immediatamente a sinistra di {attribute_desc_2}."
+    just_right_of: "{attribute_desc_1} abita immediatamente a destra di {attribute_desc_2}."
+    left_of: "{attribute_desc_1} abita a sinistra di {attribute_desc_2}."
+    right_of: "{attribute_desc_1} abita a destra di {attribute_desc_2}."
+    same_object: "{attribute_desc_1} {attribute_desc_2}."
+    not_same_object: "{attribute_desc_1} {attribute_desc_2}."
+    between: "{attribute_desc_2} abita tra {attribute_desc_1} e {attribute_desc_3}."
+    not_between: "{attribute_desc_1} non abita tra {attribute_desc_2} e {attribute_desc_3}, e sono tre persone diverse."
+    multiple_between: "Tra {attribute_desc_1} e {attribute_desc_2} ci sono {n_between} case."
+    one_between: "Tra {attribute_desc_1} e {attribute_desc_2} c'è una casa."
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'nom']
+    not_next_to: ['nom', 'nom']
+    just_left_of: ['nom', 'nom']
+    just_right_of: ['nom', 'nom']
+    left_of: ['nom', 'nom']
+    right_of: ['nom', 'nom']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['nom', 'nom', 'nom']
+    not_between: ['nom', 'nom', 'nom']
+    multiple_between: ['nom', 'nom']
+    one_between: ['nom', 'nom']
+
+red_herring_clues_dict:
+    same_herring: "{attribute_desc} {attribute_desc_herring}."
+    next_to_herring: "{attribute_desc} abita accanto a {attribute_desc_herring}."
+    double_herring: "{attribute_desc_herring_1} {attribute_desc_herring_2}."
+    fact: "{fact}."
+    object_fact: "{attribute_desc} sa che {fact}."
+    friends: "{attribute_desc} e {attribute_desc_herring} sono buoni amici."
+    herring_found_at: "{attribute_desc_herring} abita nella casa numero {i_object}."
+    herring_not_at: "{attribute_desc_herring} non abita nella casa numero {i_object}."
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'nom']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+prompt_and: e
+
+prompt_templates:
+    - |
+        Una fila di case è numerata da 1 a {n_objects} da sinistra a destra.
+
+        In ogni casa abita una persona con attributi unici in ciascuna delle seguenti categorie:
+
+        {chosen_attributes_str}
+
+        Sappiamo anche quanto segue:
+
+        {chosen_clues_str}
+
+        Chi ha quali attributi e abita in quale casa?
+
+        Si prega di inviare la risposta come dizionario JSON. Ogni chiave deve essere object_X, dove X è il numero della casa. Ogni valore deve essere un elenco degli attributi delle categorie indicate che appartengono alla persona che abita nella casa numero X.
+
+        Di seguito è riportato un esempio del formato della risposta:
+
+        {solution_template}
+    - |
+        Una fila di case è numerata da 1 a {n_objects} da sinistra a destra.
+
+        In ogni casa abita una persona con un attributo unico nella categoria {chosen_attributes_str}.
+
+        Sappiamo anche quanto segue:
+
+        {chosen_clues_str}
+
+        Quali attributi ha la persona che abita in ogni casa?
+
+        Si prega di inviare la risposta come dizionario JSON. Ogni chiave deve essere object_X, dove X è il numero della casa. Ogni valore deve essere un elenco contenente l'attributo della categoria indicata che appartiene alla persona che abita nella casa numero X.
+
+        Di seguito è riportato un esempio del formato della risposta:
+
+        {solution_template}
+
+# Article contractions: "a il" → "al", "di il" → "del", etc.
+# Leading space on "a ..." rules prevents spurious matches inside "tra il/lo/l'...".
+prompt_replacements:
+    'di il ': 'del '
+    'di lo ': 'dello '
+    'di la ': 'della '
+    "di l'": "dell'"
+    ' a il ': ' al '
+    ' a lo ': ' allo '
+    ' a la ': ' alla '
+    " a l'": " all'"

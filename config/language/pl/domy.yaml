@@ -1,0 +1,206 @@
+# Config file for generating zebra puzzles in Polish with the houses theme.
+# Gender default: masculine used as generic for occupations, pets, and activity-based forms
+# (standard Polish professional/formal convention — e.g. "piekarz" for baker of any gender).
+# Nationalities use "osoba z [kraju]" (person from [country]) for gender neutrality,
+# since nationality nouns (Duńczyk/Dunka) are strongly gendered in Polish.
+# All present-tense predicates are gender-neutral in Polish, so there are no agreement
+# mismatches when "osoba z Danii" (grammatically feminine) acts as subject of a present
+# tense predicate.
+# Cases: genitive after obok/od (next_to, left_of, right_of); instrumental after między (between).
+
+theme: pl_domy
+
+attribute_cases: [nom, is, is_not, gen, inst]
+red_herring_attribute_cases: [nom, is, gen, inst]
+
+attributes:
+
+    Narodowości:
+        Dania: ['osoba z Danii', 'jest z Danii', 'nie jest z Danii', 'osoby z Danii', 'osobą z Danii']
+        Szwecja: ['osoba ze Szwecji', 'jest ze Szwecji', 'nie jest ze Szwecji', 'osoby ze Szwecji', 'osobą ze Szwecji']
+        Łotwa: ['osoba z Łotwy', 'jest z Łotwy', 'nie jest z Łotwy', 'osoby z Łotwy', 'osobą z Łotwy']
+        Francja: ['osoba z Francji', 'jest z Francji', 'nie jest z Francji', 'osoby z Francji', 'osobą z Francji']
+        Hiszpania: ['osoba z Hiszpanii', 'jest z Hiszpanii', 'nie jest z Hiszpanii', 'osoby z Hiszpanii', 'osobą z Hiszpanii']
+        Włochy: ['osoba z Włoch', 'jest z Włoch', 'nie jest z Włoch', 'osoby z Włoch', 'osobą z Włoch']
+        Norwegia: ['osoba z Norwegii', 'jest z Norwegii', 'nie jest z Norwegii', 'osoby z Norwegii', 'osobą z Norwegii']
+        Wyspy Owcze: ['osoba z Wysp Owczych', 'jest z Wysp Owczych', 'nie jest z Wysp Owczych', 'osoby z Wysp Owczych', 'osobą z Wysp Owczych']
+        Niderlandy: ['osoba z Niderlandów', 'jest z Niderlandów', 'nie jest z Niderlandów', 'osoby z Niderlandów', 'osobą z Niderlandów']
+        Islandia: ['osoba z Islandii', 'jest z Islandii', 'nie jest z Islandii', 'osoby z Islandii', 'osobą z Islandii']
+        Wielka Brytania: ['osoba z Wielkiej Brytanii', 'jest z Wielkiej Brytanii', 'nie jest z Wielkiej Brytanii', 'osoby z Wielkiej Brytanii', 'osobą z Wielkiej Brytanii']
+
+    Zawody:
+        piekarz: ['piekarz', 'jest piekarzem', 'nie jest piekarzem', 'piekarza', 'piekarzem']
+        minister: ['minister', 'jest ministrem', 'nie jest ministrem', 'ministra', 'ministrem']
+        policjant: ['policjant', 'jest policjantem', 'nie jest policjantem', 'policjanta', 'policjantem']
+        medyk: ['medyk', 'jest medykiem', 'nie jest medykiem', 'medyka', 'medykiem']
+        nauczyciel: ['nauczyciel', 'jest nauczycielem', 'nie jest nauczycielem', 'nauczyciela', 'nauczycielem']
+        programista: ['programista', 'jest programistą', 'nie jest programistą', 'programisty', 'programistą']
+        sprzedawca: ['sprzedawca', 'jest sprzedawcą', 'nie jest sprzedawcą', 'sprzedawcy', 'sprzedawcą']
+
+    Zwierzęta domowe:
+        kot: ['właściciel kota', 'ma kota', 'nie ma kota', 'właściciela kota', 'właścicielem kota']
+        pies: ['właściciel psa', 'ma psa', 'nie ma psa', 'właściciela psa', 'właścicielem psa']
+        królik: ['właściciel królika', 'ma królika', 'nie ma królika', 'właściciela królika', 'właścicielem królika']
+        zebra: ['właściciel zebry', 'ma zebrę', 'nie ma zebry', 'właściciela zebry', 'właścicielem zebry']
+        papużka falista: ['właściciel papużki falistej', 'ma papużkę falistą', 'nie ma papużki falistej', 'właściciela papużki falistej', 'właścicielem papużki falistej']
+        ślimak: ['właściciel ślimaka', 'ma ślimaka', 'nie ma ślimaka', 'właściciela ślimaka', 'właścicielem ślimaka']
+        patyczak: ['właściciel patyczaka', 'ma patyczaka', 'nie ma patyczaka', 'właściciela patyczaka', 'właścicielem patyczaka']
+
+    Napoje:
+        sok: ['pijący sok', 'pije sok', 'nie pije soku', 'pijącego sok', 'pijącym sok']
+        kawa: ['pijący kawę', 'pije kawę', 'nie pije kawy', 'pijącego kawę', 'pijącym kawę']
+        mleko: ['pijący mleko', 'pije mleko', 'nie pije mleka', 'pijącego mleko', 'pijącym mleko']
+        smoothie: ['pijący smoothie', 'pije smoothie', 'nie pije smoothie', 'pijącego smoothie', 'pijącym smoothie']
+        kakao: ['pijący kakao', 'pije kakao', 'nie pije kakao', 'pijącego kakao', 'pijącym kakao']
+        herbata: ['pijący herbatę', 'pije herbatę', 'nie pije herbaty', 'pijącego herbatę', 'pijącym herbatę']
+        napój gazowany: ['pijący napoje gazowane', 'pije napoje gazowane', 'nie pije napojów gazowanych', 'pijącego napoje gazowane', 'pijącym napoje gazowane']
+
+    Ulubiony gatunek książek:
+        literatura faktu: ['czytający literaturę faktu', 'czyta literaturę faktu', 'nie czyta literatury faktu', 'czytającego literaturę faktu', 'czytającym literaturę faktu']
+        kryminał: ['czytający kryminały', 'czyta kryminały', 'nie czyta kryminałów', 'czytającego kryminały', 'czytającym kryminały']
+        fantasy: ['czytający fantasy', 'czyta fantasy', 'nie czyta fantasy', 'czytającego fantasy', 'czytającym fantasy']
+        fantastyka naukowa: ['czytający fantastykę naukową', 'czyta fantastykę naukową', 'nie czyta fantastyki naukowej', 'czytającego fantastykę naukową', 'czytającym fantastykę naukową']
+        horror: ['czytający horrory', 'czyta horrory', 'nie czyta horrorów', 'czytającego horrory', 'czytającym horrory']
+        poezja: ['czytający poezję', 'czyta poezję', 'nie czyta poezji', 'czytającego poezję', 'czytającym poezję']
+        romans: ['czytający romanse', 'czyta romanse', 'nie czyta romansów', 'czytającego romanse', 'czytającym romanse']
+
+    Hobby:
+        bouldering: ['uprawiający bouldering', 'uprawia bouldering', 'nie uprawia boulderingu', 'uprawiającego bouldering', 'uprawiającym bouldering']
+        malowanie: ['malujący', 'maluje', 'nie maluje', 'malującego', 'malującym']
+        gry planszowe: ['grający w gry planszowe', 'gra w gry planszowe', 'nie gra w gry planszowe', 'grającego w gry planszowe', 'grającym w gry planszowe']
+        tenis: ['grający w tenisa', 'gra w tenisa', 'nie gra w tenisa', 'grającego w tenisa', 'grającym w tenisa']
+        szydełkowanie: ['szydełkujący', 'szydełkuje', 'nie szydełkuje', 'szydełkującego', 'szydełkującym']
+        piłka nożna: ['grający w piłkę nożną', 'gra w piłkę nożną', 'nie gra w piłkę nożną', 'grającego w piłkę nożną', 'grającym w piłkę nożną']
+        piłka ręczna: ['grający w piłkę ręczną', 'gra w piłkę ręczną', 'nie gra w piłkę ręczną', 'grającego w piłkę ręczną', 'grającym w piłkę ręczną']
+
+    Ulubione owoce:
+        jabłko: ['lubiący jabłka', 'lubi jabłka', 'nie lubi jabłek', 'lubiącego jabłka', 'lubiącym jabłka']
+        gruszka: ['lubiący gruszki', 'lubi gruszki', 'nie lubi gruszek', 'lubiącego gruszki', 'lubiącym gruszki']
+        pomarańcza: ['lubiący pomarańcze', 'lubi pomarańcze', 'nie lubi pomarańczy', 'lubiącego pomarańcze', 'lubiącym pomarańcze']
+        banan: ['lubiący banany', 'lubi banany', 'nie lubi bananów', 'lubiącego banany', 'lubiącym banany']
+        truskawka: ['lubiący truskawki', 'lubi truskawki', 'nie lubi truskawek', 'lubiącego truskawki', 'lubiącym truskawki']
+        czarna porzeczka: ['lubiący czarne porzeczki', 'lubi czarne porzeczki', 'nie lubi czarnych porzeczek', 'lubiącego czarne porzeczki', 'lubiącym czarne porzeczki']
+        poziomka: ['lubiący poziomki', 'lubi poziomki', 'nie lubi poziomek', 'lubiącego poziomki', 'lubiącym poziomki']
+
+red_herring_attributes:
+    rude_wlosy: ['rudowłosy', 'ma rude włosy', 'rudowłosego', 'rudowłosym']
+    okulary: ['noszący okulary', 'nosi okulary', 'noszącego okulary', 'noszącym okulary']
+    tatuaz: ['wytatuowany', 'ma tatuaż', 'wytatuowanego', 'wytatuowanym']
+    gitara: ['grający na gitarze', 'gra na gitarze', 'grającego na gitarze', 'grającym na gitarze']
+    rower: ['właściciel roweru', 'ma rower', 'właściciela roweru', 'właścicielem roweru']
+    swinka_morska: ['właściciel świnki morskiej', 'ma świnkę morską', 'właściciela świnki morskiej', 'właścicielem świnki morskiej']
+    kaktus: ['niemający kaktusa', 'nie ma kaktusa', 'niemającego kaktusa', 'niemającym kaktusa']
+    gry_wideo: ['grający w gry wideo', 'gra w gry wideo', 'grającego w gry wideo', 'grającym w gry wideo']
+    siostra: ['mający siostrę', 'ma siostrę', 'mającego siostrę', 'mającym siostrę']
+    mango: ['uważający mango za drugi najlepszy owoc', 'uważa mango za drugi najlepszy owoc', 'uważającego mango za drugi najlepszy owoc', 'uważającym mango za drugi najlepszy owoc']
+    zeglowanie: ['często żeglujący', 'często żegluje', 'często żeglującego', 'często żeglującym']
+    Kanada: ['odwiedzający Kanadę', 'odwiedza Kanadę', 'odwiedzającego Kanadę', 'odwiedzającym Kanadę']
+    matematyka: ['mający dyplom magistra z matematyki', 'ma dyplom magistra z matematyki', 'mającego dyplom magistra z matematyki', 'mającym dyplom magistra z matematyki']
+    fizyka: ['kochający fizykę', 'kocha fizykę', 'kochającego fizykę', 'kochającym fizykę']
+    stary_zwierzak: ['właściciel zwierzaka starego jak na swój gatunek', 'ma zwierzaka starego jak na swój gatunek', 'właściciela zwierzaka starego jak na swój gatunek', 'właścicielem zwierzaka starego jak na swój gatunek']
+    skoki_narciarskie: ['oglądający skoki narciarskie', 'ogląda skoki narciarskie', 'oglądającego skoki narciarskie', 'oglądającym skoki narciarskie']
+
+red_herring_facts:
+    sledz: ['śledź to ryba']
+    uklad_sloneczny: ['Układ Słoneczny porusza się z prędkością około 200 km/s wokół centrum galaktyki']
+    zagadki: ['rozwiązywanie zagadek jest ciekawe']
+    domy: ['wszystkie domy przy ulicy mają piękne ogrody']
+    drzwi: ['niektóre domy mają zielone drzwi']
+    okna: ['wszystkie domy mają duże okna']
+    samochody: ['na drodze jest dużo samochodów']
+    ogorek: ['ogórek jest jagodą']
+    slimaki: ['ślimaki to mięczaki']
+    kawa_fakt: ['kawa zawiera kofeinę']
+
+clues_dict:
+    found_at: '{attribute_desc} mieszka w domu numer {i_object}.'
+    not_at: '{attribute_desc} nie mieszka w domu numer {i_object}.'
+    next_to: '{attribute_desc_1} mieszka obok {attribute_desc_2}.'
+    not_next_to: '{attribute_desc_1} nie mieszka obok {attribute_desc_2}, i to są różne osoby.'
+    just_left_of: '{attribute_desc_1} mieszka bezpośrednio na lewo od {attribute_desc_2}.'
+    just_right_of: '{attribute_desc_1} mieszka bezpośrednio na prawo od {attribute_desc_2}.'
+    left_of: '{attribute_desc_1} mieszka na lewo od {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} mieszka na prawo od {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'
+    between: '{attribute_desc_2} mieszka między {attribute_desc_1} a {attribute_desc_3}.'
+    not_between: '{attribute_desc_1} nie mieszka między {attribute_desc_2} a {attribute_desc_3}, i to są trzy różne osoby.'
+    multiple_between: 'Między {attribute_desc_1} a {attribute_desc_2} są {n_between} domy.'
+    one_between: 'Między {attribute_desc_1} a {attribute_desc_2} jest jeden dom.'
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'gen']
+    not_next_to: ['nom', 'gen']
+    just_left_of: ['nom', 'gen']
+    just_right_of: ['nom', 'gen']
+    left_of: ['nom', 'gen']
+    right_of: ['nom', 'gen']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['inst', 'nom', 'inst']
+    not_between: ['nom', 'inst', 'inst']
+    multiple_between: ['inst', 'inst']
+    one_between: ['inst', 'inst']
+
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} mieszka obok {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} wie, że {fact}.'
+    friends: '{attribute_desc} i {attribute_desc_herring} są dobrymi przyjaciółmi.'
+    herring_found_at: '{attribute_desc_herring} mieszka w domu numer {i_object}.'
+    herring_not_at: '{attribute_desc_herring} nie mieszka w domu numer {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'gen']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+prompt_templates:
+    - |
+        Rząd domów jest ponumerowany od 1 do {n_objects} od lewej do prawej.
+
+        W każdym domu mieszka osoba z unikalną cechą w każdej z następujących kategorii:
+
+        {chosen_attributes_str}
+
+        Wiemy również co następuje:
+
+        {chosen_clues_str}
+
+        Kto ma jakie cechy i mieszka w którym domu?
+
+        Proszę podać odpowiedź w formie słownik JSON. Każdy klucz powinien być object_X, gdzie X jest numerem domu. Każda wartość powinna być listą cech z powyższych kategorii należących do osoby zamieszkałej w domu numer X.
+
+        Poniżej znajduje się przykład formatu odpowiedzi:
+
+        {solution_template}
+    - |
+        Rząd domów jest ponumerowany od 1 do {n_objects} od lewej do prawej.
+
+        W każdym domu mieszka osoba z unikalną cechą w kategorii {chosen_attributes_str}.
+
+        Wiemy również co następuje:
+
+        {chosen_clues_str}
+
+        Kto ma jakie cechy i mieszka w którym domu?
+
+        Proszę podać odpowiedź w formie słownik JSON. Każdy klucz powinien być object_X, gdzie X jest numerem domu. Każda wartość powinna być listą z cechą z powyższej kategorii należącą do osoby zamieszkałej w domu numer X.
+
+        Poniżej znajduje się przykład formatu odpowiedzi:
+
+        {solution_template}
+
+prompt_and: 'i'
+
+prompt_replacements:
+    'wie, że rozwiązywanie zagadek jest ciekawe': 'uważa, że rozwiązywanie zagadek jest ciekawe'
