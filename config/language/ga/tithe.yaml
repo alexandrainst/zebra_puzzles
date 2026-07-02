@@ -134,7 +134,7 @@ clues_dict:
     left_of: 'Tá cónaí ar an {attribute_desc_1} ar chlé den {attribute_desc_2}.'
     right_of: 'Tá cónaí ar an {attribute_desc_1} ar dheis den {attribute_desc_2}.'
     same_object: 'Tá an {attribute_desc_1} ina {attribute_desc_2}.'                                                                         # Requires n_attributes > 1, otherwise it cannot be used
-    not_same_object: 'Níl an {attribute_desc_1} ina {attribute_desc_2}, agus daoine difriúla iad.'                                          # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: 'Níl an {attribute_desc_1} ina {attribute_desc_2}.'                                                                    # Requires n_attributes > 1, otherwise it cannot be used
     between: 'Tá cónaí ar an {attribute_desc_2} idir an {attribute_desc_1} agus an {attribute_desc_3}.'                                     # Requires n_objects > 2, otherwise it cannot be used
     not_between: 'Níl cónaí ar an {attribute_desc_1} idir an {attribute_desc_2} agus an {attribute_desc_3}, agus triúr daoine difriúla iad.' # Requires n_objects > 2, otherwise it cannot be used
     multiple_between: 'Tá {n_between} teach idir an {attribute_desc_1} agus an {attribute_desc_2}.'                                         # Requires n_objects > 3, otherwise it cannot be used
@@ -171,10 +171,10 @@ same_object_templates:
     torthaí is fearr: 'Tá dúil ag an {attribute_desc_1} {attribute_desc_2}.'
 
 not_same_object_templates:
-    peataí: 'Níl {attribute_desc_2} ag an {attribute_desc_1}, agus daoine difriúla iad.'
-    deochanna: 'Ní ólann an {attribute_desc_1} {attribute_desc_2}, agus daoine difriúla iad.'
-    seánraí leabhar: 'Ní léann an {attribute_desc_1} {attribute_desc_2}, agus daoine difriúla iad.'
-    torthaí is fearr: 'Níl dúil ag an {attribute_desc_1} {attribute_desc_2}, agus daoine difriúla iad.'
+    peataí: 'Níl {attribute_desc_2} ag an {attribute_desc_1}.'
+    deochanna: 'Ní ólann an {attribute_desc_1} {attribute_desc_2}.'
+    seánraí leabhar: 'Ní léann an {attribute_desc_1} {attribute_desc_2}.'
+    torthaí is fearr: 'Níl dúil ag an {attribute_desc_1} {attribute_desc_2}.'
 
 prompt_and: agus
 
