@@ -41,15 +41,6 @@ attributes:
         kërmill: ['pronari i kërmillit', 'ka kërmill', 'nuk ka kërmill', 'pronarit të kërmillit']
         insekt-shkop: ['pronari i insektit-shkop', 'ka insekt-shkop', 'nuk ka insekt-shkop', 'pronarit të insektit-shkop']
 
-    pije:
-        lëng: ['ai që pi lëng', 'pi lëng', 'nuk pi lëng', 'atij që pi lëng']
-        kafe: ['ai që pi kafe', 'pi kafe', 'nuk pi kafe', 'atij që pi kafe']
-        qumësht: ['ai që pi qumësht', 'pi qumësht', 'nuk pi qumësht', 'atij që pi qumësht']
-        smoothie: ['ai që pi smoothie', 'pi smoothie', 'nuk pi smoothie', 'atij që pi smoothie']
-        kakao: ['ai që pi kakao', 'pi kakao', 'nuk pi kakao', 'atij që pi kakao']
-        çaj: ['ai që pi çaj', 'pi çaj', 'nuk pi çaj', 'atij që pi çaj']
-        gazozë: ['ai që pi gazozë', 'pi gazozë', 'nuk pi gazozë', 'atij që pi gazozë']
-
     zhanre të preferuara letrare:
         jofiksion: ['lexuesi i jofiksionit', 'lexon jofiksion', 'nuk lexon jofiksion', 'lexuesit të jofiksionit']
         roman kriminal: ['lexuesi i romaneve kriminale', 'lexon romane kriminale', 'nuk lexon romane kriminale', 'lexuesit të romaneve kriminale']
@@ -58,6 +49,15 @@ attributes:
         horror: ['lexuesi i horrorit', 'lexon horror', 'nuk lexon horror', 'lexuesit të horrorit']
         poezi: ['lexuesi i poezisë', 'lexon poezi', 'nuk lexon poezi', 'lexuesit të poezisë']
         roman dashurie: ['lexuesi i romaneve të dashurisë', 'lexon romane dashurie', 'nuk lexon romane dashurie', 'lexuesit të romaneve të dashurisë']
+
+    pije:
+        lëng: ['ai që pi lëng', 'pi lëng', 'nuk pi lëng', 'atij që pi lëng']
+        kafe: ['ai që pi kafe', 'pi kafe', 'nuk pi kafe', 'atij që pi kafe']
+        qumësht: ['ai që pi qumësht', 'pi qumësht', 'nuk pi qumësht', 'atij që pi qumësht']
+        smoothie: ['ai që pi smoothie', 'pi smoothie', 'nuk pi smoothie', 'atij që pi smoothie']
+        kakao: ['ai që pi kakao', 'pi kakao', 'nuk pi kakao', 'atij që pi kakao']
+        çaj: ['ai që pi çaj', 'pi çaj', 'nuk pi çaj', 'atij që pi çaj']
+        gazozë: ['ai që pi gazozë', 'pi gazozë', 'nuk pi gazozë', 'atij që pi gazozë']
 
     hobi:
         bouldering: ['ai që bën bouldering', 'bën bouldering', 'nuk bën bouldering', 'atij që bën bouldering']

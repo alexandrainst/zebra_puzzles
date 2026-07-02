@@ -46,15 +46,6 @@ attributes:
         hlemýžď: ["majitel hlemýždě", "má hlemýždě", "nemá hlemýždě", "majitele hlemýždě", "majitelem hlemýždě"]
         pakobylka: ["majitel pakobylky", "má pakobylku", "nemá pakobylku", "majitele pakobylky", "majitelem pakobylky"]
 
-    nápoje:
-        džus: ["ten, kdo pije džus,", "pije džus", "nepije džus", "toho, kdo pije džus,", "tím, kdo pije džus,"]
-        káva: ["ten, kdo pije kávu,", "pije kávu", "nepije kávu", "toho, kdo pije kávu,", "tím, kdo pije kávu,"]
-        mléko: ["ten, kdo pije mléko,", "pije mléko", "nepije mléko", "toho, kdo pije mléko,", "tím, kdo pije mléko,"]
-        smoothie: ["ten, kdo pije smoothie,", "pije smoothie", "nepije smoothie", "toho, kdo pije smoothie,", "tím, kdo pije smoothie,"]
-        kakao: ["ten, kdo pije kakao,", "pije kakao", "nepije kakao", "toho, kdo pije kakao,", "tím, kdo pije kakao,"]
-        čaj: ["ten, kdo pije čaj,", "pije čaj", "nepije čaj", "toho, kdo pije čaj,", "tím, kdo pije čaj,"]
-        limonáda: ["ten, kdo pije limonádu,", "pije limonádu", "nepije limonádu", "toho, kdo pije limonádu,", "tím, kdo pije limonádu,"]
-
     oblíbené literární žánry:
         literatura faktu: ["čtenář literatury faktu", "čte literaturu faktu", "nečte literaturu faktu", "čtenáře literatury faktu", "čtenářem literatury faktu"]
         detektivka: ["čtenář detektivek", "čte detektivky", "nečte detektivky", "čtenáře detektivek", "čtenářem detektivek"]
@@ -63,6 +54,24 @@ attributes:
         horor: ["čtenář hororů", "čte horory", "nečte horory", "čtenáře hororů", "čtenářem hororů"]
         poezie: ["čtenář poezie", "čte poezii", "nečte poezii", "čtenáře poezie", "čtenářem poezie"]
         romantický román: ["čtenář romantických románů", "čte romantické romány", "nečte romantické romány", "čtenáře romantických románů", "čtenářem romantických románů"]
+
+    oblíbené ovoce:
+        jablko: ["milovník jablek", "má rád jablka", "nemá rád jablka", "milovníka jablek", "milovníkem jablek"]
+        hruška: ["milovník hrušek", "má rád hrušky", "nemá rád hrušky", "milovníka hrušek", "milovníkem hrušek"]
+        pomeranč: ["milovník pomerančů", "má rád pomeranče", "nemá rád pomeranče", "milovníka pomerančů", "milovníkem pomerančů"]
+        banán: ["milovník banánů", "má rád banány", "nemá rád banány", "milovníka banánů", "milovníkem banánů"]
+        jahoda: ["milovník jahod", "má rád jahody", "nemá rád jahody", "milovníka jahod", "milovníkem jahod"]
+        černý rybíz: ["milovník černého rybízu", "má rád černý rybíz", "nemá rád černý rybíz", "milovníka černého rybízu", "milovníkem černého rybízu"]
+        lesní jahoda: ["milovník lesních jahod", "má rád lesní jahody", "nemá rád lesní jahody", "milovníka lesních jahod", "milovníkem lesních jahod"]
+
+    nápoje:
+        džus: ["ten, kdo pije džus,", "pije džus", "nepije džus", "toho, kdo pije džus,", "tím, kdo pije džus,"]
+        káva: ["ten, kdo pije kávu,", "pije kávu", "nepije kávu", "toho, kdo pije kávu,", "tím, kdo pije kávu,"]
+        mléko: ["ten, kdo pije mléko,", "pije mléko", "nepije mléko", "toho, kdo pije mléko,", "tím, kdo pije mléko,"]
+        smoothie: ["ten, kdo pije smoothie,", "pije smoothie", "nepije smoothie", "toho, kdo pije smoothie,", "tím, kdo pije smoothie,"]
+        kakao: ["ten, kdo pije kakao,", "pije kakao", "nepije kakao", "toho, kdo pije kakao,", "tím, kdo pije kakao,"]
+        čaj: ["ten, kdo pije čaj,", "pije čaj", "nepije čaj", "toho, kdo pije čaj,", "tím, kdo pije čaj,"]
+        limonáda: ["ten, kdo pije limonádu,", "pije limonádu", "nepije limonádu", "toho, kdo pije limonádu,", "tím, kdo pije limonádu,"]
 
     koníčky:
         bouldering: ["ten, kdo se věnuje boulderingu,", "věnuje se boulderingu", "nevěnuje se boulderingu", "toho, kdo se věnuje boulderingu,", "tím, kdo se věnuje boulderingu,"]
@@ -73,14 +82,6 @@ attributes:
         fotbal: ["ten, kdo hraje fotbal,", "hraje fotbal", "nehraje fotbal", "toho, kdo hraje fotbal,", "tím, kdo hraje fotbal,"]
         házená: ["ten, kdo hraje házenou,", "hraje házenou", "nehraje házenou", "toho, kdo hraje házenou,", "tím, kdo hraje házenou,"]
 
-    oblíbené ovoce:
-        jablko: ["milovník jablek", "má rád jablka", "nemá rád jablka", "milovníka jablek", "milovníkem jablek"]
-        hruška: ["milovník hrušek", "má rád hrušky", "nemá rád hrušky", "milovníka hrušek", "milovníkem hrušek"]
-        pomeranč: ["milovník pomerančů", "má rád pomeranče", "nemá rád pomeranče", "milovníka pomerančů", "milovníkem pomerančů"]
-        banán: ["milovník banánů", "má rád banány", "nemá rád banány", "milovníka banánů", "milovníkem banánů"]
-        jahoda: ["milovník jahod", "má rád jahody", "nemá rád jahody", "milovníka jahod", "milovníkem jahod"]
-        černý rybíz: ["milovník černého rybízu", "má rád černý rybíz", "nemá rád černý rybíz", "milovníka černého rybízu", "milovníkem černého rybízu"]
-        lesní jahoda: ["milovník lesních jahod", "má rád lesní jahody", "nemá rád lesní jahody", "milovníka lesních jahod", "milovníkem lesních jahod"]
 
 red_herring_attributes:
     ryšavé_vlasy: ["ryšavý", "má ryšavé vlasy", "ryšavého", "ryšavým"]

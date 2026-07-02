@@ -48,15 +48,6 @@ attributes:
         polž: ["lastnik polža", "ima polža", "nima polža", "lastnika polža", "lastnikom polža"]
         paličnjak: ["lastnik paličnjaka", "ima paličnjaka", "nima paličnjaka", "lastnika paličnjaka", "lastnikom paličnjaka"]
 
-    pijače:
-        sok: ["tisti, ki pije sok,", "pije sok", "ne pije soka", "tistega, ki pije sok,", "tistim, ki pije sok,"]
-        kava: ["tisti, ki pije kavo,", "pije kavo", "ne pije kave", "tistega, ki pije kavo,", "tistim, ki pije kavo,"]
-        mleko: ["tisti, ki pije mleko,", "pije mleko", "ne pije mleka", "tistega, ki pije mleko,", "tistim, ki pije mleko,"]
-        zméšanček: ["tisti, ki pije zméšanček,", "pije zméšanček", "ne pije zméšančka", "tistega, ki pije zméšanček,", "tistim, ki pije zméšanček,"]
-        kakav: ["tisti, ki pije kakav,", "pije kakav", "ne pije kakava", "tistega, ki pije kakav,", "tistim, ki pije kakav,"]
-        čaj: ["tisti, ki pije čaj,", "pije čaj", "ne pije čaja", "tistega, ki pije čaj,", "tistim, ki pije čaj,"]
-        gazirana pijača: ["tisti, ki pije gazirano pijačo,", "pije gazirano pijačo", "ne pije gazirane pijače", "tistega, ki pije gazirano pijačo,", "tistim, ki pije gazirano pijačo,"]
-
     priljubljeni literarni žanri:
         neleposlovna literatura: ["bralec neleposlovne literature", "bere neleposlovno literaturo", "ne bere neleposlovne literature", "bralca neleposlovne literature", "bralcem neleposlovne literature"]
         kriminalni roman: ["bralec kriminalnih romanov", "bere kriminalne romane", "ne bere kriminalnih romanov", "bralca kriminalnih romanov", "bralcem kriminalnih romanov"]
@@ -65,6 +56,24 @@ attributes:
         grozljivka: ["bralec grozljivk", "bere grozljivke", "ne bere grozljivk", "bralca grozljivk", "bralcem grozljivk"]
         poezija: ["bralec poezije", "bere poezijo", "ne bere poezije", "bralca poezije", "bralcem poezije"]
         ljubezenski roman: ["bralec ljubezenskih romanov", "bere ljubezenske romane", "ne bere ljubezenskih romanov", "bralca ljubezenskih romanov", "bralcem ljubezenskih romanov"]
+
+    priljubljeno sadje:
+        jabolko: ["ljubitelj jabolk", "ima rad jabolka", "nima rad jabolk", "ljubitelja jabolk", "ljubiteljem jabolk"]
+        hruška: ["ljubitelj hrušk", "ima rad hruške", "nima rad hrušk", "ljubitelja hrušk", "ljubiteljem hrušk"]
+        pomaranča: ["ljubitelj pomaranč", "ima rad pomaranče", "nima rad pomaranč", "ljubitelja pomaranč", "ljubiteljem pomaranč"]
+        banana: ["ljubitelj banan", "ima rad banane", "nima rad banan", "ljubitelja banan", "ljubiteljem banan"]
+        jagoda: ["ljubitelj jagod", "ima rad jagode", "nima rad jagod", "ljubitelja jagod", "ljubiteljem jagod"]
+        črni ribez: ["ljubitelj črnega ribeza", "ima rad črni ribez", "nima rad črnega ribeza", "ljubitelja črnega ribeza", "ljubiteljem črnega ribeza"]
+        gozdna jagoda: ["ljubitelj gozdnih jagod", "ima rad gozdne jagode", "nima rad gozdnih jagod", "ljubitelja gozdnih jagod", "ljubiteljem gozdnih jagod"]
+
+    pijače:
+        sok: ["tisti, ki pije sok,", "pije sok", "ne pije soka", "tistega, ki pije sok,", "tistim, ki pije sok,"]
+        kava: ["tisti, ki pije kavo,", "pije kavo", "ne pije kave", "tistega, ki pije kavo,", "tistim, ki pije kavo,"]
+        mleko: ["tisti, ki pije mleko,", "pije mleko", "ne pije mleka", "tistega, ki pije mleko,", "tistim, ki pije mleko,"]
+        zméšanček: ["tisti, ki pije zméšanček,", "pije zméšanček", "ne pije zméšančka", "tistega, ki pije zméšanček,", "tistim, ki pije zméšanček,"]
+        kakav: ["tisti, ki pije kakav,", "pije kakav", "ne pije kakava", "tistega, ki pije kakav,", "tistim, ki pije kakav,"]
+        čaj: ["tisti, ki pije čaj,", "pije čaj", "ne pije čaja", "tistega, ki pije čaj,", "tistim, ki pije čaj,"]
+        gazirana pijača: ["tisti, ki pije gazirano pijačo,", "pije gazirano pijačo", "ne pije gazirane pijače", "tistega, ki pije gazirano pijačo,", "tistim, ki pije gazirano pijačo,"]
 
     hobiji:
         bouldering: ["tisti, ki se ukvarja z boulderingom,", "ukvarja se z boulderingom", "se ne ukvarja z boulderingom", "tistega, ki se ukvarja z boulderingom,", "tistim, ki se ukvarja z boulderingom,"]
@@ -75,14 +84,6 @@ attributes:
         nogomet: ["tisti, ki igra nogomet,", "igra nogomet", "ne igra nogometa", "tistega, ki igra nogomet,", "tistim, ki igra nogomet,"]
         rokomet: ["tisti, ki igra rokomet,", "igra rokomet", "ne igra rokometa", "tistega, ki igra rokomet,", "tistim, ki igra rokomet,"]
 
-    priljubljeno sadje:
-        jabolko: ["ljubitelj jabolk", "ima rad jabolka", "nima rad jabolk", "ljubitelja jabolk", "ljubiteljem jabolk"]
-        hruška: ["ljubitelj hrušk", "ima rad hruške", "nima rad hrušk", "ljubitelja hrušk", "ljubiteljem hrušk"]
-        pomaranča: ["ljubitelj pomaranč", "ima rad pomaranče", "nima rad pomaranč", "ljubitelja pomaranč", "ljubiteljem pomaranč"]
-        banana: ["ljubitelj banan", "ima rad banane", "nima rad banan", "ljubitelja banan", "ljubiteljem banan"]
-        jagoda: ["ljubitelj jagod", "ima rad jagode", "nima rad jagod", "ljubitelja jagod", "ljubiteljem jagod"]
-        črni ribez: ["ljubitelj črnega ribeza", "ima rad črni ribez", "nima rad črnega ribeza", "ljubitelja črnega ribeza", "ljubiteljem črnega ribeza"]
-        gozdna jagoda: ["ljubitelj gozdnih jagod", "ima rad gozdne jagode", "nima rad gozdnih jagod", "ljubitelja gozdnih jagod", "ljubiteljem gozdnih jagod"]
 
 red_herring_attributes:
     rdeči_lasje: ["rdečelasec", "ima rdeče lase", "rdečelasca", "rdečelascem"]

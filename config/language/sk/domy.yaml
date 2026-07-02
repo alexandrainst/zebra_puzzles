@@ -46,15 +46,6 @@ attributes:
         slimák: ["majiteľ slimáka", "má slimáka", "nemá slimáka", "majiteľa slimáka", "majiteľom slimáka"]
         pakobylka: ["majiteľ pakobylky", "má pakobylku", "nemá pakobylku", "majiteľa pakobylky", "majiteľom pakobylky"]
 
-    nápoje:
-        džús: ["ten, kto pije džús,", "pije džús", "nepije džús", "toho, kto pije džús,", "tým, kto pije džús,"]
-        káva: ["ten, kto pije kávu,", "pije kávu", "nepije kávu", "toho, kto pije kávu,", "tým, kto pije kávu,"]
-        mlieko: ["ten, kto pije mlieko,", "pije mlieko", "nepije mlieko", "toho, kto pije mlieko,", "tým, kto pije mlieko,"]
-        smoothie: ["ten, kto pije smoothie,", "pije smoothie", "nepije smoothie", "toho, kto pije smoothie,", "tým, kto pije smoothie,"]
-        kakao: ["ten, kto pije kakao,", "pije kakao", "nepije kakao", "toho, kto pije kakao,", "tým, kto pije kakao,"]
-        čaj: ["ten, kto pije čaj,", "pije čaj", "nepije čaj", "toho, kto pije čaj,", "tým, kto pije čaj,"]
-        limonáda: ["ten, kto pije limonádu,", "pije limonádu", "nepije limonádu", "toho, kto pije limonádu,", "tým, kto pije limonádu,"]  # uncertain: limonáda = generic soft drink here
-
     obľúbené literárne žánre:
         literatúra faktu: ["čitateľ literatúry faktu", "číta literatúru faktu", "nečíta literatúru faktu", "čitateľa literatúry faktu", "čitateľom literatúry faktu"]
         detektívky: ["čitateľ detektívok", "číta detektívky", "nečíta detektívky", "čitateľa detektívok", "čitateľom detektívok"]
@@ -64,15 +55,6 @@ attributes:
         poézia: ["čitateľ poézie", "číta poéziu", "nečíta poéziu", "čitateľa poézie", "čitateľom poézie"]
         ľúbostný román: ["čitateľ ľúbostných románov", "číta ľúbostné romány", "nečíta ľúbostné romány", "čitateľa ľúbostných románov", "čitateľom ľúbostných románov"]
 
-    záľuby:
-        bouldering: ["ten, kto sa venuje boulderingu,", "venuje sa boulderingu", "nevenuje sa boulderingu", "toho, kto sa venuje boulderingu,", "tým, kto sa venuje boulderingu,"]
-        maľovanie: ["ten, kto maľuje,", "maľuje", "nemaľuje", "toho, kto maľuje,", "tým, kto maľuje,"]
-        spoločenské hry: ["ten, kto hrá spoločenské hry,", "hrá spoločenské hry", "nehrá spoločenské hry", "toho, kto hrá spoločenské hry,", "tým, kto hrá spoločenské hry,"]
-        tenis: ["ten, kto hrá tenis,", "hrá tenis", "nehrá tenis", "toho, kto hrá tenis,", "tým, kto hrá tenis,"]
-        háčkovanie: ["ten, kto háčkuje,", "háčkuje", "neháčkuje", "toho, kto háčkuje,", "tým, kto háčkuje,"]
-        futbal: ["ten, kto hrá futbal,", "hrá futbal", "nehrá futbal", "toho, kto hrá futbal,", "tým, kto hrá futbal,"]
-        hádzaná: ["ten, kto hrá hádzanú,", "hrá hádzanú", "nehrá hádzanú", "toho, kto hrá hádzanú,", "tým, kto hrá hádzanú,"]
-
     obľúbené ovocie:
         jablko: ["milovník jabĺk", "má rád jablká", "nemá rád jablká", "milovníka jabĺk", "milovníkom jabĺk"]
         hruška: ["milovník hrušiek", "má rád hrušky", "nemá rád hrušky", "milovníka hrušiek", "milovníkom hrušiek"]
@@ -81,6 +63,24 @@ attributes:
         jahoda: ["milovník jahôd", "má rád jahody", "nemá rád jahody", "milovníka jahôd", "milovníkom jahôd"]
         čierna ríbezľa: ["milovník čiernych ríbezlí", "má rád čierne ríbezle", "nemá rád čierne ríbezle", "milovníka čiernych ríbezlí", "milovníkom čiernych ríbezlí"]
         lesná jahoda: ["milovník lesných jahôd", "má rád lesné jahody", "nemá rád lesné jahody", "milovníka lesných jahôd", "milovníkom lesných jahôd"]
+
+    nápoje:
+        džús: ["ten, kto pije džús,", "pije džús", "nepije džús", "toho, kto pije džús,", "tým, kto pije džús,"]
+        káva: ["ten, kto pije kávu,", "pije kávu", "nepije kávu", "toho, kto pije kávu,", "tým, kto pije kávu,"]
+        mlieko: ["ten, kto pije mlieko,", "pije mlieko", "nepije mlieko", "toho, kto pije mlieko,", "tým, kto pije mlieko,"]
+        smoothie: ["ten, kto pije smoothie,", "pije smoothie", "nepije smoothie", "toho, kto pije smoothie,", "tým, kto pije smoothie,"]
+        kakao: ["ten, kto pije kakao,", "pije kakao", "nepije kakao", "toho, kto pije kakao,", "tým, kto pije kakao,"]
+        čaj: ["ten, kto pije čaj,", "pije čaj", "nepije čaj", "toho, kto pije čaj,", "tým, kto pije čaj,"]
+        limonáda: ["ten, kto pije limonádu,", "pije limonádu", "nepije limonádu", "toho, kto pije limonádu,", "tým, kto pije limonádu,"]  # uncertain: limonáda = generic soft drink here
+
+    záľuby:
+        bouldering: ["ten, kto sa venuje boulderingu,", "venuje sa boulderingu", "nevenuje sa boulderingu", "toho, kto sa venuje boulderingu,", "tým, kto sa venuje boulderingu,"]
+        maľovanie: ["ten, kto maľuje,", "maľuje", "nemaľuje", "toho, kto maľuje,", "tým, kto maľuje,"]
+        spoločenské hry: ["ten, kto hrá spoločenské hry,", "hrá spoločenské hry", "nehrá spoločenské hry", "toho, kto hrá spoločenské hry,", "tým, kto hrá spoločenské hry,"]
+        tenis: ["ten, kto hrá tenis,", "hrá tenis", "nehrá tenis", "toho, kto hrá tenis,", "tým, kto hrá tenis,"]
+        háčkovanie: ["ten, kto háčkuje,", "háčkuje", "neháčkuje", "toho, kto háčkuje,", "tým, kto háčkuje,"]
+        futbal: ["ten, kto hrá futbal,", "hrá futbal", "nehrá futbal", "toho, kto hrá futbal,", "tým, kto hrá futbal,"]
+        hádzaná: ["ten, kto hrá hádzanú,", "hrá hádzanú", "nehrá hádzanú", "toho, kto hrá hádzanú,", "tým, kto hrá hádzanú,"]
 
 red_herring_attributes:
     ryšavé_vlasy: ["ryšavý", "má ryšavé vlasy", "ryšavého", "ryšavým"]

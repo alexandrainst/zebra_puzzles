@@ -42,15 +42,6 @@ attributes:
         puž: ["vlasnik puža", "ima puža", "nema puža", "vlasnika puža"]
         štapasti insekt: ["vlasnik štapastog insekta", "ima štapastog insekta", "nema štapastog insekta", "vlasnika štapastog insekta"]
 
-    pića:
-        sok: ["onaj koji pije sok", "pije sok", "ne pije sok", "onog koji pije sok"]
-        kava: ["onaj koji pije kavu", "pije kavu", "ne pije kavu", "onog koji pije kavu"]
-        mlijeko: ["onaj koji pije mlijeko", "pije mlijeko", "ne pije mlijeko", "onog koji pije mlijeko"]
-        smoothie: ["onaj koji pije smoothie", "pije smoothie", "ne pije smoothie", "onog koji pije smoothie"]
-        kakao: ["onaj koji pije kakao", "pije kakao", "ne pije kakao", "onog koji pije kakao"]
-        čaj: ["onaj koji pije čaj", "pije čaj", "ne pije čaj", "onog koji pije čaj"]
-        gazirani napitak: ["onaj koji pije gazirani napitak", "pije gazirani napitak", "ne pije gazirani napitak", "onog koji pije gazirani napitak"]
-
     omiljeni književni žanrovi:
         nefikcija: ["čitatelj nefikcije", "čita nefikciju", "ne čita nefikciju", "čitatelja nefikcije"]
         kriminalistički roman: ["čitatelj kriminalističkih romana", "čita kriminalističke romane", "ne čita kriminalističke romane", "čitatelja kriminalističkih romana"]
@@ -59,6 +50,24 @@ attributes:
         horor: ["čitatelj horora", "čita horor", "ne čita horor", "čitatelja horora"]
         poezija: ["čitatelj poezije", "čita poeziju", "ne čita poeziju", "čitatelja poezije"]
         ljubavni roman: ["čitatelj ljubavnih romana", "čita ljubavne romane", "ne čita ljubavne romane", "čitatelja ljubavnih romana"]
+
+    omiljeno voće:
+        jabuka: ["ljubitelj jabuka", "voli jabuke", "ne voli jabuke", "ljubitelja jabuka"]
+        kruška: ["ljubitelj krušaka", "voli kruške", "ne voli kruške", "ljubitelja krušaka"]
+        naranča: ["ljubitelj naranči", "voli naranče", "ne voli naranče", "ljubitelja naranči"]
+        banana: ["ljubitelj banana", "voli banane", "ne voli banane", "ljubitelja banana"]
+        jagoda: ["ljubitelj jagoda", "voli jagode", "ne voli jagode", "ljubitelja jagoda"]
+        crna ribizla: ["ljubitelj crnih ribizala", "voli crne ribizle", "ne voli crne ribizle", "ljubitelja crnih ribizala"]
+        šumska jagoda: ["ljubitelj šumskih jagoda", "voli šumske jagode", "ne voli šumske jagode", "ljubitelja šumskih jagoda"]
+
+    pića:
+        sok: ["onaj koji pije sok", "pije sok", "ne pije sok", "onog koji pije sok"]
+        kava: ["onaj koji pije kavu", "pije kavu", "ne pije kavu", "onog koji pije kavu"]
+        mlijeko: ["onaj koji pije mlijeko", "pije mlijeko", "ne pije mlijeko", "onog koji pije mlijeko"]
+        smoothie: ["onaj koji pije smoothie", "pije smoothie", "ne pije smoothie", "onog koji pije smoothie"]
+        kakao: ["onaj koji pije kakao", "pije kakao", "ne pije kakao", "onog koji pije kakao"]
+        čaj: ["onaj koji pije čaj", "pije čaj", "ne pije čaj", "onog koji pije čaj"]
+        gazirani napitak: ["onaj koji pije gazirani napitak", "pije gazirani napitak", "ne pije gazirani napitak", "onog koji pije gazirani napitak"]
 
     hobiji:
         bouldering: ["onaj koji se bavi boulderingom", "bavi se boulderingom", "ne bavi se boulderingom", "onog koji se bavi boulderingom"]
@@ -69,14 +78,6 @@ attributes:
         nogomet: ["onaj koji igra nogomet", "igra nogomet", "ne igra nogomet", "onog koji igra nogomet"]
         rukomet: ["onaj koji igra rukomet", "igra rukomet", "ne igra rukomet", "onog koji igra rukomet"]
 
-    omiljeno voće:
-        jabuka: ["ljubitelj jabuka", "voli jabuke", "ne voli jabuke", "ljubitelja jabuka"]
-        kruška: ["ljubitelj krušaka", "voli kruške", "ne voli kruške", "ljubitelja krušaka"]
-        naranča: ["ljubitelj naranči", "voli naranče", "ne voli naranče", "ljubitelja naranči"]
-        banana: ["ljubitelj banana", "voli banane", "ne voli banane", "ljubitelja banana"]
-        jagoda: ["ljubitelj jagoda", "voli jagode", "ne voli jagode", "ljubitelja jagoda"]
-        crna ribizla: ["ljubitelj crnih ribizala", "voli crne ribizle", "ne voli crne ribizle", "ljubitelja crnih ribizala"]
-        šumska jagoda: ["ljubitelj šumskih jagoda", "voli šumske jagode", "ne voli šumske jagode", "ljubitelja šumskih jagoda"]
 
 red_herring_attributes:
     ridja_kosa: ["riđokosi", "ima riđu kosu", "riđokosog"]
