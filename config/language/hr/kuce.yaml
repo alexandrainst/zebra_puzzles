@@ -52,13 +52,13 @@ attributes:
         gazirani napitak: ["onaj koji pije gazirani napitak", "pije gazirani napitak", "ne pije gazirani napitak", "onog koji pije gazirani napitak"]
 
     omiljeni književni žanrovi:
-        nefikcija: ["onaj koji čita nefikciju", "čita nefikciju", "ne čita nefikciju", "onog koji čita nefikciju"]
-        kriminalistički roman: ["onaj koji čita kriminalističke romane", "čita kriminalističke romane", "ne čita kriminalističke romane", "onog koji čita kriminalističke romane"]
-        fantazija: ["onaj koji čita fantaziju", "čita fantaziju", "ne čita fantaziju", "onog koji čita fantaziju"]
-        znanstvena fantastika: ["onaj koji čita znanstvenu fantastiku", "čita znanstvenu fantastiku", "ne čita znanstvenu fantastiku", "onog koji čita znanstvenu fantastiku"]
-        horor: ["onaj koji čita horor", "čita horor", "ne čita horor", "onog koji čita horor"]
-        poezija: ["onaj koji čita poeziju", "čita poeziju", "ne čita poeziju", "onog koji čita poeziju"]
-        ljubavni roman: ["onaj koji čita ljubavne romane", "čita ljubavne romane", "ne čita ljubavne romane", "onog koji čita ljubavne romane"]
+        nefikcija: ["čitatelj nefikcije", "čita nefikciju", "ne čita nefikciju", "čitatelja nefikcije"]
+        kriminalistički roman: ["čitatelj kriminalističkih romana", "čita kriminalističke romane", "ne čita kriminalističke romane", "čitatelja kriminalističkih romana"]
+        fantazija: ["čitatelj fantazije", "čita fantaziju", "ne čita fantaziju", "čitatelja fantazije"]
+        znanstvena fantastika: ["čitatelj znanstvene fantastike", "čita znanstvenu fantastiku", "ne čita znanstvenu fantastiku", "čitatelja znanstvene fantastike"]
+        horor: ["čitatelj horora", "čita horor", "ne čita horor", "čitatelja horora"]
+        poezija: ["čitatelj poezije", "čita poeziju", "ne čita poeziju", "čitatelja poezije"]
+        ljubavni roman: ["čitatelj ljubavnih romana", "čita ljubavne romane", "ne čita ljubavne romane", "čitatelja ljubavnih romana"]
 
     hobiji:
         bouldering: ["onaj koji se bavi boulderingom", "bavi se boulderingom", "ne bavi se boulderingom", "onog koji se bavi boulderingom"]
@@ -70,13 +70,13 @@ attributes:
         rukomet: ["onaj koji igra rukomet", "igra rukomet", "ne igra rukomet", "onog koji igra rukomet"]
 
     omiljeno voće:
-        jabuka: ["onaj koji voli jabuke", "voli jabuke", "ne voli jabuke", "onog koji voli jabuke"]
-        kruška: ["onaj koji voli kruške", "voli kruške", "ne voli kruške", "onog koji voli kruške"]
-        naranča: ["onaj koji voli naranče", "voli naranče", "ne voli naranče", "onog koji voli naranče"]
-        banana: ["onaj koji voli banane", "voli banane", "ne voli banane", "onog koji voli banane"]
-        jagoda: ["onaj koji voli jagode", "voli jagode", "ne voli jagode", "onog koji voli jagode"]
-        crna ribizla: ["onaj koji voli crne ribizle", "voli crne ribizle", "ne voli crne ribizle", "onog koji voli crne ribizle"]
-        šumska jagoda: ["onaj koji voli šumske jagode", "voli šumske jagode", "ne voli šumske jagode", "onog koji voli šumske jagode"]
+        jabuka: ["ljubitelj jabuka", "voli jabuke", "ne voli jabuke", "ljubitelja jabuka"]
+        kruška: ["ljubitelj krušaka", "voli kruške", "ne voli kruške", "ljubitelja krušaka"]
+        naranča: ["ljubitelj naranči", "voli naranče", "ne voli naranče", "ljubitelja naranči"]
+        banana: ["ljubitelj banana", "voli banane", "ne voli banane", "ljubitelja banana"]
+        jagoda: ["ljubitelj jagoda", "voli jagode", "ne voli jagode", "ljubitelja jagoda"]
+        crna ribizla: ["ljubitelj crnih ribizala", "voli crne ribizle", "ne voli crne ribizle", "ljubitelja crnih ribizala"]
+        šumska jagoda: ["ljubitelj šumskih jagoda", "voli šumske jagode", "ne voli šumske jagode", "ljubitelja šumskih jagoda"]
 
 red_herring_attributes:
     ridja_kosa: ["riđokosi", "ima riđu kosu", "riđokosog"]

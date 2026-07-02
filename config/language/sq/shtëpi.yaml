@@ -51,13 +51,13 @@ attributes:
         gazozë: ['ai që pi gazozë', 'pi gazozë', 'nuk pi gazozë', 'atij që pi gazozë']
 
     zhanre të preferuara letrare:
-        jofiksion: ['ai që lexon jofiksion', 'lexon jofiksion', 'nuk lexon jofiksion', 'atij që lexon jofiksion']
-        roman kriminal: ['ai që lexon romane kriminale', 'lexon romane kriminale', 'nuk lexon romane kriminale', 'atij që lexon romane kriminale']
-        fantazi: ['ai që lexon fantazi', 'lexon fantazi', 'nuk lexon fantazi', 'atij që lexon fantazi']
-        fantashkencë: ['ai që lexon fantashkencë', 'lexon fantashkencë', 'nuk lexon fantashkencë', 'atij që lexon fantashkencë']
-        horror: ['ai që lexon horror', 'lexon horror', 'nuk lexon horror', 'atij që lexon horror']
-        poezi: ['ai që lexon poezi', 'lexon poezi', 'nuk lexon poezi', 'atij që lexon poezi']
-        roman dashurie: ['ai që lexon romane dashurie', 'lexon romane dashurie', 'nuk lexon romane dashurie', 'atij që lexon romane dashurie']
+        jofiksion: ['lexuesi i jofiksionit', 'lexon jofiksion', 'nuk lexon jofiksion', 'lexuesit të jofiksionit']
+        roman kriminal: ['lexuesi i romaneve kriminale', 'lexon romane kriminale', 'nuk lexon romane kriminale', 'lexuesit të romaneve kriminale']
+        fantazi: ['lexuesi i fantazisë', 'lexon fantazi', 'nuk lexon fantazi', 'lexuesit të fantazisë']
+        fantashkencë: ['lexuesi i fantashkencës', 'lexon fantashkencë', 'nuk lexon fantashkencë', 'lexuesit të fantashkencës']
+        horror: ['lexuesi i horrorit', 'lexon horror', 'nuk lexon horror', 'lexuesit të horrorit']
+        poezi: ['lexuesi i poezisë', 'lexon poezi', 'nuk lexon poezi', 'lexuesit të poezisë']
+        roman dashurie: ['lexuesi i romaneve të dashurisë', 'lexon romane dashurie', 'nuk lexon romane dashurie', 'lexuesit të romaneve të dashurisë']
 
     hobi:
         bouldering: ['ai që bën bouldering', 'bën bouldering', 'nuk bën bouldering', 'atij që bën bouldering']

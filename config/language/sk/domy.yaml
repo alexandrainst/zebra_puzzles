@@ -56,13 +56,13 @@ attributes:
         limonáda: ["ten, kto pije limonádu,", "pije limonádu", "nepije limonádu", "toho, kto pije limonádu,", "tým, kto pije limonádu,"]  # uncertain: limonáda = generic soft drink here
 
     obľúbené literárne žánre:
-        literatúra faktu: ["ten, kto číta literatúru faktu,", "číta literatúru faktu", "nečíta literatúru faktu", "toho, kto číta literatúru faktu,", "tým, kto číta literatúru faktu,"]
-        detektívky: ["ten, kto číta detektívky,", "číta detektívky", "nečíta detektívky", "toho, kto číta detektívky,", "tým, kto číta detektívky,"]
-        fantasy: ["ten, kto číta fantasy,", "číta fantasy", "nečíta fantasy", "toho, kto číta fantasy,", "tým, kto číta fantasy,"]
-        vedecká fantastika: ["ten, kto číta vedeckú fantastiku,", "číta vedeckú fantastiku", "nečíta vedeckú fantastiku", "toho, kto číta vedeckú fantastiku,", "tým, kto číta vedeckú fantastiku,"]
-        horor: ["ten, kto číta horory,", "číta horory", "nečíta horory", "toho, kto číta horory,", "tým, kto číta horory,"]
-        poézia: ["ten, kto číta poéziu,", "číta poéziu", "nečíta poéziu", "toho, kto číta poéziu,", "tým, kto číta poéziu,"]
-        ľúbostný román: ["ten, kto číta ľúbostné romány,", "číta ľúbostné romány", "nečíta ľúbostné romány", "toho, kto číta ľúbostné romány,", "tým, kto číta ľúbostné romány,"]
+        literatúra faktu: ["čitateľ literatúry faktu", "číta literatúru faktu", "nečíta literatúru faktu", "čitateľa literatúry faktu", "čitateľom literatúry faktu"]
+        detektívky: ["čitateľ detektívok", "číta detektívky", "nečíta detektívky", "čitateľa detektívok", "čitateľom detektívok"]
+        fantasy: ["čitateľ fantasy", "číta fantasy", "nečíta fantasy", "čitateľa fantasy", "čitateľom fantasy"]
+        vedecká fantastika: ["čitateľ vedeckej fantastiky", "číta vedeckú fantastiku", "nečíta vedeckú fantastiku", "čitateľa vedeckej fantastiky", "čitateľom vedeckej fantastiky"]
+        horor: ["čitateľ hororov", "číta horory", "nečíta horory", "čitateľa hororov", "čitateľom hororov"]
+        poézia: ["čitateľ poézie", "číta poéziu", "nečíta poéziu", "čitateľa poézie", "čitateľom poézie"]
+        ľúbostný román: ["čitateľ ľúbostných románov", "číta ľúbostné romány", "nečíta ľúbostné romány", "čitateľa ľúbostných románov", "čitateľom ľúbostných románov"]
 
     záľuby:
         bouldering: ["ten, kto sa venuje boulderingu,", "venuje sa boulderingu", "nevenuje sa boulderingu", "toho, kto sa venuje boulderingu,", "tým, kto sa venuje boulderingu,"]
@@ -74,13 +74,13 @@ attributes:
         hádzaná: ["ten, kto hrá hádzanú,", "hrá hádzanú", "nehrá hádzanú", "toho, kto hrá hádzanú,", "tým, kto hrá hádzanú,"]
 
     obľúbené ovocie:
-        jablko: ["ten, kto má rád jablká,", "má rád jablká", "nemá rád jablká", "toho, kto má rád jablká,", "tým, kto má rád jablká,"]
-        hruška: ["ten, kto má rád hrušky,", "má rád hrušky", "nemá rád hrušky", "toho, kto má rád hrušky,", "tým, kto má rád hrušky,"]
-        pomaranč: ["ten, kto má rád pomaranče,", "má rád pomaranče", "nemá rád pomaranče", "toho, kto má rád pomaranče,", "tým, kto má rád pomaranče,"]
-        banán: ["ten, kto má rád banány,", "má rád banány", "nemá rád banány", "toho, kto má rád banány,", "tým, kto má rád banány,"]
-        jahoda: ["ten, kto má rád jahody,", "má rád jahody", "nemá rád jahody", "toho, kto má rád jahody,", "tým, kto má rád jahody,"]
-        čierna ríbezľa: ["ten, kto má rád čierne ríbezle,", "má rád čierne ríbezle", "nemá rád čierne ríbezle", "toho, kto má rád čierne ríbezle,", "tým, kto má rád čierne ríbezle,"]
-        lesná jahoda: ["ten, kto má rád lesné jahody,", "má rád lesné jahody", "nemá rád lesné jahody", "toho, kto má rád lesné jahody,", "tým, kto má rád lesné jahody,"]
+        jablko: ["milovník jabĺk", "má rád jablká", "nemá rád jablká", "milovníka jabĺk", "milovníkom jabĺk"]
+        hruška: ["milovník hrušiek", "má rád hrušky", "nemá rád hrušky", "milovníka hrušiek", "milovníkom hrušiek"]
+        pomaranč: ["milovník pomarančov", "má rád pomaranče", "nemá rád pomaranče", "milovníka pomarančov", "milovníkom pomarančov"]
+        banán: ["milovník banánov", "má rád banány", "nemá rád banány", "milovníka banánov", "milovníkom banánov"]
+        jahoda: ["milovník jahôd", "má rád jahody", "nemá rád jahody", "milovníka jahôd", "milovníkom jahôd"]
+        čierna ríbezľa: ["milovník čiernych ríbezlí", "má rád čierne ríbezle", "nemá rád čierne ríbezle", "milovníka čiernych ríbezlí", "milovníkom čiernych ríbezlí"]
+        lesná jahoda: ["milovník lesných jahôd", "má rád lesné jahody", "nemá rád lesné jahody", "milovníka lesných jahôd", "milovníkom lesných jahôd"]
 
 red_herring_attributes:
     ryšavé_vlasy: ["ryšavý", "má ryšavé vlasy", "ryšavého", "ryšavým"]

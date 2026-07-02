@@ -20,14 +20,14 @@ attributes:
     narodnosti:
         Danska: ["Danec", "je Danec", "ni Danec", "Danca", "Dancem"]
         Švedska: ["Šved", "je Šved", "ni Šved", "Šveda", "Švedom"]
-        Latvija: ["Latvijec", "je Latvijec", "ni Latvijec", "Latvijca", "Latvijcem"]  # uncertain — verify with native speaker
+        Latvija: ["Latvijec", "je Latvijec", "ni Latvijec", "Latvijca", "Latvijcem"]
         Francija: ["Francoz", "je Francoz", "ni Francoz", "Francoza", "Francozom"]
         Španija: ["Španec", "je Španec", "ni Španec", "Španca", "Špancem"]
         Italija: ["Italijan", "je Italijan", "ni Italijan", "Italijana", "Italijanom"]
         Norveška: ["Norvežan", "je Norvežan", "ni Norvežan", "Norvežana", "Norvežanom"]
         Ferski otoki: ["Ferjanec", "je Ferjanec", "ni Ferjanec", "Ferjanca", "Ferjancem"]  # uncertain — verify with native speaker
         Nizozemska: ["Nizozemec", "je Nizozemec", "ni Nizozemec", "Nizozemca", "Nizozemcem"]
-        Islandija: ["Islandec", "je Islandec", "ni Islandec", "Islandca", "Islandcem"]  # uncertain — verify with native speaker
+        Islandija: ["Islándec", "je Islándec", "ni Islándec", "Islándca", "Islándcem"]
         Združeno kraljestvo: ["Britanec", "je Britanec", "ni Britanec", "Britanca", "Britancem"]
 
     poklici:
@@ -58,13 +58,13 @@ attributes:
         gazirana pijača: ["tisti, ki pije gazirano pijačo,", "pije gazirano pijačo", "ne pije gazirane pijače", "tistega, ki pije gazirano pijačo,", "tistim, ki pije gazirano pijačo,"]
 
     priljubljeni literarni žanri:
-        neleposlovna literatura: ["tisti, ki bere neleposlovno literaturo,", "bere neleposlovno literaturo", "ne bere neleposlovne literature", "tistega, ki bere neleposlovno literaturo,", "tistim, ki bere neleposlovno literaturo,"]
-        kriminalni roman: ["tisti, ki bere kriminalne romane,", "bere kriminalne romane", "ne bere kriminalnih romanov", "tistega, ki bere kriminalne romane,", "tistim, ki bere kriminalne romane,"]
-        fantazija: ["tisti, ki bere fantazijo,", "bere fantazijo", "ne bere fantazije", "tistega, ki bere fantazijo,", "tistim, ki bere fantazijo,"]
-        znanstvena fantastika: ["tisti, ki bere znanstveno fantastiko,", "bere znanstveno fantastiko", "ne bere znanstvene fantastike", "tistega, ki bere znanstveno fantastiko,", "tistim, ki bere znanstveno fantastiko,"]
-        grozljivka: ["tisti, ki bere grozljivke,", "bere grozljivke", "ne bere grozljivk", "tistega, ki bere grozljivke,", "tistim, ki bere grozljivke,"]
-        poezija: ["tisti, ki bere poezijo,", "bere poezijo", "ne bere poezije", "tistega, ki bere poezijo,", "tistim, ki bere poezijo,"]
-        ljubezenski roman: ["tisti, ki bere ljubezenske romane,", "bere ljubezenske romane", "ne bere ljubezenskih romanov", "tistega, ki bere ljubezenske romane,", "tistim, ki bere ljubezenske romane,"]
+        neleposlovna literatura: ["bralec neleposlovne literature", "bere neleposlovno literaturo", "ne bere neleposlovne literature", "bralca neleposlovne literature", "bralcem neleposlovne literature"]
+        kriminalni roman: ["bralec kriminalnih romanov", "bere kriminalne romane", "ne bere kriminalnih romanov", "bralca kriminalnih romanov", "bralcem kriminalnih romanov"]
+        fantazija: ["bralec fantazije", "bere fantazijo", "ne bere fantazije", "bralca fantazije", "bralcem fantazije"]
+        znanstvena fantastika: ["bralec znanstvene fantastike", "bere znanstveno fantastiko", "ne bere znanstvene fantastike", "bralca znanstvene fantastike", "bralcem znanstvene fantastike"]
+        grozljivka: ["bralec grozljivk", "bere grozljivke", "ne bere grozljivk", "bralca grozljivk", "bralcem grozljivk"]
+        poezija: ["bralec poezije", "bere poezijo", "ne bere poezije", "bralca poezije", "bralcem poezije"]
+        ljubezenski roman: ["bralec ljubezenskih romanov", "bere ljubezenske romane", "ne bere ljubezenskih romanov", "bralca ljubezenskih romanov", "bralcem ljubezenskih romanov"]
 
     hobiji:
         bouldering: ["tisti, ki se ukvarja z boulderingom,", "ukvarja se z boulderingom", "se ne ukvarja z boulderingom", "tistega, ki se ukvarja z boulderingom,", "tistim, ki se ukvarja z boulderingom,"]
@@ -76,13 +76,13 @@ attributes:
         rokomet: ["tisti, ki igra rokomet,", "igra rokomet", "ne igra rokometa", "tistega, ki igra rokomet,", "tistim, ki igra rokomet,"]
 
     priljubljeno sadje:
-        jabolko: ["tisti, ki ima rad jabolka,", "ima rad jabolka", "nima rad jabolk", "tistega, ki ima rad jabolka,", "tistim, ki ima rad jabolka,"]
-        hruška: ["tisti, ki ima rad hruške,", "ima rad hruške", "nima rad hrušk", "tistega, ki ima rad hruške,", "tistim, ki ima rad hruške,"]
-        pomaranča: ["tisti, ki ima rad pomaranče,", "ima rad pomaranče", "nima rad pomaranč", "tistega, ki ima rad pomaranče,", "tistim, ki ima rad pomaranče,"]
-        banana: ["tisti, ki ima rad banane,", "ima rad banane", "nima rad banan", "tistega, ki ima rad banane,", "tistim, ki ima rad banane,"]
-        jagoda: ["tisti, ki ima rad jagode,", "ima rad jagode", "nima rad jagod", "tistega, ki ima rad jagode,", "tistim, ki ima rad jagode,"]
-        črni ribez: ["tisti, ki ima rad črni ribez,", "ima rad črni ribez", "nima rad črnega ribeza", "tistega, ki ima rad črni ribez,", "tistim, ki ima rad črni ribez,"]
-        gozdna jagoda: ["tisti, ki ima rad gozdne jagode,", "ima rad gozdne jagode", "nima rad gozdnih jagod", "tistega, ki ima rad gozdne jagode,", "tistim, ki ima rad gozdne jagode,"]
+        jabolko: ["ljubitelj jabolk", "ima rad jabolka", "nima rad jabolk", "ljubitelja jabolk", "ljubiteljem jabolk"]
+        hruška: ["ljubitelj hrušk", "ima rad hruške", "nima rad hrušk", "ljubitelja hrušk", "ljubiteljem hrušk"]
+        pomaranča: ["ljubitelj pomaranč", "ima rad pomaranče", "nima rad pomaranč", "ljubitelja pomaranč", "ljubiteljem pomaranč"]
+        banana: ["ljubitelj banan", "ima rad banane", "nima rad banan", "ljubitelja banan", "ljubiteljem banan"]
+        jagoda: ["ljubitelj jagod", "ima rad jagode", "nima rad jagod", "ljubitelja jagod", "ljubiteljem jagod"]
+        črni ribez: ["ljubitelj črnega ribeza", "ima rad črni ribez", "nima rad črnega ribeza", "ljubitelja črnega ribeza", "ljubiteljem črnega ribeza"]
+        gozdna jagoda: ["ljubitelj gozdnih jagod", "ima rad gozdne jagode", "nima rad gozdnih jagod", "ljubitelja gozdnih jagod", "ljubiteljem gozdnih jagod"]
 
 red_herring_attributes:
     rdeči_lasje: ["rdečelasec", "ima rdeče lase", "rdečelasca", "rdečelascem"]
@@ -103,7 +103,7 @@ red_herring_attributes:
     smučarski_skoki: ["tisti, ki spremlja smučarske skoke,", "spremlja smučarske skoke", "tistega, ki spremlja smučarske skoke,", "tistim, ki spremlja smučarske skoke,"]
 
 red_herring_facts:
-    sled: ["sledi so ribe"]  # uncertain — verify: sled = herring in Slovenian?
+    sled: ["sledi so ribe"]
     soncni_sistem: ["Sončev sistem kroži okrog središča galaksije s hitrostjo okoli 200 km/s"]
     uganke: ["reševanje ugank je zabavno"]
     hise: ["vse hiše v ulici imajo lepe vrtove"]
