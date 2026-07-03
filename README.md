@@ -14,10 +14,10 @@ Generation and LLM evaluation of zebra puzzles in multiple languages and themes 
 Available languages and themes:
 
 - Houses theme (37 languages):
-    - Finished versions: Danish 🇩🇰, Dutch 🇳🇱, English 🇬🇧, Faroese 🇫🇴, German 🇩🇪, Icelandic 🇮🇸, Norwegian Bokmål 🇳🇴, Norwegian Nynorsk 🇳🇴 and Swedish 🇸🇪.
-    - Preliminary versions: Albanian 🇦🇱, Basque 🏴, Belarusian 🇧🇾, Bosnian 🇧🇦, Bulgarian 🇧🇬, Catalan 🏴󠁥󠁳󠁣󠁴󠁿, Croatian 🇭🇷, Czech 🇨🇿, Estonian 🇪🇪, Finnish 🇫🇮, French 🇫🇷, Greek 🇬🇷, Hungarian 🇭🇺, Irish 🇮🇪, Italian 🇮🇹, Latvian 🇱🇻, Lithuanian 🇱🇹, Luxembourgish 🇱🇺, Macedonian 🇲🇰, Polish 🇵🇱, Portuguese 🇵🇹, Romanian 🇷🇴, Scots 🏴󠁧󠁢󠁳󠁣󠁴󠁿, Serbian 🇷🇸, Slovak 🇸🇰, Slovenian 🇸🇮, Spanish 🇪🇸 and Ukrainian 🇺🇦.
+    - Finished versions: Danish (da) 🇩🇰, Dutch (nl) 🇳🇱, English (en) 🇬🇧, Faroese (fo) 🇫🇴, German (de) 🇩🇪, Icelandic (is) 🇮🇸, Norwegian Bokmål (nb) 🇳🇴, Norwegian Nynorsk (nn) 🇳🇴 and Swedish (sv) 🇸🇪.
+    - Preliminary versions: Albanian (sq) 🇦🇱, Basque (eu) 🏴, Belarusian (be) 🇧🇾, Bosnian (bs) 🇧🇦, Bulgarian (bg) 🇧🇬, Catalan (ca) 🏴󠁥󠁳󠁣󠁴󠁿, Croatian (hr) 🇭🇷, Czech (cs) 🇨🇿, Estonian (et) 🇪🇪, Finnish (fi) 🇫🇮, French (fr) 🇫🇷, Greek (el) 🇬🇷, Hungarian (hu) 🇭🇺, Irish (ga) 🇮🇪, Italian (it) 🇮🇹, Latvian (lv) 🇱🇻, Lithuanian (lt) 🇱🇹, Luxembourgish (lb) 🇱🇺, Macedonian (mk) 🇲🇰, Polish (pl) 🇵🇱, Portuguese (pt) 🇵🇹, Romanian (ro) 🇷🇴, Scots (sco) 🏴󠁧󠁢󠁳󠁣󠁴󠁿, Serbian (sr) 🇷🇸, Slovak (sk) 🇸🇰, Slovenian (sl) 🇸🇮, Spanish (es) 🇪🇸 and Ukrainian (uk) 🇺🇦.
 - Smørrebrød theme:
-    - Finished versions: Danish 🇩🇰.
+    - Finished versions: Danish (da) 🇩🇰.
 
 Dataset on the Hugging Face Hub: https://huggingface.co/datasets/alexandrainst/zebra_puzzles
 
