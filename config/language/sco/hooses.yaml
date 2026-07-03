@@ -1,0 +1,213 @@
+# Config file for generating zebra puzzles in Scots with the classic "houses" theme.
+#
+# Scots is West Germanic and very close to English: SVO order, no grammatical gender, no case system beyond
+#   English's own (attribute_cases = [nom, is, is_not], same as English — no extra cases needed since none of
+#   the positional prepositions, o/tae/atween/niest tae, govern anything beyond the plain noun form).
+# Negation uses the Scots "-nae" clitic on auxiliaries (disnae/isnae) rather than English "not".
+# Word-formation follows English closely: nationalities/jobs = "the X", pets/drinks = "the X owner/drinker" +
+#   "haes/drinks X", book genres = "the X reader" + "reads X", hobbies/fruits = "the body that Xs" (using
+#   "body" = person, a very common Scots word), matching English's pattern category-for-category.
+# Spelling follows common literary Scots conventions (hoose, ken, wi, aboot, etc.) rather than any single
+#   fixed standard, since Scots orthography is not fully standardised.
+# Uncertain forms (flagged for native speaker review, common but not dictionary-confirmed in this pass):
+#   baxter (baker), polisman (police officer).
+
+theme: sco_hooses
+
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
+
+attributes:
+
+    nationalities:
+        Denmark: ['the Dane', 'is Danish', 'isnae Danish']
+        Sweden: ['the Swede', 'is Swedish', 'isnae Swedish']
+        Latvia: ['the Latvian', 'is Latvian', 'isnae Latvian']
+        France: ['the Frenchman', 'is French', 'isnae French']
+        Spain: ['the Spaniard', 'is Spanish', 'isnae Spanish']
+        Italy: ['the Italian', 'is Italian', 'isnae Italian']
+        Norway: ['the Norwegian', 'is Norwegian', 'isnae Norwegian']
+        Faroe Islands: ['the Faroese', 'is Faroese', 'isnae Faroese']
+        Netherlands: ['the Dutchman', 'is Dutch', 'isnae Dutch']
+        Iceland: ['the Icelander', 'is Icelandic', 'isnae Icelandic']
+        United Kingdom: ['the Brit', 'is British', 'isnae British']
+
+    jobs:
+        baker: ['the baxter', 'is a baxter', 'isnae a baxter']
+        minister: ['the meenister', 'is a meenister', 'isnae a meenister']
+        police officer: ['the polisman', 'is a polisman', 'isnae a polisman']
+        nurse: ['the nurse', 'is a nurse', 'isnae a nurse']
+        teacher: ['the dominie', 'is a dominie', 'isnae a dominie']
+        software developer: ['the software developer', 'is a software developer', 'isnae a software developer']
+        shop assistant: ['the shop assistant', 'is a shop assistant', 'isnae a shop assistant']
+
+    pets:
+        cat: ['the cat owner', 'haes a cat', 'disnae hae a cat']
+        dog: ['the dug owner', 'haes a dug', 'disnae hae a dug']
+        rabbit: ['the rabbit owner', 'haes a rabbit', 'disnae hae a rabbit']
+        zebra: ['the zebra owner', 'haes a zebra', 'disnae hae a zebra']
+        budgerigar: ['the budgie owner', 'haes a budgie', 'disnae hae a budgie']
+        snail: ['the snail owner', 'haes a snail', 'disnae hae a snail']
+        stick insect: ['the stick insect owner', 'haes a stick insect', 'disnae hae a stick insect']
+
+    drinks:
+        juice: ['the juice drinker', 'drinks juice', 'disnae drink juice']
+        coffee: ['the coffee drinker', 'drinks coffee', 'disnae drink coffee']
+        milk: ['the milk drinker', 'drinks milk', 'disnae drink milk']
+        smoothie: ['the smoothie drinker', 'drinks smoothies', 'disnae drink smoothies']
+        cocoa: ['the cocoa drinker', 'drinks cocoa', 'disnae drink cocoa']
+        tea: ['the tea drinker', 'drinks tea', 'disnae drink tea']
+        soda: ['the ginger drinker', 'drinks ginger', 'disnae drink ginger']
+
+    favourite book genres:
+        non-fiction: ['the non-fiction reader', 'reads non-fiction', 'disnae read non-fiction']
+        crime: ['the crime reader', 'reads crime novels', 'disnae read crime novels']
+        fantasy: ['the fantasy reader', 'reads fantasy', 'disnae read fantasy']
+        science fiction: ['the science fiction reader', 'reads science fiction', 'disnae read science fiction']
+        horror: ['the horror reader', 'reads horror', 'disnae read horror']
+        poetry: ['the poetry reader', 'reads poetry', 'disnae read poetry']
+        romance: ['the romance reader', 'reads romance novels', 'disnae read romance novels']
+
+    hobbies:
+        bouldering: ['the body that boulders', 'boulders', 'disnae boulder']
+        painting: ['the body that paints', 'paints', 'disnae paint']
+        board games: ['the body that plays board games', 'plays board games', 'disnae play board games']
+        tennis: ['the body that plays tennis', 'plays tennis', 'disnae play tennis']
+        crocheting: ['the body that crochets', 'crochets', 'disnae crochet']
+        football: ['the body that plays fitba', 'plays fitba', 'disnae play fitba']
+        handball: ['the body that plays handball', 'plays handball', 'disnae play handball']
+
+    favourite fruits:
+        apple: ['the body that loes aiples', 'loes aiples', 'disnae like aiples']
+        pear: ['the body that loes pears', 'loes pears', 'disnae like pears']
+        orange: ['the body that loes oranges', 'loes oranges', 'disnae like oranges']
+        banana: ['the body that loes bananas', 'loes bananas', 'disnae like bananas']
+        strawberry: ['the body that loes strawberries', 'loes strawberries', 'disnae like strawberries']
+        blackcurrant: ['the body that loes blackcurrants', 'loes blackcurrants', 'disnae like blackcurrants']
+        wild strawberry: ['the body that loes wild strawberries', 'loes wild strawberries', 'disnae like wild strawberries']
+
+# Clues (SVO word order, same as English)
+clues_dict:
+    found_at: '{attribute_desc} bides in hoose nummer {i_object}.'
+    not_at: '{attribute_desc} disnae bide in hoose nummer {i_object}.'
+    next_to: '{attribute_desc_1} bides niest tae {attribute_desc_2}.'                                                                        # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} disnae bide niest tae {attribute_desc_2}, an they ur different fowk.'                                   # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} bides jist tae the left o {attribute_desc_2}.'                                                         # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} bides jist tae the richt o {attribute_desc_2}.'                                                       # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} bides tae the left o {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} bides tae the richt o {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                                    # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                                # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} bides atween {attribute_desc_1} an {attribute_desc_3}.'                                                     # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} disnae bide atween {attribute_desc_2} an {attribute_desc_3}, an they ur three different fowk.'          # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: 'There ar {n_between} hooses atween {attribute_desc_1} an {attribute_desc_2}.'                                         # Requires n_objects > 3, otherwise it cannot be used
+    one_between: 'There is ane hoose atween {attribute_desc_1} an {attribute_desc_2}.'                                                       # Requires n_objects > 2, otherwise it cannot be used
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'nom']
+    not_next_to: ['nom', 'nom']
+    just_left_of: ['nom', 'nom']
+    just_right_of: ['nom', 'nom']
+    left_of: ['nom', 'nom']
+    right_of: ['nom', 'nom']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['nom', 'nom', 'nom']
+    not_between: ['nom', 'nom', 'nom']
+    multiple_between: ['nom', 'nom']
+    one_between: ['nom', 'nom']
+
+prompt_and: an
+
+prompt_templates:
+    - |
+        A row o hooses is nummered 1 tae {n_objects} fae left tae richt.
+
+        In ilka hoose bides a body wi a unique attribute in ilka ane o the follaein categories:
+
+        {chosen_attributes_str}
+
+        We ken the follaein forby:
+
+        {chosen_clues_str}
+
+        Wha haes whit attributes an bides in whit hoose?
+
+        Please sen yer answer as a JSON dictionary. Ilka key maun be object_X, whaur X is the hoose nummer. Ilka value maun be a leet o the attributes fae the foresaid categories that belang tae the body in hoose nummer X.
+
+        Here's an example o the answer format:
+
+        {solution_template}
+    - |
+        A row o hooses is nummered 1 tae {n_objects} fae left tae richt.
+
+        In ilka hoose bides a body wi a unique attribute in the category o {chosen_attributes_str}.
+
+        We ken the follaein forby:
+
+        {chosen_clues_str}
+
+        Whit attribute belangs tae the body in ilka hoose?
+
+        Please sen yer answer as a JSON dictionary. Ilka key maun be object_X, whaur X is the hoose nummer. Ilka value maun be a leet containin the attribute fae the foresaid category that belangs tae the body in hoose nummer X.
+
+        Here's an example o the answer format:
+
+        {solution_template}
+
+# Red herrings
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} bides niest tae {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} kens that {fact}.'
+    friends: '{attribute_desc} is guid pals wi {attribute_desc_herring}.'
+    herring_found_at: '{attribute_desc_herring} bides in hoose nummer {i_object}.'
+    herring_not_at: '{attribute_desc_herring} disnae bide in hoose nummer {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'nom']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+red_herring_attributes:
+    red_hair: ['the body wi reid hair', 'haes reid hair']
+    glasses: ['the body wi glesses', 'wears glesses']
+    tattoo: ['the body wi a tattoo', 'haes a tattoo']
+    guitar: ['the body that plays the guitar', 'plays the guitar']
+    bike: ['the body wi a bike', 'haes a bike']
+    guinea pig: ['the body wi a guinea pig', 'haes a guinea pig']
+    cactus: ['the body that haes a cactus', 'disnae hae a cactus']
+    video games: ['the body that plays video games', 'plays video games']
+    sister: ['the body wi a sister', 'haes a sister']
+    mango: ['the body that thinks the seicont-best fruit is mango', 'thinks the seicont-best fruit is mango']
+    sailing: ['the body that aften sails', 'aften sails']
+    Canada: ['the body that haes been tae Canada', 'haes been tae Canada']
+    mathematics: ["the body wi a maister's degree in mathematics", "haes a maister's degree in mathematics"]
+    physics: ['the body that loes physics', 'loes physics']
+    old_animal: ['the body wi a pet that is auld for its kind', 'haes a pet that is auld for its kind']
+    ski_jumping: ['the body that watches ski jumping', 'watches ski jumping']
+
+red_herring_facts:
+    herring: ['herrings ar fish']
+    solar_system: ['the solar seestem muives at a speed o aboot 200 km/s roond the centre o the galaxy']
+    puzzle: ['it is fun tae solve puzzles']
+    houses: ['aw the hooses on the street hae braw gairdens']
+    doors: ['a wheen o the hooses hae a green door']
+    windows: ['aw the hooses hae muckle windaes']
+    cars: ['there ar a lot o cars on the street']
+    cucumber: ['a cucumber is a berry']
+    snail: ['snails ar molluscs']
+    coffee: ['coffee haes caffeine']
+
+# Strings to replace in the prompt.
+prompt_replacements:
+    kens that it is fun tae solve: enjoys solvin
