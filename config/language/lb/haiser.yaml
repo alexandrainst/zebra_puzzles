@@ -54,7 +54,7 @@ attributes:
         Zebra: ['de Zebrabesëtzer', 'huet e Zebra', 'huet kee Zebra', 'dem Zebrabesëtzer']
         Wellesittech: ['de Wellesittechbesëtzer', 'huet e Wellesittech', 'huet kee Wellesittech', 'dem Wellesittechbesëtzer']  # uncertain
         Schleek: ['de Schleekebesëtzer', 'huet eng Schleek', 'huet keng Schleek', 'dem Schleekebesëtzer']  # uncertain
-        Stabschreck: ['de Stabschreckebesëtzer', 'huet eng Stabschreck', 'huet keng Stabschreck', 'dem Stabschreckebesëtzer']  # uncertain: Luxembourgish cognate of German "Stabschrecke", the more generic common name for the order (vs. "Gespenstschrecke", often specific to certain genera)
+        Stabschreck: ["de Besëtzer vun enger Stabschreck", 'huet eng Stabschreck', 'huet keng Stabschreck', "dem Besëtzer vun enger Stabschreck"]  # uncertain: Luxembourgish cognate of German "Stabschrecke"
 
     Gedrénks:
         Jus: ['de Jusdrénker', 'drénkt Jus', 'drénkt kee Jus', 'dem Jusdrénker']

@@ -43,7 +43,7 @@ attributes:
         Zebra: ['der Zebrabesitzer', 'hat ein Zebra', 'hat kein Zebra', 'den Zebrabesitzer', 'dem Zebrabesitzer']
         Wellensittich: ['der Wellensittichbesitzer', 'hat einen Wellensittich', 'hat keinen Wellensittich', 'den Wellensittichbesitzer', 'dem Wellensittichbesitzer']
         Schnecke: ['der Schneckenbesitzer', 'hat eine Schnecke', 'hat keine Schnecke', 'den Schneckenbesitzer', 'dem Schneckenbesitzer']
-        Gespenstschrecke: ['der Besitzer einer Gespenstschrecke', 'hat eine Gespenstschrecke', 'hat keine Gespenstschrecke', 'den Besitzer einer Gespenstschrecke', 'dem Besitzer einer Gespenstschrecke']
+        Stabschrecke: ['der Besitzer einer Stabschrecke', 'hat eine Stabschrecke', 'hat keine Stabschrecke', 'den Besitzer einer Stabschrecke', 'dem Besitzer einer Stabschrecke']
 
     Getränke:
         Saft: ['der Safttrinker', 'trinkt Saft', 'trinkt keinen Saft', 'den Safttrinker', 'dem Safttrinker']
