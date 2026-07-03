@@ -169,6 +169,9 @@ Each attribute must be unambiguous. It should not be easy to confuse an attribut
 - **Hobbies vs. occupations**: Hobby attributes must use activity phrases, not occupation nouns. A solver reading "the sailor" cannot tell whether it describes a job or a pastime. Check any hobby that has a corresponding profession in the language (painter, footballer, tennis player, etc.).
 - **Red herring attributes vs. occupations**: A word that means both a red herring concept and an occupation (e.g. Hungarian "nővér" = both "sister" and "nurse") must be replaced. Warn the user if avoiding ambiguity requires changing the meaning.
 
+**Replacement rules**
+- Check if any `prompt_replacements` are needed to fix awkward phrasings that arise when attribute descriptions combine with clue or fact templates in unexpected ways. For example, "knows that it is fun to solve: enjoys solving".
+
 ### 4. Check if code changes are needed
 
 Code changes are needed when:

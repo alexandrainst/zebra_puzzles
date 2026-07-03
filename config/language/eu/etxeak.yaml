@@ -228,4 +228,5 @@ red_herring_facts:
     kafea: ['kafeak kafeina du', 'kafeak kafeina duela']
 
 # Strings to replace in the generated prompt.
-prompt_replacements: {}
+prompt_replacements:
+    badaki arrazoi-jolasak ebaztea dibertigarria dela: arrazoi-jolasak ebaztea gustatzen zaio

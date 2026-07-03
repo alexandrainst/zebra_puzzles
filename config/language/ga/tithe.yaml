@@ -368,3 +368,8 @@ prompt_replacements:
     'Ní ólann an Í': 'Ní ólann an tÍ'
     'Léann an Í': 'Léann an tÍ'
     'Ní léann an Í': 'Ní léann an tÍ'
+    # Naturalness: soften the flat "knows that it's fun" framing of the puzzle-solving red herring fact to
+    # personal enjoyment. Only fixes the trailing fact clause — "Tá a fhios ag an X" (X knows that) itself
+    # can't be swapped for a fronted "Is aoibhinn le X..." copula without moving X, since X sits after this
+    # fixed verb phrase (Irish VSO) rather than before it as in English/German's equivalent fix.
+    'go bhfuil sé spraíúil puzail a réiteach': 'gurb aoibhinn leis puzail a réiteach'

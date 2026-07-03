@@ -201,3 +201,4 @@ prompt_templates:
 
 prompt_replacements:
     ',.': '.'
+    'teab, et mõistatuste lahendamine on lõbus': 'naudib mõistatuste lahendamist'

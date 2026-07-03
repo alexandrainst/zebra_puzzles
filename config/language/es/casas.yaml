@@ -198,3 +198,4 @@ prompt_templates:
 
 prompt_replacements:
     'de el ': 'del '
+    'sabe que resolver acertijos es divertido': 'le gusta resolver acertijos'
