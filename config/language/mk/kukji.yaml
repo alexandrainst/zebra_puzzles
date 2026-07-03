@@ -9,13 +9,10 @@
 #   [verb] [object]" for nom + bare "[verb] [object]"/"не [verb] [object]" for is/is_not — NOT a participle
 #   like Bulgarian's "пиещият"/"четящият", since Macedonian's active present participle is far less
 #   productive than Bulgarian's; "оној" is invariant so this needs no extra case either.
-# Vocabulary confirmed against mk.wikipedia.org: мачка (cat), тигрица (budgerigar — a distinct, non-obvious
-#   common name, not a compound of "papagal"), морско прасе (guinea pig), црна рибизла (blackcurrant), шумска
-#   јагода (wild strawberry).
-# Uncertain forms (flagged for native speaker review — no mk.wikipedia.org article found): стапчест инсект
-#   (stick insect, transparent compound guess), боулдеринг (bouldering, loanword spelling), плетење со кука
-#   (crocheting), ракомет (handball), полжав (snail, vs. the more Bulgarian-looking "охлюв"), наставник
-#   (teacher — Macedonian's own common word, distinct from Bulgarian's "учител").
+# Uncertain forms (flagged for native speaker review — no mk.wikipedia.org article or dictionary entry
+#   found): фарец (Faroese demonym — mk.wikipedia.org only gives the adjective "фарски" and the periphrasis
+#   "Фарскиот народ", no single-word demonym; derived by analogy with Bulgarian's "фарьорец"), боулдеринг
+#   (bouldering, loanword spelling)
 
 theme: mk_kukji
 
@@ -32,7 +29,7 @@ attributes:
         Шпанија: ['шпанецот', 'е шпанец', 'не е шпанец']
         Италија: ['италијанецот', 'е италијанец', 'не е италијанец']
         Норвешка: ['норвежецот', 'е норвежец', 'не е норвежец']
-        Фарски Острови: ['фароецот', 'е фароец', 'не е фароец']  # uncertain: Faroese demonym
+        Фарски Острови: ['фарецот', 'е фарец', 'не е фарец']  # uncertain: mk.wikipedia.org gives the adjective "фарски" and the periphrasis "Фарскиот народ" (the Faroese people) but no single-word demonym; "фарец" derived by analogy with Bulgarian's "фарьорец" (base + -ец, dropping the -ски adjective suffix)
         Холандија: ['холанѓанецот', 'е холанѓанец', 'не е холанѓанец']
         Исланд: ['исландецот', 'е исландец', 'не е исландец']
         Обединето Кралство: ['британецот', 'е британец', 'не е британец']
@@ -53,7 +50,7 @@ attributes:
         зебра: ['сопственикот на зебра', 'има зебра', 'нема зебра']
         тигрица: ['сопственикот на тигрица', 'има тигрица', 'нема тигрица']
         полжав: ['сопственикот на полжав', 'има полжав', 'нема полжав']  # uncertain
-        стапчест инсект: ['сопственикот на стапчест инсект', 'има стапчест инсект', 'нема стапчест инсект']  # uncertain
+        стапчест инсект: ['сопственикот на стапчест инсект', 'има стапчест инсект', 'нема стапчест инсект']
 
     пијалоци:
         сок: ['оној што пие сок', 'пие сок', 'не пие сок']
@@ -78,7 +75,7 @@ attributes:
         сликање: ['оној што слика', 'слика', 'не слика']
         друштвени игри: ['оној што игра друштвени игри', 'игра друштвени игри', 'не игра друштвени игри']
         тенис: ['оној што игра тенис', 'игра тенис', 'не игра тенис']
-        плетење со кука: ['оној што плете со кука', 'плете со кука', 'не плете со кука']  # uncertain
+        плетење со чингилаче: ['оној што плете со чингилаче', 'плете со чингилаче', 'не плете со чингилаче']  # "чингилаче" is the specific crochet-hook tool (vs. generic "кука" = hook), per mk.wikipedia.org
         фудбал: ['оној што игра фудбал', 'игра фудбал', 'не игра фудбал']
         ракомет: ['оној што игра ракомет', 'игра ракомет', 'не игра ракомет']  # uncertain
 
