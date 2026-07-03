@@ -65,20 +65,20 @@ attributes:
         frisdrank: ['de frisdrankdrinker', 'drinkt frisdrank', 'drinkt gjin frisdrank']
 
     leafste boekgenres:
-        non-fiksje: ['de persoan dy''t non-fiksje lêst', 'lêst non-fiksje', 'lêst gjin non-fiksje']
+        non-fiksje: ['de non-fiksjelêzer', 'lêst non-fiksje', 'lêst gjin non-fiksje']
         detektive: ['de detektivelêzer', 'lêst detektiven', 'lêst gjin detektiven']
         fantasy: ['de fantasylêzer', 'lêst fantasy', 'lêst gjin fantasy']
-        wittenskipsfiksje: ['de persoan dy''t wittenskipsfiksje lêst', 'lêst wittenskipsfiksje', 'lêst gjin wittenskipsfiksje']
+        wittenskipsfiksje: ['de wittenskipsfiksjelêzer', 'lêst wittenskipsfiksje', 'lêst gjin wittenskipsfiksje']
         horror: ['de horrorlêzer', 'lêst horror', 'lêst gjin horror']
         poëzy: ['de poëzylêzer', 'lêst poëzy', 'lêst gjin poëzy']
-        leafdesroman: ['de persoan dy''t leafdesromans lêst', 'lêst leafdesromans', 'lêst gjin leafdesromans']
+        leafdesroman: ['de leafdesromanlêzer', 'lêst leafdesromans', 'lêst gjin leafdesromans']
 
     hobbys:
         boulderjen: ['de persoan dy''t bouldert', 'bouldert', 'bouldert net']  # uncertain
-        skilderjen: ['de persoan dy''t skilderet', 'skilderet', 'skilderet net']
+        skilderjen: ['de persoan dy''t skilderet', 'skilderet', 'skilderet net']  # kept periphrastic: "skilder" is also the profession (painter)
         boerdspullen: ['de persoan dy''t boerdspullen spilet', 'spilet boerdspullen', 'spilet gjin boerdspullen']
         tennis: ['de persoan dy''t tennist', 'tennist', 'tennist net']
-        heakje: ['de persoan dy''t heaket', 'heaket', 'heaket net']
+        heakje: ['de persoan dy''t heaket', 'heaket', 'heaket net']  # kept periphrastic: agent-noun form uncertain
         fuotbal: ['de persoan dy''t fuotballet', 'fuotballet', 'fuotballet net']
         hânbal: ['de persoan dy''t hânballet', 'hânballet', 'hânballet net']
 
