@@ -2,18 +2,17 @@
 #
 # Cases: attribute_cases = [nom, is, is_not] — no separate case for objects of prepositions.
 # Word order: Irish is VSO, so the universal "{attribute_desc_1} {attribute_desc_2}." same_object/
-#   not_same_object template (subject then predicate, no verb of its own) does not work directly for every
-#   category — Irish needs its verb before the subject. Two strategies are used, chosen per category via the
-#   generic same_object_templates/not_same_object_templates code hook (see below):
-#   1. Categories with an override (peataí, deochanna, seánraí leabhar, torthaí is fearr): a verb-initial
+#   not_same_object template does not work for every category — Irish needs its verb before the subject.
+#   Two strategies are used, chosen per category via same_object_templates/not_same_object_templates:
+#   1. Categories with an override (e.g. peataí): a verb-initial
 #      template supplies its own verb (Ólann/Léann/Tá dúil ag/Tá...ag), and is/is_not store a bare complement
 #      (e.g. "tae", "cat", "in úlla") rather than a nominalized noun.
 #   2. Categories without an override (náisiúntachtaí, poist, caitheamh aimsire): is/is_not is a BARE NOMINAL
 #      PREDICATE, used with "Tá X ina Y."/"Níl X ina Y." (X is/is not [in his] Y) — valid VSO order since "tá"
 #      takes its subject immediately after the verb. is and is_not store the SAME string here; polarity comes
 #      from Tá vs Níl in the template. caitheamh aimsire uses this fallback because it has a different verb
-#      per attribute (imríonn/phéinteálann/dhreapann/chróiseálann), so no single per-category override
-#      template would fit all of it — a single-verb category is a prerequisite for using strategy 1.
+#      per attribute (imríonn/phéinteálann/déanann bollánóireacht/chróiseálann), so no single per-category
+#      override template would fit all of it.
 # Article placement: the definite article "an" is supplied by the clue templates, not stored in attribute
 #   descriptions, to avoid a double article when a preposition (leis an, den, etc.) needs to fuse with it.
 # Word-formation: nationalities/jobs = bare noun (nom = is = is_not); pets = "duine a bhfuil X aige" for nom,
@@ -25,11 +24,7 @@
 #   nouns are also real job titles in Irish and would be ambiguous with the jobs category.
 # Initial mutation (séimhiú/urú) is implemented via prompt_replacements, not code, since every mutation
 #   trigger ("ar an", "leis an", "ag an", "den", "ina", and the bare article after Tá/Níl/idir/agus) is fixed
-#   literal text already baked into the clue templates. Because prompt_replacements does plain substring
-#   replacement and Irish mutation only changes the first letter of the following word, each rule is keyed on
-#   "<trigger> <first letter>" (e.g. "den D" -> "den Dh") rather than "<trigger> <whole word>" — the rest of
-#   the word is untouched by the replace() call, so one rule per letter covers every attribute sharing that
-#   initial, including ones added later. Mutation type per trigger (best effort, flagged for native speaker
+#   literal text already baked into the clue templates. Mutation type per trigger (best effort, flagged for native speaker
 #   review — the eclipsis assignment for ar/ag/leis an in particular is not certain):
 #     - "ar an", "leis an", "ag an" (contracted prepositions) -> eclipsis (urú)
 #     - "den", "ina" -> lenition (séimhiú)
@@ -38,17 +33,14 @@
 #   description in this config; L, N, R, and vowels never lenite/eclipse the same way and are left unchanged.
 #   S resists lenition before p/c/m/f/t (Spáinneach), so the S rule is keyed on "Su" (Sualannach) specifically
 #   rather than bare "S", to avoid also matching "Spáinneach". If new attributes starting with P or T are
-#   added later, analogous rules should be added following the same pattern.
+#   added later, analogous rules should be added.
 # red_herring_facts use two forms per entry, as for German/Dutch/Basque: Irish's irregular verbs and the
 #   copula take distinct dependent forms when embedded under "go"/"gur(b)" (e.g. tá → go bhfuil, is → gur/gurb).
 #   The second form already includes its own complementizer, so object_fact does not add "go" itself.
-# Gender: Irish "ina" (in his/her/their) and resumptive pronouns are gender-marked. Default to masculine "ina"
-#   throughout (consistent with the mutation simplification above), applied uniformly regardless of the
-#   described person's actual gender.
-# Uncertain forms (flagged for native speaker review): Laitvíoch (Latvian), Faróiseach (Faroese), budragár
-#   (budgerigar), feithid bhata (stick insect), ólaí (drinker, -aí agentive neologism), cróiseálann (crochets,
-#   neologism), dreapann bollán (boulders), muc ghuine (guinea pig), léim sciála (ski jumping), neamhfhicsean
-#   (non-fiction), sú talún fiáin (wild strawberry).
+# Gender: Irish "ina" (in his/her/their) and resumptive pronouns default to masculine "ina"
+#   throughout (consistent with the mutation simplification above).
+# Still uncertain (no Irish Wikipedia article or dictionary entry found): sú talún fiáin (wild strawberry —
+#   ga.wikipedia.org only has the Latin binomial "Fragaria vesca", no dedicated Irish-language article).
 
 theme: ga_tithe
 
@@ -60,12 +52,12 @@ attributes:
     náisiúntachtaí:
         Danmhairg: ['Danmhargach', 'Danmhargach', 'Danmhargach']
         Sualainn: ['Sualannach', 'Sualannach', 'Sualannach']
-        Laitvia: ['Laitvíoch', 'Laitvíoch', 'Laitvíoch']  # uncertain: Laitvíoch = Latvian?
+        Laitvia: ['Laitviach', 'Laitviach', 'Laitviach']
         Fhrainc: ['Francach', 'Francach', 'Francach']
         Spáinn: ['Spáinneach', 'Spáinneach', 'Spáinneach']
         Iodáil: ['Iodálach', 'Iodálach', 'Iodálach']
         Iorua: ['Ioruach', 'Ioruach', 'Ioruach']
-        Oileáin Fharó: ['Faróiseach', 'Faróiseach', 'Faróiseach']  # uncertain: Faróiseach = Faroese?
+        Oileáin Fharó: ['Faróch', 'Faróch', 'Faróch']
         Ísiltír: ['Ísiltíreach', 'Ísiltíreach', 'Ísiltíreach']
         Íoslainn: ['Íoslannach', 'Íoslannach', 'Íoslannach']
         Ríocht Aontaithe: ['Briotanach', 'Briotanach', 'Briotanach']
@@ -84,9 +76,9 @@ attributes:
         madra: ['duine a bhfuil madra aige', 'madra', 'madra']
         coinín: ['duine a bhfuil coinín aige', 'coinín', 'coinín']
         séabra: ['duine a bhfuil séabra aige', 'séabra', 'séabra']
-        budragár: ['duine a bhfuil budragár aige', 'budragár', 'budragár']  # uncertain: budragár = budgerigar?
+        budragár: ['duine a bhfuil budragár aige', 'budragár', 'budragár']
         seilide: ['duine a bhfuil seilide aige', 'seilide', 'seilide']
-        feithid bhata: ['duine a bhfuil feithid bhata aige', 'feithid bhata', 'feithid bhata']  # uncertain: feithid bhata = stick insect?
+        feithid chipín: ['duine a bhfuil feithid chipín aige', 'feithid chipín', 'feithid chipín']
 
     deochanna:
         sú: ['duine a ólann sú', 'sú', 'sú']
@@ -107,11 +99,11 @@ attributes:
         rómánsaíocht: ['duine a léann úrscéalta rómánsúla', 'úrscéalta rómánsúla', 'úrscéalta rómánsúla']
 
     caitheamh aimsire:
-        dreapadóireacht bhoulderála: ['duine a dhreapann bollán', 'duine a dhreapann bollán', 'duine a dhreapann bollán']  # uncertain: dreapann bollán = boulders?
+        bollánóireacht: ['duine a dhéanann bollánóireacht', 'duine a dhéanann bollánóireacht', 'duine a dhéanann bollánóireacht']
         péintéireacht: ['duine a phéinteálann', 'duine a phéinteálann', 'duine a phéinteálann']
         cluichí boird: ['duine a imríonn cluichí boird', 'duine a imríonn cluichí boird', 'duine a imríonn cluichí boird']
         leadóg: ['duine a imríonn leadóg', 'duine a imríonn leadóg', 'duine a imríonn leadóg']
-        cróiseáil: ['duine a chróiseálann', 'duine a chróiseálann', 'duine a chróiseálann']  # uncertain: chróiseálann = crochets (neologism)
+        cróiseáil: ['duine a chróiseálann', 'duine a chróiseálann', 'duine a chróiseálann']
         peil: ['duine a imríonn peil', 'duine a imríonn peil', 'duine a imríonn peil']
         liathróid láimhe: ['duine a imríonn liathróid láimhe', 'duine a imríonn liathróid láimhe', 'duine a imríonn liathróid láimhe']
 
@@ -240,7 +232,7 @@ red_herring_attributes:
     tatu: ['duine a bhfuil tatú air', 'duine a bhfuil tatú air']
     giotar: ['duine a sheinneann an ghiotár', 'duine a sheinneann an ghiotár']
     rothar: ['duine a bhfuil rothar aige', 'duine a bhfuil rothar aige']
-    muc_ghuine: ['duine a bhfuil muc ghuine aige', 'duine a bhfuil muc ghuine aige']  # uncertain: muc ghuine = guinea pig?
+    muc_ghuine: ['duine a bhfuil muc ghuine aige', 'duine a bhfuil muc ghuine aige']
     cachtas: ['duine a bhfuil cachtas aige', 'duine nach bhfuil cachtas aige']
     cluichi_fiseain: ['duine a imríonn cluichí físeáin', 'duine a imríonn cluichí físeáin']
     deirfiur: ['duine a bhfuil deirfiúr aige', 'duine a bhfuil deirfiúr aige']
@@ -250,7 +242,7 @@ red_herring_attributes:
     matamaitic: ['duine a bhfuil máistreacht sa mhatamaitic aige', 'duine a bhfuil máistreacht sa mhatamaitic aige']
     fisic: ['duine a bhfuil dúil aige san fhisic', 'duine a bhfuil dúil aige san fhisic']
     peata_sean: ['duine a bhfuil peata aige atá sean dá speiceas', 'duine a bhfuil peata aige atá sean dá speiceas']  # uncertain phrasing
-    leim_sciala: ['duine a fhéachann ar léim sciála', 'duine a fhéachann ar léim sciála']  # uncertain: léim sciála = ski jumping?
+    leim_sciala: ['duine a fhéachann ar léimneach sciála', 'duine a fhéachann ar léimneach sciála']
 
 red_herring_facts:
     scadain: ['Is éisc iad na scadáin', 'gurb éisc iad na scadáin']
