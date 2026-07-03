@@ -5,14 +5,21 @@
 #   position (no short/long split after prepositions), so positional clues just reuse "nom" throughout.
 # Gender: masculine forms used throughout for unknown-gender persons, as in Bulgarian.
 # Word-formation: nationalities/jobs = bare noun + "-от"/"-та" article, "е X"/"не е X"; pets = "сопственикот
-#   на X" (owner of X) + "има X"/"нема X"; drinks/book genres/hobbies/fruits = relative clause "оној што
-#   [verb] [object]" for nom + bare "[verb] [object]"/"не [verb] [object]" for is/is_not — NOT a participle
-#   like Bulgarian's "пиещият"/"четящият", since Macedonian's active present participle is far less
-#   productive than Bulgarian's; "оној" is invariant so this needs no extra case either.
+#   на X" (owner of X) + "има X"/"нема X"; book genres = "читателот на X" (reader of X) + "чита X"/"не чита X";
+#   fruits = "љубителот на X" (fan/lover of X, safe generic-enthusiast noun, e.g. "љубители на спорт" = sports
+#   fans) + "сака X"/"не сака X" — both are real, pre-existing Macedonian nouns, not guessed participles;
+#   drinks/hobbies = relative clause "оној што [verb] [object]" for nom + bare "[verb] [object]"/"не [verb]
+#   [object]" for is/is_not, kept periphrastic rather than a compound because no comparably safe noun exists
+#   for "drinker", and every candidate hobby agent noun (сликар=painter, фудбалер=footballer, тенисер=tennis
+#   player) collides with a real profession. None of this needs a participle like Bulgarian's
+#   "пиещият"/"четящият" — Macedonian's active present participle is far less productive than Bulgarian's, so
+#   guessing one risks an actual grammatical error, not just verbosity. "оној" is invariant, needing no extra
+#   case either.
 # Uncertain forms (flagged for native speaker review — no mk.wikipedia.org article or dictionary entry
 #   found): фарец (Faroese demonym — mk.wikipedia.org only gives the adjective "фарски" and the periphrasis
 #   "Фарскиот народ", no single-word demonym; derived by analogy with Bulgarian's "фарьорец"), боулдеринг
-#   (bouldering, loanword spelling)
+#   (bouldering, loanword spelling), ракомет (handball), полжав (snail), наставник (teacher — Macedonian's own
+#   common word, distinct from Bulgarian's "учител").
 
 theme: mk_kukji
 
@@ -62,13 +69,13 @@ attributes:
         газиран пијалок: ['оној што пие газиран пијалок', 'пие газиран пијалок', 'не пие газиран пијалок']
 
     омилени книжни жанрови:
-        нехудожествена литература: ['оној што чита нехудожествена литература', 'чита нехудожествена литература', 'не чита нехудожествена литература']
-        криминалистички роман: ['оној што чита криминалистички романи', 'чита криминалистички романи', 'не чита криминалистички романи']
-        фентези: ['оној што чита фентези', 'чита фентези', 'не чита фентези']
-        научна фантастика: ['оној што чита научна фантастика', 'чита научна фантастика', 'не чита научна фантастика']
-        хорор: ['оној што чита хорор', 'чита хорор', 'не чита хорор']
-        поезија: ['оној што чита поезија', 'чита поезија', 'не чита поезија']
-        љубовен роман: ['оној што чита љубовни романи', 'чита љубовни романи', 'не чита љубовни романи']
+        нехудожествена литература: ['читателот на нехудожествена литература', 'чита нехудожествена литература', 'не чита нехудожествена литература']
+        криминалистички роман: ['читателот на криминалистички романи', 'чита криминалистички романи', 'не чита криминалистички романи']
+        фентези: ['читателот на фентези', 'чита фентези', 'не чита фентези']
+        научна фантастика: ['читателот на научна фантастика', 'чита научна фантастика', 'не чита научна фантастика']
+        хорор: ['читателот на хорор', 'чита хорор', 'не чита хорор']
+        поезија: ['читателот на поезија', 'чита поезија', 'не чита поезија']
+        љубовен роман: ['читателот на љубовни романи', 'чита љубовни романи', 'не чита љубовни романи']
 
     хобија:
         боулдеринг: ['оној што се занимава со боулдеринг', 'се занимава со боулдеринг', 'не се занимава со боулдеринг']  # uncertain
@@ -80,13 +87,13 @@ attributes:
         ракомет: ['оној што игра ракомет', 'игра ракомет', 'не игра ракомет']  # uncertain
 
     омилени овошја:
-        јаболко: ['оној што сака јаболка', 'сака јаболка', 'не сака јаболка']
-        круша: ['оној што сака круши', 'сака круши', 'не сака круши']
-        портокал: ['оној што сака портокали', 'сака портокали', 'не сака портокали']
-        банана: ['оној што сака банани', 'сака банани', 'не сака банани']
-        јагода: ['оној што сака јагоди', 'сака јагоди', 'не сака јагоди']
-        црна рибизла: ['оној што сака црна рибизла', 'сака црна рибизла', 'не сака црна рибизла']
-        шумска јагода: ['оној што сака шумски јагоди', 'сака шумски јагоди', 'не сака шумски јагоди']
+        јаболко: ['љубителот на јаболка', 'сака јаболка', 'не сака јаболка']
+        круша: ['љубителот на круши', 'сака круши', 'не сака круши']
+        портокал: ['љубителот на портокали', 'сака портокали', 'не сака портокали']
+        банана: ['љубителот на банани', 'сака банани', 'не сака банани']
+        јагода: ['љубителот на јагоди', 'сака јагоди', 'не сака јагоди']
+        црна рибизла: ['љубителот на црна рибизла', 'сака црна рибизла', 'не сака црна рибизла']
+        шумска јагода: ['љубителот на шумски јагоди', 'сака шумски јагоди', 'не сака шумски јагоди']
 
 clues_dict:
     found_at: '{attribute_desc} живее во куќа број {i_object}.'
