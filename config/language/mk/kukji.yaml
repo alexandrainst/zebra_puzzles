@@ -1,0 +1,216 @@
+# Config file for generating zebra puzzles in Macedonian with the houses theme.
+#
+# Cases: attribute_cases = [nom, is, is_not] — no separate "prep" case like Bulgarian. Unlike Bulgarian,
+#   Macedonian's masculine postpositive definite article (-от) has only ONE form used in every syntactic
+#   position (no short/long split after prepositions), so positional clues just reuse "nom" throughout.
+# Gender: masculine forms used throughout for unknown-gender persons, as in Bulgarian.
+# Word-formation: nationalities/jobs = bare noun + "-от"/"-та" article, "е X"/"не е X"; pets = "сопственикот
+#   на X" (owner of X) + "има X"/"нема X"; drinks/book genres/hobbies/fruits = relative clause "оној што
+#   [verb] [object]" for nom + bare "[verb] [object]"/"не [verb] [object]" for is/is_not — NOT a participle
+#   like Bulgarian's "пиещият"/"четящият", since Macedonian's active present participle is far less
+#   productive than Bulgarian's; "оној" is invariant so this needs no extra case either.
+# Vocabulary confirmed against mk.wikipedia.org: мачка (cat), тигрица (budgerigar — a distinct, non-obvious
+#   common name, not a compound of "papagal"), морско прасе (guinea pig), црна рибизла (blackcurrant), шумска
+#   јагода (wild strawberry).
+# Uncertain forms (flagged for native speaker review — no mk.wikipedia.org article found): стапчест инсект
+#   (stick insect, transparent compound guess), боулдеринг (bouldering, loanword spelling), плетење со кука
+#   (crocheting), ракомет (handball), полжав (snail, vs. the more Bulgarian-looking "охлюв"), наставник
+#   (teacher — Macedonian's own common word, distinct from Bulgarian's "учител").
+
+theme: mk_kukji
+
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
+
+attributes:
+
+    националности:
+        Данска: ['данецот', 'е данец', 'не е данец']
+        Шведска: ['швеѓанецот', 'е швеѓанец', 'не е швеѓанец']
+        Латвија: ['латвиецот', 'е латвиец', 'не е латвиец']
+        Франција: ['французинот', 'е французин', 'не е французин']
+        Шпанија: ['шпанецот', 'е шпанец', 'не е шпанец']
+        Италија: ['италијанецот', 'е италијанец', 'не е италијанец']
+        Норвешка: ['норвежецот', 'е норвежец', 'не е норвежец']
+        Фарски Острови: ['фароецот', 'е фароец', 'не е фароец']  # uncertain: Faroese demonym
+        Холандија: ['холанѓанецот', 'е холанѓанец', 'не е холанѓанец']
+        Исланд: ['исландецот', 'е исландец', 'не е исландец']
+        Обединето Кралство: ['британецот', 'е британец', 'не е британец']
+
+    професии:
+        пекар: ['пекарот', 'е пекар', 'не е пекар']
+        министер: ['министерот', 'е министер', 'не е министер']
+        полицаец: ['полицаецот', 'е полицаец', 'не е полицаец']
+        медицинска сестра: ['медицинската сестра', 'е медицинска сестра', 'не е медицинска сестра']
+        наставник: ['наставникот', 'е наставник', 'не е наставник']
+        програмер: ['програмерот', 'е програмер', 'не е програмер']
+        продавач: ['продавачот', 'е продавач', 'не е продавач']
+
+    домашни миленици:
+        мачка: ['сопственикот на мачка', 'има мачка', 'нема мачка']
+        куче: ['сопственикот на куче', 'има куче', 'нема куче']
+        зајак: ['сопственикот на зајак', 'има зајак', 'нема зајак']
+        зебра: ['сопственикот на зебра', 'има зебра', 'нема зебра']
+        тигрица: ['сопственикот на тигрица', 'има тигрица', 'нема тигрица']
+        полжав: ['сопственикот на полжав', 'има полжав', 'нема полжав']  # uncertain
+        стапчест инсект: ['сопственикот на стапчест инсект', 'има стапчест инсект', 'нема стапчест инсект']  # uncertain
+
+    пијалоци:
+        сок: ['оној што пие сок', 'пие сок', 'не пие сок']
+        кафе: ['оној што пие кафе', 'пие кафе', 'не пие кафе']
+        млеко: ['оној што пие млеко', 'пие млеко', 'не пие млеко']
+        смути: ['оној што пие смути', 'пие смути', 'не пие смути']
+        какао: ['оној што пие какао', 'пие какао', 'не пие какао']
+        чај: ['оној што пие чај', 'пие чај', 'не пие чај']
+        газиран пијалок: ['оној што пие газиран пијалок', 'пие газиран пијалок', 'не пие газиран пијалок']
+
+    омилени книжни жанрови:
+        нехудожествена литература: ['оној што чита нехудожествена литература', 'чита нехудожествена литература', 'не чита нехудожествена литература']
+        криминалистички роман: ['оној што чита криминалистички романи', 'чита криминалистички романи', 'не чита криминалистички романи']
+        фентези: ['оној што чита фентези', 'чита фентези', 'не чита фентези']
+        научна фантастика: ['оној што чита научна фантастика', 'чита научна фантастика', 'не чита научна фантастика']
+        хорор: ['оној што чита хорор', 'чита хорор', 'не чита хорор']
+        поезија: ['оној што чита поезија', 'чита поезија', 'не чита поезија']
+        љубовен роман: ['оној што чита љубовни романи', 'чита љубовни романи', 'не чита љубовни романи']
+
+    хобија:
+        боулдеринг: ['оној што се занимава со боулдеринг', 'се занимава со боулдеринг', 'не се занимава со боулдеринг']  # uncertain
+        сликање: ['оној што слика', 'слика', 'не слика']
+        друштвени игри: ['оној што игра друштвени игри', 'игра друштвени игри', 'не игра друштвени игри']
+        тенис: ['оној што игра тенис', 'игра тенис', 'не игра тенис']
+        плетење со кука: ['оној што плете со кука', 'плете со кука', 'не плете со кука']  # uncertain
+        фудбал: ['оној што игра фудбал', 'игра фудбал', 'не игра фудбал']
+        ракомет: ['оној што игра ракомет', 'игра ракомет', 'не игра ракомет']  # uncertain
+
+    омилени овошја:
+        јаболко: ['оној што сака јаболка', 'сака јаболка', 'не сака јаболка']
+        круша: ['оној што сака круши', 'сака круши', 'не сака круши']
+        портокал: ['оној што сака портокали', 'сака портокали', 'не сака портокали']
+        банана: ['оној што сака банани', 'сака банани', 'не сака банани']
+        јагода: ['оној што сака јагоди', 'сака јагоди', 'не сака јагоди']
+        црна рибизла: ['оној што сака црна рибизла', 'сака црна рибизла', 'не сака црна рибизла']
+        шумска јагода: ['оној што сака шумски јагоди', 'сака шумски јагоди', 'не сака шумски јагоди']
+
+clues_dict:
+    found_at: '{attribute_desc} живее во куќа број {i_object}.'
+    not_at: '{attribute_desc} не живее во куќа број {i_object}.'
+    next_to: '{attribute_desc_1} живее до {attribute_desc_2}.'                                                                    # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} не живее до {attribute_desc_2}, и тие се различни луѓе.'                                     # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} живее веднаш лево од {attribute_desc_2}.'                                                   # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} живее веднаш десно од {attribute_desc_2}.'                                                 # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} живее лево од {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} живее десно од {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                         # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                     # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} живее помеѓу {attribute_desc_1} и {attribute_desc_3}.'                                          # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} не живее помеѓу {attribute_desc_2} и {attribute_desc_3}, и тие се три различни луѓе.'        # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: 'Помеѓу {attribute_desc_1} и {attribute_desc_2} има {n_between} куќи.'                                      # Requires n_objects > 3, otherwise it cannot be used
+    one_between: 'Помеѓу {attribute_desc_1} и {attribute_desc_2} има една куќа.'                                                  # Requires n_objects > 2, otherwise it cannot be used
+
+clue_cases_dict:
+    found_at: [nom]
+    not_at: [nom]
+    next_to: [nom, nom]
+    not_next_to: [nom, nom]
+    just_left_of: [nom, nom]
+    just_right_of: [nom, nom]
+    left_of: [nom, nom]
+    right_of: [nom, nom]
+    same_object: [nom, none]
+    not_same_object: [nom, none]
+    between: [nom, nom, nom]
+    not_between: [nom, nom, nom]
+    multiple_between: [nom, nom]
+    one_between: [nom, nom]
+
+prompt_and: 'и'
+
+prompt_templates:
+    - |
+        Ред соседни куќи е нумериран од 1 до {n_objects} од лево кон десно.
+
+        Во секоја куќа живее човек со единствен атрибут во секоја од следните категории:
+
+        {chosen_attributes_str}
+
+        Дополнително го знаеме следново:
+
+        {chosen_clues_str}
+
+        Кој ги поседува кои атрибути и во која куќа живее?
+
+        Ве молиме испратете го вашиот одговор како JSON dictionary. Секој key треба да биде object_X, каде X е бројот на куќата. Секој value треба да биде листа од атрибутите од погоре наведените категории кои му припаѓаат на човекот во куќа број X.
+
+        Еве еден пример за форматот на одговорот:
+
+        {solution_template}
+    - |
+        Ред соседни куќи е нумериран од 1 до {n_objects} од лево кон десно.
+
+        Во секоја куќа живее човек со единствен атрибут во категоријата {chosen_attributes_str}.
+
+        Дополнително го знаеме следново:
+
+        {chosen_clues_str}
+
+        Кои атрибути му припаѓаат на човекот во секоја куќа?
+
+        Ве молиме испратете го вашиот одговор како JSON dictionary. Секој key треба да биде object_X, каде X е бројот на куќата. Секој value треба да биде листа која го содржи атрибутот од наведената категорија кој му припаѓа на човекот во куќа број X.
+
+        Еве еден пример за форматот на одговорот:
+
+        {solution_template}
+
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} живее до {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} знае дека {fact}.'
+    friends: '{attribute_desc} и {attribute_desc_herring} се добри пријатели.'
+    herring_found_at: '{attribute_desc_herring} живее во куќа број {i_object}.'
+    herring_not_at: '{attribute_desc_herring} не живее во куќа број {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: [nom, none]
+    next_to_herring: [nom, nom]
+    double_herring: [nom, none]
+    fact: [none]
+    object_fact: [nom, none]
+    friends: [nom, nom]
+    herring_found_at: [nom]
+    herring_not_at: [nom]
+
+red_herring_attributes:
+    riga_kosa: ['оној со риѓа коса', 'има риѓа коса']
+    naocari: ['оној со наочари', 'носи наочари']
+    tetovaza: ['оној со тетоважа', 'има тетоважа']
+    gitara: ['оној што свири гитара', 'свири гитара']
+    velosiped: ['оној со велосипед', 'има велосипед']
+    morsko_prase: ['оној со морско прасе', 'има морско прасе']
+    kaktus: ['оној што има кактус', 'нема кактус']
+    videoigri: ['оној што игра видеоигри', 'игра видеоигри']
+    sestra: ['оној со сестра', 'има сестра']
+    mango: ['оној што мисли дека мангото е вториот најдобар плод', 'мисли дека мангото е вториот најдобар плод']
+    edrenje: ['оној што често едри', 'често едри']
+    kanada: ['оној што бил во Канада', 'бил во Канада']
+    matematika: ['оној со магистерска диплома по математика', 'има магистерска диплома по математика']
+    fizika: ['оној што сака физика', 'сака физика']
+    star_ljubimec: ['оној со миленик кој е стар за својот вид', 'има миленик кој е стар за својот вид']
+    skiskokovi: ['оној што гледа скијачки скокови', 'гледа скијачки скокови']
+
+red_herring_facts:
+    haringa: ['харингите се риби']
+    solarniot_sistem: ['сончевиот систем се движи со брзина од околу 200 km/s околу центарот на галаксијата']
+    puzli: ['забавно е да се решаваат пазли']
+    kukji: ['сите куќи на улицата имаат убави градини']
+    vrati: ['некои од куќите имаат зелена врата']
+    prozorci: ['сите куќи имаат големи прозорци']
+    koli: ['на улицата има многу коли']
+    krastavica: ['краставицата е бобинка']
+    polzav: ['полжавите се мекотели']
+    kafe: ['кафето содржи кофеин']
+
+prompt_replacements:
+    ',.': '.'
+    'знае дека забавно е да се решаваат пазли': 'сака да решава пазли'
