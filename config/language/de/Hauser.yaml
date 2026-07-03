@@ -201,7 +201,7 @@ red_herring_attributes:
     Kanada: ['die Person, die in Kanada war,', 'war in Kanada', 'die Person, die in Kanada war,', 'der Person, die in Kanada war,']
     Mathematik: ['die Person mit einem Masterabschluss in Mathematik', 'hat einen Masterabschluss in Mathematik', 'die Person mit einem Masterabschluss in Mathematik', 'der Person mit einem Masterabschluss in Mathematik']
     Physik: ['die Person, die Physik liebt,', 'liebt Physik', 'die Person, die Physik liebt,', 'der Person, die Physik liebt,']
-    altes_Tier: ['die Person mit einem Haustier, dass für seine Art alt ist,', 'hat ein Haustier, dass für seine Art alt ist', 'die Person mit einem Haustier, dass für seine Art alt ist,', 'der Person mit einem Haustier, dass für seine Art alt ist,']
+    altes_Tier: ['die Person mit einem Haustier, das für seine Art alt ist,', 'hat ein Haustier, das für seine Art alt ist', 'die Person mit einem Haustier, das für seine Art alt ist,', 'der Person mit einem Haustier, das für seine Art alt ist,']
     Skispringen: ['die Person, die beim Skispringen zuschaut,', 'schaut beim Skispringen zu', 'die Person, die beim Skispringen zuschaut,', 'der Person, die beim Skispringen zuschaut,']
 
 # Facts including a second version of the form "He knows that [fact]" (English example).
