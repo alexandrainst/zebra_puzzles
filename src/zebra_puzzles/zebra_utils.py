@@ -169,7 +169,7 @@ def describe_random_attributes(
         i_objects: The index of the object to select an attribute from.
         n_attributes: Number of attributes per object.
         diff_cat: If True, the output attributes must belong to different categories.
-        desc_indices: A list of indeces of the descriptions to use for each object in the clue.
+        desc_indices: A list of indices of the descriptions to use for each object in the clue.
         i_attributes_override: If provided, use these pre-chosen (sorted) attribute indices instead of sampling.
 
     Returns:
