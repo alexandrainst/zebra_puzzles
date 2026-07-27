@@ -106,7 +106,6 @@ def choose_clues(
         )
 
         # Check if the clue is obviously redundant before using the solver to save runtime
-        n_constraints_before_rules = len(chosen_constraints)
         (
             redundant,
             chosen_clues,
@@ -126,13 +125,10 @@ def choose_clues(
         if redundant:
             continue
 
-        if (
-            not chosen_constraints
-            or len(chosen_constraints) < n_constraints_before_rules
-        ):
-            # Either nothing is accepted yet to filter against, or the rule-based step just
-            # dropped a superseded clue - which reopens part of the solution space that isn't
-            # in our cached `solutions` list. Both cases need a real solve.
+        if not chosen_constraints:
+            # Nothing accepted yet to filter against - this is the one real solve of the loop.
+            # Note: remove_redundant_clues_with_rules may have just dropped an old clue, but only
+            # if it is logically implied by the remaining clues plus the new one.
             new_solutions, completeness = solver(
                 constraints=chosen_constraints + [new_constraint],
                 chosen_attributes=chosen_attributes_sorted,
