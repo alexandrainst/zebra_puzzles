@@ -7,7 +7,8 @@ import numpy as np
 from constraint import InSetConstraint, NotInSetConstraint
 
 from zebra_puzzles.clue_removal import (
-    remove_redundant_clues_with_rules,
+    apply_clue_removals,
+    is_clue_redundant,
     remove_redundant_clues_with_solver,
 )
 from zebra_puzzles.puzzle_creation.zebra_solver import (
@@ -105,17 +106,13 @@ def choose_clues(
             not_same_object_templates=not_same_object_templates,
         )
 
-        # Check if the clue is obviously redundant before using the solver to save runtime
-        (
-            redundant,
-            chosen_clues,
-            chosen_constraints,
-            chosen_clue_parameters,
-            chosen_clue_types,
-        ) = remove_redundant_clues_with_rules(
+        # Check if the clue is obviously redundant before using the solver to save runtime.
+        # Do NOT delete clues_to_remove yet: an old clue is only safe to drop together with the
+        # new clue that supersedes it, so deletion is deferred until we know new_clue is kept
+        # (see the acceptance check below).
+        redundant, clues_to_remove = is_clue_redundant(
             new_clue=new_clue,
             old_clues=chosen_clues,
-            old_constraints=chosen_constraints,
             new_clue_parameters=new_clue_parameters,
             old_clue_parameters=chosen_clue_parameters,
             new_clue_type=new_clue_type,
@@ -127,8 +124,6 @@ def choose_clues(
 
         if not chosen_constraints:
             # Nothing accepted yet to filter against - this is the one real solve of the loop.
-            # Note: remove_redundant_clues_with_rules may have just dropped an old clue, but only
-            # if it is logically implied by the remaining clues plus the new one.
             new_solutions, completeness = solver(
                 constraints=chosen_constraints + [new_constraint],
                 chosen_attributes=chosen_attributes_sorted,
@@ -148,11 +143,28 @@ def choose_clues(
 
         # Check if solution attempt has changed and if it has, save the clue
         if len(new_solutions) != len(solutions):
+            if clues_to_remove:
+                # Now safe: the new clue that makes these old ones redundant is being kept.
+                (
+                    chosen_clues,
+                    chosen_constraints,
+                    chosen_clue_parameters,
+                    chosen_clue_types,
+                ) = apply_clue_removals(
+                    clues_to_remove=clues_to_remove,
+                    old_clues=chosen_clues,
+                    old_constraints=chosen_constraints,
+                    old_clue_parameters=chosen_clue_parameters,
+                    old_clue_types=chosen_clue_types,
+                )
             solutions = new_solutions
             chosen_clues.append(new_clue)
             chosen_constraints.append(new_constraint)
             chosen_clue_parameters.append(new_clue_parameters)
             chosen_clue_types.append(new_clue_type)
+        # else: the candidate adds nothing new, so it is discarded - and any old clues flagged
+        # in clues_to_remove are left alone, since the clue that was meant to replace them isn't
+        # being kept either.
 
         # Check if the solution is complete and the clues are non-redundant
 

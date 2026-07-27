@@ -8,64 +8,6 @@ import numpy as np
 from zebra_puzzles.puzzle_creation.zebra_solver import solver
 
 
-def remove_redundant_clues_with_rules(
-    new_clue: str,
-    old_clues: list[str],
-    old_constraints: list,
-    new_clue_parameters: tuple[str, list[int], np.ndarray],
-    old_clue_parameters: list,
-    new_clue_type: str,
-    old_clue_types: list[str],
-    prioritise_old_clues: bool = False,
-) -> tuple[bool, list[str], list, list, list]:
-    """Remove redundant clues and constraints.
-
-    Check if a suggested clue is redundant and remove it or existing clues if it is, depending on prioritise_old_clues.
-
-    Args:
-        new_clue: The suggested clue to check as a string.
-        old_clues: Chosen clues for the zebra puzzle as a list of strings.
-        old_constraints: List of constraints for the puzzle solver.
-        new_clue_parameters: A tuple (clue_type, i_clue_objects, clue_attributes) containing clue parameters for the suggested clue, where:
-            clue_type: Type of the clue as a string.
-            i_clue_objects: List of object indices in the clue as integers.
-            clue_attributes: Array of attribute values as strings for the clue.
-        old_clue_parameters: List of all previously chosen clue parameters as described above for new_clue_parameters.
-        new_clue_type: Clue type for the suggested clue.
-        old_clue_types: List of all previously chosen clue types.
-        prioritise_old_clues: Boolean indicating if the new clue should be rejected if it includes all information of an existing clue. This will reduce a bias towards more specific clues and result in more clues per puzzle. Otherwise, the old less specific clue will be removed.
-
-    Returns:
-        A tuple (redundant, old_clues, old_constraints, old_clue_parameters, old_clue_types), where:
-            redundant: Boolean indicating if the suggested clue is redundant.
-            old_clues: Non-redundant old clues for the zebra puzzle as a list of strings.
-            old_constraints: List of non-redundant old constraints for the puzzle solver.
-            old_clue_parameters: List of non-redundant old clue parameters. This list contains tuples as described above for new_clue_parameters.
-            old_clue_types: List of non-redundant old clue types.
-    """
-    redundant, clues_to_remove = is_clue_redundant(
-        new_clue=new_clue,
-        old_clues=old_clues,
-        new_clue_parameters=new_clue_parameters,
-        old_clue_parameters=old_clue_parameters,
-        new_clue_type=new_clue_type,
-        old_clue_types=old_clue_types,
-        prioritise_old_clues=prioritise_old_clues,
-    )
-
-    if clues_to_remove != []:
-        # Sort the list of clues to remove from last to first and only include unique ones
-        clues_to_remove = sorted(list(set(clues_to_remove)), reverse=True)
-
-        for i in clues_to_remove:
-            del old_clues[i]
-            del old_constraints[i]
-            del old_clue_parameters[i]
-            del old_clue_types[i]
-
-    return redundant, old_clues, old_constraints, old_clue_parameters, old_clue_types
-
-
 def is_clue_redundant(
     new_clue: str,
     old_clues: list[str],
@@ -206,7 +148,7 @@ def is_clue_redundant(
 
         # Check if an existing clue adds is less specific than the new clue
         if (
-            (clue_type_j, new_clue_type) in redundant_clues
+            (new_clue_type, clue_type_j) in redundant_clues
             and sorted(i_objects_j) == sorted_new_objects
             and sorted(attributes_j) == sorted_new_attributes
         ):
@@ -217,6 +159,40 @@ def is_clue_redundant(
 
     # Otherwise, the clue might not be redundant
     return False, clues_to_remove
+
+
+def apply_clue_removals(
+    clues_to_remove: list[int],
+    old_clues: list[str],
+    old_constraints: list,
+    old_clue_parameters: list,
+    old_clue_types: list[str],
+) -> tuple[list[str], list, list, list]:
+    """Delete previously chosen clues at the given indices.
+
+    Only call this once it is confirmed that the new clue making these old ones redundant is
+    actually being kept.
+
+    Args:
+        clues_to_remove: Indices into old_clue_parameters (and the other lists) to delete.
+        old_clues: Chosen clues for the zebra puzzle as a list of strings.
+        old_constraints: List of constraints for the puzzle solver.
+        old_clue_parameters: List of all previously chosen clue parameters.
+        old_clue_types: List of all previously chosen clue types.
+
+    Returns:
+        A tuple (old_clues, old_constraints, old_clue_parameters, old_clue_types) with the clues
+        at clues_to_remove deleted.
+    """
+    # Sort the list of clues to remove from last to first and only include unique ones, so
+    # deleting one doesn't shift the indices of the others still to be deleted.
+    for i in sorted(set(clues_to_remove), reverse=True):
+        del old_clues[i]
+        del old_constraints[i]
+        del old_clue_parameters[i]
+        del old_clue_types[i]
+
+    return old_clues, old_constraints, old_clue_parameters, old_clue_types
 
 
 def remove_redundant_clues_with_solver(
