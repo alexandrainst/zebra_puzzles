@@ -208,9 +208,9 @@ def compute_cell_score(
     for attributes_output, attributes_solution in zip(
         output.values(), solution.values()
     ):
-        # strip whitespace
-        attributes_output = {attr.strip() for attr in attributes_output}
-        attributes_solution = {attr.strip() for attr in attributes_solution}
+        # strip whitespace and normalise case for comparison
+        attributes_output = {attr.strip().lower() for attr in attributes_output}
+        attributes_solution = {attr.strip().lower() for attr in attributes_solution}
 
         # Count the number of correct attributes
         n_correct_attributes += len(attributes_output.intersection(attributes_solution))

@@ -277,7 +277,10 @@ def remove_red_herrings(
     # Split the string of indices into a list
     i_red_herrings = [idx.strip() for idx in red_herring_indices_str.split(",")]
 
-    n_red_herrings = len(i_red_herrings)
+    if red_herring_indices_str != "":
+        n_red_herrings = len(i_red_herrings)
+    else:
+        n_red_herrings = 0
 
     # Check that any red herrings should be removed
     if red_herring_indices_str != "" and n_red_herrings_to_keep < n_red_herrings:
