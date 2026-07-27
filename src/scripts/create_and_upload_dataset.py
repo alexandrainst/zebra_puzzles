@@ -1,0 +1,61 @@
+"""Script for creating and uploading zebra puzzles to Hugging Face.
+
+This script generates train (128), validation (128), and test (1024) puzzles
+for puzzles of size 2x3 and 4x5, and then formats and uploads them to Hugging
+Face. The dataset is pushed as public and overwrites any existing dataset of
+the same name.
+
+Usage:
+    uv run src/scripts/create_and_upload_dataset.py <language>/<theme>
+
+Examples:
+    uv run src/scripts/create_and_upload_dataset.py en/houses
+    uv run src/scripts/create_and_upload_dataset.py da/smoerrebroed
+"""
+
+import subprocess
+import sys
+
+SIZES = [(2, 3), (4, 5)]
+DATA_SPLITS = [("data_train", 128), ("data_val", 128), ("data_test", 1024)]
+
+
+def main() -> None:
+    """Generate, format and upload train/val/test datasets for a language/theme."""
+    if len(sys.argv) != 2:
+        raise ValueError(
+            "Usage: uv run src/scripts/create_and_upload_dataset.py <language>/<theme>"
+        )
+    language_theme = sys.argv[1]
+
+    for n_objects, n_attributes in SIZES:
+        for data_folder, n_puzzles in DATA_SPLITS:
+            subprocess.run(
+                [
+                    "uv",
+                    "run",
+                    "src/scripts/build_dataset.py",
+                    f"language={language_theme}",
+                    f"data_folder={data_folder}",
+                    f"n_puzzles={n_puzzles}",
+                    f"n_objects={n_objects}",
+                    f"n_attributes={n_attributes}",
+                ],
+                check=True,
+            )
+
+        subprocess.run(
+            [
+                "uv",
+                "run",
+                "src/scripts/format_datasets.py",
+                f"language={language_theme}",
+                f"n_objects={n_objects}",
+                f"n_attributes={n_attributes}",
+            ],
+            check=True,
+        )
+
+
+if __name__ == "__main__":
+    main()
