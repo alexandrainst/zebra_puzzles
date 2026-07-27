@@ -247,10 +247,12 @@ def remove_redundant_clues_with_solver(
             chosen_clue_types: Non-redundant clue types for the zebra puzzle as a list of strings.
     """
     for i in range(len(chosen_constraints) - 1, -1, -1):
+        # limit=2: we only need to know if the clue is still unique without it, not the exact count.
         _, completeness = solver(
             constraints=chosen_constraints[:i] + chosen_constraints[i + 1 :],
             chosen_attributes=chosen_attributes_sorted,
             n_objects=n_objects,
+            limit=2,
         )
         if completeness == 1:
             del chosen_clues[i]

@@ -1,5 +1,6 @@
 """Module for solving a zebra puzzle."""
 
+import itertools
 import logging
 
 import numpy as np
@@ -9,7 +10,10 @@ log = logging.getLogger(__name__)
 
 
 def solver(
-    constraints: list[tuple], chosen_attributes: np.ndarray, n_objects: int
+    constraints: list[tuple],
+    chosen_attributes: np.ndarray,
+    n_objects: int,
+    limit: int | None = None,
 ) -> tuple[list[dict[str, int]], float]:
     """Solve a zebra puzzle.
 
@@ -19,11 +23,12 @@ def solver(
             variables: Attributes that the constraint applies to.
         chosen_attributes: Attribute values chosen for the solution. They should be sorted by category, but the order of attributes should be independent of the solution (random or sorted).
         n_objects: Number of objects in the puzzle.
+        limit: If given, stop searching after finding this many solutions instead of enumerating all of them. Use this when only whether the count reaches some known bound matters (e.g. checking for uniqueness), not the full solution list.
 
     Returns:
         A tuple (solution_attempt, completeness), where:
             solution_attempt: Solution to the zebra puzzle as a list of lists representing the solution matrix of object indices and chosen attribute values. This matrix is n_objects x n_attributes.
-            completeness: Completeness of the solution as a float.
+            completeness: Completeness of the solution as a float. If limit was hit, this reflects the capped count rather than the true number of solutions.
 
     # NOTE: We could remove the uniqueness constraint
     # NOTE: The completeness of the solution could just be measured as the number of solutions.
@@ -45,7 +50,10 @@ def solver(
         problem.addConstraint(constraint, constraint_var.tolist())
 
     # ---- Solve the puzzle ----#
-    solutions = problem.getSolutions()
+    if limit is None:
+        solutions = problem.getSolutions()
+    else:
+        solutions = list(itertools.islice(problem.getSolutionIter(), limit))
 
     # Measure completeness of the solution.
     if len(solutions) > 0:

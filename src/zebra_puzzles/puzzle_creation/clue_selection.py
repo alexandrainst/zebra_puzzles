@@ -106,6 +106,7 @@ def choose_clues(
         )
 
         # Check if the clue is obviously redundant before using the solver to save runtime
+        n_constraints_before_rules = len(chosen_constraints)
         (
             redundant,
             chosen_clues,
@@ -125,16 +126,32 @@ def choose_clues(
         if redundant:
             continue
 
-        current_constraints = chosen_constraints + [new_constraint]
-
-        new_solutions, completeness = solver(
-            constraints=current_constraints,
-            chosen_attributes=chosen_attributes_sorted,
-            n_objects=n_objects,
-        )
+        if (
+            not chosen_constraints
+            or len(chosen_constraints) < n_constraints_before_rules
+        ):
+            # Either nothing is accepted yet to filter against, or the rule-based step just
+            # dropped a superseded clue - which reopens part of the solution space that isn't
+            # in our cached `solutions` list. Both cases need a real solve.
+            new_solutions, completeness = solver(
+                constraints=chosen_constraints + [new_constraint],
+                chosen_attributes=chosen_attributes_sorted,
+                n_objects=n_objects,
+            )
+        else:
+            # `solutions` already holds every assignment satisfying chosen_constraints, so
+            # filtering it by the new clue's predicate is exactly equivalent to re-solving the
+            # whole CSP with the new clue added, without a search.
+            new_solutions = [s for s in solutions if clue_holds(new_constraint, s)]
+            if not new_solutions:
+                log.error(
+                    f"Filtering existing solutions by a new clue removed the true solution, which should not happen.\nnew_clue: {new_clue}"
+                )
+                raise ValueError("This puzzle has no solution")
+            completeness = 1.0 / float(len(new_solutions))
 
         # Check if solution attempt has changed and if it has, save the clue
-        if new_solutions != solutions:
+        if len(new_solutions) != len(solutions):
             solutions = new_solutions
             chosen_clues.append(new_clue)
             chosen_constraints.append(new_constraint)
@@ -168,7 +185,7 @@ def choose_clues(
             break
     else:  # If the loop was not broken, it means the puzzle was not solved
         log.warning(
-            f"Failed to solve the puzzle after maximum attempts.\nsolution: {solution}\nchosen clues so far: {chosen_clues}\ncurrent_constraints: {current_constraints}"
+            f"Failed to solve the puzzle after maximum attempts.\nsolution: {solution}\nchosen clues so far: {chosen_clues}\nchosen_constraints: {chosen_constraints}"
         )
         raise StopIteration("Used too many attempts to solve the puzzle.")
 
@@ -533,3 +550,37 @@ def create_clue(
     clue_par = (clue, i_objects, clue_attributes)
 
     return full_clue, constraint, clue_par
+
+
+def clue_holds(constraint: tuple, solution: dict[str, int]) -> bool:
+    """Check whether one specific solution satisfies one clue's constraint.
+
+    Used to filter a known-exact list of solutions by a new candidate clue instead of re-solving
+    the whole problem. Uses the lambda predicate stored in the constraint when applicable.
+
+    InSetConstraint/NotInSetConstraint (used for found_at/not_at) are special-cased because their
+    __call__ deliberately raises - they only work by pruning domains via preProcess before a search,
+    not by checking a finished assignment.
+
+    Args:
+        constraint: A tuple (constraint_function, variables), as stored for a clue. variables are
+            the attribute-value strings (matching solution's keys) the constraint applies to.
+        solution: One solution as a dict mapping attribute-value strings to object indices.
+
+    Returns:
+        True if the solution satisfies the constraint.
+    """
+    constraint_func, constraint_vars = constraint
+    # Get the values (object indices) of the variables in the solution
+    values = [solution[v] for v in constraint_vars.tolist()]
+
+    # Use _set for InSetConstraint/NotInSetConstraint because their __call__ raises an exception
+    # Use the first value because these constraints only have one variable (the attribute) and
+    # the set contains the allowed/disallowed object indices
+    if isinstance(constraint_func, InSetConstraint):
+        return values[0] in constraint_func._set
+    if isinstance(constraint_func, NotInSetConstraint):
+        return values[0] not in constraint_func._set
+
+    # For other constraints (lambda functions), call the constraint function with the values
+    return constraint_func(*values)
