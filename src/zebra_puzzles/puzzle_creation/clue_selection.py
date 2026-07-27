@@ -127,23 +127,22 @@ def choose_clues(
 
         if len(chosen_constraints) < min_expected_clues:
             # Accumulate clues without solving yet to save runtime. Too few clues will yield too many solutions.
-            if clues_to_remove:
-                (
-                    chosen_clues,
-                    chosen_constraints,
-                    chosen_clue_parameters,
-                    chosen_clue_types,
-                ) = apply_clue_removals(
-                    clues_to_remove=clues_to_remove,
-                    old_clues=chosen_clues,
-                    old_constraints=chosen_constraints,
-                    old_clue_parameters=chosen_clue_parameters,
-                    old_clue_types=chosen_clue_types,
-                )
-            chosen_clues.append(new_clue)
-            chosen_constraints.append(new_constraint)
-            chosen_clue_parameters.append(new_clue_parameters)
-            chosen_clue_types.append(new_clue_type)
+            (
+                chosen_clues,
+                chosen_constraints,
+                chosen_clue_parameters,
+                chosen_clue_types,
+            ) = accept_clue(
+                new_clue=new_clue,
+                new_constraint=new_constraint,
+                new_clue_parameters=new_clue_parameters,
+                new_clue_type=new_clue_type,
+                clues_to_remove=clues_to_remove,
+                chosen_clues=chosen_clues,
+                chosen_constraints=chosen_constraints,
+                chosen_clue_parameters=chosen_clue_parameters,
+                chosen_clue_types=chosen_clue_types,
+            )
             continue
 
         if not solutions:
@@ -167,25 +166,25 @@ def choose_clues(
 
         # Check if solution attempt has changed and if it has, save the clue
         if len(new_solutions) != len(solutions):
-            if clues_to_remove:
-                # Now safe: the new clue that makes these old ones redundant is being kept.
-                (
-                    chosen_clues,
-                    chosen_constraints,
-                    chosen_clue_parameters,
-                    chosen_clue_types,
-                ) = apply_clue_removals(
-                    clues_to_remove=clues_to_remove,
-                    old_clues=chosen_clues,
-                    old_constraints=chosen_constraints,
-                    old_clue_parameters=chosen_clue_parameters,
-                    old_clue_types=chosen_clue_types,
-                )
+            # Now safe to also drop any clues_to_remove: the new clue that makes them redundant
+            # is being kept.
             solutions = new_solutions
-            chosen_clues.append(new_clue)
-            chosen_constraints.append(new_constraint)
-            chosen_clue_parameters.append(new_clue_parameters)
-            chosen_clue_types.append(new_clue_type)
+            (
+                chosen_clues,
+                chosen_constraints,
+                chosen_clue_parameters,
+                chosen_clue_types,
+            ) = accept_clue(
+                new_clue=new_clue,
+                new_constraint=new_constraint,
+                new_clue_parameters=new_clue_parameters,
+                new_clue_type=new_clue_type,
+                clues_to_remove=clues_to_remove,
+                chosen_clues=chosen_clues,
+                chosen_constraints=chosen_constraints,
+                chosen_clue_parameters=chosen_clue_parameters,
+                chosen_clue_types=chosen_clue_types,
+            )
         # else: the candidate adds nothing new, so it is discarded - and any old clues flagged
         # in clues_to_remove are left alone, since the clue that was meant to replace them isn't
         # being kept either.
@@ -625,6 +624,58 @@ def clue_holds(constraint: tuple, solution: dict[str, int]) -> bool:
 
     # For other constraints (lambda functions), call the constraint function with the values
     return constraint_func(*values)
+
+
+def accept_clue(
+    new_clue: str,
+    new_constraint: tuple,
+    new_clue_parameters: tuple[str, list[int], np.ndarray],
+    new_clue_type: str,
+    clues_to_remove: list[int],
+    chosen_clues: list[str],
+    chosen_constraints: list[tuple],
+    chosen_clue_parameters: list,
+    chosen_clue_types: list[str],
+) -> tuple[list[str], list[tuple], list, list[str]]:
+    """Apply any pending clue removals, then append the newly accepted clue.
+
+    Only call this once new_clue is confirmed to be kept: clues_to_remove are old clues that are
+    only safe to drop together with new_clue, since it is the one that makes them redundant.
+
+    Args:
+        new_clue: The newly accepted clue as a string.
+        new_constraint: Constraint tuple (constraint_function, variables) for the new clue.
+        new_clue_parameters: A tuple (clue_type, i_clue_objects, clue_attributes) for the new clue.
+        new_clue_type: Clue type of the new clue.
+        clues_to_remove: Indices of old clues that new_clue makes redundant, as returned by is_clue_redundant.
+        chosen_clues: Clues for the zebra puzzle as a list of strings.
+        chosen_constraints: List of constraints for the puzzle solver.
+        chosen_clue_parameters: List of all previously chosen clue parameters.
+        chosen_clue_types: List of all previously chosen clue types.
+
+    Returns:
+        A tuple (chosen_clues, chosen_constraints, chosen_clue_parameters, chosen_clue_types)
+        with clues_to_remove deleted and the new clue appended.
+    """
+    if clues_to_remove:
+        (
+            chosen_clues,
+            chosen_constraints,
+            chosen_clue_parameters,
+            chosen_clue_types,
+        ) = apply_clue_removals(
+            clues_to_remove=clues_to_remove,
+            old_clues=chosen_clues,
+            old_constraints=chosen_constraints,
+            old_clue_parameters=chosen_clue_parameters,
+            old_clue_types=chosen_clue_types,
+        )
+    chosen_clues.append(new_clue)
+    chosen_constraints.append(new_constraint)
+    chosen_clue_parameters.append(new_clue_parameters)
+    chosen_clue_types.append(new_clue_type)
+
+    return chosen_clues, chosen_constraints, chosen_clue_parameters, chosen_clue_types
 
 
 def final_solver_check(
