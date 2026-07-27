@@ -206,3 +206,4 @@ prompt_and: "a"
 prompt_replacements:
     ',.': '.'
     ',, jsou': ', jsou'
+    'ví, že řešení hádanek je zábavné': 'považuje řešení hádanek za zábavné'

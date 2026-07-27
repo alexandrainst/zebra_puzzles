@@ -200,3 +200,4 @@ prompt_templates:
 prompt_replacements:
     'a 1. számú': 'az 1. számú'
     ',.': .
+    'tudja, hogy a rejtvényfejtés szórakoztató': 'szereti a rejtvényfejtést'

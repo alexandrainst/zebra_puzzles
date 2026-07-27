@@ -201,3 +201,4 @@ prompt_and: "i"
 
 prompt_replacements:
     ',.': '.'
+    'zna da rješavanje zagonetki je zabavno': 'voli rješavati zagonetke'

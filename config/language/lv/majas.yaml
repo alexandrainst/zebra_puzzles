@@ -201,3 +201,4 @@ prompt_templates:
 
 prompt_replacements:
     ',.': '.'
+    'zina, ka mīklu risināšana ir jautra': 'priecājas par mīklu risināšanu'

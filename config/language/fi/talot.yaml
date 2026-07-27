@@ -1,4 +1,5 @@
 # Config file for generating zebra puzzles in Finnish with the classic "houses" theme.
+# Consider omenarakastaja as a short form of "henkilö, joka pitää omenoista" (the person who likes apples), and similarly for other fruits.
 
 # Theme
 theme: fi_talot
@@ -75,7 +76,7 @@ attributes:
         käsipallo: ['käsipalloilija', 'pelaa käsipalloa', 'ei pelaa käsipalloa', 'käsipalloilijan']
 
     lempihedelmät:
-        omena: ['henkilö, joka pitää omenoista,', 'pitää omenoista', 'ei pidä omenoista', 'henkilön, joka pitää omenoista,']
+        omena: ['henkilö, joka pitää omenoista,', 'pitää omenoista', 'ei pidä omenoista', 'henkilön, joka pitää omenoista,'] # Consider omenarakastaja to make it shorter
         päärynä: ['henkilö, joka pitää päärynöistä,', 'pitää päärynöistä', 'ei pidä päärynöistä', 'henkilön, joka pitää päärynöistä,']
         appelsiini: ['henkilö, joka pitää appelsiineista,', 'pitää appelsiineista', 'ei pidä appelsiineista', 'henkilön, joka pitää appelsiineista,']
         banaani: ['henkilö, joka pitää banaaneista,', 'pitää banaaneista', 'ei pidä banaaneista', 'henkilön, joka pitää banaaneista,']

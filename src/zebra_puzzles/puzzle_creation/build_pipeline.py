@@ -33,6 +33,9 @@ def run_pipeline(
     red_herring_cases_dict: dict[str, list[str]],
     case_to_index: dict[str, int],
     red_herring_case_to_index: dict[str, int],
+    attribute_subject_cases: dict[str, str] | None = None,
+    same_object_templates: dict[str, str] | None = None,
+    not_same_object_templates: dict[str, str] | None = None,
 ) -> tuple[str, str, str, str]:
     """Run the pipeline to generate one zebra puzzle.
 
@@ -56,6 +59,9 @@ def run_pipeline(
         red_herring_cases_dict: A dictionary containing the red herring clue type as a key and a list of grammatical cases for clue attributes as values.
         case_to_index: Mapping from grammatical case names to attribute description list indices.
         red_herring_case_to_index: Mapping from grammatical case names to red herring attribute description list indices.
+        attribute_subject_cases: Optional per-category subject case override for same_object/not_same_object clues.
+        same_object_templates: Optional per-category template override for same_object clues.
+        not_same_object_templates: Optional per-category template override for not_same_object clues.
 
     Returns:
         A tuple (prompt, solution_str, red_herring_indices_str, chosen_clue_types_str), where:
@@ -76,12 +82,16 @@ def run_pipeline(
         solution=solution,
         chosen_attributes=chosen_attributes,
         chosen_attributes_descs=chosen_attributes_descs,
+        chosen_categories=chosen_categories,
         n_objects=n_objects,
         n_attributes=n_attributes,
         clues_dict=clues_dict,
         clue_weights=clue_weights,
         clue_cases_dict=clue_cases_dict,
         case_to_index=case_to_index,
+        attribute_subject_cases=attribute_subject_cases,
+        same_object_templates=same_object_templates,
+        not_same_object_templates=not_same_object_templates,
     )
 
     chosen_red_herring_clues, chosen_red_herring_clue_types = choose_red_herrings(
@@ -142,6 +152,9 @@ def build_dataset(
     data_folder_str: str,
     attribute_cases: list[str],
     red_herring_attribute_cases: list[str],
+    attribute_subject_cases: dict[str, str] | None = None,
+    same_object_templates: dict[str, str] | None = None,
+    not_same_object_templates: dict[str, str] | None = None,
 ) -> None:
     """Build a dataset of zebra puzzles.
 
@@ -168,6 +181,9 @@ def build_dataset(
         data_folder_str: Folder to save the dataset in as a string.
         attribute_cases: Ordered list of case names for regular attribute descriptions.
         red_herring_attribute_cases: Ordered list of case names for red herring attribute descriptions.
+        attribute_subject_cases: Optional per-category subject case override for same_object/not_same_object clues.
+        same_object_templates: Optional per-category template override for same_object clues.
+        not_same_object_templates: Optional per-category template override for not_same_object clues.
     """
     validate_language_config(
         attribute_cases=attribute_cases,
@@ -225,6 +241,9 @@ def build_dataset(
                 red_herring_cases_dict=red_herring_cases_dict,
                 case_to_index=case_to_index,
                 red_herring_case_to_index=red_herring_case_to_index,
+                attribute_subject_cases=attribute_subject_cases,
+                same_object_templates=same_object_templates,
+                not_same_object_templates=not_same_object_templates,
             )
         )
         save_dataset(data=prompt, filename=prompt_filenames[i], folder=puzzle_folder)

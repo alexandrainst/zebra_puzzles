@@ -34,6 +34,12 @@
 # sl/hise
 # cs/domy
 # it/case
+# eu/etxeak
+# ga/tithe
+# sco/hooses
+# lb/haiser
+# mk/kukji
+# fy/huzen
 
 defaults:
   - language: en/houses

@@ -1,0 +1,215 @@
+# Config file for generating zebra puzzles in West Frisian with the classic "houses" theme.
+#
+# Cases: attribute_cases = [nom, is, is_not] — no case inflection, same as Dutch (nl/huizen.yaml), the closest
+#   validated template: West Frisian has the same 2-gender article system (common "de" / neuter "it",
+#   paralleling Dutch "de"/"het"), V2 main-clause word order, and no noun case beyond pronouns.
+# Gender: every nom-form here is a person/agent compound ("X-owner", "X-drinker", "the person who..."), which
+#   is always common gender ("de") regardless of the underlying object noun's own gender, so no per-noun
+#   gender lookup was needed.
+# Word-formation: nationalities/jobs = bare noun ("de Deen", "de bakker"); pets/drinks/book genres/hobbies =
+#   compound "X-eigner/X-drinker/X-lêzer" (or relative clause "de persoan dy't ...", matching Dutch's own
+#   mixed usage) + "hat/drinkt/lêst X"; fruits = "de persoan dy't fan X hâldt" + "hâldt (net) fan X".
+# red_herring_facts use two forms per entry, as for Dutch/German: West Frisian also has V2 main clauses vs.
+#   verb-final subordinate clauses, so the fact needs a distinct form when embedded under object_fact's "wit
+#   dat".
+# Uncertain forms (flagged for native speaker review — no fy.wikipedia.org article or dictionary confirmation
+#   found): parkyt (budgerigar), boulderjen (bouldering), boskierdbei (wild strawberry), Yslanner (Icelander
+#   demonym, kept as the Dutch cognate), beze (berry, in the cucumber fact), wiekdieren (molluscs, in the
+#   snail fact).
+
+theme: fy_huzen
+
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
+
+attributes:
+
+    nasjonaliteiten:
+        Denemarken: ['de Deen', 'is Deensk', 'is net Deensk']
+        Sweden: ['de Sweed', 'is Sweedsk', 'is net Sweedsk']
+        Letlân: ['de Let', 'is Lets', 'is net Lets']
+        Frankryk: ['de Frânsman', 'is Frânsk', 'is net Frânsk']
+        Spanje: ['de Spanjert', 'is Spaansk', 'is net Spaansk']
+        Itaalje: ['de Italjaan', 'is Italjaansk', 'is net Italjaansk']
+        Noarwegen: ['de Noar', 'is Noarsk', 'is net Noarsk']
+        Faröer: ['de Faröer', 'is Faröersk', 'is net Faröersk']
+        Nederlân: ['de Nederlanner', 'is Nederlânsk', 'is net Nederlânsk']
+        Yslân: ['de Yslanner', 'is Yslânsk', 'is net Yslânsk']  # uncertain: Yslân vs Iislân
+        Grut-Brittanje: ['de Brit', 'is Britsk', 'is net Britsk']
+
+    banen:
+        bakker: ['de bakker', 'is bakker', 'is gjin bakker']
+        minister: ['de minister', 'is minister', 'is gjin minister']
+        plysjeman: ['de plysjeman', 'is plysjeman', 'is gjin plysjeman']
+        ferpleechkundige: ['de ferpleechkundige', 'is ferpleechkundige', 'is gjin ferpleechkundige']
+        learaar: ['de learaar', 'is learaar', 'is gjin learaar']
+        softwareûntwikkelder: ['de softwareûntwikkelder', 'is softwareûntwikkelder', 'is gjin softwareûntwikkelder']
+        winkelbetsjinner: ['de winkelbetsjinner', 'is winkelbetsjinner', 'is gjin winkelbetsjinner']  # uncertain
+
+    húsdieren:
+        kat: ['de katbesitter', 'hat in kat', 'hat gjin kat']
+        hûn: ['de hûnbesitter', 'hat in hûn', 'hat gjin hûn']
+        knyn: ['de knynbesitter', 'hat in knyn', 'hat gjin knyn']
+        sebra: ['de sebrabesitter', 'hat in sebra', 'hat gjin sebra']
+        parkyt: ['de parkytbesitter', 'hat in parkyt', 'hat gjin parkyt']  # uncertain
+        slak: ['de slakbesitter', 'hat in slak', 'hat gjin slak']
+        wanneltwiich: ['de wanneltwiichbesitter', 'hat in wanneltwiich', 'hat gjin wanneltwiich']  # uncertain: adapted from North Frisian "Waanertwiigen" (wandering twigs), no direct West Frisian source found
+
+    dranken:
+        sap: ['de sapdrinker', 'drinkt sap', 'drinkt gjin sap']
+        kofje: ['de kofjedrinker', 'drinkt kofje', 'drinkt gjin kofje']
+        molke: ['de molkedrinker', 'drinkt molke', 'drinkt gjin molke']
+        smoothie: ['de smoothiedrinker', 'drinkt smoothie', 'drinkt gjin smoothie']
+        sûkolademolke: ['de sûkolademolkedrinker', 'drinkt sûkolademolke', 'drinkt gjin sûkolademolke']
+        tee: ['de teedrinker', 'drinkt tee', 'drinkt gjin tee']
+        frisdrank: ['de frisdrankdrinker', 'drinkt frisdrank', 'drinkt gjin frisdrank']
+
+    leafste boekgenres:
+        non-fiksje: ['de non-fiksjelêzer', 'lêst non-fiksje', 'lêst gjin non-fiksje']
+        detektive: ['de detektivelêzer', 'lêst detektiven', 'lêst gjin detektiven']
+        fantasy: ['de fantasylêzer', 'lêst fantasy', 'lêst gjin fantasy']
+        wittenskipsfiksje: ['de wittenskipsfiksjelêzer', 'lêst wittenskipsfiksje', 'lêst gjin wittenskipsfiksje']
+        horror: ['de horrorlêzer', 'lêst horror', 'lêst gjin horror']
+        poëzy: ['de poëzylêzer', 'lêst poëzy', 'lêst gjin poëzy']
+        leafdesroman: ['de leafdesromanlêzer', 'lêst leafdesromans', 'lêst gjin leafdesromans']
+
+    hobbys:
+        boulderjen: ['de persoan dy''t bouldert', 'bouldert', 'bouldert net']  # uncertain
+        skilderjen: ['de persoan dy''t skilderet', 'skilderet', 'skilderet net']  # kept periphrastic: "skilder" is also the profession (painter)
+        boerdspullen: ['de persoan dy''t boerdspullen spilet', 'spilet boerdspullen', 'spilet gjin boerdspullen']
+        tennis: ['de persoan dy''t tennist', 'tennist', 'tennist net']
+        heakje: ['de persoan dy''t heaket', 'heaket', 'heaket net']  # kept periphrastic: agent-noun form uncertain
+        fuotbal: ['de persoan dy''t fuotballet', 'fuotballet', 'fuotballet net']
+        hânbal: ['de persoan dy''t hânballet', 'hânballet', 'hânballet net']
+
+    leafste fruchtsoarten:
+        apel: ['de persoan dy''t fan apels hâldt', 'hâldt fan apels', 'hâldt net fan apels']
+        parre: ['de persoan dy''t fan parren hâldt', 'hâldt fan parren', 'hâldt net fan parren']
+        sinesapel: ['de persoan dy''t fan sinesapels hâldt', 'hâldt fan sinesapels', 'hâldt net fan sinesapels']
+        banaan: ['de persoan dy''t fan banannen hâldt', 'hâldt fan banannen', 'hâldt net fan banannen']
+        ierdbei: ['de persoan dy''t fan ierdbeien hâldt', 'hâldt fan ierdbeien', 'hâldt net fan ierdbeien']
+        swarte bes: ['de persoan dy''t fan swarte bessen hâldt', 'hâldt fan swarte bessen', 'hâldt net fan swarte bessen']
+        boskierdbei: ['de persoan dy''t fan boskierdbeien hâldt', 'hâldt fan boskierdbeien', 'hâldt net fan boskierdbeien']  # uncertain
+
+clues_dict:
+    found_at: '{attribute_desc} wennet op hûsnûmer {i_object}.'
+    not_at: '{attribute_desc} wennet net op hûsnûmer {i_object}.'
+    next_to: '{attribute_desc_1} wennet neist {attribute_desc_2}.'                                                                # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} wennet net neist {attribute_desc_2}, en se binne net deselde persoan.'                       # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} wennet direkt lofts fan {attribute_desc_2}.'                                                # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} wennet direkt rjochts fan {attribute_desc_2}.'                                             # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} wennet lofts fan {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} wennet rjochts fan {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                         # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                     # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} wennet tusken {attribute_desc_1} en {attribute_desc_3}.'                                        # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} wennet net tusken {attribute_desc_2} en {attribute_desc_3}, en it binne trije ferskillende persoanen.' # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: 'Tusken {attribute_desc_1} en {attribute_desc_2} steane {n_between} hûzen.'                                 # Requires n_objects > 3, otherwise it cannot be used
+    one_between: 'Der stiet ien hûs tusken {attribute_desc_1} en {attribute_desc_2}.'                                             # Requires n_objects > 2, otherwise it cannot be used
+
+clue_cases_dict:
+    found_at: [nom]
+    not_at: [nom]
+    next_to: [nom, nom]
+    not_next_to: [nom, nom]
+    just_left_of: [nom, nom]
+    just_right_of: [nom, nom]
+    left_of: [nom, nom]
+    right_of: [nom, nom]
+    same_object: [nom, none]
+    not_same_object: [nom, none]
+    between: [nom, nom, nom]
+    not_between: [nom, nom, nom]
+    multiple_between: [nom, nom]
+    one_between: [nom, nom]
+
+prompt_and: en
+
+prompt_templates:
+    - |
+        In rige hûzen is fan links nei rjochts nûmere fan 1 oant {n_objects}.
+
+        Yn elk hûs wennet in persoan mei in unike eigenskip yn elk fan de folgjende kategoryen:
+
+        {chosen_attributes_str}
+
+        Fierders witte we it folgjende:
+
+        {chosen_clues_str}
+
+        Wa hat hokker eigenskippen en wennet yn hokker hûs?
+
+        Jou dyn antwurd as in JSON dictionary. Elke key moat object_X wêze, wêrby't X it hûsnûmer is. Elke value moat in list wêze fan de eigenskippen út de neamde kategoryen dy't by de persoan yn hûs nr. X hearre.
+
+        It folgjende is in foarbyld fan it antwurdformaat:
+
+        {solution_template}
+    - |
+        In rige hûzen is fan links nei rjochts nûmere fan 1 oant {n_objects}.
+
+        Yn elk hûs wennet in persoan mei in unike eigenskip yn de kategory {chosen_attributes_str}.
+
+        Fierders witte we it folgjende:
+
+        {chosen_clues_str}
+
+        Wa hat hokker eigenskippen en wennet yn hokker hûs?
+
+        Jou dyn antwurd as in JSON dictionary. Elke key moat object_X wêze, wêrby't X it hûsnûmer is. Elke value moat in list wêze mei de eigenskip út de neamde kategory dy't by de persoan yn hûs nr. X heart.
+
+        It folgjende is in foarbyld fan it antwurdformaat:
+
+        {solution_template}
+
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} wennet neist {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} wit dat {fact}.'
+    friends: '{attribute_desc} is goede freonen mei {attribute_desc_herring}.'
+    herring_found_at: '{attribute_desc_herring} wennet op hûsnûmer {i_object}.'
+    herring_not_at: '{attribute_desc_herring} wennet net op hûsnûmer {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: [nom, none]
+    next_to_herring: [nom, nom]
+    double_herring: [nom, none]
+    fact: [none]
+    object_fact: [nom, none]
+    friends: [nom, nom]
+    herring_found_at: [nom]
+    herring_not_at: [nom]
+
+red_herring_attributes:
+    read_hier: ['de persoan mei read hier', 'hat read hier']
+    bril: ['de persoan mei in bril', 'draacht in bril']
+    tattoo: ['de persoan mei in tattoo', 'hat in tattoo']
+    gitaar: ['de persoan dy''t gitaar spilet', 'spilet gitaar']
+    fyts: ['de persoan mei in fyts', 'hat in fyts']
+    kavia: ['de persoan mei in kavia', 'hat in kavia']
+    kaktus: ['de persoan dy''t gjin kaktus hat', 'hat gjin kaktus']
+    kompjûterspultsjes: ['de persoan dy''t kompjûterspultsjes spilet', 'spilet kompjûterspultsjes']
+    sus: ['de persoan mei in sus', 'hat in sus']
+    mango: ['de persoan dy''t tinkt dat mango de op ien nei bêste fruit is', 'tinkt dat mango de op ien nei bêste fruit is']
+    silen: ['de persoan dy''t faak silet', 'silet faak']
+    Kanada: ['de persoan dy''t yn Kanada west hat', 'is yn Kanada west']
+    wiskunde: ['de persoan mei in masterstitel yn wiskunde', 'hat in masterstitel yn wiskunde']
+    natuerkunde: ['de persoan dy''t fan natuerkunde hâldt', 'hâldt fan natuerkunde']
+    ald_dier: ['de persoan mei in húsdier dat âld is foar syn soarte', 'hat in húsdier dat âld is foar syn soarte']
+    skânsspringen: ['de persoan dy''t nei skânsspringen sjocht', 'sjocht nei skânsspringen']  # uncertain
+
+red_herring_facts:
+    hjerring: ['hjerring is in fisk', 'hjerring in fisk is']
+    sinnestelsel: ['it sinnestelsel beweecht mei in faasje fan sawat 200 km/s om it sintrum fan de Molkwei', 'it sinnestelsel mei in faasje fan sawat 200 km/s om it sintrum fan de Molkwei beweecht']
+    riedsels: ['it is aardich om riedsels op te lossen', 'it aardich is om riedsels op te lossen']
+    huzen: ['alle hûzen oan de dyk hawwe moaie tunen', 'alle hûzen oan de dyk moaie tunen hawwe']
+    doarren: ['guon hûzen hawwe in griene doar', 'guon hûzen in griene doar hawwe']
+    finsters: ['alle hûzen hawwe grutte finsters', 'alle hûzen grutte finsters hawwe']
+    autos: ['der binne folle auto''s op ''e dyk', 'der folle auto''s op ''e dyk binne']
+    komkommer: ['komkommer is in beze', 'komkommer in beze is']  # uncertain
+    slak: ['slakken binne wiekdieren', 'slakken wiekdieren binne']  # uncertain
+    kofje: ['kofje befettet kafeïne', 'kofje kafeïne befettet']
+
+prompt_replacements:
+    wit dat it aardich is: tinkt dat it aardich is

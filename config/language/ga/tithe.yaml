@@ -1,0 +1,347 @@
+# Config file for generating zebra puzzles in Irish with the classic "houses" theme.
+#
+# Cases: attribute_cases = [nom, is, is_not]. The article "an" lives in the clue templates, not in stored
+#   attributes, to avoid a double article where a preposition fuses with it (leis an, den, etc.).
+# Irish is VSO, so the generic "{desc_1} {desc_2}." same_object/not_same_object pattern needs a verb before
+#   the subject. same_object_templates/not_same_object_templates give a verb-initial template for categories
+#   with one verb shared by all their attributes (peataí/deochanna/seánraí leabhar/torthaí is fearr), with
+#   is/is_not storing a bare complement (e.g. "tae", "cat"). Categories without an override
+#   (náisiúntachtaí/poist/caitheamh aimsire) fall back to "Tá X ina Y."/"Níl X ina Y." with is=is_not
+#   (polarity comes from Tá/Níl); caitheamh aimsire needs the fallback because it has a different verb per
+#   attribute (imríonn/phéinteálann/déanann bollánóireacht/chróiseálann).
+# Word-formation: nationalities/jobs = bare noun; pets/drinks/book genres/fruits = relative clause for nom
+#   ("duine a bhfuil/ólann/léann X", "duine a bhfuil dúil aige i X") + bare complement for is/is_not; hobbies
+#   = "duine a Xann" for both, kept verbal rather than an agent noun, since several hobby agent nouns double
+#   as job titles (e.g. peileadóir).
+# Mutation (séimhiú/urú) is done via prompt_replacements, not code — every trigger ("ar/leis/ag an", "den",
+#   "ina", bare "an" after Tá/Níl/idir/agus) is fixed template text, so rules are keyed per first letter
+#   (best effort, flagged for native review — the eclipsis assignment after ar/ag/leis an isn't certain). S
+#   resists lenition before p/c/m/f/t, so its rule is keyed on "Su" specifically to avoid matching "Spáinneach".
+# red_herring_facts use two forms (as for German/Dutch/Basque): tá/is take dependent forms (go bhfuil,
+#   gur/gurb) when embedded under object_fact; the second form already includes its complementizer.
+# Gender: masculine "ina" and resumptive pronouns used throughout by default.
+# Still uncertain: sú talún fiáin (wild strawberry — no Irish Wikipedia article or dictionary entry found).
+
+theme: ga_tithe
+
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
+
+attributes:
+
+    náisiúntachtaí:
+        Danmhairg: ['Danmhargach', 'Danmhargach', 'Danmhargach']
+        Sualainn: ['Sualannach', 'Sualannach', 'Sualannach']
+        Laitvia: ['Laitviach', 'Laitviach', 'Laitviach']
+        Fhrainc: ['Francach', 'Francach', 'Francach']
+        Spáinn: ['Spáinneach', 'Spáinneach', 'Spáinneach']
+        Iodáil: ['Iodálach', 'Iodálach', 'Iodálach']
+        Iorua: ['Ioruach', 'Ioruach', 'Ioruach']
+        Oileáin Fharó: ['Faróch', 'Faróch', 'Faróch']
+        Ísiltír: ['Ísiltíreach', 'Ísiltíreach', 'Ísiltíreach']
+        Íoslainn: ['Íoslannach', 'Íoslannach', 'Íoslannach']
+        Ríocht Aontaithe: ['Briotanach', 'Briotanach', 'Briotanach']
+
+    poist:
+        báicéir: ['báicéir', 'báicéir', 'báicéir']
+        aire: ['Aire', 'Aire', 'Aire']
+        garda: ['garda', 'garda', 'garda']
+        altra: ['altra', 'altra', 'altra']
+        múinteoir: ['múinteoir', 'múinteoir', 'múinteoir']
+        forbróir bogearraí: ['forbróir bogearraí', 'forbróir bogearraí', 'forbróir bogearraí']
+        cúntóir siopa: ['cúntóir siopa', 'cúntóir siopa', 'cúntóir siopa']
+
+    peataí:
+        cat: ['duine a bhfuil cat aige', 'cat', 'cat']
+        madra: ['duine a bhfuil madra aige', 'madra', 'madra']
+        coinín: ['duine a bhfuil coinín aige', 'coinín', 'coinín']
+        séabra: ['duine a bhfuil séabra aige', 'séabra', 'séabra']
+        budragár: ['duine a bhfuil budragár aige', 'budragár', 'budragár']
+        seilide: ['duine a bhfuil seilide aige', 'seilide', 'seilide']
+        feithid chipín: ['duine a bhfuil feithid chipín aige', 'feithid chipín', 'feithid chipín']
+
+    deochanna:
+        sú: ['duine a ólann sú', 'sú', 'sú']
+        caife: ['duine a ólann caife', 'caife', 'caife']
+        bainne: ['duine a ólann bainne', 'bainne', 'bainne']
+        smoothie: ['duine a ólann smoothie', 'smoothie', 'smoothie']
+        cócó: ['duine a ólann cócó', 'cócó', 'cócó']
+        tae: ['duine a ólann tae', 'tae', 'tae']
+        cóla: ['duine a ólann cóla', 'cóla', 'cóla']
+
+    seánraí leabhar:
+        neamhfhicsean: ['duine a léann neamhfhicsean', 'neamhfhicsean', 'neamhfhicsean']
+        bleachtaireacht: ['duine a léann bleachtaireacht', 'bleachtaireacht', 'bleachtaireacht']
+        fantaisíocht: ['duine a léann fantaisíocht', 'fantaisíocht', 'fantaisíocht']
+        ficsean eolaíochta: ['duine a léann ficsean eolaíochta', 'ficsean eolaíochta', 'ficsean eolaíochta']
+        scéalta uafáis: ['duine a léann scéalta uafáis', 'scéalta uafáis', 'scéalta uafáis']
+        filíocht: ['duine a léann filíocht', 'filíocht', 'filíocht']
+        rómánsaíocht: ['duine a léann úrscéalta rómánsúla', 'úrscéalta rómánsúla', 'úrscéalta rómánsúla']
+
+    caitheamh aimsire:
+        bollánóireacht: ['duine a dhéanann bollánóireacht', 'duine a dhéanann bollánóireacht', 'duine a dhéanann bollánóireacht']
+        péintéireacht: ['duine a phéinteálann', 'duine a phéinteálann', 'duine a phéinteálann']
+        cluichí boird: ['duine a imríonn cluichí boird', 'duine a imríonn cluichí boird', 'duine a imríonn cluichí boird']
+        leadóg: ['duine a imríonn leadóg', 'duine a imríonn leadóg', 'duine a imríonn leadóg']
+        cróiseáil: ['duine a chróiseálann', 'duine a chróiseálann', 'duine a chróiseálann']
+        peil: ['duine a imríonn peil', 'duine a imríonn peil', 'duine a imríonn peil']
+        liathróid láimhe: ['duine a imríonn liathróid láimhe', 'duine a imríonn liathróid láimhe', 'duine a imríonn liathróid láimhe']
+
+    torthaí is fearr:
+        úll: ['duine a bhfuil dúil aige in úlla', 'in úlla', 'in úlla']
+        piorra: ['duine a bhfuil dúil aige i bpiorraí', 'i bpiorraí', 'i bpiorraí']
+        oráiste: ['duine a bhfuil dúil aige in oráistí', 'in oráistí', 'in oráistí']
+        banana: ['duine a bhfuil dúil aige i mbananaí', 'i mbananaí', 'i mbananaí']
+        sú talún: ['duine a bhfuil dúil aige i sú talún', 'i sú talún', 'i sú talún']
+        cuirín dubh: ['duine a bhfuil dúil aige i gcuiríní dubha', 'i gcuiríní dubha', 'i gcuiríní dubha']
+        sú talún fiáin: ['duine a bhfuil dúil aige i sú talún fiáin', 'i sú talún fiáin', 'i sú talún fiáin']  # uncertain: sú talún fiáin = wild strawberry?
+
+clues_dict:
+    found_at: 'Tá cónaí ar an {attribute_desc} i dteach uimhir {i_object}.'
+    not_at: 'Níl cónaí ar an {attribute_desc} i dteach uimhir {i_object}.'
+    next_to: 'Tá cónaí ar an {attribute_desc_1} in aice leis an {attribute_desc_2}.'                                                        # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: 'Níl cónaí ar an {attribute_desc_1} in aice leis an {attribute_desc_2}, agus daoine difriúla iad.'                         # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: 'Tá cónaí ar an {attribute_desc_1} díreach ar chlé den {attribute_desc_2}.'                                               # Requires n_objects > 2, otherwise use left_of
+    just_right_of: 'Tá cónaí ar an {attribute_desc_1} díreach ar dheis den {attribute_desc_2}.'                                             # Requires n_objects > 2, otherwise use right_of
+    left_of: 'Tá cónaí ar an {attribute_desc_1} ar chlé den {attribute_desc_2}.'
+    right_of: 'Tá cónaí ar an {attribute_desc_1} ar dheis den {attribute_desc_2}.'
+    same_object: 'Tá an {attribute_desc_1} ina {attribute_desc_2}.'                                                                         # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: 'Níl an {attribute_desc_1} ina {attribute_desc_2}.'                                                                    # Requires n_attributes > 1, otherwise it cannot be used
+    between: 'Tá cónaí ar an {attribute_desc_2} idir an {attribute_desc_1} agus an {attribute_desc_3}.'                                     # Requires n_objects > 2, otherwise it cannot be used
+    not_between: 'Níl cónaí ar an {attribute_desc_1} idir an {attribute_desc_2} agus an {attribute_desc_3}, agus triúr daoine difriúla iad.' # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: 'Tá {n_between} teach idir an {attribute_desc_1} agus an {attribute_desc_2}.'                                         # Requires n_objects > 3, otherwise it cannot be used
+    one_between: 'Tá teach amháin idir an {attribute_desc_1} agus an {attribute_desc_2}.'                                                   # Requires n_objects > 2, otherwise it cannot be used
+
+clue_cases_dict:
+    found_at: [nom]
+    not_at: [nom]
+    next_to: [nom, nom]
+    not_next_to: [nom, nom]
+    just_left_of: [nom, nom]
+    just_right_of: [nom, nom]
+    left_of: [nom, nom]
+    right_of: [nom, nom]
+    same_object: [nom, none]
+    not_same_object: [nom, none]
+    between: [nom, nom, nom]
+    not_between: [nom, nom, nom]
+    multiple_between: [nom, nom]
+    one_between: [nom, nom]
+
+# Per-category overrides for same_object/not_same_object, keyed by the category supplying the predicate
+# (attribute_desc_2). Where a category has a single verb shared by every attribute in it, this gives a
+# natural verb-initial clause instead of the generic nominal-predicate "Tá X ina Y." pattern. is/is_not for
+# these four categories store a bare complement (e.g. "tae", "cat", "in úlla") rather than a nominalized
+# "X-drinker"/"X-owner" noun, since that complement is only ever consumed through these templates.
+# Categories without an override here (náisiúntachtaí, poist, caitheamh aimsire) keep the "Tá X ina Y."
+# pattern — caitheamh aimsire in particular has a different verb per attribute (imríonn/phéinteálann/
+# dhreapann/chróiseálann), so a single per-category template does not fit it.
+same_object_templates:
+    peataí: 'Tá {attribute_desc_2} ag an {attribute_desc_1}.'
+    deochanna: 'Ólann an {attribute_desc_1} {attribute_desc_2}.'
+    seánraí leabhar: 'Léann an {attribute_desc_1} {attribute_desc_2}.'
+    torthaí is fearr: 'Tá dúil ag an {attribute_desc_1} {attribute_desc_2}.'
+
+not_same_object_templates:
+    peataí: 'Níl {attribute_desc_2} ag an {attribute_desc_1}.'
+    deochanna: 'Ní ólann an {attribute_desc_1} {attribute_desc_2}.'
+    seánraí leabhar: 'Ní léann an {attribute_desc_1} {attribute_desc_2}.'
+    torthaí is fearr: 'Níl dúil ag an {attribute_desc_1} {attribute_desc_2}.'
+
+prompt_and: agus
+
+prompt_templates:
+    - |
+        Tá sraith tithe uimhrithe 1 go {n_objects} ó chlé go deas.
+
+        Tá duine ina cónaí i ngach teach, agus tá saintréith ar leith aige i ngach ceann de na catagóirí seo a leanas:
+
+        {chosen_attributes_str}
+
+        Tá an méid seo a leanas ar eolas againn freisin:
+
+        {chosen_clues_str}
+
+        Cé aige a bhfuil na saintréithe seo, agus cén uimhir tí a bhfuil cónaí air?
+
+        Cuir d'fhreagra isteach mar JSON dictionary le do thoil. Caithfidh gach key a bheith ina object_X, áit arb é X uimhir an tí. Caithfidh gach value a bheith ina liosta de na saintréithe ó na catagóirí thuasluaite a bhaineann leis an duine i dteach uimhir X.
+
+        Seo a leanas sampla den formáid freagra:
+
+        {solution_template}
+    - |
+        Tá sraith tithe uimhrithe 1 go {n_objects} ó chlé go deas.
+
+        Tá duine ina cónaí i ngach teach, agus tá saintréith ar leith aige i gcatagóir {chosen_attributes_str}.
+
+        Tá an méid seo a leanas ar eolas againn freisin:
+
+        {chosen_clues_str}
+
+        Cén saintréith atá ag an duine i ngach teach?
+
+        Cuir d'fhreagra isteach mar JSON dictionary le do thoil. Caithfidh gach key a bheith ina object_X, áit arb é X uimhir an tí. Caithfidh gach value a bheith ina liosta a bhfuil an saintréith ón gcatagóir thuasluaite ann, a bhaineann leis an duine i dteach uimhir X.
+
+        Seo a leanas sampla den formáid freagra:
+
+        {solution_template}
+
+red_herring_clues_dict:
+    same_herring: 'Tá an {attribute_desc} ina {attribute_desc_herring}.'
+    next_to_herring: 'Tá cónaí ar an {attribute_desc} in aice leis an {attribute_desc_herring}.'
+    double_herring: 'Tá an {attribute_desc_herring_1} ina {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: 'Tá a fhios ag an {attribute_desc} {fact}.'
+    friends: 'Tá caidreamh maith idir an {attribute_desc} agus an {attribute_desc_herring}.'
+    herring_found_at: 'Tá cónaí ar an {attribute_desc_herring} i dteach uimhir {i_object}.'
+    herring_not_at: 'Níl cónaí ar an {attribute_desc_herring} i dteach uimhir {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: [nom, none]
+    next_to_herring: [nom, nom]
+    double_herring: [nom, none]
+    fact: [none]
+    object_fact: [nom, none]
+    friends: [nom, nom]
+    herring_found_at: [nom]
+    herring_not_at: [nom]
+
+red_herring_attributes:
+    gruaig_rua: ['duine rua', 'duine rua']
+    speaclai: ['duine a chaitheann spéaclaí', 'duine a chaitheann spéaclaí']
+    tatu: ['duine a bhfuil tatú air', 'duine a bhfuil tatú air']
+    giotar: ['duine a sheinneann an ghiotár', 'duine a sheinneann an ghiotár']
+    rothar: ['duine a bhfuil rothar aige', 'duine a bhfuil rothar aige']
+    muc_ghuine: ['duine a bhfuil muc ghuine aige', 'duine a bhfuil muc ghuine aige']
+    cachtas: ['duine a bhfuil cachtas aige', 'duine nach bhfuil cachtas aige']
+    cluichi_fiseain: ['duine a imríonn cluichí físeáin', 'duine a imríonn cluichí físeáin']
+    deirfiur: ['duine a bhfuil deirfiúr aige', 'duine a bhfuil deirfiúr aige']
+    mango: ['duine a cheapann gurb é mango an dara toradh is fearr', 'duine a cheapann gurb é mango an dara toradh is fearr']
+    seoladoireacht: ['duine a sheolann go minic', 'duine a sheolann go minic']
+    ceanada: ['duine a bhí i gCeanada', 'duine a bhí i gCeanada']
+    matamaitic: ['duine a bhfuil máistreacht sa mhatamaitic aige', 'duine a bhfuil máistreacht sa mhatamaitic aige']
+    fisic: ['duine a bhfuil dúil aige san fhisic', 'duine a bhfuil dúil aige san fhisic']
+    peata_sean: ['duine a bhfuil peata aige atá sean dá speiceas', 'duine a bhfuil peata aige atá sean dá speiceas']  # uncertain phrasing
+    leim_sciala: ['duine a fhéachann ar léimneach sciála', 'duine a fhéachann ar léimneach sciála']
+
+red_herring_facts:
+    scadain: ['Is éisc iad na scadáin', 'gurb éisc iad na scadáin']
+    grianchoras: ['Tá an grianchóras ag gluaiseacht ar luas thart ar 200 km/s timpeall lár na réaltra', 'go bhfuil an grianchóras ag gluaiseacht ar luas thart ar 200 km/s timpeall lár na réaltra']
+    puzal: ['Tá sé spraíúil puzail a réiteach', 'go bhfuil sé spraíúil puzail a réiteach']
+    tithe: ['Tá gairdíní áille ag gach teach ar an tsráid', 'go bhfuil gairdíní áille ag gach teach ar an tsráid']
+    dorais: ['Tá doras glas ag roinnt de na tithe', 'go bhfuil doras glas ag roinnt de na tithe']
+    fuinneoga: ['Tá fuinneoga móra ag gach teach', 'go bhfuil fuinneoga móra ag gach teach']
+    carranna: ['Tá go leor carranna ar an tsráid', 'go bhfuil go leor carranna ar an tsráid']
+    cucamar: ['Is caora é an cúcamar', 'gur caora é an cúcamar']
+    seilidi: ['Is moilisc iad seilidí', 'gur moilisc iad seilidí']
+    caife: ['Tá caificín sa chaife', 'go bhfuil caificín sa chaife']
+
+prompt_replacements:
+    # Eclipsis (urú) after the contracted prepositions "ar an", "leis an", "ag an".
+    # Consonants (only D, F, B, C, G occur as an attribute description's first letter in this config).
+    'ar an D': 'ar an nD'
+    'leis an D': 'leis an nD'
+    'ag an D': 'ag an nD'
+    'ar an d': 'ar an nd'
+    'leis an d': 'leis an nd'
+    'ag an d': 'ag an nd'
+    # B and G must be applied before F and C respectively: eclipsed F ("bhF"/"bhf") starts with the letter
+    # that triggers the B rule, and eclipsed C ("gC"/"gc") starts with the letter that triggers the G rule —
+    # applying them in the wrong order would eclipse the same word twice (e.g. "ar an bhforbróir" -> wrongly
+    # "ar an mbhforbróir" if the B rule ran after the F rule).
+    'ar an B': 'ar an mB'
+    'leis an B': 'leis an mB'
+    'ag an B': 'ag an mB'
+    'ar an b': 'ar an mb'
+    'leis an b': 'leis an mb'
+    'ag an b': 'ag an mb'
+    'ar an G': 'ar an nG'
+    'leis an G': 'leis an nG'
+    'ag an G': 'ag an nG'
+    'ar an g': 'ar an ng'
+    'leis an g': 'leis an ng'
+    'ag an g': 'ag an ng'
+    'ar an F': 'ar an bhF'
+    'leis an F': 'leis an bhF'
+    'ag an F': 'ag an bhF'
+    'ar an f': 'ar an bhf'
+    'leis an f': 'leis an bhf'
+    'ag an f': 'ag an bhf'
+    'ar an c': 'ar an gc'
+    'leis an c': 'leis an gc'
+    'ag an c': 'ag an gc'
+    # Eclipsis: vowel-initial words take an "n" prefix (hyphenated before lowercase, unhyphenated before a capital).
+    'ar an A': 'ar an nA'
+    'leis an A': 'leis an nA'
+    'ag an A': 'ag an nA'
+    'ar an a': 'ar an n-a'
+    'leis an a': 'leis an n-a'
+    'ag an a': 'ag an n-a'
+    'ar an I': 'ar an nI'
+    'leis an I': 'leis an nI'
+    'ag an I': 'ag an nI'
+    'ar an Í': 'ar an nÍ'
+    'leis an Í': 'leis an nÍ'
+    'ag an Í': 'ag an nÍ'
+    # Lenition (séimhiú) after "den" and "ina".
+    'den D': 'den Dh'
+    'ina D': 'ina Dh'
+    'den d': 'den dh'
+    'ina d': 'ina dh'
+    'den F': 'den Fh'
+    'ina F': 'ina Fh'
+    'den f': 'den fh'
+    'ina f': 'ina fh'
+    'den B': 'den Bh'
+    'ina B': 'ina Bh'
+    'den b': 'den bh'
+    'ina b': 'ina bh'
+    'den c': 'den ch'
+    'ina c': 'ina ch'
+    'den g': 'den gh'
+    'ina g': 'ina gh'
+    'den m': 'den mh'
+    'ina m': 'ina mh'
+    # S resists lenition before p/c/m/f/t (Spáinneach); keyed on "Su" (Sualannach) to avoid matching "Sp".
+    'den Su': 'den Shu'
+    'ina Su': 'ina Shu'
+    # Bare article after Tá/Níl/idir/agus/Ólann/Ní ólann/Léann/Ní léann (no contracting preposition):
+    # t-prefix on vowel-initial nouns only. Ólann/Léann are the same_object_templates verbs for
+    # deochanna/seánraí leabhar (torthaí is fearr/peataí instead reuse the existing "ag an" rules above).
+    'Tá an A': 'Tá an tA'
+    'Níl an A': 'Níl an tA'
+    'idir an A': 'idir an tA'
+    'agus an A': 'agus an tA'
+    'Ólann an A': 'Ólann an tA'
+    'Ní ólann an A': 'Ní ólann an tA'
+    'Léann an A': 'Léann an tA'
+    'Ní léann an A': 'Ní léann an tA'
+    'Tá an a': 'Tá an t-a'
+    'Níl an a': 'Níl an t-a'
+    'idir an a': 'idir an t-a'
+    'agus an a': 'agus an t-a'
+    'Ólann an a': 'Ólann an t-a'
+    'Ní ólann an a': 'Ní ólann an t-a'
+    'Léann an a': 'Léann an t-a'
+    'Ní léann an a': 'Ní léann an t-a'
+    'Tá an I': 'Tá an tI'
+    'Níl an I': 'Níl an tI'
+    'idir an I': 'idir an tI'
+    'agus an I': 'agus an tI'
+    'Ólann an I': 'Ólann an tI'
+    'Ní ólann an I': 'Ní ólann an tI'
+    'Léann an I': 'Léann an tI'
+    'Ní léann an I': 'Ní léann an tI'
+    'Tá an Í': 'Tá an tÍ'
+    'Níl an Í': 'Níl an tÍ'
+    'idir an Í': 'idir an tÍ'
+    'agus an Í': 'agus an tÍ'
+    'Ólann an Í': 'Ólann an tÍ'
+    'Ní ólann an Í': 'Ní ólann an tÍ'
+    'Léann an Í': 'Léann an tÍ'
+    'Ní léann an Í': 'Ní léann an tÍ'
+    # Naturalness: soften the flat "knows that it's fun" framing of the puzzle-solving red herring fact to
+    # personal enjoyment. Only fixes the trailing fact clause — "Tá a fhios ag an X" (X knows that) itself
+    # can't be swapped for a fronted "Is aoibhinn le X..." copula without moving X, since X sits after this
+    # fixed verb phrase (Irish VSO) rather than before it as in English/German's equivalent fix.
+    'go bhfuil sé spraíúil puzail a réiteach': 'gurb aoibhinn leis puzail a réiteach'

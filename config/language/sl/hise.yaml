@@ -209,3 +209,4 @@ prompt_replacements:
     ',.': '.'
     ',, sta': ', sta'
     ',, so': ', so'
+    've, da reševanje ugank je zabavno': 'uživa v reševanju ugank'

@@ -199,3 +199,4 @@ prompt_templates:
 
 prompt_replacements:
     'de el ': 'del '
+    'sap que resoldre trencaclosques és divertit': 'li agrada resoldre trencaclosques'

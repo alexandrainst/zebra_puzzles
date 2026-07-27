@@ -1,0 +1,221 @@
+# Config file for generating zebra puzzles in Luxembourgish with the classic "houses" theme.
+#
+# Cases: attribute_cases = [nom, is, is_not, dat]. Unlike German, Luxembourgish articles no longer distinguish
+#   nominative from accusative (den/eng/d' serve both), so there is no separate "acc" case — anywhere German's
+#   template would use accusative, this config just reuses "nom". Dative is still fully productive (den->dem
+#   masc, d'->der fem, d'->dem neut) and is needed after the positional prepositions (niewent, tëscht, lénks
+#   vun, riets vun all govern dative), mirroring German's de/Hauser.yaml exactly.
+# Gender default: masculine ("de"/"den"/"dem") used throughout for unknown-gender persons, as in German.
+# Word-formation (translated 1:1 from German's category structure): nationalities/jobs = bare
+#   demonym/occupation noun; pets = "X-besëtzer" (owner) compound + "huet en/eng X"; drinks = "X-drénker"
+#   compound + "drénkt X"; book genres = "X-leser" compound + "liest X"; hobbies = agent noun (Klammer,
+#   Moler, Heekeler) + verb; fruits = "Fan vun X" + "huet X gär" ("gär hunn" = to like, lit. "to have gladly").
+# Uncertain forms (flagged for native speaker review — Luxembourgish orthography/vocabulary confirmed only
+#   for "Heekelen" [crochet, via lb.wikipedia.org]; the rest are best-effort German-cognate constructions):
+#   Wellesittech (budgerigar), Stabschreck (stick insect, cognate of German "Stabschrecke"), Schleek (snail), Nidderlanden/Nidderlänner
+#   (Netherlands/Dutchman — "Holland"/"Hollänner" may be the more natural colloquial choice), Infirmier
+#   (nurse, French loanword as commonly used in Luxembourg), Enseignant (teacher, French loanword — native
+#   "Schoulmeeschter" may be more natural), Gesellschaftsspiller (board games), the "Eifeler Regel" final-n
+#   deletion rule (e.g. "e Kand" vs "ee Buch") is not applied consistently throughout.
+
+theme: lb_haiser
+
+attribute_cases: [nom, is, is_not, dat]
+red_herring_attribute_cases: [nom, is, dat]
+
+attributes:
+
+    Nationalitéiten:
+        Dänemark: ['den Dän', 'ass dänesch', 'ass net dänesch', 'dem Dän']
+        Schweden: ['de Schwed', 'ass schwedesch', 'ass net schwedesch', 'dem Schwed']
+        Lettland: ['de Lett', 'ass lettesch', 'ass net lettesch', 'dem Lett']
+        Frankräich: ['de Fransous', 'ass franséisch', 'ass net franséisch', 'dem Fransous']
+        Spuenien: ['de Spuenier', 'ass spuenesch', 'ass net spuenesch', 'dem Spuenier']
+        Italien: ['den Italiener', 'ass italienesch', 'ass net italienesch', 'dem Italiener']
+        Norwegen: ['den Norweger', 'ass norwegesch', 'ass net norwegesch', 'dem Norweger']
+        Färöer: ['de Färöer', 'ass färöesch', 'ass net färöesch', 'dem Färöer']  # uncertain
+        Nidderlanden: ['den Nidderlänner', 'ass nidderlännesch', 'ass net nidderlännesch', 'dem Nidderlänner']  # uncertain: Holland/Hollänner may be more natural
+        Island: ['den Islänner', 'ass islännesch', 'ass net islännesch', 'dem Islänner']
+        Groussbritannien: ['de Brit', 'ass britesch', 'ass net britesch', 'dem Brit']
+
+    Jobbe:
+        Bäcker: ['de Bäcker', 'ass Bäcker', 'ass kee Bäcker', 'dem Bäcker']
+        Minister: ['de Minister', 'ass Minister', 'ass kee Minister', 'dem Minister']
+        Polizist: ['de Polizist', 'ass Polizist', 'ass kee Polizist', 'dem Polizist']
+        Infirmier: ['den Infirmier', 'ass Infirmier', 'ass kee Infirmier', 'dem Infirmier']  # uncertain: French loanword, common in Luxembourg
+        Enseignant: ['den Enseignant', 'ass Enseignant', 'ass kee Enseignant', 'dem Enseignant']  # uncertain: French loanword, "Schoulmeeschter" may be more natural
+        Software-Entwéckler: ['de Software-Entwéckler', 'ass Software-Entwéckler', 'ass kee Software-Entwéckler', 'dem Software-Entwéckler']
+        Verkeefer: ['de Verkeefer', 'ass Verkeefer', 'ass kee Verkeefer', 'dem Verkeefer']
+
+    Hausdéieren:
+        Kaz: ['de Kazebesëtzer', 'huet eng Kaz', 'huet keng Kaz', 'dem Kazebesëtzer']
+        Hond: ['den Hondsbesëtzer', 'huet en Hond', 'huet kee Hond', 'dem Hondsbesëtzer']
+        Kanéngchen: ['de Kanéngchensbesëtzer', 'huet e Kanéngchen', 'huet kee Kanéngchen', 'dem Kanéngchensbesëtzer']
+        Zebra: ['de Zebrabesëtzer', 'huet e Zebra', 'huet kee Zebra', 'dem Zebrabesëtzer']
+        Wellesittech: ['de Wellesittechbesëtzer', 'huet e Wellesittech', 'huet kee Wellesittech', 'dem Wellesittechbesëtzer']  # uncertain
+        Schleek: ['de Schleekebesëtzer', 'huet eng Schleek', 'huet keng Schleek', 'dem Schleekebesëtzer']  # uncertain
+        Stabschreck: ["de Besëtzer vun enger Stabschreck", 'huet eng Stabschreck', 'huet keng Stabschreck', "dem Besëtzer vun enger Stabschreck"]  # uncertain: Luxembourgish cognate of German "Stabschrecke"
+
+    Gedrénks:
+        Jus: ['de Jusdrénker', 'drénkt Jus', 'drénkt kee Jus', 'dem Jusdrénker']
+        Kaffi: ['de Kaffisdrénker', 'drénkt Kaffi', 'drénkt kee Kaffi', 'dem Kaffisdrénker']
+        Mëllech: ['de Mëllechsdrénker', 'drénkt Mëllech', 'drénkt keng Mëllech', 'dem Mëllechsdrénker']
+        Smoothie: ['de Smoothiesdrénker', 'drénkt Smoothien', 'drénkt kee Smoothie', 'dem Smoothiesdrénker']
+        Kakao: ['de Kakaosdrénker', 'drénkt Kakao', 'drénkt kee Kakao', 'dem Kakaosdrénker']
+        Téi: ['den Téisdrénker', 'drénkt Téi', 'drénkt kee Téi', 'dem Téisdrénker']
+        Limonad: ['de Limonadsdrénker', 'drénkt Limonad', 'drénkt keng Limonad', 'dem Limonadsdrénker']
+
+    Liblingsliteratur:
+        Sachbuch: ['de Sachbuchleser', 'liest Sachbicher', 'liest keng Sachbicher', 'dem Sachbuchleser']
+        Krimi: ['de Krimileser', 'liest Krimien', 'liest keng Krimien', 'dem Krimileser']
+        Fantasy: ['de Fantasyleser', 'liest Fantasy', 'liest keng Fantasy', 'dem Fantasyleser']
+        Science-Fiction: ['de Science-Fiction-Leser', 'liest Science-Fiction', 'liest keng Science-Fiction', 'dem Science-Fiction-Leser']
+        Horror: ['den Horrorliteraturleser', 'liest Horrorliteratur', 'liest keng Horrorliteratur', 'dem Horrorliteraturleser']
+        Poesie: ['de Poesieleser', 'liest Poesie', 'liest keng Poesie', 'dem Poesieleser']
+        Léifesromaner: ['de Léifesromanleser', 'liest Léifesromaner', 'liest keng Léifesromaner', 'dem Léifesromanleser']  # uncertain
+
+    Hobbien:
+        Klammen: ['de Klammer', 'klëmmt', 'klëmmt net', 'dem Klammer']
+        Molen: ['de Moler', 'molt', 'molt net', 'dem Moler']
+        Gesellschaftsspiller: ['de Gesellschaftsspiller', 'spillt Gesellschaftsspiller', 'spillt keng Gesellschaftsspiller', 'dem Gesellschaftsspiller']  # uncertain
+        Tennis: ['de Tennisspiller', 'spillt Tennis', 'spillt kee Tennis', 'dem Tennisspiller']
+        Heekelen: ['den Heekeler', 'heekelt', 'heekelt net', 'dem Heekeler']  # confirmed via lb.wikipedia.org "Heekelen" = crochet
+        Foussball: ['de Foussballspiller', 'spillt Foussball', 'spillt kee Foussball', 'dem Foussballspiller']
+        Handball: ['den Handballspiller', 'spillt Handball', 'spillt kee Handball', 'dem Handballspiller']
+
+    Liblingsfriichten:
+        Apel: ['de Fan vun Äppel', 'huet Äppel gär', 'huet Äppel net gär', 'dem Fan vun Äppel']
+        Bir: ['de Fan vu Biren', 'huet Biren gär', 'huet Biren net gär', 'dem Fan vu Biren']
+        Orange: ['de Fan vun Orangen', 'huet Orangen gär', 'huet Orangen net gär', 'dem Fan vun Orangen']
+        Banann: ['de Fan vu Bananen', 'huet Bananen gär', 'huet Bananen net gär', 'dem Fan vu Bananen']
+        Fraise: ['de Fan vu Fraisen', 'huet Fraisen gär', 'huet Fraisen net gär', 'dem Fan vu Fraisen']  # uncertain: strawberry
+        Cassis: ['de Fan vu Cassis', 'huet Cassis gär', 'huet Cassis net gär', 'dem Fan vu Cassis']  # uncertain: blackcurrant
+        Walderdbier: ['de Fan vu Walderdbieren', 'huet Walderdbieren gär', 'huet Walderdbieren net gär', 'dem Fan vu Walderdbieren']  # uncertain: wild strawberry
+
+# Clues (SOV/V2 word order like German; positional prepositions govern dative, matching de/Hauser.yaml)
+clues_dict:
+    found_at: '{attribute_desc} wunnt am Haus Nummer {i_object}.'
+    not_at: '{attribute_desc} wunnt net am Haus Nummer {i_object}.'
+    next_to: '{attribute_desc_1} wunnt niewent {attribute_desc_2}.'                                                                              # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} wunnt net niewent {attribute_desc_2}, an dat sinn net déiselwecht Persoun.'                                 # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} wunnt direkt lénks vun {attribute_desc_2}.'                                                                # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} wunnt direkt riets vun {attribute_desc_2}.'                                                               # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} wunnt lénks vun {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} wunnt riets vun {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                                        # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                                                    # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} wunnt tëscht {attribute_desc_1} an {attribute_desc_3}.'                                                         # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} wunnt net tëscht {attribute_desc_2} an {attribute_desc_3}, an dat si dräi verschidde Persounen.'            # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: 'Tëscht {attribute_desc_1} an {attribute_desc_2} stinn genee {n_between} Haiser.'                                          # Requires n_objects > 3, otherwise it cannot be used
+    one_between: 'Et gëtt een Haus tëscht {attribute_desc_1} an {attribute_desc_2}.'                                                             # Requires n_objects > 2, otherwise it cannot be used
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'dat']
+    not_next_to: ['nom', 'dat']
+    just_left_of: ['nom', 'dat']
+    just_right_of: ['nom', 'dat']
+    left_of: ['nom', 'dat']
+    right_of: ['nom', 'dat']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['dat', 'nom', 'dat']
+    not_between: ['nom', 'dat', 'dat']
+    multiple_between: ['dat', 'dat']
+    one_between: ['dat', 'dat']
+
+prompt_and: an
+
+prompt_templates:
+    - |
+        Eng Rei Haiser sinn nummeréiert vun 1 bis {n_objects} vu lénks no riets.
+
+        A jidderengem Haus wunnt genee eng Persoun. D'Awunner hu jeeweils eng Eegeschaft an all enger vun de folgende Kategorien, wou all Eegeschaft nëmmen eemol virkënnt:
+
+        {chosen_attributes_str}
+
+        Doriwwer eraus wësse mir Follgendes:
+
+        {chosen_clues_str}
+
+        Wien huet wéi eng Eegeschaften an wunnt an wéi engem Haus?
+
+        Wgl schéckt Är Äntwert als JSON-Dictionary. All Key soll object_X sinn, wou X d'Hausnummer ass. All Value soll eng Lëscht mat den Eegeschafte vun den uewe genannte Kategorie sinn, déi zu der Persoun am Haus Nummer X gehéieren.
+
+        Hei ass e Beispill vum Äntwertformat:
+
+        {solution_template}
+    - |
+        Eng Rei Haiser sinn nummeréiert vun 1 bis {n_objects} vu lénks no riets.
+
+        A jidderengem Haus wunnt genee eng Persoun. D'Awunner hu jeeweils eng Eegeschaft an der Kategorie {chosen_attributes_str}.
+
+        Doriwwer eraus wësse mir Follgendes:
+
+        {chosen_clues_str}
+
+        Wéi eng Eegeschaft gehéiert zu der Persoun a jidderengem Haus?
+
+        Wgl schéckt Är Äntwert als JSON-Dictionary. All Key soll object_X sinn, wou X d'Hausnummer ass. All Value soll eng Lëscht sinn, déi d'Eegeschaft aus der genannter Kategorie enthält, déi zu der Persoun am Haus Nummer X gehéiert.
+
+        Hei ass e Beispill vum Äntwertformat:
+
+        {solution_template}
+
+# Red herrings
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} wunnt niewent {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} weess, datt {fact}.'
+    friends: '{attribute_desc} ass gutt befrënnt mat {attribute_desc_herring}.'
+    herring_found_at: '{attribute_desc_herring} wunnt am Haus Nummer {i_object}.'
+    herring_not_at: '{attribute_desc_herring} wunnt net am Haus Nummer {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'dat']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'dat']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+red_herring_attributes:
+    rout_Hoer: ["d'Persoun mat roude Hoer", 'huet rout Hoer', "der Persoun mat roude Hoer"]
+    Brëll: ["d'Persoun mam Brëll", 'dréit e Brëll', "der Persoun mam Brëll"]
+    Tattoo: ["d'Persoun mat engem Tattoo", 'huet en Tattoo', "der Persoun mat engem Tattoo"]
+    Gittar: ["d'Persoun déi Gittar spillt", 'spillt Gittar', "der Persoun déi Gittar spillt"]
+    Vëlo: ["d'Persoun mam Vëlo", 'huet e Vëlo', "der Persoun mam Vëlo"]
+    Meerschweinchen: ["d'Persoun mat engem Meerschweinchen", 'huet e Meerschweinchen', "der Persoun mat engem Meerschweinchen"]
+    Kaktus: ["d'Persoun déi kee Kaktus huet", 'huet kee Kaktus', "der Persoun déi kee Kaktus huet"]
+    Computerspiller: ["d'Persoun déi Computerspiller spillt", 'spillt Computerspiller', "der Persoun déi Computerspiller spillt"]
+    Schwëster: ["d'Persoun mat enger Schwëster", 'huet eng Schwëster', "der Persoun mat enger Schwëster"]
+    Mango: ["d'Persoun déi mengt datt Mango déi zweetbescht Fruucht ass", 'mengt datt Mango déi zweetbescht Fruucht ass', "der Persoun déi mengt datt Mango déi zweetbescht Fruucht ass"]
+    Seelen: ["d'Persoun déi dacks seelt", 'seelt dacks', "der Persoun déi dacks seelt"]
+    Kanada: ["d'Persoun déi a Kanada war", 'war a Kanada', "der Persoun déi a Kanada war"]
+    Mathematik: ["d'Persoun mat engem Mastersabschloss a Mathematik", 'huet e Mastersabschloss a Mathematik', "der Persoun mat engem Mastersabschloss a Mathematik"]
+    Physik: ["d'Persoun déi Physik gär huet", 'huet Physik gär', "der Persoun déi Physik gär huet"]
+    aalt_Déier: ["d'Persoun mat engem Haustéier dat al ass fir seng Aart", 'huet en Haustéier dat al ass fir seng Aart', "der Persoun mat engem Haustéier dat al ass fir seng Aart"]  # uncertain phrasing
+    Skispréngen: ["d'Persoun déi Skispréngen ukuckt", 'kuckt Skispréngen un', "der Persoun déi Skispréngen ukuckt"]
+
+red_herring_facts:
+    Herang: ['Herang ass e Fësch', 'Herang e Fësch ass']
+    Sonnesystem: ["d'Sonnesystem beweegt sech mat enger Vitesse vun ongeféier 200 km/s ronderëm d'Zentrum vun der Galaxis", "d'Sonnesystem sech mat enger Vitesse vun ongeféier 200 km/s ronderëm d'Zentrum vun der Galaxis beweegt"]
+    Rätsel: ['et mécht Spaass, Rätselen ze léisen', 'et Spaass mécht, Rätselen ze léisen']
+    Haiser: ["all d'Haiser an der Strooss hunn schéin Gäert", "all d'Haiser an der Strooss schéi Gäert hunn"]
+    Diere: ['e puer vun den Haiser hunn eng gréng Dier', 'e puer vun den Haiser eng gréng Dier hunn']
+    Fenster: ["all d'Haiser hunn grouss Fenster", "all d'Haiser grouss Fenster hunn"]
+    Autoen: ['et gi vill Autoen an der Strooss', 'et vill Autoen an der Strooss gëtt']
+    Kornischong: ['e Kornischong ass eng Bier', 'e Kornischong eng Bier ass']
+    Schleeken: ['Schleeken si Weichdéieren', 'Schleeken Weichdéieren si']
+    Kaffi: ['Kaffi huet Koffein', 'Kaffi Koffein huet']
+
+# Strings to replace in the prompt.
+prompt_replacements:
+    "weess, datt et Spaass mécht": "fënnt et flott"
+    "vun dem ": "vum "
+    ",.": "."
