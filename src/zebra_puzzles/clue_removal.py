@@ -1,11 +1,14 @@
 """Module for removing redundant clues."""
 
+import logging
 import re
 from random import sample
 
 import numpy as np
 
 from zebra_puzzles.puzzle_creation.zebra_solver import solver
+
+log = logging.getLogger(__name__)
 
 
 def is_clue_redundant(
@@ -204,8 +207,8 @@ def remove_redundant_clues_with_solver(
 ) -> tuple[list[str], list, list[str]]:
     """Remove redundant clues and constraints.
 
-    Tries removing each clue and see if the solution is still found.
-    Starts from the end of the list for easier iteration through a list we are removing elements from.
+    Repeatedly tries removing each clue and sees if the solution is still found, starting from the
+    end of the list each pass, until a full pass removes nothing.
 
     Args:
         chosen_constraints: Constraints for the zebra puzzle as a list of tuples. Each constaint corresponds to one clue. Each tuple (constraint_function, variables) contains:
@@ -222,18 +225,31 @@ def remove_redundant_clues_with_solver(
             constraints: Non-redundant constraints for the puzzle solver.
             chosen_clue_types: Non-redundant clue types for the zebra puzzle as a list of strings.
     """
-    for i in range(len(chosen_constraints) - 1, -1, -1):
-        # limit=2: we only need to know if the clue is still unique without it, not the exact count.
-        _, completeness = solver(
-            constraints=chosen_constraints[:i] + chosen_constraints[i + 1 :],
-            chosen_attributes=chosen_attributes_sorted,
-            n_objects=n_objects,
-            limit=2,
-        )
-        if completeness == 1:
-            del chosen_clues[i]
-            del chosen_constraints[i]
-            del chosen_clue_types[i]
+    max_passes = len(chosen_constraints) + 1
+    n_passes = 0
+    while True:
+        n_before = len(chosen_constraints)
+        for i in range(len(chosen_constraints) - 1, -1, -1):
+            # limit=2: we only need to know if the clue is still unique without it, not the exact count.
+            _, completeness = solver(
+                constraints=chosen_constraints[:i] + chosen_constraints[i + 1 :],
+                chosen_attributes=chosen_attributes_sorted,
+                n_objects=n_objects,
+                limit=2,
+            )
+            if completeness == 1:
+                del chosen_clues[i]
+                del chosen_constraints[i]
+                del chosen_clue_types[i]
+
+        n_passes += 1
+        if len(chosen_constraints) == n_before:
+            break
+        if n_passes >= max_passes:
+            log.error(
+                f"Redundant clue removal did not converge after {max_passes} passes, which should not happen since every non-final pass must remove at least one clue.\nchosen_clues: {chosen_clues}"
+            )
+            raise RuntimeError("Redundant clue removal failed to converge.")
 
     return chosen_clues, chosen_constraints, chosen_clue_types
 

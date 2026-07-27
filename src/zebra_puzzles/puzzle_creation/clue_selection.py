@@ -84,6 +84,9 @@ def choose_clues(
     # Define the maximum number of attempts to create a solvable puzzle by adding clues
     max_iter = 100
 
+    # Define the minimum number of clues expected to solve the puzzle
+    min_expected_clues = max(n_objects, n_attributes)
+
     # Add clues until the puzzle is solved or the maximum number of attempts is reached
     for _ in range(max_iter):
         # Generate a random clue
@@ -122,7 +125,7 @@ def choose_clues(
         if redundant:
             continue
 
-        if len(chosen_constraints) < n_attributes:
+        if len(chosen_constraints) < min_expected_clues:
             # Accumulate clues without solving yet to save runtime. Too few clues will yield too many solutions.
             if clues_to_remove:
                 (
