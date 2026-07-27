@@ -177,6 +177,15 @@ def choose_clues(
                 )
             )
 
+            final_solver_check(
+                chosen_constraints=chosen_constraints,
+                chosen_attributes_sorted=chosen_attributes_sorted,
+                n_objects=n_objects,
+                n_attributes=n_attributes,
+                chosen_clues=chosen_clues,
+                solution=solution,
+            )
+
             # Break the loop because the puzzle is solved
             break
     else:  # If the loop was not broken, it means the puzzle was not solved
@@ -580,3 +589,40 @@ def clue_holds(constraint: tuple, solution: dict[str, int]) -> bool:
 
     # For other constraints (lambda functions), call the constraint function with the values
     return constraint_func(*values)
+
+
+def final_solver_check(
+    chosen_constraints: list[tuple],
+    chosen_attributes_sorted: np.ndarray,
+    n_objects: int,
+    n_attributes: int,
+    chosen_clues: list[str],
+    solution: np.ndarray,
+):
+    """Final full, unlimited solve of the pruned clue set as an end-to-end check.
+
+    Args:
+        chosen_constraints: List of constraints for the zebra puzzle as a list of tuples.
+        chosen_attributes_sorted: Attribute values chosen for the solution as a matrix, transposed and sorted.
+        n_objects: Number of objects in the puzzle as an integer.
+        n_attributes: Number of attributes per object as an integer.
+        chosen_clues: Clues for the zebra puzzle as a list of strings.
+        solution: Solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x (n_attributes + 1).
+    """
+    final_solutions, final_completeness = solver(
+        constraints=chosen_constraints,
+        chosen_attributes=chosen_attributes_sorted,
+        n_objects=n_objects,
+    )
+    if final_completeness != 1:
+        log.error(
+            f"Final verification failed: the pruned clue set does not have a unique solution.\nn_solutions_found: {len(final_solutions)}\nchosen_clues: {chosen_clues}"
+        )
+        raise ValueError("The final clue set does not have a unique solution.")
+    raise_if_unexpected_solution_found(
+        solutions=final_solutions,
+        solution=solution,
+        n_objects=n_objects,
+        n_attributes=n_attributes,
+        chosen_clues=chosen_clues,
+    )
