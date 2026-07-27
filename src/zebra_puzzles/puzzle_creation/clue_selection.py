@@ -122,8 +122,29 @@ def choose_clues(
         if redundant:
             continue
 
-        if not chosen_constraints:
-            # Nothing accepted yet to filter against - this is the one real solve of the loop.
+        if len(chosen_constraints) < n_attributes:
+            # Accumulate clues without solving yet to save runtime. Too few clues will yield too many solutions.
+            if clues_to_remove:
+                (
+                    chosen_clues,
+                    chosen_constraints,
+                    chosen_clue_parameters,
+                    chosen_clue_types,
+                ) = apply_clue_removals(
+                    clues_to_remove=clues_to_remove,
+                    old_clues=chosen_clues,
+                    old_constraints=chosen_constraints,
+                    old_clue_parameters=chosen_clue_parameters,
+                    old_clue_types=chosen_clue_types,
+                )
+            chosen_clues.append(new_clue)
+            chosen_constraints.append(new_constraint)
+            chosen_clue_parameters.append(new_clue_parameters)
+            chosen_clue_types.append(new_clue_type)
+            continue
+
+        if not solutions:
+            # First real solve of the loop, over the whole accumulated batch plus this clue.
             new_solutions, completeness = solver(
                 constraints=chosen_constraints + [new_constraint],
                 chosen_attributes=chosen_attributes_sorted,
