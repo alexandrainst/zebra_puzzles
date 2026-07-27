@@ -107,13 +107,11 @@ Please submit your answer as a JSON dictionary in the format below. Each row mus
 ## Typical runtimes
 
 Typical runtimes for generating a puzzle of size n_objects x n_attributes are (using all clue types):
-- 3x7: 0.7 s
-- 4x4: 0.6 s
-- 4x5: 13 s
-- 4x6: 3 min
-- 5x3: 3.8 s
-- 5x6: >10 min
-- 6x3: 4 min
+- 2x3: 0.002 s
+- 4x5: 0.7 s
+- 4x6: 0.7 s
+- 5x5: 2 min
+- 6x3: 1.5 s
 
 Typical times for evaluation of a puzzle without red herrings:
 
