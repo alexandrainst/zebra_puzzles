@@ -63,6 +63,8 @@ The chosen main data folder contains puzzles, their solutions, LLM responses, ch
 
 Puzzles can be evaluated using fewer red herrings than they were generated with. This allows for measuring the impact of red herrings. If the number of red herrings is reduced, the new version of the puzzle is saved in a 'reduced_puzzles' folder, and the clue types are saved in a 'reduced_clue_types' folder.
 
+To generate full train, validation and test datasets for a theme, run `uv run src/scripts/create_and_upload_dataset.py en/houses`. This will generate 128 puzzles for training, 128 puzzles for validation, and 1024 puzzles for testing. The datasets will be formatted and pushed to Hugging Face.
+
 ## Example
 
 The following is an example of a 2x3 puzzle with 5 red herrings. The theme is houses and the language is English.
@@ -110,8 +112,10 @@ Typical runtimes for generating a puzzle of size n_objects x n_attributes are (u
 - 2x3: 0.002 s
 - 4x5: 0.7 s
 - 4x6: 0.7 s
-- 5x5: 2 min
+- 5x5: 3 min
 - 6x3: 1.5 s
+
+Increase min_expected_clues to reduce runtime if needed.
 
 Typical times for evaluation of a puzzle without red herrings:
 
