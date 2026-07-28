@@ -18,12 +18,6 @@ import sys
 SIZES = [(2, 3), (4, 5)]
 DATA_SPLITS = [("data_train", 128), ("data_val", 128), ("data_test", 1024)]
 
-# build_dataset.py and format_datasets.py each ask for interactive (y/n)
-# confirmation before overwriting existing files/datasets and before pushing
-# to Hugging Face Hub. When auto-confirming, we feed enough "y" answers via
-# stdin to cover every prompt a single call might trigger.
-CONFIRM_ALL_PROMPTS = "y\n" * 20
-
 
 def main() -> None:
     """Generate, format and upload train/val/test datasets for one or more languages/themes."""
@@ -43,7 +37,6 @@ def main() -> None:
         .lower()
         == "y"
     )
-    prompt_input = CONFIRM_ALL_PROMPTS if auto_confirm else None
 
     for language_theme in language_themes:
         for n_objects, n_attributes in SIZES:
@@ -58,9 +51,8 @@ def main() -> None:
                         f"n_puzzles={n_puzzles}",
                         f"n_objects={n_objects}",
                         f"n_attributes={n_attributes}",
+                        f"auto_confirm={auto_confirm}",
                     ],
-                    input=prompt_input,
-                    text=True,
                     check=True,
                 )
 
@@ -72,9 +64,8 @@ def main() -> None:
                     f"language={language_theme}",
                     f"n_objects={n_objects}",
                     f"n_attributes={n_attributes}",
+                    f"auto_confirm={auto_confirm}",
                 ],
-                input=prompt_input,
-                text=True,
                 check=True,
             )
 

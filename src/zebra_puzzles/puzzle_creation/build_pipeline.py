@@ -155,6 +155,7 @@ def build_dataset(
     attribute_subject_cases: dict[str, str] | None = None,
     same_object_templates: dict[str, str] | None = None,
     not_same_object_templates: dict[str, str] | None = None,
+    auto_confirm: bool = False,
 ) -> None:
     """Build a dataset of zebra puzzles.
 
@@ -184,6 +185,7 @@ def build_dataset(
         attribute_subject_cases: Optional per-category subject case override for same_object/not_same_object clues.
         same_object_templates: Optional per-category template override for same_object clues.
         not_same_object_templates: Optional per-category template override for not_same_object clues.
+        auto_confirm: If True, delete outdated files in the data folders without asking for confirmation.
     """
     validate_language_config(
         attribute_cases=attribute_cases,
@@ -212,6 +214,7 @@ def build_dataset(
         n_attributes=n_attributes,
         n_red_herring_clues=n_red_herring_clues,
         data_folder_str=data_folder_str,
+        auto_confirm=auto_confirm,
     )
 
     for i in tqdm(

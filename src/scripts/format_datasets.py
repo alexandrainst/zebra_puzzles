@@ -37,6 +37,7 @@ def main(config: DictConfig) -> None:
     n_red_herring_clues = config.n_red_herring_clues
     n_attributes = config.n_attributes
     n_objects = config.n_objects
+    auto_confirm = config.get("auto_confirm", False)
 
     # Set number of puzzles for training and testing datasets and the data folder to save the datasets in
     n_puzzles_train = 128
@@ -57,6 +58,7 @@ def main(config: DictConfig) -> None:
         n_red_herring_clues=n_red_herring_clues,
         n_attributes=n_attributes,
         n_objects=n_objects,
+        auto_confirm=auto_confirm,
     )
 
 
@@ -73,6 +75,7 @@ def format_datasets_pipeline(
     n_red_herring_clues: int,
     n_attributes: int,
     n_objects: int,
+    auto_confirm: bool = False,
 ) -> None:
     """Formats datasets.
 
@@ -89,6 +92,7 @@ def format_datasets_pipeline(
         n_red_herring_clues: Number of red herring clues in the puzzles.
         n_attributes: Number of attributes in the puzzles.
         n_objects: Number of objects in the puzzles.
+        auto_confirm: If True, overwrite an existing dataset and push to Hugging Face Hub without asking for confirmation.
 
     Returns:
         None
@@ -99,7 +103,9 @@ def format_datasets_pipeline(
     if (Path(data_folder_current) / dataset_name).exists():
         # Ask the user if they want to overwrite the previous dataset
         format_flag = (
-            input(
+            "y"
+            if auto_confirm
+            else input(
                 f"Dataset {dataset_name} already exists. Do you want to overwrite the existing dataset? (y/n): "
             )
             .strip()
@@ -152,7 +158,9 @@ def format_datasets_pipeline(
 
     # Ask user if they want to push the dataset to Hugging Face Hub
     push_to_hub = (
-        input("Do you want to push the dataset to Hugging Face Hub? (y/n): ")
+        "y"
+        if auto_confirm
+        else input("Do you want to push the dataset to Hugging Face Hub? (y/n): ")
         .strip()
         .lower()
     )
