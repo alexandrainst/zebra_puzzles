@@ -125,27 +125,27 @@ def choose_clues(
         if redundant:
             continue
 
-        if len(chosen_constraints) < min_expected_clues:
-            # Accumulate clues without solving yet to save runtime. Too few clues will yield too many solutions.
-            (
-                chosen_clues,
-                chosen_constraints,
-                chosen_clue_parameters,
-                chosen_clue_types,
-            ) = accept_clue(
-                new_clue=new_clue,
-                new_constraint=new_constraint,
-                new_clue_parameters=new_clue_parameters,
-                new_clue_type=new_clue_type,
-                clues_to_remove=clues_to_remove,
-                chosen_clues=chosen_clues,
-                chosen_constraints=chosen_constraints,
-                chosen_clue_parameters=chosen_clue_parameters,
-                chosen_clue_types=chosen_clue_types,
-            )
-            continue
-
         if not solutions:
+            if len(chosen_constraints) < min_expected_clues:
+                # Accumulate clues without solving yet to save runtime. Too few clues will yield too many solutions.
+                (
+                    chosen_clues,
+                    chosen_constraints,
+                    chosen_clue_parameters,
+                    chosen_clue_types,
+                ) = accept_clue(
+                    new_clue=new_clue,
+                    new_constraint=new_constraint,
+                    new_clue_parameters=new_clue_parameters,
+                    new_clue_type=new_clue_type,
+                    clues_to_remove=clues_to_remove,
+                    chosen_clues=chosen_clues,
+                    chosen_constraints=chosen_constraints,
+                    chosen_clue_parameters=chosen_clue_parameters,
+                    chosen_clue_types=chosen_clue_types,
+                )
+                continue
+
             # First real solve of the loop, over the whole accumulated batch plus this clue.
             new_solutions, completeness = solver(
                 constraints=chosen_constraints + [new_constraint],
