@@ -26,7 +26,7 @@ Paper: [ArXiv preprint](https://arxiv.org/abs/2511.03553)
 Contributions are welcome! Please read the [contributing guide](CONTRIBUTING.md) before submitting a PR. There are many ways to contribute, including opening issues for linguistic errors, adding new languages or themes, and adding new clue types.
 
 ______________________________________________________________________
-[![Code Coverage](https://img.shields.io/badge/Coverage-82%25-yellowgreen.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
+[![Code Coverage](https://img.shields.io/badge/Coverage-83%25-yellowgreen.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
 [![Documentation](https://img.shields.io/badge/docs-passing-green)](https://alexandrainst.github.io/zebra_puzzles)
 [![License](https://img.shields.io/github/license/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/blob/main/LICENSE)
 [![LastCommit](https://img.shields.io/github/last-commit/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/commits/main)
