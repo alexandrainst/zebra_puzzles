@@ -10,10 +10,14 @@ Usage:
 Examples:
     uv run src/scripts/create_and_upload_dataset.py en/houses
     uv run src/scripts/create_and_upload_dataset.py en/houses da/smoerrebroed
+    uv run src/scripts/create_and_upload_dataset.py da/smoerrebroed de/Hauser en/houses fo/hus is/husum nb/hus nl/huizen nn/hus sv/hus fi/talot fr/maisons hu/hazak pt/casas el/spitia uk/budynky pl/domy lt/namai ro/case bg/kashti bs/kuce sq/shtepi be/damy ca/cases es/casas hr/kuce et/majad lv/majas sr/kuce sk/domy sl/hise cs/domy it/case eu/etxeak ga/tithe sco/hooses lb/haiser mk/kukji fy/huzen
 """
 
+import logging
 import subprocess
 import sys
+
+log = logging.getLogger(__name__)
 
 SIZES = [(2, 3), (4, 5)]
 DATA_SPLITS = [("data_train", 128), ("data_val", 128), ("data_test", 1024)]
@@ -28,6 +32,8 @@ def main() -> None:
         )
     language_themes = sys.argv[1:]
 
+    log.info(f"Processing {len(language_themes)} language/theme(s)")
+
     auto_confirm = (
         input(
             "Automatically overwrite existing datasets and publish to Hugging"
@@ -39,6 +45,7 @@ def main() -> None:
     )
 
     for language_theme in language_themes:
+        log.info(f"\nProcessing language/theme: {language_theme}")
         for n_objects, n_attributes in SIZES:
             for data_folder, n_puzzles in DATA_SPLITS:
                 subprocess.run(
