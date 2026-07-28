@@ -49,6 +49,8 @@ Run `uv run src/scripts/fix_files.py` to combine datasets. Use the script to edi
 
 Run `uv run src/scripts/format_datasets.py` to format and push a dataset to Hugging Face.
 
+Run `uv run src/scripts/create_and_upload_dataset.py <language/theme>` to generate full train, validation and test datasets for a theme and optionally push to Hugging Face after user confirmation. This will generate 128 puzzles for training, 128 puzzles for validation, and 1024 puzzles for testing for sizes 2x3 and 4x5. It is possible to specify multiple languages and themes, e.g. `uv run src/scripts/create_and_upload_dataset.py en/houses da/smoerrebroed de/Hauser`.
+
 Use the configuration in `config/config.yaml` to specify:
 - language and theme of puzzles
 - model for evaluation (e.g. gpt-4o-mini, gpt-4o, o3-mini, o3)
@@ -62,8 +64,6 @@ Use the configuration in `config/config.yaml` to specify:
 The chosen main data folder contains puzzles, their solutions, LLM responses, chosen clue types and the indices to red herring clues in each puzzle. LLM scores are saved in the 'scores' subfolder. Plots and cross-model comparisons are saved in the 'plots' subfolder.
 
 Puzzles can be evaluated using fewer red herrings than they were generated with. This allows for measuring the impact of red herrings. If the number of red herrings is reduced, the new version of the puzzle is saved in a 'reduced_puzzles' folder, and the clue types are saved in a 'reduced_clue_types' folder.
-
-To generate full train, validation and test datasets for a theme, run `uv run src/scripts/create_and_upload_dataset.py en/houses`. This will generate 128 puzzles for training, 128 puzzles for validation, and 1024 puzzles for testing. The datasets will be formatted and optionally pushed to Hugging Face after user confirmation.
 
 ## Example
 
