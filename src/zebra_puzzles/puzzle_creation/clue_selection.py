@@ -81,11 +81,13 @@ def choose_clues(
     chosen_clue_parameters: list = []
     chosen_clue_types: list[str] = []
 
-    # Define the maximum number of attempts to create a solvable puzzle by adding clues
-    max_iter = 100
-
     # Define the minimum number of clues expected to solve the puzzle
-    min_expected_clues = max(n_objects, n_attributes)
+    # The computed value is an approximation. Increasing the number might reduce runtime.
+    # If set too high, there will be more clues to remove in a later step.
+    n_expected_clues = n_objects * n_attributes - max(n_attributes, n_objects)
+
+    # Define the maximum number of attempts to create a solvable puzzle by adding clues
+    max_iter = n_expected_clues * 10
 
     # Add clues until the puzzle is solved or the maximum number of attempts is reached
     for _ in range(max_iter):
@@ -126,7 +128,7 @@ def choose_clues(
             continue
 
         if not solutions:
-            if len(chosen_constraints) < min_expected_clues:
+            if len(chosen_constraints) < n_expected_clues:
                 # Accumulate clues without solving yet to save runtime. Too few clues will yield too many solutions.
                 (
                     chosen_clues,
