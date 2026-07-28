@@ -2,15 +2,14 @@
 
 This script generates train (128), validation (128), and test (1024) puzzles
 for puzzles of size 2x3 and 4x5, and then formats and uploads them to Hugging
-Face. The dataset is pushed as public and overwrites any existing dataset of
-the same name.
+Face, for one or more languages/themes.
 
 Usage:
-    uv run src/scripts/create_and_upload_dataset.py <language>/<theme>
+    uv run src/scripts/create_and_upload_dataset.py <language>/<theme> [<language>/<theme> ...]
 
 Examples:
     uv run src/scripts/create_and_upload_dataset.py en/houses
-    uv run src/scripts/create_and_upload_dataset.py da/smoerrebroed
+    uv run src/scripts/create_and_upload_dataset.py en/houses da/smoerrebroed
 """
 
 import subprocess
@@ -19,42 +18,65 @@ import sys
 SIZES = [(2, 3), (4, 5)]
 DATA_SPLITS = [("data_train", 128), ("data_val", 128), ("data_test", 1024)]
 
+# build_dataset.py and format_datasets.py each ask for interactive (y/n)
+# confirmation before overwriting existing files/datasets and before pushing
+# to Hugging Face Hub. When auto-confirming, we feed enough "y" answers via
+# stdin to cover every prompt a single call might trigger.
+CONFIRM_ALL_PROMPTS = "y\n" * 20
+
 
 def main() -> None:
-    """Generate, format and upload train/val/test datasets for a language/theme."""
-    if len(sys.argv) != 2:
+    """Generate, format and upload train/val/test datasets for one or more languages/themes."""
+    if len(sys.argv) < 2:
         raise ValueError(
-            "Usage: uv run src/scripts/create_and_upload_dataset.py <language>/<theme>"
+            "Usage: uv run src/scripts/create_and_upload_dataset.py "
+            "<language>/<theme> [<language>/<theme> ...]"
         )
-    language_theme = sys.argv[1]
+    language_themes = sys.argv[1:]
 
-    for n_objects, n_attributes in SIZES:
-        for data_folder, n_puzzles in DATA_SPLITS:
+    auto_confirm = (
+        input(
+            "Automatically overwrite existing datasets and publish to Hugging"
+            " Face Hub without asking? (y/n): "
+        )
+        .strip()
+        .lower()
+        == "y"
+    )
+    prompt_input = CONFIRM_ALL_PROMPTS if auto_confirm else None
+
+    for language_theme in language_themes:
+        for n_objects, n_attributes in SIZES:
+            for data_folder, n_puzzles in DATA_SPLITS:
+                subprocess.run(
+                    [
+                        "uv",
+                        "run",
+                        "src/scripts/build_dataset.py",
+                        f"language={language_theme}",
+                        f"data_folder={data_folder}",
+                        f"n_puzzles={n_puzzles}",
+                        f"n_objects={n_objects}",
+                        f"n_attributes={n_attributes}",
+                    ],
+                    input=prompt_input,
+                    text=True,
+                    check=True,
+                )
+
             subprocess.run(
                 [
                     "uv",
                     "run",
-                    "src/scripts/build_dataset.py",
+                    "src/scripts/format_datasets.py",
                     f"language={language_theme}",
-                    f"data_folder={data_folder}",
-                    f"n_puzzles={n_puzzles}",
                     f"n_objects={n_objects}",
                     f"n_attributes={n_attributes}",
                 ],
+                input=prompt_input,
+                text=True,
                 check=True,
             )
-
-        subprocess.run(
-            [
-                "uv",
-                "run",
-                "src/scripts/format_datasets.py",
-                f"language={language_theme}",
-                f"n_objects={n_objects}",
-                f"n_attributes={n_attributes}",
-            ],
-            check=True,
-        )
 
 
 if __name__ == "__main__":
