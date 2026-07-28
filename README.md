@@ -63,7 +63,7 @@ The chosen main data folder contains puzzles, their solutions, LLM responses, ch
 
 Puzzles can be evaluated using fewer red herrings than they were generated with. This allows for measuring the impact of red herrings. If the number of red herrings is reduced, the new version of the puzzle is saved in a 'reduced_puzzles' folder, and the clue types are saved in a 'reduced_clue_types' folder.
 
-To generate full train, validation and test datasets for a theme, run `uv run src/scripts/create_and_upload_dataset.py en/houses`. This will generate 128 puzzles for training, 128 puzzles for validation, and 1024 puzzles for testing. The datasets will be formatted and pushed to Hugging Face.
+To generate full train, validation and test datasets for a theme, run `uv run src/scripts/create_and_upload_dataset.py en/houses`. This will generate 128 puzzles for training, 128 puzzles for validation, and 1024 puzzles for testing. The datasets will be formatted and optionally pushed to Hugging Face after user confirmation.
 
 ## Example
 

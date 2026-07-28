@@ -149,7 +149,7 @@ def is_clue_redundant(
         ):
             return True, []
 
-        # Check if an existing clue adds is less specific than the new clue
+        # Check if an existing clue is less specific than the new clue
         if (
             (new_clue_type, clue_type_j) in redundant_clues
             and sorted(i_objects_j) == sorted_new_objects
