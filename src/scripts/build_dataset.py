@@ -45,6 +45,7 @@ def main(config: DictConfig) -> None:
     not_same_object_templates = dict(
         config.language.get("not_same_object_templates", {})
     )
+    auto_confirm = config.get("auto_confirm", False)
     build_dataset(
         n_objects=n_objects,
         n_attributes=n_attributes,
@@ -69,6 +70,7 @@ def main(config: DictConfig) -> None:
         attribute_subject_cases=attribute_subject_cases,
         same_object_templates=same_object_templates,
         not_same_object_templates=not_same_object_templates,
+        auto_confirm=auto_confirm,
     )
 
 

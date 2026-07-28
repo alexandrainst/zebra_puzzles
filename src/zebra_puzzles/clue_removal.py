@@ -1,5 +1,6 @@
 """Module for removing redundant clues."""
 
+import logging
 import re
 from random import sample
 
@@ -7,63 +8,7 @@ import numpy as np
 
 from zebra_puzzles.puzzle_creation.zebra_solver import solver
 
-
-def remove_redundant_clues_with_rules(
-    new_clue: str,
-    old_clues: list[str],
-    old_constraints: list,
-    new_clue_parameters: tuple[str, list[int], np.ndarray],
-    old_clue_parameters: list,
-    new_clue_type: str,
-    old_clue_types: list[str],
-    prioritise_old_clues: bool = False,
-) -> tuple[bool, list[str], list, list, list]:
-    """Remove redundant clues and constraints.
-
-    Check if a suggested clue is redundant and remove it or existing clues if it is, depending on prioritise_old_clues.
-
-    Args:
-        new_clue: The suggested clue to check as a string.
-        old_clues: Chosen clues for the zebra puzzle as a list of strings.
-        old_constraints: List of constraints for the puzzle solver.
-        new_clue_parameters: A tuple (clue_type, i_clue_objects, clue_attributes) containing clue parameters for the suggested clue, where:
-            clue_type: Type of the clue as a string.
-            i_clue_objects: List of object indices in the clue as integers.
-            clue_attributes: Array of attribute values as strings for the clue.
-        old_clue_parameters: List of all previously chosen clue parameters as described above for new_clue_parameters.
-        new_clue_type: Clue type for the suggested clue.
-        old_clue_types: List of all previously chosen clue types.
-        prioritise_old_clues: Boolean indicating if the new clue should be rejected if it includes all information of an existing clue. This will reduce a bias towards more specific clues and result in more clues per puzzle. Otherwise, the old less specific clue will be removed.
-
-    Returns:
-        A tuple (redundant, old_clues, old_constraints, old_clue_parameters, old_clue_types), where:
-            redundant: Boolean indicating if the suggested clue is redundant.
-            old_clues: Non-redundant old clues for the zebra puzzle as a list of strings.
-            old_constraints: List of non-redundant old constraints for the puzzle solver.
-            old_clue_parameters: List of non-redundant old clue parameters. This list contains tuples as described above for new_clue_parameters.
-            old_clue_types: List of non-redundant old clue types.
-    """
-    redundant, clues_to_remove = is_clue_redundant(
-        new_clue=new_clue,
-        old_clues=old_clues,
-        new_clue_parameters=new_clue_parameters,
-        old_clue_parameters=old_clue_parameters,
-        new_clue_type=new_clue_type,
-        old_clue_types=old_clue_types,
-        prioritise_old_clues=prioritise_old_clues,
-    )
-
-    if clues_to_remove != []:
-        # Sort the list of clues to remove from last to first and only include unique ones
-        clues_to_remove = sorted(list(set(clues_to_remove)), reverse=True)
-
-        for i in clues_to_remove:
-            del old_clues[i]
-            del old_constraints[i]
-            del old_clue_parameters[i]
-            del old_clue_types[i]
-
-    return redundant, old_clues, old_constraints, old_clue_parameters, old_clue_types
+log = logging.getLogger(__name__)
 
 
 def is_clue_redundant(
@@ -204,9 +149,9 @@ def is_clue_redundant(
         ):
             return True, []
 
-        # Check if an existing clue adds is less specific than the new clue
+        # Check if an existing clue is less specific than the new clue
         if (
-            (clue_type_j, new_clue_type) in redundant_clues
+            (new_clue_type, clue_type_j) in redundant_clues
             and sorted(i_objects_j) == sorted_new_objects
             and sorted(attributes_j) == sorted_new_attributes
         ):
@@ -219,6 +164,40 @@ def is_clue_redundant(
     return False, clues_to_remove
 
 
+def apply_clue_removals(
+    clues_to_remove: list[int],
+    old_clues: list[str],
+    old_constraints: list,
+    old_clue_parameters: list,
+    old_clue_types: list[str],
+) -> tuple[list[str], list, list, list]:
+    """Delete previously chosen clues at the given indices.
+
+    Only call this once it is confirmed that the new clue making these old ones redundant is
+    actually being kept.
+
+    Args:
+        clues_to_remove: Indices into old_clue_parameters (and the other lists) to delete.
+        old_clues: Chosen clues for the zebra puzzle as a list of strings.
+        old_constraints: List of constraints for the puzzle solver.
+        old_clue_parameters: List of all previously chosen clue parameters.
+        old_clue_types: List of all previously chosen clue types.
+
+    Returns:
+        A tuple (old_clues, old_constraints, old_clue_parameters, old_clue_types) with the clues
+        at clues_to_remove deleted.
+    """
+    # Sort the list of clues to remove from last to first and only include unique ones, so
+    # deleting one doesn't shift the indices of the others still to be deleted.
+    for i in sorted(set(clues_to_remove), reverse=True):
+        del old_clues[i]
+        del old_constraints[i]
+        del old_clue_parameters[i]
+        del old_clue_types[i]
+
+    return old_clues, old_constraints, old_clue_parameters, old_clue_types
+
+
 def remove_redundant_clues_with_solver(
     chosen_constraints: list,
     chosen_clues: list[str],
@@ -228,8 +207,8 @@ def remove_redundant_clues_with_solver(
 ) -> tuple[list[str], list, list[str]]:
     """Remove redundant clues and constraints.
 
-    Tries removing each clue and see if the solution is still found.
-    Starts from the end of the list for easier iteration through a list we are removing elements from.
+    Repeatedly tries removing each clue and sees if the solution is still found, starting from the
+    end of the list each pass, until a full pass removes nothing.
 
     Args:
         chosen_constraints: Constraints for the zebra puzzle as a list of tuples. Each constaint corresponds to one clue. Each tuple (constraint_function, variables) contains:
@@ -246,16 +225,31 @@ def remove_redundant_clues_with_solver(
             constraints: Non-redundant constraints for the puzzle solver.
             chosen_clue_types: Non-redundant clue types for the zebra puzzle as a list of strings.
     """
-    for i in range(len(chosen_constraints) - 1, -1, -1):
-        _, completeness = solver(
-            constraints=chosen_constraints[:i] + chosen_constraints[i + 1 :],
-            chosen_attributes=chosen_attributes_sorted,
-            n_objects=n_objects,
-        )
-        if completeness == 1:
-            del chosen_clues[i]
-            del chosen_constraints[i]
-            del chosen_clue_types[i]
+    max_passes = len(chosen_constraints) + 1
+    n_passes = 0
+    while True:
+        n_before = len(chosen_constraints)
+        for i in range(len(chosen_constraints) - 1, -1, -1):
+            # limit=2: we only need to know if the clue is still unique without it, not the exact count.
+            _, completeness = solver(
+                constraints=chosen_constraints[:i] + chosen_constraints[i + 1 :],
+                chosen_attributes=chosen_attributes_sorted,
+                n_objects=n_objects,
+                limit=2,
+            )
+            if completeness == 1:
+                del chosen_clues[i]
+                del chosen_constraints[i]
+                del chosen_clue_types[i]
+
+        n_passes += 1
+        if len(chosen_constraints) == n_before:
+            break
+        if n_passes >= max_passes:
+            log.error(
+                f"Redundant clue removal did not converge after {max_passes} passes, which should not happen since every non-final pass must remove at least one clue.\nchosen_clues: {chosen_clues}"
+            )
+            raise RuntimeError("Redundant clue removal failed to converge.")
 
     return chosen_clues, chosen_constraints, chosen_clue_types
 
@@ -283,7 +277,10 @@ def remove_red_herrings(
     # Split the string of indices into a list
     i_red_herrings = [idx.strip() for idx in red_herring_indices_str.split(",")]
 
-    n_red_herrings = len(i_red_herrings)
+    if red_herring_indices_str != "":
+        n_red_herrings = len(i_red_herrings)
+    else:
+        n_red_herrings = 0
 
     # Check that any red herrings should be removed
     if red_herring_indices_str != "" and n_red_herrings_to_keep < n_red_herrings:

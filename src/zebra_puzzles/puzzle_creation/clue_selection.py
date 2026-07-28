@@ -7,7 +7,8 @@ import numpy as np
 from constraint import InSetConstraint, NotInSetConstraint
 
 from zebra_puzzles.clue_removal import (
-    remove_redundant_clues_with_rules,
+    apply_clue_removals,
+    is_clue_redundant,
     remove_redundant_clues_with_solver,
 )
 from zebra_puzzles.puzzle_creation.zebra_solver import (
@@ -80,8 +81,13 @@ def choose_clues(
     chosen_clue_parameters: list = []
     chosen_clue_types: list[str] = []
 
+    # Define the minimum number of clues expected to solve the puzzle
+    # The computed value is an approximation. Increasing the number might reduce runtime.
+    # If set too high, there will be more clues to remove in a later step.
+    n_expected_clues = n_objects * n_attributes - max(n_attributes, n_objects)
+
     # Define the maximum number of attempts to create a solvable puzzle by adding clues
-    max_iter = 100
+    max_iter = n_expected_clues * 10
 
     # Add clues until the puzzle is solved or the maximum number of attempts is reached
     for _ in range(max_iter):
@@ -105,17 +111,13 @@ def choose_clues(
             not_same_object_templates=not_same_object_templates,
         )
 
-        # Check if the clue is obviously redundant before using the solver to save runtime
-        (
-            redundant,
-            chosen_clues,
-            chosen_constraints,
-            chosen_clue_parameters,
-            chosen_clue_types,
-        ) = remove_redundant_clues_with_rules(
+        # Check if the clue is obviously redundant before using the solver to save runtime.
+        # Do NOT delete clues_to_remove yet: an old clue is only safe to drop together with the
+        # new clue that supersedes it, so deletion is deferred until we know new_clue is kept
+        # (see the acceptance check below).
+        redundant, clues_to_remove = is_clue_redundant(
             new_clue=new_clue,
             old_clues=chosen_clues,
-            old_constraints=chosen_constraints,
             new_clue_parameters=new_clue_parameters,
             old_clue_parameters=chosen_clue_parameters,
             new_clue_type=new_clue_type,
@@ -125,21 +127,69 @@ def choose_clues(
         if redundant:
             continue
 
-        current_constraints = chosen_constraints + [new_constraint]
+        if not solutions:
+            if len(chosen_constraints) < n_expected_clues:
+                # Accumulate clues without solving yet to save runtime. Too few clues will yield too many solutions.
+                (
+                    chosen_clues,
+                    chosen_constraints,
+                    chosen_clue_parameters,
+                    chosen_clue_types,
+                ) = accept_clue(
+                    new_clue=new_clue,
+                    new_constraint=new_constraint,
+                    new_clue_parameters=new_clue_parameters,
+                    new_clue_type=new_clue_type,
+                    clues_to_remove=clues_to_remove,
+                    chosen_clues=chosen_clues,
+                    chosen_constraints=chosen_constraints,
+                    chosen_clue_parameters=chosen_clue_parameters,
+                    chosen_clue_types=chosen_clue_types,
+                )
+                continue
 
-        new_solutions, completeness = solver(
-            constraints=current_constraints,
-            chosen_attributes=chosen_attributes_sorted,
-            n_objects=n_objects,
-        )
+            # First real solve of the loop, over the whole accumulated batch plus this clue.
+            new_solutions, completeness = solver(
+                constraints=chosen_constraints + [new_constraint],
+                chosen_attributes=chosen_attributes_sorted,
+                n_objects=n_objects,
+            )
+        else:
+            # `solutions` already holds every assignment satisfying chosen_constraints, so
+            # filtering it by the new clue's predicate is exactly equivalent to re-solving the
+            # whole CSP with the new clue added, without a search.
+            new_solutions = [s for s in solutions if clue_holds(new_constraint, s)]
+            if not new_solutions:
+                log.error(
+                    f"Filtering existing solutions by a new clue removed the true solution, which should not happen.\nnew_clue: {new_clue}"
+                )
+                raise ValueError("This puzzle has no solution")
+            completeness = 1.0 / float(len(new_solutions))
 
         # Check if solution attempt has changed and if it has, save the clue
-        if new_solutions != solutions:
+        if len(new_solutions) != len(solutions):
+            # Now safe to also drop any clues_to_remove: the new clue that makes them redundant
+            # is being kept.
             solutions = new_solutions
-            chosen_clues.append(new_clue)
-            chosen_constraints.append(new_constraint)
-            chosen_clue_parameters.append(new_clue_parameters)
-            chosen_clue_types.append(new_clue_type)
+            (
+                chosen_clues,
+                chosen_constraints,
+                chosen_clue_parameters,
+                chosen_clue_types,
+            ) = accept_clue(
+                new_clue=new_clue,
+                new_constraint=new_constraint,
+                new_clue_parameters=new_clue_parameters,
+                new_clue_type=new_clue_type,
+                clues_to_remove=clues_to_remove,
+                chosen_clues=chosen_clues,
+                chosen_constraints=chosen_constraints,
+                chosen_clue_parameters=chosen_clue_parameters,
+                chosen_clue_types=chosen_clue_types,
+            )
+        # else: the candidate adds nothing new, so it is discarded - and any old clues flagged
+        # in clues_to_remove are left alone, since the clue that was meant to replace them isn't
+        # being kept either.
 
         # Check if the solution is complete and the clues are non-redundant
 
@@ -164,11 +214,20 @@ def choose_clues(
                 )
             )
 
+            final_solver_check(
+                chosen_constraints=chosen_constraints,
+                chosen_attributes_sorted=chosen_attributes_sorted,
+                n_objects=n_objects,
+                n_attributes=n_attributes,
+                chosen_clues=chosen_clues,
+                solution=solution,
+            )
+
             # Break the loop because the puzzle is solved
             break
     else:  # If the loop was not broken, it means the puzzle was not solved
         log.warning(
-            f"Failed to solve the puzzle after maximum attempts.\nsolution: {solution}\nchosen clues so far: {chosen_clues}\ncurrent_constraints: {current_constraints}"
+            f"Failed to solve the puzzle after maximum attempts.\nsolution: {solution}\nchosen clues so far: {chosen_clues}\nchosen_constraints: {chosen_constraints}"
         )
         raise StopIteration("Used too many attempts to solve the puzzle.")
 
@@ -533,3 +592,126 @@ def create_clue(
     clue_par = (clue, i_objects, clue_attributes)
 
     return full_clue, constraint, clue_par
+
+
+def clue_holds(constraint: tuple, solution: dict[str, int]) -> bool:
+    """Check whether one specific solution satisfies one clue's constraint.
+
+    Used to filter a known-exact list of solutions by a new candidate clue instead of re-solving
+    the whole problem. Uses the lambda predicate stored in the constraint when applicable.
+
+    InSetConstraint/NotInSetConstraint (used for found_at/not_at) are special-cased because their
+    __call__ deliberately raises - they only work by pruning domains via preProcess before a search,
+    not by checking a finished assignment.
+
+    Args:
+        constraint: A tuple (constraint_function, variables), as stored for a clue. variables are
+            the attribute-value strings (matching solution's keys) the constraint applies to.
+        solution: One solution as a dict mapping attribute-value strings to object indices.
+
+    Returns:
+        True if the solution satisfies the constraint.
+    """
+    constraint_func, constraint_vars = constraint
+    # Get the values (object indices) of the variables in the solution
+    values = [solution[v] for v in constraint_vars.tolist()]
+
+    # Use _set for InSetConstraint/NotInSetConstraint because their __call__ raises an exception
+    # Use the first value because these constraints only have one variable (the attribute) and
+    # the set contains the allowed/disallowed object indices
+    if isinstance(constraint_func, InSetConstraint):
+        return values[0] in constraint_func._set
+    if isinstance(constraint_func, NotInSetConstraint):
+        return values[0] not in constraint_func._set
+
+    # For other constraints (lambda functions), call the constraint function with the values
+    return constraint_func(*values)
+
+
+def accept_clue(
+    new_clue: str,
+    new_constraint: tuple,
+    new_clue_parameters: tuple[str, list[int], np.ndarray],
+    new_clue_type: str,
+    clues_to_remove: list[int],
+    chosen_clues: list[str],
+    chosen_constraints: list[tuple],
+    chosen_clue_parameters: list,
+    chosen_clue_types: list[str],
+) -> tuple[list[str], list[tuple], list, list[str]]:
+    """Apply any pending clue removals, then append the newly accepted clue.
+
+    Only call this once new_clue is confirmed to be kept: clues_to_remove are old clues that are
+    only safe to drop together with new_clue, since it is the one that makes them redundant.
+
+    Args:
+        new_clue: The newly accepted clue as a string.
+        new_constraint: Constraint tuple (constraint_function, variables) for the new clue.
+        new_clue_parameters: A tuple (clue_type, i_clue_objects, clue_attributes) for the new clue.
+        new_clue_type: Clue type of the new clue.
+        clues_to_remove: Indices of old clues that new_clue makes redundant, as returned by is_clue_redundant.
+        chosen_clues: Clues for the zebra puzzle as a list of strings.
+        chosen_constraints: List of constraints for the puzzle solver.
+        chosen_clue_parameters: List of all previously chosen clue parameters.
+        chosen_clue_types: List of all previously chosen clue types.
+
+    Returns:
+        A tuple (chosen_clues, chosen_constraints, chosen_clue_parameters, chosen_clue_types)
+        with clues_to_remove deleted and the new clue appended.
+    """
+    if clues_to_remove:
+        (
+            chosen_clues,
+            chosen_constraints,
+            chosen_clue_parameters,
+            chosen_clue_types,
+        ) = apply_clue_removals(
+            clues_to_remove=clues_to_remove,
+            old_clues=chosen_clues,
+            old_constraints=chosen_constraints,
+            old_clue_parameters=chosen_clue_parameters,
+            old_clue_types=chosen_clue_types,
+        )
+    chosen_clues.append(new_clue)
+    chosen_constraints.append(new_constraint)
+    chosen_clue_parameters.append(new_clue_parameters)
+    chosen_clue_types.append(new_clue_type)
+
+    return chosen_clues, chosen_constraints, chosen_clue_parameters, chosen_clue_types
+
+
+def final_solver_check(
+    chosen_constraints: list[tuple],
+    chosen_attributes_sorted: np.ndarray,
+    n_objects: int,
+    n_attributes: int,
+    chosen_clues: list[str],
+    solution: np.ndarray,
+):
+    """Final full, unlimited solve of the pruned clue set as an end-to-end check.
+
+    Args:
+        chosen_constraints: List of constraints for the zebra puzzle as a list of tuples.
+        chosen_attributes_sorted: Attribute values chosen for the solution as a matrix, transposed and sorted.
+        n_objects: Number of objects in the puzzle as an integer.
+        n_attributes: Number of attributes per object as an integer.
+        chosen_clues: Clues for the zebra puzzle as a list of strings.
+        solution: Solution to the zebra puzzle as a matrix of strings containing object indices and chosen attribute values. This matrix is n_objects x (n_attributes + 1).
+    """
+    final_solutions, final_completeness = solver(
+        constraints=chosen_constraints,
+        chosen_attributes=chosen_attributes_sorted,
+        n_objects=n_objects,
+    )
+    if final_completeness != 1:
+        log.error(
+            f"Final verification failed: the pruned clue set does not have a unique solution.\nn_solutions_found: {len(final_solutions)}\nchosen_clues: {chosen_clues}"
+        )
+        raise ValueError("The final clue set does not have a unique solution.")
+    raise_if_unexpected_solution_found(
+        solutions=final_solutions,
+        solution=solution,
+        n_objects=n_objects,
+        n_attributes=n_attributes,
+        chosen_clues=chosen_clues,
+    )

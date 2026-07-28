@@ -8,7 +8,9 @@ from pathlib import Path
 log = logging.getLogger(__name__)
 
 
-def clean_folder(folder_path: Path, keep_files: list[str]) -> None:
+def clean_folder(
+    folder_path: Path, keep_files: list[str], auto_confirm: bool = False
+) -> None:
     """Clean a folder by deleting outdated files.
 
     Creates the folder if it does not exist.
@@ -16,6 +18,7 @@ def clean_folder(folder_path: Path, keep_files: list[str]) -> None:
     Args:
         folder_path: Path to the folder to clean.
         keep_files: List of files to keep in the folder.
+        auto_confirm: If True, delete outdated files without asking for confirmation.
     """
     # Convert the folder path to a string
     folder = str(folder_path)
@@ -30,8 +33,12 @@ def clean_folder(folder_path: Path, keep_files: list[str]) -> None:
     files_to_delete = [file for file in existing_files if file not in keep_files]
 
     if len(files_to_delete) > 0:
-        useroutput = input(
-            f"\nDo you want to delete the following outdated files in the folder '{folder}'?\n\n{files_to_delete}\n\n(y/n): "
+        useroutput = (
+            "y"
+            if auto_confirm
+            else input(
+                f"\nDo you want to delete the following outdated files in the folder '{folder}'?\n\n{files_to_delete}\n\n(y/n): "
+            )
         )
         if useroutput == "y":
             for file in files_to_delete:
@@ -62,6 +69,7 @@ def prepare_data_folders(
     n_attributes: int,
     n_red_herring_clues: int,
     data_folder_str: str,
+    auto_confirm: bool = False,
 ) -> tuple[list[str], list[str], list[str], list[str], Path, Path, Path, Path]:
     """Prepare the data folders for the dataset.
 
@@ -72,6 +80,7 @@ def prepare_data_folders(
         n_attributes: Number of attributes of each object.
         n_red_herring_clues: Number of red herring clues to include in the puzzle as an integer.
         data_folder_str: Path to the data folder as a string.
+        auto_confirm: If True, delete outdated files in the data folders without asking for confirmation.
 
     Returns:
         A tuple (prompt_filenames, clue_type_filenames, red_herring_filenames, solution_filenames, puzzle_folder, clue_type_folder, red_herring_folder, solution_folder), where:
@@ -109,10 +118,26 @@ def prepare_data_folders(
     solution_folder = subfolder / "solutions"
 
     # Clean folders
-    clean_folder(folder_path=puzzle_folder, keep_files=prompt_filenames)
-    clean_folder(folder_path=clue_type_folder, keep_files=clue_type_filenames)
-    clean_folder(folder_path=red_herring_folder, keep_files=red_herring_filenames)
-    clean_folder(folder_path=solution_folder, keep_files=solution_filenames)
+    clean_folder(
+        folder_path=puzzle_folder,
+        keep_files=prompt_filenames,
+        auto_confirm=auto_confirm,
+    )
+    clean_folder(
+        folder_path=clue_type_folder,
+        keep_files=clue_type_filenames,
+        auto_confirm=auto_confirm,
+    )
+    clean_folder(
+        folder_path=red_herring_folder,
+        keep_files=red_herring_filenames,
+        auto_confirm=auto_confirm,
+    )
+    clean_folder(
+        folder_path=solution_folder,
+        keep_files=solution_filenames,
+        auto_confirm=auto_confirm,
+    )
 
     return (
         prompt_filenames,

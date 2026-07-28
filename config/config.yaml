@@ -22,7 +22,7 @@
 # ro/case
 # bg/kashti
 # bs/kuce
-# sq/shtëpi
+# sq/shtepi
 # be/damy
 # ca/cases
 # es/casas
@@ -53,8 +53,11 @@ model : gpt-4o-mini
 # Whether to generate new LLM responses or only evaluate existing ones when running evaluate.py
 generate_new_responses: False
 
-# The current data folder used for generating, evaluating, and plotting
+# Whether to automatically confirm overwriting existing files/datasets and publishing to Hugging Face Hub, instead of asking interactively
+auto_confirm: False
 
+# The current data folder used for generating, evaluating, and plotting
+# We typically want 128 train, 128 validation, and 1024 test puzzles.
 data_folder: data
 
 # Folder for loading training data

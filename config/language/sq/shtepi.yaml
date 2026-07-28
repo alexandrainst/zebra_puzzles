@@ -3,7 +3,7 @@
 # Case system: gen_dat (genitive-dative syncretism) — used after positional prepositions
 # (pranë, ndërmjet, në të majtë/djathtë të). Nominative = subject form (with definite article).
 
-theme: sq_shtëpi
+theme: sq_shtepi
 
 attribute_cases: [nom, is, is_not, gen_dat]
 red_herring_attribute_cases: [nom, is, gen_dat]

@@ -26,7 +26,7 @@ For languages that inflect attributes by case, additionally read the matching te
 | Genitive only (e.g. Finnish) | `config/language/fi/talot.yaml` |
 | Genitive + instrumental (e.g. Ukrainian) | `config/language/uk/budynky.yaml` |
 | Masculine definite article split (e.g. Bulgarian) | `config/language/bg/kashti.yaml` |
-| Genitive only, postpositive article (e.g. Albanian) | `config/language/sq/shtëpi.yaml` |
+| Genitive only, postpositive article (e.g. Albanian) | `config/language/sq/shtepi.yaml` |
 
 **Human-validated configs:** da, de, en, fo, is, nb, nl, nn, sv. These are the most reliable translation references.
 
@@ -132,7 +132,8 @@ Run the validation tool — it checks list lengths, unknown case references, and
 ```bash
 uv run .claude/skills/add-language/validate_config.py language=<lang_code>/<theme_name>
 ```
-If the theme name contains non-ASCII characters (e.g. Albanian `shtëpi`), Hydra's lexer rejects it unquoted. Wrap the override in single quotes: `language='sq/shtëpi'`. Apply the same quoting to the puzzle generation command below.
+
+Do not include non-ASCII characters in the theme name.
 
 **"is" form of red herring attributes**
 The `same_herring` and `double_herring` templates use the red herring's `is` form as a direct predicate after a nominative subject:
@@ -229,9 +230,13 @@ Add the new language to the language/theme list under the relevant theme. Use th
 ### 10. Update config/config.yaml
 Add `<lang_code>/<theme_name>` to the comment block listing all valid language/theme combinations near the top of the file.
 
-### 11. Consider improving this skill
+### 11. Consider format changes
+
+Consider whether the puzzle format significantly changes in the new language. If so, update the `format_datasets.py` script to handle the new format. For example, if the new language uses a different question mark or sentence-ending punctuation, add it to the regex that identifies questions.
+
+### 12. Consider improving this skill
 If you found any part of this process confusing or error-prone, suggest improvements to this skill. Did you have to make decisions or look up information that could be included in the skill? Did you have to read the code to understand how it works? If so, consider adding that information to this skill.
 
-### 12. User-review
+### 13. User-review
 
 Show the first puzzle to the user and ask if the puzzle looks correct.

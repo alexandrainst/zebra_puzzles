@@ -26,7 +26,7 @@ Paper: [ArXiv preprint](https://arxiv.org/abs/2511.03553)
 Contributions are welcome! Please read the [contributing guide](CONTRIBUTING.md) before submitting a PR. There are many ways to contribute, including opening issues for linguistic errors, adding new languages or themes, and adding new clue types.
 
 ______________________________________________________________________
-[![Code Coverage](https://img.shields.io/badge/Coverage-82%25-yellowgreen.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
+[![Code Coverage](https://img.shields.io/badge/Coverage-83%25-yellowgreen.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
 [![Documentation](https://img.shields.io/badge/docs-passing-green)](https://alexandrainst.github.io/zebra_puzzles)
 [![License](https://img.shields.io/github/license/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/blob/main/LICENSE)
 [![LastCommit](https://img.shields.io/github/last-commit/alexandrainst/zebra_puzzles)](https://github.com/alexandrainst/zebra_puzzles/commits/main)
@@ -48,6 +48,8 @@ Run `uv run src/scripts/plot_performance.py` to plot and compare puzzle evaluati
 Run `uv run src/scripts/fix_files.py` to combine datasets. Use the script to edit many filenames at once and/or move files to another folder.
 
 Run `uv run src/scripts/format_datasets.py` to format and push a dataset to Hugging Face.
+
+Run `uv run src/scripts/create_and_upload_dataset.py <language/theme>` to generate full train, validation and test datasets for a theme and optionally push to Hugging Face after user confirmation. This will generate 128 puzzles for training, 128 puzzles for validation, and 1024 puzzles for testing for sizes 2x3 and 4x5. It is possible to specify multiple languages and themes, e.g. `uv run src/scripts/create_and_upload_dataset.py en/houses da/smoerrebroed de/Hauser`.
 
 Use the configuration in `config/config.yaml` to specify:
 - language and theme of puzzles
@@ -107,13 +109,13 @@ Please submit your answer as a JSON dictionary in the format below. Each row mus
 ## Typical runtimes
 
 Typical runtimes for generating a puzzle of size n_objects x n_attributes are (using all clue types):
-- 3x7: 0.7 s
-- 4x4: 0.6 s
-- 4x5: 13 s
-- 4x6: 3 min
-- 5x3: 3.8 s
-- 5x6: >10 min
-- 6x3: 4 min
+- 2x3: 0.002 s
+- 4x5: 0.01 s
+- 4x6: 0.02 s
+- 5x5: 0.5 s
+- 6x6: 1.3 s
+
+Increase n_expected_clues to reduce runtime if needed.
 
 Typical times for evaluation of a puzzle without red herrings:
 
