@@ -288,12 +288,13 @@ def format_a_dataset(
         )
 
         # Question is the line after the clues ending with a question mark
+        # ("?" or the Greek question mark ";")
         text_after_clues = puzzle.split(clues[-1][-1])[-1].strip()
         questions.append(
             [
                 line.strip()
                 for line in text_after_clues.split("\n")
-                if line.strip().endswith("?")
+                if line.strip().endswith(("?", ";"))
             ][0]
         )
 

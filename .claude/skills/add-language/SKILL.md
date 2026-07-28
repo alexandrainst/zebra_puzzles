@@ -229,9 +229,13 @@ Add the new language to the language/theme list under the relevant theme. Use th
 ### 10. Update config/config.yaml
 Add `<lang_code>/<theme_name>` to the comment block listing all valid language/theme combinations near the top of the file.
 
-### 11. Consider improving this skill
+### 11. Consider format changes
+
+Consider whether the puzzle format significantly changes in the new language. If so, update the `format_datasets.py` script to handle the new format. For example, if the new language uses a different question mark or sentence-ending punctuation, add it to the regex that identifies questions.
+
+### 12. Consider improving this skill
 If you found any part of this process confusing or error-prone, suggest improvements to this skill. Did you have to make decisions or look up information that could be included in the skill? Did you have to read the code to understand how it works? If so, consider adding that information to this skill.
 
-### 12. User-review
+### 13. User-review
 
 Show the first puzzle to the user and ask if the puzzle looks correct.
