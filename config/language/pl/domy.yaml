@@ -178,7 +178,7 @@ prompt_templates:
 
         Kto ma jakie cechy i mieszka w którym domu?
 
-        Proszę podać odpowiedź w formie słownik JSON. Każdy klucz powinien być object_X, gdzie X jest numerem domu. Każda wartość powinna być listą cech z powyższych kategorii należących do osoby zamieszkałej w domu numer X.
+        Proszę podać odpowiedź jako słownik JSON. Każdy klucz powinien być object_X, gdzie X jest numerem domu. Każda wartość powinna być listą cech z powyższych kategorii należących do osoby zamieszkałej w domu numer X.
 
         Poniżej znajduje się przykład formatu odpowiedzi:
 
@@ -194,7 +194,7 @@ prompt_templates:
 
         Kto ma jakie cechy i mieszka w którym domu?
 
-        Proszę podać odpowiedź w formie słownik JSON. Każdy klucz powinien być object_X, gdzie X jest numerem domu. Każda wartość powinna być listą z cechą z powyższej kategorii należącą do osoby zamieszkałej w domu numer X.
+        Proszę podać odpowiedź jako słownik JSON. Każdy klucz powinien być object_X, gdzie X jest numerem domu. Każda wartość powinna być listą z cechą z powyższej kategorii należącą do osoby zamieszkałej w domu numer X.
 
         Poniżej znajduje się przykład formatu odpowiedzi:
 
