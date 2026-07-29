@@ -45,6 +45,7 @@
 # ja/ie
 # hi/ghar
 # mr/ghare
+# ar/manazil
 
 defaults:
   - language: en/houses

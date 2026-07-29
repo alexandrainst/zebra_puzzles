@@ -1,0 +1,249 @@
+# Config file for generating zebra puzzles in Arabic (Modern Standard Arabic) with the "houses" (منازل) theme.
+#
+# Cases: attribute_cases = [nom, is, is_not] — MSA's three grammatical cases are marked by short-vowel
+#   diacritics that ordinary written Arabic (this config included) omits entirely, so nominative/genitive
+#   forms of a regular noun are visually IDENTICAL — no oblique case is needed for positional clues even
+#   though prepositions (بجانب "next to", إلى يسار/يمين "left/right of", بين "between") do govern genitive.
+#   One real exception exists: INDEFINITE accusative nouns (the object of a plain transitive verb) take a
+#   visible extra alif (ا) unless they end in ة/ء/ا or are proper nouns — e.g. كلبًا "a dog" vs plain كلب.
+#   This config sidesteps that risk entirely by design: possession uses لديه ("has", existential — its
+#   complement is grammatically NOMINATIVE, not accusative, so no alif regardless of the noun's ending) and
+#   habitual/categorical predicates (drinks, genres, hobbies, fruits) use DEFINITE-generic objects (الشيء,
+#   "the thing" = the category) since definite nouns never take the accusative alif either. This also
+#   avoids ليس + bare-noun predicates (nationalities/jobs), whose accusative-indefinite ending would be
+#   the same risk — replaced with prepositional-phrase predicates (من "from", كـ "as") instead, which don't
+#   trigger it. Result: nothing in this config depends on getting that alif ending right per-word.
+# Gender: masculine default throughout (matches this repo's precedent). شخص "person" is unambiguously
+#   masculine (no Marathi-style risk of an internal agreement mismatch).
+# Word-formation: nationalities = "الشخص من [country]" / "من [country]" / "ليس من [country]" (زero-copula
+#   equational sentence, prepositional predicate). Jobs = "الشخص الذي يعمل كـ[job]" / "يعمل كـ[job]" / "لا
+#   يعمل كـ[job]". Pets = "الشخص الذي لديه [pet]" / "لديه [pet]" / "ليس لديه [pet]" (existential possessive).
+#   Drinks/genres/hobbies/fruits = "الشخص الذي ي[verb] ال[thing]" / "ي[verب] ال[thing]" / "لا ي[verb]
+#   ال[thing]" (definite-generic object, e.g. "يشرب القهوة" = "drinks [the-]coffee").
+# Red herrings need only [nom, is] (no oblique case exists at all here), so none of the
+# red_herring_subject_cases/same_herring_templates/double_herring_templates machinery built for
+#   Hindi/Marathi is needed — every referring form works unchanged in every syntactic position.
+# Dual/plural agreement: not_next_to and the "friends" red herring clue describe exactly two people, using
+#   Arabic's dual number (شخصان مختلفان "two different persons", صديقان مقربان "two close friends") — a live,
+#   actively-used grammatical number in MSA, not archaic. not_between describes three people, using sound
+#   masculine plural agreement for human referents (أشخاص مختلفون, not the non-human/broken-plural pattern).
+# Ergativity is not a concern — Arabic is a straightforward nominative-accusative language regardless of
+#   tense/aspect, so the Canada red herring safely uses simple past (زار كندا "visited Canada").
+# Script: RTL is a rendering concern handled automatically by the display layer, not a string-manipulation
+#   one — no special handling needed, verified by reading the generated puzzle output.
+# Punctuation: uses Arabic-specific characters not on this repo's existing punctuation-config list — Arabic
+#   comma "، " (prompt_comma) and Arabic question mark "؟", which required a small code change to
+#   format_datasets.py's question-detection regex (previously only recognised "?", ";", "？"). Arabic's
+#   "و" ("and") is technically a bound clitic (glued to the following word, "Xو Y" → "X وY" with no space
+#   after و) but this config accepts the framework's default symmetric spacing ("X و Y") as a known, minor
+#   stylistic simplification rather than risk a double-space bug engineering around it — flagged, not fixed.
+#   Arabic has no distinct sentence-final period or colon, so prompt_full_stop/prompt_colon stay default.
+# Numerals: {n_between} is substituted as a bare digit (e.g. "2", not a spelled-out number word), which
+#   sidesteps MSA's notoriously complex number-noun gender-reversal agreement rules entirely — those rules
+#   apply to spelled words like "ثلاثة", not to a digit placed directly before a plural noun.
+# Uncertain forms (flagged for native speaker review): بادجي (budgerigar, transliterated loanword), حشرة
+#   العصا (stick insect, a descriptive compound rather than a single confirmed term), كشمش أسود
+#   (blackcurrant), فراولة برية (wild strawberry, botanical precision), رنجة (herring, the fish — not
+#   commonly known/named in the Arab world), جزر فارو (Faroe Islands, name/demonym-adjacent spelling).
+
+theme: ar_manazil
+
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
+
+prompt_comma: '، '
+
+attributes:
+
+    الجنسيات:
+        الدنمارك: ['الشخص من الدنمارك', 'من الدنمارك', 'ليس من الدنمارك']
+        السويد: ['الشخص من السويد', 'من السويد', 'ليس من السويد']
+        لاتفيا: ['الشخص من لاتفيا', 'من لاتفيا', 'ليس من لاتفيا']
+        فرنسا: ['الشخص من فرنسا', 'من فرنسا', 'ليس من فرنسا']
+        إسبانيا: ['الشخص من إسبانيا', 'من إسبانيا', 'ليس من إسبانيا']
+        إيطاليا: ['الشخص من إيطاليا', 'من إيطاليا', 'ليس من إيطاليا']
+        النرويج: ['الشخص من النرويج', 'من النرويج', 'ليس من النرويج']
+        جزر فارو: ['الشخص من جزر فارو', 'من جزر فارو', 'ليس من جزر فارو']  # uncertain — verify name
+        هولندا: ['الشخص من هولندا', 'من هولندا', 'ليس من هولندا']
+        آيسلندا: ['الشخص من آيسلندا', 'من آيسلندا', 'ليس من آيسلندا']
+        بريطانيا: ['الشخص من بريطانيا', 'من بريطانيا', 'ليس من بريطانيا']
+
+    المهن:
+        خباز: ['الشخص الذي يعمل كخباز', 'يعمل كخباز', 'لا يعمل كخباز']
+        وزير: ['الشخص الذي يعمل كوزير', 'يعمل كوزير', 'لا يعمل كوزير']
+        شرطي: ['الشخص الذي يعمل كشرطي', 'يعمل كشرطي', 'لا يعمل كشرطي']
+        ممرض: ['الشخص الذي يعمل كممرض', 'يعمل كممرض', 'لا يعمل كممرض']
+        مدرس: ['الشخص الذي يعمل كمدرس', 'يعمل كمدرس', 'لا يعمل كمدرس']
+        مطور برمجيات: ['الشخص الذي يعمل كمطور برمجيات', 'يعمل كمطور برمجيات', 'لا يعمل كمطور برمجيات']
+        بائع: ['الشخص الذي يعمل كبائع', 'يعمل كبائع', 'لا يعمل كبائع']
+
+    الحيوانات الأليفة:
+        قطة: ['الشخص الذي لديه قطة', 'لديه قطة', 'ليس لديه قطة']
+        كلب: ['الشخص الذي لديه كلب', 'لديه كلب', 'ليس لديه كلب']
+        أرنب: ['الشخص الذي لديه أرنب', 'لديه أرنب', 'ليس لديه أرنب']
+        حمار وحشي: ['الشخص الذي لديه حمار وحشي', 'لديه حمار وحشي', 'ليس لديه حمار وحشي']
+        بادجي: ['الشخص الذي لديه بادجي', 'لديه بادجي', 'ليس لديه بادجي']  # uncertain — verify term
+        حلزون: ['الشخص الذي لديه حلزون', 'لديه حلزون', 'ليس لديه حلزون']
+        حشرة العصا: ['الشخص الذي لديه حشرة العصا', 'لديه حشرة العصا', 'ليس لديه حشرة العصا']  # uncertain — verify term
+
+    المشروبات:
+        عصير: ['الشخص الذي يشرب العصير', 'يشرب العصير', 'لا يشرب العصير']
+        قهوة: ['الشخص الذي يشرب القهوة', 'يشرب القهوة', 'لا يشرب القهوة']
+        حليب: ['الشخص الذي يشرب الحليب', 'يشرب الحليب', 'لا يشرب الحليب']
+        سموذي: ['الشخص الذي يشرب السموذي', 'يشرب السموذي', 'لا يشرب السموذي']
+        كاكاو: ['الشخص الذي يشرب الكاكاو', 'يشرب الكاكاو', 'لا يشرب الكاكاو']
+        شاي: ['الشخص الذي يشرب الشاي', 'يشرب الشاي', 'لا يشرب الشاي']
+        مشروب غازي: ['الشخص الذي يشرب المشروب الغازي', 'يشرب المشروب الغازي', 'لا يشرب المشروب الغازي']
+
+    أنواع الكتب المفضلة:
+        كتب غير خيالية: ['الشخص الذي يقرأ الكتب غير الخيالية', 'يقرأ الكتب غير الخيالية', 'لا يقرأ الكتب غير الخيالية']
+        روايات الجريمة: ['الشخص الذي يقرأ روايات الجريمة', 'يقرأ روايات الجريمة', 'لا يقرأ روايات الجريمة']
+        فانتازيا: ['الشخص الذي يقرأ الفانتازيا', 'يقرأ الفانتازيا', 'لا يقرأ الفانتازيا']
+        خيال علمي: ['الشخص الذي يقرأ الخيال العلمي', 'يقرأ الخيال العلمي', 'لا يقرأ الخيال العلمي']
+        روايات الرعب: ['الشخص الذي يقرأ روايات الرعب', 'يقرأ روايات الرعب', 'لا يقرأ روايات الرعب']
+        شعر: ['الشخص الذي يقرأ الشعر', 'يقرأ الشعر', 'لا يقرأ الشعر']
+        روايات رومانسية: ['الشخص الذي يقرأ الروايات الرومانسية', 'يقرأ الروايات الرومانسية', 'لا يقرأ الروايات الرومانسية']
+
+    الهوايات:
+        تسلق الصخور: ['الشخص الذي يمارس تسلق الصخور', 'يمارس تسلق الصخور', 'لا يمارس تسلق الصخور']
+        رسم: ['الشخص الذي يرسم', 'يرسم', 'لا يرسم']
+        ألعاب الطاولة: ['الشخص الذي يلعب ألعاب الطاولة', 'يلعب ألعاب الطاولة', 'لا يلعب ألعاب الطاولة']
+        تنس: ['الشخص الذي يلعب التنس', 'يلعب التنس', 'لا يلعب التنس']
+        كروشيه: ['الشخص الذي يحيك بالكروشيه', 'يحيك بالكروشيه', 'لا يحيك بالكروشيه']
+        كرة القدم: ['الشخص الذي يلعب كرة القدم', 'يلعب كرة القدم', 'لا يلعب كرة القدم']
+        كرة اليد: ['الشخص الذي يلعب كرة اليد', 'يلعب كرة اليد', 'لا يلعب كرة اليد']
+
+    الفواكه المفضلة:
+        تفاح: ['الشخص الذي يحب التفاح', 'يحب التفاح', 'لا يحب التفاح']
+        كمثرى: ['الشخص الذي يحب الكمثرى', 'يحب الكمثرى', 'لا يحب الكمثرى']
+        برتقال: ['الشخص الذي يحب البرتقال', 'يحب البرتقال', 'لا يحب البرتقال']
+        موز: ['الشخص الذي يحب الموز', 'يحب الموز', 'لا يحب الموز']
+        فراولة: ['الشخص الذي يحب الفراولة', 'يحب الفراولة', 'لا يحب الفراولة']
+        كشمش أسود: ['الشخص الذي يحب الكشمش الأسود', 'يحب الكشمش الأسود', 'لا يحب الكشمش الأسود']  # uncertain — verify term
+        فراولة برية: ['الشخص الذي يحب الفراولة البرية', 'يحب الفراولة البرية', 'لا يحب الفراولة البرية']  # uncertain — verify botanical term
+
+# Clues
+clues_dict:
+    found_at: '{attribute_desc} يعيش في المنزل رقم {i_object}.'
+    not_at: '{attribute_desc} لا يعيش في المنزل رقم {i_object}.'
+    next_to: '{attribute_desc_1} يعيش بجانب {attribute_desc_2}.'                                                # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} لا يعيش بجانب {attribute_desc_2}، وهما شخصان مختلفان.'                      # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} يعيش مباشرة إلى يسار {attribute_desc_2}.'                                 # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} يعيش مباشرة إلى يمين {attribute_desc_2}.'                                # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} يعيش إلى يسار {attribute_desc_2}.'
+    right_of: '{attribute_desc_1} يعيش إلى يمين {attribute_desc_2}.'
+    same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                      # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}.'                                                  # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} يعيش بين {attribute_desc_1} و{attribute_desc_3}.'                              # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} لا يعيش بين {attribute_desc_2} و{attribute_desc_3}، وهم ثلاثة أشخاص مختلفون.' # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: 'يوجد {n_between} منازل بين {attribute_desc_1} و{attribute_desc_2}.'                      # Requires n_objects > 3, otherwise it cannot be used
+    one_between: 'يوجد منزل واحد بين {attribute_desc_1} و{attribute_desc_2}.'                                   # Requires n_objects > 2, otherwise it cannot be used
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'nom']
+    not_next_to: ['nom', 'nom']
+    just_left_of: ['nom', 'nom']
+    just_right_of: ['nom', 'nom']
+    left_of: ['nom', 'nom']
+    right_of: ['nom', 'nom']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['nom', 'nom', 'nom']
+    not_between: ['nom', 'nom', 'nom']
+    multiple_between: ['nom', 'nom']
+    one_between: ['nom', 'nom']
+
+# Prompt
+prompt_and: و
+
+prompt_templates:
+    - |
+        صف من المنازل مرقم من 1 إلى {n_objects} من اليسار إلى اليمين.
+
+        يعيش في كل منزل شخص لديه صفة فريدة في كل من الفئات التالية:
+
+        {chosen_attributes_str}
+
+        نعرف أيضا ما يلي:
+
+        {chosen_clues_str}
+
+        من لديه أي الصفات ومن يعيش في أي منزل؟
+
+        يرجى تقديم إجابتك على شكل JSON dictionary. يجب أن يكون كل key هو object_X، حيث X هو رقم المنزل. يجب أن تكون كل value قائمة بالصفات من الفئات المذكورة أعلاه التي تخص الشخص الذي يعيش في المنزل رقم X.
+
+        فيما يلي مثال على تنسيق الإجابة:
+
+        {solution_template}
+    - |
+        صف من المنازل مرقم من 1 إلى {n_objects} من اليسار إلى اليمين.
+
+        يعيش في كل منزل شخص لديه صفة فريدة في فئة {chosen_attributes_str}.
+
+        نعرف أيضا ما يلي:
+
+        {chosen_clues_str}
+
+        ما الصفة التي يمتلكها الشخص الذي يعيش في كل منزل؟
+
+        يرجى تقديم إجابتك على شكل JSON dictionary. يجب أن يكون كل key هو object_X، حيث X هو رقم المنزل. يجب أن تحتوي كل value على الصفة من الفئة المذكورة أعلاه التي تخص الشخص الذي يعيش في المنزل رقم X.
+
+        فيما يلي مثال على تنسيق الإجابة:
+
+        {solution_template}
+
+# Red herrings
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}.'
+    next_to_herring: '{attribute_desc} يعيش بجانب {attribute_desc_herring}.'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}.'
+    fact: '{fact}.'
+    object_fact: '{attribute_desc} يعرف أن {fact}.'
+    friends: '{attribute_desc} و{attribute_desc_herring} صديقان مقربان.'
+    herring_found_at: '{attribute_desc_herring} يعيش في المنزل رقم {i_object}.'
+    herring_not_at: '{attribute_desc_herring} لا يعيش في المنزل رقم {i_object}.'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'nom']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+red_herring_attributes:
+    شعر_أحمر: ['الشخص الذي لديه شعر أحمر', 'لديه شعر أحمر']
+    نظارة: ['الشخص الذي يرتدي نظارة', 'يرتدي نظارة']
+    وشم: ['الشخص الذي لديه وشم', 'لديه وشم']
+    جيتار: ['الشخص الذي يعزف على الجيتار', 'يعزف على الجيتار']
+    دراجة: ['الشخص الذي لديه دراجة', 'لديه دراجة']
+    خنزير_غينيا: ['الشخص الذي لديه خنزير غينيا', 'لديه خنزير غينيا']
+    صبار: ['الشخص الذي ليس لديه صبار', 'ليس لديه صبار']
+    ألعاب_الفيديو: ['الشخص الذي يلعب ألعاب الفيديو', 'يلعب ألعاب الفيديو']
+    أخت: ['الشخص الذي لديه أخت', 'لديه أخت']
+    مانجو: ['الشخص الذي يعتقد أن المانجو ثاني أفضل فاكهة', 'يعتقد أن المانجو ثاني أفضل فاكهة']
+    إبحار: ['الشخص الذي يبحر كثيرا', 'يبحر كثيرا']
+    كندا: ['الشخص الذي زار كندا', 'زار كندا']
+    رياضيات: ['الشخص الذي لديه شهادة ماجستير في الرياضيات', 'لديه شهادة ماجستير في الرياضيات']
+    فيزياء: ['الشخص الذي يحب الفيزياء كثيرا', 'يحب الفيزياء كثيرا']
+    حيوان_مسن: ['الشخص الذي لديه حيوان أليف كبير في السن لنوعه', 'لديه حيوان أليف كبير في السن لنوعه']
+    قفز_بالزلاجات: ['الشخص الذي يشاهد القفز على الزلاجات', 'يشاهد القفز على الزلاجات']
+
+red_herring_facts:
+    رنجة: ['الرنجة سمكة']  # uncertain — herring is not commonly known/named in the Arab world
+    نظام_شمسي: ['يتحرك النظام الشمسي حول مركز المجرة بسرعة حوالي 200 كم/ثانية']
+    لغز: ['حل الألغاز ممتع']
+    منازل_حقيقة: ['جميع المنازل في هذا الشارع لديها حدائق جميلة']
+    أبواب: ['بعض المنازل لديها أبواب خضراء']
+    نوافذ: ['جميع المنازل لديها نوافذ كبيرة']
+    سيارات: ['يوجد الكثير من السيارات في الشارع']
+    خيار: ['الخيار نوع من التوت']
+    حلزون_حقيقة: ['الحلزونات رخويات']
+    قهوة_حقيقة: ['القهوة تحتوي على الكافيين']
+
+# Strings to replace in the generated prompt.
+prompt_replacements: {}
