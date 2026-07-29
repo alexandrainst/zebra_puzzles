@@ -41,6 +41,7 @@
 # mk/kukji
 # fy/huzen
 # zh/fangzi
+# ru/doma
 
 defaults:
   - language: en/houses
