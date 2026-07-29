@@ -34,9 +34,13 @@
 # Punctuation: uses Arabic-specific characters not on this repo's existing punctuation-config list — Arabic
 #   comma "، " (prompt_comma) and Arabic question mark "؟", which required a small code change to
 #   format_datasets.py's question-detection regex (previously only recognised "?", ";", "？"). Arabic's
-#   "و" ("and") is technically a bound clitic (glued to the following word, "Xو Y" → "X وY" with no space
-#   after و) but this config accepts the framework's default symmetric spacing ("X و Y") as a known, minor
-#   stylistic simplification rather than risk a double-space bug engineering around it — flagged, not fixed.
+#   "و" ("and") is technically a bound clitic (glued to the following word, no space after و) — rather than
+#   fight the framework's symmetric list-and-spacing (prompt_and_spacing only supports fully-symmetric or
+#   fully-glued, neither of which matches "space-before, glued-after"), a prompt_replacements entry
+#   (' و ': ' و') strips the trailing space post-hoc across the whole generated prompt. This only touches
+#   list-joined instances of و (which get the unwanted trailing space from the default spacing); it never
+#   matches the و already glued directly in clue templates (e.g. "بين {attribute_desc_1} و{attribute_desc_3}"),
+#   since those never produce the "space-و-space" substring in the first place.
 #   Arabic has no distinct sentence-final period or colon, so prompt_full_stop/prompt_colon stay default.
 # Numerals: {n_between} is substituted as a bare digit (e.g. "2", not a spelled-out number word), which
 #   sidesteps MSA's notoriously complex number-noun gender-reversal agreement rules entirely — those rules
@@ -246,4 +250,5 @@ red_herring_facts:
     قهوة_حقيقة: ['القهوة تحتوي على الكافيين']
 
 # Strings to replace in the generated prompt.
-prompt_replacements: {}
+prompt_replacements:
+    ' و ': ' و'
