@@ -30,7 +30,6 @@
 #   the nominative plural for this noun); n≥5 would need genitive plural "домов".
 # Strawberry distinction: клубника = garden strawberry, земляника = wild/woodland strawberry (Fragaria vesca)
 #   — these are genuinely distinct words in Russian, not a translation choice.
-# Uncertain forms (flagged for native speaker review): фаререц (Faroese demonym, rare word).
 
 theme: ru_doma
 
@@ -47,7 +46,7 @@ attributes:
         Испания: ['испанец', '— испанец', 'не испанец', 'испанца', 'испанцем']
         Италия: ['итальянец', '— итальянец', 'не итальянец', 'итальянца', 'итальянцем']
         Норвегия: ['норвежец', '— норвежец', 'не норвежец', 'норвежца', 'норвежцем']
-        Фарерские острова: ['фаререц', '— фаререц', 'не фаререц', 'фарерца', 'фарерцем']  # uncertain — verify demonym
+        Фарерские острова: ['фаререц', '— фаререц', 'не фаререц', 'фарерца', 'фарерцем']
         Нидерланды: ['нидерландец', '— нидерландец', 'не нидерландец', 'нидерландца', 'нидерландцем']
         Исландия: ['исландец', '— исландец', 'не исландец', 'исландца', 'исландцем']
         Великобритания: ['британец', '— британец', 'не британец', 'британца', 'британцем']
