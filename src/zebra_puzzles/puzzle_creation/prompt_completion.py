@@ -17,6 +17,7 @@ def complete_prompt(
     prompt_comma: str = ", ",
     prompt_and_spacing: bool = True,
     prompt_full_stop: str = ".",
+    prompt_colon: str = ": ",
 ) -> str:
     """Complete the prompt with the chosen clues.
 
@@ -38,6 +39,7 @@ def complete_prompt(
             that do not put spaces between words (e.g. Chinese) should set this to False.
         prompt_full_stop: Sentence-ending punctuation appended to each category's attribute list line,
             e.g. "." or "。".
+        prompt_colon: Separator between a category title and its attribute list, e.g. ": " or "：".
 
     Returns:
         The full prompt for the zebra puzzle as a string.
@@ -73,7 +75,7 @@ def complete_prompt(
 
     # Comma seprate the attributes in each category and combine with the category title
     chosen_attributes_strs = [
-        f"{cat}: {format_list_in_prompt(list_of_strings=chosen_attributes[i], prompt_and=prompt_and, oxford_comma=False, prompt_comma=prompt_comma, prompt_and_spacing=prompt_and_spacing)}"
+        f"{cat}{prompt_colon}{format_list_in_prompt(list_of_strings=chosen_attributes[i], prompt_and=prompt_and, oxford_comma=False, prompt_comma=prompt_comma, prompt_and_spacing=prompt_and_spacing)}"
         for i, cat in enumerate(chosen_categories)
     ]
 

@@ -42,6 +42,7 @@
 # fy/huzen
 # zh/fangzi
 # ru/doma
+# ja/ie
 
 defaults:
   - language: en/houses

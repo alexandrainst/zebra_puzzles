@@ -39,6 +39,7 @@ def run_pipeline(
     prompt_comma: str = ", ",
     prompt_and_spacing: bool = True,
     prompt_full_stop: str = ".",
+    prompt_colon: str = ": ",
 ) -> tuple[str, str, str, str]:
     """Run the pipeline to generate one zebra puzzle.
 
@@ -70,6 +71,7 @@ def run_pipeline(
             that do not put spaces between words (e.g. Chinese) should set this to False.
         prompt_full_stop: Sentence-ending punctuation appended to each category's attribute list line,
             e.g. "." or "。".
+        prompt_colon: Separator between a category title and its attribute list, e.g. ": " or "：".
 
     Returns:
         A tuple (prompt, solution_str, red_herring_indices_str, chosen_clue_types_str), where:
@@ -135,6 +137,7 @@ def run_pipeline(
         prompt_comma=prompt_comma,
         prompt_and_spacing=prompt_and_spacing,
         prompt_full_stop=prompt_full_stop,
+        prompt_colon=prompt_colon,
     )
 
     solution_json = format_solution_as_json(solution=solution)
@@ -169,6 +172,7 @@ def build_dataset(
     prompt_comma: str = ", ",
     prompt_and_spacing: bool = True,
     prompt_full_stop: str = ".",
+    prompt_colon: str = ": ",
     auto_confirm: bool = False,
 ) -> None:
     """Build a dataset of zebra puzzles.
@@ -204,6 +208,7 @@ def build_dataset(
             that do not put spaces between words (e.g. Chinese) should set this to False.
         prompt_full_stop: Sentence-ending punctuation appended to each category's attribute list line,
             e.g. "." or "。".
+        prompt_colon: Separator between a category title and its attribute list, e.g. ": " or "：".
         auto_confirm: If True, delete outdated files in the data folders without asking for confirmation.
     """
     validate_language_config(
@@ -269,6 +274,7 @@ def build_dataset(
                 prompt_comma=prompt_comma,
                 prompt_and_spacing=prompt_and_spacing,
                 prompt_full_stop=prompt_full_stop,
+                prompt_colon=prompt_colon,
             )
         )
         save_dataset(data=prompt, filename=prompt_filenames[i], folder=puzzle_folder)
