@@ -36,6 +36,9 @@ def run_pipeline(
     attribute_subject_cases: dict[str, str] | None = None,
     same_object_templates: dict[str, str] | None = None,
     not_same_object_templates: dict[str, str] | None = None,
+    prompt_comma: str = ", ",
+    prompt_and_spacing: bool = True,
+    prompt_full_stop: str = ".",
 ) -> tuple[str, str, str, str]:
     """Run the pipeline to generate one zebra puzzle.
 
@@ -62,6 +65,11 @@ def run_pipeline(
         attribute_subject_cases: Optional per-category subject case override for same_object/not_same_object clues.
         same_object_templates: Optional per-category template override for same_object clues.
         not_same_object_templates: Optional per-category template override for not_same_object clues.
+        prompt_comma: String to use for separating non-final elements in a list, e.g. ", ".
+        prompt_and_spacing: Whether to surround prompt_and with spaces when joining a list. Languages
+            that do not put spaces between words (e.g. Chinese) should set this to False.
+        prompt_full_stop: Sentence-ending punctuation appended to each category's attribute list line,
+            e.g. "." or "。".
 
     Returns:
         A tuple (prompt, solution_str, red_herring_indices_str, chosen_clue_types_str), where:
@@ -124,6 +132,9 @@ def run_pipeline(
         prompt_templates=prompt_templates,
         prompt_and=prompt_and,
         prompt_replacements=prompt_replacements,
+        prompt_comma=prompt_comma,
+        prompt_and_spacing=prompt_and_spacing,
+        prompt_full_stop=prompt_full_stop,
     )
 
     solution_json = format_solution_as_json(solution=solution)
@@ -155,6 +166,9 @@ def build_dataset(
     attribute_subject_cases: dict[str, str] | None = None,
     same_object_templates: dict[str, str] | None = None,
     not_same_object_templates: dict[str, str] | None = None,
+    prompt_comma: str = ", ",
+    prompt_and_spacing: bool = True,
+    prompt_full_stop: str = ".",
     auto_confirm: bool = False,
 ) -> None:
     """Build a dataset of zebra puzzles.
@@ -185,6 +199,11 @@ def build_dataset(
         attribute_subject_cases: Optional per-category subject case override for same_object/not_same_object clues.
         same_object_templates: Optional per-category template override for same_object clues.
         not_same_object_templates: Optional per-category template override for not_same_object clues.
+        prompt_comma: String to use for separating non-final elements in a list, e.g. ", ".
+        prompt_and_spacing: Whether to surround prompt_and with spaces when joining a list. Languages
+            that do not put spaces between words (e.g. Chinese) should set this to False.
+        prompt_full_stop: Sentence-ending punctuation appended to each category's attribute list line,
+            e.g. "." or "。".
         auto_confirm: If True, delete outdated files in the data folders without asking for confirmation.
     """
     validate_language_config(
@@ -247,6 +266,9 @@ def build_dataset(
                 attribute_subject_cases=attribute_subject_cases,
                 same_object_templates=same_object_templates,
                 not_same_object_templates=not_same_object_templates,
+                prompt_comma=prompt_comma,
+                prompt_and_spacing=prompt_and_spacing,
+                prompt_full_stop=prompt_full_stop,
             )
         )
         save_dataset(data=prompt, filename=prompt_filenames[i], folder=puzzle_folder)

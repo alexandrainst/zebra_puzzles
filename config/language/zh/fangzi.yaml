@@ -9,23 +9,24 @@
 #                 pets/drinks/genres/hobbies/fruits = verb phrase: nom = "VP的人", is = "VP", is_not = "不VP"
 #                 (every "is" form is a self-contained predicate — either 是+noun or a bare verb phrase — so
 #                 same_object/not_same_object can concatenate any nom subject with any is/is_not predicate)
-# Punctuation: uses full-width Chinese punctuation (。，？) throughout, not ASCII. Updated
-#   src/scripts/format_datasets.py to recognise "？" as a question-ending character (previously only "?" and ";").
+# Punctuation: uses full-width Chinese punctuation (。，、？) throughout, not ASCII. Two code changes made
+#   for this: (1) src/scripts/format_datasets.py now recognises "？" as a question-ending character.
+#   (2) prompt_completion.py / build_pipeline.py / build_dataset.py
+#   gained three new optional language config keys: `prompt_comma`, `prompt_and_spacing` and
+#   `prompt_full_stop`. Lists render as "项目1、项目2和项目3".
 # Measure words: 栋 is used for houses only where Chinese grammatically requires a classifier when counting
 #   (multiple_between/one_between, e.g. "两栋房子" = "two houses"). No classifier is needed elsewhere since
 #   attributes are generic/mass statements ("爱吃苹果" = "loves eating apples", no counting involved).
-# Known framework limitations (not fixed here, shared across all languages so out of scope for this config):
-#   - format_list_in_prompt() in prompt_completion.py hardcodes ", " between list items and pads prompt_and
-#     with ASCII spaces, so multi-item lists render as "项目1, 项目2 和 项目3" rather than the idiomatic
-#     "项目1、项目2和项目3" (documented in that function: "Assumes commas are used similarly across languages").
-#   - The per-category attribute summary line (chosen_attributes_strs in prompt_completion.py) always appends
-#     an ASCII "." rather than the language's own sentence-ending punctuation, so those lines end in "." while
-#     every other sentence in this config (written directly in clue/prompt templates) correctly ends in "。".
 
 theme: zh_fangzi
 
 attribute_cases: [nom, is, is_not]
 red_herring_attribute_cases: [nom, is]
+
+# Chinese uses full-width punctuation and no spaces between words, unlike the framework's ASCII defaults.
+prompt_comma: 、
+prompt_and_spacing: false
+prompt_full_stop: 。
 
 attributes:
 
