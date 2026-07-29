@@ -13,9 +13,9 @@ Generation and LLM evaluation of zebra puzzles in multiple languages and themes 
 
 Available languages and themes:
 
-- Houses theme (41 languages - 39 european, 2 non-european):
+- Houses theme (42 languages - 39 european, 3 non-european):
     - Finished versions: Danish (da) 🇩🇰, Dutch (nl) 🇳🇱, English (en) 🇬🇧, Faroese (fo) 🇫🇴, German (de) 🇩🇪, Icelandic (is) 🇮🇸, Norwegian Bokmål (nb) 🇳🇴, Norwegian Nynorsk (nn) 🇳🇴 and Swedish (sv) 🇸🇪.
-    - Preliminary versions: Albanian (sq) 🇦🇱, Basque (eu) 🏴, Belarusian (be) 🇧🇾, Bosnian (bs) 🇧🇦, Bulgarian (bg) 🇧🇬, Catalan (ca) 🏴󠁥󠁳󠁣󠁴󠁿, Chinese (zh) 🇨🇳, Croatian (hr) 🇭🇷, Czech (cs) 🇨🇿, Estonian (et) 🇪🇪, Finnish (fi) 🇫🇮, French (fr) 🇫🇷, Greek (el) 🇬🇷, Hungarian (hu) 🇭🇺, Irish (ga) 🇮🇪, Italian (it) 🇮🇹, Japanese (ja) 🇯🇵, Latvian (lv) 🇱🇻, Lithuanian (lt) 🇱🇹, Luxembourgish (lb) 🇱🇺, Macedonian (mk) 🇲🇰, Polish (pl) 🇵🇱, Portuguese (pt) 🇵🇹, Romanian (ro) 🇷🇴, Russian (ru) 🇷🇺, Scots (sco) 🏴󠁧󠁢󠁳󠁣󠁴󠁿, Serbian (sr) 🇷🇸, Slovak (sk) 🇸🇰, Slovenian (sl) 🇸🇮, Spanish (es) 🇪🇸, Ukrainian (uk) 🇺🇦 and West Frisian (fy) 🇳🇱.
+    - Preliminary versions: Albanian (sq) 🇦🇱, Basque (eu) 🏴, Belarusian (be) 🇧🇾, Bosnian (bs) 🇧🇦, Bulgarian (bg) 🇧🇬, Catalan (ca) 🏴󠁥󠁳󠁣󠁴󠁿, Chinese (zh) 🇨🇳, Croatian (hr) 🇭🇷, Czech (cs) 🇨🇿, Estonian (et) 🇪🇪, Finnish (fi) 🇫🇮, French (fr) 🇫🇷, Greek (el) 🇬🇷, Hindi (hi) 🇮🇳, Hungarian (hu) 🇭🇺, Irish (ga) 🇮🇪, Italian (it) 🇮🇹, Japanese (ja) 🇯🇵, Latvian (lv) 🇱🇻, Lithuanian (lt) 🇱🇹, Luxembourgish (lb) 🇱🇺, Macedonian (mk) 🇲🇰, Polish (pl) 🇵🇱, Portuguese (pt) 🇵🇹, Romanian (ro) 🇷🇴, Russian (ru) 🇷🇺, Scots (sco) 🏴󠁧󠁢󠁳󠁣󠁴󠁿, Serbian (sr) 🇷🇸, Slovak (sk) 🇸🇰, Slovenian (sl) 🇸🇮, Spanish (es) 🇪🇸, Ukrainian (uk) 🇺🇦 and West Frisian (fy) 🇳🇱.
 - Smørrebrød theme:
     - Finished versions: Danish (da) 🇩🇰.
 

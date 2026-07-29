@@ -43,6 +43,7 @@
 # zh/fangzi
 # ru/doma
 # ja/ie
+# hi/ghar
 
 defaults:
   - language: en/houses
