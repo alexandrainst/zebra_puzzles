@@ -1,8 +1,6 @@
 # Config file for generating zebra puzzles in Polish with the houses theme.
 # Gender default: masculine used as generic for occupations, pets, and activity-based forms
 # (standard Polish professional/formal convention — e.g. "piekarz" for baker of any gender).
-# Nationalities use "osoba z [kraju]" (person from [country]) for gender neutrality,
-# since nationality nouns (Duńczyk/Dunka) are strongly gendered in Polish.
 # All present-tense predicates are gender-neutral in Polish, so there are no agreement
 # mismatches when "osoba z Danii" (grammatically feminine) acts as subject of a present
 # tense predicate.
