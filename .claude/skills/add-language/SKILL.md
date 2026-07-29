@@ -135,6 +135,9 @@ uv run .claude/skills/add-language/validate_config.py language=<lang_code>/<them
 
 Do not include non-ASCII characters in the theme name.
 
+**Uncertain words**
+If you flagged any uncertain words or forms, try searching for them on the web. For example, you can go to the English Wikipedia page and check if a translated page exists.
+
 **"is" form of red herring attributes**
 The `same_herring` and `double_herring` templates use the red herring's `is` form as a direct predicate after a nominative subject:
 ```
