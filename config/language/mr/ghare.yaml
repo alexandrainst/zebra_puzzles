@@ -1,66 +1,36 @@
 # Config file for generating zebra puzzles in Marathi with the "houses" (घरे) theme.
 #
-# Ergativity avoidance: like Hindi, Marathi has split ergativity (ने marks transitive subjects only in
-#   the perfective/completed-past aspect). Every clue here is phrased in the present habitual, which is
-#   imperfective, so ergative marking never triggers — no code changes needed for this, same as Hindi.
-# Present habitual structurally differs from Hindi: Marathi's habitual verb form (stem + तो/ते, agreeing
-#   with subject gender/number) is a COMPLETE predicate on its own — unlike Hindi, it needs NO separate
-#   copula (है-equivalent). E.g. "तो चहा पितो" ("he drinks tea") has no auxiliary. Negation instead uses
-#   stem + त + नाही ("पीत नाही" = "does not drink"), which is gender-invariant in the 3rd person, unlike
-#   the positive form. NOMINAL predicates (jobs/nationalities: "is a teacher") still need the copula आहे
-#   (negated as नाही, replacing आहे entirely rather than combining with it, e.g. "शिक्षक नाही" not
-#   "शिक्षक आहे नाही").
-# Gender: masculine used as default/common gender throughout (matches this repo's precedent for
-#   Hindi/Czech/Russian). This barely matters here in practice: आहे/नाही don't inflect for gender (only
-#   number, and every subject here is singular), so only the -तो/-ते habitual verb ending needs to stay
-#   consistently masculine (-तो) — Marathi's third grammatical gender (neuter) never surfaces as extra
-#   config complexity because it only appears on object nouns, not on the person-referring expressions.
-# Cases: attribute_cases = [nom, is, is_not, obl]. Positional postpositions (शेजारी "next to", डावीकडे/
-#   उजवीकडे "left/right of", दरम्यान "between") all take an oblique-marked argument followed by the
-#   genitive linker च्या (confirmed for उजवीकडे/डावीकडे via "पोस्ट ऑफिसच्या उजवीकडे" = "to the right of the
-#   post office"); assumed to generalize the same way to शेजारी/दरम्यान for consistency with the rest of
-#   this config — flagged as worth native confirmation, since शेजारी is also attested glued directly to an
-#   oblique noun without च्या in some fixed expressions (शाळेशेजारी = "next to the school").
-# Word-formation: nationalities use "Xचा रहिवासी" (resident of X, रहिवासी is ई-final and invariant across
-#   nom/obl, so only the embedded चा→च्या genitive marker shows the oblique shift — exactly analogous to
-#   Hindi's का→के). Jobs are bare nouns, all ई/consonant-final and so invariant in oblique (matches Hindi).
-#   Pets use "Xचा मालक" (owner of X, मालिक's Marathi cognate मालक, also invariant) + "X पाळतो"/"X पाळत नाही"
-#   (raises/keeps as a pet — the improved verb this repo settled on for Hindi pets/old_animal, not रखता है/
-#   ठेवतो, which reads like "keeps an object"). Drinks/genres/hobbies/fruits use the -णारा participial
-#   agentive suffix (पिणारा "drinker", वाचणारा "reader", करणारा/खेळणारा "doer/player", पसंत करणारा "liker") —
-#   Marathi's structural equivalent of Hindi's वाला, but declining -णारा→-णाऱ्या in oblique (NOT -णारे —
-#   Marathi's masculine -आ oblique shift is -आ→-या, confirmed via मुलगा→मुलग्या, unlike Hindi's -आ→-े).
-#   Fruits deliberately use पसंत करणे ("to prefer", a regular transitive verb, calqued into Marathi from
-#   Hindi/Urdu and commonly used) rather than the more colloquial आवडणे ("to please"), which is an
-#   experiencer construction requiring a DATIVE-marked subject (Xला आवडतो) — avoided for the same reason
-#   Hindi avoided "X को पसंद है", to keep every subject uniformly nominative.
-# Red herrings reuse वाला (also used in Marathi for descriptive compounds like दूधवाला "milkman") for their
-#   nom/obl referring forms, declining वाला→वाल्या (same -आ→-या shift as -णारा). Three red herrings — बहीण
-#   "sister", लाल_केस "red hair", टॅटू "tattoo" — use the `red_herring_subject_cases`/`same_herring_templates`/
-#   `double_herring_templates` mechanism (added to red_herring_selection.py for Hindi in this same repo, no
-#   further code changes needed) so their same_herring/double_herring predicate can use Marathi's natural
-#   possessive constructions instead of a generic "keeps X" verb: बहीण uses dative ला ("Xला बहीण आहे" —
-#   kinship possession), लाल_केस uses genitive चे ("Xचे केस लाल आहेत" — attributive description, केस is
-#   grammatically plural so आहेत agrees plural), टॅटू uses जवळ ("X जवळ टॅटू आहे" — physical-object
-#   possession). All three postpositions require the subject in oblique case, same reasoning as Hindi.
-# object_fact uses जाणतो ("knows", a regular transitive verb) rather than the more colloquial माहीत आहे
-#   ("is known to"), which is a dative-experiencer construction (Xला माहीत आहे) — same rationale as fruits.
-# Nurse/sister: job "nurse" is नर्स (English loanword, gender-neutral in this usage), not the native
-#   feminine term परिचारिका, both avoiding a gendered-noun clash with the masculine-default policy and any
-#   accidental overlap with बहीण (sister, a completely distinct native word — no ambiguity risk here).
-# Punctuation: same as Hindi — Devanagari danda "।" via prompt_full_stop; otherwise standard comma+spaces,
-#   spaced "आणि" ("and"), ASCII "?" for questions (already supported by format_datasets.py). No numeral
-#   classifier needed for counting houses (matches Hindi, unlike Chinese/Japanese).
-# Uncertain forms (flagged for native speaker review): ससा (rabbit) oblique सशा — declension pattern for
-#   this specific word not independently confirmed; गोगलगाय (snail) gender/oblique गोगलगाई — inherited
-#   declension from गाय "cow" assumed but not confirmed; बजरीगर (budgerigar), काडी कीटक (stick insect, a
-#   descriptive compound rather than a confirmed single term), ब्लॅककरंट (blackcurrant), रानटी स्ट्रॉबेरी
-#   (wild strawberry), हेरिंग (herring, the fish — not commonly known/named in India), फेरो द्वीपसमूह
-#   (Faroe Islands, name/demonym-adjacent spelling). Also flagged: whether शेजारी/दरम्यान truly need the
-#   explicit च्या linker the way डावीकडे/उजवीकडे demonstrably do, or whether some accept direct oblique
-#   attachment (see cases note above); and whether दरम्यान should instead use a single collective यांच्या
-#   ("of them", referring to both flanking arguments jointly) rather than marking each argument with its
-#   own च्या individually, as this config currently does for consistency with next_to/left_of/right_of.
+# Ergativity: ने-ergative only applies in perfective past; all clues use present habitual (imperfective),
+#   so it never triggers — no code changes needed, same as Hindi.
+# Habitual present is a complete predicate on its own (stem+तो/ते, gender-agreeing) — unlike Hindi, no
+#   separate copula needed. Negation uses stem+त+नाही (gender-invariant). Nominal predicates (jobs/
+#   nationalities) still need आहे, negated by नाही replacing it entirely ("शिक्षक नाही", not "आहे नाही").
+# Gender: masculine default throughout (matches Hindi/Czech/Russian precedent) — required, not stylistic:
+#   is-form predicates are static strings that can't pick a gender variant based on whatever subject they
+#   get paired with in same_herring/double_herring. Tried व्यक्ती (feminine "person") for kanada/aamba —
+#   internally consistent, but broke once paired with another entry's masculine predicate ("...व्यक्ती
+#   मानतो", not "मानते"). Reverted to माणूस (masculine). A proper fix needs predicate selection conditioned
+#   on the paired subject's gender — out of scope, affects every gendered language in this repo.
+# Cases: [nom, is, is_not, obl]. शेजारी/डावीकडे/उजवीकडे/दरम्यान all take an oblique argument + genitive
+#   linker च्या (confirmed for डावीकडे/उजवीकडे; assumed for शेजारी/दरम्यान — flag for native review, शेजारी is
+#   also attested glued directly without च्या in some fixed expressions).
+# Word-formation: nationalities = "Xचा रहिवासी"; jobs = bare nouns; pets = "Xचा मालक" + "X पाळतो"/"पाळत
+#   नाही" (raise/keep as pet, not "keep an object" style); drinks/genres/hobbies/fruits = -णारा agentive
+#   suffix (Marathi's वाला equivalent), declining -णारा→-णाऱ्या (NOT -णारे — Marathi's -आ oblique shift is
+#   -आ→-या, unlike Hindi's -आ→-े). Fruits use पसंत करणे ("prefer", transitive) not आवडणे ("please", dative-
+#   experiencer), to keep the subject nominative — same reasoning as Hindi.
+# Red herrings use वाला→वाल्या for nom/obl forms. बहीण/लाल_केस/टॅटू reuse the red_herring_subject_cases/
+#   same_herring_templates/double_herring_templates mechanism (built for Hindi, no new code) for natural
+#   possessives: बहीण→ला (kinship), लाल_केस→चे (attributive, plural आहेत), टॅटू→जवळ (physical possession).
+#   All three need the subject in oblique case.
+# object_fact uses जाणतो ("knows", transitive) not माहीत आहे (dative-experiencer) — same fruits rationale.
+# Nurse/sister: नर्स (loanword) not परिचारिका (native, feminine) — avoids the gender clash and any overlap
+#   with बहीण (unrelated word, no real ambiguity risk anyway).
+# Punctuation: same as Hindi — danda "।" via prompt_full_stop; standard comma+spaces, spaced "आणि", ASCII
+#   "?" for questions. No numeral classifier needed.
+# Uncertain (flag for native review): ससा (rabbit) oblique सशा; गोगलगाय (snail) gender/oblique गोगलगाई;
+#   बजरीगर, काडी कीटक, ब्लॅककरंट, रानटी स्ट्रॉबेरी, हेरिंग, फेरो द्वीपसमूह; whether शेजारी/दरम्यान truly need
+#   च्या the way डावीकडे/उजवीकडे do; whether दरम्यान should use collective यांच्या instead of per-argument च्या.
 
 theme: mr_ghare
 
