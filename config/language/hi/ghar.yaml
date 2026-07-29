@@ -26,14 +26,27 @@
 #   none of which have a distinct oblique form, so their obl slot is identical to nom — this is correct,
 #   not an oversight. Proper nouns (country names) resist the usual -आ oblique shift even where they end in
 #   आ (e.g. लातविया stays लातविया, not लातविये) — a general exception for foreign/proper nouns in Hindi.
-# Red herrings use वाला-nominalization exclusively (not जो-relative clauses): a जो...वह/उस correlative clause
-#   would need to be word-order-split around the postposition ("जो X है, उस व्यक्ति के बगल में"), which
-#   cannot be expressed by this framework's flat {attribute_desc} template substitution. वाला instead
-#   compresses the whole relative clause into a single ordinary noun that takes oblique मार्किंग exactly
-#   like any other noun (वाला→वाले), so it composes correctly everywhere. Two red herrings needed a minor
-#   semantic softening to fit this pattern: "old_animal" simplifies "old for its species" to just "old"
-#   (बूढ़ा), and the mango/Canada items stay accurate but read slightly more compressed than a discursive
-#   relative clause would.
+# Red herrings use वाला-nominalization for their nom/obl referring forms exclusively (not जो-relative
+#   clauses): a जो...वह/उस correlative clause would need to be word-order-split around a postposition
+#   ("जो X है, उस व्यक्ति के बगल में"), which cannot be expressed by this framework's flat {attribute_desc}
+#   template substitution. वाला instead compresses the whole relative clause into a single ordinary noun
+#   that takes oblique मार्किंग exactly like any other noun (वाला→वाले), so it composes correctly everywhere
+#   these forms are used (next_to_herring, herring_found_at/not_at, friends). Two red herrings needed a
+#   minor semantic softening to fit this pattern: "old_animal" simplifies "old for its species" to just
+#   "old" (बूढ़ा), and the mango/Canada items stay accurate but read slightly more compressed than a
+#   discursive relative clause would.
+# Possessive predicates (code change): बहन/लाल_बाल/टैटू originally used "X रखता है" ("X keeps Y") for
+#   their same_herring/double_herring "is" slot, since Hindi's actually natural possessive-existential
+#   construction — "X के/की/पर Y है/हैं" ("Y is with/on X" = "X has Y") — needs the SUBJECT marked oblique
+#   (के/की/पर all require an oblique-marked preceding NP), which the generic same_herring/double_herring
+#   templates couldn't express (they always spliced the subject in as bare nominative). Added
+#   `red_herring_subject_cases` (override the subject's case per red-herring key) and
+#   `same_herring_templates`/`double_herring_templates` (override the whole template per red-herring key)
+#   to `red_herring_selection.py`, `build_pipeline.py` and `src/scripts/build_dataset.py` — the same
+#   pattern this repo already used for regular clues (`attribute_subject_cases`/`same_object_templates`,
+#   added for Basque), just applied to red herrings. All new params default to None/{} so no other
+#   language config is affected. गिनी_पिग and बूढ़ा_पालतू were also improved from रखता है ("keeps") to
+#   पालता है ("raises/keeps as a pet") — a plain verb-choice fix needing no code change.
 # Nurse/sister: job "nurse" is नर्स (a distinct loanword, not the native word for "sister"), avoiding the
 #   nurse/sister homograph trap this skill flags for other languages — in Hindi/Indian English the risk
 #   would actually run through "सिस्टर" (a colloquial loanword some Indian hospitals use for nurses), so
@@ -219,22 +232,40 @@ red_herring_cases_dict:
     herring_not_at: ['nom']
 
 red_herring_attributes:
-    laal_baal: ['लाल बालोंवाला', 'लाल बाल रखता है', 'लाल बालोंवाले']
+    laal_baal: ['लाल बालोंवाला', 'बाल लाल', 'लाल बालोंवाले']
     chashma: ['चश्मेवाला', 'चश्मा पहनता है', 'चश्मेवाले']
-    tattoo: ['टैटूवाला', 'टैटू रखता है', 'टैटूवाले']
+    tattoo: ['टैटूवाला', 'टैटू', 'टैटूवाले']
     guitar: ['गिटार बजानेवाला', 'गिटार बजाता है', 'गिटार बजानेवाले']
     cycle: ['साइकिलवाला', 'साइकिल रखता है', 'साइकिलवाले']
-    guinea_pig: ['गिनी पिगवाला', 'गिनी पिग रखता है', 'गिनी पिगवाले']
+    guinea_pig: ['गिनी पिगवाला', 'गिनी पिग पालता है', 'गिनी पिगवाले']
     cactus: ['कैक्टसवाला', 'कैक्टस नहीं रखता है', 'कैक्टसवाले']
     video_game: ['वीडियो गेम खेलनेवाला', 'वीडियो गेम खेलता है', 'वीडियो गेम खेलनेवाले']
-    bahan: ['बहनवाला', 'बहन रखता है', 'बहनवाले']
+    bahan: ['बहनवाला', 'बहन', 'बहनवाले']
     aam: ['माननेवाला कि दूसरा सबसे अच्छा फल आम है', 'मानता है कि दूसरा सबसे अच्छा फल आम है', 'माननेवाले कि दूसरा सबसे अच्छा फल आम है']
     naukayan: ['अक्सर नाव चलानेवाला', 'अक्सर नाव चलाता है', 'अक्सर नाव चलानेवाले']
     canada: ['कनाडा गया हुआ व्यक्ति', 'कनाडा गया हुआ है', 'कनाडा गया हुआ व्यक्ति']
     ganit: ['गणित में मास्टर डिग्रीवाला', 'गणित में मास्टर डिग्री रखता है', 'गणित में मास्टर डिग्रीवाले']
     bhautiki: ['भौतिकी पसंद करनेवाला', 'भौतिकी बहुत पसंद करता है', 'भौतिकी पसंद करनेवाले']
-    budha_pitomets: ['बूढ़े पालतू जानवरवाला', 'बूढ़ा पालतू जानवर रखता है', 'बूढ़े पालतू जानवरवाले']
+    budha_pitomets: ['बूढ़े पालतू जानवरवाला', 'बूढ़ा पालतू जानवर पालता है', 'बूढ़े पालतू जानवरवाले']
     ski_jumping: ['स्की जंपिंग देखनेवाला', 'स्की जंपिंग देखता है', 'स्की जंपिंग देखनेवाले']
+
+# Per-red-herring overrides for same_herring/double_herring: बहन/लाल_बाल/टैटू use Hindi's natural
+# possessive-existential predicate ("X की/के/पर Y है/हैं", not "X रखता है"), which needs the subject in
+# oblique case (के/की/पर all require an oblique-marked preceding NP) instead of the default nominative.
+red_herring_subject_cases:
+    bahan: obl
+    laal_baal: obl
+    tattoo: obl
+
+same_herring_templates:
+    bahan: '{attribute_desc} की {attribute_desc_herring} है।'
+    laal_baal: '{attribute_desc} के {attribute_desc_herring} हैं।'
+    tattoo: '{attribute_desc} पर {attribute_desc_herring} है।'
+
+double_herring_templates:
+    bahan: '{attribute_desc_herring_1} की {attribute_desc_herring_2} है।'
+    laal_baal: '{attribute_desc_herring_1} के {attribute_desc_herring_2} हैं।'
+    tattoo: '{attribute_desc_herring_1} पर {attribute_desc_herring_2} है।'
 
 red_herring_facts:
     herring: ['हेरिंग एक मछली है']  # uncertain — herring is not commonly known/named in India
