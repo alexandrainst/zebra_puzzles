@@ -4,9 +4,10 @@
 # Preposition → case: рядом с (next to) → inst, слева от / справа от (left/right of) → gen, между (between)
 #   → inst (identical government pattern to Ukrainian, so the case structure is reused directly from
 #   uk/budynky.yaml).
-# Gender policy: masculine used as common gender for unknown-gender persons throughout. Nurse translated
-#   as "медик" (generic medic), not "медсестра", to avoid the nurse/sister homograph trap (Estonian õde,
-#   Latvian māsa) since "медсестра" literally contains "сестра" (sister).
+# Gender policy: masculine used as common gender for unknown-gender persons throughout.
+# Exception: медсестра (nurse) is a feminine job title used as-is — no natural masculine equivalent (медбрат exists but
+#   specifically means "male nurse", not a gender-neutral default) is in everyday common use. It collides
+#   with "сестра" (the sister red herring), but the two are grammatically distinct clue types, so no real ambiguity results.
 # Word-formation: nationalities/jobs = bare noun (zero-copula predicate — Russian has no present-tense
 #   "to be", so "is X" is just the bare nominative noun, unlike Ukrainian/Czech which keep an explicit
 #   copula "є"/"je"); pets = "владелец X" (owner of X, gen) + "имеет X" (has X) / "не имеет X"; drinks/
@@ -55,7 +56,7 @@ attributes:
         пекарь: ['пекарь', '— пекарь', 'не пекарь', 'пекаря', 'пекарем']
         министр: ['министр', '— министр', 'не министр', 'министра', 'министром']
         полицейский: ['полицейский', '— полицейский', 'не полицейский', 'полицейского', 'полицейским']
-        медик: ['медик', '— медик', 'не медик', 'медика', 'медиком']
+        медсестра: ['медсестра', '— медсестра', 'не медсестра', 'медсестры', 'медсестрой']
         учитель: ['учитель', '— учитель', 'не учитель', 'учителя', 'учителем']
         программист: ['программист', '— программист', 'не программист', 'программиста', 'программистом']
         продавец: ['продавец', '— продавец', 'не продавец', 'продавца', 'продавцом']

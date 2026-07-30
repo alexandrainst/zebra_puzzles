@@ -1,6 +1,9 @@
 # Config file for generating zebra puzzles in Belarusian with the houses theme.
 # Nationalities and professions use masculine nouns as common gender (standard Belarusian usage,
-# understood as gender-neutral in context). "медык" is genuinely gender-neutral.
+# understood as gender-neutral in context).
+# Exception: медсястра (nurse) is a feminine job title used as-is — no natural masculine equivalent is in everyday common
+#   use. It collides with "сястра" (the sister red herring), but the two are grammatically distinct clue
+#   types, so no real ambiguity results.
 # Activity attributes (drinks, hobbies, books, fruits) use "чалавек, які X" (person who X).
 # Preliminary version — case forms and vocabulary should be reviewed by a native speaker.
 # Note: multiple_between uses "дамы" (gen sg), valid for n=2–4. For n≥5 "дамоў" (gen pl) would be needed.
@@ -29,7 +32,7 @@ attributes:
         пекар: ['пекар', 'пекар', 'не пекар', 'пекара', 'пекарам']
         міністр: ['міністр', 'міністр', 'не міністр', 'міністра', 'міністрам']
         паліцэйскі: ['паліцэйскі', 'паліцэйскі', 'не паліцэйскі', 'паліцэйскага', 'паліцэйскім']
-        медык: ['медык', 'медык', 'не медык', 'медыка', 'медыкам']
+        медсястра: ['медсястра', 'медсястра', 'не медсястра', 'медсястры', 'медсястрой']
         настаўнік: ['настаўнік', 'настаўнік', 'не настаўнік', 'настаўніка', 'настаўнікам']
         праграміст: ['праграміст', 'праграміст', 'не праграміст', 'праграміста', 'праграмістам']
         прадавец: ['прадавец', 'прадавец', 'не прадавец', 'прадаўца', 'прадаўцом']
