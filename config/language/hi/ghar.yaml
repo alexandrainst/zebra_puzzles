@@ -58,9 +58,11 @@
 #   prompt_colon are all left at their defaults, unlike Chinese/Japanese.
 # No numeral classifier needed: unlike Chinese (栋) and Japanese (軒), Hindi numerals attach directly to
 #   nouns with no obligatory counter word, so "2 घर" ("2 houses") needs no extra marking in multiple_between.
-# Uncertain forms (flagged for native speaker review): बजरीगर (budgerigar), छड़ी कीट (stick insect, a
-#   descriptive compound rather than an attested single term), ब्लैककरंट (blackcurrant), जंगली स्ट्रॉबेरी
-#   (wild strawberry), हेरिंग (herring, the fish — not commonly known/named in India).
+# Checked against Hindi Wikipedia: बजरिगर (budgerigar) matches the article title ("बजरिगर एक पालतू छोटा
+#   तोता पक्षी है"); हेरिंग (herring) is the transliteration used consistently across Hindi Wikipedia
+#   articles (Amine, North Sea, Marine Biology). Still uncertain (no dedicated article found, no better
+#   alternative surfaced either): छड़ी कीट (stick insect, a descriptive compound — Wikipedia search only
+#   turned up an unrelated tangential mention), ब्लैककरंट (blackcurrant), जंगली स्ट्रॉबेरी (wild strawberry).
 
 theme: hi_ghar
 
@@ -98,7 +100,7 @@ attributes:
         बिल्ली: ['बिल्ली का मालिक', 'बिल्ली रखता है', 'बिल्ली नहीं रखता है', 'बिल्ली के मालिक']
         खरगोश: ['खरगोश का मालिक', 'खरगोश रखता है', 'खरगोश नहीं रखता है', 'खरगोश के मालिक']
         ज़ेबरा: ['ज़ेबरा का मालिक', 'ज़ेबरा रखता है', 'ज़ेबरा नहीं रखता है', 'ज़ेबरा के मालिक']
-        बजरीगर: ['बजरीगर का मालिक', 'बजरीगर रखता है', 'बजरीगर नहीं रखता है', 'बजरीगर के मालिक']  # uncertain — verify term
+        बजरिगर: ['बजरिगर का मालिक', 'बजरिगर रखता है', 'बजरिगर नहीं रखता है', 'बजरिगर के मालिक']
         घोंघा: ['घोंघे का मालिक', 'घोंघा रखता है', 'घोंघा नहीं रखता है', 'घोंघे के मालिक']
         छड़ी कीट: ['छड़ी कीट का मालिक', 'छड़ी कीट रखता है', 'छड़ी कीट नहीं रखता है', 'छड़ी कीट के मालिक']  # uncertain — verify term
 
@@ -268,7 +270,7 @@ double_herring_templates:
     tattoo: '{attribute_desc_herring_1} पर {attribute_desc_herring_2} है।'
 
 red_herring_facts:
-    herring: ['हेरिंग एक मछली है']  # uncertain — herring is not commonly known/named in India
+    herring: ['हेरिंग एक मछली है']  # confirmed transliteration, still an obscure fish in India
     saur_mandal: ['सौर मंडल आकाशगंगा के केंद्र के चारों ओर लगभग 200 किमी/सेकंड की गति से घूमता है']
     paheli: ['पहेलियाँ सुलझाना मजेदार है']
     ghar_fact: ['इस सड़क के सभी घरों में सुंदर बगीचे हैं']

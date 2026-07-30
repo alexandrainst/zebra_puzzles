@@ -28,9 +28,12 @@
 #   with बहीण (unrelated word, no real ambiguity risk anyway).
 # Punctuation: same as Hindi — danda "।" via prompt_full_stop; standard comma+spaces, spaced "आणि", ASCII
 #   "?" for questions. No numeral classifier needed.
-# Uncertain (flag for native review): ससा (rabbit) oblique सशा; गोगलगाय (snail) gender/oblique गोगलगाई;
-#   बजरीगर, काडी कीटक, ब्लॅककरंट, रानटी स्ट्रॉबेरी, हेरिंग, फेरो द्वीपसमूह; whether शेजारी/दरम्यान truly need
-#   च्या the way डावीकडे/उजवीकडे do; whether दरम्यान should use collective यांच्या instead of per-argument च्या.
+# Checked against Wikipedia: फेरो द्वीपसमूह (Faroe Islands) and गोगलगाय (snail, feminine by analogy with
+#   गाय "cow") both confirmed; हेरिंग transliteration confirmed via Hindi Wikipedia's identical borrowing.
+# Still uncertain (flag for native review): ससा (rabbit) oblique सशा; बजरीगर, काडी कीटक, ब्लॅककरंट, रानटी
+#   स्ट्रॉबेरी (no Marathi Wikipedia article found, no better alternative surfaced); whether शेजारी/दरम्यान
+#   truly need च्या the way डावीकडे/उजवीकडे do; whether दरम्यान should use collective यांच्या instead of
+#   per-argument च्या.
 
 theme: mr_ghare
 
@@ -49,7 +52,7 @@ attributes:
         स्पेन: ['स्पेनचा रहिवासी', 'स्पेनचा रहिवासी आहे', 'स्पेनचा रहिवासी नाही', 'स्पेनच्या रहिवासी']
         इटली: ['इटलीचा रहिवासी', 'इटलीचा रहिवासी आहे', 'इटलीचा रहिवासी नाही', 'इटलीच्या रहिवासी']
         नॉर्वे: ['नॉर्वेचा रहिवासी', 'नॉर्वेचा रहिवासी आहे', 'नॉर्वेचा रहिवासी नाही', 'नॉर्वेच्या रहिवासी']
-        फेरो द्वीपसमूह: ['फेरो द्वीपसमूहचा रहिवासी', 'फेरो द्वीपसमूहचा रहिवासी आहे', 'फेरो द्वीपसमूहचा रहिवासी नाही', 'फेरो द्वीपसमूहच्या रहिवासी']  # uncertain — verify name/demonym
+        फेरो द्वीपसमूह: ['फेरो द्वीपसमूहचा रहिवासी', 'फेरो द्वीपसमूहचा रहिवासी आहे', 'फेरो द्वीपसमूहचा रहिवासी नाही', 'फेरो द्वीपसमूहच्या रहिवासी']  # confirmed — matches Marathi Wikipedia's article title exactly
         नेदरलँड्स: ['नेदरलँड्सचा रहिवासी', 'नेदरलँड्सचा रहिवासी आहे', 'नेदरलँड्सचा रहिवासी नाही', 'नेदरलँड्सच्या रहिवासी']
         आइसलँड: ['आइसलँडचा रहिवासी', 'आइसलँडचा रहिवासी आहे', 'आइसलँडचा रहिवासी नाही', 'आइसलँडच्या रहिवासी']
         युनायटेड किंग्डम: ['युनायटेड किंग्डमचा रहिवासी', 'युनायटेड किंग्डमचा रहिवासी आहे', 'युनायटेड किंग्डमचा रहिवासी नाही', 'युनायटेड किंग्डमच्या रहिवासी']
@@ -69,7 +72,7 @@ attributes:
         ससा: ['सशाचा मालक', 'ससा पाळतो', 'ससा पाळत नाही', 'सशाच्या मालक']  # uncertain — verify oblique सशा
         झेब्रा: ['झेब्राचा मालक', 'झेब्रा पाळतो', 'झेब्रा पाळत नाही', 'झेब्राच्या मालक']
         बजरीगर: ['बजरीगरचा मालक', 'बजरीगर पाळतो', 'बजरीगर पाळत नाही', 'बजरीगरच्या मालक']  # uncertain — verify term
-        गोगलगाय: ['गोगलगाईचा मालक', 'गोगलगाय पाळतो', 'गोगलगाय पाळत नाही', 'गोगलगाईच्या मालक']  # uncertain — verify gender/oblique
+        गोगलगाय: ['गोगलगाईचा मालक', 'गोगलगाय पाळतो', 'गोगलगाय पाळत नाही', 'गोगलगाईच्या मालक']  # confirmed term (Marathi Wikipedia); feminine by analogy with गाय "cow", matching the existing -ई oblique
         काडी कीटक: ['काडी कीटकाचा मालक', 'काडी कीटक पाळतो', 'काडी कीटक पाळत नाही', 'काडी कीटकाच्या मालक']  # uncertain — verify term
 
     पेये:
@@ -237,7 +240,7 @@ double_herring_templates:
     tattoo: '{attribute_desc_herring_1} जवळ {attribute_desc_herring_2} आहे।'
 
 red_herring_facts:
-    herring: ['हेरिंग एक मासा आहे']  # uncertain — herring is not commonly known/named in India
+    herring: ['हेरिंग एक मासा आहे']  # transliteration confirmed for Hindi's identical borrowing; still an obscure fish in India
     saurmala: ['सूर्यमाला आकाशगंगेच्या केंद्राभोवती सुमारे 200 किमी/सेकंद वेगाने फिरते']
     kodi: ['कोडी सोडवणे मजेदार आहे']
     ghare_fact: ['या रस्त्यावरील सर्व घरांना सुंदर बागा आहेत']

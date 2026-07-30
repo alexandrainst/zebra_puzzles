@@ -45,10 +45,13 @@
 # Numerals: {n_between} is substituted as a bare digit (e.g. "2", not a spelled-out number word), which
 #   sidesteps MSA's notoriously complex number-noun gender-reversal agreement rules entirely — those rules
 #   apply to spelled words like "ثلاثة", not to a digit placed directly before a plural noun.
-# Uncertain forms (flagged for native speaker review): بادجي (budgerigar, transliterated loanword), حشرة
-#   العصا (stick insect, a descriptive compound rather than a single confirmed term), كشمش أسود
-#   (blackcurrant), فراولة برية (wild strawberry, botanical precision), رنجة (herring, the fish — not
-#   commonly known/named in the Arab world), جزر فارو (Faroe Islands, name/demonym-adjacent spelling).
+# Vocabulary checked against Arabic Wikipedia: budgerigar is بدجريقة, the article title itself and an
+#   explicit Arabization of the English name; stick insect is حشرة عصوية, matching the phrasing used in
+#   the شبحيات (Phasmatodea order) article, singularized from its plural "الحشرات العصوية"; blackcurrant
+#   (كشمش أسود), wild strawberry (فراولة برية) and Faroe Islands (جزر فارو) all match their respective
+#   article titles/text exactly; herring (رنجة) is confirmed as one of three accepted spellings alongside
+#   رنكة/الرِّنجة in the herring article's opening line, though still a fish not widely known in the Arab
+#   world.
 
 theme: ar_manazil
 
@@ -67,7 +70,7 @@ attributes:
         إسبانيا: ['الشخص من إسبانيا', 'من إسبانيا', 'ليس من إسبانيا']
         إيطاليا: ['الشخص من إيطاليا', 'من إيطاليا', 'ليس من إيطاليا']
         النرويج: ['الشخص من النرويج', 'من النرويج', 'ليس من النرويج']
-        جزر فارو: ['الشخص من جزر فارو', 'من جزر فارو', 'ليس من جزر فارو']  # uncertain — verify name
+        جزر فارو: ['الشخص من جزر فارو', 'من جزر فارو', 'ليس من جزر فارو']
         هولندا: ['الشخص من هولندا', 'من هولندا', 'ليس من هولندا']
         آيسلندا: ['الشخص من آيسلندا', 'من آيسلندا', 'ليس من آيسلندا']
         بريطانيا: ['الشخص من بريطانيا', 'من بريطانيا', 'ليس من بريطانيا']
@@ -86,9 +89,9 @@ attributes:
         كلب: ['الشخص الذي لديه كلب', 'لديه كلب', 'ليس لديه كلب']
         أرنب: ['الشخص الذي لديه أرنب', 'لديه أرنب', 'ليس لديه أرنب']
         حمار وحشي: ['الشخص الذي لديه حمار وحشي', 'لديه حمار وحشي', 'ليس لديه حمار وحشي']
-        بادجي: ['الشخص الذي لديه بادجي', 'لديه بادجي', 'ليس لديه بادجي']  # uncertain — verify term
+        بدجريقة: ['الشخص الذي لديه بدجريقة', 'لديه بدجريقة', 'ليس لديه بدجريقة']
         حلزون: ['الشخص الذي لديه حلزون', 'لديه حلزون', 'ليس لديه حلزون']
-        حشرة العصا: ['الشخص الذي لديه حشرة العصا', 'لديه حشرة العصا', 'ليس لديه حشرة العصا']  # uncertain — verify term
+        حشرة عصوية: ['الشخص الذي لديه حشرة عصوية', 'لديه حشرة عصوية', 'ليس لديه حشرة عصوية']
 
     المشروبات:
         عصير: ['الشخص الذي يشرب العصير', 'يشرب العصير', 'لا يشرب العصير']
@@ -123,8 +126,8 @@ attributes:
         برتقال: ['الشخص الذي يحب البرتقال', 'يحب البرتقال', 'لا يحب البرتقال']
         موز: ['الشخص الذي يحب الموز', 'يحب الموز', 'لا يحب الموز']
         فراولة: ['الشخص الذي يحب الفراولة', 'يحب الفراولة', 'لا يحب الفراولة']
-        كشمش أسود: ['الشخص الذي يحب الكشمش الأسود', 'يحب الكشمش الأسود', 'لا يحب الكشمش الأسود']  # uncertain — verify term
-        فراولة برية: ['الشخص الذي يحب الفراولة البرية', 'يحب الفراولة البرية', 'لا يحب الفراولة البرية']  # uncertain — verify botanical term
+        كشمش أسود: ['الشخص الذي يحب الكشمش الأسود', 'يحب الكشمش الأسود', 'لا يحب الكشمش الأسود']
+        فراولة برية: ['الشخص الذي يحب الفراولة البرية', 'يحب الفراولة البرية', 'لا يحب الفراولة البرية']
 
 # Clues
 clues_dict:
@@ -238,7 +241,7 @@ red_herring_attributes:
     قفز_بالزلاجات: ['الشخص الذي يشاهد القفز على الزلاجات', 'يشاهد القفز على الزلاجات']
 
 red_herring_facts:
-    رنجة: ['الرنجة سمكة']  # uncertain — herring is not commonly known/named in the Arab world
+    رنجة: ['الرنجة سمكة']  # confirmed variant spelling of herring, but still an obscure fish in the Arab world
     نظام_شمسي: ['يتحرك النظام الشمسي حول مركز المجرة بسرعة حوالي 200 كم/ثانية']
     لغز: ['حل الألغاز ممتع']
     منازل_حقيقة: ['جميع المنازل في هذا الشارع لديها حدائق جميلة']
