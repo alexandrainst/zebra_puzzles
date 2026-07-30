@@ -89,15 +89,19 @@ You can compare with other language configs to see how they handle similar issue
 - **"Between N houses" clues**: When a clue says there are several houses
   between two people, check it's unambiguous *how many* — it should not be
   readable as a distance instead of a count.
+- **Puzzle enjoyment**: The red herring fact about enjoying puzzles can result in e.g. "knows that it is fun to solve puzzles", where "enjoys solving puzzles" would be more natural. Add this to prompt_replacements if needed (see English (en) for an example).
 - **Format description**: Would "JSON dictionary", "key" and "value" typically be translated or kept in English? Edit the prompt template accordingly.
 - **Number agreement**: If your language changes a noun's form depending on
   the number in front of it (common in Slavic languages, for example), check
   that the form used in "between N houses" clues matches the specific number
   shown. We will typically use 4 houses, this should at least work for up to N=2.
+- **Multiple clue templates**: If multiple clue templates are needed to cover all the attributes, this is possible. See e.g. Irish (ga) "same_object_templates", or Hindi (hi) "same_herring_templates". See Basque (eu) "attribute_subject_cases" if the case depends on the attribute category.
+- **Word order of relative clauses**: Some languages have a different word order for relative clauses than main clauses. If this is the case, add extra templates in red_herring_facts. See German (de) for an example.
+- **Contractions**: If your language has contractions, add them to prompt_replacements. See German (fr) for an example.
 
 ### Naturalness
 
-Avoid overly literal translations from English or stilted phrasing.
+Avoid overly literal translations from English or stilted phrasing. If a native word exists, it is usually better than a loanword.
 
 Try to use short phrases e.g. "The cat owner" instead of "The person who owns a cat" to avoid repeatedly using the same long phrase in every clue.
 
@@ -112,7 +116,9 @@ The order of categories in the config file determines the preferred order of cat
 ### Punctuation
 
 Check spacing and punctuation look right — trailing commas before periods,
-contracted articles, spacing around question marks or dashes, and so on.
+contracted articles, spacing around question marks or dashes, and so on. This can be corrected with the variables used in e.g. Japanese (ja) or with prompt_replacements.
+
+If commas are used before relative clauses, you can include both commas in the attributes and remove any commas placed before full stops by adding a prompt_replacement. See German (de) for an example.
 
 ## 5. Edit README.md
 
