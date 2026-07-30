@@ -73,7 +73,7 @@ def complete_prompt(
     # Sort the attributes
     chosen_attributes = np.array([sorted(x) for x in chosen_attributes])
 
-    # Comma seprate the attributes in each category and combine with the category title
+    # Comma separate the attributes in each category and combine with the category title
     chosen_attributes_strs = [
         f"{cat}{prompt_colon}{format_list_in_prompt(list_of_strings=chosen_attributes[i], prompt_and=prompt_and, oxford_comma=False, prompt_comma=prompt_comma, prompt_and_spacing=prompt_and_spacing)}"
         for i, cat in enumerate(chosen_categories)
