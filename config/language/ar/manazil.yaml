@@ -15,7 +15,7 @@
 #   Denmark", لا يعمل كخباز "does not work as a baker") rather than ليس + bare-noun, since only THAT slot
 #   would hit the accusative-indefinite alif. Result: nothing in this config depends on getting that alif
 #   ending right per-word.
-# Gender: masculine default throughout (matches this repo's precedent). شخص "person" is unambiguously
+# Gender: masculine default throughout. شخص "person" is unambiguously
 #   masculine (no Marathi-style risk of an internal agreement mismatch).
 # Word-formation: nationalities = "الشخص ال[demonym]" / "[demonym]" / "ليس من [country]" (direct demonym
 #   adjective for nom/is, matching how a native speaker would actually say it — e.g. "الشخص الدنماركي"/
@@ -26,8 +26,6 @@
 #   Drinks/genres/hobbies/fruits = "الشخص الذي ي[verb] ال[thing]" / "ي[verب] ال[thing]" / "لا ي[verb]
 #   ال[thing]" (definite-generic object, e.g. "يشرب القهوة" = "drinks [the-]coffee").
 # Red herrings need only [nom, is] (no oblique case exists at all here), so none of the
-# red_herring_subject_cases/same_herring_templates/double_herring_templates machinery built for
-#   Hindi/Marathi is needed — every referring form works unchanged in every syntactic position.
 # Dual/plural agreement: not_next_to and the "friends" red herring clue describe exactly two people, using
 #   Arabic's dual number (شخصان مختلفان "two different persons", صديقان مقربان "two close friends") — a live,
 #   actively-used grammatical number in MSA, not archaic. not_between describes three people, using sound

@@ -165,7 +165,7 @@ prompt_templates:
 
         {chosen_clues_str}
 
-        Zein ezaugarri dagokio etxe bakoitzeko pertsonari?
+        Etxe bakoitzeko pertsonari zein ezaugarri dagokion asmatzen al duzu?
 
         Erantzuna JSON dictionary gisa bidali mesedez. Key bakoitza object_X da, X etxe-zenbakia delarik. Balio bakoitza zerrenda bat da, {chosen_attributes_str} kategoriari dagokion ezaugarria duena, X etxean bizi den pertsonaren.
 
