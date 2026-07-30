@@ -38,6 +38,10 @@ to find one that interests you. You can narrow down the search using `labels` as
 filters. See [Labels](/contributing/how-to-use-labels.md) for more information. If you
 find an issue to work on, you are welcome to open a PR with a fix.
 
+If you're a native speaker of one of the "Preliminary" languages listed in the
+[README](README.md) and want to help by reviewing its config, see the
+[guide to reviewing a language](REVIEWING_LANGUAGES.md).
+
 ### Make Changes
 
 1. Fork the repository.
