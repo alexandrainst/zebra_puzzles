@@ -4,16 +4,13 @@
 #   or verb-conjugation marking, so no extra cases are needed. Positional postpositions (隔壁/左边/右边/之间)
 #   attach directly to the bare (nom) noun form, optionally via 的, which is written into the clue templates
 #   themselves rather than requiring a separate inflected noun form.
-# Word-formation: nationalities = country + 人 (bare noun; is = 是 + noun; is_not = 不是 + noun)
-#                 jobs = bare noun (is = 是 + noun; is_not = 不是 + noun)
-#                 pets/drinks/genres/hobbies/fruits = verb phrase: nom = "VP的人", is = "VP", is_not = "不VP"
-#                 (every "is" form is a self-contained predicate — either 是+noun or a bare verb phrase — so
-#                 same_object/not_same_object can concatenate any nom subject with any is/is_not predicate)
-# Punctuation: uses full-width Chinese punctuation (。，、：？) throughout, not ASCII. Two code changes made
-#   for this: (1) src/scripts/format_datasets.py now recognises "？" as a question-ending character.
-#   (2) prompt_completion.py / build_pipeline.py / build_dataset.py
-#   gained four new optional language config keys: `prompt_comma`, `prompt_and_spacing`,
-#   `prompt_full_stop` and `prompt_colon`. Lists render as "项目1、项目2和项目3".
+# Word-formation: nationalities = country + 人 (是+noun / 不是+noun); jobs = bare noun (是/不是+noun);
+#   pets/drinks/genres/hobbies/fruits = verb phrase (nom = "VP的人", is = bare VP, is_not = "不VP") — every
+#   "is" form is a self-contained predicate, so same_object/not_same_object can concatenate any nom subject
+#   with any is/is_not predicate.
+# Punctuation: full-width (。，、：？) throughout, not ASCII. Two code changes: (1) format_datasets.py now
+#   recognises "？" as a question-ender; (2) prompt_completion.py/build_pipeline.py/build_dataset.py gained
+#   four optional config keys: prompt_comma, prompt_and_spacing, prompt_full_stop, prompt_colon.
 # Measure words: 栋 is used for houses only where Chinese grammatically requires a classifier when counting
 #   (multiple_between/one_between, e.g. "两栋房子" = "two houses"). No classifier is needed elsewhere since
 #   attributes are generic/mass statements ("爱吃苹果" = "loves eating apples", no counting involved).

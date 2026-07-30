@@ -1,68 +1,60 @@
 # Config file for generating zebra puzzles in Hindi with the "houses" (घर) theme.
 #
-# Ergativity avoidance: Hindi has split ergativity — the ergative marker "ने" appears ONLY on transitive
+# Ergativity avoidance: Hindi has split ergativity — the ergative marker "ने" appears only on transitive
 #   verbs in the perfective aspect (completed past), never in habitual/present constructions. Every clue
-#   and attribute in this config is phrased in the present habitual (करता है / पीता है / पढ़ता है, etc.),
-#   which is imperfective, so ergative marking never triggers anywhere. This means — unlike Basque, which
-#   is ergative unconditionally and needed a code change (attribute_subject_cases) — Hindi needed NO code
-#   changes at all; it was purely a config addition. The one red herring using a completed-past-feeling verb
-#   ("has been to Canada") uses "गया हुआ है" (an experiential-perfect built on जाना, "to go") — जाना is
-#   INTRANSITIVE, and ergativity only ever applies to transitive verbs, so this is also safe.
-# Gender: masculine used as the default/common gender throughout for unknown-gender persons (matches this
-#   repo's precedent for Czech/Russian/Ukrainian). All habitual verb forms use -ता है (masculine singular);
-#   habitual-present verb agreement is with the SUBJECT regardless of any object's own gender (unlike
-#   perfective/ergative constructions, where the verb would agree with the object instead — moot here
-#   since perfective is never used).
+#   and attribute here is phrased in the present habitual (करता है/पीता है/पढ़ता है, etc.), which is
+#   imperfective, so ergative marking never triggers. Unlike Basque (ergative unconditionally, needed a
+#   code change), this was purely a config addition. The one red herring using a completed-past-feeling
+#   verb ("has been to Canada") uses "गया हुआ है" (an experiential-perfect built on जाना, "to go") — जाना is
+#   intransitive, and ergativity only ever applies to transitive verbs, so this is also safe.
+# Gender: masculine default. All habitual verb forms use -ता है (masculine singular); habitual-present
+#   verb agreement is with the SUBJECT regardless of any object's own gender (unlike perfective/ergative
+#   constructions, where the verb would agree with the object instead — moot here since perfective is
+#   never used).
 # Cases: attribute_cases = [nom, is, is_not, obl]. Every Hindi positional postposition used here (के बगल
 #   में "next to", के बाएं/दाएं "left/right of", के बीच में "between") is a grammaticalized के-based compound
-#   that requires its preceding noun phrase in the OBLIQUE case, regardless of that NP's own gender — so
+#   that requires its preceding noun phrase in the OBLIQUE case regardless of that NP's own gender — so
 #   only one extra case ("obl") is needed, not a case per postposition.
 # Word-formation: nationalities/pets/genres/hobbies/fruits use compact head-noun compounds where only ONE
 #   word actually changes between nom and obl (निवासी "resident" and मालिक "owner" are consonant/ई-final
 #   and don't inflect, but the embedded का possessive marker shifts का→के under obl; वाला-agentive suffixes
 #   — पीनेवाला "drinker", पढ़नेवाला "reader", करनेवाला/खेलनेवाला "doer/player", पसंद करनेवाला "liker" — always
-#   inflect वाला→वाले under obl regardless of what they attach to, since वाला itself is grammatically the
-#   head of the compound). Jobs are bare nouns ending in ई or a consonant (नानबाई, मंत्री, शिक्षक, etc.),
-#   none of which have a distinct oblique form, so their obl slot is identical to nom — this is correct,
-#   not an oversight. Proper nouns (country names) resist the usual -आ oblique shift even where they end in
-#   आ (e.g. लातविया stays लातविया, not लातविये) — a general exception for foreign/proper nouns in Hindi.
+#   inflect वाला→वाले under obl). Jobs are bare nouns ending in ई or a consonant (नानबाई, मंत्री, शिक्षक,
+#   etc.), none of which have a distinct oblique form — obl = nom, not an oversight. Proper nouns (country
+#   names) resist the usual -आ oblique shift even where they end in आ (e.g. लातविया stays लातविया, not
+#   लातविये).
 # Red herrings use वाला-nominalization for their nom/obl referring forms exclusively (not जो-relative
-#   clauses): a जो...वह/उस correlative clause would need to be word-order-split around a postposition
-#   ("जो X है, उस व्यक्ति के बगल में"), which cannot be expressed by this framework's flat {attribute_desc}
-#   template substitution. वाला instead compresses the whole relative clause into a single ordinary noun
-#   that takes oblique मार्किंग exactly like any other noun (वाला→वाले), so it composes correctly everywhere
-#   these forms are used (next_to_herring, herring_found_at/not_at, friends). Two red herrings needed a
-#   minor semantic softening to fit this pattern: "old_animal" simplifies "old for its species" to just
-#   "old" (बूढ़ा), and the mango/Canada items stay accurate but read slightly more compressed than a
-#   discursive relative clause would.
-# Possessive predicates (code change): बहन/लाल_बाल/टैटू originally used "X रखता है" ("X keeps Y") for
-#   their same_herring/double_herring "is" slot, since Hindi's actually natural possessive-existential
-#   construction — "X के/की/पर Y है/हैं" ("Y is with/on X" = "X has Y") — needs the SUBJECT marked oblique
-#   (के/की/पर all require an oblique-marked preceding NP), which the generic same_herring/double_herring
-#   templates couldn't express (they always spliced the subject in as bare nominative). Added
-#   `red_herring_subject_cases` (override the subject's case per red-herring key) and
-#   `same_herring_templates`/`double_herring_templates` (override the whole template per red-herring key)
-#   to `red_herring_selection.py`, `build_pipeline.py` and `src/scripts/build_dataset.py` — the same
-#   pattern this repo already used for regular clues (`attribute_subject_cases`/`same_object_templates`,
-#   added for Basque), just applied to red herrings. All new params default to None/{} so no other
-#   language config is affected. गिनी_पिग and बूढ़ा_पालतू were also improved from रखता है ("keeps") to
-#   पालता है ("raises/keeps as a pet") — a plain verb-choice fix needing no code change.
+#   clauses): a जो...वह/उस correlative clause would need to be word-order-split around a postposition,
+#   which this framework's flat {attribute_desc} template substitution can't express. वाला instead
+#   compresses the relative clause into an ordinary noun that takes oblique marking (वाला→वाले) like any
+#   other noun, so it composes correctly wherever used (next_to_herring, herring_found_at/not_at,
+#   friends). Two red herrings needed minor semantic softening to fit this pattern: "old_animal"
+#   simplifies "old for its species" to just "old" (बूढ़ा); mango/Canada stay accurate but read slightly
+#   more compressed than a discursive relative clause would.
+# Possessive predicates (code change): बहन/लाल_बाल/टैटू originally used "X रखता है" ("X keeps Y") for their
+#   same_herring/double_herring "is" slot, since Hindi's natural possessive-existential construction — "X
+#   के/की/पर Y है/हैं" ("Y is with/on X" = "X has Y") — needs the SUBJECT marked oblique (के/की/पर all
+#   require it), which the generic same_herring/double_herring templates couldn't express (they always
+#   spliced the subject in as bare nominative). Added `red_herring_subject_cases` (override the subject's
+#   case per red-herring key) and `same_herring_templates`/`double_herring_templates` (override the whole
+#   template per key) to `red_herring_selection.py`, `build_pipeline.py` and `src/scripts/build_dataset.py`
+#   — same pattern as Basque's `attribute_subject_cases`/`same_object_templates`, applied to red herrings.
+#   All new params default to None/{} so no other language config is affected. गिनी_पिग and बूढ़ा_पालतू were
+#   also improved from रखता है ("keeps") to पालता है ("raises/keeps as a pet") — a plain verb-choice fix
+#   needing no code change.
 # Nurse/sister: job "nurse" is नर्स (a distinct loanword, not the native word for "sister"), avoiding the
-#   nurse/sister homograph trap this skill flags for other languages — in Hindi/Indian English the risk
-#   would actually run through "सिस्टर" (a colloquial loanword some Indian hospitals use for nurses), so
-#   नर्स + बहन (the fully native word for sister, used only for the red herring) keeps the two unambiguous.
-# Punctuation: uses the Devanagari danda "।" as sentence-final punctuation (set via prompt_full_stop — the
-#   same config key added for Chinese/Japanese). Otherwise Hindi punctuation is close to European
-#   conventions: standard ASCII comma with spaces, spaced "and" (और), and the ASCII "?" for questions
-#   (already supported by format_datasets.py from the Chinese work) — so prompt_comma/prompt_and_spacing/
-#   prompt_colon are all left at their defaults, unlike Chinese/Japanese.
+#   nurse/sister homograph trap — in Hindi/Indian English the risk would run through "सिस्टर" (a colloquial
+#   loanword some Indian hospitals use for nurses), so नर्स + बहन (the native word for sister, used only
+#   for the red herring) keeps the two unambiguous.
+# Punctuation: uses the Devanagari danda "।" as sentence-final punctuation (prompt_full_stop, same key
+#   added for Chinese/Japanese). Otherwise close to European conventions: standard ASCII comma with
+#   spaces, spaced "and" (और), ASCII "?" for questions — all left at default.
 # No numeral classifier needed: unlike Chinese (栋) and Japanese (軒), Hindi numerals attach directly to
-#   nouns with no obligatory counter word, so "2 घर" ("2 houses") needs no extra marking in multiple_between.
-# Checked against Hindi Wikipedia: बजरिगर (budgerigar) matches the article title ("बजरिगर एक पालतू छोटा
-#   तोता पक्षी है"); हेरिंग (herring) is the transliteration used consistently across Hindi Wikipedia
-#   articles (Amine, North Sea, Marine Biology). Still uncertain (no dedicated article found, no better
-#   alternative surfaced either): छड़ी कीट (stick insect, a descriptive compound — Wikipedia search only
-#   turned up an unrelated tangential mention), ब्लैककरंट (blackcurrant), जंगली स्ट्रॉबेरी (wild strawberry).
+#   nouns with no obligatory counter word.
+# Checked against Hindi Wikipedia: बजरिगर (budgerigar) matches the article title; हेरिंग (herring) is the
+#   transliteration used consistently across Hindi Wikipedia articles. Still uncertain (no dedicated
+#   article found, no better alternative surfaced): छड़ी कीट (stick insect), ब्लैककरंट (blackcurrant),
+#   जंगली स्ट्रॉबेरी (wild strawberry).
 
 theme: hi_ghar
 

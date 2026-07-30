@@ -1,33 +1,26 @@
 # Config file for generating zebra puzzles in Japanese with the "houses" (家) theme.
 #
-# Cases: attribute_cases = [nom, is, is_not] — Japanese has NO noun case inflection at all (unlike
-#   Slavic/Basque fusional cases). Grammatical role is marked by invariant postpositional particles
-#   (は/が/を/の/隣に/間に/左に/右に) that attach to the bare noun without changing its form — same
-#   situation as Hungarian, so only [nom, is, is_not] is needed, no extra case forms.
-# Register: polite form throughout (です/ます), consistently for every category and every red herring,
-#   matching how formally-written Japanese text (textbooks, official documents) reads. Plain form was
-#   not used anywhere to avoid a tone mismatch mid-puzzle.
-# Word-formation: nationalities/jobs = bare noun + です/ではありません (is/is_not);
-#   pets = "Xの飼い主" (owner of X) + "Xを飼っています"/"Xを飼っていません";
-#   drinks/genres = "Xを飲む人"/"Xを読む人" (person who drinks/reads X) + "Xを飲みます"/"Xを読みます" (acc を);
-#   hobbies = "[verb]人" (person who [verb]s) + "[verb]ます"/"[verb]ません";
-#   fruits = "Xが好きな人" (person who likes X, uses が not を since 好き is a na-adjective) + "Xが好きです"/
-#   "Xが好きではありません".
-# Punctuation: full-width Japanese punctuation throughout (。、？), no spaces between words, matching the
-#   zh/fangzi.yaml precedent — reuses the same prompt_comma/prompt_and_spacing/prompt_full_stop/prompt_colon
-#   config keys (no further code changes needed; prompt_colon was newly added alongside this config since
-#   Chinese's "：" case was found to still be using the framework's hardcoded ASCII ": ").
-# multiple_between/one_between require the counter (classifier) 軒 for buildings, e.g. "2軒の家" (two
-#   houses) — baked directly into the clue template, not a case-system concern.
-# object_fact quotative: "{fact}と知っています" attaches the quotative と directly after a polite (です/ます)
-#   fact sentence. Standard grammar prefers plain form before と, but polite-before-と is attested and
-#   understood in formal written Japanese; flagged here as a register choice worth native-speaker
-#   confirmation rather than a clear error.
-# Pear: 洋ナシ (Western pear) used rather than bare 梨, which defaults to Asian/Nashi pear in Japanese —
-#   a judgment call given the puzzle's fruits are otherwise Western/European by default, not a translation error.
-# Uncertain forms (flagged for native speaker review): ワイルドストロベリー (wild strawberry — could not
-#   confirm a standard native Japanese botanical term for Fragaria vesca specifically, used the common
-#   loanword instead as the safer choice).
+# Cases: attribute_cases = [nom, is, is_not] — Japanese has no noun case inflection. Grammatical role is
+#   marked by invariant postpositional particles (は/が/を/の/隣に/間に/左に/右に), same situation as
+#   Hungarian, so no extra case forms are needed.
+# Register: polite form throughout (です/ます), for every category and red herring, matching how
+#   formally-written Japanese text reads. Plain form was not used anywhere, to avoid a tone mismatch mid-puzzle.
+# Word-formation: nationalities/jobs = bare noun + です/ではありません; pets = "Xの飼い主" + "Xを飼っています"/
+#   "Xを飼っていません"; drinks/genres = "Xを飲む/読む人" + "Xを飲みます"/"Xを読みます"; hobbies = "[verb]人" +
+#   "[verb]ます"/"[verb]ません"; fruits = "Xが好きな人" (が not を, since 好き is a na-adjective) + "Xが好き
+#   です"/"Xが好きではありません".
+# Punctuation: full-width (。、？), no spaces between words, matching zh/fangzi.yaml — reuses the same
+#   prompt_comma/prompt_and_spacing/prompt_full_stop/prompt_colon config keys (prompt_colon was newly
+#   added alongside this config, since Chinese's "：" was still using the hardcoded ASCII ": ").
+# multiple_between/one_between require the counter 軒 for buildings, e.g. "2軒の家" (two houses) — baked
+#   into the clue template, not a case-system concern.
+# object_fact quotative: "{fact}と知っています" attaches と directly after a polite (です/ます) fact sentence.
+#   Standard grammar prefers plain form before と; polite-before-と is attested in formal writing but
+#   flagged as a register choice worth native-speaker confirmation.
+# Pear: 洋ナシ (Western pear) used rather than bare 梨 (which defaults to Asian/Nashi pear) — a judgment
+#   call given the puzzle's fruits are otherwise Western/European by default, not a translation error.
+# Uncertain (flagged for native speaker review): ワイルドストロベリー (wild strawberry — no confirmed
+#   native Japanese botanical term found for Fragaria vesca, used the loanword as the safer choice).
 
 theme: ja_ie
 

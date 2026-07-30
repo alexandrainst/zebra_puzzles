@@ -3,58 +3,45 @@
 # Cases: attribute_cases = [nom, is, is_not] — MSA's three grammatical cases are marked by short-vowel
 #   diacritics that ordinary written Arabic (this config included) omits entirely, so nominative/genitive
 #   forms of a regular noun are visually IDENTICAL — no oblique case is needed for positional clues even
-#   though prepositions (بجانب "next to", إلى يسار/يمين "left/right of", بين "between") do govern genitive.
-#   One real exception exists: INDEFINITE accusative nouns (the object of a plain transitive verb) take a
+#   though prepositions (بجانب "next to", إلى يسار/يمين "left/right of", بين "between") govern genitive.
+#   One real exception exists: INDEFINITE accusative nouns (object of a plain transitive verb) take a
 #   visible extra alif (ا) unless they end in ة/ء/ا or are proper nouns — e.g. كلبًا "a dog" vs plain كلب.
-#   This config sidesteps that risk entirely by design: possession uses لديه ("has", existential — its
-#   complement is grammatically NOMINATIVE, not accusative, so no alif regardless of the noun's ending) and
-#   habitual/categorical predicates (drinks, genres, hobbies, fruits) use DEFINITE-generic objects (الشيء,
-#   "the thing" = the category) since definite nouns never take the accusative alif either. Nationalities/
-#   jobs use direct demonym/profession nouns for nom/is (دنماركي "Danish", خباز "a baker" — nominative,
-#   zero-copula, no alif risk) but keep a NEGATED-verb or prepositional is_not (ليس من الدنمارك "is not from
-#   Denmark", لا يعمل كخباز "does not work as a baker") rather than ليس + bare-noun, since only THAT slot
-#   would hit the accusative-indefinite alif. Result: nothing in this config depends on getting that alif
-#   ending right per-word.
-# Gender: masculine default throughout. شخص "person" is unambiguously
-#   masculine (no Marathi-style risk of an internal agreement mismatch).
-# Word-formation: nationalities = "الشخص ال[demonym]" / "[demonym]" / "ليس من [country]" (direct demonym
-#   adjective for nom/is, matching how a native speaker would actually say it — e.g. "الشخص الدنماركي"/
-#   "دنماركي" rather than the more roundabout "الشخص من الدنمارك"/"من الدنمارك"; is_not alone stays
-#   prepositional to dodge the alif). Jobs = "الشخص ال[profession]" (apposition) / "[profession]" / "لا يعمل
-#   كـ[profession]" (same reasoning: bare profession noun/apposition for nom/is, verb-negation for is_not).
-#   Pets = "الشخص الذي لديه [pet]" / "لديه [pet]" / "ليس لديه [pet]" (existential possessive).
-#   Drinks/genres/hobbies/fruits = "الشخص الذي ي[verb] ال[thing]" / "ي[verب] ال[thing]" / "لا ي[verb]
-#   ال[thing]" (definite-generic object, e.g. "يشرب القهوة" = "drinks [the-]coffee").
-# Red herrings need only [nom, is] (no oblique case exists at all here), so none of the
-# Dual/plural agreement: not_next_to and the "friends" red herring clue describe exactly two people, using
-#   Arabic's dual number (شخصان مختلفان "two different persons", صديقان مقربان "two close friends") — a live,
-#   actively-used grammatical number in MSA, not archaic. not_between describes three people, using sound
-#   masculine plural agreement for human referents (أشخاص مختلفون, not the non-human/broken-plural pattern).
+#   This config sidesteps that risk by design: possession uses لديه ("has", existential — its complement is
+#   NOMINATIVE, not accusative, so no alif) and habitual/categorical predicates (drinks/genres/hobbies/
+#   fruits) use DEFINITE-generic objects (الشيء, "the thing" = the category), since definite nouns never
+#   take the accusative alif either. Nationalities/jobs use direct demonym/profession nouns for nom/is
+#   (دنماركي "Danish", خباز "a baker" — nominative, zero-copula, no alif risk) but keep a NEGATED-verb or
+#   prepositional is_not (ليس من الدنمارك, لا يعمل كخباز) rather than ليس + bare-noun, since only that slot
+#   would hit the accusative-indefinite alif. Nothing in this config depends on getting that alif right
+#   per-word.
+# Gender: masculine default throughout. شخص "person" is unambiguously masculine (no Marathi-style risk of
+#   an internal agreement mismatch).
+# Word-formation: nationalities = "الشخص ال[demonym]"/"[demonym]"/"ليس من [country]" (direct demonym
+#   adjective, matching how a native speaker would say it — e.g. "الشخص الدنماركي"/"دنماركي" rather than
+#   the roundabout "الشخص من الدنمارك"). Jobs = "الشخص ال[profession]"/"[profession]"/"لا يعمل كـ[profession]"
+#   (same reasoning). Pets = "الشخص الذي لديه [pet]"/"لديه [pet]"/"ليس لديه [pet]" (existential possessive).
+#   Drinks/genres/hobbies/fruits = "الشخص الذي ي[verb] ال[thing]"/"ي[verb] ال[thing]"/"لا ي[verb] ال[thing]"
+#   (definite-generic object, e.g. "يشرب القهوة" = "drinks [the-]coffee"). Red herrings need only [nom, is].
+# Dual/plural agreement: not_next_to and the "friends" red herring describe exactly two people, using
+#   Arabic's live dual number (شخصان مختلفان "two different persons", صديقان مقربان "two close friends"),
+#   not archaic. not_between describes three people, using sound masculine plural (أشخاص مختلفون, not the
+#   non-human/broken-plural pattern).
 # Ergativity is not a concern — Arabic is a straightforward nominative-accusative language regardless of
 #   tense/aspect, so the Canada red herring safely uses simple past (زار كندا "visited Canada").
-# Script: RTL is a rendering concern handled automatically by the display layer, not a string-manipulation
-#   one — no special handling needed, verified by reading the generated puzzle output.
-# Punctuation: uses Arabic-specific characters not on this repo's existing punctuation-config list — Arabic
-#   comma "، " (prompt_comma) and Arabic question mark "؟", which required a small code change to
-#   format_datasets.py's question-detection regex (previously only recognised "?", ";", "？"). Arabic's
-#   "و" ("and") is technically a bound clitic (glued to the following word, no space after و) — rather than
-#   fight the framework's symmetric list-and-spacing (prompt_and_spacing only supports fully-symmetric or
-#   fully-glued, neither of which matches "space-before, glued-after"), a prompt_replacements entry
-#   (' و ': ' و') strips the trailing space post-hoc across the whole generated prompt. This only touches
-#   list-joined instances of و (which get the unwanted trailing space from the default spacing); it never
-#   matches the و already glued directly in clue templates (e.g. "بين {attribute_desc_1} و{attribute_desc_3}"),
-#   since those never produce the "space-و-space" substring in the first place.
-#   Arabic has no distinct sentence-final period or colon, so prompt_full_stop/prompt_colon stay default.
-# Numerals: {n_between} is substituted as a bare digit (e.g. "2", not a spelled-out number word), which
-#   sidesteps MSA's notoriously complex number-noun gender-reversal agreement rules entirely — those rules
-#   apply to spelled words like "ثلاثة", not to a digit placed directly before a plural noun.
-# Vocabulary checked against Arabic Wikipedia: budgerigar is بدجريقة, the article title itself and an
-#   explicit Arabization of the English name; stick insect is حشرة عصوية, matching the phrasing used in
-#   the شبحيات (Phasmatodea order) article, singularized from its plural "الحشرات العصوية"; blackcurrant
-#   (كشمش أسود), wild strawberry (فراولة برية) and Faroe Islands (جزر فارو) all match their respective
-#   article titles/text exactly; herring (رنجة) is confirmed as one of three accepted spellings alongside
-#   رنكة/الرِّنجة in the herring article's opening line, though still a fish not widely known in the Arab
-#   world.
+# Script: RTL is handled automatically by the display layer, no string-manipulation needed.
+# Punctuation: Arabic comma "، " (prompt_comma) and question mark "؟" required a code change to
+#   format_datasets.py's question-detection regex (previously only "?"/";"/"？"). Arabic's "و" ("and") is a
+#   bound clitic (glued to the following word, no space after) — rather than fight the framework's
+#   symmetric list-spacing, a prompt_replacements entry (' و ': ' و') strips the unwanted trailing space
+#   post-hoc; this never touches و already glued directly in clue templates (e.g. "بين X و{Y}"), since
+#   those never produce the "space-و-space" substring. No distinct period/colon exists, so
+#   prompt_full_stop/prompt_colon stay default.
+# Numerals: {n_between} substitutes a bare digit, sidestepping MSA's number-noun gender-reversal agreement
+#   rules (which only apply to spelled words like "ثلاثة", not a digit before a plural noun).
+# Vocabulary checked against Arabic Wikipedia: بدجريقة (budgerigar, the article title itself); حشرة عصوية
+#   (stick insect, matching the شبحيات/Phasmatodea article); كشمش أسود (blackcurrant), فراولة برية (wild
+#   strawberry) and جزر فارو (Faroe Islands) all match their article titles exactly; رنجة (herring) is one
+#   of three accepted spellings per the herring article's opening line.
 
 theme: ar_manazil
 

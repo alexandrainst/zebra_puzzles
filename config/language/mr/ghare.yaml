@@ -1,39 +1,36 @@
 # Config file for generating zebra puzzles in Marathi with the "houses" (घरे) theme.
 #
-# Ergativity: ने-ergative only applies in perfective past; all clues use present habitual (imperfective),
-#   so it never triggers — no code changes needed, same as Hindi.
+# Ergativity: ने-ergative only applies in perfective past; all clues use present habitual, so it never
+#   triggers — no code changes needed, same as Hindi.
 # Habitual present is a complete predicate on its own (stem+तो/ते, gender-agreeing) — unlike Hindi, no
 #   separate copula needed. Negation uses stem+त+नाही (gender-invariant). Nominal predicates (jobs/
 #   nationalities) still need आहे, negated by नाही replacing it entirely ("शिक्षक नाही", not "आहे नाही").
-# Gender: masculine default throughout (matches Hindi/Czech/Russian precedent) — required, not stylistic:
-#   is-form predicates are static strings that can't pick a gender variant based on whatever subject they
-#   get paired with in same_herring/double_herring. Tried व्यक्ती (feminine "person") for kanada/aamba —
-#   internally consistent, but broke once paired with another entry's masculine predicate ("...व्यक्ती
-#   मानतो", not "मानते"). Reverted to माणूस (masculine). A proper fix needs predicate selection conditioned
-#   on the paired subject's gender — out of scope, affects every gendered language in this repo.
+# Gender: masculine default. Required, not stylistic — is-form predicates
+#   are static strings that can't pick a gender variant per paired subject in same_herring/double_herring.
+#   Tried feminine व्यक्ती for kanada/aamba — internally consistent alone, but broke once paired with
+#   another entry's masculine predicate ("...व्यक्ती मानतो", not "मानते"). Reverted to माणूस (masculine). A
+#   proper fix needs subject-conditioned predicate selection — out of scope, affects every gendered
+#   language in this repo.
 # Cases: [nom, is, is_not, obl]. शेजारी/डावीकडे/उजवीकडे/दरम्यान all take an oblique argument + genitive
 #   linker च्या (confirmed for डावीकडे/उजवीकडे; assumed for शेजारी/दरम्यान — flag for native review, शेजारी is
 #   also attested glued directly without च्या in some fixed expressions).
 # Word-formation: nationalities = "Xचा रहिवासी"; jobs = bare nouns; pets = "Xचा मालक" + "X पाळतो"/"पाळत
-#   नाही" (raise/keep as pet, not "keep an object" style); drinks/genres/hobbies/fruits = -णारा agentive
-#   suffix (Marathi's वाला equivalent), declining -णारा→-णाऱ्या (NOT -णारे — Marathi's -आ oblique shift is
-#   -आ→-या, unlike Hindi's -आ→-े). Fruits use पसंत करणे ("prefer", transitive) not आवडणे ("please", dative-
+#   नाही"; drinks/genres/hobbies/fruits = -णारा agentive suffix, declining -णारा→-णाऱ्या (Marathi's -आ→-या
+#   oblique shift, unlike Hindi's -आ→-े). Fruits use पसंत करणे ("prefer", transitive) not आवडणे (dative-
 #   experiencer), to keep the subject nominative — same reasoning as Hindi.
-# Red herrings use वाला→वाल्या for nom/obl forms. बहीण/लाल_केस/टॅटू reuse the red_herring_subject_cases/
-#   same_herring_templates/double_herring_templates mechanism (built for Hindi, no new code) for natural
-#   possessives: बहीण→ला (kinship), लाल_केस→चे (attributive, plural आहेत), टॅटू→जवळ (physical possession).
-#   All three need the subject in oblique case.
+# Red herrings reuse Hindi's red_herring_subject_cases/same_herring_templates/double_herring_templates
+#   mechanism (no new code): बहीण→ला (kinship), लाल_केस→चे (attributive, plural आहेत), टॅटू→जवळ (physical
+#   possession) — all three need the subject in oblique case.
 # object_fact uses जाणतो ("knows", transitive) not माहीत आहे (dative-experiencer) — same fruits rationale.
 # Nurse/sister: नर्स (loanword) not परिचारिका (native, feminine) — avoids the gender clash and any overlap
 #   with बहीण (unrelated word, no real ambiguity risk anyway).
 # Punctuation: same as Hindi — danda "।" via prompt_full_stop; standard comma+spaces, spaced "आणि", ASCII
 #   "?" for questions. No numeral classifier needed.
-# Checked against Wikipedia: फेरो द्वीपसमूह (Faroe Islands) and गोगलगाय (snail, feminine by analogy with
-#   गाय "cow") both confirmed; हेरिंग transliteration confirmed via Hindi Wikipedia's identical borrowing.
+# Checked against Wikipedia: फेरो द्वीपसमूह (Faroe Islands) and गोगलगाय (snail, feminine by analogy with गाय
+#   "cow") both confirmed; हेरिंग transliteration confirmed via Hindi Wikipedia's identical borrowing.
 # Still uncertain (flag for native review): ससा (rabbit) oblique सशा; बजरीगर, काडी कीटक, ब्लॅककरंट, रानटी
-#   स्ट्रॉबेरी (no Marathi Wikipedia article found, no better alternative surfaced); whether शेजारी/दरम्यान
-#   truly need च्या the way डावीकडे/उजवीकडे do; whether दरम्यान should use collective यांच्या instead of
-#   per-argument च्या.
+#   स्ट्रॉबेरी (no Marathi Wikipedia article found); whether शेजारी/दरम्यान truly need च्या the way
+#   डावीकडे/उजवीकडे do; whether दरम्यान should use collective यांच्या instead of per-argument च्या.
 
 theme: mr_ghare
 

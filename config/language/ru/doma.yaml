@@ -1,35 +1,35 @@
 # Config file for generating zebra puzzles in Russian with the "houses" (дома) theme.
 #
 # Cases: attribute_cases = [nom, is, is_not, gen, inst]
-# Preposition → case: рядом с (next to) → inst, слева от / справа от (left/right of) → gen, между (between) → inst
-#   (identical government pattern to Ukrainian, so the case structure is directly reused from uk/budynky.yaml)
-# Gender policy: masculine used as common gender for unknown-gender persons throughout (жанры/профессии/etc.).
-#   Nurse translated as "медик" (generic medic), not "медсестра", to avoid the nurse/sister homograph
-#   trap (Estonian õde, Latvian māsa) since "медсестра" literally contains "сестра" (sister).
+# Preposition → case: рядом с (next to) → inst, слева от / справа от (left/right of) → gen, между (between)
+#   → inst (identical government pattern to Ukrainian, so the case structure is reused directly from
+#   uk/budynky.yaml).
+# Gender policy: masculine used as common gender for unknown-gender persons throughout. Nurse translated
+#   as "медик" (generic medic), not "медсестра", to avoid the nurse/sister homograph trap (Estonian õde,
+#   Latvian māsa) since "медсестра" literally contains "сестра" (sister).
 # Word-formation: nationalities/jobs = bare noun (zero-copula predicate — Russian has no present-tense
 #   "to be", so "is X" is just the bare nominative noun, unlike Ukrainian/Czech which keep an explicit
-#   copula "є"/"je"); pets = "владелец X" (owner of X, gen) + "имеет X" (has X) / "не имеет X";
-#   drinks/hobbies = "человек, который [verb]," relative clause (trailing comma, closed by the sentence's
-#   own punctuation); genres/fruits = "читатель X" / "любитель X" (gen). The trailing comma can collide
-#   with clue templates that already have a comma right after the slot (not_next_to, not_between end in
-#   ", и это ... человек/люди"), or with a sentence-final period — prompt_replacements collapses both
+#   copula "є"/"je"); pets = "владелец X" (owner of X, gen) + "имеет X" (has X) / "не имеет X"; drinks/
+#   hobbies = "человек, который [verb]," relative clause (trailing comma, closed by the sentence's own
+#   punctuation); genres/fruits = "читатель X" / "любитель X" (gen). The trailing comma can collide with
+#   clue templates that already have a comma right after the slot (not_next_to, not_between end in ", и
+#   это ... человек/люди"), or with a sentence-final period — prompt_replacements collapses both
 #   (',,': ',' and ',.': '.').
-# Zero-copula punctuation rule: Russian requires an em dash before an affirmative bare-noun predicate
-#   with a non-pronoun subject ("Пекарь — датчанин.") but NOT before a negated one ("Пекарь не датчанин.").
-#   So only the affirmative "is" forms for nationalities/jobs are prefixed with "— "; is_not forms and all
+# Zero-copula punctuation rule: Russian requires an em dash before an affirmative bare-noun predicate with
+#   a non-pronoun subject ("Пекарь — датчанин.") but NOT before a negated one ("Пекарь не датчанин."). So
+#   only the affirmative "is" forms for nationalities/jobs are prefixed with "— "; is_not forms and all
 #   verb-phrase "is" forms (pets/drinks/genres/hobbies/fruits) need no dash. The "friends" red herring
-#   template also needs this dash (baked directly into the template, like Ukrainian's identical choice).
-# Negation of "имеет X" (pets): consistently genitive-of-negation ("не имеет собаки", not accusative
-#   "не имеет собаку") since that is the strongly idiomatic pattern for negated "иметь" in Russian
-#   (cf. fixed expressions like "не имеет значения"). Negation of "пьёт/читает/любит X" (drinks/genres/
-#   fruits) instead retains the same case as the affirmative form (modern colloquial accusative retention,
-#   same simplifying choice this repo already makes for Czech — see cs/domy.yaml). Masculine-animate pet
+#   template also needs this dash (like Ukrainian's identical choice).
+# Negation of "имеет X" (pets): consistently genitive-of-negation ("не имеет собаки", not accusative "не
+#   имеет собаку"), the strongly idiomatic pattern for negated "иметь" (cf. "не имеет значения"). Negation
+#   of "пьёт/читает/любит X" (drinks/genres/fruits) instead retains the affirmative case (modern colloquial
+#   accusative retention, same simplifying choice as Czech — see cs/domy.yaml). Masculine-animate pet
 #   nouns (кот, кролик, попугайчик, палочник) don't show the distinction since accusative = genitive there
-#   regardless of the rule chosen.
+#   regardless.
 # multiple_between uses "дома" which is correct for n=2,3,4 (genitive singular happens to be spelled like
 #   the nominative plural for this noun); n≥5 would need genitive plural "домов".
-# Strawberry distinction: клубника = garden strawberry, земляника = wild/woodland strawberry (Fragaria vesca)
-#   — these are genuinely distinct words in Russian, not a translation choice.
+# Strawberry distinction: клубника = garden strawberry, земляника = wild/woodland strawberry (Fragaria
+#   vesca) — these are genuinely distinct words in Russian, not a translation choice.
 
 theme: ru_doma
 

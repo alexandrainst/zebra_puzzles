@@ -2,25 +2,21 @@
 #
 # Cases: attribute_cases = [nom, is, is_not]. The article "an" lives in the clue templates, not in stored
 #   attributes, to avoid a double article where a preposition fuses with it (leis an, den, etc.).
-# Irish is VSO, so the generic "{desc_1} {desc_2}." same_object/not_same_object pattern needs a verb before
-#   the subject. same_object_templates/not_same_object_templates give a verb-initial template for categories
-#   with one verb shared by all their attributes (peataí/deochanna/seánraí leabhar/torthaí is fearr), with
-#   is/is_not storing a bare complement (e.g. "tae", "cat"). Categories without an override
-#   (náisiúntachtaí/poist/caitheamh aimsire) fall back to "Tá X ina Y."/"Níl X ina Y." with is=is_not
-#   (polarity comes from Tá/Níl); caitheamh aimsire needs the fallback because it has a different verb per
-#   attribute (imríonn/phéinteálann/déanann bollánóireacht/chróiseálann).
+# Irish is VSO, so same_object/not_same_object need a verb-initial template. same_object_templates/
+#   not_same_object_templates give one for categories sharing a single verb across all attributes
+#   (peataí/deochanna/seánraí leabhar/torthaí is fearr), with is/is_not storing a bare complement.
+#   Categories without an override (náisiúntachtaí/poist/caitheamh aimsire) fall back to "Tá X ina Y."/"Níl
+#   X ina Y." (caitheamh aimsire needs the fallback since each attribute has its own verb).
 # Word-formation: nationalities/jobs = bare noun; pets/drinks/book genres/fruits = relative clause for nom
-#   ("duine a bhfuil/ólann/léann X", "duine a bhfuil dúil aige i X") + bare complement for is/is_not; hobbies
-#   = "duine a Xann" for both, kept verbal rather than an agent noun, since several hobby agent nouns double
-#   as job titles (e.g. peileadóir).
-# Mutation (séimhiú/urú) is done via prompt_replacements, not code — every trigger ("ar/leis/ag an", "den",
-#   "ina", bare "an" after Tá/Níl/idir/agus) is fixed template text, so rules are keyed per first letter
-#   (best effort, flagged for native review — the eclipsis assignment after ar/ag/leis an isn't certain). S
-#   resists lenition before p/c/m/f/t, so its rule is keyed on "Su" specifically to avoid matching "Spáinneach".
-# red_herring_facts use two forms (as for German/Dutch/Basque): tá/is take dependent forms (go bhfuil,
-#   gur/gurb) when embedded under object_fact; the second form already includes its complementizer.
-# Gender: masculine "ina" and resumptive pronouns used throughout by default.
-# Still uncertain: sú talún fiáin (wild strawberry — no Irish Wikipedia article or dictionary entry found).
+#   ("duine a bhfuil/ólann/léann X") + bare complement for is/is_not; hobbies = "duine a Xann" for both
+#   (verbal, since several hobby agent nouns double as job titles, e.g. peileadóir).
+# Mutation (séimhiú/urú) is applied via prompt_replacements, not code, keyed per first letter of the
+#   following word (best effort — the eclipsis assignment after ar/ag/leis an isn't fully certain; S is
+#   keyed on "Su" specifically since it resists lenition before p/c/m/f/t).
+# red_herring_facts use two forms (as for German/Dutch/Basque): dependent forms (go bhfuil, gur/gurb) when
+#   embedded under object_fact.
+# Gender: masculine default ("ina" and resumptive pronouns).
+# Still uncertain: sú talún fiáin (wild strawberry — no Irish source found).
 
 theme: ga_tithe
 
