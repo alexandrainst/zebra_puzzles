@@ -252,3 +252,4 @@ red_herring_facts:
 # Strings to replace in the generated prompt.
 prompt_replacements:
     ' و ': ' و'
+    'يعرف أن حل الألغاز ممتع': 'يستمتع بحل الألغاز'

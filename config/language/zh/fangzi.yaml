@@ -222,4 +222,5 @@ red_herring_facts:
     咖啡因: ['咖啡含有咖啡因']
 
 # Strings to replace in the generated prompt.
-prompt_replacements: {}
+prompt_replacements:
+    '知道解谜是一件有趣的事': '觉得解谜很有趣'
