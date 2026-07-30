@@ -9,15 +9,20 @@
 #   This config sidesteps that risk entirely by design: possession uses لديه ("has", existential — its
 #   complement is grammatically NOMINATIVE, not accusative, so no alif regardless of the noun's ending) and
 #   habitual/categorical predicates (drinks, genres, hobbies, fruits) use DEFINITE-generic objects (الشيء,
-#   "the thing" = the category) since definite nouns never take the accusative alif either. This also
-#   avoids ليس + bare-noun predicates (nationalities/jobs), whose accusative-indefinite ending would be
-#   the same risk — replaced with prepositional-phrase predicates (من "from", كـ "as") instead, which don't
-#   trigger it. Result: nothing in this config depends on getting that alif ending right per-word.
+#   "the thing" = the category) since definite nouns never take the accusative alif either. Nationalities/
+#   jobs use direct demonym/profession nouns for nom/is (دنماركي "Danish", خباز "a baker" — nominative,
+#   zero-copula, no alif risk) but keep a NEGATED-verb or prepositional is_not (ليس من الدنمارك "is not from
+#   Denmark", لا يعمل كخباز "does not work as a baker") rather than ليس + bare-noun, since only THAT slot
+#   would hit the accusative-indefinite alif. Result: nothing in this config depends on getting that alif
+#   ending right per-word.
 # Gender: masculine default throughout (matches this repo's precedent). شخص "person" is unambiguously
 #   masculine (no Marathi-style risk of an internal agreement mismatch).
-# Word-formation: nationalities = "الشخص من [country]" / "من [country]" / "ليس من [country]" (زero-copula
-#   equational sentence, prepositional predicate). Jobs = "الشخص الذي يعمل كـ[job]" / "يعمل كـ[job]" / "لا
-#   يعمل كـ[job]". Pets = "الشخص الذي لديه [pet]" / "لديه [pet]" / "ليس لديه [pet]" (existential possessive).
+# Word-formation: nationalities = "الشخص ال[demonym]" / "[demonym]" / "ليس من [country]" (direct demonym
+#   adjective for nom/is, matching how a native speaker would actually say it — e.g. "الشخص الدنماركي"/
+#   "دنماركي" rather than the more roundabout "الشخص من الدنمارك"/"من الدنمارك"; is_not alone stays
+#   prepositional to dodge the alif). Jobs = "الشخص ال[profession]" (apposition) / "[profession]" / "لا يعمل
+#   كـ[profession]" (same reasoning: bare profession noun/apposition for nom/is, verb-negation for is_not).
+#   Pets = "الشخص الذي لديه [pet]" / "لديه [pet]" / "ليس لديه [pet]" (existential possessive).
 #   Drinks/genres/hobbies/fruits = "الشخص الذي ي[verb] ال[thing]" / "ي[verب] ال[thing]" / "لا ي[verb]
 #   ال[thing]" (definite-generic object, e.g. "يشرب القهوة" = "drinks [the-]coffee").
 # Red herrings need only [nom, is] (no oblique case exists at all here), so none of the
@@ -63,26 +68,26 @@ prompt_comma: '، '
 attributes:
 
     الجنسيات:
-        الدنمارك: ['الشخص من الدنمارك', 'من الدنمارك', 'ليس من الدنمارك']
-        السويد: ['الشخص من السويد', 'من السويد', 'ليس من السويد']
-        لاتفيا: ['الشخص من لاتفيا', 'من لاتفيا', 'ليس من لاتفيا']
-        فرنسا: ['الشخص من فرنسا', 'من فرنسا', 'ليس من فرنسا']
-        إسبانيا: ['الشخص من إسبانيا', 'من إسبانيا', 'ليس من إسبانيا']
-        إيطاليا: ['الشخص من إيطاليا', 'من إيطاليا', 'ليس من إيطاليا']
-        النرويج: ['الشخص من النرويج', 'من النرويج', 'ليس من النرويج']
-        جزر فارو: ['الشخص من جزر فارو', 'من جزر فارو', 'ليس من جزر فارو']
-        هولندا: ['الشخص من هولندا', 'من هولندا', 'ليس من هولندا']
-        آيسلندا: ['الشخص من آيسلندا', 'من آيسلندا', 'ليس من آيسلندا']
-        بريطانيا: ['الشخص من بريطانيا', 'من بريطانيا', 'ليس من بريطانيا']
+        الدنمارك: ['الشخص الدنماركي', 'دنماركي', 'ليس من الدنمارك']
+        السويد: ['الشخص السويدي', 'سويدي', 'ليس من السويد']
+        لاتفيا: ['الشخص اللاتفي', 'لاتفي', 'ليس من لاتفيا']
+        فرنسا: ['الشخص الفرنسي', 'فرنسي', 'ليس من فرنسا']
+        إسبانيا: ['الشخص الإسباني', 'إسباني', 'ليس من إسبانيا']
+        إيطاليا: ['الشخص الإيطالي', 'إيطالي', 'ليس من إيطاليا']
+        النرويج: ['الشخص النرويجي', 'نرويجي', 'ليس من النرويج']
+        جزر فارو: ['الشخص الفاروي', 'فاروي', 'ليس من جزر فارو']
+        هولندا: ['الشخص الهولندي', 'هولندي', 'ليس من هولندا']
+        آيسلندا: ['الشخص الآيسلندي', 'آيسلندي', 'ليس من آيسلندا']
+        بريطانيا: ['الشخص البريطاني', 'بريطاني', 'ليس من بريطانيا']
 
     المهن:
-        خباز: ['الشخص الذي يعمل كخباز', 'يعمل كخباز', 'لا يعمل كخباز']
-        وزير: ['الشخص الذي يعمل كوزير', 'يعمل كوزير', 'لا يعمل كوزير']
-        شرطي: ['الشخص الذي يعمل كشرطي', 'يعمل كشرطي', 'لا يعمل كشرطي']
-        ممرض: ['الشخص الذي يعمل كممرض', 'يعمل كممرض', 'لا يعمل كممرض']
-        مدرس: ['الشخص الذي يعمل كمدرس', 'يعمل كمدرس', 'لا يعمل كمدرس']
-        مطور برمجيات: ['الشخص الذي يعمل كمطور برمجيات', 'يعمل كمطور برمجيات', 'لا يعمل كمطور برمجيات']
-        بائع: ['الشخص الذي يعمل كبائع', 'يعمل كبائع', 'لا يعمل كبائع']
+        خباز: ['الشخص الخباز', 'خباز', 'لا يعمل كخباز']
+        وزير: ['الشخص الوزير', 'وزير', 'لا يعمل كوزير']
+        شرطي: ['الشخص الشرطي', 'شرطي', 'لا يعمل كشرطي']
+        ممرض: ['الشخص الممرض', 'ممرض', 'لا يعمل كممرض']
+        مدرس: ['الشخص المدرس', 'مدرس', 'لا يعمل كمدرس']
+        مطور برمجيات: ['الشخص مطور البرمجيات', 'مطور برمجيات', 'لا يعمل كمطور برمجيات']
+        بائع: ['الشخص البائع', 'بائع', 'لا يعمل كبائع']
 
     الحيوانات الأليفة:
         قطة: ['الشخص الذي لديه قطة', 'لديه قطة', 'ليس لديه قطة']
