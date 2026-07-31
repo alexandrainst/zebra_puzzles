@@ -1,18 +1,18 @@
 # Reviewing a Language Config
 
-This guide is for a native speaker who wants to review and improve an existing
+This guide is for a native or fluent speaker who wants to review and improve an existing
 language config for the zebra puzzle generator — most usefully one of the
 "Preliminary" languages listed in the [README](README.md), since they have not
 been checked already.
 
-Short version: Read and edit the config, generate some puzzles, check that the text is correct, and submit a PR with your changes.
+Short version: Read and edit the config, generate some puzzles, check that the text is correct, and submit a PR with your changes and possible notes on remaining issues.
 
-## Priorities:
+### Priorities:
 1) Correctness. Text must be linguistically acceptable.
 2) Unambiguity. Clues must represent a unique solution.
 3) Naturalness. Phrases should sound typical of the chosen language.
 4) Ease of generation. Puzzle generation should be simple, but if code changes are relevant, please note them in the PR.
-5) Consistency. Text should be consistent in meaning
+5) Consistency. Text should preferably be consistent in meaning
 and form across languages.
 
 
@@ -28,20 +28,20 @@ For example, French houses puzzles live in `config/language/fr/maisons.yaml`.
 
 ## 2. Understand the structure of the config file
 
-The config file contains all the vocabulary, grammar, and sentence templates used to generate the puzzles. You will be checking that the config is correct, natural, and unambiguous in the target language. If you find any issues, please edit the config file directly and regenerate the puzzles to check your changes (see step 2 below).
+The config file contains all the vocabulary, grammar, and sentence templates used to generate the puzzles. If you find any issues, please edit the config file directly and regenerate the puzzles to check your changes (see step 3 below).
 
 Most of the config consists of attributes describing the objects of the puzzle theme (jobs, drinks, hobbies, etc.) and the sentence templates used to generate clues. The config also contains some metadata about the language (like its grammatical cases), the puzzle templates and a few global find-and-replace rules applied to the generated text.
 
-In addition to the clue attributes, there are also "red herring" attributes — these are extra attributes that are not actually part of the puzzle solution, but are included to confuse the solver. They should never be ambiguous with any of the real attributes.
+In addition to the clue attributes, there are also "*red herring*" attributes — these are extra attributes that are not actually part of the puzzle solution, but are included to confuse the solver. They should look like real attributes, but never cause true ambiguity in the puzzle solution.
 
 Any attribute can be combined with any other attribute in a clue, so this must be possible without
 grammatical errors. This is why we try to avoid explicitly gendered forms when possible.
 
 The dictionary keys need to be translated for clue attributes, but this is not necessary for red herring attributes.
 
-Some configs have comments explaining the reasoning behind certain choices. Feel free to delete or ignore them if you think they are irrelevant.
+Some configs have comments explaining the reasoning behind certain choices. Feel free to delete or ignore them if they are not helpful.
 
-Ask a maintainer if you have any questions about the config structure or how to edit it.
+Ask a maintainer if you have any questions about the config structure.
 
 ## 2. Generate puzzles to read
 
@@ -66,7 +66,7 @@ data/<language code>_<theme name>/4x5/5rh/puzzles/zebra_puzzle_2.txt
 
 We generate 4x5 puzzles with 5 red herring clues so there are enough clues to check the config and to represent clue types that are excluded from small puzzles.
 
-Some "clues" are actually so-called red herrings, so you will see attributes mentioned that are not part of the solution. This is intended to confuse the solver which needs to filter out irrelevant information. The red herrings should never actually affect the solution or make it ambiguous according to the rules.
+Some "clues" are actually so-called red herrings, so you will see attributes mentioned that are not part of the solution. This is intended to confuse the solver which needs to filter out irrelevant information. The red herrings should never actually affect the solution according to the presented rules.
 
 ## 3. Edit the config file
 
@@ -74,7 +74,7 @@ Go through some puzzles and the config file itself to identify any issues and fi
 
 If you find a problem, edit the config file directly and regenerate the puzzles to check your changes. Repeat until you're happy with the puzzles.
 
-We try to keep language-specific issues in the config file itself, and most grammatical issues can be fixed by adding a new case, changing a template or adding a prompt_replacement. If a code change is needed or would improve naturalness, please note it in the PR.
+We try to keep language-specific issues in the config file itself, and most grammatical issues can be fixed by adding a new case, changing a template or adding a prompt_replacement. If a code change is needed or would improve naturalness, please note it in the PR. Make a note of any issues you are unsure about, and we can discuss them in the PR.
 
 You can compare with other language configs to see how they handle similar issues. The meaning should stay almost the same across languages, but the exact phrasing or structure can vary. README.md has a list of already reviewed languages.
 
@@ -88,16 +88,16 @@ You can compare with other language configs to see how they handle similar issue
   grammatically correct case for languages that have case marking.
 - **"Between N houses" clues**: When a clue says there are several houses
   between two people, check it's unambiguous *how many* — it should not be
-  readable as a distance instead of a count.
-- **Puzzle enjoyment**: The red herring fact about enjoying puzzles can result in e.g. "knows that it is fun to solve puzzles", where "enjoys solving puzzles" would be more natural. Add this to prompt_replacements if needed (see English (en) for an example).
+  readable as a distance instead of a count. E.g. we use "there are 2 houses between" instead of "lives 2 houses away from" to avoid ambiguity.
+- **Puzzle enjoyment**: The red herring fact about enjoying puzzles can result in e.g. "X knows that it is fun to solve puzzles", where "X enjoys solving puzzles" would be more natural. Add this to prompt_replacements if needed. See English (en) for an example.
 - **Format description**: Would "JSON dictionary", "key" and "value" typically be translated or kept in English? Edit the prompt template accordingly.
 - **Number agreement**: If your language changes a noun's form depending on
-  the number in front of it (common in Slavic languages, for example), check
+  the number in front of it (common in Slavic languages), check
   that the form used in "between N houses" clues matches the specific number
   shown. We will typically use 4 houses, this should at least work for up to N=2.
-- **Multiple clue templates**: If multiple clue templates are needed to cover all the attributes, this is possible. See e.g. Irish (ga) "same_object_templates", or Hindi (hi) "same_herring_templates". See Basque (eu) "attribute_subject_cases" if the case depends on the attribute category.
-- **Word order of relative clauses**: Some languages have a different word order for relative clauses than main clauses. If this is the case, add extra templates in red_herring_facts. See German (de) for an example.
-- **Contractions**: If your language has contractions, add them to prompt_replacements. See German (fr) for an example.
+- **Multiple clue templates**: If multiple clue templates are needed to cover all the attributes, this is possible. See e.g. Irish (ga) "same_object_templates", or Hindi (hi) "same_herring_templates". See Basque (eu) "attribute_subject_cases" if the case depends on the attribute category. Or just note the issue in the PR.
+- **Word order of relative clauses**: Some languages have a different word order for relative clauses than main clauses. If this is the case, we need extra templates in red_herring_facts. See German (de) for an example.
+- **Contractions**: If your language has contractions (e.g. von dem -> vom), add the relevant ones to prompt_replacements.
 
 ### Naturalness
 
@@ -105,7 +105,7 @@ Avoid overly literal translations from English or stilted phrasing. If a native 
 
 Try to use short phrases e.g. "The cat owner" instead of "The person who owns a cat" to avoid repeatedly using the same long phrase in every clue.
 
-The order of categories in the config file determines the preferred order of categories in the generated clues. If a category generally uses longer, it is likely best to put it later in the list so that it is less likely to be used as the first attribute in a clue. For example, we prefer "The nurse drinks tea" over "The person who drinks tea is a nurse", so the job category should be listed before the drink category.
+The order of categories in the config file determines the preferred order of categories in the generated clues. If a category generally uses longer phrases, it is likely best to put it later in the list so that it is less likely to be used as the first attribute in a clue. For example, we prefer "The nurse drinks tea" over "The person who drinks tea is a nurse", so the job category should be placed before the drink category.
 
 ### Ambiguity
 
@@ -115,14 +115,13 @@ The order of categories in the config file determines the preferred order of cat
 
 ### Punctuation
 
-Check spacing and punctuation look right — trailing commas before periods,
-contracted articles, spacing around question marks or dashes, and so on. This can be corrected with the variables used in e.g. Japanese (ja) or with prompt_replacements.
+Check spacing and punctuation look right — commas, contracted articles, spacing around question marks or dashes, and so on. This can be corrected with the variables used in e.g. Japanese (ja) or with prompt_replacements.
 
-If commas are used before relative clauses, you can include both commas in the attributes and remove any commas placed before full stops by adding a prompt_replacement. See German (de) for an example.
+If commas are used around relative clauses, you can include both commas in the attributes and remove any commas placed before full stops by adding a prompt_replacement. See German (de) for an example.
 
 ## 5. Edit README.md
 
-If you have reviewed the full config, you can now edit the README to mark the language as "Finished" instead of "Preliminary". 🎉
+If the puzzles look correct, you can now edit the README to mark the language as "Finished" instead of "Preliminary". 🎉
 
 ## 6. Submit your changes
 
