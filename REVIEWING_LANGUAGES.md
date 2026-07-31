@@ -5,15 +5,14 @@ language config for the zebra puzzle generator — most usefully one of the
 "Preliminary" languages listed in the [README](README.md), since they have not
 been checked already.
 
-**Short version**: Read and edit the config, generate some puzzles, check that the text is correct, and submit a PR with your changes and possible notes on remaining issues.
+**Short version**: Read and edit the config, generate some puzzles, check that the text is correct, and submit a PR with your changes and any notes on remaining issues.
 
 ### Priorities:
 1) Correctness. Text must be linguistically acceptable.
 2) Unambiguity. Clues must represent a unique solution.
 3) Naturalness. Phrases should sound typical of the chosen language.
 4) Ease of generation. Puzzle generation should be simple, but if code changes are relevant, please note them in the PR.
-5) Consistency. Text should preferably be consistent in meaning
-and form across languages.
+5) Consistency. Text should preferably be consistent in meaning and form across languages.
 
 
 ## 1. Find the config file
@@ -28,11 +27,9 @@ For example, French houses puzzles live in `config/language/fr/maisons.yaml`.
 
 ## 2. Understand the structure of the config file
 
-The config file contains all the vocabulary, grammar, and sentence templates used to generate the puzzles. If you find any issues, please edit the config file directly and regenerate the puzzles to check your changes (see step 3 below).
+The config file contains the vocabulary, grammar, and sentence templates used to generate the puzzles: attributes describing the objects of the puzzle theme (jobs, drinks, hobbies, etc.) and the sentence templates used to generate clues, plus some metadata about the language (like its grammatical cases), the puzzle templates, and a few global find-and-replace rules applied to the generated text.
 
-Most of the config consists of attributes describing the objects of the puzzle theme (jobs, drinks, hobbies, etc.) and the sentence templates used to generate clues. The config also contains some metadata about the language (like its grammatical cases), the puzzle templates and a few global find-and-replace rules applied to the generated text.
-
-In addition to the clue attributes, there are also "*red herring*" attributes — these are extra attributes that are not actually part of the puzzle solution, but are included to confuse the solver. They should look like real attributes, but never cause true ambiguity in the puzzle solution.
+In addition to the clue attributes, there are also "*red herring*" attributes — extra attributes that are not actually part of the puzzle solution, but included to confuse the solver. They should look like real attributes, but never cause true ambiguity in the puzzle solution.
 
 Any attribute can be combined with any other attribute in a clue, so this must be possible without
 grammatical errors. This is why we try to avoid explicitly gendered forms when possible.
@@ -70,11 +67,9 @@ Some "clues" are actually so-called red herrings, so you will see attributes men
 
 ## 4. Edit the config file
 
-Go through some puzzles and the config file itself to identify any issues and fix them.
+Go through some puzzles and the config file to find issues, then edit the config directly and regenerate the puzzles to check your changes. Repeat until you're happy with the puzzles.
 
-If you find a problem, edit the config file directly and regenerate the puzzles to check your changes. Repeat until you're happy with the puzzles.
-
-We try to keep language-specific issues in the config file itself, and most grammatical issues can be fixed by adding a new case, changing a template or adding a prompt_replacement. If a code change is needed or would improve naturalness, please note it in the PR. Make a note of any issues you are unsure about, and we can discuss them in the PR.
+We try to keep language-specific issues in the config file itself, and most grammatical issues can be fixed by adding a new case, changing a template, or adding a prompt_replacement. If a code change is needed or would improve naturalness, please note it in the PR. Make a note of any issues you are unsure about, and we can discuss them in the PR.
 
 You can compare with other language configs to see how they handle similar issues. The meaning should stay almost the same across languages, but the exact phrasing or structure can vary. README.md has a list of already reviewed languages.
 
@@ -101,7 +96,7 @@ You can compare with other language configs to see how they handle similar issue
 
 ### Naturalness
 
-Avoid overly literal translations from English or stilted phrasing. If a native word exists, it is usually better than a loanword.
+Avoid overly literal translations from English or stilted phrasing. If a native word exists, it is usually better than a loanword. It is ok to split, combine or change the order of sentences.
 
 Try to use short phrases e.g. "The cat owner" instead of "The person who owns a cat" to avoid repeatedly using the same long phrase in every clue.
 
