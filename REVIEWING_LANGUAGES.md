@@ -5,7 +5,7 @@ language config for the zebra puzzle generator — most usefully one of the
 "Preliminary" languages listed in the [README](README.md), since they have not
 been checked already.
 
-Short version: Read and edit the config, generate some puzzles, check that the text is correct, and submit a PR with your changes and possible notes on remaining issues.
+**Short version**: Read and edit the config, generate some puzzles, check that the text is correct, and submit a PR with your changes and possible notes on remaining issues.
 
 ### Priorities:
 1) Correctness. Text must be linguistically acceptable.
@@ -43,7 +43,7 @@ Some configs have comments explaining the reasoning behind certain choices. Feel
 
 Ask a maintainer if you have any questions about the config structure.
 
-## 2. Generate puzzles to read
+## 3. Generate puzzles to read
 
 From the repository root, run:
 
@@ -68,7 +68,7 @@ We generate 4x5 puzzles with 5 red herring clues so there are enough clues to ch
 
 Some "clues" are actually so-called red herrings, so you will see attributes mentioned that are not part of the solution. This is intended to confuse the solver which needs to filter out irrelevant information. The red herrings should never actually affect the solution according to the presented rules.
 
-## 3. Edit the config file
+## 4. Edit the config file
 
 Go through some puzzles and the config file itself to identify any issues and fix them.
 
