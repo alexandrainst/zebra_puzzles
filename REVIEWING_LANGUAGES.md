@@ -105,7 +105,7 @@ Avoid overly literal translations from English or stilted phrasing. If a native 
 
 Try to use short phrases e.g. "The cat owner" instead of "The person who owns a cat" to avoid repeatedly using the same long phrase in every clue.
 
-The order of categories in the config file determines the preferred order of categories in the generated clues. If a category generally uses longer phrases, it is likely best to put it later in the list so that it is less likely to be used as the first attribute in a clue. For example, we prefer "The nurse drinks tea" over "The person who drinks tea is a nurse", so the job category should be placed before the drink category.
+The order of categories in the config file determines the preferred order of categories in the generated clues. If a category generally uses longer phrases, it is likely best to put it later in the list so that it is less likely to be used as the first attribute in a clue. For example, we prefer "The nurse loves oranges" over "The person who loves oranges is a nurse", so the job category should be placed before the favourite fruit category.
 
 ### Ambiguity
 
