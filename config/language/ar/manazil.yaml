@@ -39,7 +39,7 @@
 # Numerals: {n_between} substitutes a bare digit, sidestepping MSA's number-noun gender-reversal agreement
 #   rules (which only apply to spelled words like "ثلاثة", not a digit before a plural noun).
 # Vocabulary checked against Arabic Wikipedia: بدجريقة (budgerigar, the article title itself); حشرة عصوية
-#   (stick insect, matching the شبحيات/Phasmatodea article); كشمش أسود (blackcurrant), فراولة برية (wild
+#   (stick insect, Carausius morosus, matching the شبحيات/Phasmatodea article); كشمش أسود (blackcurrant), فراولة برية (wild
 #   strawberry) and جزر فارو (Faroe Islands) all match their article titles exactly; رنجة (herring) is one
 #   of three accepted spellings per the herring article's opening line.
 
