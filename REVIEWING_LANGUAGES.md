@@ -14,33 +14,7 @@ been checked already.
 4) Ease of generation. Puzzle generation should be simple, but if code changes are relevant, please note them in the PR.
 5) Consistency. Text should preferably be consistent in meaning and form across languages.
 
-
-## 1. Find the config file
-
-Each language/theme combination has one config file at:
-
-```
-config/language/<language code>/<theme name>.yaml
-```
-
-For example, French houses puzzles live in `config/language/fr/maisons.yaml`.
-
-## 2. Understand the structure of the config file
-
-The config file contains the vocabulary, grammar, and sentence templates used to generate the puzzles: attributes describing the objects of the puzzle theme (jobs, drinks, hobbies, etc.) and the sentence templates used to generate clues, plus some metadata about the language (like its grammatical cases), the puzzle templates, and a few global find-and-replace rules applied to the generated text.
-
-In addition to the clue attributes, there are also "*red herring*" attributes — extra attributes that are not actually part of the puzzle solution, but included to confuse the solver. They should look like real attributes, but never cause true ambiguity in the puzzle solution.
-
-Any attribute can be combined with any other attribute in a clue, so this must be possible without
-grammatical errors. This is why we try to avoid explicitly gendered forms when possible.
-
-The dictionary keys need to be translated for clue attributes, but this is not necessary for red herring attributes.
-
-Some configs have comments explaining the reasoning behind certain choices. Feel free to delete or ignore them if they are not helpful.
-
-Ask a maintainer if you have any questions about the config structure.
-
-## 3. Generate puzzles to read
+## 1. Generate puzzle examples
 
 From the repository root, run:
 
@@ -63,21 +37,46 @@ data/<language code>_<theme name>/4x5/5rh/puzzles/zebra_puzzle_2.txt
 
 We generate 4x5 puzzles with 5 red herring clues so there are enough clues to check the config and to represent clue types that are excluded from small puzzles.
 
-Some "clues" are actually so-called red herrings, so you will see attributes mentioned that are not part of the solution. This is intended to confuse the solver which needs to filter out irrelevant information. The red herrings should never actually affect the solution according to the presented rules.
+Some "clues" are actually so-called **red herrings**, so you will see attributes mentioned that are not part of the solution. This is intended to confuse the solver which needs to filter out irrelevant information. The red herrings should never actually affect the solution according to the presented rules.
+
+## 2. Find the config file
+
+Each language/theme combination has one config file at:
+
+```
+config/language/<language code>/<theme name>.yaml
+```
+
+For example, French houses puzzles live in `config/language/fr/maisons.yaml`.
+
+
+## 3. Understand the structure of the config file
+
+The config file contains the vocabulary, grammar, and sentence templates used to generate the puzzles: attributes describing the objects of the puzzle theme (jobs, drinks, hobbies, etc.) and the sentence templates used to generate clues, plus some metadata about the language (like relevant grammatical cases), the puzzle templates, and a few global find-and-replace rules applied to the generated text.
+
+In addition to the clue attributes, there are also "red herring" attributes included to confuse the solver. They should look like real attributes, but never cause true ambiguity in the puzzle solution.
+
+Any attribute can be combined with any other attribute (or red herring attribute) in a clue, so this must be possible without grammatical errors. This is why we try to avoid explicitly gendered forms when possible.
+
+The dictionary keys need to be translated for clue attributes, but this is not necessary for red herring attributes.
+
+Some configs have comments explaining the reasoning behind certain choices. Feel free to delete or ignore them if they are not helpful.
+
+Ask a maintainer if you have any questions about the config structure.
 
 ## 4. Edit the config file
 
 Go through some puzzles and the config file to find issues, then edit the config directly and regenerate the puzzles to check your changes. Repeat until you're happy with the puzzles.
 
-We try to keep language-specific issues in the config file itself, and most grammatical issues can be fixed by adding a new case, changing a template, or adding a prompt_replacement. If a code change is needed or would improve naturalness, please note it in the PR. Make a note of any issues you are unsure about, and we can discuss them in the PR.
-
 You can compare with other language configs to see how they handle similar issues. The meaning should stay almost the same across languages, but the exact phrasing or structure can vary. README.md has a list of already reviewed languages.
+
+We try to keep language-specific issues in the config file itself. Most grammatical issues can be fixed by adding a new case, changing a template, or adding a prompt_replacement. If a code change is needed or would improve naturalness, please note it in the PR.
 
 ### Common issues
 
 - **Gender**: In the houses theme, the person in each house has no stated
   gender. If your language marks grammatical gender, check that they will combine correctly in sentences. A neutral form or a single
-  gender used for everyone is fine - choose what would naturally describe an unknown person with any combination of the attributes.
+  gender used for everyone is fine - choose what would naturally describe an unknown person with any combination of the attributes. The "nurse" attribute is typically the most difficult one to combine with other attributes.
 - **Case forms**: For clues that use a preposition (like "next to", "just left
   of", "between"), check the noun/adjective after the preposition is in the
   grammatically correct case for languages that have case marking.
