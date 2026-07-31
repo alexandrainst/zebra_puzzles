@@ -5,7 +5,7 @@ language config for the zebra puzzle generator — most usefully one of the
 "Preliminary" languages listed in the [README](README.md), since they have not
 been checked already.
 
-**Short version**: Read and edit the config, generate some puzzles, check that the text is correct, and submit a PR with your changes and any notes on remaining issues.
+**Short version**: Generate some puzzles, read and edit the config, check that the text is correct, and submit a PR with your changes and any notes on remaining issues.
 
 ### Priorities:
 1) Correctness. Text must be linguistically acceptable.
@@ -74,32 +74,42 @@ We try to keep language-specific issues in the config file itself. Most grammati
 
 ### Common issues
 
-- **Gender**: In the houses theme, the person in each house has no stated
-  gender. If your language marks grammatical gender, check that they will combine correctly in sentences. A neutral form or a single
-  gender used for everyone is fine - choose what would naturally describe an unknown person with any combination of the attributes. The "nurse" attribute is typically the most difficult one to combine with other attributes.
-- **Case forms**: For clues that use a preposition (like "next to", "just left
-  of", "between"), check the noun/adjective after the preposition is in the
-  grammatically correct case for languages that have case marking.
+Most important:
+- **Gender** *(if your language marks grammatical gender or includes gendered attribute phrases)*: In the houses
+  theme, the person in each house has no stated gender. Check that it will
+  combine correctly in sentences. A neutral form or a single gender used for
+  everyone is fine - choose what would naturally describe an unknown person
+  with any combination of the attributes. The "nurse" attribute is typically
+  the most difficult one to combine with other attributes.
+- **Case forms** *(if your language has case marking)*: For clues that use a
+  preposition (like "next to", "just left of", "between"), check the
+  noun/adjective after the preposition is in the grammatically correct case.
 - **"Between N houses" clues**: When a clue says there are several houses
   between two people, check it's unambiguous *how many* — it should not be
   readable as a distance instead of a count. E.g. we use "there are 2 houses between" instead of "lives 2 houses away from" to avoid ambiguity.
+
+Other issues:
 - **Puzzle enjoyment**: The red herring fact about enjoying puzzles can result in e.g. "X knows that it is fun to solve puzzles", where "X enjoys solving puzzles" would be more natural. Add this to prompt_replacements if needed. See English (en) for an example.
 - **Format description**: Would "JSON dictionary", "key" and "value" typically be translated or kept in English? Edit the prompt template accordingly.
-- **Number agreement**: If your language changes a noun's form depending on
-  the number in front of it (common in Slavic languages), check
-  that the form used in "between N houses" clues matches the specific number
-  shown. We will typically use 4 houses, this should at least work for up to N=2.
-- **Multiple clue templates**: If multiple clue templates are needed to cover all the attributes, this is possible. See e.g. Irish (ga) "same_object_templates", or Hindi (hi) "same_herring_templates". See Basque (eu) "attribute_subject_cases" if the case depends on the attribute category. Or just note the issue in the PR.
-- **Word order of relative clauses**: Some languages have a different word order for relative clauses than main clauses. If this is the case, we need extra templates in red_herring_facts. See German (de) for an example.
-- **Contractions**: If your language has contractions (e.g. von dem -> vom), add the relevant ones to prompt_replacements.
+- **Number agreement** *(if your language inflects nouns by the preceding
+  number, common in Slavic languages)*: Check that the form used in "between
+  N houses" clues matches the specific number shown. We will typically use 4
+  houses, this should at least work for up to N=2.
+- **Multiple clue template versions** *(if needed to cover all the attributes)*: See
+  e.g. Irish (ga) "same_object_templates", or Hindi (hi)
+  "same_herring_templates". See Basque (eu) "attribute_subject_cases" if the
+  case depends on the attribute category. Or just note the issue in the PR.
+- **Word order of relative clauses** *(if your language orders relative
+  clauses differently from main clauses)*: We need extra templates in
+  red_herring_facts. See German (de) for an example.
+- **Contractions** *(if your language has contractions, e.g. von dem -> vom)*:
+  Add the relevant ones to prompt_replacements.
 
 ### Naturalness
 
-Avoid overly literal translations from English or stilted phrasing. If a native word exists, it is usually better than a loanword. It is ok to split, combine or change the order of sentences.
-
-Try to use short phrases e.g. "The cat owner" instead of "The person who owns a cat" to avoid repeatedly using the same long phrase in every clue.
-
-The order of categories in the config file determines the preferred order of categories in the generated clues. If a category generally uses longer phrases, it is likely best to put it later in the list so that it is less likely to be used as the first attribute in a clue. For example, we prefer "The nurse loves oranges" over "The person who loves oranges is a nurse", so the job category should be placed before the favourite fruit category.
+- Avoid overly literal translations from English or stilted phrasing. If a native word exists, it is usually better than a loanword. It is ok to split, combine or change the order of sentences.
+- Use short phrases, e.g. "The cat owner" instead of "The person who owns a cat", to avoid repeatedly using the same long phrase in every clue.
+- Category order in the config sets the preferred order of categories in generated clues. Categories with longer or less natural nominative phrases are best placed later in the list, so they're less likely to open a clue — e.g. we prefer "The nurse loves oranges" over "The person who loves oranges is a nurse", so job comes before favourite fruit.
 
 ### Ambiguity
 
@@ -109,9 +119,8 @@ The order of categories in the config file determines the preferred order of cat
 
 ### Punctuation
 
-Check spacing and punctuation look right — commas, contracted articles, spacing around question marks or dashes, and so on. This can be corrected with the variables used in e.g. Japanese (ja) or with prompt_replacements.
-
-If commas are used around relative clauses, you can include both commas in the attributes and remove any commas placed before full stops by adding a prompt_replacement. See German (de) for an example.
+- Check spacing and punctuation look right — commas, contracted articles, spacing around question marks or dashes, and so on. This can be corrected with the variables used in e.g. Japanese (ja) or with prompt_replacements.
+- If commas are used around relative clauses, you can include both commas in the attributes and remove any commas placed before full stops by adding a prompt_replacement. See German (de) for an example.
 
 ## 5. Edit README.md
 
