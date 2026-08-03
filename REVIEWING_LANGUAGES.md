@@ -58,6 +58,8 @@ In addition to the clue attributes, there are also "red herring" attributes incl
 
 Any attribute can be combined with any other attribute (or red herring attribute) in a clue, so this must be possible without grammatical errors. This is why we try to avoid explicitly gendered forms when possible.
 
+Which attribute forms exist are determined by attribute_cases and red_herring_attribute_cases. The forms are presented in attributes and red_herring_attributes in the same order. How they are applied is determined by clue_cases_dict and red_herring_cases_dict. The templates in clue_templates and red_herring_templates use these forms to generate clues.
+
 The dictionary keys need to be translated for clue attributes, but this is not necessary for red herring attributes.
 
 Some configs have comments explaining the reasoning behind certain choices. Feel free to delete or ignore them if they are not helpful.
