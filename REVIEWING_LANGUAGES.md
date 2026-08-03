@@ -5,7 +5,7 @@ language config for the zebra puzzle generator — most usefully one of the
 "Preliminary" languages listed in the [README](README.md), since they have not
 been checked already.
 
-**Short version**: Generate some puzzles, read and edit the config, check that the text is correct, and submit a PR with your changes and any notes on remaining issues.
+**Short version**: Generate some puzzles, read and edit the config, check that the text is correct, and submit a PR with your changes and any notes on remaining issues (preferably with examples).
 
 ### Priorities:
 1) Correctness. Text must be linguistically acceptable.
