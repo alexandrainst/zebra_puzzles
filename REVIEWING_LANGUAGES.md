@@ -60,9 +60,9 @@ In addition to the clue attributes, there are also "red herring" attributes incl
 
 Any attribute can be combined with any other attribute (or red herring attribute) in a clue, so this must be possible without grammatical errors. This is why we try to avoid explicitly gendered forms when possible.
 
-Which attribute forms exist are determined by attribute_cases and red_herring_attribute_cases. The forms are presented in attributes and red_herring_attributes in the same order. How they are applied is determined by clue_cases_dict and red_herring_cases_dict. The templates in clue_templates and red_herring_templates use these forms to generate clues.
+Which attribute forms exist are determined by `attribute_cases` and `red_herring_attribute_cases`. The forms are presented in `attributes` and `red_herring_attributes` in the same order. How they are applied is determined by `clue_cases_dict` and `red_herring_cases_dict`. The templates in `clue_dict` and `red_herring_clues_dict` use these forms to generate clues.
 
-The dictionary keys need to be translated for clue attributes, but this is not necessary for red herring attributes.
+The dictionary keys need to be translated for clue `attributes`, but this is not necessary for `red_herring_attributes`.
 
 Some configs have comments explaining the reasoning behind certain choices. Feel free to delete or ignore them if they are not helpful.
 
@@ -74,11 +74,16 @@ Go through some puzzles and the config file to find issues, then edit the config
 
 You can compare with other language configs to see how they handle similar issues. The meaning should stay almost the same across languages, but the exact phrasing or structure can vary. README.md has a list of already reviewed languages.
 
-We try to keep language-specific issues in the config file itself. Most grammatical issues can be fixed by adding a new case, changing a template, or adding a prompt_replacement. If a code change is needed or would improve naturalness, please note it in the PR.
+We try to keep language-specific issues in the config file itself. Most grammatical issues can be fixed by adding a new case, changing a template, or adding a rule to `prompt_replacements`. If a code change is needed or would improve naturalness, please note it in the PR.
 
 ### Common issues
 
-Most important:
+Most important issues:
+- *Wrong word/word form*: You likely need to edit `attributes` and `red_herring_attributes` (they should match `attribute_cases` and `red_herring_attribute_cases`).
+- *Wrong case*: You likely need to edit `clue_cases_dict` and `red_herring_cases_dict`.
+- *Wrong word order*: You likely need to edit `clues_dict` and `red_herring_clues_dict`.
+
+Also important:
 - **Gender** *(if your language marks grammatical gender or includes gendered attribute phrases)*: In the houses
   theme, the person in each house has no stated gender. Check that it will
   combine correctly in sentences. A neutral form or a single gender used for
@@ -93,21 +98,21 @@ Most important:
   readable as a distance instead of a count. E.g. we use "there are 2 houses between" instead of "lives 2 houses away from" to avoid ambiguity.
 
 Other issues:
-- **Puzzle enjoyment**: The red herring fact about enjoying puzzles can result in e.g. "X knows that it is fun to solve puzzles", where "X enjoys solving puzzles" would be more natural. Add this to prompt_replacements if needed. See English (en) for an example.
+- **Puzzle enjoyment**: The red herring fact about enjoying puzzles can result in e.g. "X knows that it is fun to solve puzzles", where "X enjoys solving puzzles" would be more natural. Add this to `prompt_replacements` if needed. See English (en) for an example.
 - **Format description**: Would "JSON dictionary", "key" and "value" typically be translated or kept in English? Edit the prompt template accordingly.
 - **Number agreement** *(if your language inflects nouns by the preceding
   number, common in Slavic languages)*: Check that the form used in "between
   N houses" clues matches the specific number shown. We will typically use 4
   houses, this should at least work for up to N=2.
 - **Multiple clue template versions** *(if needed to cover all the attributes)*: See
-  e.g. Irish (ga) "same_object_templates", or Hindi (hi)
-  "same_herring_templates". See Basque (eu) "attribute_subject_cases" if the
+  e.g. Irish (ga) `same_object_templates`, or Hindi (hi)
+  `same_herring_templates`. See Basque (eu) `attribute_subject_cases` if the
   case depends on the attribute category. Or just note the issue in the PR.
 - **Word order of relative clauses** *(if your language orders relative
-  clauses differently from main clauses)*: We need extra templates in
-  red_herring_facts. See German (de) for an example.
+  clauses differently from main clauses)*: We need extra fact versions in
+  `red_herring_facts`. See German (de) for an example.
 - **Contractions** *(if your language has contractions, e.g. von dem -> vom)*:
-  Add the relevant ones to prompt_replacements.
+  Add the relevant ones to `prompt_replacements`.
 
 ### Naturalness
 
@@ -123,12 +128,12 @@ Other issues:
 
 ### Punctuation
 
-- Check spacing and punctuation look right — commas, contracted articles, spacing around question marks or dashes, and so on. This can be corrected with the variables used in e.g. Japanese (ja) or with prompt_replacements.
-- If commas are used around relative clauses, you can include both commas in the attributes and remove any commas placed before full stops by adding a prompt_replacement. See German (de) for an example.
+- Check spacing and punctuation look right — commas, contracted articles, spacing around question marks or dashes, and so on. This can be corrected with the variables used in e.g. Japanese (ja) or with `prompt_replacements`.
+- If commas are used around relative clauses, you can include both commas in the attributes and remove any commas placed before full stops by adding a rule to `prompt_replacements`. See German (de) for an example.
 
 ## 5. Edit README.md
 
-If the puzzles look correct, you can now edit the README to mark the language as "Finished" instead of "Preliminary". 🎉
+If the puzzles look correct, you can now edit `README.md` to mark the language as "Finished" instead of "Preliminary". 🎉
 
 ## 6. Submit your changes
 
