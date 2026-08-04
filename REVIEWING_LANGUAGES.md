@@ -79,9 +79,9 @@ We try to keep language-specific issues in the config file itself. Most grammati
 ### Common issues
 
 Most important issues:
-- *Wrong word/word form*: You likely need to edit `attributes` and `red_herring_attributes` (they should match `attribute_cases` and `red_herring_attribute_cases`).
-- *Wrong case*: You likely need to edit `clue_cases_dict` and `red_herring_cases_dict`.
-- *Wrong word order*: You likely need to edit `clues_dict` and `red_herring_clues_dict`.
+- **Wrong word/word form**: You likely need to edit `attributes` and `red_herring_attributes` (they should match `attribute_cases` and `red_herring_attribute_cases`).
+- **Wrong case**: You likely need to edit `clue_cases_dict` and `red_herring_cases_dict`. See the "Case forms" section below.
+- **Wrong word order**: You likely need to edit `clues_dict` and `red_herring_clues_dict`.
 
 Also important:
 - **Gender** *(if your language marks grammatical gender or includes gendered attribute phrases)*: In the houses
@@ -92,7 +92,11 @@ Also important:
   the most difficult one to combine with other attributes.
 - **Case forms** *(if your language has case marking)*: For clues that use a
   preposition (like "next to", "just left of", "between"), check the
-  noun/adjective after the preposition is in the grammatically correct case.
+  noun/adjective after the preposition is in the grammatically correct case. You need to compare `clues_dict` vs. `clue_cases_dict` and `red_herring_clues_dict` vs. `red_herring_cases_dict`.
+  - **Multiple clue template versions** *(if needed to cover all the attributes)*: See
+  e.g. Irish (ga) `same_object_templates`, or Hindi (hi)
+  `same_herring_templates`. See Basque (eu) `attribute_subject_cases` if the
+  case depends on the attribute category. Or just note the issue in the PR with full sentence examples.
 - **"Between N houses" clues**: When a clue says there are several houses
   between two people, check it's unambiguous *how many* — it should not be
   readable as a distance instead of a count. E.g. we use "there are 2 houses between" instead of "lives 2 houses away from" to avoid ambiguity.
@@ -104,10 +108,6 @@ Other issues:
   number, common in Slavic languages)*: Check that the form used in "between
   N houses" clues matches the specific number shown. We will typically use 4
   houses, this should at least work for up to N=2.
-- **Multiple clue template versions** *(if needed to cover all the attributes)*: See
-  e.g. Irish (ga) `same_object_templates`, or Hindi (hi)
-  `same_herring_templates`. See Basque (eu) `attribute_subject_cases` if the
-  case depends on the attribute category. Or just note the issue in the PR.
 - **Word order of relative clauses** *(if your language orders relative
   clauses differently from main clauses)*: We need extra fact versions in
   `red_herring_facts`. See German (de) for an example.
