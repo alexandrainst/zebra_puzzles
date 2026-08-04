@@ -129,7 +129,7 @@ clue_cases_dict:
     right_of: ['nom', 'obl']
     same_object: ['nom', 'none']
     not_same_object: ['nom', 'none']
-    between: ['obl', 'nom', 'obl']
+    between: ['obl', 'nom', 'obl'] # Exception: The first element here is the second in the clue template (attribute_desc_1 is the first).
     not_between: ['nom', 'obl', 'obl']
     multiple_between: ['obl', 'obl']
     one_between: ['obl', 'obl']
