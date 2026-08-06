@@ -19,9 +19,8 @@
 #   possession) — all three need the subject in oblique case.
 # object_fact uses जाणतो ("knows", transitive) not माहीत आहे (dative-experiencer) — same fruits rationale.
 # Nurse/sister: नर्स (loanword) not परिचारिका (native, feminine) — avoids the gender clash.
-# Checked against Wikipedia: फेरो द्वीपसमूह (Faroe Islands) and गोगलगाय (snail, feminine by analogy with गाय
-#   "cow"); हेरिंग transliteration found via Hindi Wikipedia's identical borrowing.
-# More uncertain: ससा (rabbit) oblique सशा; बजरीगर, काडी कीटक, ब्लॅककरंट, रानटी
+# Checked against Wikipedia: फेरो द्वीपसमूह (Faroe Islands); हेरिंग transliteration found via Hindi Wikipedia's identical borrowing.
+# More uncertain: रानटी
 #   स्ट्रॉबेरी (no Marathi Wikipedia article found); whether शेजारी/दरम्यान truly need च्या the way
 #   डावीकडे/उजवीकडे do; whether दरम्यान should use collective यांच्या instead of per-argument च्या.
 
@@ -59,11 +58,11 @@ attributes:
     पाळीव प्राणी:
         कुत्रा: ['कुत्र्याचा मालक', 'कुत्रा पाळतो', 'कुत्रा पाळत नाही', 'कुत्र्याच्या मालक']
         मांजर: ['मांजराचा मालक', 'मांजर पाळतो', 'मांजर पाळत नाही', 'मांजराच्या मालक']
-        ससा: ['सशाचा मालक', 'ससा पाळतो', 'ससा पाळत नाही', 'सशाच्या मालक']  # uncertain — verify oblique सशा
+        ससा: ['सशाचा मालक', 'ससा पाळतो', 'ससा पाळत नाही', 'सशाच्या मालक']
         झेब्रा: ['झेब्राचा मालक', 'झेब्रा पाळतो', 'झेब्रा पाळत नाही', 'झेब्राच्या मालक']
-        बजरीगर: ['बजरीगरचा मालक', 'बजरीगर पाळतो', 'बजरीगर पाळत नाही', 'बजरीगरच्या मालक']  # uncertain — verify term
-        गोगलगाय: ['गोगलगाईचा मालक', 'गोगलगाय पाळतो', 'गोगलगाय पाळत नाही', 'गोगलगाईच्या मालक']  # confirmed term (Marathi Wikipedia); feminine by analogy with गाय "cow", matching the existing -ई oblique
-        काडी कीटक: ['काडी कीटकाचा मालक', 'काडी कीटक पाळतो', 'काडी कीटक पाळत नाही', 'काडी कीटकाच्या मालक']  # uncertain — verify term
+        बजरीगर: ['बजरीगरचा मालक', 'बजरीगर पाळतो', 'बजरीगर पाळत नाही', 'बजरीगरच्या मालक']
+        गोगलगाय: ['गोगलगाईचा मालक', 'गोगलगाय पाळतो', 'गोगलगाय पाळत नाही', 'गोगलगाईच्या मालक']
+        काडी कीटक: ['काडी कीटकाचा मालक', 'काडी कीटक पाळतो', 'काडी कीटक पाळत नाही', 'काडी कीटकाच्या मालक']
 
     पेये:
         रस: ['रस पिणारा', 'रस पितो', 'रस पीत नाही', 'रस पिणाऱ्या']
@@ -98,8 +97,8 @@ attributes:
         संत्रे: ['संत्रे पसंत करणारा', 'संत्रे पसंत करतो', 'संत्रे पसंत करत नाही', 'संत्रे पसंत करणाऱ्या']
         केळे: ['केळे पसंत करणारा', 'केळे पसंत करतो', 'केळे पसंत करत नाही', 'केळे पसंत करणाऱ्या']
         स्ट्रॉबेरी: ['स्ट्रॉबेरी पसंत करणारा', 'स्ट्रॉबेरी पसंत करतो', 'स्ट्रॉबेरी पसंत करत नाही', 'स्ट्रॉबेरी पसंत करणाऱ्या']
-        ब्लॅककरंट: ['ब्लॅककरंट पसंत करणारा', 'ब्लॅककरंट पसंत करतो', 'ब्लॅककरंट पसंत करत नाही', 'ब्लॅककरंट पसंत करणाऱ्या']  # uncertain — verify term
-        रानटी स्ट्रॉबेरी: ['रानटी स्ट्रॉबेरी पसंत करणारा', 'रानटी स्ट्रॉबेरी पसंत करतो', 'रानटी स्ट्रॉबेरी पसंत करत नाही', 'रानटी स्ट्रॉबेरी पसंत करणाऱ्या']  # uncertain — verify botanical term
+        करवंद: ['करवंद पसंत करणारा', 'करवंद पसंत करतो', 'करवंद पसंत करत नाही', 'करवंद पसंत करणाऱ्या']  # swapped in for blackcurrant (Ribes nigrum, no native/attested Marathi term) — karonda (Carissa carandas) is a botanically different but familiar native fruit, preferred over an obscure loanword for a fruit nobody would recognize
+        रानटी स्ट्रॉबेरी: ['रानटी स्ट्रॉबेरी पसंत करणारा', 'रानटी स्ट्रॉबेरी पसंत करतो', 'रानटी स्ट्रॉबेरी पसंत करत नाही', 'रानटी स्ट्रॉबेरी पसंत करणाऱ्या']
 
 # Clues
 clues_dict:
