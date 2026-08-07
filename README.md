@@ -23,9 +23,9 @@ Dataset on the Hugging Face Hub: https://huggingface.co/datasets/alexandrainst/z
 
 Paper: [ArXiv preprint](https://arxiv.org/abs/2511.03553)
 
-Contributions are welcome! Please read the [contributing guide](CONTRIBUTING.md) before submitting a PR. There are many ways to contribute, including opening issues for linguistic errors, adding new languages or themes, and adding new clue types.
+**Contributions** are welcome! Please read the [contributing guide](CONTRIBUTING.md) before submitting a PR. There are many ways to contribute, including opening issues for linguistic errors, adding new languages or themes, and adding new clue types.
 
-If you are a native speaker of one of the "Preliminary" languages above and want to review/improve its config, see the [guide to reviewing a language](REVIEWING_LANGUAGES.md).
+If you are a **native/fluent speaker** of one of the "Preliminary" languages above and want to review/improve its config, see the [guide to reviewing a language](REVIEWING_LANGUAGES.md).
 
 ______________________________________________________________________
 [![Code Coverage](https://img.shields.io/badge/Coverage-83%25-yellowgreen.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
