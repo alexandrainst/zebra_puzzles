@@ -14,8 +14,8 @@ Generation and LLM evaluation of zebra puzzles in multiple languages and themes 
 Available languages and themes:
 
 - Houses theme (44 languages - 39 European, 5 _non-European_):
-    - Finished versions: Danish (da) 🇩🇰, Dutch (nl) 🇳🇱, English (en) 🇬🇧, Faroese (fo) 🇫🇴, German (de) 🇩🇪, Icelandic (is) 🇮🇸, Norwegian Bokmål (nb) 🇳🇴, Norwegian Nynorsk (nn) 🇳🇴 and Swedish (sv) 🇸🇪.
-    - Preliminary versions: Albanian (sq) 🇦🇱, _Arabic (ar)_ 🇸🇦, Basque (eu) 🏴, Belarusian (be) 🇧🇾, Bosnian (bs) 🇧🇦, Bulgarian (bg) 🇧🇬, Catalan (ca) 🏴, _Chinese (zh)_ 🇨🇳, Croatian (hr) 🇭🇷, Czech (cs) 🇨🇿, Estonian (et) 🇪🇪, Finnish (fi) 🇫🇮, French (fr) 🇫🇷, Greek (el) 🇬🇷, _Hindi (hi)_ 🇮🇳, Hungarian (hu) 🇭🇺, Irish (ga) 🇮🇪, Italian (it) 🇮🇹, _Japanese (ja)_ 🇯🇵, Latvian (lv) 🇱🇻, Lithuanian (lt) 🇱🇹, Luxembourgish (lb) 🇱🇺, Macedonian (mk) 🇲🇰, _Marathi (mr)_ 🇮🇳, Polish (pl) 🇵🇱, Portuguese (pt) 🇵🇹, Romanian (ro) 🇷🇴, Russian (ru) 🇷🇺, Scots (sco) 🏴󠁧󠁢󠁳󠁣󠁴󠁿, Serbian (sr) 🇷🇸, Slovak (sk) 🇸🇰, Slovenian (sl) 🇸🇮, Spanish (es) 🇪🇸, Ukrainian (uk) 🇺🇦 and West Frisian (fy) 🇳🇱.
+    - Finished versions: Danish (da) 🇩🇰, Dutch (nl) 🇳🇱, English (en) 🇬🇧, Faroese (fo) 🇫🇴, German (de) 🇩🇪, _Hindi (hi)_ 🇮🇳, Icelandic (is) 🇮🇸, _Marathi (mr)_ 🇮🇳, Norwegian Bokmål (nb) 🇳🇴, Norwegian Nynorsk (nn) 🇳🇴 and Swedish (sv) 🇸🇪.
+    - Preliminary versions: Albanian (sq) 🇦🇱, _Arabic (ar)_ 🇸🇦, Basque (eu) 🏴, Belarusian (be) 🇧🇾, Bosnian (bs) 🇧🇦, Bulgarian (bg) 🇧🇬, Catalan (ca) 🏴, _Chinese (zh)_ 🇨🇳, Croatian (hr) 🇭🇷, Czech (cs) 🇨🇿, Estonian (et) 🇪🇪, Finnish (fi) 🇫🇮, French (fr) 🇫🇷, Greek (el) 🇬🇷, Hungarian (hu) 🇭🇺, Irish (ga) 🇮🇪, Italian (it) 🇮🇹, _Japanese (ja)_ 🇯🇵, Latvian (lv) 🇱🇻, Lithuanian (lt) 🇱🇹, Luxembourgish (lb) 🇱🇺, Macedonian (mk) 🇲🇰, Polish (pl) 🇵🇱, Portuguese (pt) 🇵🇹, Romanian (ro) 🇷🇴, Russian (ru) 🇷🇺, Scots (sco) 🏴󠁧󠁢󠁳󠁣󠁴󠁿, Serbian (sr) 🇷🇸, Slovak (sk) 🇸🇰, Slovenian (sl) 🇸🇮, Spanish (es) 🇪🇸, Ukrainian (uk) 🇺🇦 and West Frisian (fy) 🇳🇱.
 - Smørrebrød theme:
     - Finished versions: Danish (da) 🇩🇰.
 
