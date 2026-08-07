@@ -3,23 +3,17 @@
 # Cases: attribute_cases = [nom, is, is_not] — no separate "prep" case like Bulgarian. Unlike Bulgarian,
 #   Macedonian's masculine postpositive definite article (-от) has only ONE form used in every syntactic
 #   position (no short/long split after prepositions), so positional clues just reuse "nom" throughout.
-# Gender: masculine forms used throughout for unknown-gender persons, as in Bulgarian.
+# Gender: masculine default.
 # Word-formation: nationalities/jobs = bare noun + "-от"/"-та" article, "е X"/"не е X"; pets = "сопственикот
-#   на X" (owner of X) + "има X"/"нема X"; book genres = "читателот на X" (reader of X) + "чита X"/"не чита X";
-#   fruits = "љубителот на X" (fan/lover of X, safe generic-enthusiast noun, e.g. "љубители на спорт" = sports
-#   fans) + "сака X"/"не сака X" — both are real, pre-existing Macedonian nouns, not guessed participles;
-#   drinks/hobbies = relative clause "оној што [verb] [object]" for nom + bare "[verb] [object]"/"не [verb]
-#   [object]" for is/is_not, kept periphrastic rather than a compound because no comparably safe noun exists
-#   for "drinker", and every candidate hobby agent noun (сликар=painter, фудбалер=footballer, тенисер=tennis
-#   player) collides with a real profession. None of this needs a participle like Bulgarian's
-#   "пиещият"/"четящият" — Macedonian's active present participle is far less productive than Bulgarian's, so
-#   guessing one risks an actual grammatical error, not just verbosity. "оној" is invariant, needing no extra
-#   case either.
-# Uncertain forms (flagged for native speaker review — no mk.wikipedia.org article or dictionary entry
-#   found): фарец (Faroese demonym — mk.wikipedia.org only gives the adjective "фарски" and the periphrasis
-#   "Фарскиот народ", no single-word demonym; derived by analogy with Bulgarian's "фарьорец"), боулдеринг
-#   (bouldering, loanword spelling), ракомет (handball), полжав (snail), наставник (teacher — Macedonian's own
-#   common word, distinct from Bulgarian's "учител").
+#   на X" + "има X"/"нема X"; book genres = "читателот на X" + "чита X"/"не чита X"; fruits = "љубителот на
+#   X" (real pre-existing noun, e.g. "љубители на спорт" = sports fans, not a guessed participle) + "сака
+#   X"/"не сака X"; drinks/hobbies = relative clause "оној што [verb] [object]" for nom + bare verb phrase
+#   for is/is_not, kept periphrastic since no safe "drinker" noun exists and every candidate hobby agent
+#   noun (сликар=painter, фудбалер=footballer, тенисер=tennis player) collides with a real profession.
+#   Macedonian's active present participle (unlike Bulgarian's "пиещият"/"четящият") is unproductive enough
+#   that guessing one risks a real grammatical error, not just verbosity.
+# Uncertain (no mk.wikipedia.org article/dictionary found): фарец (Faroese demonym, by analogy with
+#   Bulgarian's "фарьорец"), боулдеринг (bouldering), ракомет (handball), полжав (snail).
 
 theme: mk_kukji
 

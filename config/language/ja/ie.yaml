@@ -1,0 +1,229 @@
+# Config file for generating zebra puzzles in Japanese with the "houses" (家) theme.
+#
+# Cases: attribute_cases = [nom, is, is_not] — Japanese has no noun case inflection. Grammatical role is
+#   marked by invariant postpositional particles (は/が/を/の/隣に/間に/左に/右に), same situation as
+#   Hungarian, so no extra case forms are needed.
+# Register: polite form throughout (です/ます), for every category and red herring, matching how
+#   formally-written Japanese text reads. Plain form was not used anywhere, to avoid a tone mismatch mid-puzzle.
+# Word-formation: nationalities/jobs = bare noun + です/ではありません; pets = "Xの飼い主" + "Xを飼っています"/
+#   "Xを飼っていません"; drinks/genres = "Xを飲む/読む人" + "Xを飲みます"/"Xを読みます"; hobbies = "[verb]人" +
+#   "[verb]ます"/"[verb]ません"; fruits = "Xが好きな人" (が not を, since 好き is a na-adjective) + "Xが好き
+#   です"/"Xが好きではありません".
+# Punctuation: full-width (。、？), no spaces between words, matching zh/fangzi.yaml — reuses the same
+#   prompt_comma/prompt_and_spacing/prompt_full_stop/prompt_colon config keys (prompt_colon was newly
+#   added alongside this config, since Chinese's "：" was still using the hardcoded ASCII ": ").
+# multiple_between/one_between require the counter 軒 for buildings, e.g. "2軒の家" (two houses) — baked
+#   into the clue template, not a case-system concern.
+# object_fact quotative: "{fact}と知っています" attaches と directly after a polite (です/ます) fact sentence.
+#   Standard grammar prefers plain form before と; polite-before-と is attested in formal writing but
+#   flagged as a register choice worth native-speaker confirmation.
+# Pear: 洋ナシ (Western pear) used rather than bare 梨 (which defaults to Asian/Nashi pear) — a judgment
+#   call given the puzzle's fruits are otherwise Western/European by default, not a translation error.
+# Uncertain (flagged for native speaker review): ワイルドストロベリー (wild strawberry — no confirmed
+#   native Japanese botanical term found for Fragaria vesca, used the loanword as the safer choice).
+
+theme: ja_ie
+
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
+
+prompt_comma: 、
+prompt_and_spacing: false
+prompt_full_stop: 。
+prompt_colon: '：'
+
+attributes:
+
+    国籍:
+        デンマーク: ['デンマーク人', 'デンマーク人です', 'デンマーク人ではありません']
+        スウェーデン: ['スウェーデン人', 'スウェーデン人です', 'スウェーデン人ではありません']
+        ラトビア: ['ラトビア人', 'ラトビア人です', 'ラトビア人ではありません']
+        フランス: ['フランス人', 'フランス人です', 'フランス人ではありません']
+        スペイン: ['スペイン人', 'スペイン人です', 'スペイン人ではありません']
+        イタリア: ['イタリア人', 'イタリア人です', 'イタリア人ではありません']
+        ノルウェー: ['ノルウェー人', 'ノルウェー人です', 'ノルウェー人ではありません']
+        フェロー諸島: ['フェロー人', 'フェロー人です', 'フェロー人ではありません']
+        オランダ: ['オランダ人', 'オランダ人です', 'オランダ人ではありません']
+        アイスランド: ['アイスランド人', 'アイスランド人です', 'アイスランド人ではありません']
+        イギリス: ['イギリス人', 'イギリス人です', 'イギリス人ではありません']
+
+    職業:
+        パン職人: ['パン職人', 'パン職人です', 'パン職人ではありません']
+        大臣: ['大臣', '大臣です', '大臣ではありません']
+        警察官: ['警察官', '警察官です', '警察官ではありません']
+        看護師: ['看護師', '看護師です', '看護師ではありません']
+        教師: ['教師', '教師です', '教師ではありません']
+        ソフトウェア開発者: ['ソフトウェア開発者', 'ソフトウェア開発者です', 'ソフトウェア開発者ではありません']
+        店員: ['店員', '店員です', '店員ではありません']
+
+    ペット:
+        猫: ['猫の飼い主', '猫を飼っています', '猫を飼っていません']
+        犬: ['犬の飼い主', '犬を飼っています', '犬を飼っていません']
+        ウサギ: ['ウサギの飼い主', 'ウサギを飼っています', 'ウサギを飼っていません']
+        シマウマ: ['シマウマの飼い主', 'シマウマを飼っています', 'シマウマを飼っていません']
+        セキセイインコ: ['セキセイインコの飼い主', 'セキセイインコを飼っています', 'セキセイインコを飼っていません']
+        カタツムリ: ['カタツムリの飼い主', 'カタツムリを飼っています', 'カタツムリを飼っていません']
+        ナナフシ: ['ナナフシの飼い主', 'ナナフシを飼っています', 'ナナフシを飼っていません']
+
+    飲み物:
+        ジュース: ['ジュースを飲む人', 'ジュースを飲みます', 'ジュースを飲みません']
+        コーヒー: ['コーヒーを飲む人', 'コーヒーを飲みます', 'コーヒーを飲みません']
+        牛乳: ['牛乳を飲む人', '牛乳を飲みます', '牛乳を飲みません']
+        スムージー: ['スムージーを飲む人', 'スムージーを飲みます', 'スムージーを飲みません']
+        ココア: ['ココアを飲む人', 'ココアを飲みます', 'ココアを飲みません']
+        紅茶: ['紅茶を飲む人', '紅茶を飲みます', '紅茶を飲みません']
+        炭酸飲料: ['炭酸飲料を飲む人', '炭酸飲料を飲みます', '炭酸飲料を飲みません']
+
+    好きな本のジャンル:
+        ノンフィクション: ['ノンフィクションを読む人', 'ノンフィクションを読みます', 'ノンフィクションを読みません']
+        推理小説: ['推理小説を読む人', '推理小説を読みます', '推理小説を読みません']
+        ファンタジー: ['ファンタジーを読む人', 'ファンタジーを読みます', 'ファンタジーを読みません']
+        SF小説: ['SF小説を読む人', 'SF小説を読みます', 'SF小説を読みません']
+        ホラー小説: ['ホラー小説を読む人', 'ホラー小説を読みます', 'ホラー小説を読みません']
+        詩: ['詩を読む人', '詩を読みます', '詩を読みません']
+        恋愛小説: ['恋愛小説を読む人', '恋愛小説を読みます', '恋愛小説を読みません']
+
+    趣味:
+        ボルダリング: ['ボルダリングをする人', 'ボルダリングをします', 'ボルダリングをしません']
+        絵画: ['絵を描く人', '絵を描きます', '絵を描きません']
+        ボードゲーム: ['ボードゲームをする人', 'ボードゲームをします', 'ボードゲームをしません']
+        テニス: ['テニスをする人', 'テニスをします', 'テニスをしません']
+        かぎ針編み: ['かぎ針編みをする人', 'かぎ針編みをします', 'かぎ針編みをしません']
+        サッカー: ['サッカーをする人', 'サッカーをします', 'サッカーをしません']
+        ハンドボール: ['ハンドボールをする人', 'ハンドボールをします', 'ハンドボールをしません']
+
+    好きな果物:
+        リンゴ: ['リンゴが好きな人', 'リンゴが好きです', 'リンゴが好きではありません']
+        洋ナシ: ['洋ナシが好きな人', '洋ナシが好きです', '洋ナシが好きではありません']
+        オレンジ: ['オレンジが好きな人', 'オレンジが好きです', 'オレンジが好きではありません']
+        バナナ: ['バナナが好きな人', 'バナナが好きです', 'バナナが好きではありません']
+        イチゴ: ['イチゴが好きな人', 'イチゴが好きです', 'イチゴが好きではありません']
+        カシス: ['カシスが好きな人', 'カシスが好きです', 'カシスが好きではありません']
+        ワイルドストロベリー: ['ワイルドストロベリーが好きな人', 'ワイルドストロベリーが好きです', 'ワイルドストロベリーが好きではありません']  # uncertain — verify botanical term
+
+# Clues
+clues_dict:
+    found_at: '{attribute_desc}は{i_object}番目の家に住んでいます。'
+    not_at: '{attribute_desc}は{i_object}番目の家に住んでいません。'
+    next_to: '{attribute_desc_1}は{attribute_desc_2}の隣に住んでいます。'                                        # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1}は{attribute_desc_2}の隣に住んでおらず、二人は別の人です。'                    # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1}は{attribute_desc_2}のすぐ左に住んでいます。'                                # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1}は{attribute_desc_2}のすぐ右に住んでいます。'                               # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1}は{attribute_desc_2}の左に住んでいます。'
+    right_of: '{attribute_desc_1}は{attribute_desc_2}の右に住んでいます。'
+    same_object: '{attribute_desc_1}は{attribute_desc_2}。'                                                     # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1}は{attribute_desc_2}。'                                                 # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2}は{attribute_desc_1}と{attribute_desc_3}の間に住んでいます。'                     # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1}は{attribute_desc_2}と{attribute_desc_3}の間に住んでおらず、三人は別々の人です。' # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1}と{attribute_desc_2}の間には{n_between}軒の家があります。'                # Requires n_objects > 3, otherwise it cannot be used
+    one_between: '{attribute_desc_1}と{attribute_desc_2}の間には家が1軒あります。'                                # Requires n_objects > 2, otherwise it cannot be used
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'nom']
+    not_next_to: ['nom', 'nom']
+    just_left_of: ['nom', 'nom']
+    just_right_of: ['nom', 'nom']
+    left_of: ['nom', 'nom']
+    right_of: ['nom', 'nom']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['nom', 'nom', 'nom']
+    not_between: ['nom', 'nom', 'nom']
+    multiple_between: ['nom', 'nom']
+    one_between: ['nom', 'nom']
+
+# Prompt
+prompt_and: と
+
+prompt_templates:
+    - |
+        家が1番から{n_objects}番まで左から右に並んでいます。
+
+        それぞれの家には、次の各カテゴリーにおいて他と異なる特徴を持つ人が住んでいます。
+
+        {chosen_attributes_str}
+
+        さらに、次のことが分かっています。
+
+        {chosen_clues_str}
+
+        誰がどの特徴を持ち、どの家に住んでいるでしょうか？
+
+        答えはJSON dictionaryとして提出してください。各keyはobject_Xとし、Xは家の番号です。各valueは、X番目の家に住んでいる人が持つ、前述のカテゴリーの特徴のリストにしてください。
+
+        以下は回答形式の例です。
+
+        {solution_template}
+    - |
+        家が1番から{n_objects}番まで左から右に並んでいます。
+
+        それぞれの家には、{chosen_attributes_str}のカテゴリーにおいて他と異なる特徴を持つ人が住んでいます。
+
+        さらに、次のことが分かっています。
+
+        {chosen_clues_str}
+
+        それぞれの家に住んでいる人はどの特徴を持っているでしょうか？
+
+        答えはJSON dictionaryとして提出してください。各keyはobject_Xとし、Xは家の番号です。各valueは、X番目の家に住んでいる人が持つ、前述のカテゴリーの特徴を含むリストにしてください。
+
+        以下は回答形式の例です。
+
+        {solution_template}
+
+# Red herrings
+red_herring_clues_dict:
+    same_herring: '{attribute_desc}は{attribute_desc_herring}。'
+    next_to_herring: '{attribute_desc}は{attribute_desc_herring}の隣に住んでいます。'
+    double_herring: '{attribute_desc_herring_1}は{attribute_desc_herring_2}。'
+    fact: '{fact}。'
+    object_fact: '{attribute_desc}は{fact}と知っています。'
+    friends: '{attribute_desc}と{attribute_desc_herring}は仲良しです。'
+    herring_found_at: '{attribute_desc_herring}は{i_object}番目の家に住んでいます。'
+    herring_not_at: '{attribute_desc_herring}は{i_object}番目の家に住んでいません。'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'nom']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+red_herring_attributes:
+    akai_kami: ['赤毛の人', '赤い髪をしています']
+    megane: ['メガネをかけている人', 'メガネをかけています']
+    tatoo: ['タトゥーがある人', 'タトゥーがあります']
+    gitaa: ['ギターを弾く人', 'ギターを弾きます']
+    jitensha: ['自転車を持っている人', '自転車を持っています']
+    morumotto: ['モルモットを飼っている人', 'モルモットを飼っています']
+    saboten: ['サボテンを持っていない人', 'サボテンを持っていません']
+    video_game: ['ビデオゲームをする人', 'ビデオゲームをします']
+    shimai: ['姉妹がいる人', '姉妹がいます']
+    mango: ['2番目に好きな果物はマンゴーだと思っている人', '2番目に好きな果物はマンゴーだと思っています']
+    yotto: ['よくヨットに乗る人', 'よくヨットに乗ります']
+    kanada: ['カナダに行ったことがある人', 'カナダに行ったことがあります']
+    suugaku: ['数学の修士号を持っている人', '数学の修士号を持っています']
+    butsurigaku: ['物理学が大好きな人', '物理学が大好きです']
+    kourei_petto: ['ペットが同種の中で高齢な人', 'ペットが同種の中で高齢です']
+    ski_jump: ['スキージャンプを見る人', 'スキージャンプを見ます']
+
+red_herring_facts:
+    nishin: ['ニシンは魚です']
+    taiyoukei: ['太陽系は銀河の中心を秒速約200キロメートルで移動しています']
+    puzzle: ['パズルを解くのは楽しいです']
+    ie_fact: ['この通りの家はすべて美しい庭があります']
+    doa: ['いくつかの家には緑のドアがあります']
+    mado: ['すべての家には大きな窓があります']
+    kuruma: ['通りにはたくさんの車があります']
+    kyuuri: ['キュウリはベリーです']
+    katatsumuri_fact: ['カタツムリは軟体動物です']
+    koohii_fact: ['コーヒーにはカフェインが含まれています']
+
+# Strings to replace in the generated prompt.
+prompt_replacements:
+    'パズルを解くのは楽しいですと知っています': 'パズル解きを楽しんでいます'

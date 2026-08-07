@@ -1,0 +1,223 @@
+# Config file for generating zebra puzzles in Chinese (Standard Mandarin, Simplified script) with the "houses" (房子) theme.
+#
+# Cases: attribute_cases = [nom, is, is_not] — Chinese is isolating: no grammatical case, gender, plural
+#   or verb-conjugation marking, so no extra cases are needed. Positional postpositions (隔壁/左边/右边/之间)
+#   attach directly to the bare (nom) noun form, optionally via 的, which is written into the clue templates
+#   themselves rather than requiring a separate inflected noun form.
+# Word-formation: nationalities = country + 人 (是+noun / 不是+noun); jobs = bare noun (是/不是+noun);
+#   pets/drinks/genres/hobbies/fruits = verb phrase (nom = "VP的人", is = bare VP, is_not = "不VP") — every
+#   "is" form is a self-contained predicate, so same_object/not_same_object can concatenate any nom subject
+#   with any is/is_not predicate.
+# Punctuation: full-width (。，、：？) throughout, not ASCII. Two code changes: (1) format_datasets.py now
+#   recognises "？" as a question-ender; (2) prompt_completion.py/build_pipeline.py/build_dataset.py gained
+#   four optional config keys: prompt_comma, prompt_and_spacing, prompt_full_stop, prompt_colon.
+# Measure words: 栋 is used for houses only where Chinese grammatically requires a classifier when counting
+#   (multiple_between/one_between, e.g. "两栋房子" = "two houses"). No classifier is needed elsewhere since
+#   attributes are generic/mass statements ("爱吃苹果" = "loves eating apples", no counting involved).
+
+theme: zh_fangzi
+
+attribute_cases: [nom, is, is_not]
+red_herring_attribute_cases: [nom, is]
+
+# Chinese uses full-width punctuation and no spaces between words, unlike the framework's ASCII defaults.
+prompt_comma: 、
+prompt_and_spacing: false
+prompt_full_stop: 。
+prompt_colon: '：'
+
+attributes:
+
+    国籍:
+        丹麦: ['丹麦人', '是丹麦人', '不是丹麦人']
+        瑞典: ['瑞典人', '是瑞典人', '不是瑞典人']
+        拉脱维亚: ['拉脱维亚人', '是拉脱维亚人', '不是拉脱维亚人']
+        法国: ['法国人', '是法国人', '不是法国人']
+        西班牙: ['西班牙人', '是西班牙人', '不是西班牙人']
+        意大利: ['意大利人', '是意大利人', '不是意大利人']
+        挪威: ['挪威人', '是挪威人', '不是挪威人']
+        法罗群岛: ['法罗人', '是法罗人', '不是法罗人']
+        荷兰: ['荷兰人', '是荷兰人', '不是荷兰人']
+        冰岛: ['冰岛人', '是冰岛人', '不是冰岛人']
+        英国: ['英国人', '是英国人', '不是英国人']
+
+    职业:
+        面包师: ['面包师', '是面包师', '不是面包师']
+        部长: ['部长', '是部长', '不是部长']
+        警察: ['警察', '是警察', '不是警察']
+        护士: ['护士', '是护士', '不是护士']
+        教师: ['教师', '是教师', '不是教师']
+        软件开发员: ['软件开发员', '是软件开发员', '不是软件开发员']
+        店员: ['店员', '是店员', '不是店员']
+
+    宠物:
+        猫: ['养猫的人', '养猫', '不养猫']
+        狗: ['养狗的人', '养狗', '不养狗']
+        兔子: ['养兔子的人', '养兔子', '不养兔子']
+        斑马: ['养斑马的人', '养斑马', '不养斑马']
+        虎皮鹦鹉: ['养虎皮鹦鹉的人', '养虎皮鹦鹉', '不养虎皮鹦鹉']
+        蜗牛: ['养蜗牛的人', '养蜗牛', '不养蜗牛']
+        竹节虫: ['养竹节虫的人', '养竹节虫', '不养竹节虫']
+
+    饮料:
+        果汁: ['喝果汁的人', '喝果汁', '不喝果汁']
+        咖啡: ['喝咖啡的人', '喝咖啡', '不喝咖啡']
+        牛奶: ['喝牛奶的人', '喝牛奶', '不喝牛奶']
+        冰沙: ['喝冰沙的人', '喝冰沙', '不喝冰沙']
+        可可: ['喝可可的人', '喝可可', '不喝可可']
+        茶: ['喝茶的人', '喝茶', '不喝茶']
+        汽水: ['喝汽水的人', '喝汽水', '不喝汽水']
+
+    喜爱的书籍类型:
+        非小说类作品: ['读非小说类作品的人', '读非小说类作品', '不读非小说类作品']
+        犯罪小说: ['读犯罪小说的人', '读犯罪小说', '不读犯罪小说']
+        奇幻小说: ['读奇幻小说的人', '读奇幻小说', '不读奇幻小说']
+        科幻小说: ['读科幻小说的人', '读科幻小说', '不读科幻小说']
+        恐怖小说: ['读恐怖小说的人', '读恐怖小说', '不读恐怖小说']
+        诗歌: ['读诗歌的人', '读诗歌', '不读诗歌']
+        言情小说: ['读言情小说的人', '读言情小说', '不读言情小说']
+
+    爱好:
+        抱石: ['抱石的人', '抱石', '不抱石']
+        绘画: ['画画的人', '画画', '不画画']
+        桌游: ['玩桌游的人', '玩桌游', '不玩桌游']
+        网球: ['打网球的人', '打网球', '不打网球']
+        钩织: ['钩织的人', '钩织', '不钩织']
+        足球: ['踢足球的人', '踢足球', '不踢足球']
+        手球: ['打手球的人', '打手球', '不打手球']
+
+    喜爱的水果:
+        苹果: ['爱吃苹果的人', '爱吃苹果', '不喜欢苹果']
+        梨: ['爱吃梨的人', '爱吃梨', '不喜欢梨']
+        橙子: ['爱吃橙子的人', '爱吃橙子', '不喜欢橙子']
+        香蕉: ['爱吃香蕉的人', '爱吃香蕉', '不喜欢香蕉']
+        草莓: ['爱吃草莓的人', '爱吃草莓', '不喜欢草莓']
+        黑加仑: ['爱吃黑加仑的人', '爱吃黑加仑', '不喜欢黑加仑']
+        野草莓: ['爱吃野草莓的人', '爱吃野草莓', '不喜欢野草莓']
+
+# Clues
+clues_dict:
+    found_at: '{attribute_desc}住在{i_object}号房子。'
+    not_at: '{attribute_desc}不住在{i_object}号房子。'
+    next_to: '{attribute_desc_1}住在{attribute_desc_2}隔壁。'                                                    # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1}不住在{attribute_desc_2}隔壁，而且他们是两个不同的人。'                        # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1}紧挨着{attribute_desc_2}的左边。'                                           # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1}紧挨着{attribute_desc_2}的右边。'                                          # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1}住在{attribute_desc_2}的左边。'
+    right_of: '{attribute_desc_1}住在{attribute_desc_2}的右边。'
+    same_object: '{attribute_desc_1}{attribute_desc_2}。'                                                       # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1}{attribute_desc_2}。'                                                   # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2}住在{attribute_desc_1}和{attribute_desc_3}之间。'                                # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1}不住在{attribute_desc_2}和{attribute_desc_3}之间，而且他们是三个不同的人。'    # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1}和{attribute_desc_2}之间有{n_between}栋房子。'                          # Requires n_objects > 3, otherwise it cannot be used
+    one_between: '{attribute_desc_1}和{attribute_desc_2}之间有一栋房子。'                                        # Requires n_objects > 2, otherwise it cannot be used
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'nom']
+    not_next_to: ['nom', 'nom']
+    just_left_of: ['nom', 'nom']
+    just_right_of: ['nom', 'nom']
+    left_of: ['nom', 'nom']
+    right_of: ['nom', 'nom']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['nom', 'nom', 'nom']
+    not_between: ['nom', 'nom', 'nom']
+    multiple_between: ['nom', 'nom']
+    one_between: ['nom', 'nom']
+
+# Prompt
+prompt_and: 和
+
+prompt_templates:
+    - |
+        一排房子从左到右编号为1至{n_objects}。
+
+        每栋房子里住着一个人，每个人在以下每个类别中都有一个独特的属性：
+
+        {chosen_attributes_str}
+
+        我们还知道以下信息：
+
+        {chosen_clues_str}
+
+        谁拥有哪些属性，住在哪栋房子里？
+
+        请以JSON字典的形式提交你的答案。每个键必须是object_X，其中X是房子的编号。每个值必须是一个属性列表，包含前述类别中属于X号房子里的人的所有属性。
+
+        以下是答案格式的示例：
+
+        {solution_template}
+    - |
+        一排房子从左到右编号为1至{n_objects}。
+
+        每栋房子里住着一个人，每个人在{chosen_attributes_str}类别中都有一个独特的属性。
+
+        我们还知道以下信息：
+
+        {chosen_clues_str}
+
+        每栋房子里的人分别拥有哪个属性？
+
+        请以JSON字典的形式提交你的答案。每个键必须是object_X，其中X是房子的编号。每个值必须是一个只包含一个属性的列表，即前述类别中属于X号房子里的人的属性。
+
+        以下是答案格式的示例：
+
+        {solution_template}
+
+# Red herrings
+red_herring_clues_dict:
+    same_herring: '{attribute_desc}{attribute_desc_herring}。'
+    next_to_herring: '{attribute_desc}住在{attribute_desc_herring}隔壁。'
+    double_herring: '{attribute_desc_herring_1}{attribute_desc_herring_2}。'
+    fact: '{fact}。'
+    object_fact: '{attribute_desc}知道{fact}。'
+    friends: '{attribute_desc}和{attribute_desc_herring}是好朋友。'
+    herring_found_at: '{attribute_desc_herring}住在{i_object}号房子。'
+    herring_not_at: '{attribute_desc_herring}不住在{i_object}号房子。'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'nom']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+red_herring_attributes:
+    红头发: ['有红头发的人', '有红头发']
+    眼镜: ['戴眼镜的人', '戴眼镜']
+    纹身: ['有纹身的人', '有纹身']
+    吉他: ['弹吉他的人', '弹吉他']
+    自行车: ['有自行车的人', '有自行车']
+    豚鼠: ['养豚鼠的人', '养豚鼠']
+    仙人掌: ['养仙人掌的人', '不养仙人掌']
+    电子游戏: ['玩电子游戏的人', '玩电子游戏']
+    姐妹: ['有姐妹的人', '有姐妹']
+    芒果: ['认为第二好吃的水果是芒果的人', '认为第二好吃的水果是芒果']
+    航海: ['经常航海的人', '经常航海']
+    加拿大: ['去过加拿大的人', '去过加拿大']
+    数学: ['拥有数学硕士学位的人', '拥有数学硕士学位']
+    物理: ['热爱物理学的人', '热爱物理学']
+    年长宠物: ['养着比同类年长的宠物的人', '养的宠物比同类年长']
+    跳台滑雪: ['看跳台滑雪比赛的人', '看跳台滑雪比赛']
+
+red_herring_facts:
+    鲱鱼: ['鲱鱼是一种鱼']
+    太阳系: ['太阳系围绕银河系中心以大约每秒200公里的速度运动']
+    解谜: ['解谜是一件有趣的事']
+    房子: ['这条街上的所有房子都有漂亮的花园']
+    门: ['有些房子的门是绿色的']
+    窗户: ['所有的房子都有大窗户']
+    汽车: ['街上有很多汽车']
+    黄瓜: ['黄瓜是一种浆果']
+    蜗牛事实: ['蜗牛是软体动物']
+    咖啡因: ['咖啡含有咖啡因']
+
+# Strings to replace in the generated prompt.
+prompt_replacements:
+    '知道解谜是一件有趣的事': '觉得解谜很有趣'

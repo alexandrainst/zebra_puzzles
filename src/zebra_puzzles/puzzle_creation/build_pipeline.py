@@ -36,6 +36,13 @@ def run_pipeline(
     attribute_subject_cases: dict[str, str] | None = None,
     same_object_templates: dict[str, str] | None = None,
     not_same_object_templates: dict[str, str] | None = None,
+    red_herring_subject_cases: dict[str, str] | None = None,
+    same_herring_templates: dict[str, str] | None = None,
+    double_herring_templates: dict[str, str] | None = None,
+    prompt_comma: str = ", ",
+    prompt_and_spacing: bool = True,
+    prompt_full_stop: str = ".",
+    prompt_colon: str = ": ",
 ) -> tuple[str, str, str, str]:
     """Run the pipeline to generate one zebra puzzle.
 
@@ -62,6 +69,15 @@ def run_pipeline(
         attribute_subject_cases: Optional per-category subject case override for same_object/not_same_object clues.
         same_object_templates: Optional per-category template override for same_object clues.
         not_same_object_templates: Optional per-category template override for not_same_object clues.
+        red_herring_subject_cases: Optional per-red-herring subject case override for same_herring/double_herring clues.
+        same_herring_templates: Optional per-red-herring template override for same_herring clues.
+        double_herring_templates: Optional per-red-herring template override for double_herring clues.
+        prompt_comma: String to use for separating non-final elements in a list, e.g. ", ".
+        prompt_and_spacing: Whether to surround prompt_and with spaces when joining a list. Languages
+            that do not put spaces between words (e.g. Chinese) should set this to False.
+        prompt_full_stop: Sentence-ending punctuation appended to each category's attribute list line,
+            e.g. "." or "。".
+        prompt_colon: Separator between a category title and its attribute list, e.g. ": " or "：".
 
     Returns:
         A tuple (prompt, solution_str, red_herring_indices_str, chosen_clue_types_str), where:
@@ -106,6 +122,10 @@ def run_pipeline(
         n_objects=n_objects,
         n_attributes=n_attributes,
         case_to_index=red_herring_case_to_index,
+        red_herring_subject_cases=red_herring_subject_cases,
+        same_herring_templates=same_herring_templates,
+        double_herring_templates=double_herring_templates,
+        attribute_case_to_index=case_to_index,
     )
 
     chosen_clues, red_herring_indices_str, chosen_clue_types_str = shuffle_clues(
@@ -124,6 +144,10 @@ def run_pipeline(
         prompt_templates=prompt_templates,
         prompt_and=prompt_and,
         prompt_replacements=prompt_replacements,
+        prompt_comma=prompt_comma,
+        prompt_and_spacing=prompt_and_spacing,
+        prompt_full_stop=prompt_full_stop,
+        prompt_colon=prompt_colon,
     )
 
     solution_json = format_solution_as_json(solution=solution)
@@ -155,6 +179,13 @@ def build_dataset(
     attribute_subject_cases: dict[str, str] | None = None,
     same_object_templates: dict[str, str] | None = None,
     not_same_object_templates: dict[str, str] | None = None,
+    red_herring_subject_cases: dict[str, str] | None = None,
+    same_herring_templates: dict[str, str] | None = None,
+    double_herring_templates: dict[str, str] | None = None,
+    prompt_comma: str = ", ",
+    prompt_and_spacing: bool = True,
+    prompt_full_stop: str = ".",
+    prompt_colon: str = ": ",
     auto_confirm: bool = False,
 ) -> None:
     """Build a dataset of zebra puzzles.
@@ -185,6 +216,15 @@ def build_dataset(
         attribute_subject_cases: Optional per-category subject case override for same_object/not_same_object clues.
         same_object_templates: Optional per-category template override for same_object clues.
         not_same_object_templates: Optional per-category template override for not_same_object clues.
+        red_herring_subject_cases: Optional per-red-herring subject case override for same_herring/double_herring clues.
+        same_herring_templates: Optional per-red-herring template override for same_herring clues.
+        double_herring_templates: Optional per-red-herring template override for double_herring clues.
+        prompt_comma: String to use for separating non-final elements in a list, e.g. ", ".
+        prompt_and_spacing: Whether to surround prompt_and with spaces when joining a list. Languages
+            that do not put spaces between words (e.g. Chinese) should set this to False.
+        prompt_full_stop: Sentence-ending punctuation appended to each category's attribute list line,
+            e.g. "." or "。".
+        prompt_colon: Separator between a category title and its attribute list, e.g. ": " or "：".
         auto_confirm: If True, delete outdated files in the data folders without asking for confirmation.
     """
     validate_language_config(
@@ -247,6 +287,13 @@ def build_dataset(
                 attribute_subject_cases=attribute_subject_cases,
                 same_object_templates=same_object_templates,
                 not_same_object_templates=not_same_object_templates,
+                red_herring_subject_cases=red_herring_subject_cases,
+                same_herring_templates=same_herring_templates,
+                double_herring_templates=double_herring_templates,
+                prompt_comma=prompt_comma,
+                prompt_and_spacing=prompt_and_spacing,
+                prompt_full_stop=prompt_full_stop,
+                prompt_colon=prompt_colon,
             )
         )
         save_dataset(data=prompt, filename=prompt_filenames[i], folder=puzzle_folder)

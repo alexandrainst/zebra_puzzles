@@ -1,5 +1,8 @@
 # Config file for generating zebra puzzles in Ukrainian with the houses theme.
 # Gender policy: professions use masculine as common gender (standard Ukrainian usage for unknown gender).
+# Exception: медсестра (nurse) is a feminine job title used as-is — no natural masculine equivalent is in everyday common
+#   use. It collides with "сестра" (the sister red herring), but the two are grammatically distinct clue
+#   types, so no real ambiguity results.
 # Other categories use gender-neutral forms: "людина, яка X" or "людина з X".
 # Nationality descriptions use "людина з [країни]" (person from [country]).
 
@@ -14,7 +17,7 @@ attributes:
         пекар: ['пекар', 'є пекарем', 'не є пекарем', 'пекаря', 'пекарем']
         міністр: ['міністр', 'є міністром', 'не є міністром', 'міністра', 'міністром']
         поліцейський: ['поліцейський', 'є поліцейським', 'не є поліцейським', 'поліцейського', 'поліцейським']
-        медик: ['медик', 'є медиком', 'не є медиком', 'медика', 'медиком']
+        медсестра: ['медсестра', 'є медсестрою', 'не є медсестрою', 'медсестри', 'медсестрою']
         вчитель: ['вчитель', 'є вчителем', 'не є вчителем', 'вчителя', 'вчителем']
         програміст: ['програміст', 'є програмістом', 'не є програмістом', 'програміста', 'програмістом']
         продавець: ['продавець', 'є продавцем', 'не є продавцем', 'продавця', 'продавцем']
@@ -104,7 +107,7 @@ clue_cases_dict:
     right_of: ['nom', 'gen']
     same_object: ['nom', 'none']
     not_same_object: ['nom', 'none']
-    between: ['inst', 'nom', 'inst']
+    between: ['inst', 'nom', 'inst'] # Exception: The first element here is the second in the clue template (attribute_desc_1 is the first).
     not_between: ['nom', 'inst', 'inst']
     multiple_between: ['inst', 'inst']
     one_between: ['inst', 'inst']

@@ -1,0 +1,260 @@
+# Config file for generating zebra puzzles in Hindi with the "houses" (घर) theme.
+#
+# Ergativity avoidance: Hindi has split ergativity — the ergative marker "ने" appears only on transitive
+#   verbs in the perfective aspect. Every clue
+#   and attribute here is phrased in the present habitual (करता है/पीता है/पढ़ता है, etc.), which is
+#   imperfective, so ergative marking never triggers. The one red herring using a completed-past-feeling
+#   verb ("has been to Canada") uses "गया हुआ है" (an experiential-perfect built on जाना, "to go") — जाना is
+#   intransitive, and ergativity does not apply.
+# Gender: masculine default. All habitual verb forms use -ता है (masculine singular); habitual-present
+#   verb agreement is with the SUBJECT regardless of any object's own gender (unlike perfective/ergative
+#   constructions, where the verb would agree with the object instead — moot here since perfective is
+#   never used).
+# Cases: attribute_cases = [nom, is, is_not, obl]. Every Hindi positional postposition used here (के बगल
+#   में "next to", के बाएं/दाएं "left/right of", के बीच में "between") is a grammaticalized के-based compound
+#   that requires its preceding noun phrase in the OBLIQUE case regardless of that NP's own gender.
+# Word-formation: Jobs are bare nouns ending in ई or a consonant (नानबाई, मंत्री, शिक्षक,
+#   etc.), none of which have a distinct oblique form — obl = nom. Proper nouns (country
+#   names) resist the usual -आ oblique shift even where they end in आ (e.g. लातविया stays लातविया, not
+#   लातविये).
+# Red herrings use वाला-nominalization for their nom/obl referring forms exclusively (not जो-relative
+#   clauses): a जो...वह/उस correlative clause would need to be word-order-split around a postposition,
+#   which this framework's flat {attribute_desc} template substitution can't express. Changes needed?
+#   वाला instead
+#   compresses the relative clause into an ordinary noun that takes oblique marking (वाला→वाले) like any
+#   other noun, so it composes correctly wherever used (next_to_herring, herring_found_at/not_at,
+#   friends).
+# Possessive predicates: बहन/लाल_बाल/टैटू originally used "X रखता है" ("X keeps Y") for their
+#   same_herring/double_herring "is" slot, since Hindi's natural possessive-existential construction — "X
+#   के/की/पर Y है/हैं" ("Y is with/on X" = "X has Y") — needs the SUBJECT marked oblique (के/की/पर all
+#   require it), which the generic same_herring/double_herring templates couldn't express (they always
+#   spliced the subject in as bare nominative). Added `red_herring_subject_cases` (override the subject's
+#   case per red-herring key) and `same_herring_templates`/`double_herring_templates` (override the whole
+#   template per key).
+# Nurse/sister: job "nurse" is नर्स — a loanword
+#   (the native alternative शुश्रूषक, same -अक agentive-noun pattern as
+#   शिक्षक "teacher", would be more formal/literary). Unsure if optimal.
+# Checked against Hindi Wikipedia: बजरिगर (budgerigar) matches the article title; हेरिंग (herring) is the
+#   transliteration used consistently across Hindi Wikipedia articles. More uncertain: छड़ी कीट (stick insect, Carausius morosus), ब्लैककरंट (blackcurrant),
+#   जंगली स्ट्रॉबेरी (wild strawberry).
+
+theme: hi_ghar
+
+attribute_cases: [nom, is, is_not, obl]
+red_herring_attribute_cases: [nom, is, obl]
+
+prompt_full_stop: ।
+
+attributes:
+
+    राष्ट्रीयताएँ:
+        डेनमार्क: ['डेनमार्क का निवासी', 'डेनमार्क का निवासी है', 'डेनमार्क का निवासी नहीं है', 'डेनमार्क के निवासी']
+        स्वीडन: ['स्वीडन का निवासी', 'स्वीडन का निवासी है', 'स्वीडन का निवासी नहीं है', 'स्वीडन के निवासी']
+        लातविया: ['लातविया का निवासी', 'लातविया का निवासी है', 'लातविया का निवासी नहीं है', 'लातविया के निवासी']
+        फ्रांस: ['फ्रांस का निवासी', 'फ्रांस का निवासी है', 'फ्रांस का निवासी नहीं है', 'फ्रांस के निवासी']
+        स्पेन: ['स्पेन का निवासी', 'स्पेन का निवासी है', 'स्पेन का निवासी नहीं है', 'स्पेन के निवासी']
+        इटली: ['इटली का निवासी', 'इटली का निवासी है', 'इटली का निवासी नहीं है', 'इटली के निवासी']
+        नॉर्वे: ['नॉर्वे का निवासी', 'नॉर्वे का निवासी है', 'नॉर्वे का निवासी नहीं है', 'नॉर्वे के निवासी']
+        फ़ैरो द्वीप समूह: ['फ़ैरो द्वीप समूह का निवासी', 'फ़ैरो द्वीप समूह का निवासी है', 'फ़ैरो द्वीप समूह का निवासी नहीं है', 'फ़ैरो द्वीप समूह के निवासी']
+        नीदरलैंड: ['नीदरलैंड का निवासी', 'नीदरलैंड का निवासी है', 'नीदरलैंड का निवासी नहीं है', 'नीदरलैंड के निवासी']
+        आइसलैंड: ['आइसलैंड का निवासी', 'आइसलैंड का निवासी है', 'आइसलैंड का निवासी नहीं है', 'आइसलैंड के निवासी']
+        यूनाइटेड किंगडम: ['यूनाइटेड किंगडम का निवासी', 'यूनाइटेड किंगडम का निवासी है', 'यूनाइटेड किंगडम का निवासी नहीं है', 'यूनाइटेड किंगडम के निवासी']
+
+    पेशे:
+        नानबाई: ['नानबाई', 'नानबाई है', 'नानबाई नहीं है', 'नानबाई']
+        मंत्री: ['मंत्री', 'मंत्री है', 'मंत्री नहीं है', 'मंत्री']
+        पुलिस अधिकारी: ['पुलिस अधिकारी', 'पुलिस अधिकारी है', 'पुलिस अधिकारी नहीं है', 'पुलिस अधिकारी']
+        नर्स: ['नर्स', 'नर्स है', 'नर्स नहीं है', 'नर्स']
+        शिक्षक: ['शिक्षक', 'शिक्षक है', 'शिक्षक नहीं है', 'शिक्षक']
+        सॉफ्टवेयर डेवलपर: ['सॉफ्टवेयर डेवलपर', 'सॉफ्टवेयर डेवलपर है', 'सॉफ्टवेयर डेवलपर नहीं है', 'सॉफ्टवेयर डेवलपर']
+        दुकान सहायक: ['दुकान सहायक', 'दुकान सहायक है', 'दुकान सहायक नहीं है', 'दुकान सहायक']
+
+    पालतू जानवर:
+        कुत्ता: ['कुत्ते का मालिक', 'कुत्ता रखता है', 'कुत्ता नहीं रखता है', 'कुत्ते के मालिक']
+        बिल्ली: ['बिल्ली का मालिक', 'बिल्ली रखता है', 'बिल्ली नहीं रखता है', 'बिल्ली के मालिक']
+        खरगोश: ['खरगोश का मालिक', 'खरगोश रखता है', 'खरगोश नहीं रखता है', 'खरगोश के मालिक']
+        ज़ेबरा: ['ज़ेबरा का मालिक', 'ज़ेबरा रखता है', 'ज़ेबरा नहीं रखता है', 'ज़ेबरा के मालिक']
+        बजरिगर: ['बजरिगर का मालिक', 'बजरिगर रखता है', 'बजरिगर नहीं रखता है', 'बजरिगर के मालिक']
+        घोंघा: ['घोंघे का मालिक', 'घोंघा रखता है', 'घोंघा नहीं रखता है', 'घोंघे के मालिक']
+        छड़ी कीट: ['छड़ी कीट का मालिक', 'छड़ी कीट रखता है', 'छड़ी कीट नहीं रखता है', 'छड़ी कीट के मालिक']  # uncertain — verify term
+
+    पेय पदार्थ:
+        जूस: ['जूस पीनेवाला', 'जूस पीता है', 'जूस नहीं पीता है', 'जूस पीनेवाले']
+        कॉफ़ी: ['कॉफ़ी पीनेवाला', 'कॉफ़ी पीता है', 'कॉफ़ी नहीं पीता है', 'कॉफ़ी पीनेवाले']
+        दूध: ['दूध पीनेवाला', 'दूध पीता है', 'दूध नहीं पीता है', 'दूध पीनेवाले']
+        स्मूदी: ['स्मूदी पीनेवाला', 'स्मूदी पीता है', 'स्मूदी नहीं पीता है', 'स्मूदी पीनेवाले']
+        कोको: ['कोको पीनेवाला', 'कोको पीता है', 'कोको नहीं पीता है', 'कोको पीनेवाले']
+        चाय: ['चाय पीनेवाला', 'चाय पीता है', 'चाय नहीं पीता है', 'चाय पीनेवाले']
+        कोल्ड ड्रिंक: ['कोल्ड ड्रिंक पीनेवाला', 'कोल्ड ड्रिंक पीता है', 'कोल्ड ड्रिंक नहीं पीता है', 'कोल्ड ड्रिंक पीनेवाले']
+
+    पसंदीदा किताबों की विधाएँ:
+        नॉन-फिक्शन: ['नॉन-फिक्शन पढ़नेवाला', 'नॉन-फिक्शन पढ़ता है', 'नॉन-फिक्शन नहीं पढ़ता है', 'नॉन-फिक्शन पढ़नेवाले']
+        अपराध कथा: ['अपराध कथा पढ़नेवाला', 'अपराध कथा पढ़ता है', 'अपराध कथा नहीं पढ़ता है', 'अपराध कथा पढ़नेवाले']
+        फ़ैंटेसी: ['फ़ैंटेसी पढ़नेवाला', 'फ़ैंटेसी पढ़ता है', 'फ़ैंटेसी नहीं पढ़ता है', 'फ़ैंटेसी पढ़नेवाले']
+        विज्ञान कथा: ['विज्ञान कथा पढ़नेवाला', 'विज्ञान कथा पढ़ता है', 'विज्ञान कथा नहीं पढ़ता है', 'विज्ञान कथा पढ़नेवाले']
+        डरावनी कथा: ['डरावनी कथा पढ़नेवाला', 'डरावनी कथा पढ़ता है', 'डरावनी कथा नहीं पढ़ता है', 'डरावनी कथा पढ़नेवाले']
+        कविता: ['कविता पढ़नेवाला', 'कविता पढ़ता है', 'कविता नहीं पढ़ता है', 'कविता पढ़नेवाले']
+        प्रेम कहानी: ['प्रेम कहानी पढ़नेवाला', 'प्रेम कहानी पढ़ता है', 'प्रेम कहानी नहीं पढ़ता है', 'प्रेम कहानी पढ़नेवाले']
+
+    शौक:
+        बोल्डरिंग: ['बोल्डरिंग करनेवाला', 'बोल्डरिंग करता है', 'बोल्डरिंग नहीं करता है', 'बोल्डरिंग करनेवाले']
+        चित्रकारी: ['चित्र बनानेवाला', 'चित्र बनाता है', 'चित्र नहीं बनाता है', 'चित्र बनानेवाले']
+        बोर्ड गेम: ['बोर्ड गेम खेलनेवाला', 'बोर्ड गेम खेलता है', 'बोर्ड गेम नहीं खेलता है', 'बोर्ड गेम खेलनेवाले']
+        टेनिस: ['टेनिस खेलनेवाला', 'टेनिस खेलता है', 'टेनिस नहीं खेलता है', 'टेनिस खेलनेवाले']
+        क्रोशिया: ['क्रोशिया करनेवाला', 'क्रोशिया करता है', 'क्रोशिया नहीं करता है', 'क्रोशिया करनेवाले']
+        फ़ुटबॉल: ['फ़ुटबॉल खेलनेवाला', 'फ़ुटबॉल खेलता है', 'फ़ुटबॉल नहीं खेलता है', 'फ़ुटबॉल खेलनेवाले']
+        हैंडबॉल: ['हैंडबॉल खेलनेवाला', 'हैंडबॉल खेलता है', 'हैंडबॉल नहीं खेलता है', 'हैंडबॉल खेलनेवाले']
+
+    पसंदीदा फल:
+        सेब: ['सेब पसंद करनेवाला', 'सेब पसंद करता है', 'सेब पसंद नहीं करता है', 'सेब पसंद करनेवाले']
+        नाशपाती: ['नाशपाती पसंद करनेवाला', 'नाशपाती पसंद करता है', 'नाशपाती पसंद नहीं करता है', 'नाशपाती पसंद करनेवाले']
+        संतरा: ['संतरा पसंद करनेवाला', 'संतरा पसंद करता है', 'संतरा पसंद नहीं करता है', 'संतरा पसंद करनेवाले']
+        केला: ['केला पसंद करनेवाला', 'केला पसंद करता है', 'केला पसंद नहीं करता है', 'केला पसंद करनेवाले']
+        स्ट्रॉबेरी: ['स्ट्रॉबेरी पसंद करनेवाला', 'स्ट्रॉबेरी पसंद करता है', 'स्ट्रॉबेरी पसंद नहीं करता है', 'स्ट्रॉबेरी पसंद करनेवाले']
+        ब्लैककरंट: ['ब्लैककरंट पसंद करनेवाला', 'ब्लैककरंट पसंद करता है', 'ब्लैककरंट पसंद नहीं करता है', 'ब्लैककरंट पसंद करनेवाले']  # uncertain — verify term
+        जंगली स्ट्रॉबेरी: ['जंगली स्ट्रॉबेरी पसंद करनेवाला', 'जंगली स्ट्रॉबेरी पसंद करता है', 'जंगली स्ट्रॉबेरी पसंद नहीं करता है', 'जंगली स्ट्रॉबेरी पसंद करनेवाले']  # uncertain — verify botanical term
+
+# Clues
+clues_dict:
+    found_at: '{attribute_desc} घर नंबर {i_object} में रहता है।'
+    not_at: '{attribute_desc} घर नंबर {i_object} में नहीं रहता है।'
+    next_to: '{attribute_desc_1} {attribute_desc_2} के बगल में रहता है।'                                       # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} {attribute_desc_2} के बगल में नहीं रहता है, और वे दो अलग-अलग लोग हैं।'      # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} {attribute_desc_2} के ठीक बाएं रहता है।'                                  # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} {attribute_desc_2} के ठीक दाएं रहता है।'                                 # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} {attribute_desc_2} के बाएं रहता है।'
+    right_of: '{attribute_desc_1} {attribute_desc_2} के दाएं रहता है।'
+    same_object: '{attribute_desc_1} {attribute_desc_2}।'                                                      # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}।'                                                  # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} {attribute_desc_1} और {attribute_desc_3} के बीच में रहता है।'                  # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} {attribute_desc_2} और {attribute_desc_3} के बीच में नहीं रहता है, और वे तीन अलग-अलग लोग हैं।' # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1} और {attribute_desc_2} के बीच में {n_between} घर हैं।'                 # Requires n_objects > 3, otherwise it cannot be used
+    one_between: '{attribute_desc_1} और {attribute_desc_2} के बीच में एक घर है।'                                # Requires n_objects > 2, otherwise it cannot be used
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'obl']
+    not_next_to: ['nom', 'obl']
+    just_left_of: ['nom', 'obl']
+    just_right_of: ['nom', 'obl']
+    left_of: ['nom', 'obl']
+    right_of: ['nom', 'obl']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['obl', 'nom', 'obl'] # Exception: The first element here is the second in the clue template (attribute_desc_1 is the first).
+    not_between: ['nom', 'obl', 'obl']
+    multiple_between: ['obl', 'obl']
+    one_between: ['obl', 'obl']
+
+# Prompt
+prompt_and: और
+
+prompt_templates:
+    - |
+        घरों की एक पंक्ति बाएं से दाएं 1 से {n_objects} तक क्रमांकित है।
+
+        हर घर में एक व्यक्ति रहता है, जिसकी निम्नलिखित हर श्रेणी में एक अनोखी विशेषता है:
+
+        {chosen_attributes_str}
+
+        हमें यह भी पता है:
+
+        {chosen_clues_str}
+
+        किसके पास कौन सी विशेषताएं हैं और कौन किस घर में रहता है?
+
+        कृपया अपना उत्तर JSON dictionary के रूप में जमा करें। हर key object_X होनी चाहिए, जहाँ X घर का नंबर है। हर value ऊपर बताई गई श्रेणियों की उन विशेषताओं की सूची होनी चाहिए जो घर नंबर X में रहनेवाले व्यक्ति की हैं।
+
+        उत्तर के प्रारूप का एक उदाहरण नीचे दिया गया है:
+
+        {solution_template}
+    - |
+        घरों की एक पंक्ति बाएं से दाएं 1 से {n_objects} तक क्रमांकित है।
+
+        हर घर में एक व्यक्ति रहता है, जिसकी {chosen_attributes_str} श्रेणी में एक अनोखी विशेषता है।
+
+        हमें यह भी पता है:
+
+        {chosen_clues_str}
+
+        हर घर में रहनेवाले व्यक्ति की कौन सी विशेषता है?
+
+        कृपया अपना उत्तर JSON dictionary के रूप में जमा करें। हर key object_X होनी चाहिए, जहाँ X घर का नंबर है। हर value में केवल ऊपर बताई गई श्रेणी की वह विशेषता होनी चाहिए जो घर नंबर X में रहनेवाले व्यक्ति की है।
+
+        उत्तर के प्रारूप का एक उदाहरण नीचे दिया गया है:
+
+        {solution_template}
+
+# Red herrings
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}।'
+    next_to_herring: '{attribute_desc} {attribute_desc_herring} के बगल में रहता है।'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}।'
+    fact: '{fact}।'
+    object_fact: '{attribute_desc} जानता है कि {fact}।'
+    friends: '{attribute_desc} और {attribute_desc_herring} अच्छे दोस्त हैं।'
+    herring_found_at: '{attribute_desc_herring} घर नंबर {i_object} में रहता है।'
+    herring_not_at: '{attribute_desc_herring} घर नंबर {i_object} में नहीं रहता है।'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'obl']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+red_herring_attributes:
+    laal_baal: ['लाल बालोंवाला', 'बाल लाल', 'लाल बालोंवाले']
+    chashma: ['चश्मेवाला', 'चश्मा पहनता है', 'चश्मेवाले']
+    tattoo: ['टैटूवाला', 'टैटू', 'टैटूवाले']
+    guitar: ['गिटार बजानेवाला', 'गिटार बजाता है', 'गिटार बजानेवाले']
+    cycle: ['साइकिलवाला', 'साइकिल रखता है', 'साइकिलवाले']
+    guinea_pig: ['गिनी पिगवाला', 'गिनी पिग पालता है', 'गिनी पिगवाले']
+    cactus: ['कैक्टसवाला', 'कैक्टस नहीं रखता है', 'कैक्टसवाले']
+    video_game: ['वीडियो गेम खेलनेवाला', 'वीडियो गेम खेलता है', 'वीडियो गेम खेलनेवाले']
+    bahan: ['बहनवाला', 'बहन', 'बहनवाले']
+    aam: ['दूसरा सबसे अच्छा फल आम है ऐसा माननेवाला व्यक्ति', 'मानता है कि दूसरा सबसे अच्छा फल आम है', 'दूसरा सबसे अच्छा फल आम है ऐसा माननेवाले व्यक्ति']
+    naukayan: ['अक्सर नाव चलानेवाला', 'अक्सर नाव चलाता है', 'अक्सर नाव चलानेवाले']
+    canada: ['कनाडा गया हुआ व्यक्ति', 'कनाडा गया हुआ है', 'कनाडा गया हुआ व्यक्ति']
+    ganit: ['गणित में मास्टर डिग्रीवाला', 'गणित में मास्टर डिग्री रखता है', 'गणित में मास्टर डिग्रीवाले']
+    bhautiki: ['भौतिकी पसंद करनेवाला', 'भौतिकी बहुत पसंद करता है', 'भौतिकी पसंद करनेवाले']
+    budha_pitomets: ['बूढ़े पालतू जानवरवाला', 'बूढ़ा पालतू जानवर पालता है', 'बूढ़े पालतू जानवरवाले']
+    ski_jumping: ['स्की जंपिंग देखनेवाला', 'स्की जंपिंग देखता है', 'स्की जंपिंग देखनेवाले']
+
+# Per-red-herring overrides for same_herring/double_herring: बहन/लाल_बाल/टैटू use Hindi's natural
+# possessive-existential predicate ("X की/के/पर Y है/हैं", not "X रखता है"), which needs the subject in
+# oblique case (के/की/पर all require an oblique-marked preceding NP) instead of the default nominative.
+red_herring_subject_cases:
+    bahan: obl
+    laal_baal: obl
+    tattoo: obl
+
+same_herring_templates:
+    bahan: '{attribute_desc} की {attribute_desc_herring} है।'
+    laal_baal: '{attribute_desc} के {attribute_desc_herring} हैं।'
+    tattoo: '{attribute_desc} पर {attribute_desc_herring} है।'
+
+double_herring_templates:
+    bahan: '{attribute_desc_herring_1} की {attribute_desc_herring_2} है।'
+    laal_baal: '{attribute_desc_herring_1} के {attribute_desc_herring_2} हैं।'
+    tattoo: '{attribute_desc_herring_1} पर {attribute_desc_herring_2} है।'
+
+red_herring_facts:
+    herring: ['हेरिंग एक मछली है']  # confirmed transliteration, still an obscure fish in India
+    saur_mandal: ['सौर मंडल आकाशगंगा के केंद्र के चारों ओर लगभग 200 किमी/सेकंड की गति से घूमता है']
+    paheli: ['पहेलियाँ सुलझाना मजेदार है']
+    ghar_fact: ['इस सड़क के सभी घरों में सुंदर बगीचे हैं']
+    darwaze: ['कुछ घरों के दरवाजे हरे हैं']
+    khidkiyan: ['सभी घरों में बड़ी खिड़कियाँ हैं']
+    gadiyan: ['सड़क पर बहुत सी गाड़ियाँ हैं']
+    kheera: ['खीरा एक बेरी है']
+    ghongha_fact: ['घोंघे मोलस्क होते हैं']
+    coffee_fact: ['कॉफ़ी में कैफीन होता है']
+
+# Strings to replace in the generated prompt.
+prompt_replacements:
+    'जानता है कि पहेलियाँ सुलझाना मजेदार है': 'पहेलियाँ सुलझाने का आनंद लेता है'

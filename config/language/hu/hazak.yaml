@@ -85,8 +85,9 @@ red_herring_attributes:
     tengerimalac: ['a tengerimalac gazdája', 'tengerimalacot tart']
     kaktusz: ['a kaktuszos', 'nem tart kaktuszt']
     videójátékok: ['a videojátékos', 'videójátékot játszik']
-    # "nővér" (sister) also means "nurse" in Hungarian, so fivér (brother) is used instead.
-    fivér: ['a fivéres', 'fivére van']
+    # "nővér" also means "nurse" in Hungarian, but that's not actually ambiguous here: the nurse job
+    # attribute is always asserted as a copular predicate.
+    nővér: ['a nővéres', 'nővére van']
     mangó: ['az, aki szerint a mangó a második legjobb gyümölcs,', 'szerint a mangó a második legjobb gyümölcs']
     vitorlázás: ['az, aki gyakran vitorlázik,', 'gyakran vitorlázik']
     Kanada: ['az, aki járt Kanadában,', 'járt Kanadában']

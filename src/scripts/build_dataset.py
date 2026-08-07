@@ -45,6 +45,15 @@ def main(config: DictConfig) -> None:
     not_same_object_templates = dict(
         config.language.get("not_same_object_templates", {})
     )
+    red_herring_subject_cases = dict(
+        config.language.get("red_herring_subject_cases", {})
+    )
+    same_herring_templates = dict(config.language.get("same_herring_templates", {}))
+    double_herring_templates = dict(config.language.get("double_herring_templates", {}))
+    prompt_comma = config.language.get("prompt_comma", ", ")
+    prompt_and_spacing = config.language.get("prompt_and_spacing", True)
+    prompt_full_stop = config.language.get("prompt_full_stop", ".")
+    prompt_colon = config.language.get("prompt_colon", ": ")
     auto_confirm = config.get("auto_confirm", False)
     build_dataset(
         n_objects=n_objects,
@@ -70,6 +79,13 @@ def main(config: DictConfig) -> None:
         attribute_subject_cases=attribute_subject_cases,
         same_object_templates=same_object_templates,
         not_same_object_templates=not_same_object_templates,
+        red_herring_subject_cases=red_herring_subject_cases,
+        same_herring_templates=same_herring_templates,
+        double_herring_templates=double_herring_templates,
+        prompt_comma=prompt_comma,
+        prompt_and_spacing=prompt_and_spacing,
+        prompt_full_stop=prompt_full_stop,
+        prompt_colon=prompt_colon,
         auto_confirm=auto_confirm,
     )
 

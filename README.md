@@ -13,9 +13,9 @@ Generation and LLM evaluation of zebra puzzles in multiple languages and themes 
 
 Available languages and themes:
 
-- Houses theme (38 languages):
-    - Finished versions: Danish (da) 🇩🇰, Dutch (nl) 🇳🇱, English (en) 🇬🇧, Faroese (fo) 🇫🇴, German (de) 🇩🇪, Icelandic (is) 🇮🇸, Norwegian Bokmål (nb) 🇳🇴, Norwegian Nynorsk (nn) 🇳🇴 and Swedish (sv) 🇸🇪.
-    - Preliminary versions: Albanian (sq) 🇦🇱, Basque (eu) 🏴, Belarusian (be) 🇧🇾, Bosnian (bs) 🇧🇦, Bulgarian (bg) 🇧🇬, Catalan (ca) 🏴󠁥󠁳󠁣󠁴󠁿, Croatian (hr) 🇭🇷, Czech (cs) 🇨🇿, Estonian (et) 🇪🇪, Finnish (fi) 🇫🇮, French (fr) 🇫🇷, Greek (el) 🇬🇷, Hungarian (hu) 🇭🇺, Irish (ga) 🇮🇪, Italian (it) 🇮🇹, Latvian (lv) 🇱🇻, Lithuanian (lt) 🇱🇹, Luxembourgish (lb) 🇱🇺, Macedonian (mk) 🇲🇰, Polish (pl) 🇵🇱, Portuguese (pt) 🇵🇹, Romanian (ro) 🇷🇴, Scots (sco) 🏴󠁧󠁢󠁳󠁣󠁴󠁿, Serbian (sr) 🇷🇸, Slovak (sk) 🇸🇰, Slovenian (sl) 🇸🇮, Spanish (es) 🇪🇸, Ukrainian (uk) 🇺🇦 and West Frisian (fy) 🇳🇱.
+- Houses theme (44 languages - 39 European, 5 _non-European_):
+    - Finished versions: Danish (da) 🇩🇰, Dutch (nl) 🇳🇱, English (en) 🇬🇧, Faroese (fo) 🇫🇴, German (de) 🇩🇪, _Hindi (hi)_ 🇮🇳, Icelandic (is) 🇮🇸, _Marathi (mr)_ 🇮🇳, Norwegian Bokmål (nb) 🇳🇴, Norwegian Nynorsk (nn) 🇳🇴 and Swedish (sv) 🇸🇪.
+    - Preliminary versions: Albanian (sq) 🇦🇱, _Arabic (ar)_ 🇸🇦, Basque (eu) 🏴, Belarusian (be) 🇧🇾, Bosnian (bs) 🇧🇦, Bulgarian (bg) 🇧🇬, Catalan (ca) 🏴, _Chinese (zh)_ 🇨🇳, Croatian (hr) 🇭🇷, Czech (cs) 🇨🇿, Estonian (et) 🇪🇪, Finnish (fi) 🇫🇮, French (fr) 🇫🇷, Greek (el) 🇬🇷, Hungarian (hu) 🇭🇺, Irish (ga) 🇮🇪, Italian (it) 🇮🇹, _Japanese (ja)_ 🇯🇵, Latvian (lv) 🇱🇻, Lithuanian (lt) 🇱🇹, Luxembourgish (lb) 🇱🇺, Macedonian (mk) 🇲🇰, Polish (pl) 🇵🇱, Portuguese (pt) 🇵🇹, Romanian (ro) 🇷🇴, Russian (ru) 🇷🇺, Scots (sco) 🏴󠁧󠁢󠁳󠁣󠁴󠁿, Serbian (sr) 🇷🇸, Slovak (sk) 🇸🇰, Slovenian (sl) 🇸🇮, Spanish (es) 🇪🇸, Ukrainian (uk) 🇺🇦 and West Frisian (fy) 🇳🇱.
 - Smørrebrød theme:
     - Finished versions: Danish (da) 🇩🇰.
 
@@ -23,7 +23,9 @@ Dataset on the Hugging Face Hub: https://huggingface.co/datasets/alexandrainst/z
 
 Paper: [ArXiv preprint](https://arxiv.org/abs/2511.03553)
 
-Contributions are welcome! Please read the [contributing guide](CONTRIBUTING.md) before submitting a PR. There are many ways to contribute, including opening issues for linguistic errors, adding new languages or themes, and adding new clue types.
+**Contributions** are welcome! Please read the [contributing guide](CONTRIBUTING.md) before submitting a PR. There are many ways to contribute, including opening issues for linguistic errors, adding new languages or themes, and adding new clue types.
+
+If you are a **native/fluent speaker** of one of the "Preliminary" languages above and want to review/improve its config, see the [guide to reviewing a language](REVIEWING_LANGUAGES.md).
 
 ______________________________________________________________________
 [![Code Coverage](https://img.shields.io/badge/Coverage-83%25-yellowgreen.svg)](https://github.com/alexandrainst/zebra_puzzles/tree/main/tests)
@@ -71,37 +73,38 @@ The following is an example of a 2x3 puzzle with 5 red herrings. The theme is ho
 ```
 A row of houses have numbers 1 to 2 from left to right.
 
-In each house lives a person with unique attributes in each of the following categories:
+In each house lives a person with a unique attribute in each of the following categories:
 
-Nationalities: Faroe Islands and United Kingdom.
-Drinks: cocoa and coffee.
-Hobbies: handball and painting.
+Jobs: baker and police officer.
+Drinks: milk and tea.
+Favourite book genres: fantasy and science fiction.
 
 We also know the following:
 
-1. The Faroese thinks the second best fruit is mango.
-2. The coffee drinker plays handball.
-3. The Brit lives in house no. 2.
-4. The person who paints does not live in house no. 1.
-5. The person with a sister plays video games.
-6. The person who paints lives next to the person who often sails.
-7. The person who owns a cactus does not live in house no. 1.
-8. The person who paints wears glasses.
+1. The milk drinker lives in house no. 1.
+2. The person who plays video games does not live in house no. 1.
+3. The person with glasses lives in house no. 1.
+4. The police officer lives to the left of the fantasy reader.
+5. The tea drinker lives next to the person who plays the guitar.
+6. The milk drinker is good friends with the person who watches ski jumping.
+7. The person with a guinea pig lives in house no. 1.
 
 Who has which attributes and lives in which house?
 
-Please submit your answer as a JSON dictionary in the format below. Each row must begin with object_X where X is the house number. Each column represents a category, and they should be in the same order as in the list of categories above.
+Please submit your answer as a JSON dictionary. Each key must be object_X where X is the house number. Each value must be a list of the attributes from the aforementioned categories that belong to the person in house no. X.
+
+The following is an example of the answer format:
 
 {
     "object_1": [
-        "nationalities_1",
+        "jobs_1",
         "drinks_1",
-        "hobbies_1"
+        "favourite_book_genres_1"
     ],
     "object_2": [
-        "nationalities_2",
+        "jobs_2",
         "drinks_2",
-        "hobbies_2"
+        "favourite_book_genres_2"
     ]
 }
 ```

@@ -4,6 +4,7 @@ import json
 import logging
 import os
 import time
+import unicodedata
 from random import choices, sample, shuffle
 from typing import Any, Type
 
@@ -135,6 +136,10 @@ def build_case_to_index(attribute_cases: list[str]) -> dict[str, int]:
 def clean_text(text: str) -> str:
     """Clean a string by replacing spaces with underscores and removing special characters.
 
+    Keeps combining marks (Unicode category M*) attached to their base letter — str.isalnum()
+    alone returns False for these, which would otherwise silently corrupt scripts that spell
+    vowels as combining signs rather than standalone letters (e.g. Devanagari matras).
+
     Args:
         text: The input string to clean.
 
@@ -142,7 +147,11 @@ def clean_text(text: str) -> str:
         The cleaned string.
     """
     text = text.replace(" ", "_")
-    text = "".join(c for c in text if c.isalnum() or c == "_")
+    text = "".join(
+        c
+        for c in text
+        if c.isalnum() or c == "_" or unicodedata.category(c).startswith("M")
+    )
     return text
 
 

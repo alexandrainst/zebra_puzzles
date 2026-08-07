@@ -106,7 +106,7 @@ clue_cases_dict:
     right_of: ['nom', 'gen']
     same_object: ['nom', 'none']
     not_same_object: ['nom', 'none']
-    between: ['gen', 'nom', 'gen']
+    between: ['gen', 'nom', 'gen'] # Exception: The first element here is the second in the clue template (attribute_desc_1 is the first).
     not_between: ['nom', 'gen', 'gen']
     multiple_between: ['gen', 'gen']
     one_between: ['gen', 'gen']

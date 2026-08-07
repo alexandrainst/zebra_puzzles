@@ -40,6 +40,12 @@
 # lb/haiser
 # mk/kukji
 # fy/huzen
+# zh/fangzi
+# ru/doma
+# ja/ie
+# hi/ghar
+# mr/ghare
+# ar/manazil
 
 defaults:
   - language: en/houses

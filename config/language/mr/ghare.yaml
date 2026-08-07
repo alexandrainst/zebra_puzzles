@@ -1,0 +1,244 @@
+# Config file for generating zebra puzzles in Marathi with the "houses" (घरे) theme.
+#
+# Ergativity: ने-ergative only applies in perfective past; all clues use present habitual.
+# Habitual present is a complete predicate on its own (stem+तो/ते, gender-agreeing) — unlike Hindi, no
+#   separate copula needed. Negation uses stem+त+नाही (gender-invariant). Nominal predicates (jobs/
+#   nationalities) still need आहे, negated by नाही replacing it entirely ("शिक्षक नाही", not "आहे नाही").
+# Gender: masculine default. Is-form predicates
+#   are static strings that can't pick a gender variant per paired subject in same_herring/double_herring.
+#   Tried feminine व्यक्ती for kanada/aamba — internally consistent alone, but broke once paired with
+#   another entry's masculine predicate ("...व्यक्ती मानतो", not "मानते"). A
+#   proper fix needs subject-conditioned predicate selection. Unsure if needed.
+# Cases: [nom, is, is_not, obl]. शेजारी/डावीकडे/उजवीकडे take an oblique argument + genitive linker
+#   च्या, attached per-argument. दरम्यान instead takes both flanking arguments in nom (base) form,
+#   joined by आणि, with the case marking carried once by the collective genitive pronoun यांच्या
+#   ("of them") rather than repeated per-argument च्या.
+# Word-formation: Fruits use पसंत करणे ("prefer", transitive) not आवडणे (dative-
+#   experiencer), to keep the subject nominative. Unsure if changes are needed.
+# Red herrings use the red_herring_subject_cases/same_herring_templates/double_herring_templates
+#   mechanism: बहीण→ला (kinship), लाल_केस→चे (attributive, plural आहेत), टॅटू→जवळ (physical
+#   possession) — all three need the subject in oblique case.
+# object_fact uses जाणतो ("knows", transitive) not माहीत आहे (dative-experiencer) — same fruits rationale.
+# Nurse/sister: नर्स (loanword) not परिचारिका (native, feminine) — avoids the gender clash.
+# Checked against Wikipedia: फेरो द्वीपसमूह (Faroe Islands); हेरिंग transliteration found via Hindi Wikipedia's identical borrowing.
+# More uncertain: रानटी स्ट्रॉबेरी (no Marathi Wikipedia article found).
+
+theme: mr_ghare
+
+attribute_cases: [nom, is, is_not, obl]
+red_herring_attribute_cases: [nom, is, obl]
+
+prompt_full_stop: ।
+
+attributes:
+
+    राष्ट्रीयत्वे:
+        डेन्मार्क: ['डेन्मार्कचा रहिवासी', 'डेन्मार्कचा रहिवासी आहे', 'डेन्मार्कचा रहिवासी नाही', 'डेन्मार्कच्या रहिवासी']
+        स्वीडन: ['स्वीडनचा रहिवासी', 'स्वीडनचा रहिवासी आहे', 'स्वीडनचा रहिवासी नाही', 'स्वीडनच्या रहिवासी']
+        लॅटव्हिया: ['लॅटव्हियाचा रहिवासी', 'लॅटव्हियाचा रहिवासी आहे', 'लॅटव्हियाचा रहिवासी नाही', 'लॅटव्हियाच्या रहिवासी']
+        फ्रान्स: ['फ्रान्सचा रहिवासी', 'फ्रान्सचा रहिवासी आहे', 'फ्रान्सचा रहिवासी नाही', 'फ्रान्सच्या रहिवासी']
+        स्पेन: ['स्पेनचा रहिवासी', 'स्पेनचा रहिवासी आहे', 'स्पेनचा रहिवासी नाही', 'स्पेनच्या रहिवासी']
+        इटली: ['इटलीचा रहिवासी', 'इटलीचा रहिवासी आहे', 'इटलीचा रहिवासी नाही', 'इटलीच्या रहिवासी']
+        नॉर्वे: ['नॉर्वेचा रहिवासी', 'नॉर्वेचा रहिवासी आहे', 'नॉर्वेचा रहिवासी नाही', 'नॉर्वेच्या रहिवासी']
+        फेरो द्वीपसमूह: ['फेरो द्वीपसमूहचा रहिवासी', 'फेरो द्वीपसमूहचा रहिवासी आहे', 'फेरो द्वीपसमूहचा रहिवासी नाही', 'फेरो द्वीपसमूहच्या रहिवासी']  # confirmed — matches Marathi Wikipedia's article title exactly
+        नेदरलँड्स: ['नेदरलँड्सचा रहिवासी', 'नेदरलँड्सचा रहिवासी आहे', 'नेदरलँड्सचा रहिवासी नाही', 'नेदरलँड्सच्या रहिवासी']
+        आइसलँड: ['आइसलँडचा रहिवासी', 'आइसलँडचा रहिवासी आहे', 'आइसलँडचा रहिवासी नाही', 'आइसलँडच्या रहिवासी']
+        युनायटेड किंग्डम: ['युनायटेड किंग्डमचा रहिवासी', 'युनायटेड किंग्डमचा रहिवासी आहे', 'युनायटेड किंग्डमचा रहिवासी नाही', 'युनायटेड किंग्डमच्या रहिवासी']
+
+    व्यवसाय:
+        बेकर: ['बेकर', 'बेकर आहे', 'बेकर नाही', 'बेकर']
+        मंत्री: ['मंत्री', 'मंत्री आहे', 'मंत्री नाही', 'मंत्री']
+        पोलीस अधिकारी: ['पोलीस अधिकारी', 'पोलीस अधिकारी आहे', 'पोलीस अधिकारी नाही', 'पोलीस अधिकारी']
+        नर्स: ['नर्स', 'नर्स आहे', 'नर्स नाही', 'नर्स']
+        शिक्षक: ['शिक्षक', 'शिक्षक आहे', 'शिक्षक नाही', 'शिक्षक']
+        सॉफ्टवेअर डेव्हलपर: ['सॉफ्टवेअर डेव्हलपर', 'सॉफ्टवेअर डेव्हलपर आहे', 'सॉफ्टवेअर डेव्हलपर नाही', 'सॉफ्टवेअर डेव्हलपर']
+        दुकान सहाय्यक: ['दुकान सहाय्यक', 'दुकान सहाय्यक आहे', 'दुकान सहाय्यक नाही', 'दुकान सहाय्यक']
+
+    पाळीव प्राणी:
+        कुत्रा: ['कुत्र्याचा मालक', 'कुत्रा पाळतो', 'कुत्रा पाळत नाही', 'कुत्र्याच्या मालक']
+        मांजर: ['मांजराचा मालक', 'मांजर पाळतो', 'मांजर पाळत नाही', 'मांजराच्या मालक']
+        ससा: ['सशाचा मालक', 'ससा पाळतो', 'ससा पाळत नाही', 'सशाच्या मालक']
+        झेब्रा: ['झेब्राचा मालक', 'झेब्रा पाळतो', 'झेब्रा पाळत नाही', 'झेब्राच्या मालक']
+        बजरीगर: ['बजरीगरचा मालक', 'बजरीगर पाळतो', 'बजरीगर पाळत नाही', 'बजरीगरच्या मालक']
+        गोगलगाय: ['गोगलगाईचा मालक', 'गोगलगाय पाळतो', 'गोगलगाय पाळत नाही', 'गोगलगाईच्या मालक']
+        काडी कीटक: ['काडी कीटकाचा मालक', 'काडी कीटक पाळतो', 'काडी कीटक पाळत नाही', 'काडी कीटकाच्या मालक']
+
+    पेये:
+        रस: ['रस पिणारा', 'रस पितो', 'रस पीत नाही', 'रस पिणाऱ्या']
+        कॉफी: ['कॉफी पिणारा', 'कॉफी पितो', 'कॉफी पीत नाही', 'कॉफी पिणाऱ्या']
+        दूध: ['दूध पिणारा', 'दूध पितो', 'दूध पीत नाही', 'दूध पिणाऱ्या']
+        स्मूदी: ['स्मूदी पिणारा', 'स्मूदी पितो', 'स्मूदी पीत नाही', 'स्मूदी पिणाऱ्या']
+        कोको: ['कोको पिणारा', 'कोको पितो', 'कोको पीत नाही', 'कोको पिणाऱ्या']
+        चहा: ['चहा पिणारा', 'चहा पितो', 'चहा पीत नाही', 'चहा पिणाऱ्या']
+        कोल्ड ड्रिंक: ['कोल्ड ड्रिंक पिणारा', 'कोल्ड ड्रिंक पितो', 'कोल्ड ड्रिंक पीत नाही', 'कोल्ड ड्रिंक पिणाऱ्या']
+
+    आवडत्या पुस्तकांचे प्रकार:
+        अकल्पित साहित्य: ['अकल्पित साहित्य वाचणारा', 'अकल्पित साहित्य वाचतो', 'अकल्पित साहित्य वाचत नाही', 'अकल्पित साहित्य वाचणाऱ्या']
+        गुन्हेगारी कथा: ['गुन्हेगारी कथा वाचणारा', 'गुन्हेगारी कथा वाचतो', 'गुन्हेगारी कथा वाचत नाही', 'गुन्हेगारी कथा वाचणाऱ्या']
+        फँटसी: ['फँटसी वाचणारा', 'फँटसी वाचतो', 'फँटसी वाचत नाही', 'फँटसी वाचणाऱ्या']
+        विज्ञान कथा: ['विज्ञान कथा वाचणारा', 'विज्ञान कथा वाचतो', 'विज्ञान कथा वाचत नाही', 'विज्ञान कथा वाचणाऱ्या']
+        भयकथा: ['भयकथा वाचणारा', 'भयकथा वाचतो', 'भयकथा वाचत नाही', 'भयकथा वाचणाऱ्या']
+        कविता: ['कविता वाचणारा', 'कविता वाचतो', 'कविता वाचत नाही', 'कविता वाचणाऱ्या']
+        प्रेमकथा: ['प्रेमकथा वाचणारा', 'प्रेमकथा वाचतो', 'प्रेमकथा वाचत नाही', 'प्रेमकथा वाचणाऱ्या']
+
+    छंद:
+        बोल्डरिंग: ['बोल्डरिंग करणारा', 'बोल्डरिंग करतो', 'बोल्डरिंग करत नाही', 'बोल्डरिंग करणाऱ्या']
+        चित्रकला: ['चित्र काढणारा', 'चित्र काढतो', 'चित्र काढत नाही', 'चित्र काढणाऱ्या']
+        बोर्ड गेम: ['बोर्ड गेम खेळणारा', 'बोर्ड गेम खेळतो', 'बोर्ड गेम खेळत नाही', 'बोर्ड गेम खेळणाऱ्या']
+        टेनिस: ['टेनिस खेळणारा', 'टेनिस खेळतो', 'टेनिस खेळत नाही', 'टेनिस खेळणाऱ्या']
+        क्रोशे विणकाम: ['क्रोशेने विणणारा', 'क्रोशेने विणतो', 'क्रोशेने विणत नाही', 'क्रोशेने विणणाऱ्या']
+        फुटबॉल: ['फुटबॉल खेळणारा', 'फुटबॉल खेळतो', 'फुटबॉल खेळत नाही', 'फुटबॉल खेळणाऱ्या']
+        हँडबॉल: ['हँडबॉल खेळणारा', 'हँडबॉल खेळतो', 'हँडबॉल खेळत नाही', 'हँडबॉल खेळणाऱ्या']
+
+    आवडती फळे:
+        सफरचंद: ['सफरचंद पसंत करणारा', 'सफरचंद पसंत करतो', 'सफरचंद पसंत करत नाही', 'सफरचंद पसंत करणाऱ्या']
+        नाशपाती: ['नाशपाती पसंत करणारा', 'नाशपाती पसंत करतो', 'नाशपाती पसंत करत नाही', 'नाशपाती पसंत करणाऱ्या']
+        संत्रे: ['संत्रे पसंत करणारा', 'संत्रे पसंत करतो', 'संत्रे पसंत करत नाही', 'संत्रे पसंत करणाऱ्या']
+        केळे: ['केळे पसंत करणारा', 'केळे पसंत करतो', 'केळे पसंत करत नाही', 'केळे पसंत करणाऱ्या']
+        स्ट्रॉबेरी: ['स्ट्रॉबेरी पसंत करणारा', 'स्ट्रॉबेरी पसंत करतो', 'स्ट्रॉबेरी पसंत करत नाही', 'स्ट्रॉबेरी पसंत करणाऱ्या']
+        करवंद: ['करवंद पसंत करणारा', 'करवंद पसंत करतो', 'करवंद पसंत करत नाही', 'करवंद पसंत करणाऱ्या']  # swapped in for blackcurrant (Ribes nigrum, no native/attested Marathi term) — karonda (Carissa carandas) is a botanically different but familiar native fruit, preferred over an obscure loanword for a fruit nobody would recognize
+        रानटी स्ट्रॉबेरी: ['रानटी स्ट्रॉबेरी पसंत करणारा', 'रानटी स्ट्रॉबेरी पसंत करतो', 'रानटी स्ट्रॉबेरी पसंत करत नाही', 'रानटी स्ट्रॉबेरी पसंत करणाऱ्या']
+
+# Clues
+clues_dict:
+    found_at: '{attribute_desc} घर क्रमांक {i_object} मध्ये राहतो।'
+    not_at: '{attribute_desc} घर क्रमांक {i_object} मध्ये राहत नाही।'
+    next_to: '{attribute_desc_1} {attribute_desc_2}च्या शेजारी राहतो।'                                          # Requires n_objects > 2, otherwise use not_same_object
+    not_next_to: '{attribute_desc_1} {attribute_desc_2}च्या शेजारी राहत नाही, आणि ते दोन वेगवेगळे लोक आहेत।'     # Requires n_objects > 2, otherwise it cannot be used
+    just_left_of: '{attribute_desc_1} {attribute_desc_2}च्या अगदी डावीकडे राहतो।'                                # Requires n_objects > 2, otherwise use left_of
+    just_right_of: '{attribute_desc_1} {attribute_desc_2}च्या अगदी उजवीकडे राहतो।'                               # Requires n_objects > 2, otherwise use right_of
+    left_of: '{attribute_desc_1} {attribute_desc_2}च्या डावीकडे राहतो।'
+    right_of: '{attribute_desc_1} {attribute_desc_2}च्या उजवीकडे राहतो।'
+    same_object: '{attribute_desc_1} {attribute_desc_2}।'                                                      # Requires n_attributes > 1, otherwise it cannot be used
+    not_same_object: '{attribute_desc_1} {attribute_desc_2}।'                                                  # Requires n_attributes > 1, otherwise it cannot be used
+    between: '{attribute_desc_2} {attribute_desc_1} आणि {attribute_desc_3} यांच्या दरम्यान राहतो।'               # Requires n_objects > 2, otherwise it cannot be used
+    not_between: '{attribute_desc_1} {attribute_desc_2} आणि {attribute_desc_3} यांच्या दरम्यान राहत नाही, आणि ते तीन वेगवेगळे लोक आहेत।' # Requires n_objects > 2, otherwise it cannot be used
+    multiple_between: '{attribute_desc_1} आणि {attribute_desc_2} यांच्या दरम्यान {n_between} घरे आहेत।'          # Requires n_objects > 3, otherwise it cannot be used
+    one_between: '{attribute_desc_1} आणि {attribute_desc_2} यांच्या दरम्यान एक घर आहे।'                          # Requires n_objects > 2, otherwise it cannot be used
+
+clue_cases_dict:
+    found_at: ['nom']
+    not_at: ['nom']
+    next_to: ['nom', 'obl']
+    not_next_to: ['nom', 'obl']
+    just_left_of: ['nom', 'obl']
+    just_right_of: ['nom', 'obl']
+    left_of: ['nom', 'obl']
+    right_of: ['nom', 'obl']
+    same_object: ['nom', 'none']
+    not_same_object: ['nom', 'none']
+    between: ['nom', 'nom', 'nom'] # Exception: The first element here is the second in the clue template (attribute_desc_1 is the first).
+    not_between: ['nom', 'nom', 'nom']
+    multiple_between: ['nom', 'nom']
+    one_between: ['nom', 'nom']
+
+# Prompt
+prompt_and: आणि
+
+prompt_templates:
+    - |
+        घरांची एक रांग डावीकडून उजवीकडे 1 ते {n_objects} क्रमांकित आहे.
+
+        प्रत्येक घरात एक व्यक्ती राहते, जिचे खालील प्रत्येक श्रेणीत एक वेगळे वैशिष्ट्य आहे:
+
+        {chosen_attributes_str}
+
+        आपल्याला हे देखील माहीत आहे:
+
+        {chosen_clues_str}
+
+        कोणाकडे कोणती वैशिष्ट्ये आहेत आणि कोण कोणत्या घरात राहतो?
+
+        कृपया तुमचे उत्तर JSON dictionary म्हणून सादर करा. प्रत्येक key object_X असावी, जिथे X घराचा क्रमांक आहे. प्रत्येक value ही वरील श्रेणींमधील त्या वैशिष्ट्यांची यादी असावी जी घर क्रमांक X मध्ये राहणाऱ्या व्यक्तीची आहेत.
+
+        खाली उत्तराच्या स्वरूपाचे एक उदाहरण दिले आहे:
+
+        {solution_template}
+    - |
+        घरांची एक रांग डावीकडून उजवीकडे 1 ते {n_objects} क्रमांकित आहे.
+
+        प्रत्येक घरात एक व्यक्ती राहते, जिचे {chosen_attributes_str} या श्रेणीत एक वेगळे वैशिष्ट्य आहे.
+
+        आपल्याला हे देखील माहीत आहे:
+
+        {chosen_clues_str}
+
+        प्रत्येक घरात राहणाऱ्या व्यक्तीकडे कोणते वैशिष्ट्य आहे?
+
+        कृपया तुमचे उत्तर JSON dictionary म्हणून सादर करा. प्रत्येक key object_X असावी, जिथे X घराचा क्रमांक आहे. प्रत्येक value मध्ये फक्त वरील श्रेणीतील ते वैशिष्ट्य असावे जे घर क्रमांक X मध्ये राहणाऱ्या व्यक्तीचे आहे.
+
+        खाली उत्तराच्या स्वरूपाचे एक उदाहरण दिले आहे:
+
+        {solution_template}
+
+# Red herrings
+red_herring_clues_dict:
+    same_herring: '{attribute_desc} {attribute_desc_herring}।'
+    next_to_herring: '{attribute_desc} {attribute_desc_herring}च्या शेजारी राहतो।'
+    double_herring: '{attribute_desc_herring_1} {attribute_desc_herring_2}।'
+    fact: '{fact}।'
+    object_fact: '{attribute_desc} जाणतो की {fact}।'
+    friends: '{attribute_desc} आणि {attribute_desc_herring} चांगले मित्र आहेत।'
+    herring_found_at: '{attribute_desc_herring} घर क्रमांक {i_object} मध्ये राहतो।'
+    herring_not_at: '{attribute_desc_herring} घर क्रमांक {i_object} मध्ये राहत नाही।'
+
+red_herring_cases_dict:
+    same_herring: ['nom', 'none']
+    next_to_herring: ['nom', 'obl']
+    double_herring: ['nom', 'none']
+    fact: ['none']
+    object_fact: ['nom', 'none']
+    friends: ['nom', 'nom']
+    herring_found_at: ['nom']
+    herring_not_at: ['nom']
+
+red_herring_attributes:
+    laal_kes: ['लाल केसांवाला', 'केस लाल', 'लाल केसांवाल्या']
+    chashma: ['चष्म्यावाला', 'चष्मा घालतो', 'चष्म्यावाल्या']
+    tattoo: ['टॅटूवाला', 'टॅटू', 'टॅटूवाल्या']
+    guitar: ['गिटार वाजवणारा', 'गिटार वाजवतो', 'गिटार वाजवणाऱ्या']
+    cycle: ['सायकलवाला', 'सायकल ठेवतो', 'सायकलवाल्या']
+    guinea_pig: ['गिनी पिगवाला', 'गिनी पिग पाळतो', 'गिनी पिगवाल्या']
+    cactus: ['कॅक्टसवाला', 'कॅक्टस ठेवत नाही', 'कॅक्टसवाल्या']
+    video_game: ['व्हिडिओ गेम खेळणारा', 'व्हिडिओ गेम खेळतो', 'व्हिडिओ गेम खेळणाऱ्या']
+    bahin: ['बहिणीवाला', 'बहीण', 'बहिणीवाल्या']
+    aamba: ['दुसरे सर्वात आवडते फळ आंबा आहे असे मानणारा माणूस', 'मानतो की दुसरे सर्वात आवडते फळ आंबा आहे', 'दुसरे सर्वात आवडते फळ आंबा आहे असे मानणाऱ्या माणसा']
+    naukayan: ['वारंवार होडी चालवणारा', 'वारंवार होडी चालवतो', 'वारंवार होडी चालवणाऱ्या']
+    kanada: ['कॅनडाला गेलेला माणूस', 'कॅनडाला गेलेला आहे', 'कॅनडाला गेलेल्या माणसा']
+    ganit: ['गणितात पदव्युत्तर पदवीवाला', 'गणितात पदव्युत्तर पदवी ठेवतो', 'गणितात पदव्युत्तर पदवीवाल्या']
+    bhautiki: ['भौतिकशास्त्र खूप पसंत करणारा', 'भौतिकशास्त्र खूप पसंत करतो', 'भौतिकशास्त्र खूप पसंत करणाऱ्या']
+    juna_prani: ['जुन्या पाळीव प्राण्यावाला', 'जुना पाळीव प्राणी पाळतो', 'जुन्या पाळीव प्राण्यावाल्या']
+    ski_jumping: ['स्की जंपिंग पाहणारा', 'स्की जंपिंग पाहतो', 'स्की जंपिंग पाहणाऱ्या']
+
+# Possessive overrides for बहीण/लाल_केस/टॅटू same_herring/double_herring predicates — reuses the
+# red_herring_subject_cases/same_herring_templates/double_herring_templates mechanism added for Hindi.
+red_herring_subject_cases:
+    bahin: obl
+    laal_kes: obl
+    tattoo: obl
+
+same_herring_templates:
+    bahin: '{attribute_desc}ला {attribute_desc_herring} आहे।'
+    laal_kes: '{attribute_desc}चे {attribute_desc_herring} आहेत।'
+    tattoo: '{attribute_desc} जवळ {attribute_desc_herring} आहे।'
+
+double_herring_templates:
+    bahin: '{attribute_desc_herring_1}ला {attribute_desc_herring_2} आहे।'
+    laal_kes: '{attribute_desc_herring_1}चे {attribute_desc_herring_2} आहेत।'
+    tattoo: '{attribute_desc_herring_1} जवळ {attribute_desc_herring_2} आहे।'
+
+red_herring_facts:
+    herring: ['हेरिंग एक मासा आहे']  # transliteration confirmed for Hindi's identical borrowing; still an obscure fish in India
+    saurmala: ['सूर्यमाला आकाशगंगेच्या केंद्राभोवती सुमारे 200 किमी/सेकंद वेगाने फिरते']
+    kodi: ['कोडी सोडवणे मजेदार आहे']
+    ghare_fact: ['या रस्त्यावरील सर्व घरांना सुंदर बागा आहेत']
+    darvaje: ['काही घरांना हिरवे दरवाजे आहेत']
+    khidkya: ['सर्व घरांना मोठ्या खिडक्या आहेत']
+    gadya: ['रस्त्यावर खूप गाड्या आहेत']
+    kakadi: ['काकडी एक बेरी आहे']
+    gogalgaay_fact: ['गोगलगायी मृदुकाय प्राणी असतात']
+    coffee_fact: ['कॉफीमध्ये कॅफिन असते']
+
+# Strings to replace in the generated prompt.
+prompt_replacements:
+    'जाणतो की कोडी सोडवणे मजेदार आहे': 'कोडी सोडवण्याचा आनंद घेतो'

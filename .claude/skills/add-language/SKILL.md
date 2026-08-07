@@ -120,7 +120,7 @@ The meaning should be consistent across languages, unless this would compromise 
 - **Football**: This describes someone who plays football (soccer) as a hobby, not someone who watches it, is a fan or a professional player.
 - **Budgerigar**: This is the specific small parakeet (*Melopsittacus undulatus*). Do not use a generic word for parrot unless no specific term exists.
 - **Netherlands**: Prefer terms that refer to the country as a whole rather than the region of Holland, unless the language has no other natural term.
-- **Nurse/sister ambiguity**: In some languages the words for "nurse" and "sister" are identical or share a root (Estonian "õde", Latvian "māsa", Hungarian "nővér"). Use the compound medical term for nurse (Estonian "meditsiiniõde", Latvian "medmāsa") and the bare word for the sister red herring.
+- **Nurse/sister ambiguity**: In some languages the words for "nurse" and "sister" are identical or share a root (Estonian "õde", Latvian "māsa", Hungarian "nővér"). It is ok to use the same word if the difference is clear from context. Pick what is most natural.
 - **Soda**: Pick a word covering generic carbonated soft drinks, and use most natural option even if it is a specific flavour.
 
 ### 3. Validate the config before generating puzzles
@@ -134,6 +134,9 @@ uv run .claude/skills/add-language/validate_config.py language=<lang_code>/<them
 ```
 
 Do not include non-ASCII characters in the theme name.
+
+**Uncertain words**
+If you flagged any uncertain words or forms, try searching for them on the web. For example, you can go to the English Wikipedia page and check if a translated page exists.
 
 **"is" form of red herring attributes**
 The `same_herring` and `double_herring` templates use the red herring's `is` form as a direct predicate after a nominative subject:
@@ -234,9 +237,13 @@ Add `<lang_code>/<theme_name>` to the comment block listing all valid language/t
 
 Consider whether the puzzle format significantly changes in the new language. If so, update the `format_datasets.py` script to handle the new format. For example, if the new language uses a different question mark or sentence-ending punctuation, add it to the regex that identifies questions.
 
-### 12. Consider improving this skill
+### 12. Shorten comments
+
+Keep comments in the config file concise. Only include what is relevant for a reviewer and add no comments that are obvious from the file or common across languages.
+
+### 13. Consider improving this skill
 If you found any part of this process confusing or error-prone, suggest improvements to this skill. Did you have to make decisions or look up information that could be included in the skill? Did you have to read the code to understand how it works? If so, consider adding that information to this skill.
 
-### 13. User-review
+### 14. User-review
 
 Show the first puzzle to the user and ask if the puzzle looks correct.

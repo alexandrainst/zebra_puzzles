@@ -1,8 +1,6 @@
 # Config file for generating zebra puzzles in Polish with the houses theme.
 # Gender default: masculine used as generic for occupations, pets, and activity-based forms
 # (standard Polish professional/formal convention — e.g. "piekarz" for baker of any gender).
-# Nationalities use "osoba z [kraju]" (person from [country]) for gender neutrality,
-# since nationality nouns (Duńczyk/Dunka) are strongly gendered in Polish.
 # All present-tense predicates are gender-neutral in Polish, so there are no agreement
 # mismatches when "osoba z Danii" (grammatically feminine) acts as subject of a present
 # tense predicate.
@@ -139,7 +137,7 @@ clue_cases_dict:
     right_of: ['nom', 'gen']
     same_object: ['nom', 'none']
     not_same_object: ['nom', 'none']
-    between: ['inst', 'nom', 'inst']
+    between: ['inst', 'nom', 'inst'] # Exception: The first element here is the second in the clue template (attribute_desc_1 is the first).
     not_between: ['nom', 'inst', 'inst']
     multiple_between: ['inst', 'inst']
     one_between: ['inst', 'inst']
@@ -178,7 +176,7 @@ prompt_templates:
 
         Kto ma jakie cechy i mieszka w którym domu?
 
-        Proszę podać odpowiedź w formie słownik JSON. Każdy klucz powinien być object_X, gdzie X jest numerem domu. Każda wartość powinna być listą cech z powyższych kategorii należących do osoby zamieszkałej w domu numer X.
+        Proszę podać odpowiedź jako słownik JSON. Każdy klucz powinien być object_X, gdzie X jest numerem domu. Każda wartość powinna być listą cech z powyższych kategorii należących do osoby zamieszkałej w domu numer X.
 
         Poniżej znajduje się przykład formatu odpowiedzi:
 
@@ -194,7 +192,7 @@ prompt_templates:
 
         Kto ma jakie cechy i mieszka w którym domu?
 
-        Proszę podać odpowiedź w formie słownik JSON. Każdy klucz powinien być object_X, gdzie X jest numerem domu. Każda wartość powinna być listą z cechą z powyższej kategorii należącą do osoby zamieszkałej w domu numer X.
+        Proszę podać odpowiedź jako słownik JSON. Każdy klucz powinien być object_X, gdzie X jest numerem domu. Każda wartość powinna być listą z cechą z powyższej kategorii należącą do osoby zamieszkałej w domu numer X.
 
         Poniżej znajduje się przykład formatu odpowiedzi:
 

@@ -7,7 +7,30 @@ Use 'make test' to run all tests.
 
 import pytest
 
-from zebra_puzzles.zebra_utils import round_using_std, validate_language_config
+from zebra_puzzles.zebra_utils import (
+    clean_text,
+    round_using_std,
+    validate_language_config,
+)
+
+
+@pytest.mark.parametrize(
+    argnames=["text", "cleaned"],
+    argvalues=[
+        # Test that spaces are replaced with underscores
+        ("a b", "a_b"),
+        # Test that special characters are removed
+        ("a.b,c!", "abc"),
+        # Test that Devanagari base letters with combining matras are kept intact
+        # (str.isalnum() alone returns False for the matras, e.g. "पानी" water)
+        ("पानी", "पानी"),
+        # Test a Devanagari word with matras alongside punctuation to strip
+        ("पानी!", "पानी"),
+    ],
+)
+def test_clean_text(text, cleaned) -> None:
+    """Test that clean_text preserves combining marks while removing other special characters."""
+    assert clean_text(text=text) == cleaned
 
 
 @pytest.mark.parametrize(

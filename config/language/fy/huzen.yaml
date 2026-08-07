@@ -1,21 +1,16 @@
 # Config file for generating zebra puzzles in West Frisian with the classic "houses" theme.
 #
-# Cases: attribute_cases = [nom, is, is_not] — no case inflection, same as Dutch (nl/huizen.yaml), the closest
-#   validated template: West Frisian has the same 2-gender article system (common "de" / neuter "it",
-#   paralleling Dutch "de"/"het"), V2 main-clause word order, and no noun case beyond pronouns.
-# Gender: every nom-form here is a person/agent compound ("X-owner", "X-drinker", "the person who..."), which
-#   is always common gender ("de") regardless of the underlying object noun's own gender, so no per-noun
-#   gender lookup was needed.
-# Word-formation: nationalities/jobs = bare noun ("de Deen", "de bakker"); pets/drinks/book genres/hobbies =
-#   compound "X-eigner/X-drinker/X-lêzer" (or relative clause "de persoan dy't ...", matching Dutch's own
-#   mixed usage) + "hat/drinkt/lêst X"; fruits = "de persoan dy't fan X hâldt" + "hâldt (net) fan X".
-# red_herring_facts use two forms per entry, as for Dutch/German: West Frisian also has V2 main clauses vs.
-#   verb-final subordinate clauses, so the fact needs a distinct form when embedded under object_fact's "wit
-#   dat".
-# Uncertain forms (flagged for native speaker review — no fy.wikipedia.org article or dictionary confirmation
-#   found): parkyt (budgerigar), boulderjen (bouldering), boskierdbei (wild strawberry), Yslanner (Icelander
-#   demonym, kept as the Dutch cognate), beze (berry, in the cucumber fact), wiekdieren (molluscs, in the
-#   snail fact).
+# Cases: attribute_cases = [nom, is, is_not] — no case inflection, same as Dutch (nl/huizen.yaml), the
+#   closest validated template: same 2-gender article system (common "de" / neuter "it"), V2 word order.
+# Gender: every nom-form is a person/agent compound ("X-owner", "the person who..."), always common gender
+#   regardless of the underlying noun's own gender.
+# Word-formation: nationalities/jobs = bare noun; pets/drinks/book genres/hobbies = compound "X-
+#   eigner/drinker/lêzer" (or relative clause "de persoan dy't...", matching Dutch's mixed usage) + "hat/
+#   drinkt/lêst X"; fruits = "de persoan dy't fan X hâldt" + "hâldt (net) fan X".
+# red_herring_facts use two forms, as for Dutch/German, since V2 main clauses differ from verb-final
+#   subordinate clauses under object_fact's "wit dat".
+# Uncertain (no fy.wikipedia.org confirmation found): parkyt (budgerigar), boulderjen (bouldering),
+#   boskierdbei (wild strawberry), Yslanner (kept as Dutch cognate), beze, wiekdieren.
 
 theme: fy_huzen
 

@@ -140,7 +140,7 @@ clue_cases_dict:
     right_of: ["nom", "gen"]
     same_object: ["nom", "none"]
     not_same_object: ["nom", "none"]
-    between: ["inst", "nom", "inst"]
+    between: ["inst", "nom", "inst"] # Exception: The first element here is the second in the clue template (attribute_desc_1 is the first).
     not_between: ["nom", "inst", "inst"]
     multiple_between: ["inst", "inst"]
     one_between: ["inst", "inst"]

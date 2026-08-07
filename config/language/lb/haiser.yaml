@@ -1,22 +1,19 @@
 # Config file for generating zebra puzzles in Luxembourgish with the classic "houses" theme.
 #
-# Cases: attribute_cases = [nom, is, is_not, dat]. Unlike German, Luxembourgish articles no longer distinguish
-#   nominative from accusative (den/eng/d' serve both), so there is no separate "acc" case — anywhere German's
-#   template would use accusative, this config just reuses "nom". Dative is still fully productive (den->dem
-#   masc, d'->der fem, d'->dem neut) and is needed after the positional prepositions (niewent, tëscht, lénks
-#   vun, riets vun all govern dative), mirroring German's de/Hauser.yaml exactly.
-# Gender default: masculine ("de"/"den"/"dem") used throughout for unknown-gender persons, as in German.
-# Word-formation (translated 1:1 from German's category structure): nationalities/jobs = bare
-#   demonym/occupation noun; pets = "X-besëtzer" (owner) compound + "huet en/eng X"; drinks = "X-drénker"
-#   compound + "drénkt X"; book genres = "X-leser" compound + "liest X"; hobbies = agent noun (Klammer,
-#   Moler, Heekeler) + verb; fruits = "Fan vun X" + "huet X gär" ("gär hunn" = to like, lit. "to have gladly").
-# Uncertain forms (flagged for native speaker review — Luxembourgish orthography/vocabulary confirmed only
-#   for "Heekelen" [crochet, via lb.wikipedia.org]; the rest are best-effort German-cognate constructions):
-#   Wellesittech (budgerigar), Stabschreck (stick insect, cognate of German "Stabschrecke"), Schleek (snail), Nidderlanden/Nidderlänner
-#   (Netherlands/Dutchman — "Holland"/"Hollänner" may be the more natural colloquial choice), Infirmier
-#   (nurse, French loanword as commonly used in Luxembourg), Enseignant (teacher, French loanword — native
-#   "Schoulmeeschter" may be more natural), Gesellschaftsspiller (board games), the "Eifeler Regel" final-n
-#   deletion rule (e.g. "e Kand" vs "ee Buch") is not applied consistently throughout.
+# Cases: attribute_cases = [nom, is, is_not, dat]. Unlike German, Luxembourgish articles no longer
+#   distinguish nominative from accusative (den/eng/d' serve both), so there's no separate "acc" — dative
+#   is still fully productive (den→dem masc, d'→der fem, d'→dem neut) and needed after the positional
+#   prepositions (niewent, tëscht, lénks/riets vun), mirroring German's de/Hauser.yaml.
+# Gender: masculine default ("de"/"den"/"dem"). Word-formation translated 1:1 from German's category
+#   structure: nationalities/jobs = bare noun; pets = "X-besëtzer" + "huet en/eng X"; drinks = "X-drénker"
+#   + "drénkt X"; book genres = "X-leser" + "liest X"; hobbies = agent noun (Klammer, Moler, Heekeler) +
+#   verb; fruits = "Fan vun X" + "huet X gär" (lit. "to have gladly").
+# Uncertain (only "Heekelen" [crochet] confirmed via lb.wikipedia.org; rest are best-effort German-cognate
+#   constructions): Wellesittech (budgerigar), Stabschreck (stick insect, cognate of German
+#   "Stabschrecke"), Schleek (snail), Nidderlanden/Nidderlänner (Netherlands/Dutchman — "Holland"/
+#   "Hollänner" may be more colloquial), Infirmier/Enseignant (French loanwords, as commonly used in
+#   Luxembourg — native "Schoulmeeschter" may be more natural for teacher), Gesellschaftsspiller. The
+#   "Eifeler Regel" final-n deletion (e.g. "e Kand" vs "ee Buch") is not applied consistently.
 
 theme: lb_haiser
 
@@ -120,7 +117,7 @@ clue_cases_dict:
     right_of: ['nom', 'dat']
     same_object: ['nom', 'none']
     not_same_object: ['nom', 'none']
-    between: ['dat', 'nom', 'dat']
+    between: ['dat', 'nom', 'dat'] # Exception: The first element here is the second in the clue template (attribute_desc_1 is the first).
     not_between: ['nom', 'dat', 'dat']
     multiple_between: ['dat', 'dat']
     one_between: ['dat', 'dat']
